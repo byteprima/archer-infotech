@@ -4,6 +4,8 @@ import { CheckCircle, Award, Target, Eye } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { siteConfig } from "@/data/site-config";
 import { getTeamMembers } from "@/data/team";
+import { AnimatedCounter } from "@/components/common/animated-counter";
+import { LinkedinIcon } from "@/components/common/social-icons";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -70,7 +72,7 @@ export default function AboutPage() {
                 <Card key={stat.label} className="text-center">
                   <CardContent className="pt-6">
                     <div className="text-4xl font-bold text-primary mb-2">
-                      {stat.value}
+                      <AnimatedCounter value={stat.value} />
                     </div>
                     <div className="text-sm text-muted-foreground">{stat.label}</div>
                   </CardContent>
@@ -108,35 +110,78 @@ export default function AboutPage() {
       {/* Vision & Mission */}
       <section className="py-16">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-8">
-            <Card className="border-l-4 border-l-primary">
+          <div className="space-y-8">
+            {/* Vision Card */}
+            <Card className="group border-l-4 border-l-primary transition-shadow hover:shadow-lg">
               <CardContent className="pt-6">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-                    <Eye className="h-6 w-6 text-primary" />
+                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center transition-colors group-hover:bg-primary">
+                    <Eye className="h-6 w-6 text-primary transition-colors group-hover:text-primary-foreground" />
                   </div>
                   <h3 className="text-2xl font-bold">Our Vision</h3>
                 </div>
-                <p className="text-muted-foreground">
-                  &ldquo;It has been our endeavor at Archer Infotech to be abreast
-                  with the latest and the best of technologies and offer a range of
-                  courses in Information Technologies.&rdquo;
-                </p>
+                <div className="space-y-4 text-muted-foreground">
+                  <p>
+                    Founded by <strong className="text-foreground">Yogesh Patil</strong> with over 15 years of hands-on IT industry experience, Archer Infotech was built on a single, unwavering belief — that every student in Pune deserves access to training that actually gets them hired.
+                  </p>
+                  <p>
+                    Our vision is to be <strong className="text-foreground">Pune&apos;s most recognised IT training institute in Kothrud</strong> — a centre of excellence where freshers, graduates, and working professionals come to master in-demand technologies like Java, Python, Full Stack Development, AWS Cloud, DevOps, Data Science, and Generative AI — and leave with a job offer in hand.
+                  </p>
+                  <p className="font-semibold text-primary">
+                    We don&apos;t just teach technology. We build careers.
+                  </p>
+                  <p>
+                    With <strong className="text-foreground">5,000+ students placed</strong> at top IT companies including TCS, Infosys, Wipro, Tech Mahindra, and Persistent Systems, and <strong className="text-foreground">1,000+ batches</strong> successfully completed from our institute near Kothrud Bus Stand, Pune — our vision is backed by a 15-year track record that speaks louder than any promise.
+                  </p>
+                  <p>
+                    As the IT industry evolves rapidly — from Cloud and DevOps to ChatGPT, LLMs, and Generative AI — our vision is to stay permanently ahead of that curve, so our students are always the most job-ready candidates walking into any interview room in Pune, Mumbai, or anywhere in India.
+                  </p>
+                </div>
               </CardContent>
             </Card>
-            <Card className="border-l-4 border-l-secondary">
+
+            {/* Mission Card */}
+            <Card className="group border-l-4 border-l-secondary transition-shadow hover:shadow-lg">
               <CardContent className="pt-6">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center">
-                    <Target className="h-6 w-6 text-secondary" />
+                  <div className="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center transition-colors group-hover:bg-secondary">
+                    <Target className="h-6 w-6 text-secondary transition-colors group-hover:text-secondary-foreground" />
                   </div>
                   <h3 className="text-2xl font-bold">Our Mission</h3>
                 </div>
-                <p className="text-muted-foreground">
-                  &ldquo;To reach out to the corner and nook of the country and help
-                  the students realize their full potential, thus creating globally
-                  competitive IT professionals out of them.&rdquo;
-                </p>
+                <div className="space-y-4 text-muted-foreground">
+                  <p>
+                    Our mission is to make <strong className="text-foreground">high-quality IT education accessible</strong> to every student in Pune — whether you are a fresher starting your career or an experienced professional looking to upskill.
+                  </p>
+                  <p className="font-medium text-foreground">
+                    At our institute in Kothrud, Pune, we are committed to:
+                  </p>
+                  <ul className="space-y-3 ml-4">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-secondary shrink-0 mt-0.5" />
+                      <span>Delivering industry-aligned IT courses taught by <strong className="text-foreground">certified trainers with 10+ years</strong> of real-world experience</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-secondary shrink-0 mt-0.5" />
+                      <span>Providing <strong className="text-foreground">100% placement assistance</strong> with 100+ corporate partners including TCS, Infosys, Wipro, Tech Mahindra, and Persistent Systems</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-secondary shrink-0 mt-0.5" />
+                      <span>Training students through <strong className="text-foreground">hands-on projects, live assignments, and mock interviews</strong> that prepare them for the competitive IT job market</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-secondary shrink-0 mt-0.5" />
+                      <span>Continuously updating our curriculum to reflect the <strong className="text-foreground">latest technologies</strong> — from AWS and Kubernetes to ChatGPT, LLMs, and Prompt Engineering</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-secondary shrink-0 mt-0.5" />
+                      <span>Creating <strong className="text-foreground">globally competitive IT professionals</strong> who are job-ready from day one</span>
+                    </li>
+                  </ul>
+                  <p className="italic text-center pt-4 border-t">
+                    &ldquo;To reach every corner of the country and help students realise their full potential — creating world-class IT professionals, one batch at a time.&rdquo;
+                  </p>
+                </div>
               </CardContent>
             </Card>
           </div>
@@ -147,38 +192,54 @@ export default function AboutPage() {
       <section className="py-16 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Our Team</h2>
+            <h2 className="text-3xl font-bold mb-4">
+              Meet Our <span className="text-primary">Expert Trainers</span>
+            </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Meet the dedicated professionals behind Archer Infotech who are
-              committed to your success.
+              Our team of industry professionals brings real-world experience from top IT companies
+              like TCS, Wipro, Capgemini, and more. Learn from trainers who have been where you want to go.
             </p>
           </div>
-          <div className="max-w-md mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {teamMembers.map((member) => (
-              <Card key={member.id} className="text-center">
+              <Card key={member.id} className="text-center hover:shadow-lg transition-shadow">
                 <CardContent className="pt-6">
                   {member.image ? (
-                    <div className="w-32 h-32 rounded-full mx-auto mb-4 overflow-hidden relative">
+                    <div className="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden relative">
                       <Image
                         src={member.image}
                         alt={member.name}
                         fill
-                        sizes="128px"
+                        sizes="96px"
                         className="object-cover"
                       />
                     </div>
                   ) : (
-                    <div className="w-32 h-32 bg-primary/10 rounded-full mx-auto mb-4 flex items-center justify-center">
-                      <span className="text-4xl font-bold text-primary">
+                    <div className="w-24 h-24 bg-primary/10 rounded-full mx-auto mb-4 flex items-center justify-center">
+                      <span className="text-3xl font-bold text-primary">
                         {member.name.split(" ").map((n) => n[0]).join("")}
                       </span>
                     </div>
                   )}
-                  <h3 className="text-xl font-semibold mb-1">{member.name}</h3>
-                  <p className="text-secondary font-medium mb-3">{member.role}</p>
-                  <p className="text-sm text-muted-foreground mb-4">{member.bio}</p>
-                  <div className="flex flex-wrap justify-center gap-2">
-                    {member.expertise.map((skill, index) => (
+                  <div className="flex items-center justify-center gap-2 mb-1">
+                    <h3 className="text-lg font-semibold">{member.name}</h3>
+                    {member.linkedin && (
+                      <a
+                        href={member.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-muted-foreground hover:text-[#0077B5] transition-colors"
+                        title={`${member.name} on LinkedIn`}
+                      >
+                        <LinkedinIcon className="h-4 w-4" />
+                      </a>
+                    )}
+                  </div>
+                  <p className="text-secondary font-medium text-sm mb-2">{member.role}</p>
+                  <p className="text-xs text-muted-foreground mb-1">{member.experience} Experience</p>
+                  <p className="text-sm text-muted-foreground mb-4 line-clamp-3">{member.bio}</p>
+                  <div className="flex flex-wrap justify-center gap-1.5">
+                    {member.expertise.slice(0, 4).map((skill, index) => (
                       <span
                         key={index}
                         className="text-xs bg-muted px-2 py-1 rounded-full"

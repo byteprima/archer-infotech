@@ -90,6 +90,27 @@ export const categories: Category[] = [
     description: "Build with generative AI, LLMs, and modern AI tools",
     icon: "Sparkles",
   },
+  {
+    id: "mobile-app",
+    slug: "mobile-app-development",
+    name: "Mobile App Development",
+    description: "Build native and cross-platform mobile applications",
+    icon: "Smartphone",
+  },
+  {
+    id: "database",
+    slug: "database-technologies",
+    name: "Database Technologies",
+    description: "Master SQL and NoSQL database systems",
+    icon: "Database",
+  },
+  {
+    id: "bootcamps",
+    slug: "bootcamps",
+    name: "Bootcamps",
+    description: "Intensive career-focused programs with placement support",
+    icon: "Rocket",
+  },
 ];
 
 export const courses: Course[] = [
@@ -1429,7 +1450,7 @@ export const courses: Course[] = [
     duration: "3 Months",
     level: "Intermediate",
     mode: ["Online", "Offline"],
-    image: "/images/courses/genai.jpg",
+    image: "/images/courses/genai.png",
     isFeatured: true,
     isPopular: true,
     highlights: [
@@ -1479,7 +1500,7 @@ export const courses: Course[] = [
     duration: "2 Months",
     level: "Intermediate",
     mode: ["Online", "Offline"],
-    image: "/images/courses/llm.jpg",
+    image: "/images/courses/llm.png",
     highlights: [
       "LLM fundamentals",
       "ChatGPT API",
@@ -1598,6 +1619,622 @@ export const courses: Course[] = [
     ],
     prerequisites: ["Basic computer skills"],
     careerOpportunities: ["Enhanced productivity in any role"],
+  },
+
+  // Mobile App Development
+  {
+    id: "android",
+    slug: "android-development",
+    title: "Android App Development",
+    shortTitle: "Android",
+    category: "Mobile App Development",
+    categorySlug: "mobile-app-development",
+    description: "Build native Android applications using Kotlin and Java. Master Android SDK, Material Design, and publish apps to Google Play Store.",
+    shortDescription: "Native Android development with Kotlin and Java",
+    duration: "4 Months",
+    level: "Intermediate",
+    mode: ["Online", "Offline"],
+    image: "/images/courses/android.jpg",
+    isFeatured: true,
+    highlights: [
+      "Kotlin and Java for Android",
+      "Android SDK and Android Studio",
+      "Material Design UI/UX",
+      "Room Database and SQLite",
+      "REST API integration",
+      "Google Play Store publishing",
+    ],
+    modules: [
+      {
+        title: "Android Fundamentals",
+        topics: ["Android Studio setup", "Project structure", "Activities and Intents", "Layouts and Views", "Resources"],
+      },
+      {
+        title: "Kotlin for Android",
+        topics: ["Kotlin basics", "Null safety", "Coroutines", "Extensions", "Data classes"],
+      },
+      {
+        title: "UI Development",
+        topics: ["Material Design", "RecyclerView", "Fragments", "Navigation", "Custom views"],
+      },
+      {
+        title: "Data & Networking",
+        topics: ["Room Database", "SharedPreferences", "Retrofit", "JSON parsing", "Image loading"],
+      },
+      {
+        title: "Advanced Topics",
+        topics: ["MVVM architecture", "Dependency injection", "Testing", "Firebase integration", "App publishing"],
+      },
+    ],
+    faqs: [
+      {
+        question: "Should I learn Java or Kotlin?",
+        answer: "We cover both, but emphasize Kotlin as it's Google's preferred language for Android development.",
+      },
+    ],
+    prerequisites: ["Basic programming knowledge", "OOP concepts"],
+    careerOpportunities: ["Android Developer", "Mobile App Developer", "Software Engineer"],
+  },
+  {
+    id: "flutter",
+    slug: "flutter-development",
+    title: "Flutter App Development",
+    shortTitle: "Flutter",
+    category: "Mobile App Development",
+    categorySlug: "mobile-app-development",
+    description: "Build beautiful cross-platform mobile apps with Flutter and Dart. Create iOS and Android apps from a single codebase.",
+    shortDescription: "Cross-platform mobile development with Flutter",
+    duration: "3.5 Months",
+    level: "Intermediate",
+    mode: ["Online", "Offline"],
+    image: "/images/courses/flutter.jpg",
+    isFeatured: true,
+    isPopular: true,
+    highlights: [
+      "Dart programming language",
+      "Flutter widgets and layouts",
+      "State management (Provider, Bloc)",
+      "Firebase integration",
+      "REST API integration",
+      "iOS and Android deployment",
+    ],
+    modules: [
+      {
+        title: "Dart Fundamentals",
+        topics: ["Dart syntax", "OOP in Dart", "Async programming", "Collections", "Null safety"],
+      },
+      {
+        title: "Flutter Basics",
+        topics: ["Flutter setup", "Widgets", "Layouts", "Navigation", "Forms and validation"],
+      },
+      {
+        title: "State Management",
+        topics: ["setState", "Provider", "Bloc pattern", "GetX", "Riverpod basics"],
+      },
+      {
+        title: "Data & Backend",
+        topics: ["HTTP requests", "JSON handling", "Local storage", "Firebase Auth", "Firestore"],
+      },
+      {
+        title: "Production Ready",
+        topics: ["Testing", "Performance optimization", "Platform channels", "App Store deployment", "Play Store deployment"],
+      },
+    ],
+    faqs: [
+      {
+        question: "Why choose Flutter over native?",
+        answer: "Flutter offers faster development with single codebase for iOS and Android, with near-native performance.",
+      },
+    ],
+    prerequisites: ["Basic programming knowledge", "OOP understanding"],
+    careerOpportunities: ["Flutter Developer", "Mobile App Developer", "Cross-platform Developer"],
+  },
+  {
+    id: "react-native",
+    slug: "react-native",
+    title: "React Native Development",
+    shortTitle: "React Native",
+    category: "Mobile App Development",
+    categorySlug: "mobile-app-development",
+    description: "Build mobile apps using React Native and JavaScript. Leverage your web development skills for mobile app development.",
+    shortDescription: "Mobile development with React Native and JavaScript",
+    duration: "3 Months",
+    level: "Intermediate",
+    mode: ["Online", "Offline"],
+    image: "/images/courses/react-native.jpg",
+    highlights: [
+      "React Native fundamentals",
+      "React Navigation",
+      "State management with Redux",
+      "Native modules",
+      "REST API integration",
+      "App Store deployment",
+    ],
+    modules: [
+      {
+        title: "React Native Basics",
+        topics: ["Setup and tooling", "Components", "Styling", "Platform-specific code", "Debugging"],
+      },
+      {
+        title: "Navigation & UI",
+        topics: ["React Navigation", "Tab and stack navigation", "Gestures", "Animations", "Custom components"],
+      },
+      {
+        title: "State & Data",
+        topics: ["Redux setup", "Async actions", "API integration", "AsyncStorage", "SQLite"],
+      },
+      {
+        title: "Advanced Topics",
+        topics: ["Native modules", "Push notifications", "Maps integration", "Camera and media", "App publishing"],
+      },
+    ],
+    faqs: [
+      {
+        question: "Do I need React.js experience?",
+        answer: "React.js experience is highly beneficial. We cover React basics but recommend prior React knowledge.",
+      },
+    ],
+    prerequisites: ["JavaScript proficiency", "React.js basics helpful"],
+    careerOpportunities: ["React Native Developer", "Mobile Developer", "Full Stack Developer"],
+  },
+  {
+    id: "ios-swift",
+    slug: "ios-swift",
+    title: "iOS App Development",
+    shortTitle: "iOS/Swift",
+    category: "Mobile App Development",
+    categorySlug: "mobile-app-development",
+    description: "Build native iOS applications using Swift and SwiftUI. Master Apple's development ecosystem and publish to the App Store.",
+    shortDescription: "Native iOS development with Swift and SwiftUI",
+    duration: "4 Months",
+    level: "Intermediate",
+    mode: ["Online", "Offline"],
+    image: "/images/courses/ios-swift.jpg",
+    highlights: [
+      "Swift programming language",
+      "SwiftUI and UIKit",
+      "Core Data persistence",
+      "Combine framework",
+      "App Store guidelines",
+      "TestFlight and deployment",
+    ],
+    modules: [
+      {
+        title: "Swift Fundamentals",
+        topics: ["Swift syntax", "Optionals", "Collections", "Closures", "Error handling"],
+      },
+      {
+        title: "iOS Development Basics",
+        topics: ["Xcode IDE", "Interface Builder", "Auto Layout", "View controllers", "Navigation"],
+      },
+      {
+        title: "SwiftUI",
+        topics: ["SwiftUI basics", "State management", "Data binding", "Animations", "Custom views"],
+      },
+      {
+        title: "Data & Networking",
+        topics: ["Core Data", "URLSession", "Codable", "UserDefaults", "Keychain"],
+      },
+      {
+        title: "Advanced & Publishing",
+        topics: ["Combine framework", "Testing", "Performance", "App Store Connect", "Review guidelines"],
+      },
+    ],
+    faqs: [
+      {
+        question: "Do I need a Mac?",
+        answer: "Yes, iOS development requires a Mac with Xcode. We provide lab access for students without Mac.",
+      },
+    ],
+    prerequisites: ["Programming fundamentals", "Mac computer (or lab access)"],
+    careerOpportunities: ["iOS Developer", "Mobile App Developer", "Apple Platform Developer"],
+  },
+
+  // Database Technologies
+  {
+    id: "mysql",
+    slug: "mysql",
+    title: "MySQL Database",
+    shortTitle: "MySQL",
+    category: "Database Technologies",
+    categorySlug: "database-technologies",
+    description: "Master MySQL database management. Learn SQL queries, database design, optimization, and administration.",
+    shortDescription: "Complete MySQL database training",
+    duration: "2 Months",
+    level: "Beginner",
+    mode: ["Online", "Offline"],
+    image: "/images/courses/mysql.jpg",
+    highlights: [
+      "SQL fundamentals",
+      "Database design and normalization",
+      "Complex queries and joins",
+      "Stored procedures and triggers",
+      "Performance optimization",
+      "Database administration",
+    ],
+    modules: [
+      {
+        title: "SQL Basics",
+        topics: ["Introduction to databases", "SELECT statements", "Filtering and sorting", "Aggregate functions", "Grouping"],
+      },
+      {
+        title: "Data Manipulation",
+        topics: ["INSERT, UPDATE, DELETE", "Joins (INNER, LEFT, RIGHT)", "Subqueries", "UNION operations", "Transactions"],
+      },
+      {
+        title: "Database Design",
+        topics: ["ER diagrams", "Normalization", "Primary and foreign keys", "Indexes", "Data types"],
+      },
+      {
+        title: "Advanced MySQL",
+        topics: ["Stored procedures", "Functions", "Triggers", "Views", "User management"],
+      },
+    ],
+    faqs: [
+      {
+        question: "Is MySQL still relevant?",
+        answer: "MySQL is one of the most popular databases, widely used in web applications and enterprises.",
+      },
+    ],
+    prerequisites: ["Basic computer knowledge"],
+    careerOpportunities: ["Database Administrator", "Backend Developer", "Data Analyst"],
+  },
+  {
+    id: "postgresql",
+    slug: "postgresql",
+    title: "PostgreSQL Database",
+    shortTitle: "PostgreSQL",
+    category: "Database Technologies",
+    categorySlug: "database-technologies",
+    description: "Learn PostgreSQL, the advanced open-source database. Master complex queries, JSON support, and enterprise features.",
+    shortDescription: "Advanced PostgreSQL database training",
+    duration: "2 Months",
+    level: "Intermediate",
+    mode: ["Online", "Offline"],
+    image: "/images/courses/postgresql.jpg",
+    highlights: [
+      "PostgreSQL fundamentals",
+      "Advanced SQL features",
+      "JSON/JSONB support",
+      "Full-text search",
+      "Partitioning and sharding",
+      "High availability setup",
+    ],
+    modules: [
+      {
+        title: "PostgreSQL Basics",
+        topics: ["Installation and setup", "SQL in PostgreSQL", "Data types", "Constraints", "Indexes"],
+      },
+      {
+        title: "Advanced Queries",
+        topics: ["Window functions", "CTEs (WITH clause)", "Recursive queries", "Array operations", "JSON functions"],
+      },
+      {
+        title: "Performance",
+        topics: ["Query planning", "EXPLAIN ANALYZE", "Index optimization", "Partitioning", "Connection pooling"],
+      },
+      {
+        title: "Administration",
+        topics: ["Backup and recovery", "Replication", "Security", "Monitoring", "Maintenance"],
+      },
+    ],
+    faqs: [
+      {
+        question: "PostgreSQL vs MySQL?",
+        answer: "PostgreSQL offers more advanced features like JSON support, full-text search, and better standards compliance.",
+      },
+    ],
+    prerequisites: ["Basic SQL knowledge"],
+    careerOpportunities: ["Database Administrator", "Backend Developer", "Data Engineer"],
+  },
+  {
+    id: "mongodb",
+    slug: "mongodb",
+    title: "MongoDB Database",
+    shortTitle: "MongoDB",
+    category: "Database Technologies",
+    categorySlug: "database-technologies",
+    description: "Master MongoDB NoSQL database. Learn document modeling, aggregation pipelines, and building scalable applications.",
+    shortDescription: "NoSQL database with MongoDB",
+    duration: "2 Months",
+    level: "Intermediate",
+    mode: ["Online", "Offline"],
+    image: "/images/courses/mongodb.jpg",
+    isPopular: true,
+    highlights: [
+      "Document database concepts",
+      "CRUD operations",
+      "Aggregation framework",
+      "Indexing strategies",
+      "Mongoose ODM",
+      "MongoDB Atlas cloud",
+    ],
+    modules: [
+      {
+        title: "MongoDB Fundamentals",
+        topics: ["NoSQL concepts", "Document model", "CRUD operations", "Query operators", "Projections"],
+      },
+      {
+        title: "Data Modeling",
+        topics: ["Embedding vs referencing", "Schema design patterns", "Data validation", "Relationships", "Denormalization"],
+      },
+      {
+        title: "Aggregation",
+        topics: ["Aggregation pipeline", "$match and $group", "$lookup joins", "$unwind", "Pipeline optimization"],
+      },
+      {
+        title: "Operations",
+        topics: ["Indexing", "Replication", "Sharding basics", "Backup", "MongoDB Atlas"],
+      },
+    ],
+    faqs: [
+      {
+        question: "When to use MongoDB?",
+        answer: "MongoDB excels with flexible schemas, rapid development, and applications with varied data structures.",
+      },
+    ],
+    prerequisites: ["Basic programming", "JSON understanding"],
+    careerOpportunities: ["MongoDB Developer", "Backend Developer", "Full Stack Developer"],
+  },
+  {
+    id: "oracle",
+    slug: "oracle-database",
+    title: "Oracle Database",
+    shortTitle: "Oracle",
+    category: "Database Technologies",
+    categorySlug: "database-technologies",
+    description: "Learn Oracle Database for enterprise applications. Master PL/SQL, database administration, and performance tuning.",
+    shortDescription: "Enterprise database with Oracle",
+    duration: "3 Months",
+    level: "Intermediate",
+    mode: ["Online", "Offline"],
+    image: "/images/courses/oracle.jpg",
+    highlights: [
+      "Oracle SQL",
+      "PL/SQL programming",
+      "Database administration",
+      "Performance tuning",
+      "Backup and recovery",
+      "Oracle Cloud basics",
+    ],
+    modules: [
+      {
+        title: "Oracle SQL",
+        topics: ["Oracle data types", "SQL queries", "Joins and subqueries", "Set operations", "Analytical functions"],
+      },
+      {
+        title: "PL/SQL",
+        topics: ["PL/SQL basics", "Procedures and functions", "Packages", "Triggers", "Exception handling"],
+      },
+      {
+        title: "Administration",
+        topics: ["Architecture overview", "User management", "Tablespaces", "Backup strategies", "RMAN"],
+      },
+      {
+        title: "Performance",
+        topics: ["Execution plans", "Index optimization", "Statistics", "AWR reports", "SQL tuning"],
+      },
+    ],
+    faqs: [
+      {
+        question: "Is Oracle certification valuable?",
+        answer: "Oracle certifications are highly valued in enterprise environments and can significantly boost career prospects.",
+      },
+    ],
+    prerequisites: ["Basic SQL knowledge", "Database concepts"],
+    careerOpportunities: ["Oracle DBA", "PL/SQL Developer", "Database Administrator"],
+  },
+  {
+    id: "firebase",
+    slug: "firebase",
+    title: "Firebase Development",
+    shortTitle: "Firebase",
+    category: "Database Technologies",
+    categorySlug: "database-technologies",
+    description: "Build applications with Firebase backend services. Learn Firestore, Authentication, Cloud Functions, and hosting.",
+    shortDescription: "Backend-as-a-Service with Firebase",
+    duration: "1.5 Months",
+    level: "Beginner",
+    mode: ["Online", "Offline"],
+    image: "/images/courses/firebase.jpg",
+    highlights: [
+      "Firestore database",
+      "Firebase Authentication",
+      "Cloud Functions",
+      "Firebase Hosting",
+      "Real-time updates",
+      "Firebase Analytics",
+    ],
+    modules: [
+      {
+        title: "Firebase Setup",
+        topics: ["Firebase console", "Project setup", "SDK integration", "Security rules", "Emulator suite"],
+      },
+      {
+        title: "Firestore",
+        topics: ["Document model", "CRUD operations", "Queries", "Real-time listeners", "Offline support"],
+      },
+      {
+        title: "Authentication",
+        topics: ["Email/password auth", "Social login", "Phone authentication", "Custom tokens", "User management"],
+      },
+      {
+        title: "Cloud Functions",
+        topics: ["Function basics", "Triggers", "HTTP functions", "Callable functions", "Deployment"],
+      },
+    ],
+    faqs: [
+      {
+        question: "Is Firebase free?",
+        answer: "Firebase has a generous free tier. Paid plans are needed for higher usage and additional features.",
+      },
+    ],
+    prerequisites: ["Basic programming", "JavaScript helpful"],
+    careerOpportunities: ["Mobile Developer", "Full Stack Developer", "Firebase Developer"],
+  },
+
+  // Bootcamps
+  {
+    id: "codeleap-bootcamp",
+    slug: "codeleap-full-stack-bootcamp",
+    title: "CodeLeap Full Stack Bootcamp",
+    shortTitle: "CodeLeap",
+    category: "Bootcamps",
+    categorySlug: "bootcamps",
+    description: "Intensive 6-month bootcamp covering full-stack development from zero to job-ready. Includes placement assistance and real-world projects.",
+    shortDescription: "Zero to Full Stack Developer in 6 months",
+    duration: "6 Months",
+    level: "Beginner",
+    mode: ["Offline"],
+    image: "/images/courses/codeleap-bootcamp.jpg",
+    isFeatured: true,
+    isPopular: true,
+    highlights: [
+      "Complete curriculum: HTML to deployment",
+      "300+ hours of hands-on training",
+      "5+ real-world projects",
+      "Mock interviews and resume building",
+      "100% placement assistance",
+      "Industry mentorship",
+    ],
+    modules: [
+      {
+        title: "Foundation (Month 1-2)",
+        topics: ["HTML, CSS, JavaScript", "Git and version control", "Responsive design", "Problem solving", "DSA basics"],
+      },
+      {
+        title: "Frontend (Month 2-3)",
+        topics: ["React.js", "State management", "API integration", "Testing basics", "UI/UX principles"],
+      },
+      {
+        title: "Backend (Month 3-4)",
+        topics: ["Node.js and Express", "Database design", "REST APIs", "Authentication", "Security basics"],
+      },
+      {
+        title: "Full Stack (Month 4-5)",
+        topics: ["MERN stack projects", "Deployment", "CI/CD basics", "Cloud hosting", "Performance"],
+      },
+      {
+        title: "Career Prep (Month 5-6)",
+        topics: ["Portfolio building", "Resume preparation", "Mock interviews", "System design basics", "Soft skills"],
+      },
+    ],
+    faqs: [
+      {
+        question: "Can complete beginners join?",
+        answer: "Yes! CodeLeap is designed for complete beginners. We start from the very basics.",
+      },
+      {
+        question: "What is the placement rate?",
+        answer: "Over 85% of our bootcamp graduates get placed within 3 months of completion.",
+      },
+    ],
+    prerequisites: ["Basic computer usage", "Commitment to learn", "Minimum 4 hours daily availability"],
+    careerOpportunities: ["Full Stack Developer", "Frontend Developer", "Backend Developer", "Software Engineer"],
+  },
+  {
+    id: "careercode-bootcamp",
+    slug: "careercode-transition-bootcamp",
+    title: "CareerCode Transition Bootcamp",
+    shortTitle: "CareerCode",
+    category: "Bootcamps",
+    categorySlug: "bootcamps",
+    description: "Career transition bootcamp for professionals looking to switch to tech. Fast-track program with focus on practical skills and job placement.",
+    shortDescription: "Switch to tech career in 4 months",
+    duration: "4 Months",
+    level: "Beginner",
+    mode: ["Online", "Offline"],
+    image: "/images/courses/careercode-bootcamp.jpg",
+    highlights: [
+      "Designed for career changers",
+      "Flexible weekend and evening batches",
+      "Industry-relevant curriculum",
+      "1-on-1 mentorship",
+      "Job search support",
+      "Networking opportunities",
+    ],
+    modules: [
+      {
+        title: "Programming Foundation",
+        topics: ["Python programming", "Data structures", "Problem solving", "SQL basics", "Git"],
+      },
+      {
+        title: "Web Development",
+        topics: ["HTML/CSS/JavaScript", "React basics", "Backend with Python", "Database integration", "APIs"],
+      },
+      {
+        title: "Specialization Track",
+        topics: ["Choose: Full Stack / Data Analytics / Cloud", "Deep dive projects", "Industry tools", "Best practices", "Portfolio projects"],
+      },
+      {
+        title: "Career Launch",
+        topics: ["Resume tailoring", "LinkedIn optimization", "Interview preparation", "Salary negotiation", "Job applications"],
+      },
+    ],
+    faqs: [
+      {
+        question: "I work full-time. Can I manage?",
+        answer: "Yes! We offer evening and weekend batches specifically for working professionals.",
+      },
+      {
+        question: "What backgrounds are suitable?",
+        answer: "We've successfully transitioned professionals from various fields - finance, marketing, sales, and more.",
+      },
+    ],
+    prerequisites: ["Graduation in any field", "Strong motivation", "10-15 hours weekly commitment"],
+    careerOpportunities: ["Software Developer", "Data Analyst", "Cloud Engineer", "Technical Consultant"],
+  },
+  {
+    id: "techready-bootcamp",
+    slug: "techready-fresher-bootcamp",
+    title: "TechReady Fresher Bootcamp",
+    shortTitle: "TechReady",
+    category: "Bootcamps",
+    categorySlug: "bootcamps",
+    description: "Bridge the gap between college and industry. Intensive bootcamp for fresh graduates to become job-ready with practical skills.",
+    shortDescription: "From fresher to job-ready in 3 months",
+    duration: "3 Months",
+    level: "Beginner",
+    mode: ["Offline"],
+    image: "/images/courses/techready-bootcamp.jpg",
+    highlights: [
+      "Perfect for recent graduates",
+      "Industry-aligned curriculum",
+      "Daily coding practice",
+      "Soft skills training",
+      "Campus placement preparation",
+      "Internship opportunities",
+    ],
+    modules: [
+      {
+        title: "Core Programming",
+        topics: ["Java or Python (choice)", "OOP concepts", "Data structures", "Algorithms", "Problem solving patterns"],
+      },
+      {
+        title: "Web Technologies",
+        topics: ["Frontend basics", "Backend fundamentals", "Database connectivity", "REST APIs", "Version control"],
+      },
+      {
+        title: "Industry Readiness",
+        topics: ["Project development", "Code reviews", "Agile methodology", "Documentation", "Team collaboration"],
+      },
+      {
+        title: "Placement Preparation",
+        topics: ["Aptitude training", "Technical interviews", "HR interviews", "Group discussions", "Company-specific prep"],
+      },
+    ],
+    faqs: [
+      {
+        question: "When should I join?",
+        answer: "Ideally in your final year or immediately after graduation for best placement timing.",
+      },
+      {
+        question: "Is there an entrance test?",
+        answer: "A basic aptitude assessment helps us understand your current level and customize support.",
+      },
+    ],
+    prerequisites: ["Engineering or science graduate", "Basic programming exposure", "Full-time availability"],
+    careerOpportunities: ["Software Developer", "Associate Engineer", "Technical Support Engineer", "QA Engineer"],
   },
 ];
 

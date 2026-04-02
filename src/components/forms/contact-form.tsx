@@ -9,26 +9,19 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { toast } from "sonner";
-import { courses } from "@/data/courses";
+import { CourseSelect } from "@/components/forms/course-select";
 import { submitLead } from "@/lib/actions/leads";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Please enter a valid email address"),
+  email: z.string().email("Please enter a valid email address").optional().or(z.literal("")),
   phone: z
     .string()
     .min(10, "Please enter a valid 10-digit phone number")
     .max(10, "Please enter a valid 10-digit phone number")
     .regex(/^\d+$/, "Phone number must contain only digits"),
-  course: z.string().optional(),
+  courses: z.array(z.string()).optional(),
   message: z.string().min(10, "Message must be at least 10 characters"),
 });
 
@@ -36,7 +29,8 @@ type ContactFormData = z.infer<typeof contactSchema>;
 
 export function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [selectedCourse, setSelectedCourse] = useState("");
+  const [selectedCourses, setSelectedCourses] = useState<string[]>([]);
+  const inputClassName = "h-12 px-4";
 
   const {
     register,
@@ -53,8 +47,11 @@ export function ContactForm() {
 
     try {
       const result = await submitLead({
-        ...data,
-        course: selectedCourse || data.course,
+        name: data.name,
+        email: data.email || "",
+        phone: data.phone,
+        message: data.message,
+        course: selectedCourses.length > 0 ? selectedCourses.join(", ") : undefined,
         source: "contact_form",
       });
 
@@ -63,7 +60,7 @@ export function ContactForm() {
           description: result.message,
         });
         reset();
-        setSelectedCourse("");
+        setSelectedCourses([]);
       } else {
         toast.error("Error", {
           description: result.message,
@@ -86,6 +83,7 @@ export function ContactForm() {
           <Input
             id="name"
             placeholder="Enter your full name"
+            className={inputClassName}
             {...register("name")}
             aria-invalid={errors.name ? "true" : "false"}
           />
@@ -95,11 +93,12 @@ export function ContactForm() {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="email">Email Address *</Label>
+          <Label htmlFor="email">Email Address</Label>
           <Input
             id="email"
             type="email"
             placeholder="Enter your email"
+            className={inputClassName}
             {...register("email")}
             aria-invalid={errors.email ? "true" : "false"}
           />
@@ -116,6 +115,7 @@ export function ContactForm() {
             id="phone"
             type="tel"
             placeholder="Enter 10-digit phone number"
+            className={inputClassName}
             {...register("phone")}
             aria-invalid={errors.phone ? "true" : "false"}
           />
@@ -125,25 +125,14 @@ export function ContactForm() {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="course">Course Interested In</Label>
-          <Select
-            value={selectedCourse}
+          <Label htmlFor="course">Courses Interested In</Label>
+          <CourseSelect
+            value={selectedCourses}
             onValueChange={(value) => {
-              setSelectedCourse(value ?? "");
-              setValue("course", value ?? "");
+              setSelectedCourses(value);
+              setValue("courses", value);
             }}
-          >
-            <SelectTrigger>
-              <SelectValue placeholder="Select a course" />
-            </SelectTrigger>
-            <SelectContent>
-              {courses.map((course) => (
-                <SelectItem key={course.id} value={course.title}>
-                  {course.title}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          />
         </div>
       </div>
 
@@ -153,6 +142,7 @@ export function ContactForm() {
           id="message"
           placeholder="Tell us about your requirements..."
           rows={5}
+          className="px-4 py-3"
           {...register("message")}
           aria-invalid={errors.message ? "true" : "false"}
         />
@@ -164,7 +154,7 @@ export function ContactForm() {
       <Button
         type="submit"
         disabled={isSubmitting}
-        className="w-full md:w-auto bg-secondary hover:bg-secondary/90 text-secondary-foreground"
+        className="h-12 w-full px-6 text-base font-semibold md:w-auto bg-secondary hover:bg-secondary/90 text-secondary-foreground"
       >
         {isSubmitting ? (
           <>

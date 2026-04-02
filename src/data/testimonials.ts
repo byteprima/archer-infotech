@@ -8,6 +8,7 @@ export interface Testimonial {
   content: string;
   rating: number;
   linkedIn?: string;
+  github?: string;
   placedAt?: string;
 }
 

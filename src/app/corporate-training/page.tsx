@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import {
-  Building,
   Users,
   Award,
   Calendar,
@@ -10,6 +9,12 @@ import {
   Laptop,
   Clock,
   Phone,
+  Cpu,
+  Landmark,
+  Stethoscope,
+  Factory,
+  ShoppingBag,
+  Rocket,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { siteConfig } from "@/data/site-config";
@@ -86,6 +91,15 @@ const benefits = [
   },
 ];
 
+const industries = [
+  { name: "Tech Companies", icon: Cpu },
+  { name: "Banks & Finance", icon: Landmark },
+  { name: "Healthcare", icon: Stethoscope },
+  { name: "Manufacturing", icon: Factory },
+  { name: "Retail", icon: ShoppingBag },
+  { name: "Startups", icon: Rocket },
+];
+
 export default function CorporateTrainingPage() {
   return (
     <>
@@ -133,11 +147,11 @@ export default function CorporateTrainingPage() {
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {benefits.map((benefit) => (
-              <Card key={benefit.title} className="hover:shadow-lg transition-shadow">
+              <Card key={benefit.title} className="group hover:shadow-lg transition-shadow">
                 <CardContent className="pt-6">
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center shrink-0">
-                      <benefit.icon className="h-6 w-6 text-primary" />
+                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center shrink-0 transition-colors group-hover:bg-primary">
+                      <benefit.icon className="h-6 w-6 text-primary transition-colors group-hover:text-primary-foreground" />
                     </div>
                     <div>
                       <h3 className="font-semibold mb-2">{benefit.title}</h3>
@@ -248,18 +262,11 @@ export default function CorporateTrainingPage() {
             </p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
-            {[
-              "Tech Companies",
-              "Banks & Finance",
-              "Healthcare",
-              "Manufacturing",
-              "Retail",
-              "Startups",
-            ].map((industry) => (
-              <Card key={industry}>
+            {industries.map((industry) => (
+              <Card key={industry.name}>
                 <CardContent className="pt-6 text-center">
-                  <Building className="h-8 w-8 text-primary mx-auto mb-2" />
-                  <p className="text-sm font-medium">{industry}</p>
+                  <industry.icon className="h-8 w-8 text-primary mx-auto mb-2" />
+                  <p className="text-sm font-medium">{industry.name}</p>
                 </CardContent>
               </Card>
             ))}

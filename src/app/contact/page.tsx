@@ -32,11 +32,11 @@ export default function ContactPage() {
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Contact Form */}
             <div className="lg:col-span-2">
-              <Card>
+              <Card className="relative !overflow-visible">
                 <CardHeader>
                   <CardTitle>Send us a Message</CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="relative !overflow-visible">
                   <ContactForm />
                 </CardContent>
               </Card>
@@ -49,9 +49,9 @@ export default function ContactPage() {
                   <CardTitle className="text-lg">Contact Information</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="flex items-start gap-3">
-                    <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center shrink-0">
-                      <MapPin className="h-5 w-5 text-primary" />
+                  <div className="group flex items-start gap-3">
+                    <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center shrink-0 transition-colors group-hover:bg-primary">
+                      <MapPin className="h-5 w-5 text-primary transition-colors group-hover:text-primary-foreground" />
                     </div>
                     <div>
                       <h4 className="font-medium mb-1">Address</h4>
@@ -67,9 +67,9 @@ export default function ContactPage() {
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-3">
-                    <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center shrink-0">
-                      <Phone className="h-5 w-5 text-primary" />
+                  <div className="group flex items-start gap-3">
+                    <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center shrink-0 transition-colors group-hover:bg-primary">
+                      <Phone className="h-5 w-5 text-primary transition-colors group-hover:text-primary-foreground" />
                     </div>
                     <div>
                       <h4 className="font-medium mb-1">Phone</h4>
@@ -82,9 +82,9 @@ export default function ContactPage() {
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-3">
-                    <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center shrink-0">
-                      <Mail className="h-5 w-5 text-primary" />
+                  <div className="group flex items-start gap-3">
+                    <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center shrink-0 transition-colors group-hover:bg-primary">
+                      <Mail className="h-5 w-5 text-primary transition-colors group-hover:text-primary-foreground" />
                     </div>
                     <div>
                       <h4 className="font-medium mb-1">Email</h4>
@@ -97,9 +97,9 @@ export default function ContactPage() {
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-3">
-                    <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center shrink-0">
-                      <Clock className="h-5 w-5 text-primary" />
+                  <div className="group flex items-start gap-3">
+                    <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center shrink-0 transition-colors group-hover:bg-primary">
+                      <Clock className="h-5 w-5 text-primary transition-colors group-hover:text-primary-foreground" />
                     </div>
                     <div>
                       <h4 className="font-medium mb-1">Working Hours</h4>

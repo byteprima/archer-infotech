@@ -62,11 +62,11 @@ export function Footer() {
           <div className="space-y-4">
             <Link href="/" className="inline-flex items-center gap-2">
               <Image
-                src="/images/logo.png"
+                src="/images/logo.svg"
                 alt="Archer Infotech"
                 width={40}
                 height={40}
-                className="h-10 w-auto brightness-0 invert"
+                className="h-10 w-auto"
               />
               <div className="flex items-center">
                 <span className="text-xl font-bold text-white">Archer</span>

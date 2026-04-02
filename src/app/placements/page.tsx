@@ -5,6 +5,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { siteConfig } from "@/data/site-config";
 import { getHiringPartners } from "@/data/companies";
 import { getTestimonials } from "@/data/testimonials";
+import { AnimatedCounter } from "@/components/common/animated-counter";
 
 export const metadata: Metadata = {
   title: "Placements & Careers",
@@ -60,13 +61,13 @@ export default function PlacementsPage() {
                 label: "Average Package",
               },
             ].map((stat) => (
-              <Card key={stat.label} className="text-center">
+              <Card key={stat.label} className="group text-center transition-shadow hover:shadow-lg">
                 <CardContent className="pt-6">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-3">
-                    <stat.icon className="h-6 w-6 text-primary" />
+                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-3 transition-colors group-hover:bg-primary">
+                    <stat.icon className="h-6 w-6 text-primary transition-colors group-hover:text-primary-foreground" />
                   </div>
                   <div className="text-3xl md:text-4xl font-bold text-primary mb-1">
-                    {stat.value}
+                    <AnimatedCounter value={stat.value} />
                   </div>
                   <div className="text-sm text-muted-foreground">{stat.label}</div>
                 </CardContent>

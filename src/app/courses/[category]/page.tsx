@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowRight, Clock, BarChart, ChevronLeft } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import { CourseImagePlaceholder } from "@/components/courses/course-image-placeholder";
 import {
   courses,
   categories,
@@ -44,27 +45,25 @@ export async function generateMetadata({
 
 function CourseCard({ course }: { course: Course }) {
   return (
-    <Card className="group overflow-hidden hover:shadow-lg transition-all hover:border-primary/20">
-      <CardHeader className="p-0">
-        <div className="relative h-40 bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center">
-          <div className="text-5xl font-bold text-primary/20">
-            {course.shortTitle.charAt(0)}
-          </div>
+    <Card className="group overflow-hidden hover:shadow-lg transition-all hover:border-primary/20 h-full flex flex-col">
+      <CardHeader className="p-0 flex-shrink-0">
+        <div className="relative h-40 bg-gradient-to-br from-primary/10 to-primary/5 overflow-hidden">
+          <CourseImagePlaceholder course={course} />
           {course.isPopular && (
-            <Badge className="absolute top-3 right-3 bg-secondary text-secondary-foreground">
+            <Badge className="absolute top-3 right-3 bg-secondary text-secondary-foreground z-10">
               Popular
             </Badge>
           )}
         </div>
       </CardHeader>
-      <CardContent className="p-5">
+      <CardContent className="p-5 flex-grow flex flex-col">
         <h3 className="font-semibold text-lg mb-2 group-hover:text-primary transition-colors">
           {course.title}
         </h3>
         <p className="text-muted-foreground text-sm line-clamp-2 mb-3">
           {course.shortDescription}
         </p>
-        <div className="flex items-center gap-4 text-sm text-muted-foreground">
+        <div className="flex items-center gap-4 text-sm text-muted-foreground mt-auto">
           <div className="flex items-center gap-1">
             <Clock className="h-4 w-4" />
             {course.duration}
@@ -75,13 +74,13 @@ function CourseCard({ course }: { course: Course }) {
           </div>
         </div>
       </CardContent>
-      <CardFooter className="p-5 pt-0">
+      <CardFooter className="px-5 pb-5 pt-4 border-t-0 bg-transparent flex-shrink-0 mt-auto">
         <Link
           href={`/courses/${course.categorySlug}/${course.slug}`}
-          className="inline-flex items-center text-sm font-medium text-primary hover:text-secondary transition-colors"
+          className="w-full inline-flex items-center justify-center h-10 px-4 py-2 rounded-md border border-input bg-background text-sm font-medium hover:bg-accent hover:text-accent-foreground hover:border-accent transition-colors"
         >
           View Details
-          <ArrowRight className="ml-1 h-4 w-4" />
+          <ArrowRight className="ml-2 h-4 w-4" />
         </Link>
       </CardFooter>
     </Card>

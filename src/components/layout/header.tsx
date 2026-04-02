@@ -5,6 +5,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, Phone } from "lucide-react";
+import {
+  FacebookIcon,
+  InstagramIcon,
+  LinkedinIcon,
+  TwitterIcon,
+  YoutubeIcon,
+} from "@/components/common/social-icons";
 import { buttonVariants } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 import {
@@ -57,8 +64,52 @@ export function Header() {
                 {siteConfig.contact.email}
               </a>
             </div>
-            <div className="flex items-center gap-4">
-              <span>Best IT Training Institute in Pune</span>
+            <div className="flex items-center gap-3">
+              <a
+                href={siteConfig.social.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-secondary transition-colors"
+                aria-label="Facebook"
+              >
+                <FacebookIcon />
+              </a>
+              <a
+                href={siteConfig.social.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-secondary transition-colors"
+                aria-label="Instagram"
+              >
+                <InstagramIcon />
+              </a>
+              <a
+                href={siteConfig.social.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-secondary transition-colors"
+                aria-label="LinkedIn"
+              >
+                <LinkedinIcon />
+              </a>
+              <a
+                href={siteConfig.social.twitter}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-secondary transition-colors"
+                aria-label="Twitter"
+              >
+                <TwitterIcon />
+              </a>
+              <a
+                href={siteConfig.social.youtube}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-secondary transition-colors"
+                aria-label="YouTube"
+              >
+                <YoutubeIcon />
+              </a>
             </div>
           </div>
         </div>
@@ -70,7 +121,7 @@ export function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
             <Image
-              src="/images/logo.png"
+              src="/images/logo.svg"
               alt="Archer Infotech"
               width={44}
               height={44}
@@ -93,7 +144,7 @@ export function Header() {
                       <NavigationMenuTrigger
                         className={cn(
                           "bg-transparent",
-                          pathname.startsWith("/courses") && "text-primary font-medium"
+                          pathname.startsWith("/courses") && "bg-primary/10 text-primary font-semibold"
                         )}
                       >
                         {item.name}
@@ -154,7 +205,7 @@ export function Header() {
                         href={item.href}
                         className={cn(
                           "group inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50",
-                          pathname === item.href && "text-primary font-semibold"
+                          pathname === item.href && "bg-primary/10 text-primary font-semibold"
                         )}
                       >
                         {item.name}
@@ -170,10 +221,7 @@ export function Header() {
           <div className="hidden lg:flex items-center gap-4">
             <Link
               href="/contact"
-              className={cn(
-                buttonVariants(),
-                "bg-secondary hover:bg-secondary/90 text-secondary-foreground"
-              )}
+              className="inline-flex items-center justify-center rounded-lg bg-secondary hover:bg-secondary/90 text-secondary-foreground px-6 py-2.5 text-sm font-semibold transition-all"
             >
               Enquire Now
             </Link>
@@ -194,7 +242,7 @@ export function Header() {
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   <Image
-                    src="/images/logo.png"
+                    src="/images/logo.svg"
                     alt="Archer Infotech"
                     width={36}
                     height={36}

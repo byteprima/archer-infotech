@@ -207,14 +207,33 @@ export default function BatchSchedulePage() {
         <div className="container mx-auto px-4">
           <Tabs defaultValue="offline" className="w-full">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
-              <TabsList className="grid w-full md:w-auto grid-cols-2">
-                <TabsTrigger value="offline" className="gap-2">
-                  <MapPin className="h-4 w-4" />
-                  Offline Batches
+              <TabsList
+                size="lg"
+                className="grid w-full max-w-3xl grid-cols-1 gap-2 border border-primary/10 bg-primary/5 shadow-sm sm:grid-cols-2"
+              >
+                <TabsTrigger
+                  value="offline"
+                  className="flex min-h-20 flex-col items-start justify-center gap-1 border border-transparent bg-transparent px-4 text-left text-foreground/75 hover:bg-background/80 hover:text-foreground data-active:border-primary/15 data-active:bg-background data-active:text-primary data-active:shadow-sm sm:items-center sm:text-center"
+                >
+                  <span className="flex items-center gap-2">
+                    <MapPin className="h-5 w-5 shrink-0" />
+                    <span>Offline Batches</span>
+                  </span>
+                  <span className="text-xs font-medium text-muted-foreground sm:text-sm">
+                    Classroom training in Pune
+                  </span>
                 </TabsTrigger>
-                <TabsTrigger value="online" className="gap-2">
-                  <Monitor className="h-4 w-4" />
-                  Online Batches
+                <TabsTrigger
+                  value="online"
+                  className="flex min-h-20 flex-col items-start justify-center gap-1 border border-transparent bg-transparent px-4 text-left text-foreground/75 hover:bg-background/80 hover:text-foreground data-active:border-primary/15 data-active:bg-background data-active:text-primary data-active:shadow-sm sm:items-center sm:text-center"
+                >
+                  <span className="flex items-center gap-2">
+                    <Monitor className="h-5 w-5 shrink-0" />
+                    <span>Online Batches</span>
+                  </span>
+                  <span className="text-xs font-medium text-muted-foreground sm:text-sm">
+                    Live instructor-led sessions
+                  </span>
                 </TabsTrigger>
               </TabsList>
               <p className="text-sm text-muted-foreground">

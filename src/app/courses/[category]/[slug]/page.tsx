@@ -328,9 +328,9 @@ export default async function CoursePage({ params }: CoursePageProps) {
                 <CardContent>
                   <div className="space-y-3">
                     {course.mode.includes("Offline") && (
-                      <div className="flex items-start gap-3 p-3 bg-muted rounded-lg">
-                        <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-                          <Users className="h-5 w-5 text-primary" />
+                      <div className="group flex items-start gap-3 rounded-lg bg-muted p-3">
+                        <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center transition-colors group-hover:bg-primary">
+                          <Users className="h-5 w-5 text-primary transition-colors group-hover:text-primary-foreground" />
                         </div>
                         <div>
                           <h4 className="font-medium text-sm">Classroom Training</h4>
@@ -341,9 +341,9 @@ export default async function CoursePage({ params }: CoursePageProps) {
                       </div>
                     )}
                     {course.mode.includes("Online") && (
-                      <div className="flex items-start gap-3 p-3 bg-muted rounded-lg">
-                        <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-                          <BarChart className="h-5 w-5 text-primary" />
+                      <div className="group flex items-start gap-3 rounded-lg bg-muted p-3">
+                        <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center transition-colors group-hover:bg-primary">
+                          <BarChart className="h-5 w-5 text-primary transition-colors group-hover:text-primary-foreground" />
                         </div>
                         <div>
                           <h4 className="font-medium text-sm">Online Training</h4>

@@ -10,7 +10,7 @@ export function OrganizationJsonLd() {
     name: siteConfig.name,
     alternateName: "Archer Infotech",
     url: baseUrl,
-    logo: `${baseUrl}/logo.png`,
+    logo: `${baseUrl}/logo.svg`,
     description: siteConfig.description,
     address: {
       "@type": "PostalAddress",
@@ -56,7 +56,7 @@ export function LocalBusinessJsonLd() {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     name: siteConfig.name,
-    image: `${baseUrl}/logo.png`,
+    image: `${baseUrl}/logo.svg`,
     "@id": baseUrl,
     url: baseUrl,
     telephone: siteConfig.contact.phone,

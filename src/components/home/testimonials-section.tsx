@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { getFeaturedTestimonials, type Testimonial } from "@/data/testimonials";
+import { LinkedinIcon, GitHubIcon } from "@/components/common/social-icons";
 
 function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
   return (
@@ -25,12 +26,39 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
                 .join("")}
             </AvatarFallback>
           </Avatar>
-          <div>
+          <div className="flex-grow">
             <div className="font-semibold">{testimonial.name}</div>
             <div className="text-sm text-muted-foreground">
               {testimonial.role} at {testimonial.company}
             </div>
           </div>
+          {/* Social Links */}
+          {(testimonial.linkedIn || testimonial.github) && (
+            <div className="flex items-center gap-2">
+              {testimonial.linkedIn && (
+                <a
+                  href={testimonial.linkedIn}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-[#0077B5] transition-colors"
+                  title="LinkedIn Profile"
+                >
+                  <LinkedinIcon className="h-5 w-5" />
+                </a>
+              )}
+              {testimonial.github && (
+                <a
+                  href={testimonial.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-foreground transition-colors"
+                  title="GitHub Profile"
+                >
+                  <GitHubIcon className="h-5 w-5" />
+                </a>
+              )}
+            </div>
+          )}
         </div>
         <div className="flex items-center gap-1 mt-4">
           {Array.from({ length: testimonial.rating }).map((_, i) => (

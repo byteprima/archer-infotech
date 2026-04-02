@@ -9,9 +9,15 @@ export const size = {
 export const contentType = "image/png";
 
 export default async function AppleIcon() {
-  const logoPath = join(process.cwd(), "public", "images", "logo.png");
-  const logoData = await readFile(logoPath);
-  const logoBase64 = `data:image/png;base64,${logoData.toString("base64")}`;
+  // Read SVG file which contains embedded PNG
+  const svgPath = join(process.cwd(), "public", "images", "logo.svg");
+  const svgContent = await readFile(svgPath, "utf-8");
+
+  // Extract base64 PNG data from SVG
+  const base64Match = svgContent.match(/data:image\/png;base64,([^"]+)/);
+  const logoBase64 = base64Match
+    ? `data:image/png;base64,${base64Match[1]}`
+    : "";
 
   return new ImageResponse(
     (
@@ -22,14 +28,13 @@ export default async function AppleIcon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "#1e3a5f",
-          borderRadius: 32,
+          background: "transparent",
         }}
       >
         <img
           src={logoBase64}
-          width={130}
-          height={130}
+          width={180}
+          height={180}
           style={{ objectFit: "contain" }}
         />
       </div>

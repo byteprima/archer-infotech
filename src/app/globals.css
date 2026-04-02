@@ -139,6 +139,12 @@
   }
   html {
     @apply font-sans scroll-smooth;
+    scroll-padding-top: 5rem; /* Account for sticky header */
+  }
+  /* Ensure sections have scroll margin for sticky header */
+  section[id],
+  main > * {
+    scroll-margin-top: 5rem;
   }
 }
 
@@ -154,5 +160,36 @@
 
   .gradient-hero {
     background: linear-gradient(135deg, oklch(0.33 0.08 250) 0%, oklch(0.28 0.07 252) 50%, oklch(0.20 0.05 260) 100%);
+  }
+
+  /* Text shimmer animation for "New Batches" */
+  .animate-text-shimmer {
+    animation: text-shimmer 2.5s ease-in-out infinite;
+  }
+
+  /* Border pulse animation */
+  .animate-border-pulse {
+    animation: border-pulse 2s ease-in-out infinite;
+  }
+}
+
+/* Keyframes for custom animations */
+@keyframes text-shimmer {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes border-pulse {
+  0%, 100% {
+    border-color: oklch(0.67 0.17 70 / 0.3);
+    box-shadow: 0 0 5px oklch(0.67 0.17 70 / 0.2);
+  }
+  50% {
+    border-color: oklch(0.67 0.17 70 / 0.8);
+    box-shadow: 0 0 15px oklch(0.67 0.17 70 / 0.4);
   }
 }

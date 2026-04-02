@@ -1,0 +1,153 @@
+i an developed the website using cloude code and now there are few changes and i need mark file.
+The expected changes are:
+
+@Home
+ - logo of archer must be in circular form and manage gradent at the time of scroll.
+ - New Batches Starting Soon (blinking/rolling effect for highlite)
+ - Request Callback from home page must have same properties like Explore Courses
+ - the tiles of Popular Courses must have relevent image containing the language logo and at bottom of it the button named "View Details" must be alligned at center    and add mouse over color on button freen shade as in archer logo.
+ - What Our Students Say tile must have space for photo and linkedin and github link
+ - solve logo issue(only white spot is there) at footer as noted before.
+ - when we click courses, contact and Batch Schedule link(from footer or menu) it will not scrolled up completly.
+
+@About:
+ - Why Archer Infotech? - add AI Enabled Courses
+
+ - Change the Vision and Mission Contents from an SEO point of view (if needed change arrangement)
+
+Our Vision
+"Archer Infotech Kothrud Pune | Java, Python, Full Stack IT Training with Placement"
+Founded by Yogesh Patil with over 15 years of hands-on IT industry experience, Archer Infotech was built on a single, unwavering belief — that every student in Pune deserves access to training that actually gets them hired.
+Our vision is to be Pune's most recognised IT training institute in Kothrud — a centre of excellence where freshers, graduates, and working professionals come to master in-demand technologies like Java, Python, Full Stack Development, AWS Cloud, DevOps, Data Science, and Generative AI — and leave with a job offer in hand.
+We don't just teach technology. We build careers.
+With 5,000+ students placed at top IT companies including TCS, Infosys, Wipro, Tech Mahindra, and Persistent Systems, and 1,000+ batches successfully completed from our institute near Kothrud Bus Stand, Pune — our vision is backed by a 15-year track record that speaks louder than any promise.
+As the IT industry evolves rapidly — from Cloud and DevOps to ChatGPT, LLMs, and Generative AI — our vision is to stay permanently ahead of that curve, so our students are always the most job-ready candidates walking into any interview room in Pune, Mumbai, or anywhere in India.
+
+
+Our Mission
+ "About Archer Infotech Pune | 15+ Yrs IT Training & Placement Since 2005"
+Our mission is to make high-quality IT education accessible to every student in Pune — whether you are a fresher starting your career or an experienced professional looking to upskill.
+At our institute in Kothrud, Pune, we are committed to:
+
+Delivering industry-aligned IT courses taught by certified trainers with 10+ years of real-world experience
+Providing 100% placement assistance with 100+ corporate partners including TCS, Infosys, Wipro, Tech Mahindra, and Persistent Systems
+Training students through hands-on projects, live assignments, and mock interviews that prepare them for the competitive IT job market
+Continuously updating our curriculum to reflect the latest technologies — from AWS and Kubernetes to ChatGPT, LLMs, and Prompt Engineering
+Creating globally competitive IT professionals who are job-ready from day one
+
+"To reach every corner of the country and help students realise their full potential — creating world-class IT professionals, one batch at a time."
+
+for Our Team: write a introduction from SEO point of view and 
+Refer out website page https://archerinfotech.in/about and create the data of 6 Trainers from following  linkedin profile.
+
+https://www.linkedin.com/in/yogesh-patil-76328839/
+https://www.linkedin.com/in/amol-patil-228b9a79/
+https://www.linkedin.com/in/amol-chougule-201192175/ 
+https://www.linkedin.com/in/ankita-hartale-18a521228/ 
+https://www.linkedin.com/in/suraj-kudache-001a3aa5/
+add vinods profile if permitted.
+
+@courses:
+- Programming Languages (Core Foundation)
+	* C, C++
+	* Java
+	* Python
+	* JavaScript
+	* C#
+	* Go (Golang)
+	* Rust (advanced learners)
+- Web Development
+	🔹 Frontend
+	* HTML5, CSS3
+	* JavaScript (ES6+)
+	* Bootstrap / Tailwind CSS
+	* React.js
+	* TypeScript 
+	* Angular
+	* Next.js Development
+	🔹 Backend
+	* Java (Servlet, JSP, Spring, Spring Boot)
+	* Node.js (Express.js)
+	* Python (Django, Flask)
+	* PHP (Laravel)
+- Mobile App Development
+	* Android (Java/Kotlin)
+	* Flutter (Dart)
+	* React Native
+	* Swift (iOS – advanced)
+- Database Technologies
+	* MySQL
+	* PostgreSQL
+	* Oracle
+	* MongoDB (NoSQL)
+	* Firebase
+- Cloud Computing
+	* AWS (Amazon Web Services)
+	* Microsoft Azure
+	* Google Cloud Platform (GCP)
+- DevOps & Tools
+	* Git & GitHub
+	* Docker
+	* Kubernetes
+	* Jenkins (CI/CD)
+	* Terraform (advanced)
+- Data Science & AI
+	* Python for Data Science, 
+	* Data Analytics
+	* Data Science
+	* Machine Learning
+	* Data Engineering
+- AI & GenAI Courses
+	* Generative AI
+	* ChatGPT & LLMs
+	* Prompt Engineering
+	* AI Tools for Productivity
+- Full Stack Courses
+	* Java Full Stack Development
+	* .Net Full Stack Development
+	* Python Full Stack Development
+	* JavaScript Full Stack Development
+	* MEAN Stack Development
+	* MERN Stack Development
+	* MVRN Stack Development
+- Bootcamps 
+	* CodeLeap: Entry-level coding fundamentals, ideal post-12th
+	* CareerCode: Advanced programming and internship preparation for engineering students
+	* TechReady: Full-time, career-oriented courses—including Java Full Stack, Python Full Stack, and Data Science—aligned with 2025 industry trends
+
+@Internships:
+
+For DIPLOMA (3 Months – Internship)
+
+👉 Foundation + Exposure
+	* Programming Fundamentals (C, C++, Python, DSA Basics)
+	* PHP Full Stack + AI
+	* Web apllication development and AI Integration (HTML, CSS and JavaScript)
+	* Data Analytics
+	* AI/ML Basics
+
+For DEGREE (6 Months – Job Ready)
+
+👉 Specialization + Industry + Placement
+
+	💻 Full Stack Tracks
+		* Java Full Stack (Spring Boot + Microservices + AI + Cloud)
+		* .NET Full Stack (ASP.NET Core + Microservices + Cloud + AI)
+		* MERN Stack Developer (React + Node + AI + DevOps)
+		* Python Full Stack (Django + AI + Cloud)
+	🤖 AI / Data Tracks
+		* AI Engineer (GenAI + LLMs)
+		* Data Scientist
+		* Data Engineer
+	☁️ System Tracks
+		* Cloud & DevOps Engineer
+	🌐 Emerging Tech
+		* IoT + AI Engineer
+	🧠 Core Engineering
+		* Software Engineer (DSA + System Design)
+
+@Blog:
+	- CRUD Needed
+	- Able to add images, Youtude video, Links.
+
+Zest India IT Pvt Ltd

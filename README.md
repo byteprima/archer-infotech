@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Archer Infotech Website
 
-## Getting Started
+Marketing website and lightweight admin panel for Archer Infotech, built with Next.js 16, React 19, Tailwind CSS 4, shadcn/ui, and Drizzle ORM.
 
-First, run the development server:
+## Stack
+
+- Next.js 16.2.1 with the App Router
+- React 19
+- TypeScript
+- Tailwind CSS 4
+- shadcn/ui (`base-nova`)
+- Drizzle ORM + PostgreSQL
+
+## Scripts
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run build
+npm run start
+npm run lint
+
+npm run db:generate
+npm run db:migrate
+npm run db:push
+npm run db:studio
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Local Setup
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Install dependencies:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm install
+```
 
-## Learn More
+2. Copy environment variables from `.env.example` into a local `.env`.
 
-To learn more about Next.js, take a look at the following resources:
+3. Start the dev server:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+4. Open [http://localhost:3000](http://localhost:3000).
 
-## Deploy on Vercel
+## Environment Variables
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+See [.env.example](./.env.example) for the current template.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Important values:
+
+- `DATABASE_URL`
+- `NEXT_PUBLIC_SITE_URL`
+- `ADMIN_USERNAME`
+- `ADMIN_PASSWORD`
+- `ADMIN_SESSION_SECRET`
+
+## Project Notes
+
+- App routes live in `src/app`
+- Static marketing content lives mostly in `src/data`
+- Dynamic operational content uses PostgreSQL via Drizzle
+- Lead submissions use a server action in `src/lib/actions/leads.ts`
+- Admin auth is intentionally simple and cookie-based
+
+## Working In This Repo
+
+- Read [AGENTS.md](./AGENTS.md) for agent-specific instructions
+- Read [docs/engineering.md](./docs/engineering.md) for project conventions
+- For framework-level changes, check the relevant Next.js 16 guide in `node_modules/next/dist/docs/`
+
+## Deployment
+
+Deployment and infrastructure notes live in [DEPLOYMENT.md](./DEPLOYMENT.md).

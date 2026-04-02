@@ -113,6 +113,8 @@ export const testimonials = pgTable("testimonials", {
   content: text("content").notNull(),
   rating: integer("rating").notNull().default(5),
   photoUrl: varchar("photo_url", { length: 500 }),
+  linkedinUrl: varchar("linkedin_url", { length: 500 }),
+  githubUrl: varchar("github_url", { length: 500 }),
   placedAt: varchar("placed_at", { length: 100 }), // Company where placed
   isHighlighted: boolean("is_highlighted").default(false),
   isPublished: boolean("is_published").default(true),

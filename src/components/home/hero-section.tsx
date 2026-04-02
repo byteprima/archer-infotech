@@ -2,41 +2,46 @@
 
 import Link from "next/link";
 import { ArrowRight, CheckCircle } from "lucide-react";
-import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import { siteConfig } from "@/data/site-config";
+import { AnimatedCounter } from "@/components/common/animated-counter";
 
 export function HeroSection() {
   return (
     <section className="relative overflow-hidden gradient-hero text-white">
       {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-10">
+      <div className="pointer-events-none absolute inset-0 opacity-10">
         <div className="absolute inset-0" style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
         }} />
       </div>
 
-      <div className="container mx-auto px-4 py-16 md:py-24 lg:py-32 relative">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <div className="container mx-auto px-4 pt-10 pb-16 md:pt-14 md:pb-20 lg:pt-12 lg:pb-20 xl:pt-16 xl:pb-24 relative">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 items-center">
           {/* Left Content */}
-          <div className="space-y-8">
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 text-sm">
-              <span className="w-2 h-2 bg-secondary rounded-full animate-pulse" />
-              <span>New Batches Starting Soon</span>
+          <div className="space-y-5 lg:space-y-4 xl:space-y-6 max-w-[36rem]">
+            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-1.5 text-sm border border-secondary/30 animate-border-pulse">
+              <span className="relative flex h-3 w-3">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-secondary"></span>
+              </span>
+              <span className="font-medium animate-text-shimmer bg-gradient-to-r from-white via-secondary to-white bg-[length:200%_100%] bg-clip-text text-transparent">
+                New Batches Starting Soon
+              </span>
             </div>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+            <h1 className="text-4xl md:text-[2.9rem] lg:text-[2.85rem] xl:text-[3.35rem] font-bold leading-[1.08]">
               Launch Your{" "}
-              <span className="text-secondary">IT Career</span> with Industry-Ready Skills
+              <span className="text-secondary whitespace-nowrap">IT Career</span> with{" "}
+              <span className="whitespace-nowrap">Industry-Ready Skills</span>
             </h1>
 
-            <p className="text-lg md:text-xl text-white/80 max-w-xl">
+            <p className="text-base md:text-lg lg:text-[1.05rem] xl:text-[1.15rem] text-white/80 max-w-xl">
               Transform your career with Pune&apos;s most trusted IT training institute.
               Learn from industry experts, work on real projects, and get placement assistance.
             </p>
 
             {/* Key Points */}
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-x-4 gap-y-2">
               {[
                 "15+ Years Experience",
                 "1000+ Batches Completed",
@@ -50,13 +55,10 @@ export function HeroSection() {
             </div>
 
             {/* CTA Buttons */}
-            <div className="flex flex-wrap gap-4">
+            <div className="relative z-10 flex flex-wrap gap-2.5">
               <Link
                 href="/courses"
-                className={cn(
-                  buttonVariants({ size: "lg" }),
-                  "bg-secondary hover:bg-secondary/90 text-secondary-foreground font-semibold"
-                )}
+                className="inline-flex items-center justify-center rounded-lg bg-secondary hover:bg-secondary/90 text-secondary-foreground px-6 py-3 text-sm font-semibold transition-all"
               >
                 Explore Courses
                 <ArrowRight className="ml-2 h-5 w-5" />
@@ -84,7 +86,7 @@ export function HeroSection() {
                   className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center"
                 >
                   <div className="text-4xl font-bold text-secondary mb-2">
-                    {stat.value}
+                    <AnimatedCounter value={stat.value} />
                   </div>
                   <div className="text-white/80">{stat.label}</div>
                 </div>
@@ -95,7 +97,7 @@ export function HeroSection() {
       </div>
 
       {/* Wave Divider */}
-      <div className="absolute bottom-0 left-0 right-0">
+      <div className="pointer-events-none absolute bottom-0 left-0 right-0">
         <svg
           viewBox="0 0 1440 120"
           fill="none"

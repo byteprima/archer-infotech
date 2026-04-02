@@ -33,8 +33,9 @@ export const siteConfig = {
   // Google Maps
   googleMaps: {
     embedUrl:
-      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3782.265588856342!2d73.91455931541!3d18.562061287384868!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTjCsDMzJzQzLjQiTiA3M8KwNTUnMDIuMCJF!5e0!3m2!1sen!2sin!4v1234567890",
-    placeId: "",
+      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3783.0!2d73.810452!3d18.5002215!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2bfe592dccbf1%3A0x539e5f9e90dcca38!2sArcher%20Infotech!5e0!3m2!1sen!2sin!4v1711712400000",
+    placeId: "0x3bc2bfe592dccbf1:0x539e5f9e90dcca38",
+    url: "https://www.google.com/maps/place/Archer+Infotech/@18.5002215,73.810452,17z/data=!3m1!4b1!4m6!3m5!1s0x3bc2bfe592dccbf1:0x539e5f9e90dcca38!8m2!3d18.5002215!4d73.8130269",
   },
 
   // Stats
@@ -67,7 +68,7 @@ export const siteConfig = {
       icon: "Users",
     },
     {
-      title: "Placement Assistance",
+      title: "100% Placement Assistance",
       description: "Complete placement assistance with top IT companies",
       icon: "Briefcase",
     },

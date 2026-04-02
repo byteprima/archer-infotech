@@ -33,10 +33,7 @@ export function CTASection() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               href="/contact"
-              className={cn(
-                buttonVariants({ size: "lg" }),
-                "bg-secondary hover:bg-secondary/90 text-secondary-foreground font-semibold"
-              )}
+              className="inline-flex items-center justify-center rounded-lg bg-secondary hover:bg-secondary/90 text-secondary-foreground px-6 py-3 text-sm font-semibold transition-all"
             >
               Enquire Now
               <ArrowRight className="ml-2 h-5 w-5" />
