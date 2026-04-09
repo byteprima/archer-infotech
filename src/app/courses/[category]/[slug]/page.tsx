@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import {
   ChevronLeft,
   Clock,
@@ -74,6 +74,12 @@ export default async function CoursePage({ params }: CoursePageProps) {
 
   if (!course || !category) {
     notFound();
+  }
+
+  // Redirect bootcamp courses to their dedicated pages
+  if (course.categorySlug === "bootcamps") {
+    const bootcampSlug = course.slug.replace("-bootcamp", "");
+    redirect(`/bootcamps/${bootcampSlug}`);
   }
 
   return (

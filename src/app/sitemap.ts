@@ -1,5 +1,6 @@
 import { MetadataRoute } from "next";
 import { courses, categories } from "@/data/courses";
+import { bootcamps } from "@/data/bootcamps";
 import { getAllPublishedSlugs } from "@/lib/actions/blog";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://archerinfotech.in";
@@ -94,5 +95,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.log("Could not fetch blog slugs for sitemap:", error);
   }
 
-  return [...staticPages, ...categoryPages, ...coursePages, ...blogPages];
+  // Bootcamp pages
+  const bootcampListingPage: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/bootcamps`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+  ];
+
+  const bootcampPages: MetadataRoute.Sitemap = bootcamps.map((bootcamp) => ({
+    url: `${baseUrl}/bootcamps/${bootcamp.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly",
+    priority: 0.9,
+  }));
+
+  return [...staticPages, ...categoryPages, ...coursePages, ...bootcampListingPage, ...bootcampPages, ...blogPages];
 }

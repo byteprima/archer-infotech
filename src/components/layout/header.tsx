@@ -206,10 +206,13 @@ export function Header() {
                             <ul className="space-y-1">
                               {categories.map((category) => {
                                 const IconComponent = categoryIcons[category.icon];
+                                const href = category.slug === "bootcamps"
+                                  ? "/bootcamps"
+                                  : `/courses?category=${category.slug}`;
                                 return (
                                   <li key={category.slug}>
                                     <Link
-                                      href={`/courses?category=${category.slug}`}
+                                      href={href}
                                       className="flex items-center gap-2 select-none rounded-md p-2 text-sm leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                                     >
                                       {IconComponent && <IconComponent className="h-4 w-4 text-primary" />}
@@ -225,10 +228,14 @@ export function Header() {
                               Popular Courses
                             </h4>
                             <ul className="space-y-2">
-                              {featuredCourses.map((course) => (
+                              {featuredCourses.map((course) => {
+                                const courseHref = course.categorySlug === "bootcamps"
+                                  ? `/bootcamps/${course.slug.replace("-bootcamp", "")}`
+                                  : `/courses/${course.categorySlug}/${course.slug}`;
+                                return (
                                 <li key={course.slug}>
                                   <Link
-                                    href={`/courses/${course.categorySlug}/${course.slug}`}
+                                    href={courseHref}
                                     className="block select-none rounded-md p-2 text-sm leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                                   >
                                     <div className="font-medium">{course.shortTitle}</div>
@@ -237,7 +244,8 @@ export function Header() {
                                     </p>
                                   </Link>
                                 </li>
-                              ))}
+                                );
+                              })}
                             </ul>
                             <div className="mt-4 pt-2 border-t">
                               <Link

@@ -48,7 +48,7 @@ function BootcampCard({ course }: { course: Course }) {
       </CardContent>
       <CardFooter className="px-6 pb-6 pt-0 flex-shrink-0 bg-transparent border-t-0">
         <Link
-          href={`/courses/${course.categorySlug}/${course.slug}`}
+          href={`/bootcamps/${course.slug.replace("-bootcamp", "")}`}
           className="w-full inline-flex items-center justify-center h-10 px-4 py-2 rounded-md border border-input bg-background text-sm font-medium hover:bg-primary hover:text-primary-foreground hover:border-primary transition-colors"
           onClick={() =>
             captureAnalyticsEvent("bootcamp_card_clicked", {
@@ -87,7 +87,7 @@ export function BootcampsSection() {
             </p>
           </div>
           <Link
-            href="/courses?category=bootcamps"
+            href="/bootcamps"
             className={cn(buttonVariants({ variant: "outline" }))}
             onClick={() =>
               captureAnalyticsEvent("view_all_bootcamps_clicked", {

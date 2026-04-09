@@ -10,9 +10,16 @@ import { CourseImagePlaceholder } from "@/components/courses/course-image-placeh
 import { courses, categories, type Course } from "@/data/courses";
 import { cn } from "@/lib/utils";
 
+function getCourseHref(course: Course): string {
+  if (course.categorySlug === "bootcamps") {
+    return `/bootcamps/${course.slug.replace("-bootcamp", "")}`;
+  }
+  return `/courses/${course.categorySlug}/${course.slug}`;
+}
+
 function CourseCard({ course }: { course: Course }) {
   return (
-    <Link href={`/courses/${course.categorySlug}/${course.slug}`} className="block h-full">
+    <Link href={getCourseHref(course)} className="block h-full">
       <Card className="group overflow-hidden hover:shadow-lg transition-all hover:border-primary/20 h-full flex flex-col cursor-pointer">
         <CardHeader className="p-0 flex-shrink-0">
           <div className="relative h-40 bg-gradient-to-br from-primary/10 to-primary/5 overflow-hidden">
