@@ -127,22 +127,33 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
 
                   {/* Pagination */}
                   {totalPages > 1 && (
-                    <div className="flex items-center justify-center gap-4 mt-12">
+                    <div className="flex items-center justify-center gap-2 mt-12 flex-wrap">
                       {page > 1 && (
                         <Link
                           href={`/blog?page=${page - 1}${category ? `&category=${encodeURIComponent(category)}` : ""}`}
                         >
-                          <Button variant="outline">&larr; Previous</Button>
+                          <Button variant="outline" size="sm">&larr; Previous</Button>
                         </Link>
                       )}
-                      <span className="text-sm text-muted-foreground">
-                        Page {page} of {totalPages}
-                      </span>
+                      {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
+                        <Link
+                          key={p}
+                          href={`/blog?page=${p}${category ? `&category=${encodeURIComponent(category)}` : ""}`}
+                        >
+                          <Button
+                            variant={p === page ? "default" : "outline"}
+                            size="sm"
+                            className="min-w-[36px]"
+                          >
+                            {p}
+                          </Button>
+                        </Link>
+                      ))}
                       {page < totalPages && (
                         <Link
                           href={`/blog?page=${page + 1}${category ? `&category=${encodeURIComponent(category)}` : ""}`}
                         >
-                          <Button variant="outline">Next &rarr;</Button>
+                          <Button variant="outline" size="sm">Next &rarr;</Button>
                         </Link>
                       )}
                     </div>

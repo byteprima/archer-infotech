@@ -105,14 +105,14 @@ export default function AdminLoginPage() {
           <Button
             type="button"
             variant="outline"
-            className="w-full"
+            className="w-full h-12 text-base"
             onClick={handleGoogleLogin}
             disabled={isGoogleLoading || isLoading}
           >
             {isGoogleLoading ? (
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              <Loader2 className="mr-2 h-5 w-5 animate-spin" />
             ) : (
-              <GoogleIcon className="mr-2 h-4 w-4" />
+              <GoogleIcon className="mr-2 h-5 w-5" />
             )}
             Continue with Google
           </Button>
@@ -163,12 +163,12 @@ export default function AdminLoginPage() {
             </div>
             <Button
               type="submit"
-              className="w-full"
+              className="w-full h-12 text-base"
               disabled={isLoading || isGoogleLoading}
             >
               {isLoading ? (
                 <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  <Loader2 className="mr-2 h-5 w-5 animate-spin" />
                   Signing in...
                 </>
               ) : (
