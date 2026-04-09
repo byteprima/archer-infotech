@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { Metadata } from "next";
 import { CoursesFilter } from "@/components/courses/courses-filter";
 
@@ -25,7 +26,9 @@ export default function CoursesPage() {
         </div>
       </section>
 
-      <CoursesFilter />
+      <Suspense>
+        <CoursesFilter />
+      </Suspense>
     </>
   );
 }
