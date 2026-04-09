@@ -1,6 +1,7 @@
 "use client";
 
 import { siteConfig } from "@/data/site-config";
+import { captureAnalyticsEvent } from "@/lib/posthog/client";
 
 function WhatsAppIcon({ className }: { className?: string }) {
   return (
@@ -23,6 +24,12 @@ export function WhatsAppButton() {
       rel="noopener noreferrer"
       className="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 bg-[#25D366] text-white rounded-full shadow-lg hover:bg-[#128C7E] transition-all hover:scale-110"
       aria-label="Chat on WhatsApp"
+      onClick={() =>
+        captureAnalyticsEvent("whatsapp_clicked", {
+          location: "floating_button",
+          source: "sitewide_cta",
+        })
+      }
     >
       <WhatsAppIcon className="h-7 w-7" />
     </a>

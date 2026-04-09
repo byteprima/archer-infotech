@@ -25,17 +25,17 @@ interface BatchFormProps {
   batch?: Batch | null;
 }
 
-function toDefaultValues(batch?: Batch | null): BatchFormData {
+function toDefaultValues(batch?: Batch | null) {
   return {
     courseSlug: batch?.courseSlug || "",
     courseName: batch?.courseName || "",
     startDate: formatBatchStartDate(batch?.startDate) || "",
     timing: batch?.timing || "",
     duration: batch?.duration || "",
-    mode: batch?.mode || "offline",
+    mode: (batch?.mode || "offline") as "offline" | "online",
     totalSeats: batch?.totalSeats ?? 15,
     seatsAvailable: batch?.seatsAvailable ?? batch?.totalSeats ?? 15,
-    status: batch?.status || "upcoming",
+    status: (batch?.status || "upcoming") as "upcoming" | "ongoing" | "completed" | "cancelled",
     instructor: batch?.instructor || "",
     location: batch?.location || "",
     meetingLink: batch?.meetingLink || "",
@@ -55,7 +55,7 @@ export function BatchForm({ batch }: BatchFormProps) {
     setError,
     formState: { errors, isSubmitting },
   } = useForm<BatchFormData>({
-    resolver: zodResolver(batchFormSchema),
+    resolver: zodResolver(batchFormSchema) as never,
     defaultValues: toDefaultValues(batch),
   });
 

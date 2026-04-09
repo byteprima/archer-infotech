@@ -39,6 +39,7 @@ import {
 import { cn } from "@/lib/utils";
 import { categories, getFeaturedCourses } from "@/data/courses";
 import { siteConfig } from "@/data/site-config";
+import { captureAnalyticsEvent } from "@/lib/posthog/client";
 
 const mainNavItems = [
   { name: "Home", href: "/" },
@@ -70,6 +71,18 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const featuredCourses = getFeaturedCourses().slice(0, 5);
+  const trackContactClick = (method: "phone" | "email", location: string) => {
+    captureAnalyticsEvent("contact_method_clicked", {
+      method,
+      location,
+    });
+  };
+  const trackSocialClick = (network: string, location: string) => {
+    captureAnalyticsEvent("social_link_clicked", {
+      network,
+      location,
+    });
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -81,6 +94,7 @@ export function Header() {
               <a
                 href={`tel:${siteConfig.contact.phone}`}
                 className="flex items-center gap-2 hover:text-secondary transition-colors"
+                onClick={() => trackContactClick("phone", "header_top_bar")}
               >
                 <Phone className="h-4 w-4" />
                 {siteConfig.contact.phone}
@@ -88,6 +102,7 @@ export function Header() {
               <a
                 href={`mailto:${siteConfig.contact.email}`}
                 className="hover:text-secondary transition-colors"
+                onClick={() => trackContactClick("email", "header_top_bar")}
               >
                 {siteConfig.contact.email}
               </a>
@@ -99,6 +114,7 @@ export function Header() {
                 rel="noopener noreferrer"
                 className="hover:text-secondary transition-colors"
                 aria-label="Facebook"
+                onClick={() => trackSocialClick("facebook", "header_top_bar")}
               >
                 <FacebookIcon />
               </a>
@@ -108,6 +124,7 @@ export function Header() {
                 rel="noopener noreferrer"
                 className="hover:text-secondary transition-colors"
                 aria-label="Instagram"
+                onClick={() => trackSocialClick("instagram", "header_top_bar")}
               >
                 <InstagramIcon />
               </a>
@@ -117,6 +134,7 @@ export function Header() {
                 rel="noopener noreferrer"
                 className="hover:text-secondary transition-colors"
                 aria-label="LinkedIn"
+                onClick={() => trackSocialClick("linkedin", "header_top_bar")}
               >
                 <LinkedinIcon />
               </a>
@@ -126,6 +144,7 @@ export function Header() {
                 rel="noopener noreferrer"
                 className="hover:text-secondary transition-colors"
                 aria-label="Twitter"
+                onClick={() => trackSocialClick("twitter", "header_top_bar")}
               >
                 <TwitterIcon />
               </a>
@@ -135,6 +154,7 @@ export function Header() {
                 rel="noopener noreferrer"
                 className="hover:text-secondary transition-colors"
                 aria-label="YouTube"
+                onClick={() => trackSocialClick("youtube", "header_top_bar")}
               >
                 <YoutubeIcon />
               </a>

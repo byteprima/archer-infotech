@@ -357,5 +357,3 @@ export async function deleteBatch(id: number): Promise<ActionResult> {
     };
   }
 }
-
-export { BATCH_MODE, BATCH_STATUS };

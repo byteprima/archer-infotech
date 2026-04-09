@@ -17,6 +17,7 @@ import {
   Rocket,
   LucideIcon,
 } from "lucide-react";
+import { TrackedAnchor } from "@/components/analytics/tracked-anchor";
 import { siteConfig } from "@/data/site-config";
 import { categories } from "@/data/courses";
 
@@ -102,51 +103,61 @@ export function Footer() {
               experience. We offer industry-relevant courses with placement assistance.
             </p>
             <div className="flex items-center gap-4 pt-2">
-              <a
+              <TrackedAnchor
                 href={siteConfig.social.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary-foreground/70 hover:text-secondary transition-colors"
                 aria-label="Facebook"
+                event="social_link_clicked"
+                properties={{ network: "facebook", location: "footer" }}
               >
                 <FacebookIcon className="h-5 w-5" />
-              </a>
-              <a
+              </TrackedAnchor>
+              <TrackedAnchor
                 href={siteConfig.social.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary-foreground/70 hover:text-secondary transition-colors"
                 aria-label="Instagram"
+                event="social_link_clicked"
+                properties={{ network: "instagram", location: "footer" }}
               >
                 <InstagramIcon className="h-5 w-5" />
-              </a>
-              <a
+              </TrackedAnchor>
+              <TrackedAnchor
                 href={siteConfig.social.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary-foreground/70 hover:text-secondary transition-colors"
                 aria-label="LinkedIn"
+                event="social_link_clicked"
+                properties={{ network: "linkedin", location: "footer" }}
               >
                 <LinkedInIcon className="h-5 w-5" />
-              </a>
-              <a
+              </TrackedAnchor>
+              <TrackedAnchor
                 href={siteConfig.social.twitter}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary-foreground/70 hover:text-secondary transition-colors"
                 aria-label="Twitter"
+                event="social_link_clicked"
+                properties={{ network: "twitter", location: "footer" }}
               >
                 <XIcon className="h-5 w-5" />
-              </a>
-              <a
+              </TrackedAnchor>
+              <TrackedAnchor
                 href={siteConfig.social.youtube}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary-foreground/70 hover:text-secondary transition-colors"
                 aria-label="YouTube"
+                event="social_link_clicked"
+                properties={{ network: "youtube", location: "footer" }}
               >
                 <YouTubeIcon className="h-5 w-5" />
-              </a>
+              </TrackedAnchor>
             </div>
           </div>
 
@@ -206,21 +217,25 @@ export function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="h-5 w-5 text-secondary shrink-0" />
-                <a
+                <TrackedAnchor
                   href={`tel:${siteConfig.contact.phone}`}
                   className="text-primary-foreground/80 hover:text-secondary transition-colors text-sm"
+                  event="contact_method_clicked"
+                  properties={{ method: "phone", location: "footer" }}
                 >
                   {siteConfig.contact.phone}
-                </a>
+                </TrackedAnchor>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="h-5 w-5 text-secondary shrink-0" />
-                <a
+                <TrackedAnchor
                   href={`mailto:${siteConfig.contact.email}`}
                   className="text-primary-foreground/80 hover:text-secondary transition-colors text-sm"
+                  event="contact_method_clicked"
+                  properties={{ method: "email", location: "footer" }}
                 >
                   {siteConfig.contact.email}
-                </a>
+                </TrackedAnchor>
               </li>
               <li className="flex items-center gap-3">
                 <Clock className="h-5 w-5 text-secondary shrink-0" />

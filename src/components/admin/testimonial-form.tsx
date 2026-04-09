@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Loader2, Save, Eye, EyeOff, Star, Quote, Github, Linkedin } from "lucide-react";
+import { Loader2, Save, Eye, EyeOff, Star, Quote, Link2, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -393,13 +393,13 @@ export function TestimonialForm({ testimonial }: TestimonialFormProps) {
                 </div>
                 {formData.linkedinUrl && (
                   <div className="flex items-center gap-2">
-                    <Linkedin className="h-4 w-4 text-muted-foreground" />
+                    <Link2 className="h-4 w-4 text-muted-foreground" />
                     <span className="truncate">{formData.linkedinUrl}</span>
                   </div>
                 )}
                 {formData.githubUrl && (
                   <div className="flex items-center gap-2">
-                    <Github className="h-4 w-4 text-muted-foreground" />
+                    <ExternalLink className="h-4 w-4 text-muted-foreground" />
                     <span className="truncate">{formData.githubUrl}</span>
                   </div>
                 )}

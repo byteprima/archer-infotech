@@ -1,5 +1,7 @@
 import { Metadata } from "next";
 import { MapPin, Phone, Mail, Clock, MessageCircle } from "lucide-react";
+import { PageEvent } from "@/components/analytics/page-event";
+import { TrackedAnchor } from "@/components/analytics/tracked-anchor";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { siteConfig } from "@/data/site-config";
 import { ContactForm } from "@/components/forms/contact-form";
@@ -13,6 +15,11 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
+      <PageEvent
+        event="contact_page_viewed"
+        properties={{ page_type: "contact", page_path: "/contact" }}
+      />
+
       {/* Hero Section */}
       <section className="gradient-hero text-white py-16">
         <div className="container mx-auto px-4">
@@ -73,12 +80,14 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h4 className="font-medium mb-1">Phone</h4>
-                      <a
+                      <TrackedAnchor
                         href={`tel:${siteConfig.contact.phone}`}
                         className="text-sm text-muted-foreground hover:text-primary"
+                        event="contact_method_clicked"
+                        properties={{ method: "phone", location: "contact_page" }}
                       >
                         {siteConfig.contact.phone}
-                      </a>
+                      </TrackedAnchor>
                     </div>
                   </div>
 
@@ -88,12 +97,14 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h4 className="font-medium mb-1">Email</h4>
-                      <a
+                      <TrackedAnchor
                         href={`mailto:${siteConfig.contact.email}`}
                         className="text-sm text-muted-foreground hover:text-primary"
+                        event="contact_method_clicked"
+                        properties={{ method: "email", location: "contact_page" }}
                       >
                         {siteConfig.contact.email}
-                      </a>
+                      </TrackedAnchor>
                     </div>
                   </div>
 
@@ -122,14 +133,16 @@ export default function ContactPage() {
                   <p className="text-white/90 text-sm mb-4">
                     Get quick responses to your queries via WhatsApp.
                   </p>
-                  <a
+                  <TrackedAnchor
                     href={`https://wa.me/${siteConfig.contact.whatsapp}?text=Hi,%20I'm%20interested%20in%20your%20IT%20training%20courses.`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="block w-full text-center bg-white text-[#25D366] py-2 rounded-lg font-medium hover:bg-white/90 transition-colors"
+                    event="whatsapp_clicked"
+                    properties={{ location: "contact_page_card", source: "contact_page" }}
                   >
                     Start Chat
-                  </a>
+                  </TrackedAnchor>
                 </CardContent>
               </Card>
             </div>

@@ -12,6 +12,9 @@ import {
   GraduationCap,
   Phone,
 } from "lucide-react";
+import { PageEvent } from "@/components/analytics/page-event";
+import { TrackedAnchor } from "@/components/analytics/tracked-anchor";
+import { TrackedLink } from "@/components/analytics/tracked-link";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -75,6 +78,16 @@ export default async function CoursePage({ params }: CoursePageProps) {
 
   return (
     <>
+      <PageEvent
+        event="course_page_viewed"
+        properties={{
+          category_slug: categorySlug,
+          course_slug: slug,
+          course_title: course.title,
+          course_category: course.category,
+        }}
+      />
+
       {/* Schema.org Structured Data */}
       <CourseJsonLd
         name={course.title}
@@ -143,19 +156,32 @@ export default async function CoursePage({ params }: CoursePageProps) {
                 timings, and fees.
               </p>
               <div className="space-y-3">
-                <Link
+                <TrackedLink
                   href="/contact"
                   className="block w-full text-center bg-secondary text-secondary-foreground py-3 rounded-lg font-medium hover:bg-secondary/90 transition-colors"
+                  event="course_enquiry_clicked"
+                  properties={{
+                    category_slug: categorySlug,
+                    course_slug: slug,
+                    course_title: course.title,
+                    location: "course_hero_card",
+                  }}
                 >
                   Enquire Now
-                </Link>
-                <a
+                </TrackedLink>
+                <TrackedAnchor
                   href={`tel:${siteConfig.contact.phone}`}
                   className="flex items-center justify-center gap-2 w-full border py-3 rounded-lg font-medium hover:bg-muted transition-colors"
+                  event="contact_method_clicked"
+                  properties={{
+                    method: "phone",
+                    location: "course_hero_card",
+                    course_slug: slug,
+                  }}
                 >
                   <Phone className="h-4 w-4" />
                   {siteConfig.contact.phone}
-                </a>
+                </TrackedAnchor>
               </div>
               <div className="mt-4 pt-4 border-t text-center text-sm text-muted-foreground">
                 <p>Next batch starting soon!</p>

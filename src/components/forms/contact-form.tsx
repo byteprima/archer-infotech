@@ -12,6 +12,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { CourseSelect } from "@/components/forms/course-select";
 import { submitLead } from "@/lib/actions/leads";
+import {
+  captureAnalyticsEvent,
+  getAnalyticsDistinctId,
+} from "@/lib/posthog/client";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -30,6 +34,7 @@ type ContactFormData = z.infer<typeof contactSchema>;
 export function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [selectedCourses, setSelectedCourses] = useState<string[]>([]);
+  const [hasStarted, setHasStarted] = useState(false);
   const inputClassName = "h-12 px-4";
 
   const {
@@ -42,8 +47,31 @@ export function ContactForm() {
     resolver: zodResolver(contactSchema),
   });
 
+  const handleFormStart = () => {
+    if (hasStarted) {
+      return;
+    }
+
+    setHasStarted(true);
+    captureAnalyticsEvent("contact_form_started", {
+      form_name: "contact",
+      source: "contact_form",
+      current_path: window.location.pathname,
+    });
+  };
+
   const onSubmit = async (data: ContactFormData) => {
     setIsSubmitting(true);
+
+    const searchParams = new URLSearchParams(window.location.search);
+    const utmSource = searchParams.get("utm_source") || undefined;
+    const utmMedium = searchParams.get("utm_medium") || undefined;
+    const utmCampaign = searchParams.get("utm_campaign") || undefined;
+    const analyticsDistinctId = getAnalyticsDistinctId();
+    const currentPath = window.location.pathname;
+    const referrer = document.referrer || undefined;
+    const courseInterest =
+      selectedCourses.length > 0 ? selectedCourses.join(", ") : undefined;
 
     try {
       const result = await submitLead({
@@ -51,22 +79,51 @@ export function ContactForm() {
         email: data.email || "",
         phone: data.phone,
         message: data.message,
-        course: selectedCourses.length > 0 ? selectedCourses.join(", ") : undefined,
+        course: courseInterest,
         source: "contact_form",
+        utmSource,
+        utmMedium,
+        utmCampaign,
+        analyticsDistinctId,
+        currentPath,
+        referrer,
       });
 
       if (result.success) {
+        captureAnalyticsEvent("contact_form_submitted", {
+          form_name: "contact",
+          source: "contact_form",
+          current_path: currentPath,
+          course_count: selectedCourses.length,
+          has_email: Boolean(data.email),
+          utm_source: utmSource,
+          utm_medium: utmMedium,
+          utm_campaign: utmCampaign,
+        });
         toast.success("Thank you for contacting us!", {
           description: result.message,
         });
         reset();
         setSelectedCourses([]);
+        setHasStarted(false);
       } else {
+        captureAnalyticsEvent("contact_form_submission_failed", {
+          form_name: "contact",
+          source: "contact_form",
+          current_path: currentPath,
+          error_message: result.message,
+        });
         toast.error("Error", {
           description: result.message,
         });
       }
     } catch {
+      captureAnalyticsEvent("contact_form_submission_failed", {
+        form_name: "contact",
+        source: "contact_form",
+        current_path: currentPath,
+        error_message: "unexpected_error",
+      });
       toast.error("Error", {
         description: "Something went wrong. Please try again later.",
       });
@@ -76,7 +133,11 @@ export function ContactForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      onFocusCapture={handleFormStart}
+      className="space-y-6"
+    >
       <div className="grid md:grid-cols-2 gap-6">
         <div className="space-y-2">
           <Label htmlFor="name">Full Name *</Label>

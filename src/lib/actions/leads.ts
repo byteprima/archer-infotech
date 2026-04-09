@@ -1,11 +1,12 @@
 "use server";
 
 import { z } from "zod";
+import { captureServerEvent } from "@/lib/posthog/server";
 
 // Schema for lead validation
 const leadSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Please enter a valid email address"),
+  email: z.string().email("Please enter a valid email address").or(z.literal("")),
   phone: z
     .string()
     .min(10, "Please enter a valid 10-digit phone number")
@@ -17,6 +18,9 @@ const leadSchema = z.object({
   utmSource: z.string().optional(),
   utmMedium: z.string().optional(),
   utmCampaign: z.string().optional(),
+  analyticsDistinctId: z.string().optional(),
+  currentPath: z.string().optional(),
+  referrer: z.string().optional(),
 });
 
 export type LeadFormData = z.infer<typeof leadSchema>;
@@ -54,6 +58,21 @@ export async function submitLead(data: LeadFormData): Promise<ActionResult> {
       utmMedium: validationResult.data.utmMedium,
       utmCampaign: validationResult.data.utmCampaign,
       status: "new",
+    });
+
+    await captureServerEvent({
+      distinctId: validationResult.data.analyticsDistinctId,
+      event: "lead_created",
+      properties: {
+        source: validationResult.data.source || "contact_form",
+        current_path: validationResult.data.currentPath,
+        referrer: validationResult.data.referrer,
+        course_interest: validationResult.data.course,
+        has_email: Boolean(validationResult.data.email),
+        utm_source: validationResult.data.utmSource,
+        utm_medium: validationResult.data.utmMedium,
+        utm_campaign: validationResult.data.utmCampaign,
+      },
     });
 
     return {
