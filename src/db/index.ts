@@ -1,5 +1,7 @@
 import { drizzle, BetterSQLite3Database } from "drizzle-orm/better-sqlite3";
 import Database from "better-sqlite3";
+import { mkdirSync, existsSync } from "fs";
+import { dirname } from "path";
 import * as schema from "./schema";
 
 // Database file path from environment variable
@@ -9,6 +11,12 @@ const dbPath = process.env.DATABASE_URL || "./sqlite.db";
 let db: BetterSQLite3Database<typeof schema>;
 
 try {
+  // Ensure the directory exists (needed when persistent volume isn't mounted yet during build)
+  const dir = dirname(dbPath);
+  if (dir !== "." && !existsSync(dir)) {
+    mkdirSync(dir, { recursive: true });
+  }
+
   const sqlite = new Database(dbPath);
   // Enable WAL mode for better performance
   sqlite.pragma("journal_mode = WAL");
