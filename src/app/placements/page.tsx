@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { Metadata } from "next";
 import { Award, Users, Building, TrendingUp, Star, Quote } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";

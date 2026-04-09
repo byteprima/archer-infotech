@@ -9,6 +9,8 @@ import { db } from "@/db";
 import { batches as batchesTable, type Batch } from "@/db/schema";
 import { eq, asc } from "drizzle-orm";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Batch Schedule",
   description:
