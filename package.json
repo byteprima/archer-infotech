@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "drizzle-kit push && npx tsx src/db/seed.ts && next build",
-    "start": "next start",
+    "build": "next build",
+    "start": "drizzle-kit push && npx tsx src/db/seed.ts && next start",
     "lint": "eslint",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
