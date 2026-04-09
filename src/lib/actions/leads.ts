@@ -40,17 +40,6 @@ export async function submitLead(data: LeadFormData): Promise<ActionResult> {
   }
 
   try {
-    // Check if database is configured
-    if (!process.env.DATABASE_URL) {
-      // For development without database, just log and return success
-      console.log("Lead submission (no database configured):", validationResult.data);
-      return {
-        success: true,
-        message: "Thank you for your enquiry! We will contact you shortly.",
-      };
-    }
-
-    // Import database dynamically to avoid build errors when DATABASE_URL is not set
     const { db, leads } = await import("@/db");
 
     // Insert the lead into the database

@@ -4,8 +4,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { siteConfig } from "@/data/site-config";
 import { getHiringPartners } from "@/data/companies";
-import { getTestimonials } from "@/data/testimonials";
 import { AnimatedCounter } from "@/components/common/animated-counter";
+import { db } from "@/db";
+import { testimonials as testimonialsTable } from "@/db/schema";
+import { eq } from "drizzle-orm";
 
 export const metadata: Metadata = {
   title: "Placements & Careers",
@@ -13,9 +15,9 @@ export const metadata: Metadata = {
     "Discover placement success at Archer Infotech. Our students are placed at top IT companies including Tech Mahindra, TCS, Infosys, and more. 100% placement assistance.",
 };
 
-export default function PlacementsPage() {
+export default async function PlacementsPage() {
   const companies = getHiringPartners();
-  const testimonials = getTestimonials().filter((t) => t.placedAt);
+  const testimonials = await db.select().from(testimonialsTable).where(eq(testimonialsTable.isPublished, true));
 
   return (
     <>
@@ -186,7 +188,7 @@ export default function PlacementsPage() {
                         {testimonial.role} at {testimonial.company}
                       </div>
                       <div className="flex items-center gap-1 mt-1">
-                        {Array.from({ length: testimonial.rating }).map((_, i) => (
+                        {Array.from({ length: testimonial.rating ?? 5 }).map((_, i) => (
                           <Star
                             key={i}
                             className="h-3 w-3 fill-secondary text-secondary"

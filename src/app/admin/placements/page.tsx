@@ -6,43 +6,9 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { isAuthenticated } from "@/lib/auth";
-
-// Mock data for placements (will be replaced with database query)
-const mockPlacements = [
-  {
-    id: 1,
-    studentName: "Amit Sharma",
-    company: "Tech Mahindra",
-    designation: "Java Developer",
-    package: "8 LPA",
-    courseTaken: "Java Full Stack",
-    batchYear: 2024,
-    isHighlighted: true,
-    isPublished: true,
-  },
-  {
-    id: 2,
-    studentName: "Priya Patel",
-    company: "Infosys",
-    designation: "Full Stack Developer",
-    package: "7.5 LPA",
-    courseTaken: "MERN Stack",
-    batchYear: 2024,
-    isHighlighted: false,
-    isPublished: true,
-  },
-  {
-    id: 3,
-    studentName: "Rahul Kumar",
-    company: "TCS",
-    designation: "DevOps Engineer",
-    package: "9 LPA",
-    courseTaken: "DevOps Engineering",
-    batchYear: 2023,
-    isHighlighted: true,
-    isPublished: true,
-  },
-];
+import { db } from "@/db";
+import { placements as placementsTable } from "@/db/schema";
+import { desc } from "drizzle-orm";
 
 export default async function AdminPlacementsPage() {
   const authenticated = await isAuthenticated();
@@ -51,8 +17,7 @@ export default async function AdminPlacementsPage() {
     redirect("/admin/login");
   }
 
-  // TODO: Fetch from database
-  const placements = mockPlacements;
+  const placements = await db.select().from(placementsTable).orderBy(desc(placementsTable.createdAt));
 
   return (
     <div className="min-h-screen">
@@ -191,13 +156,6 @@ export default async function AdminPlacementsPage() {
           </CardContent>
         </Card>
 
-        {/* Database Status */}
-        <div className="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-          <p className="text-sm text-blue-700">
-            <strong>Note:</strong> This is showing mock data. Connect a PostgreSQL
-            database to manage real placement records.
-          </p>
-        </div>
       </main>
     </div>
   );

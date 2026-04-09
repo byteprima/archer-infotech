@@ -5,43 +5,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { isAuthenticated } from "@/lib/auth";
-
-// Mock data for batches (will be replaced with database query)
-const mockBatches = [
-  {
-    id: 1,
-    courseName: "Java Full Stack",
-    startDate: new Date("2024-04-15"),
-    timing: "9:00 AM - 12:00 PM",
-    duration: "6 Months",
-    mode: "offline",
-    totalSeats: 15,
-    seatsAvailable: 5,
-    status: "upcoming",
-  },
-  {
-    id: 2,
-    courseName: "Python Programming",
-    startDate: new Date("2024-04-10"),
-    timing: "2:00 PM - 5:00 PM",
-    duration: "2.5 Months",
-    mode: "offline",
-    totalSeats: 20,
-    seatsAvailable: 8,
-    status: "upcoming",
-  },
-  {
-    id: 3,
-    courseName: "Machine Learning",
-    startDate: new Date("2024-04-18"),
-    timing: "7:00 PM - 9:00 PM",
-    duration: "4 Months",
-    mode: "online",
-    totalSeats: 25,
-    seatsAvailable: 18,
-    status: "upcoming",
-  },
-];
+import { db } from "@/db";
+import { batches as batchesTable } from "@/db/schema";
+import { desc } from "drizzle-orm";
 
 const statusColors: Record<string, string> = {
   upcoming: "bg-green-100 text-green-800",
@@ -57,8 +23,7 @@ export default async function AdminBatchesPage() {
     redirect("/admin/login");
   }
 
-  // TODO: Fetch from database
-  const batches = mockBatches;
+  const batches = await db.select().from(batchesTable).orderBy(desc(batchesTable.startDate));
 
   return (
     <div className="min-h-screen">
@@ -126,7 +91,7 @@ export default async function AdminBatchesPage() {
               <CardContent className="space-y-3">
                 <div className="flex items-center gap-2 text-sm">
                   <Calendar className="h-4 w-4 text-primary" />
-                  <span>Starts: {batch.startDate.toLocaleDateString()}</span>
+                  <span>Starts: {new Date(batch.startDate).toLocaleDateString()}</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm">
                   <span className="w-4 h-4 flex items-center justify-center text-primary">
@@ -176,13 +141,6 @@ export default async function AdminBatchesPage() {
           </Card>
         )}
 
-        {/* Database Status */}
-        <div className="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-          <p className="text-sm text-blue-700">
-            <strong>Note:</strong> This is showing mock data. Connect a PostgreSQL
-            database to manage real batch schedules.
-          </p>
-        </div>
       </main>
     </div>
   );

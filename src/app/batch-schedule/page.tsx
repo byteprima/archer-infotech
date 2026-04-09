@@ -5,6 +5,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { siteConfig } from "@/data/site-config";
+import { db } from "@/db";
+import { batches as batchesTable, type Batch } from "@/db/schema";
+import { eq, asc } from "drizzle-orm";
 
 export const metadata: Metadata = {
   title: "Batch Schedule",
@@ -12,136 +15,14 @@ export const metadata: Metadata = {
     "View upcoming batch schedules for all IT training courses at Archer Infotech. Both offline classroom and online batches available.",
 };
 
-// Sample batch data - this would ideally come from a database
-const batches = {
-  offline: [
-    {
-      id: 1,
-      course: "Java Full Stack",
-      startDate: "April 15, 2024",
-      timing: "9:00 AM - 12:00 PM",
-      duration: "6 Months",
-      seats: 15,
-      seatsAvailable: 5,
-    },
-    {
-      id: 2,
-      course: "Python Programming",
-      startDate: "April 10, 2024",
-      timing: "2:00 PM - 5:00 PM",
-      duration: "2.5 Months",
-      seats: 20,
-      seatsAvailable: 8,
-    },
-    {
-      id: 3,
-      course: "AWS Cloud Computing",
-      startDate: "April 20, 2024",
-      timing: "6:00 PM - 9:00 PM",
-      duration: "3 Months",
-      seats: 15,
-      seatsAvailable: 10,
-    },
-    {
-      id: 4,
-      course: "MERN Stack",
-      startDate: "April 25, 2024",
-      timing: "10:00 AM - 1:00 PM",
-      duration: "5 Months",
-      seats: 15,
-      seatsAvailable: 7,
-    },
-    {
-      id: 5,
-      course: "DevOps Engineering",
-      startDate: "May 1, 2024",
-      timing: "9:00 AM - 12:00 PM",
-      duration: "4 Months",
-      seats: 15,
-      seatsAvailable: 12,
-    },
-    {
-      id: 6,
-      course: "Data Science",
-      startDate: "May 5, 2024",
-      timing: "2:00 PM - 5:00 PM",
-      duration: "5 Months",
-      seats: 12,
-      seatsAvailable: 9,
-    },
-  ],
-  online: [
-    {
-      id: 7,
-      course: "Java Full Stack",
-      startDate: "April 12, 2024",
-      timing: "7:00 PM - 9:00 PM",
-      duration: "6 Months",
-      seats: 30,
-      seatsAvailable: 15,
-    },
-    {
-      id: 8,
-      course: "Machine Learning",
-      startDate: "April 18, 2024",
-      timing: "8:00 PM - 10:00 PM",
-      duration: "4 Months",
-      seats: 25,
-      seatsAvailable: 18,
-    },
-    {
-      id: 9,
-      course: "Python Programming",
-      startDate: "April 22, 2024",
-      timing: "6:00 PM - 8:00 PM",
-      duration: "2.5 Months",
-      seats: 30,
-      seatsAvailable: 20,
-    },
-    {
-      id: 10,
-      course: "Generative AI",
-      startDate: "April 28, 2024",
-      timing: "7:00 PM - 9:00 PM",
-      duration: "3 Months",
-      seats: 25,
-      seatsAvailable: 22,
-    },
-    {
-      id: 11,
-      course: "AWS Cloud Computing",
-      startDate: "May 3, 2024",
-      timing: "8:00 PM - 10:00 PM",
-      duration: "3 Months",
-      seats: 30,
-      seatsAvailable: 25,
-    },
-    {
-      id: 12,
-      course: "React.js",
-      startDate: "May 8, 2024",
-      timing: "6:00 PM - 8:00 PM",
-      duration: "2.5 Months",
-      seats: 25,
-      seatsAvailable: 20,
-    },
-  ],
-};
-
-function BatchCard({
-  batch,
-  mode,
-}: {
-  batch: (typeof batches.offline)[0];
-  mode: "offline" | "online";
-}) {
+function BatchCard({ batch }: { batch: Batch }) {
   const isAlmostFull = batch.seatsAvailable <= 5;
 
   return (
     <Card className="hover:shadow-lg transition-shadow">
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
-          <CardTitle className="text-lg">{batch.course}</CardTitle>
+          <CardTitle className="text-lg">{batch.courseName}</CardTitle>
           {isAlmostFull && (
             <Badge className="bg-red-100 text-red-700">Almost Full</Badge>
           )}
@@ -150,24 +31,24 @@ function BatchCard({
       <CardContent className="space-y-3">
         <div className="flex items-center gap-2 text-sm">
           <Calendar className="h-4 w-4 text-primary" />
-          <span>Starts: {batch.startDate}</span>
+          <span>Starts: {new Date(batch.startDate).toLocaleDateString("en-IN", { year: "numeric", month: "long", day: "numeric" })}</span>
         </div>
         <div className="flex items-center gap-2 text-sm">
           <Clock className="h-4 w-4 text-primary" />
           <span>{batch.timing}</span>
         </div>
         <div className="flex items-center gap-2 text-sm">
-          {mode === "offline" ? (
+          {batch.mode === "offline" ? (
             <MapPin className="h-4 w-4 text-primary" />
           ) : (
             <Monitor className="h-4 w-4 text-primary" />
           )}
-          <span>{mode === "offline" ? "Classroom Training" : "Live Online"}</span>
+          <span>{batch.mode === "offline" ? "Classroom Training" : "Live Online"}</span>
         </div>
         <div className="flex items-center gap-2 text-sm">
           <Users className="h-4 w-4 text-primary" />
           <span>
-            {batch.seatsAvailable} of {batch.seats} seats available
+            {batch.seatsAvailable} of {batch.totalSeats} seats available
           </span>
         </div>
         <div className="pt-2">
@@ -184,7 +65,10 @@ function BatchCard({
   );
 }
 
-export default function BatchSchedulePage() {
+export default async function BatchSchedulePage() {
+  const offlineBatches = await db.select().from(batchesTable).where(eq(batchesTable.mode, "offline")).orderBy(asc(batchesTable.startDate));
+  const onlineBatches = await db.select().from(batchesTable).where(eq(batchesTable.mode, "online")).orderBy(asc(batchesTable.startDate));
+
   return (
     <>
       {/* Hero Section */}
@@ -237,7 +121,7 @@ export default function BatchSchedulePage() {
                 </TabsTrigger>
               </TabsList>
               <p className="text-sm text-muted-foreground">
-                Last updated: March 2024
+                Last updated: April 2026
               </p>
             </div>
 
@@ -253,8 +137,8 @@ export default function BatchSchedulePage() {
                 </p>
               </div>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {batches.offline.map((batch) => (
-                  <BatchCard key={batch.id} batch={batch} mode="offline" />
+                {offlineBatches.map((batch) => (
+                  <BatchCard key={batch.id} batch={batch} />
                 ))}
               </div>
             </TabsContent>
@@ -271,8 +155,8 @@ export default function BatchSchedulePage() {
                 </p>
               </div>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {batches.online.map((batch) => (
-                  <BatchCard key={batch.id} batch={batch} mode="online" />
+                {onlineBatches.map((batch) => (
+                  <BatchCard key={batch.id} batch={batch} />
                 ))}
               </div>
             </TabsContent>

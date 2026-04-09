@@ -5,32 +5,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { isAuthenticated } from "@/lib/auth";
-
-// Mock data for leads (will be replaced with database query)
-const mockLeads = [
-  {
-    id: 1,
-    name: "John Doe",
-    email: "john@example.com",
-    phone: "9876543210",
-    courseInterest: "Java Full Stack",
-    message: "I want to learn Java Full Stack development",
-    source: "contact_form",
-    status: "new",
-    createdAt: new Date("2024-03-15"),
-  },
-  {
-    id: 2,
-    name: "Jane Smith",
-    email: "jane@example.com",
-    phone: "9876543211",
-    courseInterest: "Python",
-    message: "Interested in Python course",
-    source: "whatsapp",
-    status: "contacted",
-    createdAt: new Date("2024-03-14"),
-  },
-];
+import { db } from "@/db";
+import { leads as leadsTable } from "@/db/schema";
+import { desc } from "drizzle-orm";
 
 const statusColors: Record<string, string> = {
   new: "bg-green-100 text-green-800",
@@ -47,8 +24,7 @@ export default async function AdminLeadsPage() {
     redirect("/admin/login");
   }
 
-  // TODO: Fetch from database
-  const leads = mockLeads;
+  const leads = await db.select().from(leadsTable).orderBy(desc(leadsTable.createdAt));
 
   return (
     <div className="min-h-screen">
@@ -169,7 +145,7 @@ export default async function AdminLeadsPage() {
                         </td>
                         <td className="py-4">
                           <div className="text-sm text-muted-foreground">
-                            {lead.createdAt.toLocaleDateString()}
+                            {lead.createdAt ? new Date(lead.createdAt).toLocaleDateString() : "-"}
                           </div>
                         </td>
                         <td className="py-4">
@@ -186,13 +162,6 @@ export default async function AdminLeadsPage() {
           </CardContent>
         </Card>
 
-        {/* Database Status */}
-        <div className="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-          <p className="text-sm text-blue-700">
-            <strong>Note:</strong> This is showing mock data. Connect a PostgreSQL
-            database to see real leads from the contact form.
-          </p>
-        </div>
       </main>
     </div>
   );

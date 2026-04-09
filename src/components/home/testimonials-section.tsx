@@ -5,10 +5,23 @@ import { ChevronLeft, ChevronRight, Quote, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { getFeaturedTestimonials, type Testimonial } from "@/data/testimonials";
 import { LinkedinIcon, GitHubIcon } from "@/components/common/social-icons";
 
-function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
+export interface TestimonialData {
+  id: number;
+  name: string;
+  role: string | null;
+  company: string | null;
+  courseTaken: string | null;
+  content: string;
+  rating: number;
+  photoUrl: string | null;
+  linkedinUrl: string | null;
+  githubUrl: string | null;
+  placedAt: string | null;
+}
+
+function TestimonialCard({ testimonial }: { testimonial: TestimonialData }) {
   return (
     <Card className="h-full">
       <CardContent className="p-6 flex flex-col h-full">
@@ -18,7 +31,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
         </p>
         <div className="flex items-center gap-4">
           <Avatar className="h-12 w-12">
-            <AvatarImage src={testimonial.image} alt={testimonial.name} />
+            <AvatarImage src={testimonial.photoUrl ?? undefined} alt={testimonial.name} />
             <AvatarFallback className="bg-primary text-primary-foreground">
               {testimonial.name
                 .split(" ")
@@ -33,11 +46,11 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
             </div>
           </div>
           {/* Social Links */}
-          {(testimonial.linkedIn || testimonial.github) && (
+          {(testimonial.linkedinUrl || testimonial.githubUrl) && (
             <div className="flex items-center gap-2">
-              {testimonial.linkedIn && (
+              {testimonial.linkedinUrl && (
                 <a
-                  href={testimonial.linkedIn}
+                  href={testimonial.linkedinUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-muted-foreground hover:text-[#0077B5] transition-colors"
@@ -46,9 +59,9 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
                   <LinkedinIcon className="h-5 w-5" />
                 </a>
               )}
-              {testimonial.github && (
+              {testimonial.githubUrl && (
                 <a
-                  href={testimonial.github}
+                  href={testimonial.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-muted-foreground hover:text-foreground transition-colors"
@@ -61,16 +74,16 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
           )}
         </div>
         <div className="flex items-center gap-1 mt-4">
-          {Array.from({ length: testimonial.rating }).map((_, i) => (
+          {Array.from({ length: testimonial.rating ?? 5 }).map((_, i) => (
             <Star
               key={i}
               className="h-4 w-4 fill-secondary text-secondary"
             />
           ))}
         </div>
-        {testimonial.course && (
+        {testimonial.courseTaken && (
           <div className="mt-3 text-xs text-muted-foreground">
-            Course: {testimonial.course}
+            Course: {testimonial.courseTaken}
           </div>
         )}
       </CardContent>
@@ -78,8 +91,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
   );
 }
 
-export function TestimonialsSection() {
-  const testimonials = getFeaturedTestimonials(6);
+export function TestimonialsSection({ testimonials }: { testimonials: TestimonialData[] }) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const visibleTestimonials = 3;

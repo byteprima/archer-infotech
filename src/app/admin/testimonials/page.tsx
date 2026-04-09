@@ -6,36 +6,9 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { isAuthenticated } from "@/lib/auth";
-
-// Mock data for testimonials (will be replaced with database query)
-const mockTestimonials = [
-  {
-    id: 1,
-    name: "Amit Patil",
-    role: "Software Developer",
-    company: "Tech Mahindra",
-    courseTaken: "Java Full Stack",
-    content:
-      "The training was excellent. The instructors were very knowledgeable and the hands-on projects helped me understand real-world applications.",
-    rating: 5,
-    placedAt: "Tech Mahindra",
-    isHighlighted: true,
-    isPublished: true,
-  },
-  {
-    id: 2,
-    name: "Sneha Kulkarni",
-    role: "Data Analyst",
-    company: "Infosys",
-    courseTaken: "Data Science",
-    content:
-      "Great learning experience! The placement support was amazing and I got placed within a month of completing the course.",
-    rating: 5,
-    placedAt: "Infosys",
-    isHighlighted: false,
-    isPublished: true,
-  },
-];
+import { db } from "@/db";
+import { testimonials as testimonialsTable } from "@/db/schema";
+import { desc } from "drizzle-orm";
 
 export default async function AdminTestimonialsPage() {
   const authenticated = await isAuthenticated();
@@ -44,8 +17,7 @@ export default async function AdminTestimonialsPage() {
     redirect("/admin/login");
   }
 
-  // TODO: Fetch from database
-  const testimonials = mockTestimonials;
+  const testimonials = await db.select().from(testimonialsTable).orderBy(desc(testimonialsTable.createdAt));
 
   return (
     <div className="min-h-screen">
@@ -152,13 +124,6 @@ export default async function AdminTestimonialsPage() {
           </Card>
         )}
 
-        {/* Database Status */}
-        <div className="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-          <p className="text-sm text-blue-700">
-            <strong>Note:</strong> This is showing mock data. Connect a PostgreSQL
-            database to manage real testimonials.
-          </p>
-        </div>
       </main>
     </div>
   );
