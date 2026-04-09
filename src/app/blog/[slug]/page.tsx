@@ -8,6 +8,9 @@ import { Button } from "@/components/ui/button";
 import { BlogPostContent } from "@/components/blog/blog-post-content";
 import { BlogSidebar } from "@/components/blog/blog-sidebar";
 import { BlogPostJsonLd, BlogBreadcrumbJsonLd } from "@/components/blog/blog-json-ld";
+import { PageEvent } from "@/components/analytics/page-event";
+import { TrackedAnchor } from "@/components/analytics/tracked-anchor";
+import { TrackedLink } from "@/components/analytics/tracked-link";
 import {
   getPublishedPostBySlug,
   getAllPublishedSlugs,
@@ -93,6 +96,16 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   return (
     <>
+      <PageEvent
+        event="blog_post_viewed"
+        properties={{
+          post_slug: slug,
+          post_title: post.title,
+          post_category: post.category,
+          post_author: post.author,
+        }}
+      />
+
       {/* JSON-LD Structured Data */}
       <BlogPostJsonLd
         title={post.title}
@@ -212,30 +225,36 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     <Share2 className="h-4 w-4" />
                     Share:
                   </span>
-                  <a
+                  <TrackedAnchor
                     href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(`${siteConfig.url}/blog/${slug}`)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-muted-foreground hover:text-foreground transition-colors"
+                    event="blog_post_shared"
+                    properties={{ network: "twitter", post_slug: slug }}
                   >
                     Twitter
-                  </a>
-                  <a
+                  </TrackedAnchor>
+                  <TrackedAnchor
                     href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(`${siteConfig.url}/blog/${slug}`)}&title=${encodeURIComponent(post.title)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-muted-foreground hover:text-foreground transition-colors"
+                    event="blog_post_shared"
+                    properties={{ network: "linkedin", post_slug: slug }}
                   >
                     LinkedIn
-                  </a>
-                  <a
+                  </TrackedAnchor>
+                  <TrackedAnchor
                     href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`${siteConfig.url}/blog/${slug}`)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-muted-foreground hover:text-foreground transition-colors"
+                    event="blog_post_shared"
+                    properties={{ network: "facebook", post_slug: slug }}
                   >
                     Facebook
-                  </a>
+                  </TrackedAnchor>
                 </div>
 
                 {/* CTA */}
@@ -248,12 +267,20 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     in your career with {siteConfig.name}.
                   </p>
                   <div className="flex flex-wrap gap-3">
-                    <Link href="/courses">
+                    <TrackedLink
+                      href="/courses"
+                      event="blog_cta_clicked"
+                      properties={{ cta: "view_courses", post_slug: slug }}
+                    >
                       <Button>View Courses</Button>
-                    </Link>
-                    <Link href="/contact">
+                    </TrackedLink>
+                    <TrackedLink
+                      href="/contact"
+                      event="blog_cta_clicked"
+                      properties={{ cta: "contact_us", post_slug: slug }}
+                    >
                       <Button variant="outline">Contact Us</Button>
-                    </Link>
+                    </TrackedLink>
                   </div>
                 </div>
               </div>

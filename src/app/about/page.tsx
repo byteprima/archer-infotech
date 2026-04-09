@@ -6,6 +6,8 @@ import { siteConfig } from "@/data/site-config";
 import { getTeamMembers } from "@/data/team";
 import { AnimatedCounter } from "@/components/common/animated-counter";
 import { LinkedinIcon } from "@/components/common/social-icons";
+import { TrackedAnchor } from "@/components/analytics/tracked-anchor";
+import { TrackedLink } from "@/components/analytics/tracked-link";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -224,15 +226,17 @@ export default function AboutPage() {
                   <div className="flex items-center justify-center gap-2 mb-1">
                     <h3 className="text-lg font-semibold">{member.name}</h3>
                     {member.linkedin && (
-                      <a
+                      <TrackedAnchor
                         href={member.linkedin}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-muted-foreground hover:text-[#0077B5] transition-colors"
                         title={`${member.name} on LinkedIn`}
+                        event="team_linkedin_clicked"
+                        properties={{ member_name: member.name, location: "about_page" }}
                       >
                         <LinkedinIcon className="h-4 w-4" />
-                      </a>
+                      </TrackedAnchor>
                     )}
                   </div>
                   <p className="text-secondary font-medium text-sm mb-2">{member.role}</p>
@@ -266,18 +270,22 @@ export default function AboutPage() {
             training programs and 100% placement assistance.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a
+            <TrackedLink
               href="/contact"
               className="inline-flex items-center gap-2 bg-secondary text-secondary-foreground px-6 py-3 rounded-lg font-medium hover:bg-secondary/90 transition-colors"
+              event="cta_clicked"
+              properties={{ cta: "contact_us", location: "about_page_bottom" }}
             >
               Contact Us
-            </a>
-            <a
+            </TrackedLink>
+            <TrackedLink
               href="/courses"
               className="inline-flex items-center gap-2 border border-white text-white px-6 py-3 rounded-lg font-medium hover:bg-white hover:text-primary transition-colors"
+              event="cta_clicked"
+              properties={{ cta: "explore_courses", location: "about_page_bottom" }}
             >
               Explore Courses
-            </a>
+            </TrackedLink>
           </div>
         </div>
       </section>

@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Tag, TrendingUp, Calendar } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { TrackedLink } from "@/components/analytics/tracked-link";
 
 interface RecentPost {
   id: number;
@@ -128,12 +129,14 @@ export function BlogSidebar({
           <p className="text-primary-foreground/80 text-sm mb-4">
             Explore our industry-leading IT courses with 100% placement assistance.
           </p>
-          <Link
+          <TrackedLink
             href="/courses"
             className="inline-block bg-secondary text-secondary-foreground px-4 py-2 rounded-lg text-sm font-medium hover:bg-secondary/90 transition-colors"
+            event="blog_sidebar_cta_clicked"
+            properties={{ cta: "view_courses", location: "blog_sidebar" }}
           >
             View Courses
-          </Link>
+          </TrackedLink>
         </CardContent>
       </Card>
     </aside>

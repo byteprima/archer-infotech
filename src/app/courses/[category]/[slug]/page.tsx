@@ -399,18 +399,30 @@ export default async function CoursePage({ params }: CoursePageProps) {
             your goals.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
+            <TrackedLink
               href="/contact"
               className="inline-flex items-center gap-2 bg-secondary text-secondary-foreground px-6 py-3 rounded-lg font-medium hover:bg-secondary/90 transition-colors"
+              event="course_enquiry_clicked"
+              properties={{
+                course_slug: slug,
+                course_title: course.title,
+                location: "course_bottom_cta",
+              }}
             >
               Enquire Now
-            </Link>
-            <Link
+            </TrackedLink>
+            <TrackedLink
               href="/batch-schedule"
               className="inline-flex items-center gap-2 border px-6 py-3 rounded-lg font-medium hover:bg-muted transition-colors"
+              event="view_batch_schedule_clicked"
+              properties={{
+                course_slug: slug,
+                course_title: course.title,
+                location: "course_bottom_cta",
+              }}
             >
               View Batch Schedule
-            </Link>
+            </TrackedLink>
           </div>
         </div>
       </section>

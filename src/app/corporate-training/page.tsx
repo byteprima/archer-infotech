@@ -17,6 +17,8 @@ import {
   Rocket,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { TrackedLink } from "@/components/analytics/tracked-link";
+import { TrackedAnchor } from "@/components/analytics/tracked-anchor";
 import { siteConfig } from "@/data/site-config";
 
 export const metadata: Metadata = {
@@ -117,19 +119,23 @@ export default function CorporateTrainingPage() {
               your workforce effectively.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Link
+              <TrackedLink
                 href="/contact"
                 className="inline-flex items-center gap-2 bg-secondary text-secondary-foreground px-6 py-3 rounded-lg font-medium hover:bg-secondary/90 transition-colors"
+                event="corporate_cta_clicked"
+                properties={{ cta: "request_proposal", location: "corporate_hero" }}
               >
                 Request a Proposal
-              </Link>
-              <a
+              </TrackedLink>
+              <TrackedAnchor
                 href={`tel:${siteConfig.contact.phone}`}
                 className="inline-flex items-center gap-2 border border-white text-white px-6 py-3 rounded-lg font-medium hover:bg-white hover:text-primary transition-colors"
+                event="contact_method_clicked"
+                properties={{ method: "phone", location: "corporate_hero" }}
               >
                 <Phone className="h-4 w-4" />
                 Talk to Us
-              </a>
+              </TrackedAnchor>
             </div>
           </div>
         </div>
@@ -286,18 +292,22 @@ export default function CorporateTrainingPage() {
               create a customized proposal that fits your budget and timeline.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link
+              <TrackedLink
                 href="/contact"
                 className="inline-flex items-center gap-2 bg-secondary text-secondary-foreground px-6 py-3 rounded-lg font-medium hover:bg-secondary/90 transition-colors"
+                event="corporate_cta_clicked"
+                properties={{ cta: "get_free_proposal", location: "corporate_bottom" }}
               >
                 Get a Free Proposal
-              </Link>
-              <a
+              </TrackedLink>
+              <TrackedAnchor
                 href={`mailto:${siteConfig.contact.email}`}
                 className="inline-flex items-center gap-2 border border-white text-white px-6 py-3 rounded-lg font-medium hover:bg-white hover:text-primary transition-colors"
+                event="contact_method_clicked"
+                properties={{ method: "email", location: "corporate_bottom" }}
               >
                 Email Us
-              </a>
+              </TrackedAnchor>
             </div>
           </div>
         </div>

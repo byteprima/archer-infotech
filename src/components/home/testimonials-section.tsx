@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { LinkedinIcon, GitHubIcon } from "@/components/common/social-icons";
+import { captureAnalyticsEvent } from "@/lib/posthog/client";
 
 export interface TestimonialData {
   id: number;
@@ -55,6 +56,13 @@ function TestimonialCard({ testimonial }: { testimonial: TestimonialData }) {
                   rel="noopener noreferrer"
                   className="text-muted-foreground hover:text-[#0077B5] transition-colors"
                   title="LinkedIn Profile"
+                  onClick={() =>
+                    captureAnalyticsEvent("testimonial_social_clicked", {
+                      network: "linkedin",
+                      student_name: testimonial.name,
+                      location: "testimonials_section",
+                    })
+                  }
                 >
                   <LinkedinIcon className="h-5 w-5" />
                 </a>
@@ -66,6 +74,13 @@ function TestimonialCard({ testimonial }: { testimonial: TestimonialData }) {
                   rel="noopener noreferrer"
                   className="text-muted-foreground hover:text-foreground transition-colors"
                   title="GitHub Profile"
+                  onClick={() =>
+                    captureAnalyticsEvent("testimonial_social_clicked", {
+                      network: "github",
+                      student_name: testimonial.name,
+                      location: "testimonials_section",
+                    })
+                  }
                 >
                   <GitHubIcon className="h-5 w-5" />
                 </a>

@@ -4,6 +4,9 @@ import { Calendar, Clock, Users, MapPin, Monitor, Phone } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { PageEvent } from "@/components/analytics/page-event";
+import { TrackedLink } from "@/components/analytics/tracked-link";
+import { TrackedAnchor } from "@/components/analytics/tracked-anchor";
 import { siteConfig } from "@/data/site-config";
 import { db } from "@/db";
 import { batches as batchesTable, type Batch } from "@/db/schema";
@@ -56,12 +59,19 @@ function BatchCard({ batch }: { batch: Batch }) {
         <div className="pt-2">
           <Badge variant="outline">{batch.duration}</Badge>
         </div>
-        <Link
+        <TrackedLink
           href="/contact"
           className="inline-flex items-center gap-2 w-full justify-center bg-secondary text-secondary-foreground py-2 rounded-lg text-sm font-medium hover:bg-secondary/90 transition-colors mt-2"
+          event="batch_enroll_clicked"
+          properties={{
+            course_name: batch.courseName,
+            batch_mode: batch.mode,
+            seats_available: batch.seatsAvailable,
+            location: "batch_schedule",
+          }}
         >
           Enroll Now
-        </Link>
+        </TrackedLink>
       </CardContent>
     </Card>
   );
@@ -73,6 +83,11 @@ export default async function BatchSchedulePage() {
 
   return (
     <>
+      <PageEvent
+        event="batch_schedule_page_viewed"
+        properties={{ page_type: "batch_schedule", page_path: "/batch-schedule" }}
+      />
+
       {/* Hero Section */}
       <section className="gradient-hero text-white py-16">
         <div className="container mx-auto px-4">
@@ -209,19 +224,23 @@ export default async function BatchSchedulePage() {
             or notify you when new batches are scheduled.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
+            <TrackedLink
               href="/contact"
               className="inline-flex items-center gap-2 bg-secondary text-secondary-foreground px-6 py-3 rounded-lg font-medium hover:bg-secondary/90 transition-colors"
+              event="cta_clicked"
+              properties={{ cta: "contact_us", location: "batch_schedule_bottom" }}
             >
               Contact Us
-            </Link>
-            <a
+            </TrackedLink>
+            <TrackedAnchor
               href={`tel:${siteConfig.contact.phone}`}
               className="inline-flex items-center gap-2 border border-white text-white px-6 py-3 rounded-lg font-medium hover:bg-white hover:text-primary transition-colors"
+              event="contact_method_clicked"
+              properties={{ method: "phone", location: "batch_schedule_bottom" }}
             >
               <Phone className="h-4 w-4" />
               {siteConfig.contact.phone}
-            </a>
+            </TrackedAnchor>
           </div>
         </div>
       </section>

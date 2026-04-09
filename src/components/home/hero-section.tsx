@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowRight, CheckCircle } from "lucide-react";
 import { siteConfig } from "@/data/site-config";
 import { AnimatedCounter } from "@/components/common/animated-counter";
+import { captureAnalyticsEvent } from "@/lib/posthog/client";
 
 export function HeroSection() {
   return (
@@ -59,6 +60,12 @@ export function HeroSection() {
               <Link
                 href="/courses"
                 className="inline-flex items-center justify-center rounded-lg bg-secondary hover:bg-secondary/90 text-secondary-foreground px-6 py-3 text-sm font-semibold transition-all"
+                onClick={() =>
+                  captureAnalyticsEvent("hero_cta_clicked", {
+                    cta: "explore_courses",
+                    location: "homepage_hero",
+                  })
+                }
               >
                 Explore Courses
                 <ArrowRight className="ml-2 h-5 w-5" />
@@ -66,6 +73,12 @@ export function HeroSection() {
               <Link
                 href="/contact"
                 className="inline-flex items-center justify-center rounded-lg border-2 border-white bg-transparent px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-white hover:text-primary"
+                onClick={() =>
+                  captureAnalyticsEvent("hero_cta_clicked", {
+                    cta: "request_callback",
+                    location: "homepage_hero",
+                  })
+                }
               >
                 Request Callback
               </Link>

@@ -4,6 +4,7 @@ import { Metadata } from "next";
 import { Award, Users, Building, TrendingUp, Star, Quote } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { TrackedLink } from "@/components/analytics/tracked-link";
 import { siteConfig } from "@/data/site-config";
 import { getHiringPartners } from "@/data/companies";
 import { AnimatedCounter } from "@/components/common/animated-counter";
@@ -217,18 +218,22 @@ export default async function PlacementsPage() {
             with Archer Infotech. Get 100% placement assistance.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a
+            <TrackedLink
               href="/contact"
               className="inline-flex items-center gap-2 bg-secondary text-secondary-foreground px-6 py-3 rounded-lg font-medium hover:bg-secondary/90 transition-colors"
+              event="cta_clicked"
+              properties={{ cta: "enquire_now", location: "placements_bottom" }}
             >
               Enquire Now
-            </a>
-            <a
+            </TrackedLink>
+            <TrackedLink
               href="/courses"
               className="inline-flex items-center gap-2 border border-white text-white px-6 py-3 rounded-lg font-medium hover:bg-white hover:text-primary transition-colors"
+              event="cta_clicked"
+              properties={{ cta: "explore_courses", location: "placements_bottom" }}
             >
               Explore Courses
-            </a>
+            </TrackedLink>
           </div>
         </div>
       </section>

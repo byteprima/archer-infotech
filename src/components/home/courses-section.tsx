@@ -8,6 +8,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { CourseImagePlaceholder } from "@/components/courses/course-image-placeholder";
 import { cn } from "@/lib/utils";
 import { getPopularCourses, type Course } from "@/data/courses";
+import { captureAnalyticsEvent } from "@/lib/posthog/client";
 
 function CourseCard({ course }: { course: Course }) {
   return (
@@ -49,6 +50,14 @@ function CourseCard({ course }: { course: Course }) {
         <Link
           href={`/courses/${course.categorySlug}/${course.slug}`}
           className="w-full inline-flex items-center justify-center h-10 px-4 py-2 rounded-md border border-input bg-background text-sm font-medium hover:bg-accent hover:text-accent-foreground hover:border-accent transition-colors"
+          onClick={() =>
+            captureAnalyticsEvent("course_card_clicked", {
+              course_slug: course.slug,
+              course_title: course.title,
+              category: course.category,
+              location: "homepage_popular",
+            })
+          }
         >
           View Details
           <ArrowRight className="ml-2 h-4 w-4" />
@@ -74,7 +83,15 @@ export function CoursesSection() {
               today&apos;s competitive IT industry.
             </p>
           </div>
-          <Link href="/courses" className={cn(buttonVariants({ variant: "outline" }))}>
+          <Link
+            href="/courses"
+            className={cn(buttonVariants({ variant: "outline" }))}
+            onClick={() =>
+              captureAnalyticsEvent("view_all_courses_clicked", {
+                location: "homepage_popular_section",
+              })
+            }
+          >
             View All Courses
             <ArrowRight className="ml-2 h-4 w-4" />
           </Link>

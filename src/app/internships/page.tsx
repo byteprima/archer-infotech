@@ -18,6 +18,8 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { PageEvent } from "@/components/analytics/page-event";
+import { TrackedLink } from "@/components/analytics/tracked-link";
 
 export const metadata: Metadata = {
   title: "Internship Programs | 3-Month & 6-Month Tracks",
@@ -240,12 +242,19 @@ function ProgramCard({ program }: { program: InternshipProgram }) {
             ))}
           </div>
         </div>
-        <Link
+        <TrackedLink
           href="/contact"
           className="inline-flex items-center text-sm font-medium text-primary hover:text-secondary transition-colors"
+          event="internship_apply_clicked"
+          properties={{
+            program_id: program.id,
+            program_title: program.title,
+            duration: program.duration,
+            location: "program_card",
+          }}
         >
           Apply Now →
-        </Link>
+        </TrackedLink>
       </CardContent>
     </Card>
   );
@@ -254,6 +263,11 @@ function ProgramCard({ program }: { program: InternshipProgram }) {
 export default function InternshipsPage() {
   return (
     <>
+      <PageEvent
+        event="internships_page_viewed"
+        properties={{ page_type: "internships", page_path: "/internships" }}
+      />
+
       {/* Hero Section */}
       <section className="gradient-hero text-white py-16 md:py-24">
         <div className="container mx-auto px-4">
@@ -430,12 +444,14 @@ export default function InternshipsPage() {
                     </li>
                   ))}
                 </ul>
-                <Link
+                <TrackedLink
                   href="/contact"
                   className="inline-flex items-center justify-center w-full gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors mt-6"
+                  event="internship_apply_clicked"
+                  properties={{ duration: "3-month", location: "comparison_card" }}
                 >
                   Apply for 3-Month Internship
-                </Link>
+                </TrackedLink>
               </CardContent>
             </Card>
 
@@ -465,12 +481,14 @@ export default function InternshipsPage() {
                     </li>
                   ))}
                 </ul>
-                <Link
+                <TrackedLink
                   href="/contact"
                   className="inline-flex items-center justify-center w-full gap-2 bg-secondary text-secondary-foreground px-6 py-3 rounded-lg font-medium hover:bg-secondary/90 transition-colors mt-6"
+                  event="internship_apply_clicked"
+                  properties={{ duration: "6-month", location: "comparison_card" }}
                 >
                   Apply for 6-Month Internship
-                </Link>
+                </TrackedLink>
               </CardContent>
             </Card>
           </div>
@@ -522,12 +540,14 @@ export default function InternshipsPage() {
                     </li>
                   ))}
                 </ol>
-                <Link
+                <TrackedLink
                   href="/contact"
                   className="inline-flex items-center gap-2 bg-secondary text-secondary-foreground px-6 py-3 rounded-lg font-medium hover:bg-secondary/90 transition-colors mt-6 w-full justify-center"
+                  event="internship_apply_clicked"
+                  properties={{ location: "how_to_apply_section" }}
                 >
                   Enquire About Internship Programs
-                </Link>
+                </TrackedLink>
               </CardContent>
             </Card>
           </div>
