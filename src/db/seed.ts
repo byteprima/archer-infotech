@@ -10,6 +10,14 @@ const db = drizzle(sqlite, { schema });
 async function seed() {
   console.log("Seeding database...");
 
+  // Check if already seeded (skip if batches table has data)
+  const existing = db.select({ count: schema.batches.id }).from(schema.batches).all();
+  if (existing.length > 0) {
+    console.log("Database already has data, skipping seed.");
+    sqlite.close();
+    return;
+  }
+
   // Seed Batches
   const batchData: schema.NewBatch[] = [
     // Offline batches
@@ -408,6 +416,28 @@ async function seed() {
     await db.insert(schema.testimonials).values(testimonial);
   }
   console.log(`Inserted ${testimonialData.length} testimonials`);
+
+  // Seed Blog Posts
+  const { placeholderBlogs } = await import("../data/placeholder-blogs");
+
+  console.log("Inserting blog posts...");
+  for (const blog of placeholderBlogs) {
+    await db.insert(schema.blogPosts).values({
+      title: blog.title,
+      slug: blog.slug,
+      excerpt: blog.excerpt,
+      content: blog.content,
+      featuredImage: blog.featuredImage,
+      category: blog.category,
+      tags: blog.tags,
+      metaTitle: blog.metaTitle,
+      metaDescription: blog.metaDescription,
+      author: blog.author,
+      isPublished: blog.isPublished,
+      publishedAt: blog.publishedAt,
+    });
+  }
+  console.log(`Inserted ${placeholderBlogs.length} blog posts`);
 
   console.log("Seeding complete!");
   sqlite.close();
