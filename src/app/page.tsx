@@ -3,6 +3,7 @@ export const dynamic = "force-dynamic";
 import { HeroSection } from "@/components/home/hero-section";
 import { USPSection } from "@/components/home/usp-section";
 import { CoursesSection } from "@/components/home/courses-section";
+import { BootcampsSection } from "@/components/home/bootcamps-section";
 import { TestimonialsSection } from "@/components/home/testimonials-section";
 import { CompaniesSection } from "@/components/home/companies-section";
 import { CTASection } from "@/components/home/cta-section";
@@ -33,6 +34,7 @@ export default async function HomePage() {
     <>
       <HeroSection />
       <USPSection />
+      <BootcampsSection />
       <CoursesSection />
       <TestimonialsSection testimonials={testimonials} />
       <CompaniesSection />

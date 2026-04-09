@@ -101,7 +101,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
         items={[
           { name: "Home", url: "/" },
           { name: "Courses", url: "/courses" },
-          { name: category.name, url: `/courses/${categorySlug}` },
+          { name: category.name, url: `/courses?category=${categorySlug}` },
           { name: course.title, url: `/courses/${categorySlug}/${slug}` },
         ]}
       />
@@ -110,7 +110,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
       <section className="gradient-hero text-white py-12 md:py-16">
         <div className="container mx-auto px-4">
           <Link
-            href={`/courses/${categorySlug}`}
+            href={`/courses?category=${categorySlug}`}
             className="inline-flex items-center text-white/80 hover:text-white mb-4 transition-colors"
           >
             <ChevronLeft className="h-4 w-4 mr-1" />

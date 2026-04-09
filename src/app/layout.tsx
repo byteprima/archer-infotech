@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { WhatsAppButton } from "@/components/common/whatsapp-button";
@@ -64,6 +65,9 @@ export default function RootLayout({
       <head>
         <OrganizationJsonLd />
       </head>
+      {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
+      )}
       <body className="min-h-screen flex flex-col antialiased">
         <Header />
         <main className="flex-grow">{children}</main>

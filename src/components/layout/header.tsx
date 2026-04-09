@@ -43,13 +43,13 @@ import { captureAnalyticsEvent } from "@/lib/posthog/client";
 
 const mainNavItems = [
   { name: "Home", href: "/" },
-  { name: "About", href: "/about" },
+  { name: "Blog", href: "/blog" },
   { name: "Courses", href: "/courses", hasDropdown: true },
   { name: "Placements", href: "/placements" },
   { name: "Internships", href: "/internships" },
   { name: "Corporate Training", href: "/corporate-training" },
   { name: "Batch Schedule", href: "/batch-schedule" },
-  { name: "Blog", href: "/blog" },
+  { name: "About", href: "/about" },
   { name: "Contact", href: "/contact" },
 ];
 
@@ -209,7 +209,7 @@ export function Header() {
                                 return (
                                   <li key={category.slug}>
                                     <Link
-                                      href={`/courses/${category.slug}`}
+                                      href={`/courses?category=${category.slug}`}
                                       className="flex items-center gap-2 select-none rounded-md p-2 text-sm leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                                     >
                                       {IconComponent && <IconComponent className="h-4 w-4 text-primary" />}

@@ -187,7 +187,7 @@ export function Footer() {
                 return (
                   <li key={category.slug}>
                     <Link
-                      href={`/courses/${category.slug}`}
+                      href={`/courses?category=${category.slug}`}
                       className="flex items-center gap-2 text-primary-foreground/80 hover:text-secondary transition-colors text-sm"
                     >
                       {IconComponent && <IconComponent className="h-4 w-4" />}

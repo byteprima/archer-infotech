@@ -82,6 +82,9 @@ GOOGLE_CLIENT_SECRET=<from-google-cloud-console>
 ADMIN_USERNAME=admin
 ADMIN_PASSWORD=Archer@123456
 ADMIN_SESSION_SECRET=a7f3c9e2b1d8f4a6c0e5b7d3f9a2c4e6
+
+# Google Analytics (GA4)
+NEXT_PUBLIC_GA_MEASUREMENT_ID=G-WYMDWF9DKE
 ```
 
 > **Note**: See `docs/AUTHENTICATION.md` for complete auth setup instructions.
@@ -327,6 +330,7 @@ scp root@173.212.212.178:/root/archer_backup_*.db ./backups/
 
 | Date | Change |
 |------|--------|
+| 2026-04-09 | Added Google Analytics GA4 (G-WYMDWF9DKE) |
 | 2026-04-03 | Migrated from PostgreSQL to SQLite |
 | 2026-04-02 | Added Better-Auth with Google OAuth support |
 | 2026-04-02 | Added blog feature with full CRUD |
