@@ -1,7 +1,7 @@
 "use server";
 
 import { z } from "zod";
-import { eq, desc, and, sql } from "drizzle-orm";
+import { eq, desc, and, sql, like, or, type SQL } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import {
   placeholderBlogs,
@@ -9,6 +9,7 @@ import {
   getPlaceholderPostBySlug,
   getPlaceholderRecentPosts,
 } from "@/data/placeholder-blogs";
+import { logAdminAction, requireAdminAction } from "@/lib/admin";
 
 // Schema for blog post validation
 const blogPostSchema = z.object({
@@ -271,6 +272,8 @@ export async function getAllPosts(options?: {
   publishedCount: number;
   draftCount: number;
 }> {
+  await requireAdminAction();
+
   const page = options?.page || 1;
   const limit = options?.limit || 10;
   const offset = (page - 1) * limit;
@@ -289,11 +292,21 @@ export async function getAllPosts(options?: {
     const { db, blogPosts } = await import("@/db");
 
     // Build where conditions
-    const conditions: ReturnType<typeof eq>[] = [];
+    const conditions: SQL[] = [];
     if (options?.status === "published") {
       conditions.push(eq(blogPosts.isPublished, true));
     } else if (options?.status === "draft") {
       conditions.push(eq(blogPosts.isPublished, false));
+    }
+    if (options?.search?.trim()) {
+      const searchTerm = `%${options.search.trim()}%`;
+      conditions.push(
+        or(
+          like(blogPosts.title, searchTerm),
+          like(blogPosts.slug, searchTerm),
+          like(sql`coalesce(${blogPosts.category}, '')`, searchTerm)
+        )!
+      );
     }
 
     // Get counts
@@ -356,6 +369,8 @@ export async function getAllPosts(options?: {
 }
 
 export async function getPostById(id: number) {
+  await requireAdminAction();
+
   try {
     if (!process.env.DATABASE_URL) {
       return null;
@@ -377,6 +392,8 @@ export async function getPostById(id: number) {
 }
 
 export async function createPost(data: BlogPostFormData): Promise<ActionResult> {
+  await requireAdminAction();
+
   const validationResult = blogPostSchema.safeParse(data);
 
   if (!validationResult.success) {
@@ -433,6 +450,17 @@ export async function createPost(data: BlogPostFormData): Promise<ActionResult> 
     revalidatePath("/admin/blog");
     revalidatePath("/blog");
 
+    await logAdminAction({
+      action: "blog.create",
+      entityType: "blog_post",
+      entityId: result[0]?.id ?? null,
+      summary: `Created blog post "${validationResult.data.title}"`,
+      metadata: {
+        slug: validationResult.data.slug,
+        isPublished: validationResult.data.isPublished ?? false,
+      },
+    });
+
     return {
       success: true,
       message: "Blog post created successfully",
@@ -451,6 +479,8 @@ export async function updatePost(
   id: number,
   data: BlogPostFormData
 ): Promise<ActionResult> {
+  await requireAdminAction();
+
   const validationResult = blogPostSchema.safeParse(data);
 
   if (!validationResult.success) {
@@ -527,6 +557,17 @@ export async function updatePost(
     revalidatePath("/blog");
     revalidatePath(`/blog/${validationResult.data.slug}`);
 
+    await logAdminAction({
+      action: "blog.update",
+      entityType: "blog_post",
+      entityId: id,
+      summary: `Updated blog post "${validationResult.data.title}"`,
+      metadata: {
+        slug: validationResult.data.slug,
+        isPublished: isNowPublished,
+      },
+    });
+
     return {
       success: true,
       message: "Blog post updated successfully",
@@ -541,6 +582,8 @@ export async function updatePost(
 }
 
 export async function deletePost(id: number): Promise<ActionResult> {
+  await requireAdminAction();
+
   try {
     if (!process.env.DATABASE_URL) {
       console.log("Blog post deletion (no database configured):", id);
@@ -567,6 +610,16 @@ export async function deletePost(id: number): Promise<ActionResult> {
       revalidatePath(`/blog/${post[0].slug}`);
     }
 
+    await logAdminAction({
+      action: "blog.delete",
+      entityType: "blog_post",
+      entityId: id,
+      summary: `Deleted blog post with ID ${id}`,
+      metadata: {
+        slug: post[0]?.slug ?? null,
+      },
+    });
+
     return {
       success: true,
       message: "Blog post deleted successfully",
@@ -584,6 +637,8 @@ export async function togglePublishStatus(
   id: number,
   isPublished: boolean
 ): Promise<ActionResult> {
+  await requireAdminAction();
+
   try {
     if (!process.env.DATABASE_URL) {
       console.log("Blog post publish toggle (no database configured):", id, isPublished);
@@ -621,6 +676,17 @@ export async function togglePublishStatus(
     if (post[0]?.slug) {
       revalidatePath(`/blog/${post[0].slug}`);
     }
+
+    await logAdminAction({
+      action: "blog.publish",
+      entityType: "blog_post",
+      entityId: id,
+      summary: `${isPublished ? "Published" : "Unpublished"} blog post with ID ${id}`,
+      metadata: {
+        slug: post[0]?.slug ?? null,
+        isPublished,
+      },
+    });
 
     return {
       success: true,

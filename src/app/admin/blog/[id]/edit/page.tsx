@@ -1,20 +1,16 @@
-import { redirect, notFound } from "next/navigation";
+import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
-import { isAuthenticated } from "@/lib/auth";
 import { getPostById } from "@/lib/actions/blog";
 import { BlogPostForm } from "@/components/admin/blog-post-form";
+import { requireAdminPage } from "@/lib/admin";
 
 interface EditBlogPostPageProps {
   params: Promise<{ id: string }>;
 }
 
 export default async function EditBlogPostPage({ params }: EditBlogPostPageProps) {
-  const authenticated = await isAuthenticated();
-
-  if (!authenticated) {
-    redirect("/admin/login");
-  }
+  await requireAdminPage();
 
   const { id } = await params;
   const postId = parseInt(id, 10);

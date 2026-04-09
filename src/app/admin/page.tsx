@@ -1,4 +1,3 @@
-import { redirect } from "next/navigation";
 import Link from "next/link";
 import {
   Users,
@@ -10,15 +9,18 @@ import {
   LogOut,
   Settings,
   CheckCircle,
+  Shield,
+  ClipboardList,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { isAuthenticated } from "@/lib/auth";
+import { requireAdminPage } from "@/lib/admin";
 
 async function getStats() {
   try {
     const { db } = await import("@/db");
-    const { leads, batches, placements, testimonials, blogPosts } = await import("@/db/schema");
+    const { leads, batches, placements, testimonials, blogPosts, user, auditLogs } =
+      await import("@/db/schema");
     const { count, eq } = await import("drizzle-orm");
 
     const [
@@ -30,6 +32,9 @@ async function getStats() {
       totalTestimonials,
       totalBlogPosts,
       publishedBlogPosts,
+      totalUsers,
+      totalAdmins,
+      totalAuditLogs,
     ] = await Promise.all([
       db.select({ count: count() }).from(leads),
       db.select({ count: count() }).from(leads).where(eq(leads.status, "new")),
@@ -39,6 +44,9 @@ async function getStats() {
       db.select({ count: count() }).from(testimonials),
       db.select({ count: count() }).from(blogPosts),
       db.select({ count: count() }).from(blogPosts).where(eq(blogPosts.isPublished, true)),
+      db.select({ count: count() }).from(user),
+      db.select({ count: count() }).from(user).where(eq(user.role, "admin")),
+      db.select({ count: count() }).from(auditLogs),
     ]);
 
     return {
@@ -48,6 +56,8 @@ async function getStats() {
       placements: { total: totalPlacements[0].count },
       testimonials: { total: totalTestimonials[0].count },
       blogPosts: { total: totalBlogPosts[0].count, published: publishedBlogPosts[0].count },
+      users: { total: totalUsers[0].count, admins: totalAdmins[0].count },
+      auditLogs: { total: totalAuditLogs[0].count },
     };
   } catch (error) {
     console.error("Database error:", error);
@@ -58,16 +68,14 @@ async function getStats() {
       placements: { total: 0 },
       testimonials: { total: 0 },
       blogPosts: { total: 0, published: 0 },
+      users: { total: 0, admins: 0 },
+      auditLogs: { total: 0 },
     };
   }
 }
 
 export default async function AdminDashboard() {
-  const authenticated = await isAuthenticated();
-
-  if (!authenticated) {
-    redirect("/admin/login");
-  }
+  await requireAdminPage();
 
   const stats = await getStats();
 
@@ -106,6 +114,20 @@ export default async function AdminDashboard() {
       href: "/admin/blog",
       icon: FileText,
       stats: `${stats.blogPosts.total} posts, ${stats.blogPosts.published} published`,
+    },
+    {
+      title: "Users",
+      description: "Manage admin access and roles",
+      href: "/admin/users",
+      icon: Shield,
+      stats: `${stats.users.total} users, ${stats.users.admins} admins`,
+    },
+    {
+      title: "Audit Logs",
+      description: "Review recent admin activity",
+      href: "/admin/audit-logs",
+      icon: ClipboardList,
+      stats: `${stats.auditLogs.total} entries`,
     },
   ];
 

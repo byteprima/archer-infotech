@@ -1,4 +1,3 @@
-import { redirect } from "next/navigation";
 import Link from "next/link";
 import {
   ChevronLeft,
@@ -7,36 +6,33 @@ import {
   Eye,
   EyeOff,
   Pencil,
-  Trash2,
   ExternalLink,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { isAuthenticated } from "@/lib/auth";
 import { getAllPosts } from "@/lib/actions/blog";
 import { DeletePostButton, TogglePublishButton } from "./actions";
+import { requireAdminPage } from "@/lib/admin";
 
 interface AdminBlogPageProps {
-  searchParams: Promise<{ status?: string; page?: string }>;
+  searchParams: Promise<{ status?: string; page?: string; q?: string }>;
 }
 
 export default async function AdminBlogPage({ searchParams }: AdminBlogPageProps) {
-  const authenticated = await isAuthenticated();
-
-  if (!authenticated) {
-    redirect("/admin/login");
-  }
+  await requireAdminPage();
 
   const params = await searchParams;
   const status = params.status as "all" | "published" | "draft" | undefined;
   const page = parseInt(params.page || "1", 10);
+  const search = params.q?.trim() || "";
 
   const { posts, totalCount, totalPages, publishedCount, draftCount } =
     await getAllPosts({
       page,
       limit: 10,
       status: status || "all",
+      search,
     });
 
   return (
@@ -95,22 +91,41 @@ export default async function AdminBlogPage({ searchParams }: AdminBlogPageProps
         </div>
 
         {/* Filters */}
-        <div className="flex gap-2 mb-6">
-          <Link href="/admin/blog">
-            <Button variant={!status || status === "all" ? "default" : "outline"} size="sm">
-              All
+        <div className="mb-6 space-y-4">
+          <form className="flex flex-col gap-3 sm:flex-row">
+            <input
+              type="text"
+              name="q"
+              defaultValue={search}
+              placeholder="Search by title, slug, or category..."
+              className="w-full rounded-lg border px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+            />
+            {status && status !== "all" && <input type="hidden" name="status" value={status} />}
+            <Button type="submit" variant="outline">
+              Search
             </Button>
-          </Link>
-          <Link href="/admin/blog?status=published">
-            <Button variant={status === "published" ? "default" : "outline"} size="sm">
-              Published
-            </Button>
-          </Link>
-          <Link href="/admin/blog?status=draft">
-            <Button variant={status === "draft" ? "default" : "outline"} size="sm">
-              Drafts
-            </Button>
-          </Link>
+          </form>
+          <div className="flex gap-2">
+            <Link href={search ? `/admin/blog?q=${encodeURIComponent(search)}` : "/admin/blog"}>
+              <Button variant={!status || status === "all" ? "default" : "outline"} size="sm">
+                All
+              </Button>
+            </Link>
+            <Link
+              href={`/admin/blog?status=published${search ? `&q=${encodeURIComponent(search)}` : ""}`}
+            >
+              <Button variant={status === "published" ? "default" : "outline"} size="sm">
+                Published
+              </Button>
+            </Link>
+            <Link
+              href={`/admin/blog?status=draft${search ? `&q=${encodeURIComponent(search)}` : ""}`}
+            >
+              <Button variant={status === "draft" ? "default" : "outline"} size="sm">
+                Drafts
+              </Button>
+            </Link>
+          </div>
         </div>
 
         {/* Posts Table */}
@@ -126,7 +141,7 @@ export default async function AdminBlogPage({ searchParams }: AdminBlogPageProps
                 </div>
                 <p className="text-muted-foreground">No posts found</p>
                 <p className="text-sm text-muted-foreground mt-1">
-                  Create your first blog post to get started
+                  {search ? "Try a different search term or filter." : "Create your first blog post to get started"}
                 </p>
                 <Link href="/admin/blog/new" className="mt-4 inline-block">
                   <Button>
@@ -220,7 +235,7 @@ export default async function AdminBlogPage({ searchParams }: AdminBlogPageProps
               <div className="flex items-center justify-center gap-2 mt-6">
                 {page > 1 && (
                   <Link
-                    href={`/admin/blog?page=${page - 1}${status ? `&status=${status}` : ""}`}
+                    href={`/admin/blog?page=${page - 1}${status ? `&status=${status}` : ""}${search ? `&q=${encodeURIComponent(search)}` : ""}`}
                   >
                     <Button variant="outline" size="sm">
                       Previous
@@ -232,7 +247,7 @@ export default async function AdminBlogPage({ searchParams }: AdminBlogPageProps
                 </span>
                 {page < totalPages && (
                   <Link
-                    href={`/admin/blog?page=${page + 1}${status ? `&status=${status}` : ""}`}
+                    href={`/admin/blog?page=${page + 1}${status ? `&status=${status}` : ""}${search ? `&q=${encodeURIComponent(search)}` : ""}`}
                   >
                     <Button variant="outline" size="sm">
                       Next

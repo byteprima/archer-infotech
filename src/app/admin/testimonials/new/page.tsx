@@ -1,37 +1,35 @@
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
-import { BlogPostForm } from "@/components/admin/blog-post-form";
+import { TestimonialForm } from "@/components/admin/testimonial-form";
 import { requireAdminPage } from "@/lib/admin";
 
-export default async function NewBlogPostPage() {
+export default async function NewTestimonialPage() {
   await requireAdminPage();
 
   return (
     <div className="min-h-screen">
-      {/* Header */}
-      <header className="bg-background border-b">
+      <header className="border-b bg-background">
         <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center gap-4 mb-2">
+          <div className="mb-2 flex items-center gap-4">
             <Link
-              href="/admin/blog"
+              href="/admin/testimonials"
               className="flex items-center text-sm text-muted-foreground hover:text-foreground"
             >
-              <ChevronLeft className="h-4 w-4 mr-1" />
-              Back to Blog
+              <ChevronLeft className="mr-1 h-4 w-4" />
+              Back to Testimonials
             </Link>
           </div>
           <div>
-            <h1 className="text-xl font-bold">New Blog Post</h1>
+            <h1 className="text-xl font-bold">New Testimonial</h1>
             <p className="text-sm text-muted-foreground">
-              Create a new blog post
+              Create a new testimonial and choose whether it should be published or featured.
             </p>
           </div>
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="container mx-auto px-4 py-8">
-        <BlogPostForm />
+        <TestimonialForm />
       </main>
     </div>
   );

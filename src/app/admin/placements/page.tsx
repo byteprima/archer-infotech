@@ -1,68 +1,97 @@
-import { redirect } from "next/navigation";
 import Link from "next/link";
-import { ChevronLeft, Plus, Building, Briefcase } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ChevronLeft, Plus, Award, CheckCircle2, CircleOff, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { isAuthenticated } from "@/lib/auth";
-import { db } from "@/db";
-import { placements as placementsTable } from "@/db/schema";
-import { desc } from "drizzle-orm";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { PlacementAdminActions } from "@/components/admin/placement-admin-actions";
+import { getAllPlacements } from "@/lib/actions/placements";
+import { requireAdminPage } from "@/lib/admin";
 
 export default async function AdminPlacementsPage() {
-  const authenticated = await isAuthenticated();
+  await requireAdminPage();
 
-  if (!authenticated) {
-    redirect("/admin/login");
-  }
-
-  const placements = await db.select().from(placementsTable).orderBy(desc(placementsTable.createdAt));
+  const { placements, totalCount, publishedCount, draftCount, highlightedCount } =
+    await getAllPlacements();
 
   return (
     <div className="min-h-screen">
-      {/* Header */}
-      <header className="bg-background border-b">
+      <header className="border-b bg-background">
         <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center gap-4 mb-2">
+          <div className="mb-2 flex items-center gap-4">
             <Link
               href="/admin"
               className="flex items-center text-sm text-muted-foreground hover:text-foreground"
             >
-              <ChevronLeft className="h-4 w-4 mr-1" />
+              <ChevronLeft className="mr-1 h-4 w-4" />
               Back to Dashboard
             </Link>
           </div>
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between gap-4">
             <div>
               <h1 className="text-xl font-bold">Placements Management</h1>
               <p className="text-sm text-muted-foreground">
-                {placements.length} placement records
+                Manage student placement records, highlight featured wins, and control visibility.
               </p>
             </div>
-            <Button size="sm">
-              <Plus className="h-4 w-4 mr-2" />
-              Add Placement
-            </Button>
+            <Link href="/admin/placements/new">
+              <Button>
+                <Plus className="mr-2 h-4 w-4" />
+                Add Placement
+              </Button>
+            </Link>
           </div>
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="container mx-auto px-4 py-8">
-        {/* Placements Table */}
+        <div className="mb-6 grid gap-4 md:grid-cols-4">
+          <Card>
+            <CardContent className="pt-6">
+              <div className="text-2xl font-bold">{totalCount}</div>
+              <p className="text-sm text-muted-foreground">Total placements</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="pt-6">
+              <div className="text-2xl font-bold text-green-600">{publishedCount}</div>
+              <p className="text-sm text-muted-foreground">Published</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="pt-6">
+              <div className="text-2xl font-bold text-yellow-600">{draftCount}</div>
+              <p className="text-sm text-muted-foreground">Drafts</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="pt-6">
+              <div className="text-2xl font-bold text-primary">{highlightedCount}</div>
+              <p className="text-sm text-muted-foreground">Highlighted</p>
+            </CardContent>
+          </Card>
+        </div>
+
         <Card>
           <CardHeader>
             <CardTitle>Placement Records</CardTitle>
           </CardHeader>
           <CardContent>
             {placements.length === 0 ? (
-              <div className="text-center py-12">
+              <div className="py-12 text-center">
+                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-muted">
+                  <Award className="h-8 w-8 text-muted-foreground" />
+                </div>
                 <p className="text-muted-foreground">No placement records found</p>
-                <Button size="sm" className="mt-4">
-                  <Plus className="h-4 w-4 mr-2" />
-                  Add First Placement
-                </Button>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Add the first placement record to start showcasing student outcomes.
+                </p>
+                <Link href="/admin/placements/new" className="mt-4 inline-block">
+                  <Button>
+                    <Plus className="mr-2 h-4 w-4" />
+                    Add First Placement
+                  </Button>
+                </Link>
               </div>
             ) : (
               <div className="overflow-x-auto">
@@ -70,12 +99,10 @@ export default async function AdminPlacementsPage() {
                   <thead>
                     <tr className="border-b text-left">
                       <th className="pb-3 font-medium">Student</th>
-                      <th className="pb-3 font-medium">Company</th>
-                      <th className="pb-3 font-medium">Designation</th>
+                      <th className="pb-3 font-medium">Role</th>
                       <th className="pb-3 font-medium">Package</th>
-                      <th className="pb-3 font-medium">Course</th>
                       <th className="pb-3 font-medium">Status</th>
-                      <th className="pb-3 font-medium">Actions</th>
+                      <th className="pb-3 font-medium text-right">Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -84,68 +111,70 @@ export default async function AdminPlacementsPage() {
                         <td className="py-4">
                           <div className="flex items-center gap-3">
                             <Avatar className="h-10 w-10">
+                              <AvatarImage
+                                src={placement.photoUrl || undefined}
+                                alt={placement.studentName}
+                              />
                               <AvatarFallback className="bg-primary text-primary-foreground">
                                 {placement.studentName
                                   .split(" ")
-                                  .map((n) => n[0])
-                                  .join("")}
+                                  .filter(Boolean)
+                                  .map((part) => part[0])
+                                  .join("")
+                                  .slice(0, 2)
+                                  .toUpperCase()}
                               </AvatarFallback>
                             </Avatar>
                             <div>
-                              <div className="font-medium">
-                                {placement.studentName}
-                              </div>
+                              <div className="font-medium">{placement.studentName}</div>
                               <div className="text-sm text-muted-foreground">
-                                Batch {placement.batchYear}
+                                {placement.company}
                               </div>
                             </div>
                           </div>
                         </td>
                         <td className="py-4">
-                          <div className="flex items-center gap-2">
-                            <Building className="h-4 w-4 text-muted-foreground" />
-                            <span>{placement.company}</span>
+                          <div>
+                            <div className="font-medium">{placement.designation}</div>
+                            <div className="text-sm text-muted-foreground">
+                              {placement.courseTaken || "Course not set"}
+                              {placement.batchYear ? ` • ${placement.batchYear}` : ""}
+                            </div>
                           </div>
                         </td>
                         <td className="py-4">
-                          <div className="flex items-center gap-2">
-                            <Briefcase className="h-4 w-4 text-muted-foreground" />
-                            <span>{placement.designation}</span>
-                          </div>
+                          <Badge variant="outline">{placement.package || "N/A"}</Badge>
                         </td>
                         <td className="py-4">
-                          <Badge variant="outline">{placement.package}</Badge>
-                        </td>
-                        <td className="py-4">
-                          <span className="text-sm">{placement.courseTaken}</span>
-                        </td>
-                        <td className="py-4">
-                          <div className="flex gap-2">
-                            {placement.isHighlighted && (
+                          <div className="flex flex-wrap gap-2">
+                            {placement.isHighlighted ? (
                               <Badge className="bg-yellow-100 text-yellow-800">
+                                <Sparkles className="mr-1 h-3 w-3" />
                                 Highlighted
                               </Badge>
+                            ) : (
+                              <Badge variant="outline">Standard</Badge>
                             )}
-                            <Badge
-                              className={
-                                placement.isPublished
-                                  ? "bg-green-100 text-green-800"
-                                  : "bg-gray-100 text-gray-800"
-                              }
-                            >
-                              {placement.isPublished ? "Published" : "Draft"}
-                            </Badge>
+                            {placement.isPublished ? (
+                              <Badge className="bg-green-100 text-green-800">
+                                <CheckCircle2 className="mr-1 h-3 w-3" />
+                                Published
+                              </Badge>
+                            ) : (
+                              <Badge className="bg-gray-100 text-gray-800">
+                                <CircleOff className="mr-1 h-3 w-3" />
+                                Draft
+                              </Badge>
+                            )}
                           </div>
                         </td>
-                        <td className="py-4">
-                          <div className="flex gap-2">
-                            <Button variant="outline" size="sm">
-                              Edit
-                            </Button>
-                            <Button variant="outline" size="sm">
-                              Delete
-                            </Button>
-                          </div>
+                        <td className="py-4 text-right">
+                          <PlacementAdminActions
+                            id={placement.id}
+                            studentName={placement.studentName}
+                            isPublished={placement.isPublished ?? true}
+                            isHighlighted={placement.isHighlighted ?? false}
+                          />
                         </td>
                       </tr>
                     ))}
@@ -155,7 +184,6 @@ export default async function AdminPlacementsPage() {
             )}
           </CardContent>
         </Card>
-
       </main>
     </div>
   );

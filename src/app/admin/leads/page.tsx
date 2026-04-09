@@ -1,13 +1,12 @@
-import { redirect } from "next/navigation";
 import Link from "next/link";
 import { ChevronLeft, Download, Search } from "lucide-react";
+import { and, desc, eq, like, or } from "drizzle-orm";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { isAuthenticated } from "@/lib/auth";
+import { requireAdminPage } from "@/lib/admin";
 import { db } from "@/db";
 import { leads as leadsTable } from "@/db/schema";
-import { desc } from "drizzle-orm";
 
 const statusColors: Record<string, string> = {
   new: "bg-green-100 text-green-800",
@@ -17,14 +16,51 @@ const statusColors: Record<string, string> = {
   closed: "bg-gray-100 text-gray-800",
 };
 
-export default async function AdminLeadsPage() {
-  const authenticated = await isAuthenticated();
+interface AdminLeadsPageProps {
+  searchParams: Promise<{ q?: string; status?: string; source?: string }>;
+}
 
-  if (!authenticated) {
-    redirect("/admin/login");
+export default async function AdminLeadsPage({ searchParams }: AdminLeadsPageProps) {
+  await requireAdminPage();
+
+  const params = await searchParams;
+  const query = params.q?.trim() || "";
+  const status = params.status?.trim() || "";
+  const source = params.source?.trim() || "";
+
+  const conditions = [];
+
+  if (query) {
+    const searchTerm = `%${query}%`;
+    conditions.push(
+      or(
+        like(leadsTable.name, searchTerm),
+        like(leadsTable.email, searchTerm),
+        like(leadsTable.phone, searchTerm)
+      )
+    );
   }
 
-  const leads = await db.select().from(leadsTable).orderBy(desc(leadsTable.createdAt));
+  if (status) {
+    conditions.push(eq(leadsTable.status, status));
+  }
+
+  if (source) {
+    conditions.push(eq(leadsTable.source, source));
+  }
+
+  const leads = await db
+    .select()
+    .from(leadsTable)
+    .where(conditions.length > 0 ? and(...conditions) : undefined)
+    .orderBy(desc(leadsTable.createdAt));
+
+  const exportQuery = new URLSearchParams({
+    ...(query ? { q: query } : {}),
+    ...(status ? { status } : {}),
+    ...(source ? { source } : {}),
+  }).toString();
+  const exportHref = exportQuery ? `/admin/leads/export?${exportQuery}` : "/admin/leads/export";
 
   return (
     <div className="min-h-screen">
@@ -48,10 +84,12 @@ export default async function AdminLeadsPage() {
               </p>
             </div>
             <div className="flex items-center gap-2">
-              <Button variant="outline" size="sm">
-                <Download className="h-4 w-4 mr-2" />
-                Export CSV
-              </Button>
+              <a href={exportHref}>
+                <Button variant="outline" size="sm">
+                  <Download className="h-4 w-4 mr-2" />
+                  Export CSV
+                </Button>
+              </a>
             </div>
           </div>
         </div>
@@ -62,18 +100,24 @@ export default async function AdminLeadsPage() {
         {/* Filters */}
         <Card className="mb-6">
           <CardContent className="pt-6">
-            <div className="flex flex-wrap gap-4">
+            <form className="flex flex-wrap gap-4">
               <div className="flex-1 min-w-[200px]">
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <input
+                    name="q"
                     type="text"
+                    defaultValue={query}
                     placeholder="Search by name, email, or phone..."
                     className="w-full pl-10 pr-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary"
                   />
                 </div>
               </div>
-              <select className="px-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary">
+              <select
+                name="status"
+                defaultValue={status}
+                className="px-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+              >
                 <option value="">All Status</option>
                 <option value="new">New</option>
                 <option value="contacted">Contacted</option>
@@ -81,13 +125,27 @@ export default async function AdminLeadsPage() {
                 <option value="converted">Converted</option>
                 <option value="closed">Closed</option>
               </select>
-              <select className="px-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary">
+              <select
+                name="source"
+                defaultValue={source}
+                className="px-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+              >
                 <option value="">All Sources</option>
                 <option value="contact_form">Contact Form</option>
                 <option value="whatsapp">WhatsApp</option>
                 <option value="popup">Popup</option>
               </select>
-            </div>
+              <Button type="submit" variant="outline">
+                Apply
+              </Button>
+              {(query || status || source) && (
+                <Link href="/admin/leads">
+                  <Button type="button" variant="ghost">
+                    Clear
+                  </Button>
+                </Link>
+              )}
+            </form>
           </CardContent>
         </Card>
 
@@ -149,9 +207,11 @@ export default async function AdminLeadsPage() {
                           </div>
                         </td>
                         <td className="py-4">
-                          <Button variant="outline" size="sm">
-                            View
-                          </Button>
+                          <Link href={`/admin/leads/${lead.id}`}>
+                            <Button variant="outline" size="sm">
+                              View
+                            </Button>
+                          </Link>
                         </td>
                       </tr>
                     ))}
