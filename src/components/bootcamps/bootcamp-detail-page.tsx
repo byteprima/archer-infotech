@@ -389,12 +389,21 @@ export function BootcampDetailPage({
                 <span className="text-sm font-medium text-white/70">{theme.stage}</span>
               </div>
 
-              <h1 className="max-w-4xl text-4xl font-bold tracking-tight text-balance md:text-5xl lg:text-6xl">
-                {bootcamp.name}
-                <span className="block text-white/80">{bootcamp.tagline}</span>
-              </h1>
+              <div className="max-w-4xl">
+                <h1 className="text-4xl font-bold tracking-tight text-balance md:text-5xl lg:text-6xl">
+                  {bootcamp.name}
+                </h1>
+                <div className="mt-4 max-w-2xl rounded-2xl border border-white/10 bg-white/10 px-4 py-3 backdrop-blur-sm">
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/50">
+                    Program Promise
+                  </p>
+                  <p className="mt-1 text-base font-medium leading-6 text-white/70 md:text-lg">
+                    {bootcamp.tagline}
+                  </p>
+                </div>
+              </div>
 
-              <p className="mt-5 max-w-3xl text-lg leading-8 text-white/80 md:text-xl">
+              <p className="mt-5 max-w-3xl text-base leading-7 text-white/80 md:text-lg md:leading-8">
                 {bootcamp.subtitle}
               </p>
 
