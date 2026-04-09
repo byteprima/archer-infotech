@@ -1,9 +1,10 @@
 import { MetadataRoute } from "next";
 import { courses, categories } from "@/data/courses";
+import { getAllPublishedSlugs } from "@/lib/actions/blog";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://archerinfotech.in";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Static pages
   const staticPages: MetadataRoute.Sitemap = [
     {
@@ -49,6 +50,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: `${baseUrl}/blog`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
       url: `${baseUrl}/contact`,
       lastModified: new Date(),
       changeFrequency: "monthly",
@@ -72,5 +79,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   }));
 
-  return [...staticPages, ...categoryPages, ...coursePages];
+  // Blog post pages
+  let blogPages: MetadataRoute.Sitemap = [];
+  try {
+    const slugs = await getAllPublishedSlugs();
+    blogPages = slugs.map((slug) => ({
+      url: `${baseUrl}/blog/${slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    }));
+  } catch (error) {
+    // Database might not be available during build
+    console.log("Could not fetch blog slugs for sitemap:", error);
+  }
+
+  return [...staticPages, ...categoryPages, ...coursePages, ...blogPages];
 }

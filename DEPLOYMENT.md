@@ -34,14 +34,15 @@
 | **Port** | 3000 |
 | **FQDN** | `https://archerinfotech.in` |
 
-### Database: PostgreSQL
+### Database: SQLite
 
 | Property | Value |
 |----------|-------|
-| **UUID** | `h12dkwj5bgdqt2byqfgfmvdz` |
-| **Image** | postgres:18-alpine |
-| **Status** | running:healthy |
-| **Internal URL** | `postgres://postgres:<password>@h12dkwj5bgdqt2byqfgfmvdz:5432/archer_infotech` |
+| **Type** | SQLite (file-based) |
+| **File** | `/data/coolify/applications/i5knr4obzv3hzjhrkl58rn12/sqlite.db` |
+| **Status** | Embedded (no separate container) |
+
+> **Note**: SQLite database file is stored within the application container. Ensure backups are taken regularly.
 
 ### Other Services on Same Server
 
@@ -66,12 +67,24 @@
 Set in Coolify for the application:
 
 ```env
-DATABASE_URL=postgres://postgres:oOgdIkq14USw4b758R8c034bRZdRyMV5AIyxOBGqav4YtxY1funi23JfcTJ60YHy@h12dkwj5bgdqt2byqfgfmvdz:5432/archer_infotech
+# Database (SQLite file path - use absolute path in production)
+DATABASE_URL=/app/sqlite.db
+
+# Site URL
 NEXT_PUBLIC_SITE_URL=https://archerinfotech.in
+
+# Better-Auth (NEW - Required for OAuth login)
+BETTER_AUTH_SECRET=<generate-with-openssl-rand-base64-32>
+GOOGLE_CLIENT_ID=<from-google-cloud-console>
+GOOGLE_CLIENT_SECRET=<from-google-cloud-console>
+
+# Legacy Admin Auth (deprecated - will be removed)
 ADMIN_USERNAME=admin
 ADMIN_PASSWORD=Archer@123456
 ADMIN_SESSION_SECRET=a7f3c9e2b1d8f4a6c0e5b7d3f9a2c4e6
 ```
+
+> **Note**: See `docs/AUTHENTICATION.md` for complete auth setup instructions.
 
 ---
 
@@ -160,8 +173,12 @@ ssh root@173.212.212.178 "docker ps --filter 'name=coolify-proxy'"
 ### Database Access
 
 ```bash
-# Connect to PostgreSQL
-ssh root@173.212.212.178 "docker exec -it h12dkwj5bgdqt2byqfgfmvdz psql -U postgres -d archer_infotech"
+# SQLite database is inside the container
+# Find the container name first
+ssh root@173.212.212.178 "docker ps --filter 'name=i5knr4obzv3hzjhrkl58rn12' --format '{{.Names}}'"
+
+# Access SQLite database
+ssh root@173.212.212.178 "docker exec -it <container-name> sqlite3 /app/sqlite.db"
 ```
 
 ---
@@ -200,9 +217,9 @@ ssh root@173.212.212.178 "docker exec -it h12dkwj5bgdqt2byqfgfmvdz psql -U postg
 ### Issue: Database Connection Failed
 
 **Solution**:
-1. Verify PostgreSQL container is running: `docker ps --filter 'name=h12dkwj5bgdqt2byqfgfmvdz'`
-2. Check DATABASE_URL uses internal Docker hostname (not localhost)
-3. Ensure database `archer_infotech` exists
+1. Verify SQLite database file exists: `docker exec <container> ls -la /app/sqlite.db`
+2. Check DATABASE_URL uses absolute path (`/app/sqlite.db`)
+3. Ensure the directory is writable for SQLite WAL mode
 
 ---
 
@@ -224,13 +241,10 @@ ssh root@173.212.212.178 "docker exec -it h12dkwj5bgdqt2byqfgfmvdz psql -U postg
                                     │ │  archer-infotech │ │  byteprima  │ │
                                     │ │   (Next.js)      │ │   (nginx)   │ │
                                     │ │   Port: 3000     │ │   Port: 80  │ │
-                                    │ └────────┬─────────┘ └─────────────┘ │
-                                    │          │                           │
-                                    │          ▼                           │
-                                    │ ┌─────────────────┐                  │
-                                    │ │   PostgreSQL    │                  │
-                                    │ │   Port: 5432    │                  │
-                                    │ └─────────────────┘                  │
+                                    │ │ ┌─────────────┐  │ │             │ │
+                                    │ │ │SQLite (file)│  │ │             │ │
+                                    │ │ └─────────────┘  │ │             │ │
+                                    │ └──────────────────┘ └─────────────┘ │
                                     │                                      │
                                     │  ┌─────────────────────────────────┐ │
                                     │  │     Coolify (Management)        │ │
@@ -269,11 +283,14 @@ git push origin main
 ### Database Backup
 
 ```bash
-# Create backup
-ssh root@173.212.212.178 "docker exec h12dkwj5bgdqt2byqfgfmvdz pg_dump -U postgres archer_infotech > /root/archer_backup_$(date +%Y%m%d).sql"
+# Find container name
+CONTAINER=$(ssh root@173.212.212.178 "docker ps --filter 'name=i5knr4obzv3hzjhrkl58rn12' --format '{{.Names}}'")
+
+# Create backup (copies SQLite file)
+ssh root@173.212.212.178 "docker cp $CONTAINER:/app/sqlite.db /root/archer_backup_$(date +%Y%m%d).db"
 
 # Download backup
-scp root@173.212.212.178:/root/archer_backup_*.sql ./backups/
+scp root@173.212.212.178:/root/archer_backup_*.db ./backups/
 ```
 
 ### Important Files on Server
@@ -310,6 +327,9 @@ scp root@173.212.212.178:/root/archer_backup_*.sql ./backups/
 
 | Date | Change |
 |------|--------|
+| 2026-04-03 | Migrated from PostgreSQL to SQLite |
+| 2026-04-02 | Added Better-Auth with Google OAuth support |
+| 2026-04-02 | Added blog feature with full CRUD |
 | 2026-03-29 | Initial deployment to Coolify |
 | 2026-03-29 | DNS migrated from BigRock to VPS |
 | 2026-03-29 | Fixed Traefik middleware conflict for HTTP redirect |

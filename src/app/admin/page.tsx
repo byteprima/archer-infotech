@@ -9,20 +9,57 @@ import {
   TrendingUp,
   LogOut,
   Settings,
+  CheckCircle,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { isAuthenticated } from "@/lib/auth";
 
 async function getStats() {
-  // For now, return mock stats
-  // TODO: Fetch from database when connected
-  return {
-    leads: { total: 0, new: 0 },
-    batches: { total: 0, upcoming: 0 },
-    placements: { total: 0 },
-    testimonials: { total: 0 },
-  };
+  try {
+    const { db } = await import("@/db");
+    const { leads, batches, placements, testimonials, blogPosts } = await import("@/db/schema");
+    const { count, eq } = await import("drizzle-orm");
+
+    const [
+      totalLeads,
+      newLeads,
+      totalBatches,
+      upcomingBatches,
+      totalPlacements,
+      totalTestimonials,
+      totalBlogPosts,
+      publishedBlogPosts,
+    ] = await Promise.all([
+      db.select({ count: count() }).from(leads),
+      db.select({ count: count() }).from(leads).where(eq(leads.status, "new")),
+      db.select({ count: count() }).from(batches),
+      db.select({ count: count() }).from(batches).where(eq(batches.status, "upcoming")),
+      db.select({ count: count() }).from(placements),
+      db.select({ count: count() }).from(testimonials),
+      db.select({ count: count() }).from(blogPosts),
+      db.select({ count: count() }).from(blogPosts).where(eq(blogPosts.isPublished, true)),
+    ]);
+
+    return {
+      connected: true,
+      leads: { total: totalLeads[0].count, new: newLeads[0].count },
+      batches: { total: totalBatches[0].count, upcoming: upcomingBatches[0].count },
+      placements: { total: totalPlacements[0].count },
+      testimonials: { total: totalTestimonials[0].count },
+      blogPosts: { total: totalBlogPosts[0].count, published: publishedBlogPosts[0].count },
+    };
+  } catch (error) {
+    console.error("Database error:", error);
+    return {
+      connected: false,
+      leads: { total: 0, new: 0 },
+      batches: { total: 0, upcoming: 0 },
+      placements: { total: 0 },
+      testimonials: { total: 0 },
+      blogPosts: { total: 0, published: 0 },
+    };
+  }
 }
 
 export default async function AdminDashboard() {
@@ -68,7 +105,7 @@ export default async function AdminDashboard() {
       description: "Manage blog content",
       href: "/admin/blog",
       icon: FileText,
-      stats: "Coming soon",
+      stats: `${stats.blogPosts.total} posts, ${stats.blogPosts.published} published`,
     },
   ];
 
@@ -181,17 +218,28 @@ export default async function AdminDashboard() {
         </div>
 
         {/* Database Status */}
-        <div className="mt-8 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-          <div className="flex items-center gap-2">
-            <Settings className="h-5 w-5 text-yellow-600" />
-            <p className="font-medium text-yellow-800">Database Not Connected</p>
+        {stats.connected ? (
+          <div className="mt-8 p-4 bg-green-50 border border-green-200 rounded-lg">
+            <div className="flex items-center gap-2">
+              <CheckCircle className="h-5 w-5 text-green-600" />
+              <p className="font-medium text-green-800">Database Connected (SQLite)</p>
+            </div>
+            <p className="text-sm text-green-700 mt-1">
+              All systems operational. Database is ready for use.
+            </p>
           </div>
-          <p className="text-sm text-yellow-700 mt-1">
-            To enable full functionality, set up a PostgreSQL database and add the
-            DATABASE_URL environment variable. Run <code className="bg-yellow-100 px-1 rounded">npm run db:push</code> to
-            create the tables.
-          </p>
-        </div>
+        ) : (
+          <div className="mt-8 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+            <div className="flex items-center gap-2">
+              <Settings className="h-5 w-5 text-yellow-600" />
+              <p className="font-medium text-yellow-800">Database Not Connected</p>
+            </div>
+            <p className="text-sm text-yellow-700 mt-1">
+              Set the DATABASE_URL environment variable (e.g., <code className="bg-yellow-100 px-1 rounded">./sqlite.db</code>).
+              Run <code className="bg-yellow-100 px-1 rounded">npm run db:push</code> to create the tables.
+            </p>
+          </div>
+        )}
       </main>
     </div>
   );

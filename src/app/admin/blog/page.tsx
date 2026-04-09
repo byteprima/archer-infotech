@@ -1,15 +1,43 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { ChevronLeft, FileText, Clock } from "lucide-react";
+import {
+  ChevronLeft,
+  Plus,
+  FileText,
+  Eye,
+  EyeOff,
+  Pencil,
+  Trash2,
+  ExternalLink,
+} from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { isAuthenticated } from "@/lib/auth";
+import { getAllPosts } from "@/lib/actions/blog";
+import { DeletePostButton, TogglePublishButton } from "./actions";
 
-export default async function AdminBlogPage() {
+interface AdminBlogPageProps {
+  searchParams: Promise<{ status?: string; page?: string }>;
+}
+
+export default async function AdminBlogPage({ searchParams }: AdminBlogPageProps) {
   const authenticated = await isAuthenticated();
 
   if (!authenticated) {
     redirect("/admin/login");
   }
+
+  const params = await searchParams;
+  const status = params.status as "all" | "published" | "draft" | undefined;
+  const page = parseInt(params.page || "1", 10);
+
+  const { posts, totalCount, totalPages, publishedCount, draftCount } =
+    await getAllPosts({
+      page,
+      limit: 10,
+      status: status || "all",
+    });
 
   return (
     <div className="min-h-screen">
@@ -32,29 +60,200 @@ export default async function AdminBlogPage() {
                 Manage blog posts and articles
               </p>
             </div>
+            <Link href="/admin/blog/new">
+              <Button>
+                <Plus className="h-4 w-4 mr-2" />
+                New Post
+              </Button>
+            </Link>
           </div>
         </div>
       </header>
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8">
+        {/* Stats */}
+        <div className="grid grid-cols-3 gap-4 mb-6">
+          <Card>
+            <CardContent className="pt-6">
+              <div className="text-2xl font-bold">{totalCount}</div>
+              <p className="text-sm text-muted-foreground">Total Posts</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="pt-6">
+              <div className="text-2xl font-bold text-green-600">{publishedCount}</div>
+              <p className="text-sm text-muted-foreground">Published</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="pt-6">
+              <div className="text-2xl font-bold text-yellow-600">{draftCount}</div>
+              <p className="text-sm text-muted-foreground">Drafts</p>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Filters */}
+        <div className="flex gap-2 mb-6">
+          <Link href="/admin/blog">
+            <Button variant={!status || status === "all" ? "default" : "outline"} size="sm">
+              All
+            </Button>
+          </Link>
+          <Link href="/admin/blog?status=published">
+            <Button variant={status === "published" ? "default" : "outline"} size="sm">
+              Published
+            </Button>
+          </Link>
+          <Link href="/admin/blog?status=draft">
+            <Button variant={status === "draft" ? "default" : "outline"} size="sm">
+              Drafts
+            </Button>
+          </Link>
+        </div>
+
+        {/* Posts Table */}
         <Card>
-          <CardContent className="py-16 text-center">
-            <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
-              <FileText className="h-8 w-8 text-muted-foreground" />
-            </div>
-            <h2 className="text-xl font-semibold mb-2">Coming Soon</h2>
-            <p className="text-muted-foreground max-w-md mx-auto">
-              Blog management functionality will be available in a future update.
-              This will allow you to create and manage SEO-optimized blog posts
-              for your website.
-            </p>
-            <div className="flex items-center justify-center gap-2 mt-6 text-sm text-muted-foreground">
-              <Clock className="h-4 w-4" />
-              <span>Planned for Phase 2</span>
-            </div>
+          <CardHeader>
+            <CardTitle>Posts</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {posts.length === 0 ? (
+              <div className="text-center py-12">
+                <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
+                  <FileText className="h-8 w-8 text-muted-foreground" />
+                </div>
+                <p className="text-muted-foreground">No posts found</p>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Create your first blog post to get started
+                </p>
+                <Link href="/admin/blog/new" className="mt-4 inline-block">
+                  <Button>
+                    <Plus className="h-4 w-4 mr-2" />
+                    Create Post
+                  </Button>
+                </Link>
+              </div>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    <tr className="border-b text-left">
+                      <th className="pb-3 font-medium">Title</th>
+                      <th className="pb-3 font-medium">Category</th>
+                      <th className="pb-3 font-medium">Status</th>
+                      <th className="pb-3 font-medium">Date</th>
+                      <th className="pb-3 font-medium text-right">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {posts.map((post) => (
+                      <tr key={post.id} className="border-b last:border-0">
+                        <td className="py-4">
+                          <div className="font-medium">{post.title}</div>
+                          <div className="text-sm text-muted-foreground">
+                            /blog/{post.slug}
+                          </div>
+                        </td>
+                        <td className="py-4">
+                          {post.category ? (
+                            <Badge variant="outline">{post.category}</Badge>
+                          ) : (
+                            <span className="text-muted-foreground">-</span>
+                          )}
+                        </td>
+                        <td className="py-4">
+                          {post.isPublished ? (
+                            <Badge className="bg-green-100 text-green-800">
+                              <Eye className="h-3 w-3 mr-1" />
+                              Published
+                            </Badge>
+                          ) : (
+                            <Badge className="bg-yellow-100 text-yellow-800">
+                              <EyeOff className="h-3 w-3 mr-1" />
+                              Draft
+                            </Badge>
+                          )}
+                        </td>
+                        <td className="py-4">
+                          <div className="text-sm text-muted-foreground">
+                            {post.publishedAt
+                              ? new Date(post.publishedAt).toLocaleDateString()
+                              : new Date(post.createdAt).toLocaleDateString()}
+                          </div>
+                        </td>
+                        <td className="py-4">
+                          <div className="flex items-center justify-end gap-2">
+                            {post.isPublished && (
+                              <a
+                                href={`/blog/${post.slug}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                <Button variant="ghost" size="sm">
+                                  <ExternalLink className="h-4 w-4" />
+                                </Button>
+                              </a>
+                            )}
+                            <TogglePublishButton
+                              id={post.id}
+                              isPublished={post.isPublished ?? false}
+                            />
+                            <Link href={`/admin/blog/${post.id}/edit`}>
+                              <Button variant="ghost" size="sm">
+                                <Pencil className="h-4 w-4" />
+                              </Button>
+                            </Link>
+                            <DeletePostButton id={post.id} title={post.title} />
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+
+            {/* Pagination */}
+            {totalPages > 1 && (
+              <div className="flex items-center justify-center gap-2 mt-6">
+                {page > 1 && (
+                  <Link
+                    href={`/admin/blog?page=${page - 1}${status ? `&status=${status}` : ""}`}
+                  >
+                    <Button variant="outline" size="sm">
+                      Previous
+                    </Button>
+                  </Link>
+                )}
+                <span className="text-sm text-muted-foreground">
+                  Page {page} of {totalPages}
+                </span>
+                {page < totalPages && (
+                  <Link
+                    href={`/admin/blog?page=${page + 1}${status ? `&status=${status}` : ""}`}
+                  >
+                    <Button variant="outline" size="sm">
+                      Next
+                    </Button>
+                  </Link>
+                )}
+              </div>
+            )}
           </CardContent>
         </Card>
+
+        {/* Database Status */}
+        {!process.env.DATABASE_URL && (
+          <div className="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+            <p className="text-sm text-blue-700">
+              <strong>Note:</strong> Database is not configured. Posts will not be
+              persisted. Set the DATABASE_URL environment variable to enable database
+              storage.
+            </p>
+          </div>
+        )}
       </main>
     </div>
   );

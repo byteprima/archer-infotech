@@ -88,7 +88,7 @@ export const categories: Category[] = [
     slug: "generative-ai",
     name: "AI & GenAI",
     description: "Build with generative AI, LLMs, and modern AI tools",
-    icon: "Sparkles",
+    icon: "Wand2",
   },
   {
     id: "mobile-app",
@@ -2078,7 +2078,7 @@ export const courses: Course[] = [
     id: "codeleap-bootcamp",
     slug: "codeleap-full-stack-bootcamp",
     title: "CodeLeap Full Stack Bootcamp",
-    shortTitle: "CodeLeap",
+    shortTitle: "CodeLeap Bootcamp",
     category: "Bootcamps",
     categorySlug: "bootcamps",
     description: "Intensive 6-month bootcamp covering full-stack development from zero to job-ready. Includes placement assistance and real-world projects.",
@@ -2251,7 +2251,18 @@ export function getCategory(slug: string): Category | undefined {
 }
 
 export function getFeaturedCourses(): Course[] {
-  return courses.filter((course) => course.isFeatured);
+  const priorityOrder = ["generative-ai", "java-full-stack", "python", "aws", "codeleap-full-stack-bootcamp"];
+  const featured = courses.filter((course) => course.isFeatured);
+
+  return featured.sort((a, b) => {
+    const aIndex = priorityOrder.indexOf(a.slug);
+    const bIndex = priorityOrder.indexOf(b.slug);
+
+    if (aIndex !== -1 && bIndex !== -1) return aIndex - bIndex;
+    if (aIndex !== -1) return -1;
+    if (bIndex !== -1) return 1;
+    return 0;
+  });
 }
 
 export function getPopularCourses(): Course[] {

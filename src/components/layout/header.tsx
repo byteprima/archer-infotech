@@ -4,7 +4,21 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, Phone } from "lucide-react";
+import {
+  Menu,
+  Phone,
+  Code,
+  Layers,
+  Globe,
+  Cloud,
+  Award,
+  Brain,
+  Wand2,
+  Smartphone,
+  Database,
+  Rocket,
+  LucideIcon,
+} from "lucide-react";
 import {
   FacebookIcon,
   InstagramIcon,
@@ -37,11 +51,24 @@ const mainNavItems = [
   { name: "Contact", href: "/contact" },
 ];
 
+const categoryIcons: Record<string, LucideIcon> = {
+  Code,
+  Layers,
+  Globe,
+  Cloud,
+  Award,
+  Brain,
+  Wand2,
+  Smartphone,
+  Database,
+  Rocket,
+};
+
 export function Header() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const featuredCourses = getFeaturedCourses().slice(0, 4);
+  const featuredCourses = getFeaturedCourses().slice(0, 5);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -155,17 +182,21 @@ export function Header() {
                             <h4 className="mb-3 text-sm font-semibold text-primary">
                               Course Categories
                             </h4>
-                            <ul className="space-y-2">
-                              {categories.map((category) => (
-                                <li key={category.slug}>
-                                  <Link
-                                    href={`/courses/${category.slug}`}
-                                    className="block select-none rounded-md p-2 text-sm leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                                  >
-                                    {category.name}
-                                  </Link>
-                                </li>
-                              ))}
+                            <ul className="space-y-1">
+                              {categories.map((category) => {
+                                const IconComponent = categoryIcons[category.icon];
+                                return (
+                                  <li key={category.slug}>
+                                    <Link
+                                      href={`/courses/${category.slug}`}
+                                      className="flex items-center gap-2 select-none rounded-md p-2 text-sm leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                                    >
+                                      {IconComponent && <IconComponent className="h-4 w-4 text-primary" />}
+                                      {category.name}
+                                    </Link>
+                                  </li>
+                                );
+                              })}
                             </ul>
                           </div>
                           <div>

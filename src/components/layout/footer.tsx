@@ -5,6 +5,17 @@ import {
   Phone,
   Mail,
   Clock,
+  Code,
+  Layers,
+  Globe,
+  Cloud,
+  Award,
+  Brain,
+  Wand2,
+  Smartphone,
+  Database,
+  Rocket,
+  LucideIcon,
 } from "lucide-react";
 import { siteConfig } from "@/data/site-config";
 import { categories } from "@/data/courses";
@@ -49,6 +60,19 @@ function YouTubeIcon({ className }: { className?: string }) {
     </svg>
   );
 }
+
+const categoryIcons: Record<string, LucideIcon> = {
+  Code,
+  Layers,
+  Globe,
+  Cloud,
+  Award,
+  Brain,
+  Wand2,
+  Smartphone,
+  Database,
+  Rocket,
+};
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -147,16 +171,20 @@ export function Footer() {
           <div>
             <h4 className="text-lg font-semibold mb-4 text-white">Course Categories</h4>
             <ul className="space-y-2">
-              {categories.slice(0, 7).map((category) => (
-                <li key={category.slug}>
-                  <Link
-                    href={`/courses/${category.slug}`}
-                    className="text-primary-foreground/80 hover:text-secondary transition-colors text-sm"
-                  >
-                    {category.name}
-                  </Link>
-                </li>
-              ))}
+              {categories.map((category) => {
+                const IconComponent = categoryIcons[category.icon];
+                return (
+                  <li key={category.slug}>
+                    <Link
+                      href={`/courses/${category.slug}`}
+                      className="flex items-center gap-2 text-primary-foreground/80 hover:text-secondary transition-colors text-sm"
+                    >
+                      {IconComponent && <IconComponent className="h-4 w-4" />}
+                      {category.name}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </div>
 

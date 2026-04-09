@@ -104,6 +104,7 @@ export const siteConfig = {
       { name: "Internships", href: "/internships" },
       { name: "Corporate Training", href: "/corporate-training" },
       { name: "Batch Schedule", href: "/batch-schedule" },
+      { name: "Blog", href: "/blog" },
       { name: "Contact", href: "/contact" },
     ],
     courses: [
