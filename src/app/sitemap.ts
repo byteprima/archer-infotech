@@ -1,6 +1,7 @@
 import { MetadataRoute } from "next";
 import { courses, categories } from "@/data/courses";
 import { bootcamps } from "@/data/bootcamps";
+import { teamMembers } from "@/data/team";
 import { getAllPublishedSlugs } from "@/lib/actions/blog";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://archerinfotech.in";
@@ -112,5 +113,31 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.9,
   }));
 
-  return [...staticPages, ...categoryPages, ...coursePages, ...bootcampListingPage, ...bootcampPages, ...blogPages];
+  // Trainer pages — Pillar 1 #18 (E-E-A-T author bylines)
+  const trainerListingPage: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/trainers`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+  ];
+
+  const trainerPages: MetadataRoute.Sitemap = teamMembers.map((trainer) => ({
+    url: `${baseUrl}/trainers/${trainer.id}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly",
+    priority: 0.6,
+  }));
+
+  return [
+    ...staticPages,
+    ...categoryPages,
+    ...coursePages,
+    ...bootcampListingPage,
+    ...bootcampPages,
+    ...trainerListingPage,
+    ...trainerPages,
+    ...blogPages,
+  ];
 }

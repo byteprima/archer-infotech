@@ -218,6 +218,51 @@ export function BreadcrumbJsonLd({ items }: BreadcrumbJsonLdProps) {
   );
 }
 
+// Person schema for trainer profile pages
+interface PersonJsonLdProps {
+  name: string;
+  jobTitle: string;
+  description: string;
+  image?: string;
+  knowsAbout?: string[];
+  linkedin?: string;
+  url: string;
+}
+
+export function PersonJsonLd({
+  name,
+  jobTitle,
+  description,
+  image,
+  knowsAbout,
+  linkedin,
+  url,
+}: PersonJsonLdProps) {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name,
+    jobTitle,
+    description,
+    ...(image && { image: image.startsWith("http") ? image : `${baseUrl}${image}` }),
+    ...(knowsAbout && knowsAbout.length > 0 && { knowsAbout }),
+    ...(linkedin && { sameAs: [linkedin] }),
+    worksFor: {
+      "@type": "EducationalOrganization",
+      name: siteConfig.name,
+      url: baseUrl,
+    },
+    url: `${baseUrl}${url}`,
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
+
 // Aggregate Rating schema for testimonials
 interface AggregateRatingJsonLdProps {
   ratingValue: number;

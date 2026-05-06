@@ -45,6 +45,7 @@ const mainNavItems = [
   { name: "Home", href: "/" },
   { name: "Blog", href: "/blog" },
   { name: "Courses", href: "/courses", hasDropdown: true },
+  { name: "Trainers", href: "/trainers" },
   { name: "Placements", href: "/placements" },
   { name: "Internships", href: "/internships" },
   { name: "Corporate Training", href: "/corporate-training" },

@@ -26,9 +26,11 @@ import {
 } from "@/components/ui/accordion";
 import { CourseJsonLd, FAQJsonLd, BreadcrumbJsonLd } from "@/components/seo/json-ld";
 import { courses, getCourse, getCategory, getRelatedCourses } from "@/data/courses";
+import { getTrainersForCourse } from "@/data/team";
 import { siteConfig } from "@/data/site-config";
 import { buildPageMetadata } from "@/lib/seo";
 import { getNextBatchForCourse } from "@/lib/actions/public-batches";
+import Image from "next/image";
 
 interface CoursePageProps {
   params: Promise<{
@@ -84,6 +86,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
         year: "numeric",
       })
     : null;
+  const trainers = getTrainersForCourse(slug);
 
   return (
     <>
@@ -504,6 +507,57 @@ export default async function CoursePage({ params }: CoursePageProps) {
           </div>
         </div>
       </section>
+
+      {/* Taught By — trainer attribution for E-E-A-T (Pillar 1 #18) */}
+      {trainers.length > 0 && (
+        <section className="py-12 border-t bg-muted/20">
+          <div className="container mx-auto px-4">
+            <h2 className="text-2xl md:text-3xl font-bold mb-2">
+              Taught by {trainers.length === 1 ? "an Industry Expert" : "Industry Experts"}
+            </h2>
+            <p className="text-muted-foreground mb-8">
+              Every batch is led by a working professional with years of MNC experience.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {trainers.map((trainer) => (
+                <Link
+                  key={trainer.id}
+                  href={`/trainers/${trainer.id}`}
+                  className="group flex items-start gap-4 p-5 rounded-lg border bg-background hover:border-primary hover:shadow-md transition-all"
+                >
+                  {trainer.image ? (
+                    <div className="w-16 h-16 rounded-full overflow-hidden relative shrink-0 ring-2 ring-primary/10">
+                      <Image
+                        src={trainer.image}
+                        alt={`${trainer.name}, ${trainer.role} at Archer Infotech, Pune`}
+                        fill
+                        className="object-cover"
+                        sizes="64px"
+                      />
+                    </div>
+                  ) : (
+                    <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center text-primary font-semibold shrink-0">
+                      {trainer.name
+                        .split(" ")
+                        .map((n) => n[0])
+                        .join("")}
+                    </div>
+                  )}
+                  <div>
+                    <div className="font-semibold group-hover:text-primary transition-colors">
+                      {trainer.name}
+                    </div>
+                    <div className="text-sm text-muted-foreground">{trainer.role}</div>
+                    <div className="text-xs text-primary font-medium mt-1">
+                      {trainer.experience} experience
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Related Courses — internal linking for discoverability + SEO */}
       {(() => {
