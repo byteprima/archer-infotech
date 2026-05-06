@@ -14,10 +14,10 @@ export const siteConfig = {
     whatsapp: "+919850678451",
     address: {
       line1: "Flat No. 12, Divyadarshan Housing Society",
-      line2: "Behind Kothrud Bus Stand Road, Near Natraj Gas Agency, Londhe Wada, Chaitanya Nagar",
+      line2: "behind Kothrud Bus Stand Road, near Natraj Gas Agency, Londhe Wada, Chaitanya Nagar",
       city: "Kothrud, Pune",
       state: "Maharashtra",
-      pincode: "411029",
+      pincode: "411038",
       country: "India",
     },
   },
@@ -48,7 +48,7 @@ export const siteConfig = {
     corporatePartners: "100+",
     courses: "40+",
     batchesCompleted: "1000+",
-    placementRate: "100%",
+    placementRate: "90%",
   },
 
   // Opening hours — used by LocalBusiness schema and contact page.

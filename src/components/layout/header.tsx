@@ -43,13 +43,13 @@ import { captureAnalyticsEvent } from "@/lib/posthog/client";
 
 const mainNavItems = [
   { name: "Home", href: "/" },
-  { name: "Blog", href: "/blog" },
   { name: "Courses", href: "/courses", hasDropdown: true },
   { name: "Trainers", href: "/trainers" },
   { name: "Placements", href: "/placements" },
   { name: "Internships", href: "/internships" },
   { name: "Corporate Training", href: "/corporate-training" },
   { name: "Batch Schedule", href: "/batch-schedule" },
+  { name: "Blog", href: "/blog" },
   { name: "About", href: "/about" },
   { name: "Contact", href: "/contact" },
 ];
@@ -294,7 +294,7 @@ export function Header() {
               <Menu className="h-6 w-6" />
               <span className="sr-only">Toggle menu</span>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[300px] sm:w-[350px]">
+            <SheetContent side="right" className="w-[300px] sm:w-[350px] px-6">
               <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
               <div className="flex flex-col gap-6 mt-6">
                 <Link

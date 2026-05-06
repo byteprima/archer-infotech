@@ -135,7 +135,7 @@ export default function AboutPage() {
                     We don&apos;t just teach technology. We build careers.
                   </p>
                   <p>
-                    With <strong className="text-foreground">5,000+ students placed</strong> at top IT companies including TCS, Infosys, Wipro, Tech Mahindra, and Persistent Systems, and <strong className="text-foreground">1,000+ batches</strong> successfully completed from our institute near Kothrud Bus Stand, Pune — our vision is backed by a 15-year track record that speaks louder than any promise.
+                    With <strong className="text-foreground">5,000+ students placed</strong> at top IT companies including TCS, Infosys, Wipro, Tech Mahindra, and Persistent Systems, and <strong className="text-foreground">1,000+ batches</strong> successfully completed from our institute near Kothrud Bus Stand, Pune — our vision is backed by a 17-year track record that speaks louder than any promise.
                   </p>
                   <p>
                     As the IT industry evolves rapidly — from Cloud and DevOps to ChatGPT, LLMs, and Generative AI — our vision is to stay permanently ahead of that curve, so our students are always the most job-ready candidates walking into any interview room in Pune, Mumbai, or anywhere in India.

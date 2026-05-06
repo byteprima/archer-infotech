@@ -224,8 +224,9 @@ export default async function CoursePage({ params }: CoursePageProps) {
       <section className="py-12 md:py-16">
         <div className="container mx-auto px-4">
           {rich ? (
-            // Rich layout — single column for content depth, no sidebar.
-            <div className="max-w-4xl mx-auto">
+            // Rich layout — fills the full container width to match
+            // the Hero and Related Courses sections (no inner max-w).
+            <>
               <RichCourseContent rich={rich} />
               {/* FAQ from rich content — server-rendered, AI-citable */}
               {effectiveFaqs.length > 0 && (
@@ -252,7 +253,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
                   </div>
                 </section>
               )}
-            </div>
+            </>
           ) : (
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Main Content */}
