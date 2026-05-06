@@ -3,15 +3,20 @@ import {
   ArrowRight,
   BookOpen,
   Briefcase,
+  Building2,
   CheckCircle,
   Clock,
   GraduationCap,
   Mail,
   MapPin,
+  Minus,
   Phone,
   Rocket,
+  Sparkles,
   Target,
+  TrendingUp,
   Users,
+  Wrench,
 } from "lucide-react";
 import { TrackedAnchor } from "@/components/analytics/tracked-anchor";
 import { TrackedLink } from "@/components/analytics/tracked-link";
@@ -58,10 +63,10 @@ const bootcampThemes: Record<
   }
 > = {
   codeleap: {
-    eyebrow: "Vacation Coding Bootcamp",
+    eyebrow: "2-Month Coding Bootcamp for 12th Pass",
     stage: "Best for students before college begins",
     summary:
-      "Build confidence before semester one with beginner-friendly tracks and project-based learning.",
+      "An 8-week sequential foundation in Python, Web Dev, AI tools, GitHub, and career skills — taught at our Kothrud, Pune campus and online.",
     statAccent: "text-accent",
     statBorder: "border-accent/20",
     panelTone: "from-accent/10 via-background to-background",
@@ -92,15 +97,19 @@ function getDetail(bootcamp: Bootcamp, label: string) {
 
 function getPathwaySummary(bootcamp: Bootcamp) {
   if (bootcamp.tracks?.length) {
+    if (bootcamp.id === "codeleap") {
+      const moduleCount = bootcamp.tracks[0]?.modules.length ?? 5;
+      return {
+        title: "Your 8-week sequential foundation path",
+        body: "Five modules taught back-to-back across 2 months. Every module builds directly on the previous one — Python first, then web, then AI, then GitHub, then career skills. By week 8 you have a deployed website, a public GitHub portfolio, and a polished resume.",
+        countLabel: `${moduleCount} sequential modules`,
+        contentLabel: "Curriculum",
+      };
+    }
+
     return {
-      title:
-        bootcamp.id === "codeleap"
-          ? "Pick your first coding direction"
-          : "Choose your long-term specialisation",
-      body:
-        bootcamp.id === "codeleap"
-          ? "Each student chooses one beginner track and learns by building. The goal is a strong foundation and a visible first project."
-          : "Each track maps to a real job path, so students can progress semester by semester with clearer direction and portfolio depth.",
+      title: "Choose your long-term specialisation",
+      body: "Each track maps to a real job path, so students can progress semester by semester with clearer direction and portfolio depth.",
       countLabel: `${bootcamp.tracks.length} guided tracks`,
       contentLabel: "Tracks",
     };
@@ -145,13 +154,26 @@ function getFeaturedStats(bootcamp: Bootcamp) {
 function getAnchorSections(bootcamp: Bootcamp) {
   const structure = getPathwaySummary(bootcamp);
 
-  return [
+  const sections: { href: string; label: string }[] = [
     { href: "#overview", label: "Overview" },
     { href: "#why-join", label: "Why Join" },
     { href: "#curriculum", label: structure.contentLabel },
-    { href: "#included", label: "Included" },
-    { href: "#faqs", label: "FAQs" },
   ];
+
+  if (bootcamp.comparison) {
+    sections.push({ href: "#comparison", label: "How We Compare" });
+  }
+  if (bootcamp.toolsAndTech) {
+    sections.push({ href: "#tools", label: "Tools" });
+  }
+  if (bootcamp.careerOutcomes) {
+    sections.push({ href: "#outcomes", label: "Outcomes" });
+  }
+
+  sections.push({ href: "#included", label: "What You Get" });
+  sections.push({ href: "#faqs", label: "FAQs" });
+
+  return sections;
 }
 
 function getAddressLines() {
@@ -243,6 +265,144 @@ function TrackTabs({ bootcamp }: { bootcamp: Bootcamp }) {
         </TabsContent>
       ))}
     </Tabs>
+  );
+}
+
+function FoundationCurriculum({ bootcamp }: { bootcamp: Bootcamp }) {
+  const track = bootcamp.tracks?.[0];
+  if (!track) return null;
+
+  const hasRichContent = track.modules.some(
+    (mod) => mod.intro || (mod.topics && mod.topics.length > 0) || mod.outcome
+  );
+  if (!hasRichContent) return null;
+
+  return (
+    <Card className="overflow-hidden border-0 bg-gradient-to-br from-muted/70 via-background to-background shadow-xl ring-1 ring-foreground/10">
+      <CardContent className="space-y-8 px-6 py-8 md:px-8">
+        <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+          <div>
+            <div className="mb-3 flex items-center gap-2">
+              <Badge variant="secondary" className="rounded-full px-3 py-1">
+                Detailed Syllabus
+              </Badge>
+              <span className="text-sm text-muted-foreground">
+                {track.subtitle}
+              </span>
+            </div>
+            <h3 className="text-2xl font-semibold">{track.name}</h3>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground md:text-base">
+              The {bootcamp.name} syllabus is structured into{" "}
+              <span className="font-semibold text-foreground">
+                {track.modules.length} carefully sequenced modules
+              </span>{" "}
+              spread across 8 weeks. Each module builds directly on the previous
+              one, ensuring students move from absolute beginner to confident,
+              portfolio-ready early-stage developer.
+            </p>
+          </div>
+          <div className="rounded-3xl border border-border bg-background/80 p-5">
+            <p className="mb-4 text-sm font-semibold text-foreground">
+              Skills you will build
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {track.skills.map((skill) => (
+                <Badge
+                  key={skill}
+                  variant="outline"
+                  className="rounded-full px-3 py-1"
+                >
+                  {skill}
+                </Badge>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <Accordion className="w-full" defaultValue={["module-0"]}>
+          {track.modules.map((mod, index) => (
+            <AccordionItem
+              key={mod.title}
+              value={`module-${index}`}
+              className="rounded-2xl border border-border bg-background/70 shadow-sm not-last:mb-3 not-last:border-b"
+            >
+              <AccordionTrigger className="rounded-2xl px-5 py-5 text-left hover:no-underline md:px-6">
+                <div className="flex w-full items-start gap-4 pr-2">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-base font-semibold text-primary">
+                    {index + 1}
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-base font-semibold leading-snug text-foreground md:text-lg">
+                      {mod.title}
+                    </p>
+                    {mod.description && (
+                      <p className="mt-1 text-sm font-normal leading-6 text-muted-foreground">
+                        {mod.description}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </AccordionTrigger>
+              <AccordionContent className="px-5 pb-6 md:px-6">
+                <div className="ml-0 space-y-5 md:ml-15">
+                  {mod.intro && (
+                    <p className="text-sm leading-7 text-muted-foreground md:text-base">
+                      {mod.intro}
+                    </p>
+                  )}
+
+                  {mod.topics && mod.topics.length > 0 && (
+                    <div>
+                      <p className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                        <BookOpen className="h-3.5 w-3.5" />
+                        Topics Covered
+                      </p>
+                      <ul className="grid gap-2.5 md:grid-cols-2">
+                        {mod.topics.map((topic) => (
+                          <li
+                            key={topic.title}
+                            className="flex items-start gap-2.5 rounded-xl border border-border/60 bg-background px-3.5 py-2.5"
+                          >
+                            <CheckCircle className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                            <div className="min-w-0 text-sm leading-6">
+                              <span className="font-semibold text-foreground">
+                                {topic.title}
+                              </span>
+                              {topic.description && (
+                                <span className="text-muted-foreground">
+                                  {" — "}
+                                  {topic.description}
+                                </span>
+                              )}
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  {mod.outcome && (
+                    <div className="flex items-start gap-3 rounded-2xl border border-primary/25 bg-primary/5 px-4 py-4">
+                      <div className="rounded-xl bg-primary/10 p-2 text-primary">
+                        <Target className="h-4 w-4" />
+                      </div>
+                      <div>
+                        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+                          Outcome
+                        </p>
+                        <p className="mt-1 text-sm leading-7 text-foreground">
+                          {mod.outcome}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      </CardContent>
+    </Card>
   );
 }
 
@@ -343,6 +503,237 @@ function ProgramTabs({ bootcamp }: { bootcamp: Bootcamp }) {
         </TabsContent>
       ))}
     </Tabs>
+  );
+}
+
+function ComparisonSection({ bootcamp }: { bootcamp: Bootcamp }) {
+  if (!bootcamp.comparison) {
+    return null;
+  }
+
+  const { headline, intro, usLabel, othersLabel, rows } = bootcamp.comparison;
+
+  return (
+    <section id="comparison" className="bg-muted/30 py-16 md:py-20">
+      <div className="container mx-auto px-4">
+        <div className="mb-10 max-w-3xl">
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+            How We Compare
+          </p>
+          <h2 className="mt-3 text-3xl font-bold text-balance md:text-4xl">
+            {headline ?? `What makes ${bootcamp.name} different`}
+          </h2>
+          {intro && (
+            <p className="mt-4 text-base leading-7 text-muted-foreground md:text-lg">
+              {intro}
+            </p>
+          )}
+        </div>
+
+        <Card className="overflow-hidden rounded-[2rem] border-0 bg-background shadow-md ring-1 ring-foreground/10">
+          <CardContent className="px-0 py-0">
+            <div className="grid grid-cols-2 border-b">
+              <div className="bg-primary px-6 py-4 text-primary-foreground md:px-8 md:py-5">
+                <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em]">
+                  <CheckCircle className="h-4 w-4" />
+                  {usLabel ?? `At ${bootcamp.name}`}
+                </p>
+              </div>
+              <div className="bg-muted px-6 py-4 text-muted-foreground md:px-8 md:py-5">
+                <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em]">
+                  <Minus className="h-4 w-4" />
+                  {othersLabel ?? "Most other classes"}
+                </p>
+              </div>
+            </div>
+            <div className="divide-y">
+              {rows.map((row) => (
+                <div
+                  key={row.us}
+                  className="grid grid-cols-2 gap-4 px-6 py-5 md:px-8"
+                >
+                  <div className="flex items-start gap-3">
+                    <CheckCircle className="mt-1 h-4 w-4 shrink-0 text-primary" />
+                    <p className="text-sm leading-6 text-foreground">{row.us}</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <Minus className="mt-1 h-4 w-4 shrink-0 text-muted-foreground/60" />
+                    <p className="text-sm leading-6 text-muted-foreground">
+                      {row.others}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </section>
+  );
+}
+
+function ToolsAndTechSection({ bootcamp }: { bootcamp: Bootcamp }) {
+  if (!bootcamp.toolsAndTech) {
+    return null;
+  }
+
+  const { intro, groups } = bootcamp.toolsAndTech;
+
+  return (
+    <section id="tools" className="py-16 md:py-20">
+      <div className="container mx-auto px-4">
+        <div className="mb-10 max-w-3xl">
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+            Tools & Technologies
+          </p>
+          <h2 className="mt-3 text-3xl font-bold text-balance md:text-4xl">
+            What you will use, hands-on
+          </h2>
+          {intro && (
+            <p className="mt-4 text-base leading-7 text-muted-foreground md:text-lg">
+              {intro}
+            </p>
+          )}
+        </div>
+
+        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+          {groups.map((group, index) => (
+            <div
+              key={group.label}
+              className="rounded-[2rem] border border-border bg-background p-6 shadow-sm"
+            >
+              <div className="mb-4 flex items-center gap-3">
+                <div className="rounded-2xl bg-primary/10 p-2.5 text-primary">
+                  {index === 2 ? (
+                    <Sparkles className="h-4 w-4" />
+                  ) : (
+                    <Wrench className="h-4 w-4" />
+                  )}
+                </div>
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                  {group.label}
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {group.items.map((item) => (
+                  <Badge
+                    key={item}
+                    variant="outline"
+                    className="rounded-full px-3 py-1"
+                  >
+                    {item}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function CareerOutcomesSection({ bootcamp }: { bootcamp: Bootcamp }) {
+  if (!bootcamp.careerOutcomes) {
+    return null;
+  }
+
+  const { intro, immediateBenefits, longTermPaths, localContext } =
+    bootcamp.careerOutcomes;
+
+  return (
+    <section id="outcomes" className="bg-muted/30 py-16 md:py-20">
+      <div className="container mx-auto px-4">
+        <div className="mb-10 max-w-3xl">
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+            Career Outcomes
+          </p>
+          <h2 className="mt-3 text-3xl font-bold text-balance md:text-4xl">
+            What you can do after {bootcamp.name}
+          </h2>
+          {intro && (
+            <p className="mt-4 text-base leading-7 text-muted-foreground md:text-lg">
+              {intro}
+            </p>
+          )}
+        </div>
+
+        <div className="grid gap-6 lg:grid-cols-2">
+          <Card className="rounded-[2rem] border-0 bg-background shadow-md ring-1 ring-foreground/10">
+            <CardContent className="px-6 py-7 md:px-8">
+              <div className="mb-5 flex items-center gap-3">
+                <div className="rounded-2xl bg-primary/10 p-3 text-primary">
+                  <TrendingUp className="h-5 w-5" />
+                </div>
+                <h3 className="text-lg font-semibold">
+                  Immediate benefits during college
+                </h3>
+              </div>
+              <ul className="space-y-3">
+                {immediateBenefits.map((benefit) => (
+                  <li
+                    key={benefit}
+                    className="flex items-start gap-3 text-sm leading-7 text-muted-foreground"
+                  >
+                    <CheckCircle className="mt-1 h-4 w-4 shrink-0 text-primary" />
+                    <span>{benefit}</span>
+                  </li>
+                ))}
+              </ul>
+            </CardContent>
+          </Card>
+
+          <Card className="rounded-[2rem] border-0 bg-background shadow-md ring-1 ring-foreground/10">
+            <CardContent className="px-6 py-7 md:px-8">
+              <div className="mb-5 flex items-center gap-3">
+                <div className="rounded-2xl bg-secondary/15 p-3 text-secondary">
+                  <Briefcase className="h-5 w-5" />
+                </div>
+                <h3 className="text-lg font-semibold">
+                  Long-term career paths supported
+                </h3>
+              </div>
+              <p className="mb-4 text-sm leading-6 text-muted-foreground">
+                The foundation you build directly maps to these growing roles in
+                Pune and across India:
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {longTermPaths.map((path) => (
+                  <Badge
+                    key={path}
+                    variant="outline"
+                    className="rounded-full px-3 py-1"
+                  >
+                    {path}
+                  </Badge>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {localContext && (
+          <div className="mt-8 rounded-[2rem] border border-border bg-background p-6 shadow-sm md:p-8">
+            <div className="flex flex-col gap-5 md:flex-row md:items-start md:gap-6">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+                <Building2 className="h-5 w-5" />
+              </div>
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                  Local Context
+                </p>
+                <h3 className="mt-2 text-2xl font-semibold">
+                  {localContext.headline}
+                </h3>
+                <p className="mt-3 text-base leading-8 text-muted-foreground">
+                  {localContext.body}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </section>
   );
 }
 
@@ -695,23 +1086,40 @@ export function BootcampDetailPage({
           </div>
 
           <div className="space-y-6">
-            <TrackTabs bootcamp={bootcamp} />
+            {bootcamp.tracks?.[0]?.modules.some(
+              (mod) =>
+                mod.intro || (mod.topics && mod.topics.length > 0) || mod.outcome
+            ) ? (
+              <FoundationCurriculum bootcamp={bootcamp} />
+            ) : (
+              <TrackTabs bootcamp={bootcamp} />
+            )}
             <ProgramTabs bootcamp={bootcamp} />
           </div>
         </div>
       </section>
 
+      <ComparisonSection bootcamp={bootcamp} />
+      <ToolsAndTechSection bootcamp={bootcamp} />
+      <CareerOutcomesSection bootcamp={bootcamp} />
+
       <section id="included" className="bg-muted/30 py-16 md:py-20">
         <div className="container mx-auto px-4">
           <div className="mb-10 max-w-3xl">
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-              Included Beyond Core Training
+              {bootcamp.id === "codeleap"
+                ? "What You Walk Away With"
+                : "Included Beyond Core Training"}
             </p>
             <h2 className="mt-3 text-3xl font-bold text-balance md:text-4xl">
-              Every {bootcamp.name} student gets more than just technical modules
+              {bootcamp.id === "codeleap"
+                ? `Every ${bootcamp.name} student finishes with a complete starter toolkit`
+                : `Every ${bootcamp.name} student gets more than just technical modules`}
             </h2>
             <p className="mt-4 text-base leading-7 text-muted-foreground md:text-lg">
-              These support layers reflect the real student journey: communication, projects, profile-building, and guidance around the next step.
+              {bootcamp.id === "codeleap"
+                ? "Not just a certificate — concrete, public, recruiter-visible deliverables that prove you can actually build, ship, and tell your story."
+                : "These support layers reflect the real student journey: communication, projects, profile-building, and guidance around the next step."}
             </p>
           </div>
 

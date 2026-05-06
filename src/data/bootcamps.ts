@@ -1,7 +1,20 @@
+export interface BootcampModuleTopic {
+  title: string;
+  description: string;
+}
+
+export interface BootcampModule {
+  title: string;
+  description: string;
+  intro?: string;
+  topics?: BootcampModuleTopic[];
+  outcome?: string;
+}
+
 export interface BootcampTrack {
   name: string;
   subtitle: string;
-  modules: { title: string; description: string }[];
+  modules: BootcampModule[];
   skills: string[];
 }
 
@@ -28,6 +41,36 @@ export interface BootcampDetail {
   value: string;
 }
 
+export interface BootcampComparisonRow {
+  us: string;
+  others: string;
+}
+
+export interface BootcampComparison {
+  headline?: string;
+  intro?: string;
+  usLabel?: string;
+  othersLabel?: string;
+  rows: BootcampComparisonRow[];
+}
+
+export interface BootcampToolsGroup {
+  label: string;
+  items: string[];
+}
+
+export interface BootcampToolsAndTech {
+  intro?: string;
+  groups: BootcampToolsGroup[];
+}
+
+export interface BootcampCareerOutcomes {
+  intro?: string;
+  immediateBenefits: string[];
+  longTermPaths: string[];
+  localContext?: { headline: string; body: string };
+}
+
 export interface Bootcamp {
   id: string;
   slug: string;
@@ -46,6 +89,9 @@ export interface Bootcamp {
   tracks?: BootcampTrack[];
   programs?: BootcampProgram[];
   commonModules: BootcampCommonModule[];
+  comparison?: BootcampComparison;
+  toolsAndTech?: BootcampToolsAndTech;
+  careerOutcomes?: BootcampCareerOutcomes;
   details: BootcampDetail[];
   faqs: BootcampFAQ[];
   closingCTA: { headline: string; body: string };
@@ -59,270 +105,654 @@ export const bootcamps: Bootcamp[] = [
     id: "codeleap",
     slug: "codeleap",
     name: "CodeLeap",
-    tagline: "Your First Step into the World of Programming",
+    tagline: "Pune's Career-Launching Coding Course for 12th Pass Students",
     subtitle:
-      "A Vacation Coding Bootcamp for 12th Passouts — by Archer Info Tech, Pune",
-    hook: "You have just cleared your 12th board exams. CET is done. JEE is behind you. And now you have 3 to 3.5 months before engineering college begins. Most students spend this time doing nothing. You don't have to.",
+      "A 2-month foundation program in Python, Web Development, AI Tools & Career Readiness — delivered offline at our Kothrud campus and online across Pune.",
+    hook: "Built for students who have just cleared 12th (HSC / CBSE / ICSE) and want a meaningful head start before stepping into Engineering, BCA, BSc-IT, BCS, or any IT-related college course in Pune.",
     description:
-      "CodeLeap is Archer Info Tech's specially designed coding bootcamp for 12th passout students across Pune and Maharashtra. In this short but powerful course, you get hands-on exposure to real programming — whether it is web development, Python, or the basics of Artificial Intelligence and Data Science — so that you walk into your first semester of engineering already ahead of the curve. This is not a coaching class. This is your head start.",
+      "Most coding bootcamps in Pune are built for working professionals or final-year engineering students. CodeLeap is different — one of the few programs in Pune designed exclusively for 12th-pass students aged 17–19 who want to enter Engineering, IT, or Computer Science with real skills already in place. In just 2 months, students at our Kothrud campus learn the same foundations that final-year engineering students struggle with: Python programming, full web development, AI tools, GitHub, and interview-ready career skills.",
     seo: {
       title:
-        "CodeLeap | Coding Course for 12th Passouts in Pune | Archer Info Tech",
+        "CodeLeap Bootcamp in Pune | Coding Course After 12th | Python, Web Development & AI | Archer Infotech, Kothrud",
       description:
-        "Join CodeLeap by Archer Info Tech — Pune's best vacation coding bootcamp for 12th passouts. Learn Python, Web Development, or AI/ML basics in your 3-month gap after boards.",
+        "CodeLeap is Pune's 2-month coding bootcamp built specifically for 12th-pass students. Learn Python programming, web development, AI tools, GitHub & career skills in Kothrud, Pune. Online + offline classes. Enroll now.",
       keywords: [
-        "coding course for 12th passouts in Pune",
-        "vacation coding course after 12th Pune",
-        "summer coding bootcamp HSC students",
-        "programming course after boards Maharashtra",
-        "what to do after 12th before engineering",
+        "coding bootcamp Pune",
+        "Python classes Pune",
+        "coding course after 12th Pune",
+        "AI course Pune",
+        "web development course Kothrud",
+        "programming classes Kothrud Pune",
+        "best computer course after 12th in Pune",
+        "coding classes for beginners Pune",
         "IT course after HSC Pune",
-        "Python course for beginners Pune",
-        "web development course for students",
-        "coding classes for 12th pass students",
-        "short term coding course Pune",
+        "Python training Kothrud",
+        "Archer Infotech",
       ],
     },
     targetAudience: [
-      "Just appeared for 12th Science (PCM) board exams in Maharashtra or any other state",
-      "Completed CET, MHT-CET, JEE Main, or JEE Advanced",
-      "Waiting for admission to BE, BTech, BCA, or BSc Computer Science programs",
-      "Little or no prior coding experience — want to learn from scratch",
-      "Want to use the 3-month gap productively rather than sitting idle",
-      "Looking for a short-term, affordable, and practical IT course in Pune",
+      "12th Pass-Out Students (Science, Commerce, or Arts) preparing for Engineering, BCA, BSc-IT, BCS, MCA, or B.Tech.",
+      "First-year college students in Pune who feel underprepared for programming subjects.",
+      "Diploma students entering the second or third year and looking to strengthen practical IT skills.",
+      "Students from non-IT backgrounds in Pune wanting to switch to a tech-driven career path early.",
+      "Parents in Pune searching for the best computer course after 12th for their children before college begins.",
     ],
     whyJoin: [
       {
-        title: "Turn Your Gap Into a Launchpad",
+        title: "Local Pune institute with a real Kothrud campus",
         description:
-          "The 3-month window between your 12th results and your first college lecture is one of the most underutilised periods in a student's life. CodeLeap helps you convert that free time into practical skills, real projects, and a genuine engineering mindset — before your peers even open a textbook.",
+          "Not a faceless online platform. Our campus in Kothrud is open for visits, demo sessions, and parent counselling — so you can meet the mentors and see student work before you enrol.",
       },
       {
-        title: "Build a Strong Foundation Before Engineering Begins",
+        title: "Mentor-led teaching in small batches",
         description:
-          "Most engineering students struggle in their first year because they enter without any programming foundation. CodeLeap gives you that foundation 3 months early, so your first year of engineering feels like revision rather than shock.",
+          "We deliberately keep batch sizes small. Every student gets attention, every question gets answered, and every mentor knows your name and your level by week one.",
       },
       {
-        title: "Align Your Thinking with Engineering Logic",
+        title: "Practical-first, project-led philosophy",
         description:
-          "Programming is not just about writing code. It is about learning to think — logically, systematically, and creatively. CodeLeap is specifically designed to shift your mindset from a 12th-grade student to an engineering-ready problem solver.",
+          "Every concept is taught through hands-on projects. By the end of week 2 you have written real Python; by the end of week 4 you have a deployed website; by the end of week 8 you have a GitHub portfolio recruiters will recognise.",
       },
       {
-        title: "Get Comfortable with English Technical Communication",
+        title: "AI tools woven into every module — not bolted on",
         description:
-          "Engineering education in India is delivered in English. Many students from regional-medium schools feel uncomfortable at first. CodeLeap includes English communication modules so that by the time college begins, you are reading technical content and asking questions confidently.",
+          "We are one of the few coding classes in Pune that treats AI fluency as a baseline skill. ChatGPT, Claude, Gemini, NotebookLM, and GitHub Copilot are taught as everyday tools, not as a separate paid course.",
       },
       {
-        title: "Learn from Industry Experts with 15+ Years of Experience",
+        title: "Hybrid flexibility across Pune",
         description:
-          "You are not trained by fresh graduates. You learn from working professionals and industry veterans with more than 15 years of real-world corporate experience. Every session is practical, example-driven, and aligned with what the industry actually uses.",
+          "Attend in person at our Kothrud campus or join online from Karve Nagar, Warje, Kondhwa, Hadapsar, Wakad, Aundh, Pimpri-Chinchwad, Baner, Viman Nagar, or Hinjawadi — same mentors, same curriculum.",
       },
       {
-        title: "Earn a Recognised Certificate",
+        title: "Multilingual instruction — English, Hindi & Marathi",
         description:
-          "On completing CodeLeap, you receive an Archer Info Tech certificate — recognised by engineering colleges and companies across India — that you can add to your resume and LinkedIn profile from Day 1.",
+          "Concepts are explained in English and switched freely to Hindi or Marathi when something is hard. No Pune student is ever left behind because of a language barrier.",
+      },
+      {
+        title: "Beyond the bootcamp — alumni guidance for years",
+        description:
+          "Once you finish CodeLeap you stay in the loop. Alumni get continued help with college projects, internship applications, and follow-on courses across Archer Infotech's catalogue.",
       },
     ],
     tracks: [
       {
-        name: "Web Development Fundamentals",
+        name: "8-Week Foundation Path",
         subtitle:
-          "Best for students interested in building websites, apps, and digital products.",
+          "Five sequential modules — Python, Web Dev, AI, GitHub, Career Skills — taught back-to-back over 2 months.",
         modules: [
           {
-            title: "How the Internet and Computers Work (Week 1-2)",
+            title: "Module 1 — Python Programming (Weeks 1–2)",
             description:
-              "Understanding how the internet works, what websites are made of, how browsers render pages, and the basics of computer logic. Setting up your development environment.",
+              "Programming foundations through the world's most beginner-friendly language.",
+            intro:
+              "Python is the world's most beginner-friendly programming language and the foundation of modern AI, web development, and data science. This module is the cornerstone of the CodeLeap curriculum and one of the most in-demand skills for Python jobs in Pune.",
+            topics: [
+              {
+                title: "Introduction to Programming",
+                description:
+                  "How computers think, what programming actually is, why Python.",
+              },
+              {
+                title: "Python Setup & Environment",
+                description:
+                  "Installing Python, using VS Code, running your first program.",
+              },
+              {
+                title: "Variables & Data Types",
+                description:
+                  "Integers, floats, strings, booleans, type conversion.",
+              },
+              {
+                title: "Operators & Expressions",
+                description:
+                  "Arithmetic, comparison, logical, assignment operators.",
+              },
+              {
+                title: "Input & Output",
+                description: "Reading user input, formatting output, f-strings.",
+              },
+              {
+                title: "Control Flow",
+                description: "if, elif, else statements, nested conditions.",
+              },
+              {
+                title: "Loops",
+                description:
+                  "for loops, while loops, break, continue, pass, range().",
+              },
+              {
+                title: "Functions",
+                description:
+                  "Defining functions, parameters, return values, default arguments, scope.",
+              },
+              {
+                title: "Data Structures",
+                description:
+                  "Lists, tuples, sets, dictionaries — when and how to use each.",
+              },
+              {
+                title: "String Manipulation",
+                description: "Slicing, methods, formatting, working with text.",
+              },
+              {
+                title: "File Handling",
+                description: "Reading and writing .txt and .csv files.",
+              },
+              {
+                title: "Error Handling",
+                description: "try, except, finally, common Python errors.",
+              },
+              {
+                title: "Modules & Packages",
+                description:
+                  "Importing modules, using built-in libraries (math, random, datetime).",
+              },
+              {
+                title: "Mini Capstone Project",
+                description:
+                  "Build a working command-line application — calculator, quiz app, expense tracker, or to-do manager.",
+              },
+            ],
+            outcome:
+              "Students leave Module 1 able to read, write, and debug real Python programs from scratch — a skill most engineering students don't develop until 2nd or 3rd year.",
           },
           {
-            title: "HTML5: Structure of the Web (Week 3-5)",
+            title:
+              "Module 2 — Web Development with HTML, CSS & JavaScript (Weeks 3–4)",
             description:
-              "Writing your first HTML page. Tags, elements, attributes, forms, tables, semantic HTML5, and full page structure. Building static web pages from scratch.",
+              "Build, style, and deploy your first responsive websites.",
+            intro:
+              "Build, style, and deploy real, working websites. This module gives students the same foundation that a junior frontend developer in Pune would need on day one of a tech job.",
+            topics: [
+              {
+                title: "How the Web Works",
+                description: "Browsers, servers, URLs, HTTP basics, the DOM.",
+              },
+              {
+                title: "HTML5 Fundamentals",
+                description:
+                  "Tags, structure, semantic elements, headings, paragraphs, links.",
+              },
+              {
+                title: "HTML Forms & Inputs",
+                description:
+                  "Text fields, dropdowns, checkboxes, validation.",
+              },
+              {
+                title: "HTML Media",
+                description: "Images, audio, video, embedded content.",
+              },
+              {
+                title: "CSS3 Essentials",
+                description:
+                  "Selectors, properties, the box model, colors, typography.",
+              },
+              {
+                title: "CSS Layouts",
+                description:
+                  "Flexbox, CSS Grid, positioning, modern layout techniques.",
+              },
+              {
+                title: "Responsive Design",
+                description:
+                  "Media queries, mobile-first design, layouts that work on every device.",
+              },
+              {
+                title: "CSS Animations & Transitions",
+                description: "Adding life and polish to web pages.",
+              },
+              {
+                title: "JavaScript Basics",
+                description:
+                  "Variables, data types, operators, conditionals, loops.",
+              },
+              {
+                title: "JavaScript Functions & Events",
+                description:
+                  "Click handlers, form events, basic interactivity.",
+              },
+              {
+                title: "DOM Manipulation",
+                description: "Changing page content with JavaScript.",
+              },
+              {
+                title: "Project: Personal Portfolio Website",
+                description:
+                  "Students build a fully responsive personal website from scratch.",
+              },
+              {
+                title: "Web Hosting & Deployment",
+                description:
+                  "Publishing your website on free platforms — Netlify, Vercel, GitHub Pages.",
+              },
+            ],
+            outcome:
+              "Every student walks away with a deployed, live website they can share with friends, family, college counsellors, and future internship recruiters.",
           },
           {
-            title: "CSS3: Designing the Web (Week 6-8)",
+            title:
+              "Module 3 — Artificial Intelligence & Smart Tools (Weeks 5–6)",
             description:
-              "Styling, colours, fonts, Flexbox layouts, responsive design, and mobile-first design principles. Your pages will look sharp on every device.",
+              "AI literacy as a baseline skill — tools, prompts, and a working AI mini-app.",
+            intro:
+              "This is the most future-relevant module of the entire bootcamp. AI is no longer optional — it's a baseline skill for every modern student. CodeLeap is one of the few AI courses in Pune that teaches AI literacy at the foundation level, not just as a buzzword.",
+            topics: [
+              {
+                title: "What is Artificial Intelligence?",
+                description:
+                  "A clear, jargon-free introduction to AI, ML, and Generative AI.",
+              },
+              {
+                title: "History & Evolution of AI",
+                description:
+                  "From early computing to ChatGPT, Claude, and Gemini.",
+              },
+              {
+                title: "How Large Language Models (LLMs) Work",
+                description:
+                  "Tokens, training, predictions — explained simply.",
+              },
+              {
+                title: "AI vs Machine Learning vs Deep Learning",
+                description: "Clearing the most common confusions.",
+              },
+              {
+                title: "AI in Daily Life",
+                description:
+                  "How AI already powers Google, YouTube, Instagram, Netflix.",
+              },
+              {
+                title: "AI Across Industries",
+                description:
+                  "Healthcare, finance, education, design, software development.",
+              },
+              {
+                title: "Hands-On with Leading AI Tools",
+                description:
+                  "ChatGPT, Claude, Gemini, Perplexity, NotebookLM.",
+              },
+              {
+                title: "AI for Students",
+                description:
+                  "Using AI to study, summarise textbooks, prepare for exams.",
+              },
+              {
+                title: "Prompt Engineering — The Core Skill",
+                description: "Writing prompts that produce great results.",
+              },
+              {
+                title: "Advanced Prompting Techniques",
+                description:
+                  "Role prompting, chain-of-thought, few-shot examples.",
+              },
+              {
+                title: "AI for Coders",
+                description:
+                  "Using GitHub Copilot, ChatGPT, and Claude as a coding partner.",
+              },
+              {
+                title: "AI for Content Creation",
+                description:
+                  "Writing, design, image generation, presentations.",
+              },
+              {
+                title: "Ethical AI Use in Education",
+                description:
+                  "Avoiding plagiarism, citing AI, building real understanding.",
+              },
+              {
+                title: "AI Hallucinations & Limitations",
+                description: "Knowing when not to trust AI output.",
+              },
+              {
+                title: "Mini Project — Build Your Own AI-Powered Mini App",
+                description:
+                  "Combining AI APIs with the web skills from Module 2.",
+              },
+            ],
+            outcome:
+              "Students will be AI-fluent before they enter their first year of college — a 2- to 3-year head start over their peers.",
           },
           {
-            title: "JavaScript Basics: Making the Web Interactive (Week 9-11)",
+            title:
+              "Module 4 — GitHub, Version Control & Portfolio Building (Week 7)",
             description:
-              "Variables, data types, loops, functions, conditions, and DOM manipulation. Your pages come alive and respond to user actions in real time.",
+              "Build a public developer identity recruiters can actually find.",
+            intro:
+              "A developer without GitHub is invisible to recruiters. This module gives every CodeLeap student a real, public developer identity online — something most engineering students in Pune don't have until their 3rd or 4th year.",
+            topics: [
+              {
+                title: "What is Version Control?",
+                description: "Why every modern developer uses Git.",
+              },
+              {
+                title: "Installing & Configuring Git",
+                description: "Setting up Git on Windows and macOS.",
+              },
+              {
+                title: "Git Basics",
+                description: "git init, git add, git commit, git status, git log.",
+              },
+              {
+                title: "Working with GitHub",
+                description:
+                  "Creating an account, your first repository, public vs private repos.",
+              },
+              {
+                title: "Pushing Code to GitHub",
+                description: "git push, git pull, syncing local and remote.",
+              },
+              {
+                title: "Branches & Merging",
+                description:
+                  "git branch, git checkout, git merge — essential team skills.",
+              },
+              {
+                title: "README Files & Markdown",
+                description:
+                  "Writing project documentation that recruiters actually read.",
+              },
+              {
+                title: "GitHub Profile Optimisation",
+                description:
+                  "Pinned repos, profile README, contribution graph.",
+              },
+              {
+                title: "Open-Source Basics",
+                description:
+                  "Forking, pull requests, contributing to other projects.",
+              },
+              {
+                title: "Project: Upload All Your Bootcamp Work to GitHub",
+                description:
+                  "Python projects, your portfolio site, the AI mini-app.",
+              },
+              {
+                title:
+                  "Final Project: Deploy a Personal Portfolio Site on GitHub Pages",
+                description:
+                  "A professional URL students can put on every resume.",
+              },
+            ],
+            outcome:
+              "A live, public GitHub profile with multiple real projects and a deployed personal portfolio website — the single most powerful proof-of-skill any 1st-year college student in Pune can carry into internship season.",
           },
           {
-            title: "Mini Project: Build Your Portfolio Website (Week 12-14)",
+            title: "Module 5 — Career Preparation & Soft Skills (Week 8)",
             description:
-              "Build a multi-page personal portfolio website — with your photo, bio, skills, and projects — that you can share with college seniors, recruiters, and on LinkedIn.",
-          },
-        ],
-        skills: [
-          "HTML5",
-          "CSS3",
-          "JavaScript basics",
-          "Responsive web design",
-          "Git and GitHub",
-          "Project deployment",
-          "Problem-solving",
-        ],
-      },
-      {
-        name: "Python Programming Fundamentals",
-        subtitle:
-          "Best for students interested in software development, automation, or planning to pursue AI/ML later.",
-        modules: [
-          {
-            title: "What Is Programming? (Week 1-2)",
-            description:
-              "Understanding how computers think. Algorithms, logic, problem-solving exercises and puzzles. Setting up Python and your development environment.",
-          },
-          {
-            title: "Python Basics (Week 3-5)",
-            description:
-              "Variables, data types, strings, numbers, input/output, conditionals, loops, and operators. Writing your first working Python programs.",
-          },
-          {
-            title: "Functions, Lists, and Dictionaries (Week 6-8)",
-            description:
-              "Organising your code with functions. Working with lists, tuples, sets, and dictionaries. File handling — reading and writing data.",
-          },
-          {
-            title: "Object-Oriented Programming Basics (Week 9-11)",
-            description:
-              "Classes, objects, inheritance, and encapsulation. Understanding why real-world software is built this way. Writing cleaner, reusable code.",
-          },
-          {
-            title: "Mini Project: Build a Python Application (Week 12-14)",
-            description:
-              "Build a real working Python application — quiz app, to-do list manager, calculator, or contact book — document it and publish to GitHub.",
+              "Resume, LinkedIn, mock interviews, and a personalised 4-year roadmap.",
+            intro:
+              "Skills get you in the room. Communication, presentation, and interview confidence get you the offer. The final module turns the technical foundation built over 7 weeks into a complete, market-ready professional package.",
+            topics: [
+              {
+                title: "Resume Building for Tech Roles",
+                description:
+                  "What recruiters actually look for; clean, results-focused formats.",
+              },
+              {
+                title: "LinkedIn Optimisation",
+                description:
+                  "Headline, summary, projects, skill sections, networking basics.",
+              },
+              {
+                title: "Aptitude Foundations",
+                description:
+                  "Quantitative aptitude, logical reasoning, verbal ability.",
+              },
+              {
+                title: "Coding Interview Basics",
+                description:
+                  "How problem-solving rounds work, what to expect.",
+              },
+              {
+                title: "HR Interview Preparation",
+                description:
+                  "Common questions, how to talk about yourself, body language.",
+              },
+              {
+                title: "Mock Interviews",
+                description: "Live one-on-one practice rounds with feedback.",
+              },
+              {
+                title: "Communication Skills",
+                description:
+                  "Speaking clearly, technical English, presenting your projects.",
+              },
+              {
+                title: "Email & Professional Writing",
+                description:
+                  "Writing emails to professors, recruiters, and mentors.",
+              },
+              {
+                title: "Career Roadmap Session",
+                description:
+                  "Personalised 1:1 guidance on your next 4 years — engineering, internships, certifications, projects.",
+              },
+            ],
+            outcome:
+              "Every student leaves with a polished resume, an optimised LinkedIn profile, mock-interview experience, and a clear roadmap for the years ahead.",
           },
         ],
         skills: [
           "Python 3",
-          "OOP concepts",
-          "Problem-solving",
-          "Algorithmic thinking",
-          "File handling",
-          "Git and GitHub",
-          "Project documentation",
-        ],
-      },
-      {
-        name: "Introduction to AI, Data Science, and Machine Learning",
-        subtitle:
-          "Best for students curious about the technology shaping the future — artificial intelligence, data, and intelligent systems.",
-        modules: [
-          {
-            title:
-              "The Big Picture: AI, ML, and Data Science Demystified (Week 1-2)",
-            description:
-              "What is AI? What is Machine Learning? What is Data Science? How are they different? What do professionals in these fields do? What careers are available?",
-          },
-          {
-            title: "Python Foundations for Data (Week 3-5)",
-            description:
-              "Python basics with a data-first focus. Variables, loops, functions, and core libraries. The same foundation required for every AI and data science course in the world.",
-          },
-          {
-            title: "Working with Data (Week 6-8)",
-            description:
-              "Introduction to Pandas and NumPy. Reading datasets, cleaning messy data, exploring patterns. Working with Excel and CSV files. Basic statistics — mean, median, variance.",
-          },
-          {
-            title:
-              "Visualising Data and Telling Stories with Numbers (Week 9-11)",
-            description:
-              "Turning raw numbers into clear visual stories using Matplotlib and Seaborn. Bar charts, line graphs, scatter plots, and histograms.",
-          },
-          {
-            title: "Mini Project: Analyse a Real-World Dataset (Week 12-14)",
-            description:
-              "Pick a real public dataset — cricket scores, weather data, e-commerce sales — analyse it using Python tools, visualise your findings, and present a short data story.",
-          },
-        ],
-        skills: [
-          "Python for data",
-          "Pandas",
-          "NumPy",
-          "Matplotlib",
-          "Seaborn",
-          "Basic statistics",
-          "Data analysis thinking",
-          "Git and GitHub",
+          "JavaScript",
+          "HTML5",
+          "CSS3",
+          "Responsive design",
+          "ChatGPT / Claude / Gemini",
+          "Prompt engineering",
+          "GitHub Copilot",
+          "Git & GitHub",
+          "Resume & LinkedIn",
+          "Mock interviews",
+          "Career roadmap",
         ],
       },
     ],
+    comparison: {
+      headline: "What Makes CodeLeap Different from Other Coding Classes in Pune",
+      intro:
+        "Most Pune coding bootcamps are built for working professionals or final-year engineering students. CodeLeap is built for 17–19-year-olds who have just cleared 12th — and the curriculum reflects that, end to end.",
+      usLabel: "At CodeLeap",
+      othersLabel: "Most Pune coding classes",
+      rows: [
+        {
+          us: "Designed only for 12th pass students",
+          others: "Designed for working professionals or final-year students",
+        },
+        {
+          us: "2 months — focused & complete",
+          others: "6–12 months — long & generic",
+        },
+        {
+          us: "AI tools woven into every module",
+          others: "AI taught only as a separate paid course",
+        },
+        {
+          us: "Live GitHub portfolio + deployed website",
+          others: "Certificate-only, no public portfolio",
+        },
+        {
+          us: "Hybrid: online + offline at Kothrud campus",
+          others: "Online-only or classroom-only",
+        },
+        {
+          us: "Mentor-led with small Pune-area batches",
+          others: "Large impersonal batches",
+        },
+        {
+          us: "Affordable for students",
+          others: "Premium pricing aimed at job-switchers",
+        },
+      ],
+    },
+    toolsAndTech: {
+      intro:
+        "By the end of CodeLeap, students gain hands-on experience with the same tools used by working developers across Pune's IT companies in Hinjawadi, Magarpatta, Kharadi, and Baner.",
+      groups: [
+        { label: "Programming", items: ["Python 3", "JavaScript"] },
+        { label: "Web Stack", items: ["HTML5", "CSS3", "JavaScript", "Responsive Design"] },
+        {
+          label: "AI Tools",
+          items: ["ChatGPT", "Claude", "Gemini", "Perplexity", "GitHub Copilot", "NotebookLM"],
+        },
+        {
+          label: "Developer Tools",
+          items: ["VS Code", "Git", "GitHub", "GitHub Pages", "Netlify / Vercel"],
+        },
+        { label: "Productivity", items: ["Markdown", "Basic terminal / command line"] },
+      ],
+    },
+    careerOutcomes: {
+      intro:
+        "CodeLeap is a foundation program, not a placement program — but the skills you learn directly translate to real career paths in Pune's tech ecosystem and beyond.",
+      immediateBenefits: [
+        "Strong programming foundation before your 1st-year semester even begins.",
+        "Confidence in college coding subjects — Python, C, web programming, DBMS.",
+        "A live GitHub portfolio that grows with you through every college project.",
+        "Eligibility for early internships — many Pune startups hire 2nd-year students with real GitHub work.",
+        "Hackathon-ready skills — participate in college and city-wide hackathons in Pune from year one.",
+      ],
+      longTermPaths: [
+        "Frontend Developer (React, Vue, Next.js)",
+        "Full-Stack Developer (MERN, Django, FastAPI)",
+        "Python Developer",
+        "AI / ML Engineer (with further study)",
+        "Data Analyst / Data Scientist",
+        "Mobile App Developer (React Native, Flutter)",
+        "Cloud Engineer (AWS, Azure, GCP)",
+        "DevOps Engineer",
+        "Tech Entrepreneur / Indie Hacker",
+      ],
+      localContext: {
+        headline: "Why this matters in Pune specifically",
+        body: "Pune is one of India's top three IT hubs — home to Infosys, TCS, Wipro, Cognizant, Persistent Systems, BMC Software, Bajaj Finserv, Citi, and Barclays, plus a thriving startup ecosystem in Baner, Aundh, Hinjawadi, and Kharadi. Engineering colleges in Pune — COEP, VIT, MIT-WPU, PCCOE, Sinhgad, PICT, Cummins, AISSMS, PCCS — produce thousands of graduates every year. The students who stand out are the ones who started early. That is exactly what CodeLeap delivers.",
+      },
+    },
     commonModules: [
       {
-        title: "English for Tech Communication",
+        title: "A live, deployed personal website",
         description:
-          "Reading technical documentation, understanding error messages, and communicating questions clearly — all in English. Practical and designed for engineering students from regional-medium school backgrounds.",
+          "Built in Module 2, deployed for free on Netlify, Vercel, or GitHub Pages — a public URL you can put on every resume, internship form, and college application.",
       },
       {
-        title: "Git and GitHub Fundamentals",
+        title: "A public GitHub profile with real projects",
         description:
-          "Version control, saving your code history across time, and publishing projects on GitHub — the platform every recruiter and college senior checks.",
+          "Python projects, your portfolio site, and an AI-powered mini-app — all uploaded and documented. The single most powerful proof-of-skill any 1st-year student in Pune can carry into internship season.",
       },
       {
-        title: "Career Orientation Session",
+        title: "An AI-powered mini-application",
         description:
-          "What do software engineers actually do? What are the different branches of IT — frontend, backend, data, AI, DevOps? An honest session by industry professionals.",
+          "Built in Module 3, combining AI APIs with the web skills from Module 2 — your first taste of what modern, real-world software actually looks like.",
       },
       {
-        title: "Problem-Solving and Logical Reasoning",
+        title: "A polished, recruiter-ready resume",
         description:
-          "Regular exercises in logical thinking, pattern recognition, and structured problem-solving that prepare you for engineering study and placement tests.",
+          "Built in Module 5 around your actual GitHub work, with the formats and language tech recruiters in Pune actually look for.",
       },
       {
-        title: "Soft Skills Foundation",
+        title: "An optimised LinkedIn profile",
         description:
-          "Time management, how to learn effectively, how to ask good questions, and how to build study habits for four years of engineering.",
+          "Headline, summary, project section, skills, and a basic networking strategy — so you start engineering with a credible online developer identity.",
+      },
+      {
+        title: "Archer Infotech CodeLeap Certificate",
+        description:
+          "An official Certificate of Completion issued by Archer Infotech — though the GitHub profile and live website you walk away with carry far more weight in any interview room.",
       },
     ],
     details: [
-      { label: "Designed For", value: "12th Passouts, HSC Students, Pre-Engineering Students" },
-      { label: "Duration", value: "3 to 3.5 Months" },
-      { label: "Tracks", value: "Web Development / Python Programming / AI & Data Science" },
-      { label: "Batch Timings", value: "Morning, Afternoon, and Evening Batches Available" },
-      { label: "Mode", value: "Classroom (Kothrud, Pune) + Online Available" },
-      { label: "Language", value: "English (Marathi and Hindi support available)" },
-      { label: "Certification", value: "Archer Info Tech Certificate on Completion" },
-      { label: "Eligibility", value: "12th Pass — No prior coding required" },
+      { label: "Course Name", value: "CodeLeap Bootcamp" },
+      { label: "Provider", value: "Archer Infotech, Pune" },
+      { label: "Duration", value: "2 Months (8 Weeks)" },
+      {
+        label: "Mode",
+        value: "Hybrid — Online + Offline (classroom at Kothrud, Pune)",
+      },
+      {
+        label: "Eligibility",
+        value: "12th Pass (any stream) — Science, Commerce, or Arts",
+      },
+      { label: "Prior Knowledge Required", value: "None — absolute beginners welcome" },
+      { label: "Total Modules", value: "5 — Python, Web Dev, AI, GitHub, Career" },
+      {
+        label: "Class Schedule",
+        value: "Flexible — weekday & weekend batches available",
+      },
+      {
+        label: "Class Size",
+        value: "Small, mentor-led batches (limited seats per batch)",
+      },
+      { label: "Languages of Instruction", value: "English, Hindi, Marathi" },
+      { label: "Certification", value: "Archer Infotech Certificate of Completion" },
+      { label: "Location", value: "Kothrud, Pune — Maharashtra" },
     ],
     faqs: [
       {
-        question: "What is CodeLeap?",
+        question:
+          "Is CodeLeap a good coding course for 12th pass students in Pune?",
         answer:
-          "CodeLeap is a 3 to 3.5 month vacation coding bootcamp by Archer Info Tech, Pune, designed for students who have just completed their 12th board exams and are waiting to join engineering college. It covers programming fundamentals across three tracks — Web Development, Python, and AI/Data Science. No prior coding experience required.",
+          "Yes — CodeLeap is specifically designed for 12th-pass students in Pune. While most coding bootcamps and Python classes in Pune target working professionals or final-year engineering students, CodeLeap is one of the few programs built around the needs, learning pace, and goals of 17–19 year-olds preparing for engineering, BCA, BSc-IT, or BCS.",
       },
       {
-        question: "Who should join CodeLeap?",
+        question: "I have no prior programming experience. Can I still join?",
         answer:
-          "Any student who has completed 12th Science (HSC) and is heading into BE, BTech, BCA, or BSc CS. Students from any board — Maharashtra State Board, CBSE, or ICSE — are welcome. The course is also open to 12th students from other streams who are genuinely interested in coding.",
+          "Absolutely. CodeLeap assumes zero prior coding knowledge. Module 1 starts from \"what is a variable\" and \"how does a computer think.\" If you have just cleared 12th and have basic computer literacy, you are ready.",
       },
       {
-        question: "Do I need prior coding experience?",
+        question: "Where is the Archer Infotech campus located in Pune?",
         answer:
-          "No. CodeLeap is built for absolute beginners. It starts from the very basics — what is a computer, what is code, what is the internet — and builds steadily upward.",
+          "Our campus is in Kothrud, Pune, easily reachable from Karve Nagar, Warje, Bavdhan, Erandwane, Deccan, Shivaji Nagar, and most parts of central and western Pune. For students from other parts of Pune (Hadapsar, Hinjawadi, Wakad, Aundh, PCMC), we also offer online live classes as part of our hybrid model.",
       },
       {
-        question: "Will I get a certificate?",
+        question: "Is this an online or offline coding course?",
         answer:
-          "Yes. Archer Info Tech issues a completion certificate upon successfully finishing CodeLeap. This certificate is recognised across engineering colleges and IT companies in India.",
+          "Both. CodeLeap is a hybrid program — you can attend in-person at our Kothrud, Pune campus, join online live, or mix the two. All sessions are mentor-led and interactive.",
       },
       {
-        question: "Is online mode available?",
+        question: "Will I get a certificate after completing the bootcamp?",
         answer:
-          "Yes. CodeLeap is offered in both classroom mode at Kothrud, Pune, and online through Archer Info Tech's LMS platform — so students from across Maharashtra can join without relocating.",
+          "Yes — every student who completes the program receives an Archer Infotech CodeLeap Bootcamp Certificate of Completion. More importantly, you'll walk away with a live GitHub profile and deployed portfolio website — which carry far more weight than any certificate.",
       },
       {
-        question: "What happens after CodeLeap?",
+        question: "How is CodeLeap different from a regular Python class in Pune?",
         answer:
-          "After CodeLeap, you are encouraged to continue with Archer Info Tech's CareerCode program — which runs alongside your engineering degree, semester by semester, and prepares you for internships and final placements.",
+          "Most Python classes in Pune teach Python in isolation. CodeLeap teaches Python plus web development plus AI fluency plus GitHub plus career skills — the complete starter package — in the same 2 months, and at a price point built for students.",
+      },
+      {
+        question: "What can I do after completing CodeLeap?",
+        answer:
+          "Students typically use CodeLeap as a launchpad before starting B.E. / B.Tech, BCA, BSc-IT, or BCS in Pune. Many continue into specialised follow-on courses at Archer Infotech (Full-Stack Web Development, Data Science, AI/ML, Mobile App Development), and use their GitHub portfolio to apply for early internships from 1st and 2nd year of college.",
+      },
+      {
+        question: "Is CodeLeap available in Marathi or Hindi?",
+        answer:
+          "Yes. Our instructors teach in English and freely switch to Hindi or Marathi when explaining tougher concepts, so no Pune student is left behind because of a language barrier.",
+      },
+      {
+        question: "How much does the CodeLeap Bootcamp cost?",
+        answer:
+          "Course fees are highly affordable compared to mainstream coding bootcamps in Pune — designed specifically with students and families in mind. For current pricing, batch dates, and any ongoing early-bird offers, please call or WhatsApp us, or visit our Kothrud campus.",
+      },
+      {
+        question: "Are batch sizes small?",
+        answer:
+          "Yes — we deliberately keep batch sizes small to maintain mentorship quality. Seats are limited per batch and admissions are first-come, first-served.",
+      },
+      {
+        question: "Can parents come for a counselling session before enrolling?",
+        answer:
+          "Of course. We strongly encourage parents to visit our Archer Infotech Kothrud campus for a free counselling session. We'll walk you through the syllabus, show you student work, and answer every question about your child's career direction.",
+      },
+      {
+        question: "Is there a demo class or trial available?",
+        answer:
+          "Yes — we offer free demo sessions before every batch begins, so students can experience the teaching style and meet the mentors. Call or WhatsApp us to book a demo.",
       },
     ],
     closingCTA: {
-      headline: "Your engineering journey starts now — not in June.",
-      body: "Three months is enough time to learn a skill that will serve you for the rest of your career. While others are waiting, you could be writing your first lines of code, building your first website, analysing your first dataset, and walking into engineering college already knowing what most students won't learn until their third semester. CodeLeap is not just a course. It is a mindset shift.",
+      headline: "Ready to take the leap?",
+      body: "Every year, thousands of 12th-pass students in Pune begin engineering with no real exposure to programming, no GitHub, no portfolio, and no understanding of AI. You don't have to be one of them. In just 8 focused weeks at our Kothrud campus, CodeLeap puts you 2–3 years ahead of your peers — with real Python skills, a live website, AI fluency, and a public developer identity. Limited seats per batch. Admissions for the next batch are now open.",
     },
   },
 

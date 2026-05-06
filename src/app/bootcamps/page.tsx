@@ -18,20 +18,14 @@ import { TrackedAnchor } from "@/components/analytics/tracked-anchor";
 import { BreadcrumbJsonLd } from "@/components/seo/json-ld";
 import { bootcamps } from "@/data/bootcamps";
 import { siteConfig } from "@/data/site-config";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Bootcamps | Intensive Career-Focused Programs | Archer Info Tech",
+export const metadata: Metadata = buildPageMetadata({
+  title: "Coding Bootcamps in Pune — CodeLeap, CareerCode, TechReady",
   description:
-    "Explore CodeLeap, CareerCode, and TechReady bootcamps by Archer Info Tech, Pune. Coding bootcamp for 12th passouts, semester-wise training for engineering students, and placement-assisted programs for graduates.",
-  keywords: [
-    "coding bootcamp Pune",
-    "IT bootcamp for students",
-    "placement-assisted coding course Pune",
-    "summer coding bootcamp",
-    "engineering student programming course",
-    "full stack bootcamp Pune",
-  ],
-};
+    "Explore CodeLeap, CareerCode and TechReady bootcamps by Archer Infotech, Pune. Vacation coding programmes for 12th passouts, semester-wise tracks for engineering students, and placement-assisted intensives for graduates.",
+  path: "/bootcamps",
+});
 
 const bootcampHighlights = [
   {
@@ -39,12 +33,12 @@ const bootcampHighlights = [
     icon: Rocket,
     color: "from-blue-600 to-blue-500",
     audience: "12th Passouts",
-    duration: "3 to 3.5 Months",
+    duration: "2 Months (8 Weeks)",
     highlights: [
-      "3 tracks: Web Dev, Python, AI/Data Science",
+      "5 modules: Python, Web Dev, AI, GitHub, Career",
       "No prior coding experience required",
-      "Classroom + Online available",
-      "Certificate on completion",
+      "Hybrid — Kothrud campus + online",
+      "Live GitHub portfolio + deployed website",
     ],
   },
   {
