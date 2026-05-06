@@ -31,21 +31,21 @@ export function HeroSection() {
             </div>
 
             <h1 className="text-4xl md:text-[2.9rem] lg:text-[2.85rem] xl:text-[3.35rem] font-bold leading-[1.08]">
-              Launch Your{" "}
-              <span className="text-secondary whitespace-nowrap">IT Career</span> with{" "}
-              <span className="whitespace-nowrap">Industry-Ready Skills</span>
+              Pune&apos;s Most Trusted{" "}
+              <span className="text-secondary whitespace-nowrap">IT Training</span>{" "}
+              Institute Since {siteConfig.foundingYear}
             </h1>
 
             <p className="text-base md:text-lg lg:text-[1.05rem] xl:text-[1.15rem] text-white/80 max-w-xl">
-              Transform your career with Pune&apos;s most trusted IT training institute.
-              Learn from industry experts, work on real projects, and get placement assistance.
+              {siteConfig.stats.studentsTrained} students trained, {siteConfig.stats.studentsPlaced} placed.
+              Learn from industry experts, work on real projects, and join our 100% placement assistance programme.
             </p>
 
             {/* Key Points */}
             <div className="flex flex-wrap gap-x-4 gap-y-2">
               {[
-                "15+ Years Experience",
-                "1000+ Batches Completed",
+                `${siteConfig.stats.yearsExperience} Years Experience`,
+                `${siteConfig.stats.batchesCompleted} Batches Completed`,
                 "100% Placement Assistance",
               ].map((point) => (
                 <div key={point} className="flex items-center gap-2">
@@ -89,10 +89,10 @@ export function HeroSection() {
           <div className="hidden lg:block">
             <div className="grid grid-cols-2 gap-6">
               {[
+                { value: siteConfig.stats.studentsTrained, label: "Students Trained" },
                 { value: siteConfig.stats.studentsPlaced, label: "Students Placed" },
                 { value: siteConfig.stats.yearsExperience, label: "Years Experience" },
                 { value: siteConfig.stats.corporatePartners, label: "Corporate Partners" },
-                { value: siteConfig.stats.courses, label: "Courses Offered" },
               ].map((stat) => (
                 <div
                   key={stat.label}

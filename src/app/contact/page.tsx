@@ -5,12 +5,14 @@ import { TrackedAnchor } from "@/components/analytics/tracked-anchor";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { siteConfig } from "@/data/site-config";
 import { ContactForm } from "@/components/forms/contact-form";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Contact Us",
   description:
-    "Get in touch with Archer Infotech for course inquiries, batch schedules, and career counseling. Visit our Pune center or contact us online.",
-};
+    "Get in touch with Archer Infotech for course inquiries, batch schedules, and career counselling. Visit our Kothrud, Pune centre or reach us by phone, WhatsApp, or email.",
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (

@@ -20,12 +20,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { TrackedLink } from "@/components/analytics/tracked-link";
 import { TrackedAnchor } from "@/components/analytics/tracked-anchor";
 import { siteConfig } from "@/data/site-config";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Corporate Training",
+export const metadata: Metadata = buildPageMetadata({
+  title: "Corporate IT Training in Pune",
   description:
-    "Upskill your workforce with Archer Infotech corporate training programs. Customized IT training solutions for enterprises with flexible scheduling.",
-};
+    "Upskill your workforce with Archer Infotech corporate training in Pune. Customised IT training programmes for enterprises across cloud, full-stack, data and AI, delivered onsite or online with flexible scheduling.",
+  path: "/corporate-training",
+});
 
 const trainingAreas = [
   {

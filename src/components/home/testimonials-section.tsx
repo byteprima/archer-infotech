@@ -153,17 +153,13 @@ export function TestimonialsSection({ testimonials }: { testimonials: Testimonia
           </div>
         </div>
 
-        {/* Desktop Grid */}
-        <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {testimonials.slice(0, 6).map((testimonial) => (
-            <TestimonialCard key={testimonial.id} testimonial={testimonial} />
-          ))}
-        </div>
-
-        {/* Mobile Carousel */}
-        <div className="md:hidden space-y-4">
-          {testimonials.slice(0, 3).map((testimonial) => (
-            <TestimonialCard key={testimonial.id} testimonial={testimonial} />
+        {/* Single render — show 3 on mobile, 6 on desktop. Avoids DOM duplication
+            that previously made Googlebot see 9 testimonials in initial HTML. */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-6 space-y-4 md:space-y-0">
+          {testimonials.slice(0, 6).map((testimonial, index) => (
+            <div key={testimonial.id} className={index >= 3 ? "hidden md:block" : ""}>
+              <TestimonialCard testimonial={testimonial} />
+            </div>
           ))}
         </div>
       </div>

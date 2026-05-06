@@ -46,7 +46,7 @@ export async function generateMetadata({
   return {
     title: `${title} | ${siteConfig.name} Blog`,
     description,
-    keywords: post.tags?.split(",").map((t) => t.trim()) || [],
+    alternates: { canonical: `/blog/${slug}` },
     openGraph: {
       title: `${title} | ${siteConfig.name} Blog`,
       description,

@@ -8,6 +8,12 @@ export interface CourseFAQ {
   answer: string;
 }
 
+export interface CourseProject {
+  title: string;
+  description: string;
+  skills: string[];
+}
+
 export interface Course {
   id: string;
   slug: string;
@@ -26,6 +32,10 @@ export interface Course {
   faqs: CourseFAQ[];
   prerequisites: string[];
   careerOpportunities: string[];
+  tools?: string[];
+  projects?: CourseProject[];
+  targetAudience?: string[];
+  placementSupport?: string[];
   certifications?: string[];
   isFeatured?: boolean;
   isPopular?: boolean;
@@ -117,7 +127,7 @@ export const courses: Course[] = [
   // Programming
   {
     id: "java",
-    slug: "java",
+    slug: "java-training-in-pune",
     title: "Java Programming",
     shortTitle: "Java",
     category: "Programming",
@@ -170,7 +180,7 @@ export const courses: Course[] = [
         answer: "You'll build multiple projects including a student management system, inventory application, and a complete web application.",
       },
       {
-        question: "Is Java still relevant in 2024?",
+        question: "Is Java still relevant in 2026?",
         answer: "Java remains one of the most in-demand programming languages, especially for enterprise applications, Android development, and large-scale systems.",
       },
     ],
@@ -179,7 +189,7 @@ export const courses: Course[] = [
   },
   {
     id: "python",
-    slug: "python",
+    slug: "python-training-in-pune",
     title: "Python Programming",
     shortTitle: "Python",
     category: "Programming",
@@ -237,7 +247,7 @@ export const courses: Course[] = [
   },
   {
     id: "javascript",
-    slug: "javascript",
+    slug: "javascript-training-in-pune",
     title: "JavaScript Programming",
     shortTitle: "JavaScript",
     category: "Programming",
@@ -284,25 +294,25 @@ export const courses: Course[] = [
     careerOpportunities: ["Frontend Developer", "Full Stack Developer", "Web Developer"],
   },
   {
-    id: "c-cpp",
-    slug: "c-cpp",
-    title: "C/C++ Programming",
-    shortTitle: "C/C++",
+    id: "c",
+    slug: "c-training-in-pune",
+    title: "C Programming",
+    shortTitle: "C",
     category: "Programming",
     categorySlug: "programming",
-    description: "Learn the foundation of programming with C and C++. Master memory management, pointers, OOP concepts, and build high-performance applications.",
-    shortDescription: "Master C and C++ for system-level programming",
-    duration: "3 Months",
+    description: "Master the C programming language — the foundation of systems programming, embedded development, and operating systems. Learn data types, control flow, functions, pointers, dynamic memory, structures, and file handling through hands-on projects.",
+    shortDescription: "Master C for system-level and embedded programming",
+    duration: "1.5 Months",
     level: "Beginner",
     mode: ["Online", "Offline"],
     image: "/images/courses/cpp.jpg",
     highlights: [
-      "C programming fundamentals",
-      "Pointers and memory management",
-      "Data structures in C",
-      "C++ and object-oriented programming",
-      "STL (Standard Template Library)",
-      "File handling and streams",
+      "C language fundamentals and syntax",
+      "Control structures, functions, and arrays",
+      "Pointers and pointer arithmetic",
+      "Dynamic memory allocation",
+      "Structures, unions, and enumerations",
+      "File handling and the standard library",
     ],
     modules: [
       {
@@ -313,6 +323,42 @@ export const courses: Course[] = [
         title: "Pointers & Memory",
         topics: ["Pointer basics", "Pointer arithmetic", "Dynamic memory allocation", "Memory management", "Common pitfalls"],
       },
+      {
+        title: "Structures & File I/O",
+        topics: ["Structures and unions", "Enumerations", "File operations", "Standard library", "Preprocessor directives"],
+      },
+    ],
+    faqs: [
+      {
+        question: "Why learn C in 2026?",
+        answer: "C remains the foundation for systems programming, embedded development, operating systems, and performance-critical applications. It also gives you a strong base before learning C++, Go, or Rust.",
+      },
+    ],
+    prerequisites: ["Basic computer knowledge", "Logical thinking"],
+    careerOpportunities: ["System Programmer", "Embedded Systems Developer", "Firmware Engineer"],
+  },
+  {
+    id: "cpp",
+    slug: "cpp-training-in-pune",
+    title: "C++ Programming",
+    shortTitle: "C++",
+    category: "Programming",
+    categorySlug: "programming",
+    description: "Master modern C++ for high-performance applications, game development, and competitive programming. Learn object-oriented programming, templates, the Standard Template Library, exception handling, and modern C++ features.",
+    shortDescription: "Master C++ for high-performance and OOP-driven development",
+    duration: "2 Months",
+    level: "Beginner",
+    mode: ["Online", "Offline"],
+    image: "/images/courses/cpp.jpg",
+    highlights: [
+      "C++ syntax and modern features",
+      "Object-oriented programming concepts",
+      "Classes, inheritance, and polymorphism",
+      "Templates and generic programming",
+      "STL containers, iterators, and algorithms",
+      "Exception handling and file streams",
+    ],
+    modules: [
       {
         title: "C++ Basics",
         topics: ["C++ introduction", "Input/Output streams", "References", "Function overloading", "Default arguments"],
@@ -328,16 +374,16 @@ export const courses: Course[] = [
     ],
     faqs: [
       {
-        question: "Should I learn C before C++?",
-        answer: "Our course covers both. C provides a strong foundation in programming fundamentals before moving to C++ and OOP concepts.",
+        question: "Do I need to know C before learning C++?",
+        answer: "Basic C familiarity helps but is not mandatory. The course covers core syntax fundamentals before moving to OOP and modern C++ features.",
       },
     ],
-    prerequisites: ["Basic computer knowledge", "Logical thinking"],
-    careerOpportunities: ["System Programmer", "Game Developer", "Embedded Systems Developer"],
+    prerequisites: ["Basic programming familiarity helpful", "Logical thinking"],
+    careerOpportunities: ["Game Developer", "Systems Engineer", "C++ Application Developer", "Quantitative Developer"],
   },
   {
     id: "dotnet-csharp",
-    slug: "dotnet-csharp",
+    slug: "dotnet-csharp-training-in-pune",
     title: ".NET/C# Programming",
     shortTitle: ".NET/C#",
     category: "Programming",
@@ -384,17 +430,165 @@ export const courses: Course[] = [
     prerequisites: ["Basic programming knowledge helpful"],
     careerOpportunities: [".NET Developer", "Software Engineer", "Enterprise Developer"],
   },
+  {
+    id: "spring-boot-microservices",
+    slug: "spring-boot-microservices-training-in-pune",
+    title: "Spring Boot & Microservices",
+    shortTitle: "Spring Boot & Microservices",
+    category: "Programming",
+    categorySlug: "programming",
+    description:
+      "Master Spring Boot and design production-grade microservices the way modern engineering teams build them. Learn to build REST APIs, secure them with JWT and OAuth2, persist data with Spring Data JPA, design service-to-service communication, and deploy resilient microservices on Docker and Kubernetes.",
+    shortDescription:
+      "Build, secure, and deploy production-grade microservices with Spring Boot and Spring Cloud",
+    duration: "2.5 Months",
+    level: "Intermediate",
+    mode: ["Online", "Offline"],
+    image: "/images/courses/spring-boot-microservices.jpg",
+    isFeatured: true,
+    isPopular: true,
+    highlights: [
+      "Spring Boot 3 with Java 21 LTS",
+      "RESTful APIs with proper versioning and error handling",
+      "Spring Data JPA, Hibernate, and database migrations",
+      "Spring Security with JWT and OAuth2",
+      "Microservices architecture with Spring Cloud",
+      "Containerisation with Docker and orchestration with Kubernetes",
+      "Observability with Actuator, Prometheus, and Grafana",
+    ],
+    modules: [
+      {
+        title: "Spring Boot Fundamentals",
+        topics: [
+          "Spring Framework core and IoC container",
+          "Spring Boot starters and auto-configuration",
+          "Application properties, profiles, and externalised config",
+          "Dependency injection patterns",
+          "Project structure and Maven/Gradle build",
+        ],
+      },
+      {
+        title: "REST API Development",
+        topics: [
+          "RESTful design principles and resource modelling",
+          "Spring MVC controllers and request mapping",
+          "Request validation with Bean Validation (Jakarta)",
+          "Global exception handling with @ControllerAdvice",
+          "API versioning, pagination, and HATEOAS basics",
+          "OpenAPI / Swagger documentation",
+        ],
+      },
+      {
+        title: "Data Persistence with Spring Data JPA",
+        topics: [
+          "Spring Data JPA repositories",
+          "Entity mapping, relationships, and lazy/eager loading",
+          "Custom queries with JPQL and native SQL",
+          "Transactions and isolation levels",
+          "Database migrations with Flyway / Liquibase",
+          "Connection pooling with HikariCP",
+        ],
+      },
+      {
+        title: "Security with Spring Security",
+        topics: [
+          "Authentication and authorisation flows",
+          "JWT-based stateless authentication",
+          "OAuth2 and OpenID Connect with Spring Authorization Server",
+          "Method-level security with @PreAuthorize",
+          "CORS, CSRF, and common security pitfalls",
+          "Password hashing and credential storage best practices",
+        ],
+      },
+      {
+        title: "Microservices Architecture",
+        topics: [
+          "Monolith vs microservices trade-offs",
+          "Service decomposition and domain-driven design (DDD) basics",
+          "Service discovery with Eureka / Consul",
+          "API Gateway patterns with Spring Cloud Gateway",
+          "Inter-service communication: REST, OpenFeign, and messaging",
+          "Resilience patterns: Circuit Breaker (Resilience4j), retries, timeouts",
+          "Distributed configuration with Spring Cloud Config",
+          "Event-driven architecture with Apache Kafka and RabbitMQ",
+        ],
+      },
+      {
+        title: "Deployment, DevOps & Observability",
+        topics: [
+          "Containerising Spring Boot apps with Docker",
+          "Multi-stage Docker builds and image optimisation",
+          "Kubernetes basics: pods, deployments, services, ConfigMaps, Secrets",
+          "Helm charts and rolling deployments",
+          "Spring Boot Actuator endpoints",
+          "Metrics with Micrometer + Prometheus, dashboards with Grafana",
+          "Distributed tracing with OpenTelemetry / Zipkin",
+          "CI/CD pipelines with GitHub Actions",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: "Do I need Java experience before joining this course?",
+        answer:
+          "Yes — this is an Intermediate course. You should be comfortable with Core Java (OOP, collections, exception handling, basic multithreading). If you're new to Java, take our Java Programming course first; the two pair perfectly.",
+      },
+      {
+        question: "Will I learn microservices or only Spring Boot?",
+        answer:
+          "Both. Roughly 40% of the course covers Spring Boot fundamentals (REST APIs, data, security) and the remaining 60% is dedicated to microservices architecture, Spring Cloud, Kafka, Docker, Kubernetes, and production deployment patterns.",
+      },
+      {
+        question: "What kind of projects will I build?",
+        answer:
+          "You'll build a complete production-style system end-to-end: an e-commerce backend split into multiple microservices (user service, product catalogue, order service, payment service, notification service) with a Spring Cloud Gateway, JWT authentication, Kafka-based event flows, and full Docker/Kubernetes deployment.",
+      },
+      {
+        question: "Is Spring Boot still in demand?",
+        answer:
+          "Spring Boot remains the dominant Java backend framework in India and globally. Almost every product company hiring Java developers — TCS, Infosys, Wipro, Persistent, plus most product startups — uses Spring Boot for new services, and microservices skills are among the most asked-for in current job postings.",
+      },
+      {
+        question: "Will the course cover Kubernetes deeply?",
+        answer:
+          "We cover Kubernetes from a developer's perspective — enough to deploy, configure, scale, and debug your own services confidently. For deep platform-engineering Kubernetes, we recommend pairing this with our DevOps course.",
+      },
+      {
+        question: "Do you cover testing?",
+        answer:
+          "Yes. We include unit testing with JUnit 5 and Mockito, integration testing with @SpringBootTest, contract testing basics, and Testcontainers for spinning up real databases inside tests. Testing is treated as a first-class skill, not an afterthought.",
+      },
+      {
+        question: "What is the placement support?",
+        answer:
+          "Standard Archer Infotech placement assistance applies: resume preparation, mock interviews focused on Spring Boot and microservices system-design rounds, and direct introductions to our 100+ corporate hiring partners.",
+      },
+    ],
+    prerequisites: [
+      "Working knowledge of Core Java (OOP, collections, exceptions)",
+      "Basic SQL and relational database concepts",
+      "Comfort with command line and Git",
+    ],
+    careerOpportunities: [
+      "Backend Java Developer",
+      "Spring Boot Developer",
+      "Microservices Engineer",
+      "Software Engineer (Backend)",
+      "API Developer",
+    ],
+    certifications: ["Spring Professional Certification (VMware)"],
+  },
 
   // Full Stack Development
   {
     id: "java-fullstack",
-    slug: "java-full-stack",
-    title: "Java Full Stack Development",
+    slug: "java-full-stack-training-in-pune",
+    title: "Java Full Stack Training in Pune",
     shortTitle: "Java Full Stack",
     category: "Full Stack Development",
     categorySlug: "full-stack-development",
-    description: "Become a complete Java Full Stack Developer. Master Spring Boot, Hibernate, React/Angular, and build enterprise-grade web applications.",
-    shortDescription: "Complete Java Full Stack with Spring Boot and React/Angular",
+    description: "Become a job-ready Java Full Stack Developer with practical training in Core Java, Advanced Java, Spring Boot, Hibernate, REST APIs, React or Angular, MySQL, Git, Docker, and live projects.",
+    shortDescription: "Job-ready Java Full Stack course with Spring Boot, REST APIs, React/Angular, and live projects",
     duration: "6 Months",
     level: "Intermediate",
     mode: ["Online", "Offline"],
@@ -402,54 +596,142 @@ export const courses: Course[] = [
     isFeatured: true,
     isPopular: true,
     highlights: [
-      "Core Java and Advanced Java",
-      "Spring Framework and Spring Boot",
-      "Hibernate and JPA",
-      "React.js or Angular (frontend)",
-      "RESTful API development",
-      "Microservices architecture",
-      "Database design with MySQL/PostgreSQL",
-      "Docker and deployment",
+      "Complete Java backend path from Core Java to Spring Boot",
+      "REST API development with Spring MVC, validation, and Postman testing",
+      "Hibernate, JPA, MySQL, database design, joins, and transactions",
+      "Frontend development with HTML, CSS, JavaScript, and React or Angular",
+      "Authentication basics with Spring Security and JWT",
+      "Git, GitHub, Maven, Docker basics, and deployment workflow",
+      "Resume-ready projects with code, API documentation, and database design",
+      "Placement assistance with resume guidance and mock interviews",
     ],
     modules: [
       {
-        title: "Java Fundamentals",
-        topics: ["Core Java concepts", "OOP principles", "Collections", "Multithreading", "Java 8+ features"],
+        title: "Programming Foundations",
+        topics: ["Logic building", "C programming basics", "Problem solving", "Command line basics", "Git and GitHub fundamentals"],
       },
       {
-        title: "Backend with Spring",
-        topics: ["Spring Core", "Spring Boot", "Spring MVC", "Spring Data JPA", "Spring Security"],
+        title: "Core Java",
+        topics: ["OOP principles", "Classes and objects", "Inheritance and polymorphism", "Interfaces and abstraction", "Collections framework", "Exception handling", "File handling", "Java 8+ features"],
       },
       {
-        title: "Database & ORM",
-        topics: ["SQL fundamentals", "MySQL/PostgreSQL", "Hibernate ORM", "JPA specifications", "Query optimization"],
+        title: "Advanced Java",
+        topics: ["JDBC", "Servlets", "JSP basics", "MVC architecture", "Application server concepts", "Maven project structure"],
+      },
+      {
+        title: "Database and SQL",
+        topics: ["DBMS and RDBMS concepts", "MySQL", "Table design", "Normalization", "Joins and subqueries", "Transactions", "Indexes", "SQL practice"],
+      },
+      {
+        title: "Hibernate and JPA",
+        topics: ["ORM concepts", "Entity mapping", "One-to-one and one-to-many relationships", "CRUD operations", "JPQL", "Spring Data JPA repositories"],
+      },
+      {
+        title: "Spring Framework and Spring Boot",
+        topics: ["Dependency injection", "Spring Core", "Spring MVC", "Spring Boot setup", "Controllers and services", "REST endpoints", "Validation", "Global exception handling"],
       },
       {
         title: "Frontend Development",
-        topics: ["HTML5/CSS3", "JavaScript/TypeScript", "React.js fundamentals", "State management", "API integration"],
+        topics: ["HTML5", "CSS3", "Bootstrap", "JavaScript", "Responsive UI", "React.js or Angular fundamentals", "API integration from frontend"],
       },
       {
-        title: "Advanced Topics",
-        topics: ["RESTful APIs", "Microservices", "JWT authentication", "Docker basics", "CI/CD introduction"],
+        title: "Security, Tools and Deployment",
+        topics: ["Spring Security basics", "JWT authentication", "Postman API testing", "Git workflow", "Docker basics", "Environment configuration", "Deployment workflow"],
       },
+      {
+        title: "Capstone Project",
+        topics: ["Requirement analysis", "Database schema design", "Backend API development", "Frontend integration", "Authentication", "Testing and debugging", "GitHub portfolio preparation"],
+      },
+    ],
+    tools: [
+      "Java",
+      "Spring Boot",
+      "Spring MVC",
+      "Hibernate",
+      "JPA",
+      "MySQL",
+      "REST APIs",
+      "Postman",
+      "React.js",
+      "Angular",
+      "JavaScript",
+      "Bootstrap",
+      "Git",
+      "GitHub",
+      "Maven",
+      "Docker",
+    ],
+    projects: [
+      {
+        title: "Student Management System",
+        description: "Build a role-based application with student records, course assignment, search, validation, and database-backed CRUD operations.",
+        skills: ["Spring Boot", "MySQL", "Hibernate", "REST APIs"],
+      },
+      {
+        title: "E-commerce Product and Order App",
+        description: "Create product, cart, order, and admin modules with backend APIs, frontend integration, and transaction handling.",
+        skills: ["Spring Boot", "React/Angular", "JPA", "Postman"],
+      },
+      {
+        title: "Job Portal or CRM Dashboard",
+        description: "Develop a complete full stack dashboard with authentication, forms, filters, reports, and deployment-ready project structure.",
+        skills: ["JWT", "JavaScript", "MySQL", "GitHub"],
+      },
+    ],
+    targetAudience: [
+      "BE, BTech, BCA, BCS, MCA, MSc IT students",
+      "Freshers preparing for Java developer and software engineer roles",
+      "Working professionals moving into full stack development",
+      "Career switchers with basic computer knowledge and willingness to practice",
+    ],
+    placementSupport: [
+      "Resume preparation focused on Java full stack skills",
+      "GitHub and project portfolio guidance",
+      "Mock technical interviews for Java, SQL, Spring Boot, and REST APIs",
+      "HR interview preparation and communication guidance",
+      "Job alerts and interview coordination with hiring partners where available",
     ],
     faqs: [
       {
-        question: "Do I need Java experience before joining?",
-        answer: "Basic Java knowledge is helpful but not mandatory. We cover Java fundamentals before moving to advanced topics.",
+        question: "What is Java Full Stack Development?",
+        answer: "Java Full Stack Development means building both the frontend and backend of a web application using Java backend technologies, databases, REST APIs, and frontend frameworks such as React or Angular.",
       },
       {
-        question: "Which frontend framework will be covered?",
-        answer: "We primarily cover React.js, with an introduction to Angular concepts as well.",
+        question: "Is this Java Full Stack course suitable for beginners?",
+        answer: "Yes. The course starts with programming foundations and Core Java before moving to Advanced Java, Spring Boot, databases, frontend development, and full stack projects.",
+      },
+      {
+        question: "Does this course include Spring Boot?",
+        answer: "Yes. Spring Boot, REST API development, Spring Data JPA, validation, exception handling, and backend project development are core parts of the course.",
+      },
+      {
+        question: "Which frontend will I learn: React or Angular?",
+        answer: "The course can include React.js or Angular depending on the batch structure and student requirement. Both options are connected to Java backend APIs during project work.",
+      },
+      {
+        question: "Will I work on live projects?",
+        answer: "Yes. Students build practical projects that include backend APIs, database integration, frontend screens, authentication basics, and GitHub-ready code.",
+      },
+      {
+        question: "Do you provide placement assistance?",
+        answer: "Yes. Archer Infotech provides resume support, mock interviews, interview preparation, and placement assistance through job alerts and hiring partner coordination where available.",
+      },
+      {
+        question: "What is the duration of the Java Full Stack Training in Pune?",
+        answer: "The recommended duration is 6 months. Fast-track, weekday, weekend, classroom, and online options may vary by batch schedule.",
+      },
+      {
+        question: "What roles can I apply for after this course?",
+        answer: "You can apply for roles such as Java Full Stack Developer, Java Backend Developer, Spring Boot Developer, Web Application Developer, and Software Engineer Trainee.",
       },
     ],
-    prerequisites: ["Basic programming knowledge", "Understanding of web technologies"],
-    careerOpportunities: ["Java Full Stack Developer", "Backend Developer", "Software Engineer", "Technical Lead"],
-    certifications: ["Spring Professional Certification"],
+    prerequisites: ["Basic computer knowledge", "Logical thinking ability", "Consistent coding practice during the course"],
+    careerOpportunities: ["Java Full Stack Developer", "Java Backend Developer", "Spring Boot Developer", "Web Application Developer", "Software Engineer Trainee"],
+    certifications: ["Archer Infotech course completion certificate"],
   },
   {
     id: "mern-stack",
-    slug: "mern-stack",
+    slug: "mern-stack-training-in-pune",
     title: "MERN Stack Development",
     shortTitle: "MERN Stack",
     category: "Full Stack Development",
@@ -505,7 +787,7 @@ export const courses: Course[] = [
   },
   {
     id: "python-fullstack",
-    slug: "python-full-stack",
+    slug: "python-full-stack-training-in-pune",
     title: "Python Full Stack Development",
     shortTitle: "Python Full Stack",
     category: "Full Stack Development",
@@ -555,7 +837,7 @@ export const courses: Course[] = [
   },
   {
     id: "dotnet-fullstack",
-    slug: "dotnet-full-stack",
+    slug: "dotnet-full-stack-training-in-pune",
     title: ".NET Full Stack Development",
     shortTitle: ".NET Full Stack",
     category: "Full Stack Development",
@@ -607,7 +889,7 @@ export const courses: Course[] = [
   // Modern Web
   {
     id: "reactjs",
-    slug: "react",
+    slug: "react-training-in-pune",
     title: "React.js Development",
     shortTitle: "React.js",
     category: "Modern Web",
@@ -655,8 +937,72 @@ export const courses: Course[] = [
     careerOpportunities: ["React Developer", "Frontend Developer", "UI Developer"],
   },
   {
+    id: "angular",
+    slug: "angular-training-in-pune",
+    title: "Angular Development",
+    shortTitle: "Angular",
+    category: "Modern Web",
+    categorySlug: "modern-web",
+    description: "Master Angular for building scalable, enterprise-ready web applications. Learn TypeScript, components, services, routing, forms, API integration, testing, and deployment through practical projects.",
+    shortDescription: "Build enterprise-ready frontend apps with Angular and TypeScript",
+    duration: "2.5 Months",
+    level: "Intermediate",
+    mode: ["Online", "Offline"],
+    image: "/images/courses/angular.jpg",
+    highlights: [
+      "Angular CLI, workspace setup, and project structure",
+      "TypeScript, components, templates, and data binding",
+      "Directives, pipes, services, and dependency injection",
+      "Routing, guards, lazy loading, and feature modules",
+      "Template-driven and reactive forms with validation",
+      "REST API integration, testing basics, and deployment",
+    ],
+    modules: [
+      {
+        title: "Angular Fundamentals",
+        topics: ["Angular CLI setup", "Workspace structure", "Components", "Templates", "Data binding", "Event handling"],
+      },
+      {
+        title: "TypeScript & Component Design",
+        topics: ["TypeScript essentials", "Inputs and outputs", "Lifecycle hooks", "Content projection", "Component communication"],
+      },
+      {
+        title: "Directives, Pipes & Services",
+        topics: ["Built-in directives", "Custom directives", "Built-in pipes", "Custom pipes", "Services", "Dependency injection"],
+      },
+      {
+        title: "Routing & Application Flow",
+        topics: ["Angular Router", "Nested routes", "Route parameters", "Route guards", "Lazy loading", "Navigation patterns"],
+      },
+      {
+        title: "Forms & API Integration",
+        topics: ["Template-driven forms", "Reactive forms", "Form validation", "HTTP client", "REST API integration", "Error handling"],
+      },
+      {
+        title: "Production Practices",
+        topics: ["State management basics", "Testing fundamentals", "Build optimization", "Environment configuration", "Deployment", "Project review"],
+      },
+    ],
+    faqs: [
+      {
+        question: "Do I need TypeScript before learning Angular?",
+        answer: "Basic JavaScript knowledge is required, and TypeScript fundamentals are covered as part of the course so you can work confidently with Angular.",
+      },
+      {
+        question: "Is Angular good for enterprise applications?",
+        answer: "Yes. Angular is widely used for large-scale, maintainable business applications because it includes routing, forms, dependency injection, and strong TypeScript support.",
+      },
+      {
+        question: "What kind of project will I build?",
+        answer: "You will build a structured Angular application with reusable components, routing, forms, API integration, validation, and production deployment steps.",
+      },
+    ],
+    prerequisites: ["JavaScript fundamentals", "HTML/CSS", "Basic understanding of web applications"],
+    careerOpportunities: ["Angular Developer", "Frontend Developer", "UI Developer", "Web Application Developer"],
+  },
+  {
     id: "nextjs",
-    slug: "nextjs",
+    slug: "nextjs-training-in-pune",
     title: "Next.js Development",
     shortTitle: "Next.js",
     category: "Modern Web",
@@ -700,7 +1046,7 @@ export const courses: Course[] = [
   },
   {
     id: "typescript",
-    slug: "typescript",
+    slug: "typescript-training-in-pune",
     title: "TypeScript Development",
     shortTitle: "TypeScript",
     category: "Modern Web",
@@ -744,7 +1090,7 @@ export const courses: Course[] = [
   },
   {
     id: "nodejs",
-    slug: "nodejs",
+    slug: "nodejs-training-in-pune",
     title: "Node.js Development",
     shortTitle: "Node.js",
     category: "Modern Web",
@@ -794,7 +1140,7 @@ export const courses: Course[] = [
   // Cloud & DevOps
   {
     id: "aws",
-    slug: "aws",
+    slug: "aws-training-in-pune",
     title: "AWS Cloud Computing",
     shortTitle: "AWS",
     category: "Cloud & DevOps",
@@ -849,7 +1195,7 @@ export const courses: Course[] = [
   },
   {
     id: "azure",
-    slug: "azure",
+    slug: "azure-training-in-pune",
     title: "Microsoft Azure",
     shortTitle: "Azure",
     category: "Cloud & DevOps",
@@ -898,7 +1244,7 @@ export const courses: Course[] = [
   },
   {
     id: "gcp",
-    slug: "google-cloud",
+    slug: "google-cloud-training-in-pune",
     title: "Google Cloud Platform",
     shortTitle: "GCP",
     category: "Cloud & DevOps",
@@ -943,7 +1289,7 @@ export const courses: Course[] = [
   },
   {
     id: "devops",
-    slug: "devops",
+    slug: "devops-training-in-pune",
     title: "DevOps Engineering",
     shortTitle: "DevOps",
     category: "Cloud & DevOps",
@@ -999,7 +1345,7 @@ export const courses: Course[] = [
   },
   {
     id: "kubernetes",
-    slug: "kubernetes",
+    slug: "kubernetes-training-in-pune",
     title: "Kubernetes",
     shortTitle: "Kubernetes",
     category: "Cloud & DevOps",
@@ -1048,7 +1394,7 @@ export const courses: Course[] = [
   },
   {
     id: "docker",
-    slug: "docker",
+    slug: "docker-training-in-pune",
     title: "Docker",
     shortTitle: "Docker",
     category: "Cloud & DevOps",
@@ -1094,7 +1440,7 @@ export const courses: Course[] = [
   // Cloud Certifications
   {
     id: "aws-solutions-architect",
-    slug: "aws-solutions-architect",
+    slug: "aws-solutions-architect-training-in-pune",
     title: "AWS Solutions Architect",
     shortTitle: "AWS SA",
     category: "Cloud Certifications",
@@ -1143,7 +1489,7 @@ export const courses: Course[] = [
   },
   {
     id: "azure-administrator",
-    slug: "azure-administrator",
+    slug: "azure-administrator-training-in-pune",
     title: "Azure Administrator",
     shortTitle: "Azure Admin",
     category: "Cloud Certifications",
@@ -1192,7 +1538,7 @@ export const courses: Course[] = [
   },
   {
     id: "gcp-associate",
-    slug: "gcp-associate-cloud-engineer",
+    slug: "gcp-associate-cloud-engineer-training-in-pune",
     title: "GCP Associate Cloud Engineer",
     shortTitle: "GCP ACE",
     category: "Cloud Certifications",
@@ -1243,7 +1589,7 @@ export const courses: Course[] = [
   // Data & AI
   {
     id: "machine-learning",
-    slug: "machine-learning",
+    slug: "machine-learning-training-in-pune",
     title: "Machine Learning",
     shortTitle: "Machine Learning",
     category: "Data & AI",
@@ -1293,7 +1639,7 @@ export const courses: Course[] = [
   },
   {
     id: "data-science",
-    slug: "data-science",
+    slug: "data-science-training-in-pune",
     title: "Data Science",
     shortTitle: "Data Science",
     category: "Data & AI",
@@ -1342,7 +1688,7 @@ export const courses: Course[] = [
   },
   {
     id: "data-analytics",
-    slug: "data-analytics",
+    slug: "data-analytics-training-in-pune",
     title: "Data Analytics",
     shortTitle: "Data Analytics",
     category: "Data & AI",
@@ -1390,7 +1736,7 @@ export const courses: Course[] = [
   },
   {
     id: "data-engineering",
-    slug: "data-engineering",
+    slug: "data-engineering-training-in-pune",
     title: "Data Engineering",
     shortTitle: "Data Engineering",
     category: "Data & AI",
@@ -1440,7 +1786,7 @@ export const courses: Course[] = [
   // AI & GenAI
   {
     id: "generative-ai",
-    slug: "generative-ai",
+    slug: "genai-training-in-pune",
     title: "Generative AI",
     shortTitle: "Generative AI",
     category: "AI & GenAI",
@@ -1490,7 +1836,7 @@ export const courses: Course[] = [
   },
   {
     id: "chatgpt-llms",
-    slug: "chatgpt-llms",
+    slug: "chatgpt-llms-training-in-pune",
     title: "ChatGPT & LLMs",
     shortTitle: "ChatGPT/LLMs",
     category: "AI & GenAI",
@@ -1534,7 +1880,7 @@ export const courses: Course[] = [
   },
   {
     id: "prompt-engineering",
-    slug: "prompt-engineering",
+    slug: "prompt-engineering-training-in-pune",
     title: "Prompt Engineering",
     shortTitle: "Prompt Eng.",
     category: "AI & GenAI",
@@ -1578,7 +1924,7 @@ export const courses: Course[] = [
   },
   {
     id: "ai-tools",
-    slug: "ai-tools",
+    slug: "ai-tools-training-in-pune",
     title: "AI Tools for Productivity",
     shortTitle: "AI Tools",
     category: "AI & GenAI",
@@ -1624,7 +1970,7 @@ export const courses: Course[] = [
   // Mobile App Development
   {
     id: "android",
-    slug: "android-development",
+    slug: "android-development-training-in-pune",
     title: "Android App Development",
     shortTitle: "Android",
     category: "Mobile App Development",
@@ -1677,7 +2023,7 @@ export const courses: Course[] = [
   },
   {
     id: "flutter",
-    slug: "flutter-development",
+    slug: "flutter-development-training-in-pune",
     title: "Flutter App Development",
     shortTitle: "Flutter",
     category: "Mobile App Development",
@@ -1731,7 +2077,7 @@ export const courses: Course[] = [
   },
   {
     id: "react-native",
-    slug: "react-native",
+    slug: "react-native-training-in-pune",
     title: "React Native Development",
     shortTitle: "React Native",
     category: "Mobile App Development",
@@ -1779,7 +2125,7 @@ export const courses: Course[] = [
   },
   {
     id: "ios-swift",
-    slug: "ios-swift",
+    slug: "ios-swift-training-in-pune",
     title: "iOS App Development",
     shortTitle: "iOS/Swift",
     category: "Mobile App Development",
@@ -1833,7 +2179,7 @@ export const courses: Course[] = [
   // Database Technologies
   {
     id: "mysql",
-    slug: "mysql",
+    slug: "mysql-training-in-pune",
     title: "MySQL Database",
     shortTitle: "MySQL",
     category: "Database Technologies",
@@ -1881,7 +2227,7 @@ export const courses: Course[] = [
   },
   {
     id: "postgresql",
-    slug: "postgresql",
+    slug: "postgresql-training-in-pune",
     title: "PostgreSQL Database",
     shortTitle: "PostgreSQL",
     category: "Database Technologies",
@@ -1929,7 +2275,7 @@ export const courses: Course[] = [
   },
   {
     id: "mongodb",
-    slug: "mongodb",
+    slug: "mongodb-training-in-pune",
     title: "MongoDB Database",
     shortTitle: "MongoDB",
     category: "Database Technologies",
@@ -1978,7 +2324,7 @@ export const courses: Course[] = [
   },
   {
     id: "oracle",
-    slug: "oracle-database",
+    slug: "oracle-database-training-in-pune",
     title: "Oracle Database",
     shortTitle: "Oracle",
     category: "Database Technologies",
@@ -2026,7 +2372,7 @@ export const courses: Course[] = [
   },
   {
     id: "firebase",
-    slug: "firebase",
+    slug: "firebase-training-in-pune",
     title: "Firebase Development",
     shortTitle: "Firebase",
     category: "Database Technologies",

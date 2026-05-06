@@ -8,12 +8,14 @@ import { AnimatedCounter } from "@/components/common/animated-counter";
 import { LinkedinIcon } from "@/components/common/social-icons";
 import { TrackedAnchor } from "@/components/analytics/tracked-anchor";
 import { TrackedLink } from "@/components/analytics/tracked-link";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "About Us",
   description:
-    "Learn about Archer Infotech, Pune's leading IT training institute with 15+ years of experience. Our mission, vision, and team of expert trainers.",
-};
+    "Learn about Archer Infotech, Pune's trusted IT training institute since 2009. Our mission, vision, and team of expert trainers behind 10,000+ students trained and 5,000+ placed.",
+  path: "/about",
+});
 
 export default function AboutPage() {
   const teamMembers = getTeamMembers();

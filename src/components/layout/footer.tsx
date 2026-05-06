@@ -99,8 +99,9 @@ export function Footer() {
               </div>
             </Link>
             <p className="text-primary-foreground/80 text-sm leading-relaxed">
-              Archer Infotech is a leading IT training institute in Pune with 15+ years of
-              experience. We offer industry-relevant courses with placement assistance.
+              Archer Infotech is Pune&apos;s trusted IT training institute since {siteConfig.foundingYear},
+              with {siteConfig.stats.yearsExperience} years of experience. We offer industry-relevant
+              courses with 100% placement assistance.
             </p>
             <div className="flex items-center gap-4 pt-2">
               <TrackedAnchor
@@ -187,7 +188,7 @@ export function Footer() {
                 return (
                   <li key={category.slug}>
                     <Link
-                      href={`/courses?category=${category.slug}`}
+                      href={`/courses/${category.slug}`}
                       className="flex items-center gap-2 text-primary-foreground/80 hover:text-secondary transition-colors text-sm"
                     >
                       {IconComponent && <IconComponent className="h-4 w-4" />}

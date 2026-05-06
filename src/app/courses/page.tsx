@@ -1,12 +1,14 @@
 import { Suspense } from "react";
 import { Metadata } from "next";
 import { CoursesFilter } from "@/components/courses/courses-filter";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "IT Training Courses in Pune",
   description:
-    "Explore our comprehensive IT training courses including Java, Python, AWS, DevOps, Full Stack Development, Data Science, and more. 100% placement assistance.",
-};
+    "Explore 40+ classroom and online IT training courses in Pune — Java, Python, AWS, DevOps, Full Stack, Data Science, AI/ML, Cloud and more, with 100% placement assistance.",
+  path: "/courses",
+});
 
 export default function CoursesPage() {
   return (

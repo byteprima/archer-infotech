@@ -20,12 +20,14 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PageEvent } from "@/components/analytics/page-event";
 import { TrackedLink } from "@/components/analytics/tracked-link";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Internship Programs | 3-Month & 6-Month Tracks",
+export const metadata: Metadata = buildPageMetadata({
+  title: "Internship Programs in Pune — 3-Month & 6-Month Tracks",
   description:
-    "Gain real-world experience with Archer Infotech internship programs. Choose from 3-month or 6-month internship tracks. Work on live projects, get mentored by industry experts, and kickstart your IT career.",
-};
+    "Gain real-world experience with Archer Infotech internship programs in Pune. Choose from 3-month or 6-month tracks, work on live projects, get mentored by industry experts, and kickstart your IT career.",
+  path: "/internships",
+});
 
 interface InternshipProgram {
   id: string;

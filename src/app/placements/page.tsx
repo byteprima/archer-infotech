@@ -11,12 +11,14 @@ import { AnimatedCounter } from "@/components/common/animated-counter";
 import { db } from "@/db";
 import { testimonials as testimonialsTable } from "@/db/schema";
 import { eq } from "drizzle-orm";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Placements & Careers",
   description:
-    "Discover placement success at Archer Infotech. Our students are placed at top IT companies including Tech Mahindra, TCS, Infosys, and more. 100% placement assistance.",
-};
+    "5,000+ students placed at top IT companies including Tech Mahindra, TCS, Infosys and more. See placement records, hiring partners, and our 100% placement assistance programme at Archer Infotech, Pune.",
+  path: "/placements",
+});
 
 export default async function PlacementsPage() {
   const companies = getHiringPartners();

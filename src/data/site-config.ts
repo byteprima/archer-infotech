@@ -2,9 +2,10 @@ export const siteConfig = {
   name: "Archer Infotech",
   tagline: "Best IT Training Institute in Pune",
   description:
-    "Archer Infotech is a leading IT training institute in Pune offering courses in Java, Python, AWS, DevOps, Full Stack Development, Data Science, and more. placement assistance.",
+    "Archer Infotech is Pune's trusted IT training institute since 2009 — Java, Python, AWS, DevOps, Full Stack, Data Science, AI/ML and Cloud courses with 100% placement assistance. 10,000+ students trained and 5,000+ placed.",
   url: "https://archerinfotech.in",
   ogImage: "/images/og-image.jpg",
+  foundingYear: 2009,
 
   // Contact Information
   contact: {
@@ -38,24 +39,31 @@ export const siteConfig = {
     url: "https://www.google.com/maps/place/Archer+Infotech/@18.5002215,73.810452,17z/data=!3m1!4b1!4m6!3m5!1s0x3bc2bfe592dccbf1:0x539e5f9e90dcca38!8m2!3d18.5002215!4d73.8130269",
   },
 
-  // Stats
+  // Stats — kept truthful and source-of-truth for hero counters, schema, llms.txt.
+  // yearsExperience derived from foundingYear (2009) — currently 17+.
   stats: {
+    studentsTrained: "10000+",
     studentsPlaced: "5000+",
-    yearsExperience: "15+",
+    yearsExperience: "17+",
     corporatePartners: "100+",
-    courses: "30+",
+    courses: "40+",
     batchesCompleted: "1000+",
     placementRate: "100%",
   },
 
+  // Opening hours — used by LocalBusiness schema and contact page.
+  openingHours: [
+    { days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], opens: "09:00", closes: "20:00" },
+  ],
+
   // Key Highlights
   highlights: [
-    "15+ Years of IT Training Experience",
+    "17+ Years of IT Training Experience",
+    "10,000+ Students Trained, 5,000+ Placed",
     "1000+ Batches Successfully Completed",
     "100% Placement Assistance",
     "Industry Expert Trainers",
     "Real-time Project Training",
-    "24/7 Support Team",
     "Both Online & Offline Classes",
     "Corporate Training Solutions",
   ],
@@ -108,34 +116,17 @@ export const siteConfig = {
       { name: "Contact", href: "/contact" },
     ],
     courses: [
-      { name: "Java Full Stack", href: "/courses/full-stack-development/java-full-stack" },
-      { name: "Python", href: "/courses/programming/python" },
-      { name: "AWS", href: "/courses/cloud-devops/aws" },
-      { name: "DevOps", href: "/courses/cloud-devops/devops" },
-      { name: "MERN Stack", href: "/courses/full-stack-development/mern-stack" },
-      { name: "Machine Learning", href: "/courses/data-ai/machine-learning" },
-      { name: "Data Science", href: "/courses/data-ai/data-science" },
+      { name: "Java Full Stack", href: "/courses/full-stack-development/java-full-stack-training-in-pune" },
+      { name: "Python", href: "/courses/programming/python-training-in-pune" },
+      { name: "AWS", href: "/courses/cloud-devops/aws-training-in-pune" },
+      { name: "DevOps", href: "/courses/cloud-devops/devops-training-in-pune" },
+      { name: "MERN Stack", href: "/courses/full-stack-development/mern-stack-training-in-pune" },
+      { name: "Machine Learning", href: "/courses/data-ai/machine-learning-training-in-pune" },
+      { name: "Data Science", href: "/courses/data-ai/data-science-training-in-pune" },
       { name: "View All Courses", href: "/courses" },
     ],
   },
 
-  // SEO Keywords
-  keywords: [
-    "IT training in Pune",
-    "Java training Pune",
-    "Python course Pune",
-    "AWS training Pune",
-    "DevOps training Pune",
-    "Full stack developer course Pune",
-    "Best IT training institute Pune",
-    "Machine learning course Pune",
-    "Data science course Pune",
-    "Cloud computing training Pune",
-    ".NET training Pune",
-    "Generative AI course Pune",
-    "MERN stack training Pune",
-    "Placement guarantee courses Pune",
-  ],
 };
 
 export type SiteConfig = typeof siteConfig;

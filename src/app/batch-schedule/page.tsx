@@ -14,11 +14,14 @@ import { eq, asc } from "drizzle-orm";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
-  title: "Batch Schedule",
+import { buildPageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = buildPageMetadata({
+  title: "Batch Schedule — Upcoming IT Training Batches in Pune",
   description:
-    "View upcoming batch schedules for all IT training courses at Archer Infotech. Both offline classroom and online batches available.",
-};
+    "View upcoming batch dates for all IT training courses at Archer Infotech, Pune. Choose from offline classroom batches in Kothrud or online live batches with flexible timings.",
+  path: "/batch-schedule",
+});
 
 function BatchCard({ batch }: { batch: Batch }) {
   const isAlmostFull = batch.seatsAvailable <= 5;

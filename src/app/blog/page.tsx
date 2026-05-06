@@ -7,25 +7,13 @@ import { BlogSidebar } from "@/components/blog/blog-sidebar";
 import { BlogListingJsonLd, BlogBreadcrumbJsonLd } from "@/components/blog/blog-json-ld";
 import { getPublishedPosts, getCategories, getRecentPosts } from "@/lib/actions/blog";
 import { siteConfig } from "@/data/site-config";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: `Blog | ${siteConfig.name}`,
-  description: `Read the latest articles, tutorials, and insights from ${siteConfig.name}. Stay updated on IT trends, programming tips, career advice, and more.`,
-  keywords: [
-    "IT blog",
-    "programming tutorials",
-    "tech articles",
-    "career advice",
-    "software development",
-    "Pune IT training",
-  ],
-  openGraph: {
-    title: `Blog | ${siteConfig.name}`,
-    description: `Read the latest articles, tutorials, and insights from ${siteConfig.name}.`,
-    type: "website",
-    url: `${siteConfig.url}/blog`,
-  },
-};
+export const metadata: Metadata = buildPageMetadata({
+  title: "Blog",
+  description: `Read the latest articles, tutorials and insights from ${siteConfig.name}. Stay updated on IT trends, programming tips, career advice, and Pune training news.`,
+  path: "/blog",
+});
 
 interface BlogPageProps {
   searchParams: Promise<{ category?: string; page?: string }>;

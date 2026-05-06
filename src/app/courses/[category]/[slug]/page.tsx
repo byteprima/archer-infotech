@@ -23,10 +23,10 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CourseJsonLd, FAQJsonLd, BreadcrumbJsonLd } from "@/components/seo/json-ld";
-import { courses, categories, getCourse, getCategory } from "@/data/courses";
+import { courses, getCourse, getCategory } from "@/data/courses";
 import { siteConfig } from "@/data/site-config";
+import { buildPageMetadata } from "@/lib/seo";
 
 interface CoursePageProps {
   params: Promise<{
@@ -45,26 +45,18 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: CoursePageProps): Promise<Metadata> {
-  const { slug } = await params;
+  const { category: categorySlug, slug } = await params;
   const course = getCourse(slug);
 
   if (!course) {
-    return {
-      title: "Course Not Found",
-    };
+    return { title: "Course Not Found" };
   }
 
-  return {
-    title: `${course.title} Training in Pune`,
+  return buildPageMetadata({
+    title: `${course.title} Training in Pune with Placement`,
     description: course.description,
-    keywords: [
-      `${course.title} training Pune`,
-      `${course.title} course`,
-      `learn ${course.title}`,
-      `${course.category} training`,
-      "IT training Pune",
-    ],
-  };
+    path: `/courses/${categorySlug}/${slug}`,
+  });
 }
 
 export default async function CoursePage({ params }: CoursePageProps) {
@@ -107,7 +99,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
         items={[
           { name: "Home", url: "/" },
           { name: "Courses", url: "/courses" },
-          { name: category.name, url: `/courses?category=${categorySlug}` },
+          { name: category.name, url: `/courses/${categorySlug}` },
           { name: course.title, url: `/courses/${categorySlug}/${slug}` },
         ]}
       />
@@ -116,7 +108,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
       <section className="gradient-hero text-white py-12 md:py-16">
         <div className="container mx-auto px-4">
           <Link
-            href={`/courses?category=${categorySlug}`}
+            href={`/courses/${categorySlug}`}
             className="inline-flex items-center text-white/80 hover:text-white mb-4 transition-colors"
           >
             <ChevronLeft className="h-4 w-4 mr-1" />
@@ -136,7 +128,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
                 )}
               </div>
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-                {course.title}
+                {course.title} Training in Pune with Placement
               </h1>
               <p className="text-lg text-white/80 mb-6">{course.description}</p>
               <div className="flex flex-wrap gap-6 text-sm">
@@ -262,6 +254,64 @@ export default async function CoursePage({ params }: CoursePageProps) {
                 </CardContent>
               </Card>
 
+              {/* Projects */}
+              {course.projects && course.projects.length > 0 && (
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Briefcase className="h-5 w-5 text-secondary" />
+                      Projects You Will Build
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-5">
+                      {course.projects.map((project, index) => (
+                        <div
+                          key={index}
+                          className="rounded-lg border bg-muted/30 p-4"
+                        >
+                          <h3 className="font-semibold mb-2">
+                            {project.title}
+                          </h3>
+                          <p className="text-sm text-muted-foreground mb-3">
+                            {project.description}
+                          </p>
+                          <div className="flex flex-wrap gap-2">
+                            {project.skills.map((skill) => (
+                              <Badge key={skill} variant="outline">
+                                {skill}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+
+              {/* Target Audience */}
+              {course.targetAudience && course.targetAudience.length > 0 && (
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Users className="h-5 w-5 text-secondary" />
+                      Who Can Join
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="grid md:grid-cols-2 gap-3">
+                      {course.targetAudience.map((audience, index) => (
+                        <li key={index} className="flex items-start gap-2">
+                          <CheckCircle className="h-4 w-4 text-accent shrink-0 mt-1" />
+                          <span className="text-sm">{audience}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                </Card>
+              )}
+
               {/* FAQs */}
               {course.faqs.length > 0 && (
                 <Card>
@@ -308,6 +358,24 @@ export default async function CoursePage({ params }: CoursePageProps) {
                 </CardContent>
               </Card>
 
+              {/* Tools & Technologies */}
+              {course.tools && course.tools.length > 0 && (
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-lg">Tools & Technologies</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex flex-wrap gap-2">
+                      {course.tools.map((tool) => (
+                        <Badge key={tool} variant="outline">
+                          {tool}
+                        </Badge>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+
               {/* Career Opportunities */}
               <Card>
                 <CardHeader>
@@ -326,6 +394,28 @@ export default async function CoursePage({ params }: CoursePageProps) {
                   </div>
                 </CardContent>
               </Card>
+
+              {/* Placement Support */}
+              {course.placementSupport && course.placementSupport.length > 0 && (
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-lg">Placement Support</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="space-y-2">
+                      {course.placementSupport.map((item, index) => (
+                        <li
+                          key={index}
+                          className="flex items-start gap-2 text-sm text-muted-foreground"
+                        >
+                          <CheckCircle className="h-4 w-4 text-accent shrink-0 mt-0.5" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                </Card>
+              )}
 
               {/* Certifications */}
               {course.certifications && course.certifications.length > 0 && (

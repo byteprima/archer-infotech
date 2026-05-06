@@ -1,5 +1,6 @@
 export const dynamic = "force-dynamic";
 
+import type { Metadata } from "next";
 import { HeroSection } from "@/components/home/hero-section";
 import { USPSection } from "@/components/home/usp-section";
 import { CoursesSection } from "@/components/home/courses-section";
@@ -10,6 +11,15 @@ import { CTASection } from "@/components/home/cta-section";
 import { db } from "@/db";
 import { testimonials as testimonialsTable } from "@/db/schema";
 import { eq } from "drizzle-orm";
+import { siteConfig } from "@/data/site-config";
+import { buildPageMetadata } from "@/lib/seo";
+
+// Match <title>, og:title and visible <h1> exactly — Pillar 1 #11.
+export const metadata: Metadata = buildPageMetadata({
+  title: `Pune's Most Trusted IT Training Institute Since ${siteConfig.foundingYear}`,
+  description: siteConfig.description,
+  path: "/",
+});
 
 export default async function HomePage() {
   const testimonials = await db

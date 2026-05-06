@@ -13,44 +13,46 @@ export function AnimatedCounter({
   duration = 2000,
   className,
 }: AnimatedCounterProps) {
-  const [displayValue, setDisplayValue] = useState("0");
-  const [hasAnimated, setHasAnimated] = useState(false);
-  const ref = useRef<HTMLSpanElement>(null);
-
-  // Extract number and suffix (e.g., "5000+" -> 5000, "+")
   const match = value.match(/^([\d.]+)(.*)$/);
   const targetNumber = match ? parseFloat(match[1]) : 0;
   const suffix = match ? match[2] : "";
+  const isDecimal = targetNumber % 1 !== 0;
+  const finalDisplay = isDecimal ? targetNumber.toFixed(1) : targetNumber.toString();
+
+  // Initial state matches the final value so SSR / first paint shows the real number
+  // (Googlebot and AI crawlers without JS see the truth, not "0").
+  const [displayValue, setDisplayValue] = useState(finalDisplay);
+  const [hasAnimated, setHasAnimated] = useState(false);
+  const ref = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting && !hasAnimated) {
             setHasAnimated(true);
-            animateValue();
+            animateFromZero();
           }
         });
       },
       { threshold: 0.1 }
     );
 
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
+    observer.observe(node);
     return () => observer.disconnect();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hasAnimated]);
 
-  const animateValue = () => {
+  const animateFromZero = () => {
+    setDisplayValue(isDecimal ? "0.0" : "0");
     const startTime = performance.now();
-    const isDecimal = targetNumber % 1 !== 0;
 
     const animate = (currentTime: number) => {
       const elapsed = currentTime - startTime;
       const progress = Math.min(elapsed / duration, 1);
-
-      // Easing function for smooth animation
       const easeOutQuart = 1 - Math.pow(1 - progress, 4);
       const currentValue = targetNumber * easeOutQuart;
 
@@ -63,8 +65,7 @@ export function AnimatedCounter({
       if (progress < 1) {
         requestAnimationFrame(animate);
       } else {
-        // Ensure final value is exact
-        setDisplayValue(isDecimal ? targetNumber.toFixed(1) : targetNumber.toString());
+        setDisplayValue(finalDisplay);
       }
     };
 

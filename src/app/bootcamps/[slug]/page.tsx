@@ -8,6 +8,7 @@ import {
   FAQJsonLd,
 } from "@/components/seo/json-ld";
 import { bootcamps, getBootcamp } from "@/data/bootcamps";
+import { buildPageMetadata } from "@/lib/seo";
 
 interface BootcampPageProps {
   params: Promise<{ slug: string }>;
@@ -27,11 +28,11 @@ export async function generateMetadata({
     return { title: "Bootcamp Not Found" };
   }
 
-  return {
+  return buildPageMetadata({
     title: bootcamp.seo.title,
     description: bootcamp.seo.description,
-    keywords: bootcamp.seo.keywords,
-  };
+    path: `/bootcamps/${slug}`,
+  });
 }
 
 export default async function BootcampPage({ params }: BootcampPageProps) {

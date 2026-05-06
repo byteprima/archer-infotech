@@ -2,43 +2,60 @@ import { siteConfig } from "@/data/site-config";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://archerinfotech.in";
 
-// Organization schema for site-wide use
+// Lat/long extracted from the Google Maps embed in site-config.ts
+const GEO = { latitude: 18.5002215, longitude: 73.810452 };
+
+const POSTAL_ADDRESS = {
+  "@type": "PostalAddress" as const,
+  streetAddress: `${siteConfig.contact.address.line1}, ${siteConfig.contact.address.line2}`,
+  addressLocality: siteConfig.contact.address.city,
+  addressRegion: siteConfig.contact.address.state,
+  postalCode: siteConfig.contact.address.pincode,
+  addressCountry: "IN",
+};
+
+const OPENING_HOURS = siteConfig.openingHours.map((slot) => ({
+  "@type": "OpeningHoursSpecification" as const,
+  dayOfWeek: slot.days,
+  opens: slot.opens,
+  closes: slot.closes,
+}));
+
+const SAME_AS = [
+  siteConfig.social.linkedin,
+  siteConfig.social.facebook,
+  siteConfig.social.instagram,
+  siteConfig.social.twitter,
+  siteConfig.social.youtube,
+].filter(Boolean);
+
+// Combined EducationalOrganization + LocalBusiness — single source of truth, used site-wide.
 export function OrganizationJsonLd() {
   const schema = {
     "@context": "https://schema.org",
-    "@type": "EducationalOrganization",
+    "@type": ["EducationalOrganization", "LocalBusiness"],
+    "@id": baseUrl,
     name: siteConfig.name,
     alternateName: "Archer Infotech",
     url: baseUrl,
     logo: `${baseUrl}/logo.svg`,
+    image: `${baseUrl}${siteConfig.ogImage}`,
     description: siteConfig.description,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: `${siteConfig.contact.address.line1}, ${siteConfig.contact.address.line2}`,
-      addressLocality: siteConfig.contact.address.city,
-      addressRegion: siteConfig.contact.address.state,
-      postalCode: siteConfig.contact.address.pincode,
-      addressCountry: "IN",
-    },
+    foundingDate: String(siteConfig.foundingYear),
+    address: POSTAL_ADDRESS,
+    geo: { "@type": "GeoCoordinates", ...GEO },
+    hasMap: siteConfig.googleMaps.url,
     telephone: siteConfig.contact.phone,
     email: siteConfig.contact.email,
-    sameAs: [
-      siteConfig.social.linkedin,
-      siteConfig.social.facebook,
-      siteConfig.social.instagram,
-    ].filter(Boolean),
-    areaServed: {
-      "@type": "City",
-      name: "Pune",
-    },
-    priceRange: "$$",
-    openingHoursSpecification: [
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-        opens: "09:00",
-        closes: "20:00",
-      },
+    sameAs: SAME_AS,
+    areaServed: { "@type": "City", name: "Pune" },
+    priceRange: "₹₹",
+    openingHoursSpecification: OPENING_HOURS,
+    knowsAbout: [
+      "Java", "Python", "JavaScript", "React", "Angular", "Node.js",
+      "AWS", "Azure", "Google Cloud", "DevOps", "Kubernetes", "Docker",
+      "Machine Learning", "Data Science", "Generative AI",
+      "Spring Boot", "MERN Stack", "Full Stack Development",
     ],
   };
 
@@ -50,37 +67,21 @@ export function OrganizationJsonLd() {
   );
 }
 
-// Local Business schema for contact page
+// LocalBusiness-specific schema retained for the contact page where the map is shown.
 export function LocalBusinessJsonLd() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     name: siteConfig.name,
-    image: `${baseUrl}/logo.svg`,
+    image: `${baseUrl}${siteConfig.ogImage}`,
     "@id": baseUrl,
     url: baseUrl,
     telephone: siteConfig.contact.phone,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: `${siteConfig.contact.address.line1}, ${siteConfig.contact.address.line2}`,
-      addressLocality: siteConfig.contact.address.city,
-      addressRegion: siteConfig.contact.address.state,
-      postalCode: siteConfig.contact.address.pincode,
-      addressCountry: "IN",
-    },
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: 18.5204,
-      longitude: 73.8567,
-    },
-    openingHoursSpecification: [
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-        opens: "09:00",
-        closes: "20:00",
-      },
-    ],
+    address: POSTAL_ADDRESS,
+    geo: { "@type": "GeoCoordinates", ...GEO },
+    hasMap: siteConfig.googleMaps.url,
+    openingHoursSpecification: OPENING_HOURS,
+    priceRange: "₹₹",
   };
 
   return (

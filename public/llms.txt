@@ -1,0 +1,60 @@
+# Archer Infotech
+
+> Pune's trusted IT training institute since 2009. We have trained 10,000+ students and placed 5,000+ at leading IT companies. Classroom and online courses across Java, Python, full stack, data science, AI/ML, cloud, DevOps, and more — every course backed by 100% placement assistance and 17+ years of teaching experience.
+
+## About
+
+Archer Infotech is an IT training centre based in Kothrud, Pune, Maharashtra, India. We run weekday and weekend batches in classroom-only, online-only, and hybrid formats. Our trainers carry 10–15+ years of MNC experience and we maintain active hiring relationships with 100+ corporate partners.
+
+- Founded: 2009
+- Address: Kothrud, Pune, Maharashtra 411029, India
+- Phone: +91 9850 678451
+- Email: info@archerinfotech.in
+- Website: https://archerinfotech.in
+
+## Bootcamps
+
+- [CodeLeap](https://archerinfotech.in/bootcamps/codeleap): Vacation coding programme for 12th-passout students. 2-month hybrid format. Three tracks — Web Development, Python Programming, AI / Data Science. No prior coding experience required.
+- [CareerCode](https://archerinfotech.in/bootcamps/careercode): Semester-by-semester programming training designed for engineering students. Six specialisation tracks with internship and placement preparation.
+- [TechReady](https://archerinfotech.in/bootcamps/techready): Full-time placement-assisted intensive programme for graduates and final-year students. Six hours daily, 6–8 months duration, real projects, 100% placement assistance, direct hiring connections with 100+ companies.
+
+## Course Categories
+
+- [Programming](https://archerinfotech.in/courses/programming): Java, Python, JavaScript, C, C++, .NET / C#, Spring Boot & Microservices.
+- [Full Stack Development](https://archerinfotech.in/courses/full-stack-development): Java Full Stack, MERN Stack, Python Full Stack, .NET Full Stack.
+- [Modern Web](https://archerinfotech.in/courses/modern-web): React.js, Angular, Next.js, TypeScript, Node.js.
+- [Cloud & DevOps](https://archerinfotech.in/courses/cloud-devops): AWS, Microsoft Azure, Google Cloud, DevOps Engineering, Kubernetes, Docker.
+- [Cloud Certifications](https://archerinfotech.in/courses/cloud-certifications): AWS Solutions Architect, Azure Administrator, GCP Associate Cloud Engineer.
+- [Data & AI](https://archerinfotech.in/courses/data-ai): Machine Learning, Data Science, Data Analytics, Data Engineering.
+- [Generative AI](https://archerinfotech.in/courses/generative-ai): Generative AI, ChatGPT & LLMs, Prompt Engineering, AI Tools for Productivity.
+- [Mobile App Development](https://archerinfotech.in/courses/mobile-app-development): Android, Flutter, React Native, iOS / Swift.
+- [Database Technologies](https://archerinfotech.in/courses/database-technologies): MySQL, PostgreSQL, MongoDB, Oracle, Firebase.
+
+## Placements
+
+We partner with 100+ companies for student hiring across IT services, product engineering, and corporate IT departments. Our placement assistance includes resume preparation, mock interviews, technical and HR interview rounds, and direct hiring drives on campus.
+
+## Modes
+
+Every course is offered in three modes — classroom (Kothrud, Pune), live online, and hybrid. Weekday and weekend batches are available, with new batches starting every month. See the full schedule at https://archerinfotech.in/batch-schedule.
+
+## Contact
+
+- Visit: https://archerinfotech.in/contact
+- Phone: +91 9850 678451
+- WhatsApp: https://wa.me/919850678451
+- Email: info@archerinfotech.in
+- Office hours: Monday to Saturday, 09:00 – 20:00 IST (closed Sunday)
+
+## Pages
+
+- [Home](https://archerinfotech.in/)
+- [About Us](https://archerinfotech.in/about)
+- [All Courses](https://archerinfotech.in/courses)
+- [Bootcamps](https://archerinfotech.in/bootcamps)
+- [Placements](https://archerinfotech.in/placements)
+- [Internships](https://archerinfotech.in/internships)
+- [Corporate Training](https://archerinfotech.in/corporate-training)
+- [Batch Schedule](https://archerinfotech.in/batch-schedule)
+- [Blog](https://archerinfotech.in/blog)
+- [Contact](https://archerinfotech.in/contact)
