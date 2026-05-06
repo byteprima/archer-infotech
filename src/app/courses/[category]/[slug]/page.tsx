@@ -30,6 +30,8 @@ import { getTrainersForCourse } from "@/data/team";
 import { siteConfig } from "@/data/site-config";
 import { buildPageMetadata } from "@/lib/seo";
 import { getNextBatchForCourse } from "@/lib/actions/public-batches";
+import { getCourseRichContent } from "@/data/course-content";
+import { RichCourseContent } from "@/components/courses/rich-course-content";
 import Image from "next/image";
 
 interface CoursePageProps {
@@ -87,6 +89,10 @@ export default async function CoursePage({ params }: CoursePageProps) {
       })
     : null;
   const trainers = getTrainersForCourse(slug);
+  const rich = getCourseRichContent(slug);
+  // Prefer the long-form FAQ when available — feeds both visible accordion
+  // and FAQPage schema so AI engines and Google see the same questions.
+  const effectiveFaqs = rich?.faqs ?? course.faqs;
 
   return (
     <>
@@ -110,7 +116,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
         nextBatchStartDate={nextBatch ? new Date(nextBatch.startDate).toISOString() : undefined}
         nextBatchMode={nextBatch?.mode === "online" ? "online" : nextBatch ? "offline" : undefined}
       />
-      <FAQJsonLd faqs={course.faqs} />
+      <FAQJsonLd faqs={effectiveFaqs} />
       <BreadcrumbJsonLd
         items={[
           { name: "Home", url: "/" },
@@ -217,6 +223,37 @@ export default async function CoursePage({ params }: CoursePageProps) {
       {/* Course Content */}
       <section className="py-12 md:py-16">
         <div className="container mx-auto px-4">
+          {rich ? (
+            // Rich layout — single column for content depth, no sidebar.
+            <div className="max-w-4xl mx-auto">
+              <RichCourseContent rich={rich} />
+              {/* FAQ from rich content — server-rendered, AI-citable */}
+              {effectiveFaqs.length > 0 && (
+                <section className="mt-12 space-y-4">
+                  <h2 className="text-2xl md:text-3xl font-bold">Frequently Asked Questions</h2>
+                  <div className="space-y-4">
+                    {effectiveFaqs.map((faq, i) => (
+                      <details
+                        key={i}
+                        className="group border rounded-lg bg-background"
+                        open={i < 3}
+                      >
+                        <summary className="cursor-pointer list-none p-5 font-medium flex items-start justify-between gap-4 hover:bg-muted/30 transition-colors">
+                          <span>{faq.question}</span>
+                          <span className="shrink-0 text-muted-foreground transition-transform group-open:rotate-45 text-xl leading-none">
+                            +
+                          </span>
+                        </summary>
+                        <div className="px-5 pb-5 text-sm text-muted-foreground leading-relaxed">
+                          {faq.answer}
+                        </div>
+                      </details>
+                    ))}
+                  </div>
+                </section>
+              )}
+            </div>
+          ) : (
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Main Content */}
             <div className="lg:col-span-2 space-y-8">
@@ -505,6 +542,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
               </Card>
             </div>
           </div>
+          )}
         </div>
       </section>
 
