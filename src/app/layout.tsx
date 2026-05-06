@@ -72,7 +72,9 @@ export default function RootLayout({
       {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
       )}
-      <body className="min-h-screen flex flex-col antialiased">
+      {/* suppressHydrationWarning ignores attributes Grammarly / LanguageTool /
+          other browser extensions inject into <body> before React hydrates. */}
+      <body className="min-h-screen flex flex-col antialiased" suppressHydrationWarning>
         <Header />
         <main className="flex-grow">{children}</main>
         <Footer />
