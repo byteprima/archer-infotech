@@ -206,65 +206,67 @@ export default function AboutPage() {
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {teamMembers.map((member) => (
-              <TrackedLink
+              <Card
                 key={member.id}
-                href={`/trainers/${member.id}`}
-                className="block"
-                event="trainer_card_clicked"
-                properties={{ trainer_id: member.id, location: "about_page" }}
+                className="text-center hover:shadow-lg hover:border-primary/30 transition-all"
               >
-                <Card className="text-center hover:shadow-lg hover:border-primary/30 transition-all h-full">
-                  <CardContent className="pt-6">
-                    {member.image ? (
-                      <div className="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden relative">
-                        <Image
-                          src={member.image}
-                          alt={`${member.name}, ${member.role} at Archer Infotech, Pune`}
-                          fill
-                          sizes="96px"
-                          className="object-cover"
-                        />
-                      </div>
-                    ) : (
-                      <div className="w-24 h-24 bg-primary/10 rounded-full mx-auto mb-4 flex items-center justify-center">
-                        <span className="text-3xl font-bold text-primary">
-                          {member.name.split(" ").map((n) => n[0]).join("")}
-                        </span>
-                      </div>
+                <CardContent className="pt-6">
+                  {member.image ? (
+                    <div className="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden relative">
+                      <Image
+                        src={member.image}
+                        alt={`${member.name}, ${member.role} at Archer Infotech, Pune`}
+                        fill
+                        sizes="96px"
+                        className="object-cover"
+                      />
+                    </div>
+                  ) : (
+                    <div className="w-24 h-24 bg-primary/10 rounded-full mx-auto mb-4 flex items-center justify-center">
+                      <span className="text-3xl font-bold text-primary">
+                        {member.name.split(" ").map((n) => n[0]).join("")}
+                      </span>
+                    </div>
+                  )}
+                  <div className="flex items-center justify-center gap-2 mb-1">
+                    <h3 className="text-lg font-semibold">{member.name}</h3>
+                    {member.linkedin && (
+                      <TrackedAnchor
+                        href={member.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-muted-foreground hover:text-[#0077B5] transition-colors"
+                        title={`${member.name} on LinkedIn`}
+                        event="team_linkedin_clicked"
+                        properties={{ member_name: member.name, location: "about_page" }}
+                      >
+                        <LinkedinIcon className="h-4 w-4" />
+                      </TrackedAnchor>
                     )}
-                    <div className="flex items-center justify-center gap-2 mb-1">
-                      <h3 className="text-lg font-semibold">{member.name}</h3>
-                      {member.linkedin && (
-                        <TrackedAnchor
-                          href={member.linkedin}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                          className="text-muted-foreground hover:text-[#0077B5] transition-colors"
-                          title={`${member.name} on LinkedIn`}
-                          event="team_linkedin_clicked"
-                          properties={{ member_name: member.name, location: "about_page" }}
-                        >
-                          <LinkedinIcon className="h-4 w-4" />
-                        </TrackedAnchor>
-                      )}
-                    </div>
-                    <p className="text-secondary font-medium text-sm mb-2">{member.role}</p>
-                    <p className="text-xs text-muted-foreground mb-1">{member.experience} Experience</p>
-                    <p className="text-sm text-muted-foreground mb-4 line-clamp-3">{member.bio}</p>
-                    <div className="flex flex-wrap justify-center gap-1.5">
-                      {member.expertise.slice(0, 4).map((skill, index) => (
-                        <span
-                          key={index}
-                          className="text-xs bg-muted px-2 py-1 rounded-full"
-                        >
-                          {skill}
-                        </span>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              </TrackedLink>
+                  </div>
+                  <p className="text-secondary font-medium text-sm mb-2">{member.role}</p>
+                  <p className="text-xs text-muted-foreground mb-1">{member.experience} Experience</p>
+                  <p className="text-sm text-muted-foreground mb-4 line-clamp-3">{member.bio}</p>
+                  <div className="flex flex-wrap justify-center gap-1.5 mb-4">
+                    {member.expertise.slice(0, 4).map((skill, index) => (
+                      <span
+                        key={index}
+                        className="text-xs bg-muted px-2 py-1 rounded-full"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                  <TrackedLink
+                    href={`/trainers/${member.id}`}
+                    className="inline-flex items-center justify-center text-sm font-medium text-primary hover:text-secondary transition-colors"
+                    event="trainer_card_clicked"
+                    properties={{ trainer_id: member.id, location: "about_page" }}
+                  >
+                    View full profile →
+                  </TrackedLink>
+                </CardContent>
+              </Card>
             ))}
           </div>
         </div>
