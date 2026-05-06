@@ -329,13 +329,9 @@ export const javaTrainingInPune: CourseRichContent = {
 
   fees: {
     note:
-      "Fees on enquiry. Kindly contact us for the current 2026 quote — we calibrate by mode (classroom / online / weekend), early-bird timing, and group / returning-alumni concessions.",
+      "Course fees range from ₹20,000 to ₹90,000 depending on mode (classroom / online / weekend), batch type, and any applicable concession. Kindly reach us for the current 2026 quote — we calibrate by early-bird timing, group enrolment, and returning-alumni concessions.",
     range:
-      "The Pune market range for comparable Java + Spring Boot + microservices courses runs roughly ₹15,000 to ₹40,000 per CollegeDunia data. Archer Infotech sits within this range.",
-    sourceCitation: {
-      label: "CollegeDunia — Java courses in Pune",
-      url: "https://collegedunia.com/courses/java/java-courses-in-pune",
-    },
+      "₹20,000 – ₹90,000 — the higher end covers placement-track classroom batches with extended interview prep; the lower end covers concession-eligible online or weekend formats.",
     paymentOptions: [
       "Single payment with early-bird discount",
       "EMI in 2–3 instalments at no extra cost",
@@ -484,7 +480,7 @@ export const javaTrainingInPune: CourseRichContent = {
     {
       question: "What is the fee for the Java course in Pune?",
       answer:
-        "Fees on enquiry. The Pune market range for comparable Java + Spring Boot + microservices courses runs ₹15,000–₹40,000 per CollegeDunia data; Archer Infotech sits within this range and adjusts by mode and concession. Placement support is included in the base fee, not a bolt-on.",
+        "Course fees range from ₹20,000 to ₹90,000 depending on mode (classroom / online / weekend), batch type, and applicable concession. The higher end covers placement-track classroom batches with extended interview prep; the lower end covers concession-eligible online or weekend formats. Placement support is included in every fee tier, not a bolt-on.",
     },
     {
       question: "Can I learn Java without a programming background?",
