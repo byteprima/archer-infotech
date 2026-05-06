@@ -11,6 +11,7 @@ import {
   Briefcase,
   GraduationCap,
   Phone,
+  Calendar,
 } from "lucide-react";
 import { PageEvent } from "@/components/analytics/page-event";
 import { TrackedAnchor } from "@/components/analytics/tracked-anchor";
@@ -24,9 +25,10 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { CourseJsonLd, FAQJsonLd, BreadcrumbJsonLd } from "@/components/seo/json-ld";
-import { courses, getCourse, getCategory } from "@/data/courses";
+import { courses, getCourse, getCategory, getRelatedCourses } from "@/data/courses";
 import { siteConfig } from "@/data/site-config";
 import { buildPageMetadata } from "@/lib/seo";
+import { getNextBatchForCourse } from "@/lib/actions/public-batches";
 
 interface CoursePageProps {
   params: Promise<{
@@ -74,6 +76,15 @@ export default async function CoursePage({ params }: CoursePageProps) {
     redirect(`/bootcamps/${bootcampSlug}`);
   }
 
+  const nextBatch = await getNextBatchForCourse(slug);
+  const nextBatchDateLabel = nextBatch
+    ? new Date(nextBatch.startDate).toLocaleDateString("en-IN", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      })
+    : null;
+
   return (
     <>
       <PageEvent
@@ -93,6 +104,8 @@ export default async function CoursePage({ params }: CoursePageProps) {
         duration={course.duration}
         url={`/courses/${categorySlug}/${slug}`}
         category={course.category}
+        nextBatchStartDate={nextBatch ? new Date(nextBatch.startDate).toISOString() : undefined}
+        nextBatchMode={nextBatch?.mode === "online" ? "online" : nextBatch ? "offline" : undefined}
       />
       <FAQJsonLd faqs={course.faqs} />
       <BreadcrumbJsonLd
@@ -130,6 +143,15 @@ export default async function CoursePage({ params }: CoursePageProps) {
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
                 {course.title} Training in Pune with Placement
               </h1>
+              {nextBatchDateLabel && (
+                <div className="inline-flex items-center gap-2 bg-secondary/15 text-white border border-secondary/40 rounded-full px-4 py-1.5 text-sm mb-4">
+                  <Calendar className="h-4 w-4 text-secondary" />
+                  <span>
+                    Next batch starts: <strong className="font-semibold">{nextBatchDateLabel}</strong>
+                    {nextBatch?.mode && ` (${nextBatch.mode === "online" ? "Online" : "Classroom"})`}
+                  </span>
+                </div>
+              )}
               <p className="text-lg text-white/80 mb-6">{course.description}</p>
               <div className="flex flex-wrap gap-6 text-sm">
                 <div className="flex items-center gap-2">
@@ -482,6 +504,50 @@ export default async function CoursePage({ params }: CoursePageProps) {
           </div>
         </div>
       </section>
+
+      {/* Related Courses — internal linking for discoverability + SEO */}
+      {(() => {
+        const related = getRelatedCourses(slug, 4);
+        if (related.length === 0) return null;
+        return (
+          <section className="py-12 border-t">
+            <div className="container mx-auto px-4">
+              <h2 className="text-2xl md:text-3xl font-bold mb-2">Related Courses</h2>
+              <p className="text-muted-foreground mb-8">
+                Students who joined {course.shortTitle} also explored these:
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {related.map((rc) => {
+                  const href =
+                    rc.categorySlug === "bootcamps"
+                      ? `/bootcamps/${rc.slug.replace("-bootcamp", "")}`
+                      : `/courses/${rc.categorySlug}/${rc.slug}`;
+                  return (
+                    <Link
+                      key={rc.id}
+                      href={href}
+                      className="group rounded-lg border p-5 hover:border-primary hover:shadow-md transition-all"
+                    >
+                      <Badge variant="outline" className="text-xs mb-2">
+                        {rc.category}
+                      </Badge>
+                      <h3 className="font-semibold mb-2 group-hover:text-primary transition-colors">
+                        {rc.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground line-clamp-2">
+                        {rc.shortDescription}
+                      </p>
+                      <div className="mt-3 text-sm text-primary font-medium">
+                        View course →
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          </section>
+        );
+      })()}
 
       {/* CTA Section */}
       <section className="py-12 bg-muted/30">

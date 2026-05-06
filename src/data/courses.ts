@@ -2597,7 +2597,13 @@ export function getCategory(slug: string): Category | undefined {
 }
 
 export function getFeaturedCourses(): Course[] {
-  const priorityOrder = ["generative-ai", "java-full-stack", "python", "aws", "codeleap-bootcamp"];
+  const priorityOrder = [
+    "genai-training-in-pune",
+    "java-full-stack-training-in-pune",
+    "python-training-in-pune",
+    "aws-training-in-pune",
+    "codeleap-bootcamp",
+  ];
   const featured = courses.filter((course) => course.isFeatured);
 
   return featured.sort((a, b) => {
@@ -2613,6 +2619,27 @@ export function getFeaturedCourses(): Course[] {
 
 export function getPopularCourses(): Course[] {
   return courses.filter((course) => course.isPopular);
+}
+
+/**
+ * Returns up to `limit` related courses for internal linking.
+ * Prefers courses in the same category, then popular ones from any category.
+ */
+export function getRelatedCourses(currentSlug: string, limit = 4): Course[] {
+  const current = getCourse(currentSlug);
+  if (!current) return [];
+
+  const sameCategory = courses.filter(
+    (c) => c.slug !== currentSlug && c.categorySlug === current.categorySlug
+  );
+  const popularElsewhere = courses.filter(
+    (c) =>
+      c.slug !== currentSlug &&
+      c.categorySlug !== current.categorySlug &&
+      c.isPopular
+  );
+
+  return [...sameCategory, ...popularElsewhere].slice(0, limit);
 }
 
 export function searchCourses(query: string): Course[] {

@@ -88,7 +88,7 @@ export function Footer() {
             <Link href="/" className="inline-flex items-center gap-2">
               <Image
                 src="/images/logo.svg"
-                alt="Archer Infotech"
+                alt="Archer Infotech — IT training institute in Kothrud, Pune since 2009"
                 width={40}
                 height={40}
                 className="h-10 w-auto"

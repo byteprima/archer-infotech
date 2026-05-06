@@ -100,6 +100,9 @@ interface CourseJsonLdProps {
   duration?: string;
   url: string;
   category?: string;
+  /** ISO 8601 start date for the next batch, if known. */
+  nextBatchStartDate?: string;
+  nextBatchMode?: "offline" | "online";
 }
 
 export function CourseJsonLd({
@@ -109,6 +112,8 @@ export function CourseJsonLd({
   duration,
   url,
   category,
+  nextBatchStartDate,
+  nextBatchMode,
 }: CourseJsonLdProps) {
   const schema = {
     "@context": "https://schema.org",
@@ -120,12 +125,8 @@ export function CourseJsonLd({
       name: provider,
       sameAs: baseUrl,
     },
-    ...(duration && {
-      timeRequired: duration,
-    }),
-    ...(category && {
-      courseCode: category,
-    }),
+    ...(duration && { timeRequired: duration }),
+    ...(category && { courseCode: category }),
     url: `${baseUrl}${url}`,
     inLanguage: "en",
     audience: {
@@ -138,6 +139,21 @@ export function CourseJsonLd({
       priceCurrency: "INR",
       availability: "https://schema.org/InStock",
     },
+    ...(nextBatchStartDate && {
+      hasCourseInstance: {
+        "@type": "CourseInstance",
+        startDate: nextBatchStartDate,
+        courseMode: nextBatchMode === "online" ? "Online" : "Onsite",
+        location:
+          nextBatchMode === "online"
+            ? undefined
+            : {
+                "@type": "Place",
+                name: siteConfig.name,
+                address: POSTAL_ADDRESS,
+              },
+      },
+    }),
   };
 
   return (

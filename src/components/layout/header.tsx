@@ -170,7 +170,7 @@ export function Header() {
           <Link href="/" className="flex items-center gap-2">
             <Image
               src="/images/logo.svg"
-              alt="Archer Infotech"
+              alt="Archer Infotech — IT training institute in Kothrud, Pune since 2009"
               width={44}
               height={44}
               className="h-11 w-auto"
@@ -208,7 +208,7 @@ export function Header() {
                                 const IconComponent = categoryIcons[category.icon];
                                 const href = category.slug === "bootcamps"
                                   ? "/bootcamps"
-                                  : `/courses?category=${category.slug}`;
+                                  : `/courses/${category.slug}`;
                                 return (
                                   <li key={category.slug}>
                                     <Link
@@ -303,7 +303,7 @@ export function Header() {
                 >
                   <Image
                     src="/images/logo.svg"
-                    alt="Archer Infotech"
+                    alt="Archer Infotech — IT training institute in Kothrud, Pune since 2009"
                     width={36}
                     height={36}
                     className="h-9 w-auto"
