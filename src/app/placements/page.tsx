@@ -14,9 +14,9 @@ import { eq } from "drizzle-orm";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Placements at Archer Infotech — 10,000+ Students Placed Since 2009",
+  title: "Placements at Archer Infotech — 5,000+ Students Placed Since 2009",
   description:
-    "10,000+ students placed at top IT companies including Tech Mahindra, TCS, Infosys and more. See placement records, hiring partners, and our 100% placement assistance programme at Archer Infotech, Pune.",
+    "5,000+ students placed at top IT companies including Tech Mahindra, TCS, Infosys and more. See placement records, hiring partners, and our 100% placement assistance programme at Archer Infotech, Pune.",
   path: "/placements",
 });
 
@@ -31,7 +31,7 @@ export default async function PlacementsPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              10,000+ Students Placed Since 2009 at Top IT Companies in Pune
+              5,000+ Students Placed Since 2009 at Top IT Companies in Pune
             </h1>
             <p className="text-lg text-white/80">
               As a leading IT solutions provider, Archer Infotech helps both
