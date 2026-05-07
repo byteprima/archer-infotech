@@ -11,6 +11,7 @@ import {
   CheckCircle,
   Shield,
   ClipboardList,
+  LineChart,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -128,6 +129,13 @@ export default async function AdminDashboard() {
       href: "/admin/audit-logs",
       icon: ClipboardList,
       stats: `${stats.auditLogs.total} entries`,
+    },
+    {
+      title: "SEO Dashboard",
+      description: "GSC, PSI, CrUX live data + suggestions",
+      href: "/admin/seo",
+      icon: LineChart,
+      stats: "Live monitoring",
     },
   ];
 

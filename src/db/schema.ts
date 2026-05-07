@@ -174,6 +174,59 @@ export const testimonials = sqliteTable("testimonials", {
   updatedAt: integer("updated_at", { mode: "timestamp" }).notNull().$defaultFn(() => new Date()),
 });
 
+// SEO metrics cache — single table for all SEO API responses (GSC,
+// PSI, CrUX, URL Inspection). The /admin/seo dashboard reads this to
+// render KPI tiles + tables without blowing through API quotas every
+// page load. Each row is the response for one (source, scope_value)
+// pair, expiring on `expires_at` so the dashboard refresh button can
+// force a re-fetch by deleting expired rows.
+//
+// `payload` is the raw API response stored as a JSON string (SQLite
+// has no native JSON column type — TEXT is the canonical pattern with
+// JSON.parse on read).
+export const seoMetricsCache = sqliteTable("seo_metrics_cache", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  // Source API: 'gsc-query' | 'gsc-inspect' | 'psi' | 'crux' | 'crux-history'
+  source: text("source").notNull(),
+  // What this cache row covers — typically a URL, or "global" for
+  // origin-level / aggregate queries.
+  scopeValue: text("scope_value").notNull(),
+  // Optional discriminator for sources that have multiple variants
+  // (e.g. PSI has mobile + desktop runs against the same URL; we use
+  // variant="mobile" / "desktop" to disambiguate).
+  variant: text("variant"),
+  payload: text("payload").notNull(),
+  fetchedAt: integer("fetched_at", { mode: "timestamp" }).notNull().$defaultFn(() => new Date()),
+  expiresAt: integer("expires_at", { mode: "timestamp" }).notNull(),
+});
+
+// AI citation audits — manual log of monthly prompt audits across
+// AI search engines (ChatGPT, Claude, Perplexity, Google AI Overviews,
+// Bing Copilot, Gemini). One row per (audit_date, engine, prompt) tuple.
+// Rendered in the SEO Dashboard's AI Citations tab; aggregations
+// computed on read. Pillar 8 P8-26 / Pillar 5 P5-29.
+export const aiCitationAudits = sqliteTable("ai_citation_audits", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  // ISO date (YYYY-MM-DD) — store as text for easy month-grouping in SQL
+  auditDate: text("audit_date").notNull(),
+  // 'chatgpt' | 'claude' | 'perplexity' | 'google-aio' | 'bing-copilot' | 'gemini' | (custom)
+  engine: text("engine").notNull(),
+  prompt: text("prompt").notNull(),
+  // Whether Archer Infotech was mentioned in the response
+  mentioned: integer("mentioned", { mode: "boolean" }).notNull().default(false),
+  // Whether archerinfotech.in was cited as a source URL
+  cited: integer("cited", { mode: "boolean" }).notNull().default(false),
+  // Optional cited URL if known
+  citedUrl: text("cited_url"),
+  // 'positive' | 'neutral' | 'negative' | 'inaccurate'
+  sentiment: text("sentiment"),
+  // Free-text observations from the auditor
+  notes: text("notes"),
+  createdAt: integer("created_at", { mode: "timestamp" })
+    .notNull()
+    .$defaultFn(() => new Date()),
+});
+
 // Audit logs table - for tracking admin actions
 export const auditLogs = sqliteTable("audit_logs", {
   id: integer("id").primaryKey({ autoIncrement: true }),
@@ -207,6 +260,12 @@ export type NewTestimonial = typeof testimonials.$inferInsert;
 
 export type AuditLog = typeof auditLogs.$inferSelect;
 export type NewAuditLog = typeof auditLogs.$inferInsert;
+
+export type SeoMetricsCache = typeof seoMetricsCache.$inferSelect;
+export type NewSeoMetricsCache = typeof seoMetricsCache.$inferInsert;
+
+export type AiCitationAudit = typeof aiCitationAudits.$inferSelect;
+export type NewAiCitationAudit = typeof aiCitationAudits.$inferInsert;
 
 // Auth types
 export type User = typeof user.$inferSelect;
