@@ -11,7 +11,7 @@ import { TrackedLink } from "@/components/analytics/tracked-link";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "About Us",
+  title: "About Archer Infotech — Pune's Trusted IT Training Institute Since 2009",
   description:
     "Learn about Archer Infotech, Pune's trusted IT training institute since 2009. Our mission, vision, and team of expert trainers behind 10,000+ students trained and 5,000+ placed.",
   path: "/about",
@@ -27,7 +27,7 @@ export default function AboutPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              About Archer Infotech
+              About Archer Infotech — Pune&apos;s Trusted IT Training Institute Since 2009
             </h1>
             <p className="text-lg text-white/80">
               Archer Infotech is a leading IT and Language training centre providing

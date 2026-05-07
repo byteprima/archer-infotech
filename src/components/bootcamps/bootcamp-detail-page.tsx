@@ -32,6 +32,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { type Bootcamp } from "@/data/bootcamps";
 import { siteConfig } from "@/data/site-config";
 import { cn } from "@/lib/utils";
+import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 
 const pillButtonBaseClass =
   "inline-flex items-center justify-center gap-1.5 rounded-full border text-sm font-semibold whitespace-nowrap transition-all outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50";
@@ -772,6 +773,13 @@ export function BootcampDetailPage({
 
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1.1fr)_380px] lg:items-start">
             <div>
+              <Breadcrumbs
+                variant="light"
+                items={[
+                  { name: "Bootcamps", href: "/bootcamps" },
+                  { name: bootcamp.name },
+                ]}
+              />
               <div className="mb-5 flex flex-wrap items-center gap-3">
                 <Badge className="rounded-full border-0 bg-white/15 px-3 py-1 text-white backdrop-blur">
                   <Rocket className="mr-1 h-3.5 w-3.5" />

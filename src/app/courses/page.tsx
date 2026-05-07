@@ -18,7 +18,7 @@ export default function CoursesPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              IT Training Courses
+              IT Training Courses in Pune | 40+ Programs with Placement Assistance
             </h1>
             <p className="text-lg text-white/80">
               Explore our comprehensive range of industry-relevant IT courses.

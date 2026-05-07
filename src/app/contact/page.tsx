@@ -8,7 +8,7 @@ import { ContactForm } from "@/components/forms/contact-form";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Contact Us",
+  title: "Contact Archer Infotech — IT Training Institute in Kothrud, Pune",
   description:
     "Get in touch with Archer Infotech for course inquiries, batch schedules, and career counselling. Visit our Kothrud, Pune centre or reach us by phone, WhatsApp, or email.",
   path: "/contact",
@@ -26,7 +26,9 @@ export default function ContactPage() {
       <section className="gradient-hero text-white py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">Contact Us</h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+              Contact Archer Infotech — IT Training in Kothrud, Pune
+            </h1>
             <p className="text-lg text-white/80">
               Have questions about our courses? Want to know about batch schedules
               or fees? Get in touch with us and our team will get back to you shortly.

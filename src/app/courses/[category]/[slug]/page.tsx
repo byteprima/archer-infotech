@@ -25,6 +25,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { CourseJsonLd, FAQJsonLd, BreadcrumbJsonLd } from "@/components/seo/json-ld";
+import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 import { courses, getCourse, getCategory, getRelatedCourses } from "@/data/courses";
 import { getTrainersForCourse } from "@/data/team";
 import { siteConfig } from "@/data/site-config";
@@ -129,6 +130,14 @@ export default async function CoursePage({ params }: CoursePageProps) {
       {/* Hero Section */}
       <section className="gradient-hero text-white py-12 md:py-16">
         <div className="container mx-auto px-4">
+          <Breadcrumbs
+            variant="light"
+            items={[
+              { name: "Courses", href: "/courses" },
+              { name: category.name, href: `/courses/${categorySlug}` },
+              { name: course.title },
+            ]}
+          />
           <Link
             href={`/courses/${categorySlug}`}
             className="inline-flex items-center text-white/80 hover:text-white mb-4 transition-colors"

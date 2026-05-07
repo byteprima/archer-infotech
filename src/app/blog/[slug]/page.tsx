@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { BlogPostContent } from "@/components/blog/blog-post-content";
 import { BlogSidebar } from "@/components/blog/blog-sidebar";
 import { BlogPostJsonLd, BlogBreadcrumbJsonLd } from "@/components/blog/blog-json-ld";
+import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 import { PageEvent } from "@/components/analytics/page-event";
 import { TrackedAnchor } from "@/components/analytics/tracked-anchor";
 import { TrackedLink } from "@/components/analytics/tracked-link";
@@ -138,6 +139,19 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       {/* Hero Section */}
       <section className="gradient-hero text-white py-12 md:py-16">
         <div className="container mx-auto px-4">
+          <Breadcrumbs
+            variant="light"
+            items={[
+              { name: "Blog", href: "/blog" },
+              ...(post.category
+                ? [{
+                    name: post.category,
+                    href: `/blog?category=${encodeURIComponent(post.category)}`,
+                  }]
+                : []),
+              { name: post.title },
+            ]}
+          />
           <Link
             href="/blog"
             className="inline-flex items-center text-white/80 hover:text-white mb-6 transition-colors"
