@@ -52,6 +52,15 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             <h1 className="text-3xl md:text-5xl font-bold mb-4">
               {category.name} Training in Pune
             </h1>
+            {/* Variant-rich subhead — naturally weaves the four
+                head-keyword variants (training in H1; courses, classes,
+                institute here) so every category page picks up keyword
+                surface area without keyword stuffing. P4-06. */}
+            <p className="text-base md:text-lg text-white/85 mb-3 leading-snug">
+              Explore {category.name.toLowerCase()} courses, classes and
+              specialisation tracks at the Archer Infotech institute in
+              Kothrud, Pune.
+            </p>
             {category.description && (
               <p className="text-lg text-white/80">{category.description}</p>
             )}

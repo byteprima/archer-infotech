@@ -186,6 +186,19 @@ export default async function CoursePage({ params }: CoursePageProps) {
               >
                 {course.title} Training in Pune with Placement
               </h1>
+              {/* Variant-rich subheading so every course page naturally
+                  carries all four head-keyword variants — "training" (in
+                  the H1 above), "course" (in the description below),
+                  "classes" (here), "institute" (here). Applies to all 42
+                  course pages from a single template edit. P4-06. */}
+              <p className="text-base md:text-lg text-white/85 mb-3 leading-snug">
+                Pune&apos;s trusted{" "}
+                <strong className="font-semibold text-white">
+                  {course.shortTitle}
+                </strong>{" "}
+                classes at the Archer Infotech institute, Kothrud — weekday,
+                weekend and online batches with placement assistance.
+              </p>
               {nextBatchDateLabel && (
                 <div className="inline-flex items-center gap-2 bg-secondary/15 text-white border border-secondary/40 rounded-full px-4 py-1.5 text-sm mb-4">
                   <Calendar className="h-4 w-4 text-secondary" />
