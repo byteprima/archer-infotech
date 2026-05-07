@@ -103,6 +103,18 @@ interface CourseJsonLdProps {
   /** ISO 8601 start date for the next batch, if known. */
   nextBatchStartDate?: string;
   nextBatchMode?: "offline" | "online";
+  /**
+   * ISO 8601 publish date (when the page first went live). Optional but
+   * pairs with dateModified to give Google + AI engines a content
+   * freshness signal. P3-18.
+   */
+  datePublished?: string;
+  /**
+   * ISO 8601 last meaningful review date. Required for the freshness
+   * signal — bump every 6 months on real content refresh, never on a
+   * cosmetic change. P3-18.
+   */
+  dateModified?: string;
 }
 
 export function CourseJsonLd({
@@ -114,6 +126,8 @@ export function CourseJsonLd({
   category,
   nextBatchStartDate,
   nextBatchMode,
+  datePublished,
+  dateModified,
 }: CourseJsonLdProps) {
   const schema = {
     "@context": "https://schema.org",
@@ -129,6 +143,8 @@ export function CourseJsonLd({
     ...(category && { courseCode: category }),
     url: `${baseUrl}${url}`,
     inLanguage: "en",
+    ...(datePublished && { datePublished }),
+    ...(dateModified && { dateModified }),
     audience: {
       "@type": "EducationalAudience",
       educationalRole: "student",

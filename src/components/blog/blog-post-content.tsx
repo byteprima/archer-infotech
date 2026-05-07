@@ -1,5 +1,6 @@
 import { marked } from "marked";
 import { createHighlighter } from "shiki";
+import { injectTocAnchors } from "@/lib/blog/toc";
 
 interface BlogPostContentProps {
   content: string;
@@ -155,7 +156,11 @@ export async function BlogPostContent({ content }: BlogPostContentProps) {
     : (marked.parse(content, { async: false }) as string);
 
   const cleaned = cleanHtml(rawHtml);
-  const htmlContent = await highlightCodeBlocks(cleaned);
+  // Inject id="<slug>" onto every H2/H3 so the table-of-contents anchor
+  // links resolve. Slug logic is shared with extractToc() in
+  // src/lib/blog/toc.ts so the IDs match one-to-one. P5-10.
+  const withAnchors = injectTocAnchors(cleaned);
+  const htmlContent = await highlightCodeBlocks(withAnchors);
 
   return (
     <div

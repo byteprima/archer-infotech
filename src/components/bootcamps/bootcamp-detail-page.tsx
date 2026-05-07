@@ -34,6 +34,8 @@ import { type Bootcamp } from "@/data/bootcamps";
 import { siteConfig } from "@/data/site-config";
 import { cn } from "@/lib/utils";
 import { Breadcrumbs } from "@/components/seo/breadcrumbs";
+import { LastUpdated } from "@/components/seo/last-updated";
+import { BOOTCAMP_LAST_REVIEWED } from "@/lib/seo/content-dates";
 
 const pillButtonBaseClass =
   "inline-flex items-center justify-center gap-1.5 rounded-full border text-sm font-semibold whitespace-nowrap transition-all outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50";
@@ -881,6 +883,14 @@ export function BootcampDetailPage({
                   Call Admissions
                 </TrackedAnchor>
               </div>
+
+              {/* Visible "Curriculum last reviewed" stamp paired with
+                  dateModified in CourseJsonLd. P3-18. */}
+              <LastUpdated
+                iso={BOOTCAMP_LAST_REVIEWED}
+                label="Curriculum last reviewed"
+                className="mt-6 text-xs md:text-sm text-white/70"
+              />
 
               <div className="mt-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
                 {featuredStats.map((stat) => (

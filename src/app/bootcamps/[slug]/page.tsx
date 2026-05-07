@@ -10,6 +10,7 @@ import {
 import { bootcamps, getBootcamp } from "@/data/bootcamps";
 import { buildPageMetadata } from "@/lib/seo";
 import { getNextBatchForCourse } from "@/lib/actions/public-batches";
+import { BOOTCAMP_LAST_REVIEWED } from "@/lib/seo/content-dates";
 
 interface BootcampPageProps {
   params: Promise<{ slug: string }>;
@@ -71,6 +72,7 @@ export default async function BootcampPage({ params }: BootcampPageProps) {
         category="Bootcamps"
         nextBatchStartDate={nextBatch ? new Date(nextBatch.startDate).toISOString() : undefined}
         nextBatchMode={nextBatch?.mode === "online" ? "online" : nextBatch ? "offline" : undefined}
+        dateModified={BOOTCAMP_LAST_REVIEWED}
       />
       <FAQJsonLd faqs={bootcamp.faqs} />
       <BreadcrumbJsonLd

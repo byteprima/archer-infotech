@@ -34,6 +34,8 @@ import { getNextBatchForCourse } from "@/lib/actions/public-batches";
 import { getCourseRichContent } from "@/data/course-content";
 import { RichCourseContent } from "@/components/courses/rich-course-content";
 import Image from "next/image";
+import { LastUpdated } from "@/components/seo/last-updated";
+import { COURSE_LAST_REVIEWED } from "@/lib/seo/content-dates";
 
 interface CoursePageProps {
   params: Promise<{
@@ -116,6 +118,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
         category={course.category}
         nextBatchStartDate={nextBatch ? new Date(nextBatch.startDate).toISOString() : undefined}
         nextBatchMode={nextBatch?.mode === "online" ? "online" : nextBatch ? "offline" : undefined}
+        dateModified={COURSE_LAST_REVIEWED}
       />
       <FAQJsonLd faqs={effectiveFaqs} />
       <BreadcrumbJsonLd
@@ -198,6 +201,13 @@ export default async function CoursePage({ params }: CoursePageProps) {
                   <span>{course.mode.join(" & ")}</span>
                 </div>
               </div>
+              {/* Freshness signal — visible "Last updated" stamp paired
+                  with dateModified in CourseJsonLd above. P3-18. */}
+              <LastUpdated
+                iso={COURSE_LAST_REVIEWED}
+                label="Curriculum last reviewed"
+                className="mt-5 text-xs md:text-sm text-white/70"
+              />
             </div>
             {/* Enquiry Card */}
             <div className="bg-white rounded-xl p-6 text-foreground shadow-lg">

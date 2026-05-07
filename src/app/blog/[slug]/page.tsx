@@ -9,6 +9,8 @@ import { BlogPostContent } from "@/components/blog/blog-post-content";
 import { CodeCopyInit } from "@/components/blog/code-copy-init";
 import { BlogSidebar } from "@/components/blog/blog-sidebar";
 import { BlogPostJsonLd, BlogBreadcrumbJsonLd } from "@/components/blog/blog-json-ld";
+import { TableOfContents } from "@/components/blog/table-of-contents";
+import { extractToc, approximateWordCount } from "@/lib/blog/toc";
 import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 import { PageEvent } from "@/components/analytics/page-event";
 import { TrackedAnchor } from "@/components/analytics/tracked-anchor";
@@ -104,6 +106,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const displayDate = post.publishedAt || post.createdAt;
   const tags = post.tags?.split(",").map((t) => t.trim()).filter(Boolean) || [];
 
+  // Build TOC for long-form posts only. Pillar 5 P5-10 threshold: 1,500
+  // words. Below that, the TOC adds visual noise without UX benefit.
+  // Also require at least 3 H2/H3 headings — a TOC of one item is silly.
+  const tocItems = extractToc(post.content);
+  const showToc =
+    tocItems.length >= 3 && approximateWordCount(post.content) >= 1500;
+
   return (
     <>
       <PageEvent
@@ -193,6 +202,27 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     year: "numeric",
                   })}
                 </time>
+                {/* Visible "Updated" stamp when the post has been
+                    revised post-publication — pairs with the dateModified
+                    field already in BlogPosting schema. Shown only when
+                    updatedAt is meaningfully later than publishedAt
+                    (>1 day delta to suppress noise from build-time
+                    timestamp bumps). P3-18. */}
+                {post.updatedAt &&
+                  post.publishedAt &&
+                  post.updatedAt.getTime() - post.publishedAt.getTime() >
+                    24 * 60 * 60 * 1000 && (
+                    <span className="ml-2 text-xs text-white/60">
+                      · Updated{" "}
+                      <time dateTime={post.updatedAt.toISOString()}>
+                        {post.updatedAt.toLocaleDateString("en-IN", {
+                          day: "numeric",
+                          month: "long",
+                          year: "numeric",
+                        })}
+                      </time>
+                    </span>
+                  )}
               </div>
               {post.author && (
                 <div className="flex items-center gap-2">
@@ -237,6 +267,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     {post.excerpt}
                   </p>
                 )}
+
+                {/* Table of contents — only for long-form posts (1,500+
+                    words, 3+ headings). P5-10. */}
+                {showToc && <TableOfContents items={tocItems} />}
 
                 {/* Content */}
                 <BlogPostContent content={post.content} />
