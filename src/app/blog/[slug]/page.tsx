@@ -11,6 +11,13 @@ import { BlogSidebar } from "@/components/blog/blog-sidebar";
 import { BlogPostJsonLd, BlogBreadcrumbJsonLd } from "@/components/blog/blog-json-ld";
 import { TableOfContents } from "@/components/blog/table-of-contents";
 import { extractToc, approximateWordCount } from "@/lib/blog/toc";
+import { PostInternalLinks } from "@/components/blog/post-internal-links";
+import {
+  findRelevantCoursesForPost,
+  courseHref,
+  tokeniseTags,
+} from "@/lib/seo/blog-internal-links";
+import { getRelatedBlogPosts } from "@/lib/actions/blog";
 import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 import { PageEvent } from "@/components/analytics/page-event";
 import { TrackedAnchor } from "@/components/analytics/tracked-anchor";
@@ -112,6 +119,23 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const tocItems = extractToc(post.content);
   const showToc =
     tocItems.length >= 3 && approximateWordCount(post.content) >= 1500;
+
+  // Internal-link block at the bottom of the post — guarantees the
+  // pillar 5 P5-09 minimum (≥1 course, 2-3 related posts, 1 trust-page)
+  // on every blog post by construction. Match-on-tags so links stay
+  // contextually relevant; fall back to /courses index when no course
+  // overlaps.
+  const courseMatches = findRelevantCoursesForPost(post.tags, post.category, 1);
+  const tagBasedKeywords = tokeniseTags(post.tags);
+  const relatedKeywords =
+    tagBasedKeywords.length > 0
+      ? tagBasedKeywords
+      : post.category
+        ? [post.category.toLowerCase()]
+        : [];
+  // Fetch a wide pool then drop the current post if it sneaks in.
+  const relatedPool = await getRelatedBlogPosts(relatedKeywords, 4);
+  const relatedPosts = relatedPool.filter((p) => p.slug !== slug).slice(0, 3);
 
   return (
     <>
@@ -279,6 +303,29 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     BlogPostContent's Shiki highlighter injected. Single
                     delegated listener; renders nothing visible. P5-11. */}
                 <CodeCopyInit />
+
+                {/* "Continue learning at Archer Infotech" — guarantees
+                    the pillar 5 P5-09 minimum of ≥1 course + 2–3 related
+                    posts + 1 trust-page (Placements) on every post by
+                    construction. Auto-derived from tag overlap. */}
+                <PostInternalLinks
+                  postTitle={post.title}
+                  course={
+                    courseMatches.length > 0
+                      ? {
+                          title: courseMatches[0].course.title,
+                          href: courseHref(courseMatches[0].course),
+                          category: courseMatches[0].course.category,
+                        }
+                      : null
+                  }
+                  relatedPosts={relatedPosts.map((p) => ({
+                    id: p.id,
+                    title: p.title,
+                    slug: p.slug,
+                    category: p.category,
+                  }))}
+                />
 
                 {/* Tags — semantic <ul>, each tag is an internal link to the
                     tag-filtered blog index. Builds topic-cluster internal
