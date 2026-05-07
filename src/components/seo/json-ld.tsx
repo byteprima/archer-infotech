@@ -295,3 +295,74 @@ export function AggregateRatingJsonLd({
     />
   );
 }
+
+// Per-testimonial Review schema. Each testimonial gets its own Review block
+// referencing the EducationalOrganization @id. Emit one combined JSON-LD
+// (array of Reviews) per page so we don't pollute the DOM with N <script>
+// tags. Pillar 3 P3-13 / Pillar 7 P7-33.
+export interface ReviewSchemaInput {
+  /**
+   * Stable identifier for the review — used in the Review @id. Should not
+   * change once published. The numeric ID from the testimonials table works.
+   */
+  id: string | number;
+  /** Reviewer's full name (Person.name). */
+  authorName: string;
+  /** Optional placement company — populates Person.worksFor. */
+  authorCompany?: string | null;
+  /** Optional reviewer role/title — Person.jobTitle. */
+  authorRole?: string | null;
+  /** The actual review text — reviewBody. */
+  body: string;
+  /** Star rating 1-5. */
+  rating: number;
+  /** Optional course taken — adds itemReviewed of type Course. */
+  course?: string | null;
+}
+
+export function ReviewListJsonLd({ reviews }: { reviews: ReviewSchemaInput[] }) {
+  if (reviews.length === 0) return null;
+
+  const orgId = baseUrl;
+  const schema = reviews.map((r) => {
+    const review: Record<string, unknown> = {
+      "@context": "https://schema.org",
+      "@type": "Review",
+      "@id": `${baseUrl}/#review-${r.id}`,
+      author: {
+        "@type": "Person",
+        name: r.authorName,
+        ...(r.authorRole && { jobTitle: r.authorRole }),
+        ...(r.authorCompany && {
+          worksFor: { "@type": "Organization", name: r.authorCompany },
+        }),
+      },
+      reviewBody: r.body,
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: r.rating,
+        bestRating: 5,
+        worstRating: 1,
+      },
+      // The thing being reviewed: prefer the specific course if known,
+      // otherwise the institute itself. Google validates either.
+      itemReviewed: r.course
+        ? {
+            "@type": "Course",
+            name: r.course,
+            provider: { "@id": orgId },
+          }
+        : { "@id": orgId },
+      // Publisher = the institute hosting the testimonial.
+      publisher: { "@id": orgId },
+    };
+    return review;
+  });
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
