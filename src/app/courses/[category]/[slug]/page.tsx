@@ -36,6 +36,9 @@ import { RichCourseContent } from "@/components/courses/rich-course-content";
 import Image from "next/image";
 import { LastUpdated } from "@/components/seo/last-updated";
 import { COURSE_LAST_REVIEWED } from "@/lib/seo/content-dates";
+import { RelatedReading } from "@/components/courses/related-reading";
+import { getRelatedBlogPosts } from "@/lib/actions/blog";
+import { deriveCourseKeywords } from "@/lib/seo/course-keywords";
 
 interface CoursePageProps {
   params: Promise<{
@@ -96,6 +99,12 @@ export default async function CoursePage({ params }: CoursePageProps) {
   // Prefer the long-form FAQ when available — feeds both visible accordion
   // and FAQPage schema so AI engines and Google see the same questions.
   const effectiveFaqs = rich?.faqs ?? course.faqs;
+
+  // "Related reading" — find up to 3 blog posts whose tags or category
+  // overlap with this course's keyword footprint. Builds course → blog
+  // internal-link chains. P5-28.
+  const relatedKeywords = deriveCourseKeywords(slug, course.category);
+  const relatedReading = await getRelatedBlogPosts(relatedKeywords, 3);
 
   return (
     <>
@@ -674,6 +683,10 @@ export default async function CoursePage({ params }: CoursePageProps) {
           </section>
         );
       })()}
+
+      {/* Related reading — blog posts matched against course keywords.
+          Renders nothing when no posts overlap. P5-28. */}
+      <RelatedReading posts={relatedReading} courseTitle={course.shortTitle} />
 
       {/* CTA Section */}
       <section className="py-12 bg-muted/30">

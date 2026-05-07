@@ -149,6 +149,131 @@ export async function getPublishedPosts(options?: {
   }
 }
 
+/**
+ * Find published blog posts whose tags or category mention any of the
+ * given keywords. Drives the "Related reading" block on course pages so
+ * each course → blog → other course / post forms a topic-cluster web.
+ * P5-28.
+ *
+ * Matching is case-insensitive substring against the comma-wrapped tags
+ * CSV plus the category. Scoring is by hit-count so a post tagged
+ * "python, ai, beginner" outranks one tagged only "python" when the
+ * keywords array is ["python", "ai"].
+ *
+ * Returns at most `limit` posts, newest-first within each score band.
+ */
+export async function getRelatedBlogPosts(
+  keywords: string[],
+  limit: number = 3,
+): Promise<
+  Array<{
+    id: number;
+    title: string;
+    slug: string;
+    excerpt: string | null;
+    featuredImage: string | null;
+    category: string | null;
+    publishedAt: Date | null;
+  }>
+> {
+  // Normalise keywords once — empty / whitespace-only entries dropped,
+  // multi-word entries kept whole so "full stack" matches a tag of
+  // "full stack" and not just the noisy fragment "full".
+  const needles = keywords
+    .map((k) => k.trim().toLowerCase())
+    .filter((k) => k.length >= 2);
+  if (needles.length === 0) return [];
+
+  function scorePost(p: {
+    tags: string | null;
+    category: string | null;
+  }): number {
+    const haystack = `,${(p.tags ?? "").toLowerCase()},${(
+      p.category ?? ""
+    ).toLowerCase()},`;
+    let hits = 0;
+    for (const n of needles) {
+      if (haystack.includes(n)) hits += 1;
+    }
+    return hits;
+  }
+
+  try {
+    if (!process.env.DATABASE_URL) {
+      const ranked = placeholderBlogs
+        .filter((p) => p.isPublished)
+        .map((p) => ({ post: p, score: scorePost(p) }))
+        .filter(({ score }) => score > 0)
+        .sort((a, b) => {
+          if (b.score !== a.score) return b.score - a.score;
+          return (
+            (b.post.publishedAt?.getTime() ?? 0) -
+            (a.post.publishedAt?.getTime() ?? 0)
+          );
+        })
+        .slice(0, limit)
+        .map(({ post: p }) => ({
+          id: p.id,
+          title: p.title,
+          slug: p.slug,
+          excerpt: p.excerpt,
+          featuredImage: p.featuredImage,
+          category: p.category,
+          publishedAt: p.publishedAt,
+        }));
+      return ranked;
+    }
+
+    const { db, blogPosts } = await import("@/db");
+
+    // Pull a wide pool first (any keyword hit) then score+sort in JS so
+    // we get the multi-keyword ranking for free without a complex SQL.
+    // CASE-WHEN scoring inside SQL would also work but is harder to read
+    // and the candidate pool is bounded by the number of published posts.
+    const orClauses: SQL[] = needles.map(
+      (n) =>
+        sql`(
+          ',' || replace(lower(coalesce(${blogPosts.tags}, '')), ', ', ',') || ',' LIKE ${`%,${n},%`}
+          OR lower(coalesce(${blogPosts.category}, '')) LIKE ${`%${n}%`}
+        )`,
+    );
+
+    const pool = await db
+      .select({
+        id: blogPosts.id,
+        title: blogPosts.title,
+        slug: blogPosts.slug,
+        excerpt: blogPosts.excerpt,
+        featuredImage: blogPosts.featuredImage,
+        category: blogPosts.category,
+        tags: blogPosts.tags,
+        publishedAt: blogPosts.publishedAt,
+      })
+      .from(blogPosts)
+      .where(and(eq(blogPosts.isPublished, true), or(...orClauses)))
+      .orderBy(desc(blogPosts.publishedAt))
+      .limit(limit * 4);
+
+    return pool
+      .map((p) => ({ post: p, score: scorePost(p) }))
+      .filter(({ score }) => score > 0)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, limit)
+      .map(({ post: p }) => ({
+        id: p.id,
+        title: p.title,
+        slug: p.slug,
+        excerpt: p.excerpt,
+        featuredImage: p.featuredImage,
+        category: p.category,
+        publishedAt: p.publishedAt,
+      }));
+  } catch (error) {
+    console.error("Error fetching related blog posts:", error);
+    return [];
+  }
+}
+
 export async function getPublishedPostBySlug(slug: string) {
   try {
     if (!process.env.DATABASE_URL) {
