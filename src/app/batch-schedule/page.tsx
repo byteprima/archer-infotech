@@ -15,6 +15,9 @@ import { eq, asc } from "drizzle-orm";
 export const dynamic = "force-dynamic";
 
 import { buildPageMetadata } from "@/lib/seo";
+import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
+import { FaqSection } from "@/components/seo/faq-section";
+import { batchScheduleFaqs } from "@/data/faqs";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Batch Schedule — Upcoming IT Training Batches in Pune",
@@ -105,6 +108,22 @@ export default async function BatchSchedulePage() {
           </div>
         </div>
       </section>
+
+      {/* Definitive Answer Paragraph — practical "when / where / how"
+          batch info in the first body section. AI engines lift this for
+          high-intent local queries. P8-07. */}
+      <DefinitiveAnswer eyebrow="Upcoming IT Training Batches in Pune">
+        Archer Infotech starts new batches every 1–2 weeks across flagship
+        IT courses, with separate weekday and weekend cohorts. Offline
+        classroom batches run at the Kothrud centre (Flat No. 12,
+        Divyadarshan Housing Society, Kothrud, Pune 411038) Monday to
+        Saturday, 9 AM to 8 PM; live online batches run on Zoom / Google
+        Meet on the same dates. Typical timings include 7:30–9:30 AM,
+        10 AM–12 PM, 4–6 PM and 6:30–8:30 PM weekdays, plus 9 AM–1 PM and
+        2–6 PM weekend slots. Every batch includes lifetime LMS recordings,
+        mentor 1:1s and placement assistance. Custom timings can be
+        arranged on request when trainer availability permits.
+      </DefinitiveAnswer>
 
       {/* Schedule Section */}
       <section className="py-16">
@@ -215,6 +234,15 @@ export default async function BatchSchedulePage() {
           </div>
         </div>
       </section>
+
+      {/* FAQ block + FAQPage JSON-LD — practical scheduling questions
+          (start dates, timings, offline vs online, switching, missed
+          classes, weekend cohorts). P8-08. */}
+      <FaqSection
+        heading="Batch Schedule — FAQs"
+        intro="Start dates, weekday and weekend timings, offline vs online format, switching mid-course, and what happens if you miss a class."
+        items={batchScheduleFaqs}
+      />
 
       {/* CTA Section */}
       <section className="py-16 gradient-hero text-white">

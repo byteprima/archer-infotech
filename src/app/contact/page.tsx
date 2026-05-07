@@ -6,6 +6,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { siteConfig } from "@/data/site-config";
 import { ContactForm } from "@/components/forms/contact-form";
 import { buildPageMetadata } from "@/lib/seo";
+import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
+import { FaqSection } from "@/components/seo/faq-section";
+import { contactFaqs } from "@/data/faqs";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Contact Archer Infotech — IT Training Institute in Kothrud, Pune",
@@ -36,6 +39,21 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+
+      {/* Definitive Answer Paragraph — full NAP (name + address + phone +
+          hours) in the first body section so AI engines lift it as the
+          canonical contact answer. P8-07. */}
+      <DefinitiveAnswer eyebrow="How to Reach Archer Infotech">
+        Archer Infotech&apos;s Kothrud training centre is at Flat No. 12,
+        Divyadarshan Housing Society, behind Kothrud Bus Stand Road, near
+        Natraj Gas Agency, Londhe Wada, Chaitanya Nagar, Kothrud, Pune
+        411038. The centre is open Monday to Saturday, 9:00 AM to 8:00 PM.
+        Reach the team by phone or WhatsApp at +91 9850 678451, by email at
+        info@archerinfotech.in, or by submitting the contact form below for
+        a callback. To sit in a live demo class — no payment, no commitment —
+        request a slot through any of these channels and the counselling
+        team will confirm a date the same week.
+      </DefinitiveAnswer>
 
       {/* Contact Content */}
       <section className="py-16">
@@ -172,6 +190,14 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+
+      {/* FAQ block + FAQPage JSON-LD — local intent / GBP-style queries
+          (address, hours, parking, demo booking, walk-in policy). P8-08. */}
+      <FaqSection
+        heading="Contact &amp; Visit FAQs"
+        intro="Address, working hours, parking, demo class booking, and how to reach the Archer Infotech Kothrud centre."
+        items={contactFaqs}
+      />
     </>
   );
 }

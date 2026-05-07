@@ -12,6 +12,9 @@ import { db } from "@/db";
 import { testimonials as testimonialsTable } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { buildPageMetadata } from "@/lib/seo";
+import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
+import { FaqSection } from "@/components/seo/faq-section";
+import { placementsFaqs } from "@/data/faqs";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Placements at Archer Infotech — 5,000+ Students Placed Since 2009",
@@ -41,6 +44,23 @@ export default async function PlacementsPage() {
           </div>
         </div>
       </section>
+
+      {/* Definitive Answer Paragraph — proof-first opening with hiring
+          partner names, headline numbers and salary band. AI engines and
+          Featured Snippets cite this when answering "Archer Infotech
+          placements / placement record". P8-07. */}
+      <DefinitiveAnswer eyebrow="Archer Infotech Placement Record">
+        Archer Infotech has placed 5,000+ students at IT companies since
+        2009, with hiring partners including TCS, Infosys, Wipro, Tech
+        Mahindra, Persistent Systems, Cognizant, Capgemini, HCL Technologies
+        and 100+ other MNCs and product startups across Pune, Bangalore,
+        Hyderabad and Mumbai. The institute records a 90% placement rate
+        across flagship batches, with average fresher packages of ₹3.5–6
+        LPA and top performers in Java Full Stack, MERN and DevOps crossing
+        ₹10 LPA. Placement assistance — resume building, mock interviews,
+        soft-skills training and direct recruiter referrals — is included
+        in every flagship course fee with no separate charge.
+      </DefinitiveAnswer>
 
       {/* Stats Section */}
       <section className="py-16 bg-muted/30">
@@ -208,6 +228,15 @@ export default async function PlacementsPage() {
           </div>
         </div>
       </section>
+
+      {/* FAQ block + FAQPage JSON-LD — proof-oriented Q&A about placement
+          rate, companies, salaries, process. AI engines lift these into
+          career-question responses. P8-08. */}
+      <FaqSection
+        heading="Placement FAQs — Archer Infotech"
+        intro="The most-asked questions about placement at Archer Infotech — hiring partners, packages, process, freshers, working professionals and what's included in the fee."
+        items={placementsFaqs}
+      />
 
       {/* CTA Section */}
       <section className="py-16 gradient-hero text-white">

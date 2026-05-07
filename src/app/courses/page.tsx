@@ -2,6 +2,9 @@ import { Suspense } from "react";
 import { Metadata } from "next";
 import { CoursesFilter } from "@/components/courses/courses-filter";
 import { buildPageMetadata } from "@/lib/seo";
+import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
+import { FaqSection } from "@/components/seo/faq-section";
+import { coursesFaqs } from "@/data/faqs";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "IT Training Courses in Pune",
@@ -28,6 +31,23 @@ export default function CoursesPage() {
         </div>
       </section>
 
+      {/* Definitive Answer Paragraph — citation-friendly factual opening
+          before the JS-hydrated filter. AI engines lift this when answering
+          "IT courses Pune / Archer Infotech courses". P8-07. */}
+      <DefinitiveAnswer eyebrow="IT Training Courses at Archer Infotech, Pune">
+        Archer Infotech offers 40+ IT training courses across Programming
+        (Java, Python, C, C++), Full Stack Development (Java Full Stack,
+        MERN, Spring Boot, .NET), Cloud and DevOps (AWS, Azure, Kubernetes,
+        Docker, Terraform), Data and AI (Data Science, Machine Learning,
+        Generative AI, Power BI), Testing (Selenium, Manual Testing) and
+        Database (MySQL, PostgreSQL, MongoDB). Courses run 4–6 months in
+        standard batches with weekday, weekend and online schedules,
+        starting at ₹15,000 with EMI plans. Every paid program includes
+        lifetime LMS access, an industry-recognised certificate and
+        placement assistance with 100+ corporate hiring partners — no
+        separate placement fee.
+      </DefinitiveAnswer>
+
       {/*
         Reserve vertical space for the client-side CoursesFilter (filter sidebar
         + course grid) so it doesn't snap into place after JS hydration.
@@ -44,6 +64,15 @@ export default function CoursesPage() {
       >
         <CoursesFilter />
       </Suspense>
+
+      {/* FAQ block + FAQPage JSON-LD — broad PAA-style course questions,
+          server-rendered so AI crawlers see the answers in initial HTML.
+          P8-08. */}
+      <FaqSection
+        heading="IT Courses in Pune — FAQs"
+        intro="Choosing the right course, fees, duration, online vs offline, certificates and placement support — answered."
+        items={coursesFaqs}
+      />
     </>
   );
 }

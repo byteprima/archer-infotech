@@ -19,6 +19,9 @@ import { BreadcrumbJsonLd } from "@/components/seo/json-ld";
 import { bootcamps } from "@/data/bootcamps";
 import { siteConfig } from "@/data/site-config";
 import { buildPageMetadata } from "@/lib/seo";
+import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
+import { FaqSection } from "@/components/seo/faq-section";
+import { bootcampsFaqs } from "@/data/faqs";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Coding Bootcamps in Pune — CodeLeap, CareerCode, TechReady",
@@ -96,11 +99,27 @@ export default function BootcampsPage() {
           <p className="text-white/80 text-lg max-w-2xl mx-auto">
             Three programs designed for three stages of your career — from 12th
             passout to engineering student to job-ready graduate. Hands-on
-            training, real projects, and expert mentorship by Archer Info Tech,
+            training, real projects, and expert mentorship by Archer Infotech,
             Pune.
           </p>
         </div>
       </section>
+
+      {/* Definitive Answer Paragraph — career-stage explainer in the first
+          ~100 words of body. AI engines cite this for "Pune coding
+          bootcamp / CodeLeap / CareerCode / TechReady" queries. P8-07. */}
+      <DefinitiveAnswer eyebrow="Coding Bootcamps at Archer Infotech">
+        Archer Infotech runs three coding bootcamps in Pune for three career
+        stages. CodeLeap is an 8-week vacation program for 12th passouts,
+        covering Python, Web Development, AI basics, GitHub portfolio
+        building and career skills, with no prior coding experience
+        required. CareerCode is a semester-by-semester track for engineering
+        students that runs alongside their college degree across six
+        specialisation paths. TechReady is a 6–8 month full-time intensive
+        for graduates, with placement assistance, ten specialised programs
+        and direct referrals to 100+ corporate hiring partners. All three
+        run in hybrid mode — Kothrud campus plus live online sessions.
+      </DefinitiveAnswer>
 
       {/* Bootcamp Cards */}
       <section className="py-16 md:py-24">
@@ -210,6 +229,14 @@ export default function BootcampsPage() {
           </div>
         </div>
       </section>
+
+      {/* FAQ block + FAQPage JSON-LD — career-stage matching, comparison
+          and "is this for me" answers. P8-08. */}
+      <FaqSection
+        heading="Bootcamp FAQs"
+        intro="Picking the right bootcamp for your stage, prerequisites, online vs offline format, and how the three programs fit together as a career path."
+        items={bootcampsFaqs}
+      />
 
       {/* CTA */}
       <section className="py-16 md:py-20">

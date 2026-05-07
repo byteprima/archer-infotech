@@ -7,6 +7,9 @@ import { Badge } from "@/components/ui/badge";
 import { BreadcrumbJsonLd } from "@/components/seo/json-ld";
 import { getTeamMembers } from "@/data/team";
 import { buildPageMetadata } from "@/lib/seo";
+import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
+import { FaqSection } from "@/components/seo/faq-section";
+import { trainersFaqs } from "@/data/faqs";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Our Trainers — Industry Experts at Archer Infotech, Pune",
@@ -45,6 +48,23 @@ export default function TrainersPage() {
           </div>
         </div>
       </section>
+
+      {/* Definitive Answer Paragraph — entity-level "who teaches at Archer
+          Infotech" answer in the first body section. AI engines weight
+          E-E-A-T heavily for trainer/author queries; this delivers the
+          factual core. P8-07. */}
+      <DefinitiveAnswer eyebrow="The Trainers Behind Archer Infotech">
+        Trainers at Archer Infotech are a six-person core faculty with a
+        combined 54+ years of MNC engineering experience, all still
+        actively working in the IT industry. Two of them — Amol Patil and
+        Yogesh Patil — run on-site corporate training engagements at
+        Amdocs, Capgemini, MindTree and Tech Mahindra; the remaining four
+        hold full-time production-engineering roles at Pune-based startups
+        and MNCs. Specialisations span Java, Python, Full Stack, .NET,
+        Modern Web (React, Angular, Next.js), Mobile, Data, AI/ML,
+        Generative AI and Cloud. Trainer name, LinkedIn profile and
+        ongoing client engagements are confirmed before the first class.
+      </DefinitiveAnswer>
 
       {/* What Sets Our Trainers Apart — context, criteria, current MNC engagement */}
       <section className="py-12 md:py-16 border-b">
@@ -186,6 +206,15 @@ export default function TrainersPage() {
           </div>
         </div>
       </section>
+
+      {/* FAQ block + FAQPage JSON-LD — entity / E-E-A-T questions about
+          who teaches, hiring criteria, founder, trainer-to-course matching.
+          P8-08. */}
+      <FaqSection
+        heading="Trainers — FAQs"
+        intro="The hiring criteria, who founded Archer Infotech, how courses are matched to trainers, and how to evaluate a trainer before you enrol."
+        items={trainersFaqs}
+      />
 
       {/* How We Keep This Team Sharp — trust block + combined track record + CTA */}
       <section className="py-12 md:py-16 bg-muted/30 border-t">

@@ -14,6 +14,9 @@ import { eq } from "drizzle-orm";
 import { siteConfig } from "@/data/site-config";
 import { buildPageMetadata } from "@/lib/seo";
 import { ReviewListJsonLd } from "@/components/seo/json-ld";
+import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
+import { FaqSection } from "@/components/seo/faq-section";
+import { homeFaqs } from "@/data/faqs";
 
 // Match <title>, og:title and visible <h1> exactly — Pillar 1 #11.
 export const metadata: Metadata = buildPageMetadata({
@@ -61,11 +64,37 @@ export default async function HomePage() {
       />
 
       <HeroSection />
+
+      {/* Definitive Answer Paragraph — first body content the crawler reads.
+          ~95 words, factual, every sentence stands alone, AI-citation
+          ready. P8-07. */}
+      <DefinitiveAnswer eyebrow="What is Archer Infotech?">
+        Archer Infotech is an IT training institute in Kothrud, Pune, founded
+        in 2009. Over 17+ years, more than 10,000 students have been trained
+        in Java, Python, Full Stack Development, Data Science, AI/ML,
+        AWS, DevOps and Cloud, with 5,000+ placed at MNCs including TCS,
+        Infosys, Wipro, Tech Mahindra, Persistent Systems and 100+ other
+        hiring partners. The institute maintains a 90% placement rate and a
+        5.0-star Google rating, and is led by trainers with 15+ years of MNC
+        experience. Courses run weekday, weekend and online with lifetime LMS
+        access, certification and placement assistance.
+      </DefinitiveAnswer>
+
       <USPSection />
       <BootcampsSection />
       <CoursesSection />
       <TestimonialsSection testimonials={testimonials} />
       <CompaniesSection />
+
+      {/* Server-rendered FAQ block + FAQPage JSON-LD. AI engines lift these
+          Q&A pairs into responses; Google can surface them as Featured
+          Snippets and in AI Overviews. P8-08. */}
+      <FaqSection
+        heading="Archer Infotech — Frequently Asked Questions"
+        intro={`The most common questions about Pune’s ${siteConfig.foundingYear}-founded IT training institute, its courses, fees, trainers and placement support.`}
+        items={homeFaqs}
+      />
+
       <CTASection />
     </>
   );

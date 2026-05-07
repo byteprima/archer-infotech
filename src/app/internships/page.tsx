@@ -21,6 +21,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PageEvent } from "@/components/analytics/page-event";
 import { TrackedLink } from "@/components/analytics/tracked-link";
 import { buildPageMetadata } from "@/lib/seo";
+import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
+import { FaqSection } from "@/components/seo/faq-section";
+import { internshipsFaqs } from "@/data/faqs";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Internship Programs in Pune — 3-Month & 6-Month Tracks",
@@ -301,6 +304,22 @@ export default function InternshipsPage() {
         </div>
       </section>
 
+      {/* Definitive Answer Paragraph — citation-friendly factual opening
+          enumerating both internship tracks and program list. P8-07. */}
+      <DefinitiveAnswer eyebrow="Internship Programs at Archer Infotech, Pune">
+        Archer Infotech runs two internship tracks for IT learners in
+        Pune. The 3-month foundation track covers Programming Fundamentals,
+        PHP Full Stack + AI, Web Development + AI, Data Analytics and
+        AI/ML Basics — designed for college students seeking industry
+        exposure. The 6-month job-ready track offers ten specialisations
+        including Java Full Stack, .NET Full Stack, MERN, Python Full
+        Stack, AI Engineer, Data Scientist, Data Engineer, Cloud / DevOps,
+        IoT + AI and Software Engineer — designed for graduates targeting
+        a job offer. Both tracks run hybrid (Kothrud campus + online),
+        include live projects, mentor 1:1s, an industry-recognised
+        certificate and placement assistance.
+      </DefinitiveAnswer>
+
       {/* Benefits Section */}
       <section className="py-16 bg-muted/30">
         <div className="container mx-auto px-4">
@@ -555,6 +574,15 @@ export default function InternshipsPage() {
           </div>
         </div>
       </section>
+
+      {/* FAQ block + FAQPage JSON-LD — eligibility, certificate validity,
+          3 vs 6 month difference, stipend / fee, placement conversion.
+          P8-08. */}
+      <FaqSection
+        heading="Internship FAQs"
+        intro="Eligibility, certificates, the difference between 3-month and 6-month tracks, fees, and how the program connects to placement."
+        items={internshipsFaqs}
+      />
 
       {/* CTA Section */}
       <section className="py-16 gradient-hero text-white">

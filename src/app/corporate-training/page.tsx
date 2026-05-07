@@ -21,6 +21,9 @@ import { TrackedLink } from "@/components/analytics/tracked-link";
 import { TrackedAnchor } from "@/components/analytics/tracked-anchor";
 import { siteConfig } from "@/data/site-config";
 import { buildPageMetadata } from "@/lib/seo";
+import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
+import { FaqSection } from "@/components/seo/faq-section";
+import { corporateTrainingFaqs } from "@/data/faqs";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Corporate IT Training in Pune",
@@ -142,6 +145,24 @@ export default function CorporateTrainingPage() {
           </div>
         </div>
       </section>
+
+      {/* Definitive Answer Paragraph — sales-qualifying factual opening
+          listing capability surface, active enterprise customers and
+          delivery format. P8-07. */}
+      <DefinitiveAnswer eyebrow="Corporate IT Training by Archer Infotech">
+        Archer Infotech delivers customised corporate IT training across
+        Cloud (AWS, Azure, GCP), Programming (Java, Python, .NET,
+        JavaScript / TypeScript), DevOps and Automation (Docker, Kubernetes,
+        Jenkins, Terraform), Data and AI (Data Science, ML, Generative AI),
+        Full Stack (MERN, Java, Python) and Agile / Project Management
+        (Scrum, Kanban, PMP). Programs are built around the client&apos;s
+        tech stack and team level after a requirement-analysis call —
+        Archer Infotech does not deliver off-the-shelf decks. Active
+        enterprise customers include Amdocs, Capgemini, MindTree and Tech
+        Mahindra. Delivery is on-site at the client&apos;s office, virtually
+        over Zoom / Google Meet, or hybrid. Engagements run from 2-day
+        intensives to 12-week reskilling cohorts.
+      </DefinitiveAnswer>
 
       {/* Benefits Section */}
       <section className="py-16">
@@ -281,6 +302,15 @@ export default function CorporateTrainingPage() {
           </div>
         </div>
       </section>
+
+      {/* FAQ block + FAQPage JSON-LD — sales-qualifying questions for
+          L&D buyers (customisation, format, duration, certification prep,
+          measurement, proposal process). P8-08. */}
+      <FaqSection
+        heading="Corporate Training — FAQs"
+        intro="What we cover, customisation, on-site vs online, engagement length, certification preparation, success measurement, and how to request a proposal."
+        items={corporateTrainingFaqs}
+      />
 
       {/* CTA Section */}
       <section className="py-16 gradient-hero text-white">

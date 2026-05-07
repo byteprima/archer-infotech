@@ -9,6 +9,9 @@ import { LinkedinIcon } from "@/components/common/social-icons";
 import { TrackedAnchor } from "@/components/analytics/tracked-anchor";
 import { TrackedLink } from "@/components/analytics/tracked-link";
 import { buildPageMetadata } from "@/lib/seo";
+import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
+import { FaqSection } from "@/components/seo/faq-section";
+import { aboutFaqs } from "@/data/faqs";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "About Archer Infotech — Pune's Trusted IT Training Institute Since 2009",
@@ -37,6 +40,23 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      {/* Definitive Answer Paragraph — citation-friendly factual opening
+          rendered before any marketing copy. AI engines lift this verbatim
+          when answering "About Archer Infotech / who is Archer Infotech".
+          P8-07. */}
+      <DefinitiveAnswer eyebrow="About Archer Infotech">
+        Archer Infotech is an IT training institute in Kothrud, Pune,
+        founded in 2009 and led by Yogesh Patil, a senior Java and Spring
+        Boot trainer with 15+ years of MNC experience at Persistent Systems
+        and Wipro. Over 17+ years it has trained 10,000+ students and placed
+        5,000+ at companies like TCS, Infosys, Wipro, Tech Mahindra and
+        Persistent Systems, holding a 90% placement rate and a 5.0-star
+        Google rating. The institute teaches Java, Python, Full Stack, Data
+        Science, AI/ML, AWS, DevOps and Cloud across weekday, weekend and
+        online batches, with placement assistance bundled into every
+        flagship program.
+      </DefinitiveAnswer>
 
       {/* About Content */}
       <section className="py-16">
@@ -271,6 +291,15 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      {/* FAQ block + FAQPage JSON-LD — citable answers to entity-level
+          questions about Archer Infotech (founding, leadership, scale,
+          differentiation, corporate offering). P8-08. */}
+      <FaqSection
+        heading="About Archer Infotech — FAQs"
+        intro="The founding story, leadership, training history and what makes Archer Infotech different from other Pune IT institutes."
+        items={aboutFaqs}
+      />
 
       {/* CTA Section */}
       <section className="py-16 gradient-hero text-white">
