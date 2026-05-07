@@ -136,8 +136,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         ]}
       />
 
-      {/* Hero Section */}
-      <section className="gradient-hero text-white py-12 md:py-16">
+      {/*
+        Semantic structure: blog post is one article. Layout already wraps
+        children in <main>; here we add <article> + <header>. Pillar 3 P3-09.
+      */}
+      <article aria-labelledby="post-title">
+      {/* Hero / article header */}
+      <header className="gradient-hero text-white py-12 md:py-16">
         <div className="container mx-auto px-4">
           <Breadcrumbs
             variant="light"
@@ -169,7 +174,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             )}
 
             {/* Title */}
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+            <h1
+              id="post-title"
+              className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6"
+            >
               {post.title}
             </h1>
 
@@ -194,7 +202,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             </div>
           </div>
         </div>
-      </section>
+      </header>
 
       {/* Featured Image */}
       {post.featuredImage && (
@@ -216,8 +224,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       <section className="py-12">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-4 gap-8">
-            {/* Article */}
-            <article className="lg:col-span-3">
+            {/* Article body — outer page already <article aria-labelledby>;
+                this inner div is just the main grid column layout. */}
+            <div className="lg:col-span-3">
               <div className="max-w-3xl">
                 {/* Excerpt */}
                 {post.excerpt && (
@@ -327,7 +336,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                   </div>
                 </div>
               </div>
-            </article>
+            </div>
 
             {/* Sidebar */}
             <div className="lg:col-span-1">
@@ -342,6 +351,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </div>
         </div>
       </section>
+      </article>
     </>
   );
 }

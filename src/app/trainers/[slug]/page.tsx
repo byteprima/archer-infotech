@@ -66,7 +66,12 @@ export default async function TrainerProfilePage({ params }: TrainerPageProps) {
         url={`/trainers/${slug}`}
       />
 
-      <section className="gradient-hero text-white py-12 md:py-16">
+      {/*
+        Semantic structure: trainer profile is one article (about a Person).
+        Layout already wraps {children} in <main>. Pillar 3 P3-09.
+      */}
+      <article aria-labelledby="trainer-name">
+      <header className="gradient-hero text-white py-12 md:py-16">
         <div className="container mx-auto px-4">
           <Breadcrumbs
             variant="light"
@@ -99,7 +104,12 @@ export default async function TrainerProfilePage({ params }: TrainerPageProps) {
                   </div>
                 )}
                 <div>
-                  <h1 className="text-3xl md:text-4xl font-bold mb-2">{trainer.name}</h1>
+                  <h1
+                    id="trainer-name"
+                    className="text-3xl md:text-4xl font-bold mb-2"
+                  >
+                    {trainer.name}
+                  </h1>
                   <p className="text-lg text-white/80 mb-2">{trainer.role}</p>
                   <p className="text-sm text-secondary font-medium mb-4">
                     {trainer.experience} experience
@@ -120,9 +130,9 @@ export default async function TrainerProfilePage({ params }: TrainerPageProps) {
             </div>
           </div>
         </div>
-      </section>
+      </header>
 
-      <section className="py-12">
+      <section aria-label="Profile details" className="py-12">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2 space-y-8">
@@ -201,6 +211,7 @@ export default async function TrainerProfilePage({ params }: TrainerPageProps) {
           </div>
         </div>
       </section>
+      </article>
     </>
   );
 }

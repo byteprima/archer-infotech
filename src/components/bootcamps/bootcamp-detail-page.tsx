@@ -755,7 +755,13 @@ export function BootcampDetailPage({
 
   return (
     <>
-      <section className="relative overflow-hidden gradient-hero pb-14 pt-10 text-white md:pb-20 md:pt-14">
+      {/*
+        Semantic structure: bootcamp page is one self-contained article.
+        Layout already wraps {children} in <main>, so we wrap visible content
+        in <article> and use <header> for the hero. Pillar 3 P3-09.
+      */}
+      <article aria-labelledby="bootcamp-title">
+      <header className="relative overflow-hidden gradient-hero pb-14 pt-10 text-white md:pb-20 md:pt-14">
         <div className="absolute inset-0">
           <div className="absolute left-[-8rem] top-10 h-64 w-64 rounded-full bg-secondary/20 blur-3xl" />
           <div className="absolute right-[-4rem] top-0 h-80 w-80 rounded-full bg-accent/20 blur-3xl" />
@@ -789,7 +795,10 @@ export function BootcampDetailPage({
               </div>
 
               <div className="max-w-4xl">
-                <h1 className="text-4xl font-bold tracking-tight text-balance md:text-5xl lg:text-6xl">
+                <h1
+                  id="bootcamp-title"
+                  className="text-4xl font-bold tracking-tight text-balance md:text-5xl lg:text-6xl"
+                >
                   {bootcamp.name}
                 </h1>
                 <div className="mt-4 max-w-2xl rounded-2xl border border-white/10 bg-white/10 px-4 py-3 backdrop-blur-sm">
@@ -954,7 +963,7 @@ export function BootcampDetailPage({
             </aside>
           </div>
         </div>
-      </section>
+      </header>
 
       <section className="border-b bg-background/80">
         <div className="container mx-auto flex gap-3 overflow-x-auto px-4 py-4">
@@ -1354,6 +1363,7 @@ export function BootcampDetailPage({
           </div>
         </div>
       </section>
+      </article>
     </>
   );
 }

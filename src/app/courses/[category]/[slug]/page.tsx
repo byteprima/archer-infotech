@@ -127,8 +127,18 @@ export default async function CoursePage({ params }: CoursePageProps) {
         ]}
       />
 
-      {/* Hero Section */}
-      <section className="gradient-hero text-white py-12 md:py-16">
+      {/*
+        Semantic structure: the course detail page is a single article. Layout
+        already wraps {children} in <main>, so we wrap the page-level visible
+        content in <article> and use <header> for the hero (rather than a
+        generic <section>) so screen readers, Googlebot, and AI crawlers see a
+        clean Article > Header > body. Related Courses sits OUTSIDE the article
+        because it's sibling navigation, not part of the article content.
+        Pillar 3 P3-09.
+      */}
+      <article aria-labelledby="course-title">
+      {/* Hero / article header */}
+      <header className="gradient-hero text-white py-12 md:py-16">
         <div className="container mx-auto px-4">
           <Breadcrumbs
             variant="light"
@@ -158,7 +168,10 @@ export default async function CoursePage({ params }: CoursePageProps) {
                   <Badge className="bg-white text-primary">Featured</Badge>
                 )}
               </div>
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+              <h1
+                id="course-title"
+                className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4"
+              >
                 {course.title} Training in Pune with Placement
               </h1>
               {nextBatchDateLabel && (
@@ -227,10 +240,10 @@ export default async function CoursePage({ params }: CoursePageProps) {
             </div>
           </div>
         </div>
-      </section>
+      </header>
 
-      {/* Course Content */}
-      <section className="py-12 md:py-16">
+      {/* Course Content (article body) */}
+      <section aria-label="Course details" className="py-12 md:py-16">
         <div className="container mx-auto px-4">
           {rich ? (
             // Rich layout — fills the full container width to match
@@ -606,6 +619,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
           </div>
         </section>
       )}
+      </article>
 
       {/* Related Courses — internal linking for discoverability + SEO */}
       {(() => {
