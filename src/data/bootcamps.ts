@@ -765,15 +765,15 @@ export const bootcamps: Bootcamp[] = [
     name: "CareerCode",
     tagline: "Build the Skills Your Engineering Degree Won't Teach You",
     subtitle:
-      "Semester-by-Semester Programming and Career Training for Engineering Students — Archer Info Tech, Pune",
+      "Semester-by-Semester Programming and Career Training for Engineering Students — Archer Infotech, Pune",
     hook: "Your engineering degree will give you a certificate. CareerCode will give you a career. College teaches you concepts. CareerCode teaches you how to apply them.",
     description:
-      "CareerCode is Archer Info Tech's flagship ongoing training program for engineering, BCA, and BSc Computer Science students. It runs alongside your college education — semester by semester — adding real technical skills, internship readiness, and career tools to everything your degree provides. From your first year to your final placement drive, CareerCode is your parallel career engine.",
+      "CareerCode is Archer Infotech's flagship ongoing training program for engineering, BCA, and BSc Computer Science students. It runs alongside your college education — semester by semester — adding real technical skills, internship readiness, and career tools to everything your degree provides. From your first year to your final placement drive, CareerCode is your parallel career engine.",
     seo: {
       title:
-        "CareerCode | Programming Course for Engineering Students in Pune | Archer Info Tech",
+        "CareerCode | Programming Course for Engineering Students in Pune | Archer Infotech",
       description:
-        "CareerCode by Archer Info Tech is Pune's best semester-wise coding program for engineering, BCA, and BSc CS students. Learn full stack, AI, data science + get internship-ready. Online and offline available.",
+        "CareerCode by Archer Infotech is Pune's best semester-wise coding program for engineering, BCA, and BSc CS students. Learn full stack, AI, data science + get internship-ready. Online and offline available.",
       keywords: [
         "programming course for engineering students Pune",
         "coding course alongside engineering Pune",
@@ -1084,7 +1084,7 @@ export const bootcamps: Bootcamp[] = [
       {
         title: "Internship Guidance",
         description:
-          "How to find legitimate internships, apply, prepare, and perform. Students are guided towards Archer Info Tech's internship network and placement connections.",
+          "How to find legitimate internships, apply, prepare, and perform. Students are guided towards Archer Infotech's internship network and placement connections.",
       },
     ],
     details: [
@@ -1122,12 +1122,12 @@ export const bootcamps: Bootcamp[] = [
       {
         question: "Is online training available for CareerCode?",
         answer:
-          "Yes. CareerCode is available in both classroom mode at Kothrud, Pune, and online through Archer Info Tech's LMS platform — with recorded sessions for students who cannot attend live classes.",
+          "Yes. CareerCode is available in both classroom mode at Kothrud, Pune, and online through Archer Infotech's LMS platform — with recorded sessions for students who cannot attend live classes.",
       },
       {
         question: "Will CareerCode help me get internships?",
         answer:
-          "Yes. Internship preparation is a core part of CareerCode. We guide you through building the right profile, applying to the right opportunities, and preparing for internship interviews. Archer Info Tech also has direct connections with 100+ companies for internship and job placements.",
+          "Yes. Internship preparation is a core part of CareerCode. We guide you through building the right profile, applying to the right opportunities, and preparing for internship interviews. Archer Infotech also has direct connections with 100+ companies for internship and job placements.",
       },
     ],
     closingCTA: {
@@ -1145,15 +1145,15 @@ export const bootcamps: Bootcamp[] = [
     name: "TechReady",
     tagline: "From Graduate to Industry-Ready Software Professional",
     subtitle:
-      "Full-Time, Placement-Assisted Courses in Full Stack Development, Data Science, and AI — Archer Info Tech, Pune",
+      "Full-Time, Placement-Assisted Courses in Full Stack Development, Data Science, and AI — Archer Infotech, Pune",
     hook: "You have your degree. Now you need a job. Not just any job — the right job at the right company with the right salary. The kind of role your four years of engineering were supposed to lead to.",
     description:
-      "TechReady is Archer Info Tech's intensive, full-time, placement-assisted training program built for one purpose: to turn engineering graduates and final-year students into professionals that IT companies across India are actively competing to hire. If you are willing to commit 6 months, 6 hours a day, and your full focus — TechReady will deliver your career.",
+      "TechReady is Archer Infotech's intensive, full-time, placement-assisted training program built for one purpose: to turn engineering graduates and final-year students into professionals that IT companies across India are actively competing to hire. If you are willing to commit 6 months, 6 hours a day, and your full focus — TechReady will deliver your career.",
     seo: {
       title:
-        "TechReady | Job-Ready Full Stack and Data Science Courses in Pune | Archer Info Tech",
+        "TechReady | Job-Ready Full Stack and Data Science Courses in Pune | Archer Infotech",
       description:
-        "TechReady by Archer Info Tech is Pune's best placement-assisted full-time course for graduates. Java Full Stack, Python Full Stack, MERN, Data Science, AI/ML — 6 to 8 months, 6 hours daily. Get hired.",
+        "TechReady by Archer Infotech is Pune's best placement-assisted full-time course for graduates. Java Full Stack, Python Full Stack, MERN, Data Science, AI/ML — 6 to 8 months, 6 hours daily. Get hired.",
       keywords: [
         "placement-assisted full stack course Pune",
         "job-oriented IT course Pune for graduates",
@@ -1183,7 +1183,7 @@ export const bootcamps: Bootcamp[] = [
       {
         title: "20 Years of Placement Track Record",
         description:
-          "Archer Info Tech has been successfully placing students in top MNCs and tech companies since 2005. We have direct placement relationships with 100+ companies. Our placement assistance is 100% genuine.",
+          "Archer Infotech has been successfully placing students in top MNCs and tech companies since 2005. We have direct placement relationships with 100+ companies. Our placement assistance is 100% genuine.",
       },
       {
         title: "Trainers Who Come From the Industry You Are Entering",
@@ -1403,7 +1403,7 @@ export const bootcamps: Bootcamp[] = [
       { label: "Mode", value: "Full-Time — Classroom (Kothrud, Pune) with Online Option" },
       { label: "Placement Assistance", value: "100% Placement-Assisted" },
       { label: "Language", value: "English (Marathi and Hindi support available)" },
-      { label: "Certification", value: "Archer Info Tech Certificate + Project Portfolio" },
+      { label: "Certification", value: "Archer Infotech Certificate + Project Portfolio" },
       { label: "Eligibility", value: "Final-year students or graduates — BE, BTech, BCA, BSc CS (any branch)" },
       { label: "Trainer Experience", value: "15+ Years Industry Experience" },
       { label: "Company Connections", value: "100+ Active Placement Partners" },
@@ -1427,7 +1427,7 @@ export const bootcamps: Bootcamp[] = [
       {
         question: "What is the placement track record?",
         answer:
-          "Archer Info Tech has been successfully placing students in top MNCs and technology companies since 2005. We have active relationships with 100+ companies and a dedicated placement cell. Placement assistance is 100% genuine and continues until you are placed.",
+          "Archer Infotech has been successfully placing students in top MNCs and technology companies since 2005. We have active relationships with 100+ companies and a dedicated placement cell. Placement assistance is 100% genuine and continues until you are placed.",
       },
       {
         question: "How many hours per day is TechReady?",

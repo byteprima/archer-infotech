@@ -124,6 +124,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         updatedAt={post.updatedAt}
         featuredImage={post.featuredImage}
         category={post.category}
+        tags={post.tags}
+        content={post.content}
       />
       <BlogBreadcrumbJsonLd
         items={[

@@ -11,6 +11,27 @@ interface BlogPostJsonLdProps {
   updatedAt?: Date | null;
   featuredImage?: string | null;
   category?: string | null;
+  /** Comma-separated tag string from blog_posts.tags (e.g. "python, ai, career"). */
+  tags?: string | null;
+  /** Full markdown/HTML content used to compute wordCount + articleBody. */
+  content?: string;
+}
+
+/**
+ * Strip simple Markdown / HTML to a rough plain-text approximation so the
+ * schema's articleBody and wordCount reflect actual reading content rather
+ * than markup overhead. Imperfect but good enough for SEO/AEO purposes.
+ */
+function plainText(input: string): string {
+  return input
+    .replace(/```[\s\S]*?```/g, " ") // fenced code blocks
+    .replace(/`[^`]*`/g, " ")        // inline code
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, " ") // images
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1") // links → label
+    .replace(/<[^>]+>/g, " ")        // HTML tags
+    .replace(/[#*_>~-]+/g, " ")      // markdown punctuation
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 export function BlogPostJsonLd({
@@ -22,13 +43,22 @@ export function BlogPostJsonLd({
   updatedAt,
   featuredImage,
   category,
+  tags,
+  content,
 }: BlogPostJsonLdProps) {
+  const tagList = tags?.split(",").map((t) => t.trim()).filter(Boolean) || [];
+  const body = content ? plainText(content) : "";
+  const wordCount = body ? body.split(/\s+/).filter(Boolean).length : undefined;
+
   const schema = {
     "@context": "https://schema.org",
-    "@type": "Article",
+    // BlogPosting is a more specific subtype of Article — preferred by Google
+    // for blog content + recognised by AI-engine RAG pipelines.
+    "@type": "BlogPosting",
     headline: title,
     description: description,
     url: `${baseUrl}/blog/${slug}`,
+    inLanguage: "en-IN",
     ...(featuredImage && {
       image: featuredImage.startsWith("http")
         ? featuredImage
@@ -55,6 +85,13 @@ export function BlogPostJsonLd({
     ...(category && {
       articleSection: category,
     }),
+    ...(tagList.length > 0 && {
+      keywords: tagList.join(", "),
+    }),
+    ...(wordCount && { wordCount }),
+    // articleBody intentionally truncated to avoid bloating <head>; full content
+    // is in the visible DOM. ~500 words is enough for AEO snippet extraction.
+    ...(body && { articleBody: body.slice(0, 3500) }),
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": `${baseUrl}/blog/${slug}`,
