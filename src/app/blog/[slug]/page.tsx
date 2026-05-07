@@ -244,16 +244,28 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     delegated listener; renders nothing visible. P5-11. */}
                 <CodeCopyInit />
 
-                {/* Tags */}
+                {/* Tags — semantic <ul>, each tag is an internal link to the
+                    tag-filtered blog index. Builds topic-cluster internal
+                    linking surface area (P5-05). */}
                 {tags.length > 0 && (
                   <div className="mt-12 pt-8 border-t">
                     <div className="flex items-center gap-3 flex-wrap">
-                      <Tag className="h-5 w-5 text-muted-foreground" />
-                      {tags.map((tag) => (
-                        <Badge key={tag} variant="outline">
-                          {tag}
-                        </Badge>
-                      ))}
+                      <Tag className="h-5 w-5 text-muted-foreground shrink-0" aria-hidden="true" />
+                      <ul
+                        className="flex flex-wrap items-center gap-2 list-none p-0 m-0"
+                        aria-label="Post tags"
+                      >
+                        {tags.map((tag) => (
+                          <li key={tag}>
+                            <Link
+                              href={`/blog?tag=${encodeURIComponent(tag)}`}
+                              className="inline-flex items-center rounded-full border border-input bg-background px-3 py-1 text-xs font-medium text-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
+                            >
+                              {tag}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   </div>
                 )}

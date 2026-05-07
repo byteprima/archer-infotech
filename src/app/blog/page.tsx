@@ -16,16 +16,26 @@ export const metadata: Metadata = buildPageMetadata({
 });
 
 interface BlogPageProps {
-  searchParams: Promise<{ category?: string; page?: string }>;
+  searchParams: Promise<{ category?: string; tag?: string; page?: string }>;
 }
 
 export default async function BlogPage({ searchParams }: BlogPageProps) {
   const params = await searchParams;
   const category = params.category;
+  const tag = params.tag;
   const page = parseInt(params.page || "1", 10);
 
+  // Preserve active filters across pagination links
+  const filterQS = [
+    category ? `category=${encodeURIComponent(category)}` : null,
+    tag ? `tag=${encodeURIComponent(tag)}` : null,
+  ]
+    .filter(Boolean)
+    .join("&");
+  const filterTail = filterQS ? `&${filterQS}` : "";
+
   const [{ posts, totalCount, totalPages }, categories, recentPosts] = await Promise.all([
-    getPublishedPosts({ page, limit: 9, category }),
+    getPublishedPosts({ page, limit: 9, category, tag }),
     getCategories(),
     getRecentPosts(5),
   ]);
@@ -62,13 +72,20 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
           <div className="grid lg:grid-cols-4 gap-8">
             {/* Posts Grid */}
             <div className="lg:col-span-3">
-              {/* Category Badge */}
-              {category && (
-                <div className="mb-6 flex items-center gap-2">
+              {/* Active filter chip (category or tag) */}
+              {(category || tag) && (
+                <div className="mb-6 flex items-center gap-2 flex-wrap">
                   <span className="text-muted-foreground">Filtered by:</span>
-                  <span className="bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-medium">
-                    {category}
-                  </span>
+                  {category && (
+                    <span className="bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-medium">
+                      {category}
+                    </span>
+                  )}
+                  {tag && (
+                    <span className="bg-secondary text-secondary-foreground px-3 py-1 rounded-full text-sm font-medium">
+                      #{tag}
+                    </span>
+                  )}
                   <Link href="/blog">
                     <Button variant="ghost" size="sm">
                       Clear
@@ -84,11 +101,13 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
                   </div>
                   <h2 className="text-xl font-semibold mb-2">No Posts Found</h2>
                   <p className="text-muted-foreground max-w-md mx-auto mb-6">
-                    {category
-                      ? `There are no posts in the "${category}" category yet.`
-                      : "We haven't published any blog posts yet. Check back soon!"}
+                    {tag
+                      ? `There are no posts tagged "${tag}" yet.`
+                      : category
+                        ? `There are no posts in the "${category}" category yet.`
+                        : "We haven't published any blog posts yet. Check back soon!"}
                   </p>
-                  {category && (
+                  {(category || tag) && (
                     <Link href="/blog">
                       <Button>View All Posts</Button>
                     </Link>
@@ -117,17 +136,12 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
                   {totalPages > 1 && (
                     <div className="flex items-center justify-center gap-2 mt-12 flex-wrap">
                       {page > 1 && (
-                        <Link
-                          href={`/blog?page=${page - 1}${category ? `&category=${encodeURIComponent(category)}` : ""}`}
-                        >
+                        <Link href={`/blog?page=${page - 1}${filterTail}`}>
                           <Button variant="outline" size="sm">&larr; Previous</Button>
                         </Link>
                       )}
                       {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
-                        <Link
-                          key={p}
-                          href={`/blog?page=${p}${category ? `&category=${encodeURIComponent(category)}` : ""}`}
-                        >
+                        <Link key={p} href={`/blog?page=${p}${filterTail}`}>
                           <Button
                             variant={p === page ? "default" : "outline"}
                             size="sm"
@@ -138,9 +152,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
                         </Link>
                       ))}
                       {page < totalPages && (
-                        <Link
-                          href={`/blog?page=${page + 1}${category ? `&category=${encodeURIComponent(category)}` : ""}`}
-                        >
+                        <Link href={`/blog?page=${page + 1}${filterTail}`}>
                           <Button variant="outline" size="sm">Next &rarr;</Button>
                         </Link>
                       )}

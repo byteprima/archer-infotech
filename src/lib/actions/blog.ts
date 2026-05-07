@@ -43,6 +43,7 @@ export async function getPublishedPosts(options?: {
   page?: number;
   limit?: number;
   category?: string;
+  tag?: string;
 }): Promise<{
   posts: Array<{
     id: number;
@@ -69,6 +70,15 @@ export async function getPublishedPosts(options?: {
       if (options?.category) {
         filteredPosts = filteredPosts.filter((p) => p.category === options.category);
       }
+      if (options?.tag) {
+        const needle = options.tag.trim().toLowerCase();
+        filteredPosts = filteredPosts.filter((p) =>
+          (p.tags ?? "")
+            .split(",")
+            .map((t) => t.trim().toLowerCase())
+            .includes(needle),
+        );
+      }
       const totalCount = filteredPosts.length;
       const totalPages = Math.ceil(totalCount / limit);
       const paginatedPosts = filteredPosts
@@ -94,6 +104,15 @@ export async function getPublishedPosts(options?: {
     const conditions = [eq(blogPosts.isPublished, true)];
     if (options?.category) {
       conditions.push(eq(blogPosts.category, options.category));
+    }
+    if (options?.tag) {
+      // Tags are stored as a CSV like "python, ai, beginners". Wrap with
+      // commas + collapse ", " → "," so a clean ',<tag>,' substring match
+      // never bleeds across tag boundaries (e.g., "ai" must not hit "aiops").
+      const needle = `%,${options.tag.trim().toLowerCase()},%`;
+      conditions.push(
+        sql`',' || replace(lower(coalesce(${blogPosts.tags}, '')), ', ', ',') || ',' LIKE ${needle}`,
+      );
     }
 
     // Get total count
