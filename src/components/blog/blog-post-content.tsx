@@ -78,24 +78,52 @@ async function highlightCodeBlocks(html: string): Promise<string> {
         lang,
         theme: "github-light",
       });
-      // Merge custom styles into Shiki's existing style attribute
+      // Margin moved off the inner <pre> onto the wrapper container so the
+      // Copy button doesn't overlap surrounding text when blocks stack.
       const styled = highlighted.replace(
         /style="([^"]*)"/,
-        'style="$1;border-radius:0.5rem;padding:1.25rem;margin:1.5rem 0;overflow-x:auto;font-size:0.875rem;line-height:1.7;border:1px solid #d1d9e0"'
+        'style="$1;border-radius:0.5rem;padding:1.25rem;margin:0;overflow-x:auto;font-size:0.875rem;line-height:1.7;border:1px solid #d1d9e0"',
       );
-      result = result.replace(m.full, styled);
+      result = result.replace(m.full, wrapWithCopyButton(styled, m.code, lang));
     } catch {
-      // Fallback: plain styled code block
+      // Fallback: plain styled code block (still wrapped with Copy button)
       const fallbackStyle =
-        "background-color:#f6f8fa;color:#24292f;border:1px solid #d1d9e0;border-radius:0.5rem;padding:1.25rem;margin:1.5rem 0;overflow-x:auto;font-size:0.875rem;line-height:1.7";
-      result = result.replace(
-        m.full,
-        `<pre style="${fallbackStyle}"><code>${m.code.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</code></pre>`
-      );
+        "background-color:#f6f8fa;color:#24292f;border:1px solid #d1d9e0;border-radius:0.5rem;padding:1.25rem;margin:0;overflow-x:auto;font-size:0.875rem;line-height:1.7";
+      const fallbackPre = `<pre style="${fallbackStyle}"><code>${m.code.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</code></pre>`;
+      result = result.replace(m.full, wrapWithCopyButton(fallbackPre, m.code, lang));
     }
   }
 
   return result;
+}
+
+/**
+ * Wrap a Shiki-highlighted (or fallback) <pre> block in a positioned container
+ * with a Copy button. The raw code is base64-encoded into a data attribute so
+ * the client-side `code-copy-init` script can decode and write it to the
+ * clipboard without HTML-escape ambiguity (handles backticks, quotes, angle
+ * brackets in the code itself). Pillar 5 P5-11.
+ */
+function wrapWithCopyButton(preHtml: string, rawCode: string, lang: string): string {
+  // This runs server-side during SSR, so Buffer is available; fall back to
+  // btoa for any odd runtime that doesn't expose it.
+  const encoded =
+    typeof Buffer !== "undefined"
+      ? Buffer.from(rawCode, "utf-8").toString("base64")
+      : // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (globalThis as any).btoa(unescape(encodeURIComponent(rawCode)));
+
+  return `<div class="archer-code-block" style="position:relative;margin:1.5rem 0">
+  <button
+    type="button"
+    class="archer-code-copy"
+    data-copy-code="${encoded}"
+    data-lang="${lang}"
+    aria-label="Copy code to clipboard"
+    style="position:absolute;top:0.5rem;right:0.5rem;background:rgba(255,255,255,0.85);border:1px solid #d1d9e0;border-radius:0.375rem;padding:0.25rem 0.625rem;font-size:0.75rem;font-weight:500;color:#24292f;cursor:pointer;backdrop-filter:blur(4px);transition:all 0.15s ease;z-index:1"
+  >Copy</button>
+  ${preHtml}
+</div>`;
 }
 
 function detectLanguage(code: string): string {

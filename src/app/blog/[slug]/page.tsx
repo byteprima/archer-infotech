@@ -6,6 +6,7 @@ import { ChevronLeft, Calendar, User, Tag, Share2, MessageCircle } from "lucide-
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { BlogPostContent } from "@/components/blog/blog-post-content";
+import { CodeCopyInit } from "@/components/blog/code-copy-init";
 import { BlogSidebar } from "@/components/blog/blog-sidebar";
 import { BlogPostJsonLd, BlogBreadcrumbJsonLd } from "@/components/blog/blog-json-ld";
 import { Breadcrumbs } from "@/components/seo/breadcrumbs";
@@ -237,6 +238,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
                 {/* Content */}
                 <BlogPostContent content={post.content} />
+
+                {/* Wires up the per-code-block Copy buttons that
+                    BlogPostContent's Shiki highlighter injected. Single
+                    delegated listener; renders nothing visible. P5-11. */}
+                <CodeCopyInit />
 
                 {/* Tags */}
                 {tags.length > 0 && (
