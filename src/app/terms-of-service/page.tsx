@@ -1,11 +1,13 @@
 import { Metadata } from "next";
 import { siteConfig } from "@/data/site-config";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Terms of Service",
   description:
     "Terms of Service for Archer Infotech. Read our terms and conditions for using our training services.",
-};
+  path: "/terms-of-service",
+});
 
 function getCurrentDate() {
   const date = new Date();

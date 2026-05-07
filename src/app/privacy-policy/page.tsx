@@ -1,11 +1,13 @@
 import { Metadata } from "next";
 import { siteConfig } from "@/data/site-config";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Privacy Policy",
   description:
     "Privacy Policy for Archer Infotech. Learn how we collect, use, and protect your personal information.",
-};
+  path: "/privacy-policy",
+});
 
 function getCurrentDate() {
   const date = new Date();
