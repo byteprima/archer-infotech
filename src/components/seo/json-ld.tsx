@@ -21,12 +21,19 @@ const OPENING_HOURS = siteConfig.openingHours.map((slot) => ({
   closes: slot.closes,
 }));
 
+// Entity-graph identity surfaces — every place a search engine or AI
+// crawler can verify Archer Infotech's identity by URL. Strengthens the
+// "this is the same business" signal across schema instances. P2-33.
 const SAME_AS = [
   siteConfig.social.linkedin,
   siteConfig.social.facebook,
   siteConfig.social.instagram,
   siteConfig.social.twitter,
   siteConfig.social.youtube,
+  // Google Business Profile / Maps listing — the canonical GBP page for
+  // the Kothrud centre. Anchors the LocalBusiness schema to the actual
+  // GBP record Google already indexes.
+  siteConfig.googleMaps.url,
 ].filter(Boolean);
 
 // Combined EducationalOrganization + LocalBusiness — single source of truth, used site-wide.
@@ -82,6 +89,9 @@ export function LocalBusinessJsonLd() {
     hasMap: siteConfig.googleMaps.url,
     openingHoursSpecification: OPENING_HOURS,
     priceRange: "₹₹",
+    // Entity-graph linkage so Google can match this LocalBusiness to the
+    // social profiles + GBP record indexed elsewhere. P2-33.
+    sameAs: SAME_AS,
   };
 
   return (
