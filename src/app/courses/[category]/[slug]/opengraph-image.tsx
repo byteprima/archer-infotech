@@ -23,8 +23,8 @@ export default async function Image({ params }: Props) {
     : "IT Training Course at Archer Infotech";
   const subtitle = course && category ? category.name : "Pune · Since 2009";
   const detail = course?.duration
-    ? `${course.duration} · 100% Placement Assistance · Kothrud, Pune`
-    : "100% Placement Assistance · Kothrud, Pune";
+    ? `${course.duration} · Placement Assistance · Kothrud, Pune`
+    : "Placement Assistance · Kothrud, Pune";
 
   return new ImageResponse(
     ogImageTemplate({ kind: "Course", title, subtitle, detail }),

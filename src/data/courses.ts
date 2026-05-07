@@ -2537,7 +2537,7 @@ export const courses: Course[] = [
     shortTitle: "TechReady",
     category: "Bootcamps",
     categorySlug: "bootcamps",
-    description: "Intensive, full-time, placement-assisted training program for engineering graduates. 10 specialised programs in Full Stack, Data Science, AI/ML — 6 hours daily, 100% placement assistance.",
+    description: "Intensive, full-time, placement-assisted training program for engineering graduates. 10 specialised programs in Full Stack, Data Science, AI/ML — 6 hours daily, placement assistance.",
     shortDescription: "6-8 month placement-assisted programs for graduates",
     duration: "6 to 8 Months",
     level: "Beginner",
@@ -2546,7 +2546,7 @@ export const courses: Course[] = [
     highlights: [
       "10 specialised programs",
       "6 hours daily, full-time intensive",
-      "100% placement assistance",
+      "placement assistance",
       "100+ company placement partners",
       "DSA, mock interviews, and resume prep",
       "Trainers with 15+ years experience",

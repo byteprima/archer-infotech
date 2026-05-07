@@ -6,7 +6,7 @@ import { buildPageMetadata } from "@/lib/seo";
 export const metadata: Metadata = buildPageMetadata({
   title: "IT Training Courses in Pune",
   description:
-    "Explore 40+ classroom and online IT training courses in Pune — Java, Python, AWS, DevOps, Full Stack, Data Science, AI/ML, Cloud and more, with 100% placement assistance.",
+    "Explore 40+ classroom and online IT training courses in Pune — Java, Python, AWS, DevOps, Full Stack, Data Science, AI/ML, Cloud and more, with placement assistance.",
   path: "/courses",
 });
 
@@ -22,7 +22,7 @@ export default function CoursesPage() {
             </h1>
             <p className="text-lg text-white/80">
               Explore our comprehensive range of industry-relevant IT courses.
-              Learn from expert trainers and get 100% placement assistance.
+              Learn from expert trainers and get placement assistance.
             </p>
           </div>
         </div>

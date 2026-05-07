@@ -101,7 +101,7 @@ export function Footer() {
             <p className="text-primary-foreground/80 text-sm leading-relaxed">
               Archer Infotech is Pune&apos;s trusted IT training institute since {siteConfig.foundingYear},
               with {siteConfig.stats.yearsExperience} years of experience. We offer industry-relevant
-              courses with 100% placement assistance.
+              courses with placement assistance.
             </p>
             <div className="flex items-center gap-4 pt-2">
               <TrackedAnchor

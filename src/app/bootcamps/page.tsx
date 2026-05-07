@@ -63,7 +63,7 @@ const bootcampHighlights = [
     highlights: [
       "10 specialised programs",
       "6 hours daily, full-time intensive",
-      "100% placement assistance",
+      "placement assistance",
       "100+ company connections",
     ],
   },
@@ -204,7 +204,7 @@ export default function BootcampsPage() {
               <h3 className="font-bold mb-2">Step 3: TechReady</h3>
               <p className="text-sm text-muted-foreground">
                 Get placed with TechReady — intensive full-time training with
-                100% placement assistance after graduation.
+                placement assistance after graduation.
               </p>
             </div>
           </div>

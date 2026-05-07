@@ -331,7 +331,7 @@ export default function InternshipsPage() {
               {
                 icon: Briefcase,
                 title: "Job Opportunities",
-                description: "100% placement assistance with our corporate partners",
+                description: "placement assistance with our corporate partners",
               },
             ].map((benefit) => (
               <Card key={benefit.title} className="group transition-shadow hover:shadow-lg">
@@ -474,7 +474,7 @@ export default function InternshipsPage() {
                     "Industry-level projects",
                     "AI/Cloud integration skills",
                     "Resume & interview prep",
-                    "100% placement assistance",
+                    "placement assistance",
                     "Perfect for job seekers",
                   ].map((item, index) => (
                     <li key={index} className="flex items-start gap-2">
@@ -564,7 +564,7 @@ export default function InternshipsPage() {
           </h2>
           <p className="text-white/80 mb-6 max-w-2xl mx-auto">
             Apply for our internship program and get hands-on experience that
-            will set you apart in the job market. 100% placement assistance for
+            will set you apart in the job market. placement assistance for
             selected 6-month internship tracks.
           </p>
           <div className="flex flex-wrap justify-center gap-4">

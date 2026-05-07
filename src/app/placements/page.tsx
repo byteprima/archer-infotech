@@ -16,7 +16,7 @@ import { buildPageMetadata } from "@/lib/seo";
 export const metadata: Metadata = buildPageMetadata({
   title: "Placements at Archer Infotech — 5,000+ Students Placed Since 2009",
   description:
-    "5,000+ students placed at top IT companies including Tech Mahindra, TCS, Infosys and more. See placement records, hiring partners, and our 100% placement assistance programme at Archer Infotech, Pune.",
+    "5,000+ students placed at top IT companies including Tech Mahindra, TCS, Infosys and more. See placement records, hiring partners, and our placement assistance programme at Archer Infotech, Pune.",
   path: "/placements",
 });
 
@@ -217,7 +217,7 @@ export default async function PlacementsPage() {
           </h2>
           <p className="text-white/80 mb-6 max-w-2xl mx-auto">
             Join thousands of successful students who have launched their IT careers
-            with Archer Infotech. Get 100% placement assistance.
+            with Archer Infotech. Get placement assistance.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <TrackedLink

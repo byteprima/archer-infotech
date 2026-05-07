@@ -127,7 +127,7 @@ export function BlogSidebar({
             Want to Learn More?
           </h3>
           <p className="text-primary-foreground/80 text-sm mb-4">
-            Explore our industry-leading IT courses with 100% placement assistance.
+            Explore our industry-leading IT courses with placement assistance.
           </p>
           <TrackedLink
             href="/courses"

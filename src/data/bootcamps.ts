@@ -1401,7 +1401,7 @@ export const bootcamps: Bootcamp[] = [
       { label: "Duration", value: "6 to 8 Months per Program" },
       { label: "Daily Hours", value: "Minimum 6 Hours per Day" },
       { label: "Mode", value: "Full-Time — Classroom (Kothrud, Pune) with Online Option" },
-      { label: "Placement Assistance", value: "100% Placement-Assisted" },
+      { label: "Placement Assistance", value: "Placement-Assisted" },
       { label: "Language", value: "English (Marathi and Hindi support available)" },
       { label: "Certification", value: "Archer Infotech Certificate + Project Portfolio" },
       { label: "Eligibility", value: "Final-year students or graduates — BE, BTech, BCA, BSc CS (any branch)" },

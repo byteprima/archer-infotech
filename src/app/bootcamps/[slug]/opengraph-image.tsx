@@ -21,8 +21,8 @@ export default async function Image({ params }: Props) {
     (d) => d.label.toLowerCase() === "duration",
   )?.value;
   const detail = durationDetail
-    ? `${durationDetail} · 100% Placement Assistance · Kothrud, Pune`
-    : "100% Placement Assistance · Kothrud, Pune";
+    ? `${durationDetail} · Placement Assistance · Kothrud, Pune`
+    : "Placement Assistance · Kothrud, Pune";
 
   return new ImageResponse(
     ogImageTemplate({ kind: "Bootcamp", title, subtitle, detail }),

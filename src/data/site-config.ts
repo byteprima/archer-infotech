@@ -2,7 +2,7 @@ export const siteConfig = {
   name: "Archer Infotech",
   tagline: "Best IT Training Institute in Pune",
   description:
-    "Archer Infotech is Pune's trusted IT training institute since 2009 — Java, Python, AWS, DevOps, Full Stack, Data Science, AI/ML and Cloud courses with 100% placement assistance. 10,000+ students trained and 5,000+ placed.",
+    "Archer Infotech is Pune's trusted IT training institute since 2009 — Java, Python, AWS, DevOps, Full Stack, Data Science, AI/ML and Cloud courses with placement assistance. 10,000+ students trained and 5,000+ placed.",
   url: "https://archerinfotech.in",
   ogImage: "/images/og-image.jpg",
   foundingYear: 2009,
@@ -61,7 +61,7 @@ export const siteConfig = {
     "17+ Years of IT Training Experience",
     "10,000+ Students Trained, 5,000+ Placed",
     "1000+ Batches Successfully Completed",
-    "100% Placement Assistance",
+    "Placement Assistance",
     "Industry Expert Trainers",
     "Real-time Project Training",
     "Both Online & Offline Classes",
@@ -76,7 +76,7 @@ export const siteConfig = {
       icon: "Users",
     },
     {
-      title: "100% Placement Assistance",
+      title: "Placement Assistance",
       description: "Complete placement assistance with top IT companies",
       icon: "Briefcase",
     },

@@ -1,6 +1,6 @@
 # Archer Infotech
 
-> Pune's trusted IT training institute since 2009. We have trained 10,000+ students and placed 5,000+ at leading IT companies. Classroom and online courses across Java, Python, full stack, data science, AI/ML, cloud, DevOps, and more — every course backed by 100% placement assistance and 17+ years of teaching experience.
+> Pune's trusted IT training institute since 2009. We have trained 10,000+ students and placed 5,000+ at leading IT companies. Classroom and online courses across Java, Python, full stack, data science, AI/ML, cloud, DevOps, and more — every course backed by placement assistance and 17+ years of teaching experience.
 
 ## About
 
@@ -16,7 +16,7 @@ Archer Infotech is an IT training centre based in Kothrud, Pune, Maharashtra, In
 
 - [CodeLeap](https://archerinfotech.in/bootcamps/codeleap): Vacation coding programme for 12th-passout students. 2-month hybrid format. Three tracks — Web Development, Python Programming, AI / Data Science. No prior coding experience required.
 - [CareerCode](https://archerinfotech.in/bootcamps/careercode): Semester-by-semester programming training designed for engineering students. Six specialisation tracks with internship and placement preparation.
-- [TechReady](https://archerinfotech.in/bootcamps/techready): Full-time placement-assisted intensive programme for graduates and final-year students. Six hours daily, 6–8 months duration, real projects, 100% placement assistance, direct hiring connections with 100+ companies.
+- [TechReady](https://archerinfotech.in/bootcamps/techready): Full-time placement-assisted intensive programme for graduates and final-year students. Six hours daily, 6–8 months duration, real projects, placement assistance, direct hiring connections with 100+ companies.
 
 ## Course Categories
 

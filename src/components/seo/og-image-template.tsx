@@ -140,7 +140,7 @@ export function ogImageTemplate({ kind, title, subtitle, detail }: OgTemplatePro
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          {detail || "100% Placement Assistance · 100+ Hiring Partners"}
+          {detail || "Placement Assistance · 100+ Hiring Partners"}
         </div>
         <div
           style={{

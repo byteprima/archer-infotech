@@ -62,7 +62,7 @@ export default function AboutPage() {
                 <p>
                   Our team never leaves any page unturned in the book of career and
                   success. We are committed to providing industry-relevant training
-                  with 100% placement assistance.
+                  with placement assistance.
                 </p>
               </div>
             </div>
@@ -167,7 +167,7 @@ export default function AboutPage() {
                     </li>
                     <li className="flex items-start gap-2">
                       <CheckCircle className="h-5 w-5 text-secondary shrink-0 mt-0.5" />
-                      <span>Providing <strong className="text-foreground">100% placement assistance</strong> with 100+ corporate partners including TCS, Infosys, Wipro, Tech Mahindra, and Persistent Systems</span>
+                      <span>Providing <strong className="text-foreground">placement assistance</strong> with 100+ corporate partners including TCS, Infosys, Wipro, Tech Mahindra, and Persistent Systems</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <CheckCircle className="h-5 w-5 text-secondary shrink-0 mt-0.5" />
@@ -280,7 +280,7 @@ export default function AboutPage() {
           </h2>
           <p className="text-white/80 mb-6 max-w-2xl mx-auto">
             Join Archer Infotech and transform your career with our industry-relevant
-            training programs and 100% placement assistance.
+            training programs and placement assistance.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <TrackedLink

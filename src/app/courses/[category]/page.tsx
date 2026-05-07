@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
 
   return buildPageMetadata({
     title: `${category.name} Training in Pune`,
-    description: `Explore ${category.name} courses at Archer Infotech, Pune — classroom and online batches, expert trainers, and 100% placement assistance. ${category.description ?? ""}`.trim(),
+    description: `Explore ${category.name} courses at Archer Infotech, Pune — classroom and online batches, expert trainers, and placement assistance. ${category.description ?? ""}`.trim(),
     path: `/courses/${categorySlug}`,
   });
 }

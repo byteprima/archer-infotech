@@ -659,7 +659,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
           </h2>
           <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
             Enroll now and take the first step towards a successful IT career.
-            Our expert trainers and 100% placement assistance will help you achieve
+            Our expert trainers and placement assistance will help you achieve
             your goals.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

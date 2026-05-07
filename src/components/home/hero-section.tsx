@@ -38,7 +38,7 @@ export function HeroSection() {
 
             <p className="text-base md:text-lg lg:text-[1.05rem] xl:text-[1.15rem] text-white/80 max-w-xl">
               {siteConfig.stats.studentsTrained} students trained, {siteConfig.stats.studentsPlaced} placed.
-              Learn from industry experts, work on real projects, and join our 100% placement assistance programme.
+              Learn from industry experts, work on real projects, and join our placement assistance programme.
             </p>
 
             {/* Key Points */}
@@ -46,7 +46,7 @@ export function HeroSection() {
               {[
                 `${siteConfig.stats.yearsExperience} Years Experience`,
                 `${siteConfig.stats.batchesCompleted} Batches Completed`,
-                "100% Placement Assistance",
+                "Placement Assistance",
               ].map((point) => (
                 <div key={point} className="flex items-center gap-2">
                   <CheckCircle className="h-5 w-5 text-secondary" />
