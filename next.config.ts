@@ -82,7 +82,11 @@ const legacyWpRedirects = [
   { from: "/best-spring-hibernate-training-classes-in-pune", to: "/courses/programming/spring-boot-microservices-training-in-pune" },
   { from: "/full-stack-dot-net-developer-course-in-pune", to: "/courses/full-stack-development/dotnet-full-stack-training-in-pune" },
   { from: "/best-sql-training-classes-in-pune", to: "/courses/database-technologies/mysql-training-in-pune" },
-  { from: "/best-c-c++-data-structures-course-in-kothrud-pune", to: "/courses/programming/cpp-training-in-pune" },
+  // NOTE: /best-c-c++-data-structures-course-in-kothrud-pune (70 impressions/16mo)
+  // dropped — `++` triggers path-to-regexp MODIFIER parsing (Next.js redirect engine).
+  // Escaping with `(\\+\\+)` works but adds maintenance debt for marginal traffic;
+  // the closely-related /best-c-c-data-structures-course-in-kothrud-pune (no `++`)
+  // is already mapped above and Google will canonicalize over time.
   { from: "/best-react-classes-in-pune", to: "/courses/modern-web/react-training-in-pune" },
   // Selenium has no equivalent course — send to /courses listing rather than 404.
   { from: "/best-selenium-training-classes-in-pune", to: "/courses" },
