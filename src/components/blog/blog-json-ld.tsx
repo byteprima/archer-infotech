@@ -210,3 +210,79 @@ export function BlogBreadcrumbJsonLd({ items }: BreadcrumbJsonLdProps) {
     />
   );
 }
+
+interface HowToStepInput {
+  position: number;
+  name: string;
+  text?: string;
+  url: string;
+}
+
+interface HowToJsonLdProps {
+  /** Title of the how-to (e.g. the post title). */
+  name: string;
+  /** Short description for the schema (e.g. the post excerpt). */
+  description?: string;
+  /** Hero image URL — pulls from post.featuredImage when available. */
+  image?: string | null;
+  /**
+   * ISO 8601 duration estimate (e.g. "PT12M"). Computed from word count
+   * by `estimateTotalTime` in src/lib/blog/howto.ts so the schema
+   * agrees with the visible reading-time badge.
+   */
+  totalTime?: string;
+  /** Ordered step list — produced by `extractHowToSteps`. */
+  steps: HowToStepInput[];
+}
+
+/**
+ * `HowTo` schema for tutorial/roadmap-style blog posts. P8-13.
+ *
+ * AI engines (and Google's Featured Snippet pipeline) heavily favour
+ * HowTo because the structured steps are trivially extractable into a
+ * numbered list response. Each step's `url` is a hash anchor into the
+ * matching H2 in the post body, so AI engines can deep-link directly
+ * to the relevant section rather than the whole article.
+ *
+ * Emitted alongside (not instead of) the regular `BlogPosting` schema —
+ * Google handles multiple schema blocks per page fine, and the
+ * combination signals "this is both a blog article and a how-to
+ * tutorial".
+ */
+export function HowToJsonLd({
+  name,
+  description,
+  image,
+  totalTime,
+  steps,
+}: HowToJsonLdProps) {
+  if (steps.length === 0) return null;
+
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name,
+    ...(description && { description }),
+    ...(image && {
+      image: image.startsWith("http") ? image : `${baseUrl}${image}`,
+    }),
+    ...(totalTime && { totalTime }),
+    // HowTo's `step` validator requires the schema entries to use full
+    // HowToStep shape; trim text to a sensible length so the schema
+    // doesn't bloat <head> when an H2 happens to be a long phrase.
+    step: steps.map((s) => ({
+      "@type": "HowToStep",
+      position: s.position,
+      name: s.name.length > 110 ? s.name.slice(0, 107) + "..." : s.name,
+      text: (s.text ?? s.name).slice(0, 280),
+      url: s.url,
+    })),
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}

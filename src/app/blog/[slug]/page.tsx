@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { BlogPostContent } from "@/components/blog/blog-post-content";
 import { CodeCopyInit } from "@/components/blog/code-copy-init";
 import { BlogSidebar } from "@/components/blog/blog-sidebar";
-import { BlogPostJsonLd, BlogBreadcrumbJsonLd } from "@/components/blog/blog-json-ld";
+import { BlogPostJsonLd, BlogBreadcrumbJsonLd, HowToJsonLd } from "@/components/blog/blog-json-ld";
 import { TableOfContents } from "@/components/blog/table-of-contents";
 import { extractToc, approximateWordCount } from "@/lib/blog/toc";
 import { PostInternalLinks } from "@/components/blog/post-internal-links";
@@ -20,6 +20,12 @@ import {
 import { getRelatedBlogPosts } from "@/lib/actions/blog";
 import { TrainerByline } from "@/components/blog/trainer-byline";
 import { resolveBlogAuthor } from "@/lib/seo/blog-author";
+import { ReadingTime } from "@/components/blog/reading-time";
+import {
+  shouldEmitHowTo,
+  extractHowToSteps,
+  estimateTotalTime,
+} from "@/lib/blog/howto";
 import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 import { PageEvent } from "@/components/analytics/page-event";
 import { TrackedAnchor } from "@/components/analytics/tracked-anchor";
@@ -121,12 +127,24 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   // post (vs the generic "Archer Infotech" institutional byline). P5-12.
   const authorTrainer = resolveBlogAuthor(post.tags, post.category);
 
+  // HowTo schema for tutorial / roadmap / step-by-step posts. Reuses
+  // the H2 anchors injected by BlogPostContent for the P5-10 TOC, so
+  // each step's url is a deep-linkable hash anchor into the matching
+  // section of the post body. Falls through silently when the post
+  // doesn't match the tutorial pattern. P8-13.
+  const howToSteps = shouldEmitHowTo(post.title, post.tags)
+    ? extractHowToSteps(
+        post.content,
+        `${siteConfig.url}/blog/${slug}`,
+      )
+    : [];
+
   // Build TOC for long-form posts only. Pillar 5 P5-10 threshold: 1,500
   // words. Below that, the TOC adds visual noise without UX benefit.
   // Also require at least 3 H2/H3 headings — a TOC of one item is silly.
   const tocItems = extractToc(post.content);
-  const showToc =
-    tocItems.length >= 3 && approximateWordCount(post.content) >= 1500;
+  const postWordCount = approximateWordCount(post.content);
+  const showToc = tocItems.length >= 3 && postWordCount >= 1500;
 
   // Internal-link block at the bottom of the post — guarantees the
   // pillar 5 P5-09 minimum (≥1 course, 2-3 related posts, 1 trust-page)
@@ -185,6 +203,21 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           { name: post.title, url: `/blog/${slug}` },
         ]}
       />
+      {/* Tutorial / roadmap-style posts also emit HowTo schema, with
+          step.url anchors pointing at the matching H2s. P8-13. */}
+      {howToSteps.length > 0 && (
+        <HowToJsonLd
+          name={post.title}
+          description={
+            post.metaDescription ||
+            post.excerpt ||
+            post.content.slice(0, 160)
+          }
+          image={post.featuredImage}
+          totalTime={estimateTotalTime(postWordCount)}
+          steps={howToSteps}
+        />
+      )}
 
       {/*
         Semantic structure: blog post is one article. Layout already wraps
@@ -269,6 +302,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                   topic-resolved named author. Pairs with Person schema
                   in BlogPostJsonLd. P5-12. */}
               <TrainerByline trainer={authorTrainer} variant="header" />
+              {/* Reading-time estimate — server-rendered so it ships
+                  in initial HTML. P5-14. */}
+              <ReadingTime wordCount={postWordCount} />
               {post.author && post.author !== authorTrainer.name && (
                 <div className="hidden md:flex items-center gap-2 text-xs text-white/60">
                   <User className="h-3.5 w-3.5" aria-hidden="true" />
