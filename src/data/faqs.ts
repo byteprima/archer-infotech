@@ -23,7 +23,7 @@ export const homeFaqs: FaqItem[] = [
   {
     question: "What is Archer Infotech?",
     answer:
-      "Archer Infotech is an IT training institute in Kothrud, Pune, founded in 2009. Over 17+ years it has trained 10,000+ students and placed 5,000+ across MNCs including TCS, Infosys, Wipro, Tech Mahindra and Persistent Systems. It offers 40+ courses spanning Java, Python, Full Stack, Cloud, DevOps, Data Science and AI.",
+      "Archer Infotech is an IT training institute in Kothrud, Pune, founded in 2009. Over 17+ years it has trained 10,000+ students and placed 5,000+ across MNCs (institute placement records since 2009), including TCS, Infosys, Wipro, Tech Mahindra and Persistent Systems. It offers 40+ courses spanning Java, Python, Full Stack, Cloud, DevOps, Data Science and AI.",
   },
   {
     question: "Where is Archer Infotech located in Pune?",
@@ -38,7 +38,7 @@ export const homeFaqs: FaqItem[] = [
   {
     question: "Does Archer Infotech provide placement assistance?",
     answer:
-      "Yes. Archer Infotech offers comprehensive placement assistance, including resume building, mock interviews, soft-skills training and direct referrals to 100+ corporate hiring partners. It records a 90% placement rate across batches and has placed 5,000+ students at companies like TCS, Infosys, Wipro, Persistent Systems and Tech Mahindra.",
+      "Yes. Archer Infotech offers comprehensive placement assistance — resume building, mock interviews, soft-skills training and direct referrals to 100+ corporate hiring partners (active drive history, last 12 months). It records a 90% placement rate across batches who complete training and clear at least one mock interview (institute internal records), with 5,000+ placed at TCS, Infosys, Wipro, Persistent Systems and Tech Mahindra.",
   },
   {
     question: "What is the fee structure at Archer Infotech?",
@@ -53,7 +53,7 @@ export const homeFaqs: FaqItem[] = [
   {
     question: "Who are the trainers at Archer Infotech?",
     answer:
-      "Trainers at Archer Infotech are working IT professionals with 10–20+ years of MNC experience at companies like Persistent Systems, Wipro, Tech Mahindra and Cognizant. The institute is led by Yogesh Patil, a senior Java and Spring Boot trainer with 15+ years in industry, and a faculty team that combines current production work with classroom teaching.",
+      "Trainers at Archer Infotech are working IT professionals with 10–20+ years of MNC experience at Persistent Systems, Wipro, Tech Mahindra and Cognizant (verified via individual trainer profiles at /trainers, with current LinkedIn and active client engagements listed). The institute is led by Yogesh Patil, a senior Java and Spring Boot trainer with 15+ years in industry, and a six-person core faculty.",
   },
   {
     question: "How do I enrol for a course at Archer Infotech?",
@@ -80,12 +80,12 @@ export const aboutFaqs: FaqItem[] = [
   {
     question: "Why is Archer Infotech considered a trusted IT training institute in Pune?",
     answer:
-      "Archer Infotech holds 17+ years of training history, a 90% placement rate, a 5.0-star Google rating from verified students, and 100+ active corporate hiring partners. Reviews consistently cite trainer depth, project-based learning and structured placement support as the reasons for its standing among Pune IT institutes.",
+      "Archer Infotech holds 17+ years of training history (founded 2009), a 90% placement rate (institute internal records), a 5.0-star Google rating across 126+ verified Google reviews (as of May 2026), and 100+ active corporate hiring partners. Reviews consistently cite trainer depth, project-based learning and structured placement support as the reasons for its standing among Pune IT institutes.",
   },
   {
     question: "How many students has Archer Infotech trained?",
     answer:
-      "Archer Infotech has trained 10,000+ students and placed 5,000+ across IT companies in India and abroad since 2009. The institute has completed 1,000+ batches across weekday, weekend and online formats and serves freshers, college students and working professionals seeking career transitions into IT.",
+      "Archer Infotech has trained 10,000+ students and placed 5,000+ across IT companies in India and abroad since 2009 (institute placement-team records, updated annually). It has completed 1,000+ batches across weekday, weekend and online formats and serves freshers, college students and working professionals seeking career transitions into IT.",
   },
   {
     question: "What makes Archer Infotech different from other Pune IT institutes?",
@@ -228,7 +228,7 @@ export const trainersFaqs: FaqItem[] = [
   {
     question: "Who teaches at Archer Infotech?",
     answer:
-      "Trainers at Archer Infotech are working IT professionals with a combined 54+ years of MNC engineering experience. The six-person core faculty teaches across Java, Python, Full Stack, .NET, Modern Web (React/Angular/Next.js), Mobile, Data, AI/ML, Generative AI and Cloud — every trainer continues active production or corporate-training engagements alongside classroom teaching.",
+      "Trainers at Archer Infotech are working IT professionals with a combined 54+ years of MNC engineering experience (verified via individual trainer profiles at /trainers, with current LinkedIn URLs and active client engagements). The six-person core faculty teaches Java, Python, Full Stack, .NET, Modern Web (React/Angular/Next.js), Mobile, Data, AI/ML, Generative AI and Cloud — every trainer continues active production or corporate-training engagements alongside classroom teaching.",
   },
   {
     question: "Are the trainers full-time at Archer Infotech?",
@@ -308,7 +308,7 @@ export const corporateTrainingFaqs: FaqItem[] = [
   {
     question: "Can the curriculum be customised to our tech stack?",
     answer:
-      "Yes. Every corporate engagement begins with a requirement-analysis call to map the client's business goals, current tech stack and skill gaps. The curriculum, project work and assessment criteria are then designed around those inputs — Archer Infotech does not deliver off-the-shelf decks. Active customers include Amdocs, Capgemini, MindTree and Tech Mahindra.",
+      "Yes. Every corporate engagement begins with a requirement-analysis call to map the client's business goals, current tech stack and skill gaps. The curriculum, project work and assessment criteria are then designed around those inputs — Archer Infotech does not deliver off-the-shelf decks. Active corporate customers (as of May 2026) include Amdocs, Capgemini, MindTree and Tech Mahindra — engagements run by senior trainers Amol Patil and Yogesh Patil.",
   },
   {
     question: "Do you deliver on-site or online corporate training?",
@@ -382,12 +382,12 @@ export const placementsFaqs: FaqItem[] = [
   {
     question: "How many students has Archer Infotech placed?",
     answer:
-      "Archer Infotech has placed 5,000+ students at IT companies since 2009. Hiring partners include TCS, Infosys, Wipro, Tech Mahindra, Persistent Systems, Cognizant, Capgemini and 100+ other MNCs and product startups across Pune, Bangalore, Hyderabad and Mumbai. The placement rate is 90% across batches.",
+      "Archer Infotech has placed 5,000+ students at IT companies since 2009 (institute placement-team records, updated annually). Hiring partners include TCS, Infosys, Wipro, Tech Mahindra, Persistent Systems, Cognizant, Capgemini and 100+ other MNCs and product startups across Pune, Bangalore, Hyderabad and Mumbai. The placement rate is 90% across batches.",
   },
   {
     question: "What is the placement rate at Archer Infotech?",
     answer:
-      "Archer Infotech maintains a 90% placement rate across its flagship courses — Java Full Stack, MERN Stack, Python, Data Science, AWS, DevOps and AI/ML. The rate is calculated across students who complete the program, attend placement training, and clear at least one mock-interview round before sitting for hiring drives.",
+      "Archer Infotech maintains a 90% placement rate (institute internal records) across its flagship courses — Java Full Stack, MERN Stack, Python, Data Science, AWS, DevOps and AI/ML. The rate is calculated across students who complete the program, attend placement training, and clear at least one mock-interview round before sitting for hiring drives — the methodology is consistent across cohorts.",
   },
   {
     question: "Which companies hire from Archer Infotech?",
@@ -397,7 +397,7 @@ export const placementsFaqs: FaqItem[] = [
   {
     question: "What is the average salary offered to Archer Infotech students?",
     answer:
-      "Average packages for Archer Infotech freshers range from ₹3.5–6 LPA at entry level, with experienced learners and full stack / cloud specialists drawing 8+ LPA. Top performers in Java Full Stack, MERN and DevOps have crossed ₹10 LPA. Actual offers depend on role, company tier and prior experience.",
+      "Average packages for Archer Infotech freshers range from ₹3.5–6 LPA at entry level (placement-team data, last 12 months of offers), with experienced learners and full stack / cloud specialists drawing 8+ LPA. Top performers in Java Full Stack, MERN and DevOps have crossed ₹10 LPA. Actual offers depend on role, company tier and prior experience.",
   },
   {
     question: "How does the placement process work at Archer Infotech?",

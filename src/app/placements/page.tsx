@@ -46,20 +46,23 @@ export default async function PlacementsPage() {
       </section>
 
       {/* Definitive Answer Paragraph — proof-first opening with hiring
-          partner names, headline numbers and salary band. AI engines and
-          Featured Snippets cite this when answering "Archer Infotech
-          placements / placement record". P8-07. */}
+          partner names, headline numbers and salary band, each
+          attributed inline so AI engines can cite confidently. P8-07
+          + P8-09. */}
       <DefinitiveAnswer eyebrow="Archer Infotech Placement Record">
         Archer Infotech has placed 5,000+ students at IT companies since
-        2009, with hiring partners including TCS, Infosys, Wipro, Tech
-        Mahindra, Persistent Systems, Cognizant, Capgemini, HCL Technologies
-        and 100+ other MNCs and product startups across Pune, Bangalore,
+        2009 (institute placement-team records, updated annually), with
+        hiring partners including TCS, Infosys, Wipro, Tech Mahindra,
+        Persistent Systems, Cognizant, Capgemini, HCL Technologies and
+        100+ other MNCs and product startups across Pune, Bangalore,
         Hyderabad and Mumbai. The institute records a 90% placement rate
-        across flagship batches, with average fresher packages of ₹3.5–6
-        LPA and top performers in Java Full Stack, MERN and DevOps crossing
-        ₹10 LPA. Placement assistance — resume building, mock interviews,
-        soft-skills training and direct recruiter referrals — is included
-        in every flagship course fee with no separate charge.
+        across flagship batches who complete training and clear at least
+        one mock interview, with average fresher packages of ₹3.5–6 LPA
+        (last 12 months of offers) and top performers in Java Full Stack,
+        MERN and DevOps crossing ₹10 LPA. Placement assistance — resume
+        building, mock interviews, soft-skills training and direct
+        recruiter referrals — is included in every flagship course fee
+        with no separate charge.
       </DefinitiveAnswer>
 
       {/* Stats Section */}
