@@ -1,13 +1,15 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight, Clock, BarChart } from "lucide-react";
+import { ArrowRight, Clock, BarChart, Briefcase, IndianRupee } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { CourseImagePlaceholder } from "@/components/courses/course-image-placeholder";
-import { BreadcrumbJsonLd } from "@/components/seo/json-ld";
+import { BreadcrumbJsonLd, CategoryCollectionJsonLd } from "@/components/seo/json-ld";
 import { categories, courses, getCategory } from "@/data/courses";
 import { buildPageMetadata } from "@/lib/seo";
+import { getCategoryContent } from "@/data/category-content";
+import { FaqSection } from "@/components/seo/faq-section";
 
 interface CategoryPageProps {
   params: Promise<{ category: string }>;
@@ -21,10 +23,13 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
   const { category: categorySlug } = await params;
   const category = getCategory(categorySlug);
   if (!category) return { title: "Category Not Found" };
+  const rich = getCategoryContent(categorySlug);
 
   return buildPageMetadata({
-    title: `${category.name} Training in Pune`,
-    description: `Explore ${category.name} courses at Archer Infotech, Pune — classroom and online batches, expert trainers, and placement assistance. ${category.description ?? ""}`.trim(),
+    title: rich?.h1 ?? `${category.name} Training in Pune`,
+    description:
+      rich?.subhead ??
+      `Explore ${category.name} courses at Archer Infotech, Pune — classroom and online batches, expert trainers, and placement assistance. ${category.description ?? ""}`.trim(),
     path: `/courses/${categorySlug}`,
   });
 }
@@ -35,6 +40,11 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   if (!category) notFound();
 
   const categoryCourses = courses.filter((c) => c.categorySlug === categorySlug);
+  // Rich category content (overview paragraphs, career outcomes, FAQs)
+  // — present for the 9 main categories; falls back to the legacy
+  // minimal layout when not configured (e.g. bootcamps category).
+  // P4-11.
+  const rich = getCategoryContent(categorySlug);
 
   return (
     <>
@@ -45,21 +55,37 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           { name: category.name, url: `/courses/${categorySlug}` },
         ]}
       />
+      {/* CollectionPage + ItemList schema — feeds rich-result
+          eligibility for category queries like "programming courses
+          in Pune". Lists every course in the category as a structured
+          item. P4-11. */}
+      <CategoryCollectionJsonLd
+        name={rich?.h1 ?? `${category.name} Training in Pune`}
+        description={rich?.subhead ?? category.description}
+        url={`/courses/${categorySlug}`}
+        items={categoryCourses.map((c) => ({
+          name: c.title,
+          url:
+            c.categorySlug === "bootcamps"
+              ? `/bootcamps/${c.slug.replace("-bootcamp", "")}`
+              : `/courses/${c.categorySlug}/${c.slug}`,
+          description: c.shortDescription,
+        }))}
+      />
 
       <section className="gradient-hero text-white py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl">
             <h1 className="text-3xl md:text-5xl font-bold mb-4">
-              {category.name} Training in Pune
+              {rich?.h1 ?? `${category.name} Training in Pune`}
             </h1>
             {/* Variant-rich subhead — naturally weaves the four
                 head-keyword variants (training in H1; courses, classes,
                 institute here) so every category page picks up keyword
                 surface area without keyword stuffing. P4-06. */}
             <p className="text-base md:text-lg text-white/85 mb-3 leading-snug">
-              Explore {category.name.toLowerCase()} courses, classes and
-              specialisation tracks at the Archer Infotech institute in
-              Kothrud, Pune.
+              {rich?.subhead ??
+                `Explore ${category.name.toLowerCase()} courses, classes and specialisation tracks at the Archer Infotech institute in Kothrud, Pune.`}
             </p>
             {category.description && (
               <p className="text-lg text-white/80">{category.description}</p>
@@ -67,6 +93,35 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           </div>
         </div>
       </section>
+
+      {/* Long-form category overview — only renders when rich content
+          is configured for this slug. Pushes category page word count
+          past the 800-word spec floor. P4-11. */}
+      {rich && rich.paragraphs.length > 0 && (
+        <section
+          aria-labelledby="category-overview-heading"
+          className="py-16 border-b"
+        >
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto">
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary mb-3">
+                Overview
+              </p>
+              <h2
+                id="category-overview-heading"
+                className="text-3xl md:text-4xl font-bold mb-6"
+              >
+                {category.name} at Archer Infotech, Pune
+              </h2>
+              <div className="space-y-5 text-muted-foreground leading-relaxed text-base md:text-lg">
+                {rich.paragraphs.map((p, i) => (
+                  <p key={i}>{p}</p>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       <section className="py-12">
         <div className="container mx-auto px-4">
@@ -129,6 +184,74 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           </div>
         </div>
       </section>
+
+      {/* Career Outcomes — typical roles the category leads to. Cards
+          carry attributed salary bands per the P8-09 source-attribution
+          discipline. P4-11. */}
+      {rich && rich.careerOutcomes.length > 0 && (
+        <section
+          aria-labelledby="category-careers-heading"
+          className="py-16 bg-muted/30 border-t"
+        >
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto mb-10">
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary mb-3">
+                Career Outcomes
+              </p>
+              <h2
+                id="category-careers-heading"
+                className="text-3xl md:text-4xl font-bold mb-3"
+              >
+                Where {category.name} courses lead at Pune IT companies
+              </h2>
+              <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
+                Typical roles Archer Infotech alumni take after completing
+                a {category.name} programme, with fresher salary bands
+                from placement-team data (last 12 months of offers).
+                Actual offers depend on role, company tier, and prior
+                experience.
+              </p>
+            </div>
+
+            <ul className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 list-none p-0 max-w-5xl mx-auto">
+              {rich.careerOutcomes.map((c) => (
+                <li
+                  key={c.role}
+                  className="rounded-2xl border border-border bg-background p-6 flex flex-col"
+                >
+                  <div className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-primary">
+                    <Briefcase className="h-4 w-4" aria-hidden="true" />
+                    Role
+                  </div>
+                  <h3 className="text-lg font-semibold text-foreground mb-2">
+                    {c.role}
+                  </h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed flex-grow">
+                    {c.description}
+                  </p>
+                  {c.band && (
+                    <div className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
+                      <IndianRupee className="h-3.5 w-3.5" aria-hidden="true" />
+                      {c.band.replace(/^₹/, "")}
+                    </div>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      )}
+
+      {/* Category-level FAQs — paired with FAQPage JSON-LD via the
+          existing FaqSection component. AI engines lift these
+          verbatim. P4-11 + P8-08. */}
+      {rich && rich.faqs.length > 0 && (
+        <FaqSection
+          heading={`${category.name} courses — Frequently Asked Questions`}
+          intro={`The most-asked questions about Archer Infotech's ${category.name.toLowerCase()} courses — choosing the right track, prerequisites, online vs offline, fees, and placement support.`}
+          items={rich.faqs}
+        />
+      )}
     </>
   );
 }

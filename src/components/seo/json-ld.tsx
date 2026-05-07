@@ -392,3 +392,66 @@ export function ReviewListJsonLd({ reviews }: { reviews: ReviewSchemaInput[] }) 
     />
   );
 }
+
+/**
+ * CollectionPage + ItemList schema for course category landing pages
+ * (e.g. /courses/programming, /courses/full-stack-development). Tells
+ * Google and AI engines that the URL is a curated index of training
+ * programmes — feeds rich-result eligibility for category queries
+ * like "programming courses in Pune". P4-11.
+ */
+interface CategoryCollectionJsonLdProps {
+  /** Category display name, e.g. "Programming". */
+  name: string;
+  /** Short category description used as schema description. */
+  description: string;
+  /** Absolute path on the site, e.g. "/courses/programming". */
+  url: string;
+  /** Course list to expose as ItemList. */
+  items: Array<{
+    name: string;
+    /** Absolute site path. */
+    url: string;
+    description?: string;
+  }>;
+}
+
+export function CategoryCollectionJsonLd({
+  name,
+  description,
+  url,
+  items,
+}: CategoryCollectionJsonLdProps) {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name,
+    description,
+    url: `${baseUrl}${url}`,
+    inLanguage: "en-IN",
+    isPartOf: {
+      "@type": "WebSite",
+      name: siteConfig.name,
+      url: baseUrl,
+    },
+    mainEntity: {
+      "@type": "ItemList",
+      name: `${name} courses at ${siteConfig.name}`,
+      numberOfItems: items.length,
+      itemListElement: items.map((item, idx) => ({
+        "@type": "ListItem",
+        position: idx + 1,
+        name: item.name,
+        url: `${baseUrl}${item.url}`,
+        ...(item.description && { description: item.description }),
+      })),
+    },
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
