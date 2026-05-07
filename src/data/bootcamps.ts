@@ -41,6 +41,19 @@ export interface BootcampDetail {
   value: string;
 }
 
+/**
+ * A contextually relevant course page that a bootcamp learner might
+ * progress to or pair with. Drives the "Related training programmes"
+ * internal-link block on bootcamp detail pages — builds the topic-cluster
+ * internal linking surface area Google rewards (P4-13).
+ */
+export interface BootcampRelatedCourse {
+  title: string;
+  description: string;
+  href: string;
+  category: string;
+}
+
 export interface BootcampComparisonRow {
   us: string;
   others: string;
@@ -95,6 +108,14 @@ export interface Bootcamp {
   details: BootcampDetail[];
   faqs: BootcampFAQ[];
   closingCTA: { headline: string; body: string };
+  /**
+   * Related Archer Infotech course pages. 4–10 contextually relevant
+   * courses that bootcamp graduates can progress into, pair with, or
+   * use as deeper specialisation. Rendered as a "Related Training
+   * Programmes" section on the bootcamp detail page (P4-13). Optional
+   * — bootcamps without curated entries simply skip the section.
+   */
+  relatedCourses?: BootcampRelatedCourse[];
 }
 
 export const bootcamps: Bootcamp[] = [
@@ -754,6 +775,53 @@ export const bootcamps: Bootcamp[] = [
       headline: "Ready to take the leap?",
       body: "Every year, thousands of 12th-pass students in Pune begin engineering with no real exposure to programming, no GitHub, no portfolio, and no understanding of AI. You don't have to be one of them. In just 8 focused weeks at our Kothrud campus, CodeLeap puts you 2–3 years ahead of your peers — with real Python skills, a live website, AI fluency, and a public developer identity. Limited seats per batch. Admissions for the next batch are now open.",
     },
+    // CodeLeap learners often progress into deeper standalone tracks once
+    // they have foundations — these are the next-step courses we point them
+    // toward. P4-13.
+    relatedCourses: [
+      {
+        title: "Python Training",
+        description:
+          "Go beyond the 2-week CodeLeap Python module — full-depth Python for jobs, automation and data science.",
+        href: "/courses/programming/python-training-in-pune",
+        category: "Programming",
+      },
+      {
+        title: "JavaScript Training",
+        description:
+          "Take the web-development module further with modern JavaScript (ES6+, async, DOM, fetch APIs).",
+        href: "/courses/programming/javascript-training-in-pune",
+        category: "Programming",
+      },
+      {
+        title: "ChatGPT & LLMs",
+        description:
+          "Deepen the AI Tools module — prompt engineering, LLM APIs and building real AI-powered apps.",
+        href: "/courses/generative-ai/chatgpt-llms-training-in-pune",
+        category: "Generative AI",
+      },
+      {
+        title: "React.js Training",
+        description:
+          "Specialise in modern frontend development after CodeLeap's HTML/CSS/JS foundation.",
+        href: "/courses/modern-web/react-training-in-pune",
+        category: "Modern Web",
+      },
+      {
+        title: "MERN Stack Training",
+        description:
+          "The natural full-stack progression — combine your Python/web and AI base with a complete JS stack.",
+        href: "/courses/full-stack-development/mern-stack-training-in-pune",
+        category: "Full Stack",
+      },
+      {
+        title: "Java Training",
+        description:
+          "An alternative classic language path — Java is still the most-hired skill at Pune MNCs for freshers.",
+        href: "/courses/programming/java-training-in-pune",
+        category: "Programming",
+      },
+    ],
   },
 
   // ============================================================
@@ -1134,6 +1202,68 @@ export const bootcamps: Bootcamp[] = [
       headline: "Start your CareerCode journey today.",
       body: "Four years of engineering will pass faster than you think. Every semester you wait is a semester your competition is using. The students who land the best internships and the best placements in their final year are not the ones who started preparing at the end — they are the ones who started at the beginning.",
     },
+    // CareerCode runs alongside engineering with semester-wise specialisations
+    // (Frontend, Backend, Full Stack, Data Science, AI/ML, DBA). Each track
+    // maps to one or more dedicated standalone courses learners can pair
+    // with the program for deeper interview prep. P4-13.
+    relatedCourses: [
+      {
+        title: "Java Full Stack Training",
+        description:
+          "The most-hired full-stack pattern at Pune MNCs — Spring Boot + React. Pairs with the Backend / Full Stack tracks.",
+        href: "/courses/full-stack-development/java-full-stack-training-in-pune",
+        category: "Full Stack",
+      },
+      {
+        title: "MERN Stack Training",
+        description:
+          "MongoDB + Express + React + Node — the modern JS full-stack option for product companies and startups.",
+        href: "/courses/full-stack-development/mern-stack-training-in-pune",
+        category: "Full Stack",
+      },
+      {
+        title: "React.js Training",
+        description:
+          "Deep frontend specialisation. Pairs perfectly with the Frontend Developer track.",
+        href: "/courses/modern-web/react-training-in-pune",
+        category: "Modern Web",
+      },
+      {
+        title: "Node.js Training",
+        description:
+          "Build production backends — pairs with the Backend Developer track and the MERN/MEAN paths.",
+        href: "/courses/modern-web/nodejs-training-in-pune",
+        category: "Modern Web",
+      },
+      {
+        title: "Data Science Training",
+        description:
+          "End-to-end data science with Python. Pairs with the Data Science and Analytics track.",
+        href: "/courses/data-ai/data-science-training-in-pune",
+        category: "Data & AI",
+      },
+      {
+        title: "Machine Learning Training",
+        description:
+          "Production ML pipelines, model evaluation and deployment. Pairs with the AI / ML Engineer track.",
+        href: "/courses/data-ai/machine-learning-training-in-pune",
+        category: "Data & AI",
+      },
+      {
+        title: "AWS Training",
+        description:
+          "Cloud foundations — every CareerCode track benefits from a deployment-and-infra layer.",
+        href: "/courses/cloud-devops/aws-training-in-pune",
+        category: "Cloud & DevOps",
+      },
+      {
+        title: "Generative AI Training",
+        description:
+          "GenAI is now a baseline skill across every engineering specialisation. Layer it onto any track.",
+        href: "/courses/generative-ai/genai-training-in-pune",
+        category: "Generative AI",
+      },
+    ],
   },
 
   // ============================================================
@@ -1449,6 +1579,81 @@ export const bootcamps: Bootcamp[] = [
       headline: "Are you TechReady?",
       body: "This is the moment that defines the next 10 years of your career. Every month after graduation that passes without a structured plan takes you further from the opportunities available right now. TechReady is your 6-month transformation. From graduate to professional. From resume to offer letter. From classroom to career.",
     },
+    // TechReady has 10 placement-oriented programs. Each maps directly to
+    // one or more standalone Archer Infotech courses learners can deepen
+    // independently or revisit via lifetime LMS access. P4-13.
+    relatedCourses: [
+      {
+        title: "Java Full Stack Training",
+        description:
+          "Standalone deep-dive matching the Java Full Stack TechReady program — Spring Boot + microservices + React.",
+        href: "/courses/full-stack-development/java-full-stack-training-in-pune",
+        category: "Full Stack",
+      },
+      {
+        title: ".NET Full Stack Training",
+        description:
+          "ASP.NET Core + C# + Angular for the Microsoft-stack track. Matches the .NET Full Stack TechReady program.",
+        href: "/courses/full-stack-development/dotnet-full-stack-training-in-pune",
+        category: "Full Stack",
+      },
+      {
+        title: "MERN Stack Training",
+        description:
+          "Full-depth MongoDB + Express + React + Node coverage. Matches the MERN Stack TechReady program.",
+        href: "/courses/full-stack-development/mern-stack-training-in-pune",
+        category: "Full Stack",
+      },
+      {
+        title: "Python Full Stack Training",
+        description:
+          "Django + REST + React deep-dive. Matches the Python Full Stack TechReady program.",
+        href: "/courses/full-stack-development/python-full-stack-training-in-pune",
+        category: "Full Stack",
+      },
+      {
+        title: "Spring Boot & Microservices",
+        description:
+          "Architecture-grade Spring Boot, Spring Cloud and microservices — pairs with any Java-track placement target.",
+        href: "/courses/programming/spring-boot-microservices-training-in-pune",
+        category: "Programming",
+      },
+      {
+        title: "Data Science Training",
+        description:
+          "End-to-end Python data science. Matches the Data Science TechReady program.",
+        href: "/courses/data-ai/data-science-training-in-pune",
+        category: "Data & AI",
+      },
+      {
+        title: "Machine Learning Training",
+        description:
+          "Production ML — algorithms, deployment, MLOps. Pairs with Data Science and AI Engineer tracks.",
+        href: "/courses/data-ai/machine-learning-training-in-pune",
+        category: "Data & AI",
+      },
+      {
+        title: "AWS Solutions Architect",
+        description:
+          "Pune's most in-demand cloud certification. Pairs with the Cloud / DevOps TechReady program.",
+        href: "/courses/cloud-certifications/aws-solutions-architect-training-in-pune",
+        category: "Cloud Certifications",
+      },
+      {
+        title: "DevOps Training",
+        description:
+          "Docker, Kubernetes, Jenkins, Terraform — the operational layer for any full-stack or cloud role.",
+        href: "/courses/cloud-devops/devops-training-in-pune",
+        category: "Cloud & DevOps",
+      },
+      {
+        title: "Generative AI Training",
+        description:
+          "LLMs, RAG, LangChain, prompt engineering — bundled with the AI Engineer track and increasingly required across full-stack roles.",
+        href: "/courses/generative-ai/genai-training-in-pune",
+        category: "Generative AI",
+      },
+    ],
   },
 ];
 

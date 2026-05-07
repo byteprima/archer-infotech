@@ -173,6 +173,9 @@ function getAnchorSections(bootcamp: Bootcamp) {
   }
 
   sections.push({ href: "#included", label: "What You Get" });
+  if (bootcamp.relatedCourses && bootcamp.relatedCourses.length > 0) {
+    sections.push({ href: "#related", label: "Related Courses" });
+  }
   sections.push({ href: "#faqs", label: "FAQs" });
 
   return sections;
@@ -1315,6 +1318,76 @@ export function BootcampDetailPage({
           </div>
         </div>
       </section>
+
+      {/* Related Training Programmes — internal-link block to Archer
+          Infotech course pages most relevant to this bootcamp. Builds the
+          topic-cluster web Google rewards (P4-13). */}
+      {bootcamp.relatedCourses && bootcamp.relatedCourses.length > 0 && (
+        <section id="related" className="border-t bg-background py-16 md:py-20">
+          <div className="container mx-auto px-4">
+            <div className="mb-10 max-w-3xl">
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                Go Deeper
+              </p>
+              <h2 className="mt-3 text-3xl font-bold text-balance md:text-4xl">
+                Related Training Programmes at Archer Infotech
+              </h2>
+              <p className="mt-4 text-base leading-7 text-muted-foreground">
+                Bootcamp graduates frequently progress into one of these
+                standalone Archer Infotech courses for deeper specialisation
+                or to pair with the {bootcamp.name} curriculum during the
+                program.
+              </p>
+            </div>
+
+            <ul className="grid gap-4 list-none p-0 md:grid-cols-2 lg:grid-cols-3">
+              {bootcamp.relatedCourses.map((course) => (
+                <li key={course.href}>
+                  <TrackedLink
+                    href={course.href}
+                    className="group flex h-full flex-col rounded-2xl border border-border bg-card p-6 transition-all hover:border-primary/30 hover:shadow-md focus-visible:border-primary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
+                    event="related_course_clicked"
+                    properties={{
+                      bootcamp_slug: bootcamp.slug,
+                      bootcamp_name: bootcamp.name,
+                      course_href: course.href,
+                      course_title: course.title,
+                      location: "bootcamp_related_courses",
+                    }}
+                  >
+                    <Badge
+                      variant="outline"
+                      className="self-start text-xs font-medium"
+                    >
+                      {course.category}
+                    </Badge>
+                    <h3 className="mt-3 text-lg font-semibold text-foreground transition-colors group-hover:text-primary">
+                      {course.title}
+                    </h3>
+                    <p className="mt-2 flex-grow text-sm leading-6 text-muted-foreground">
+                      {course.description}
+                    </p>
+                    <span className="mt-4 inline-flex items-center text-sm font-semibold text-primary">
+                      Explore course
+                      <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                    </span>
+                  </TrackedLink>
+                </li>
+              ))}
+            </ul>
+
+            <div className="mt-10 text-center">
+              <Link
+                href="/courses"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline"
+              >
+                Browse all 40+ courses
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
 
       <section id="faqs" className="border-t bg-muted/20 py-16 md:py-20">
         <div className="container mx-auto px-4">
