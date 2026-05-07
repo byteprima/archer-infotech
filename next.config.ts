@@ -76,6 +76,16 @@ const legacyWpRedirects = [
   { from: "/best-tableau-training-in-pune", to: "/courses/data-ai/data-analytics-training-in-pune" },
   { from: "/best-power-bi-training-in-pune", to: "/courses/data-ai/data-analytics-training-in-pune" },
   { from: "/best-android-training-in-pune", to: "/courses/mobile-app-development/android-development-training-in-pune" },
+  // Course pages — added 2026-05-07 from GSC 16-month impression data (URLs still
+  // earning impressions but returning 404 on the new site).
+  { from: "/best-mern-stack-training-classes-in-pune", to: "/courses/full-stack-development/mern-stack-training-in-pune" },
+  { from: "/best-spring-hibernate-training-classes-in-pune", to: "/courses/programming/spring-boot-microservices-training-in-pune" },
+  { from: "/full-stack-dot-net-developer-course-in-pune", to: "/courses/full-stack-development/dotnet-full-stack-training-in-pune" },
+  { from: "/best-sql-training-classes-in-pune", to: "/courses/database-technologies/mysql-training-in-pune" },
+  { from: "/best-c-c++-data-structures-course-in-kothrud-pune", to: "/courses/programming/cpp-training-in-pune" },
+  { from: "/best-react-classes-in-pune", to: "/courses/modern-web/react-training-in-pune" },
+  // Selenium has no equivalent course — send to /courses listing rather than 404.
+  { from: "/best-selenium-training-classes-in-pune", to: "/courses" },
   // Listing / program pages
   { from: "/all-courses", to: "/courses" },
   { from: "/boot-camps", to: "/bootcamps" },
@@ -85,6 +95,8 @@ const legacyWpRedirects = [
   { from: "/internship-with-certification-in-pune", to: "/internships" },
   { from: "/pricing-faq", to: "/corporate-training" },
   { from: "/best-software-training-institute-in-pune", to: "/" },
+  { from: "/full-stack-development-course-with-placement-assistance", to: "/courses/full-stack-development" },
+  { from: "/about-us", to: "/about" },
 ];
 
 const nextConfig: NextConfig = {

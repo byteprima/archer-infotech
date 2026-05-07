@@ -10,8 +10,17 @@ const WP_QUERY_KEYS = ["p", "page_id", "cat", "tag", "author", "m", "s"];
 // /?feed=* served the WP RSS feed. We have no RSS, so return 410 Gone to deindex.
 const WP_FEED_KEY = "feed";
 
+// WordPress placeholder pages that were never real content. Return 410 Gone so
+// Google permanently deindexes them, rather than 404 (which keeps them in the
+// crawl queue).
+const WP_GONE_PATHS = new Set<string>(["/sample-page", "/sample-page/"]);
+
 export function middleware(request: NextRequest) {
   const { searchParams, pathname, origin } = request.nextUrl;
+
+  if (WP_GONE_PATHS.has(pathname)) {
+    return new NextResponse(null, { status: 410 });
+  }
 
   // /courses?category=X → /courses/X (legacy indexed URLs only — in-page filter
   // navigation is client-side and does not hit middleware, so the filter UX is
