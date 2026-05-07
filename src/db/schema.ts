@@ -147,9 +147,12 @@ export const blogPosts = sqliteTable("blog_posts", {
   metaDescription: text("meta_description"),
   author: text("author").default("Archer Infotech"),
   isPublished: integer("is_published", { mode: "boolean" }).default(false),
-  publishedAt: integer("published_at", { mode: "timestamp" }),
-  createdAt: integer("created_at", { mode: "timestamp" }).notNull().$defaultFn(() => new Date()),
-  updatedAt: integer("updated_at", { mode: "timestamp" }).notNull().$defaultFn(() => new Date()),
+  // Stored as Unix milliseconds (matches what was actually written to the DB).
+  // Earlier `mode: "timestamp"` (Unix seconds) caused Drizzle to multiply the
+  // already-ms value by 1000 on read → year 58239 dates in rendered HTML.
+  publishedAt: integer("published_at", { mode: "timestamp_ms" }),
+  createdAt: integer("created_at", { mode: "timestamp_ms" }).notNull().$defaultFn(() => new Date()),
+  updatedAt: integer("updated_at", { mode: "timestamp_ms" }).notNull().$defaultFn(() => new Date()),
 });
 
 // Testimonials table - for student reviews

@@ -40,15 +40,23 @@ export async function generateMetadata({
     };
   }
 
-  const title = post.metaTitle || post.title;
+  // Strip any pre-existing " | Archer Infotech" suffix the post.title or
+  // post.metaTitle may have been saved with — the root layout's title template
+  // (`%s | Archer Infotech`) appends the brand exactly once. Without this strip
+  // the rendered <title> ended up as
+  //   `Post Title | Archer Infotech | Archer Infotech Blog | Archer Infotech`
+  // (triple brand). See SEO/work-plan/raw/pillar5.json P5-02.
+  const rawTitle = post.metaTitle || post.title;
+  const title = rawTitle.replace(/\s*\|\s*Archer\s*Infotech\b.*$/i, "").trim();
   const description = post.metaDescription || post.excerpt || post.content.slice(0, 160);
 
   return {
-    title: `${title} | ${siteConfig.name} Blog`,
+    title, // root template appends " | Archer Infotech"
     description,
     alternates: { canonical: `/blog/${slug}` },
     openGraph: {
-      title: `${title} | ${siteConfig.name} Blog`,
+      // OG titles do NOT use the title.template, so we explicitly add brand once.
+      title: `${title} | ${siteConfig.name}`,
       description,
       type: "article",
       url: `${siteConfig.url}/blog/${slug}`,

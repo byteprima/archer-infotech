@@ -28,7 +28,20 @@ export default function CoursesPage() {
         </div>
       </section>
 
-      <Suspense>
+      {/*
+        Reserve vertical space for the client-side CoursesFilter (filter sidebar
+        + course grid) so it doesn't snap into place after JS hydration.
+        Empty Suspense fallback was causing /courses desktop CLS = 0.735 (failing).
+        See SEO baselines/2026-05-07-psi/.
+      */}
+      <Suspense
+        fallback={
+          <div
+            aria-hidden="true"
+            className="container mx-auto px-4 py-12 min-h-[1200px]"
+          />
+        }
+      >
         <CoursesFilter />
       </Suspense>
     </>
