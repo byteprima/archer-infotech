@@ -82,7 +82,7 @@ export function BlogSidebar({
                     {post.featuredImage ? (
                       <Image
                         src={post.featuredImage}
-                        alt={post.title}
+                        alt={`${post.title} — Archer Infotech blog`}
                         fill
                         className="object-cover"
                         sizes="64px"

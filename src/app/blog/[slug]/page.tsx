@@ -211,7 +211,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           <div className="relative aspect-video max-w-4xl rounded-xl overflow-hidden shadow-xl">
             <Image
               src={post.featuredImage}
-              alt={post.title}
+              alt={`${post.title} — Archer Infotech blog${
+                post.author ? `, by ${post.author}` : ""
+              }`}
               fill
               className="object-cover"
               priority

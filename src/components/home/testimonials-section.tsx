@@ -22,6 +22,25 @@ export interface TestimonialData {
   placedAt: string | null;
 }
 
+function buildTestimonialAlt(t: TestimonialData): string {
+  // Pillar 3 P3-14 alt template:
+  // "[Student name], placed at [Company] after [Course] at Archer Infotech"
+  // Falls back gracefully when placement company / course is unknown so we
+  // never ship a bare name as alt text (was the pre-fix state).
+  const placement = t.placedAt || t.company;
+  const parts = [t.name];
+  if (placement && t.courseTaken) {
+    parts.push(`placed at ${placement} after ${t.courseTaken}`);
+  } else if (placement) {
+    parts.push(`placed at ${placement}`);
+  } else if (t.courseTaken) {
+    parts.push(`student of ${t.courseTaken}`);
+  } else {
+    parts.push("Archer Infotech alumnus");
+  }
+  return `${parts.join(", ")} at Archer Infotech, Pune`;
+}
+
 function TestimonialCard({ testimonial }: { testimonial: TestimonialData }) {
   return (
     <Card className="h-full">
@@ -32,7 +51,10 @@ function TestimonialCard({ testimonial }: { testimonial: TestimonialData }) {
         </p>
         <div className="flex items-center gap-4">
           <Avatar className="h-12 w-12">
-            <AvatarImage src={testimonial.photoUrl ?? undefined} alt={testimonial.name} />
+            <AvatarImage
+              src={testimonial.photoUrl ?? undefined}
+              alt={buildTestimonialAlt(testimonial)}
+            />
             <AvatarFallback className="bg-primary text-primary-foreground">
               {testimonial.name
                 .split(" ")
