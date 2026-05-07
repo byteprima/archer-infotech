@@ -18,6 +18,8 @@ import {
   tokeniseTags,
 } from "@/lib/seo/blog-internal-links";
 import { getRelatedBlogPosts } from "@/lib/actions/blog";
+import { TrainerByline } from "@/components/blog/trainer-byline";
+import { resolveBlogAuthor } from "@/lib/seo/blog-author";
 import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 import { PageEvent } from "@/components/analytics/page-event";
 import { TrackedAnchor } from "@/components/analytics/tracked-anchor";
@@ -113,6 +115,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const displayDate = post.publishedAt || post.createdAt;
   const tags = post.tags?.split(",").map((t) => t.trim()).filter(Boolean) || [];
 
+  // Resolve a real-trainer author from the post's tags + category. Drives
+  // both the visible byline and the BlogPosting Person JSON-LD so search
+  // engines and AI rankers see a verifiable named expert tied to the
+  // post (vs the generic "Archer Infotech" institutional byline). P5-12.
+  const authorTrainer = resolveBlogAuthor(post.tags, post.category);
+
   // Build TOC for long-form posts only. Pillar 5 P5-10 threshold: 1,500
   // words. Below that, the TOC adds visual noise without UX benefit.
   // Also require at least 3 H2/H3 headings — a TOC of one item is silly.
@@ -161,6 +169,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         category={post.category}
         tags={post.tags}
         content={post.content}
+        authorPerson={{
+          name: authorTrainer.name,
+          jobTitle: authorTrainer.role,
+          profilePath: `/trainers/${authorTrainer.id}`,
+          image: authorTrainer.image,
+          linkedin: authorTrainer.linkedin,
+          bio: authorTrainer.bio,
+        }}
       />
       <BlogBreadcrumbJsonLd
         items={[
@@ -248,10 +264,15 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     </span>
                   )}
               </div>
-              {post.author && (
-                <div className="flex items-center gap-2">
-                  <User className="h-5 w-5" />
-                  <span>{post.author}</span>
+              {/* Real-trainer byline — replaces the legacy
+                  institutional "Archer Infotech" string with the
+                  topic-resolved named author. Pairs with Person schema
+                  in BlogPostJsonLd. P5-12. */}
+              <TrainerByline trainer={authorTrainer} variant="header" />
+              {post.author && post.author !== authorTrainer.name && (
+                <div className="hidden md:flex items-center gap-2 text-xs text-white/60">
+                  <User className="h-3.5 w-3.5" aria-hidden="true" />
+                  <span>Edited by {post.author}</span>
                 </div>
               )}
             </div>
@@ -326,6 +347,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     category: p.category,
                   }))}
                 />
+
+                {/* About the author — full trainer card with photo, role,
+                    bio and LinkedIn. Mirrors the Person schema emitted in
+                    BlogPostJsonLd. P5-12. */}
+                <TrainerByline trainer={authorTrainer} variant="footer" />
 
                 {/* Tags — semantic <ul>, each tag is an internal link to the
                     tag-filtered blog index. Builds topic-cluster internal

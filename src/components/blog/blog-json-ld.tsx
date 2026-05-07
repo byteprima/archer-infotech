@@ -15,6 +15,22 @@ interface BlogPostJsonLdProps {
   tags?: string | null;
   /** Full markdown/HTML content used to compute wordCount + articleBody. */
   content?: string;
+  /**
+   * Rich Person-schema author object resolved from the trainer team
+   * (P5-12). When provided, takes precedence over the legacy `author`
+   * string and emits the full Person block — name, jobTitle, url,
+   * image, sameAs LinkedIn — so AI engines and Google can match the
+   * post to a verifiable named expert. Falls back to `author` (legacy
+   * institutional byline) when null.
+   */
+  authorPerson?: {
+    name: string;
+    jobTitle: string;
+    profilePath: string;
+    image?: string;
+    linkedin?: string;
+    bio?: string;
+  } | null;
 }
 
 /**
@@ -45,6 +61,7 @@ export function BlogPostJsonLd({
   category,
   tags,
   content,
+  authorPerson,
 }: BlogPostJsonLdProps) {
   const tagList = tags?.split(",").map((t) => t.trim()).filter(Boolean) || [];
   const body = content ? plainText(content) : "";
@@ -70,10 +87,33 @@ export function BlogPostJsonLd({
     ...(updatedAt && {
       dateModified: updatedAt.toISOString(),
     }),
-    author: {
-      "@type": "Person",
-      name: author || siteConfig.name,
-    },
+    // P5-12: prefer the rich Person-schema author when available — gives
+    // AI engines a verifiable named expert with LinkedIn sameAs that
+    // ranking systems (especially Perplexity's citation ranker) weight
+    // heavily. Falls back to legacy bare-name author when not resolved.
+    author: authorPerson
+      ? {
+          "@type": "Person",
+          name: authorPerson.name,
+          jobTitle: authorPerson.jobTitle,
+          url: `${baseUrl}${authorPerson.profilePath}`,
+          ...(authorPerson.image && {
+            image: authorPerson.image.startsWith("http")
+              ? authorPerson.image
+              : `${baseUrl}${authorPerson.image}`,
+          }),
+          ...(authorPerson.bio && { description: authorPerson.bio }),
+          ...(authorPerson.linkedin && { sameAs: [authorPerson.linkedin] }),
+          worksFor: {
+            "@type": "EducationalOrganization",
+            name: siteConfig.name,
+            url: baseUrl,
+          },
+        }
+      : {
+          "@type": "Person",
+          name: author || siteConfig.name,
+        },
     publisher: {
       "@type": "Organization",
       name: siteConfig.name,
