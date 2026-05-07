@@ -9,6 +9,7 @@ import {
 } from "@/components/seo/json-ld";
 import { bootcamps, getBootcamp } from "@/data/bootcamps";
 import { buildPageMetadata } from "@/lib/seo";
+import { getNextBatchForCourse } from "@/lib/actions/public-batches";
 
 interface BootcampPageProps {
   params: Promise<{ slug: string }>;
@@ -46,6 +47,12 @@ export default async function BootcampPage({ params }: BootcampPageProps) {
   const durationLabel =
     bootcamp.details.find((detail) => detail.label === "Duration")?.value ?? "";
 
+  // Look up next upcoming batch by bootcamp slug. Same helper as course pages —
+  // it accepts any slug and falls back to a slug-suffix-stripped lookup, so
+  // works for "codeleap", "careercode", "techready" without code changes.
+  // Pillar 3 P3-11.
+  const nextBatch = await getNextBatchForCourse(slug);
+
   return (
     <>
       <PageEvent
@@ -62,6 +69,8 @@ export default async function BootcampPage({ params }: BootcampPageProps) {
         duration={durationLabel}
         url={`/bootcamps/${slug}`}
         category="Bootcamps"
+        nextBatchStartDate={nextBatch ? new Date(nextBatch.startDate).toISOString() : undefined}
+        nextBatchMode={nextBatch?.mode === "online" ? "online" : nextBatch ? "offline" : undefined}
       />
       <FAQJsonLd faqs={bootcamp.faqs} />
       <BreadcrumbJsonLd
@@ -72,7 +81,7 @@ export default async function BootcampPage({ params }: BootcampPageProps) {
         ]}
       />
 
-      <BootcampDetailPage bootcamp={bootcamp} slug={slug} />
+      <BootcampDetailPage bootcamp={bootcamp} slug={slug} nextBatch={nextBatch} />
     </>
   );
 }

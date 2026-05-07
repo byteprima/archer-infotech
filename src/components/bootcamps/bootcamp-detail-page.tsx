@@ -4,6 +4,7 @@ import {
   BookOpen,
   Briefcase,
   Building2,
+  Calendar,
   CheckCircle,
   Clock,
   GraduationCap,
@@ -738,12 +739,19 @@ function CareerOutcomesSection({ bootcamp }: { bootcamp: Bootcamp }) {
   );
 }
 
+interface NextBatch {
+  startDate: Date | string;
+  mode: string | null;
+}
+
 export function BootcampDetailPage({
   bootcamp,
   slug,
+  nextBatch,
 }: {
   bootcamp: Bootcamp;
   slug: string;
+  nextBatch?: NextBatch | null;
 }) {
   const theme = bootcampThemes[bootcamp.id];
   const featuredStats = getFeaturedStats(bootcamp);
@@ -801,6 +809,23 @@ export function BootcampDetailPage({
                 >
                   {bootcamp.name}
                 </h1>
+                {nextBatch && (
+                  <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-secondary/40 bg-secondary/15 px-4 py-1.5 text-sm text-white">
+                    <Calendar className="h-4 w-4 text-secondary" />
+                    <span>
+                      Next batch starts:{" "}
+                      <strong className="font-semibold">
+                        {new Date(nextBatch.startDate).toLocaleDateString("en-IN", {
+                          day: "numeric",
+                          month: "long",
+                          year: "numeric",
+                        })}
+                      </strong>
+                      {nextBatch.mode &&
+                        ` (${nextBatch.mode === "online" ? "Online" : "Classroom"})`}
+                    </span>
+                  </div>
+                )}
                 <div className="mt-4 max-w-2xl rounded-2xl border border-white/10 bg-white/10 px-4 py-3 backdrop-blur-sm">
                   <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/50">
                     Program Promise
