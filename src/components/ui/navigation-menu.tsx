@@ -33,12 +33,12 @@ function NavigationMenuList({
   return (
     <NavigationMenuPrimitive.List
       data-slot="navigation-menu-list"
-      // Radix injects aria-orientation="horizontal" onto this <ul>, but
-      // aria-orientation is only valid on certain ARIA roles (menubar,
-      // tablist, toolbar, etc.). Setting role="menubar" here makes the
-      // injected attribute valid and matches what a horizontal nav menu
-      // is semantically. Fixes the desktop a11y "ARIA attributes do not
-      // match their roles" audit.
+      // Radix's NavigationMenu primitive auto-injects aria-orientation
+      // onto the inner <ul>. aria-orientation is only valid on a few
+      // ARIA roles (menubar, tablist, toolbar, etc.). To make Lighthouse
+      // happy we set role="menubar" here AND role="menuitem" on each
+      // NavigationMenuItem child below — both are required because
+      // ARIA validates the parent-child role relationship.
       role="menubar"
       className={cn(
         "group flex flex-1 list-none items-center justify-center gap-0",
@@ -56,6 +56,12 @@ function NavigationMenuItem({
   return (
     <NavigationMenuPrimitive.Item
       data-slot="navigation-menu-item"
+      // Pairs with role="menubar" on NavigationMenuList — the parent
+      // role requires children to have role="menuitem". Without this,
+      // Lighthouse's `aria-required-children` audit fails and the
+      // implicit `<li>` role is overridden so the `listitem` audit
+      // also fires.
+      role="menuitem"
       className={cn("relative", className)}
       {...props}
     />

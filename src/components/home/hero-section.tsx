@@ -32,7 +32,7 @@ export function HeroSection() {
 
             <h1 className="text-4xl md:text-[2.9rem] lg:text-[2.85rem] xl:text-[3.35rem] font-bold leading-[1.08]">
               Pune&apos;s Most Trusted{" "}
-              <span className="text-secondary whitespace-nowrap">IT Training</span>{" "}
+              <span className="text-secondary-bright whitespace-nowrap">IT Training</span>{" "}
               Institute Since {siteConfig.foundingYear}
             </h1>
 
@@ -98,7 +98,7 @@ export function HeroSection() {
                   key={stat.label}
                   className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center"
                 >
-                  <div className="text-4xl font-bold text-secondary mb-2">
+                  <div className="text-4xl font-bold text-secondary-bright mb-2">
                     <AnimatedCounter value={stat.value} />
                   </div>
                   <div className="text-white/80">{stat.label}</div>

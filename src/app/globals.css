@@ -34,6 +34,7 @@
   --color-muted: var(--muted);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-secondary: var(--secondary);
+  --color-secondary-bright: var(--secondary-bright);
   --color-primary-foreground: var(--primary-foreground);
   --color-primary: var(--primary);
   --color-popover-foreground: var(--popover-foreground);
@@ -70,6 +71,13 @@
    * so the brand-button surface improves too. */
   --secondary: oklch(0.55 0.17 70);
   --secondary-foreground: oklch(0.99 0 0);
+  /* Same brand orange shifted brighter for use on DARK backgrounds
+   * (the gradient hero, dark blue footer, etc.). The darker --secondary
+   * passes contrast on white but fails on the deep blue --primary
+   * surface (only 2.43:1 at the original use). This brighter token
+   * passes ≥3:1 on the dark blue. Apply via the `text-secondary-bright`
+   * utility wherever the brand orange sits on a dark surface. */
+  --secondary-bright: oklch(0.72 0.16 70);
 
   /* Muted - Slate Gray */
   --muted: oklch(0.96 0.005 255);

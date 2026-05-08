@@ -95,7 +95,7 @@ export function Footer() {
               />
               <div className="flex items-center">
                 <span className="text-xl font-bold text-white">Archer</span>
-                <span className="text-xl font-bold text-secondary">Infotech</span>
+                <span className="text-xl font-bold text-secondary-bright">Infotech</span>
               </div>
             </Link>
             <p className="text-primary-foreground/80 text-sm leading-relaxed">
