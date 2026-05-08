@@ -72,6 +72,11 @@ export function HeroSection() {
               </Link>
               <Link
                 href="/contact"
+                /* prefetch=false keeps the 215KB Zod+@hookform validation
+                 * bundle out of the home-page chunk. /contact's own load
+                 * fetches it on demand at click-time, which is the right
+                 * tradeoff for a callback CTA most users don't click. */
+                prefetch={false}
                 className="inline-flex items-center justify-center rounded-lg border-2 border-white bg-transparent px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-white hover:text-primary"
                 onClick={() =>
                   captureAnalyticsEvent("hero_cta_clicked", {

@@ -282,6 +282,11 @@ export function Header() {
           <div className="hidden lg:flex items-center gap-4">
             <Link
               href="/contact"
+              /* prefetch=false on this site-wide header CTA keeps the
+               * 215KB contact-form validation bundle out of EVERY page's
+               * initial chunk graph. Contact-page navigation pays a
+               * one-time fetch at click time — the right tradeoff. */
+              prefetch={false}
               className="inline-flex items-center justify-center rounded-lg bg-secondary hover:bg-secondary/90 text-secondary-foreground px-6 py-2.5 text-sm font-semibold transition-all"
             >
               Enquire Now
@@ -334,6 +339,7 @@ export function Header() {
                 <div className="flex flex-col gap-3 pt-4 border-t">
                   <Link
                     href="/contact"
+                    prefetch={false}
                     onClick={() => setMobileMenuOpen(false)}
                     className={cn(
                       buttonVariants(),

@@ -170,6 +170,10 @@ export function Footer() {
                 <li key={item.name}>
                   <Link
                     href={item.href}
+                    /* /contact carries a 215KB validation chunk via Zod
+                     * + @hookform — disable prefetch on it so a sitewide
+                     * footer doesn't pull that chunk onto every page. */
+                    prefetch={item.href === "/contact" ? false : undefined}
                     className="text-primary-foreground/80 hover:text-secondary transition-colors text-sm"
                   >
                     {item.name}
