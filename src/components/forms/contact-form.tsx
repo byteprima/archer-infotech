@@ -1,9 +1,14 @@
 "use client";
 
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+/* B3 perf: this component used to ship react-hook-form + @hookform/resolvers
+ * + zod (~150KB transit) for client-side validation. We now use native HTML5
+ * validation (required, pattern, minLength, type) and let the server action
+ * (`submitLead`) do the authoritative Zod check. The lost UX is real-time
+ * field-level zod messages — the gain is ~150KB off the contact-page bundle
+ * and a smaller hydration tree. Server errors map back to per-field messages
+ * via the `ActionResult.errors` payload. */
+
+import { useState, useTransition, useRef } from "react";
 import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -17,41 +22,20 @@ import {
   getAnalyticsDistinctId,
 } from "@/lib/posthog/client";
 
-const contactSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Please enter a valid email address").optional().or(z.literal("")),
-  phone: z
-    .string()
-    .min(10, "Please enter a valid 10-digit phone number")
-    .max(10, "Please enter a valid 10-digit phone number")
-    .regex(/^\d+$/, "Phone number must contain only digits"),
-  courses: z.array(z.string()).optional(),
-  message: z.string().min(10, "Message must be at least 10 characters"),
-});
-
-type ContactFormData = z.infer<typeof contactSchema>;
+type FieldErrors = Partial<
+  Record<"name" | "email" | "phone" | "message", string>
+>;
 
 export function ContactForm() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isPending, startTransition] = useTransition();
   const [selectedCourses, setSelectedCourses] = useState<string[]>([]);
   const [hasStarted, setHasStarted] = useState(false);
+  const [errors, setErrors] = useState<FieldErrors>({});
+  const formRef = useRef<HTMLFormElement>(null);
   const inputClassName = "h-12 px-4";
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    setValue,
-    formState: { errors },
-  } = useForm<ContactFormData>({
-    resolver: zodResolver(contactSchema),
-  });
-
   const handleFormStart = () => {
-    if (hasStarted) {
-      return;
-    }
-
+    if (hasStarted) return;
     setHasStarted(true);
     captureAnalyticsEvent("contact_form_started", {
       form_name: "contact",
@@ -60,8 +44,16 @@ export function ContactForm() {
     });
   };
 
-  const onSubmit = async (data: ContactFormData) => {
-    setIsSubmitting(true);
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setErrors({});
+
+    const formEl = event.currentTarget;
+    const fd = new FormData(formEl);
+    const name = String(fd.get("name") || "").trim();
+    const email = String(fd.get("email") || "").trim();
+    const phone = String(fd.get("phone") || "").trim();
+    const message = String(fd.get("message") || "").trim();
 
     const searchParams = new URLSearchParams(window.location.search);
     const utmSource = searchParams.get("utm_source") || undefined;
@@ -73,83 +65,95 @@ export function ContactForm() {
     const courseInterest =
       selectedCourses.length > 0 ? selectedCourses.join(", ") : undefined;
 
-    try {
-      const result = await submitLead({
-        name: data.name,
-        email: data.email || "",
-        phone: data.phone,
-        message: data.message,
-        course: courseInterest,
-        source: "contact_form",
-        utmSource,
-        utmMedium,
-        utmCampaign,
-        analyticsDistinctId,
-        currentPath,
-        referrer,
-      });
-
-      if (result.success) {
-        captureAnalyticsEvent("contact_form_submitted", {
-          form_name: "contact",
+    startTransition(async () => {
+      try {
+        const result = await submitLead({
+          name,
+          email,
+          phone,
+          message,
+          course: courseInterest,
           source: "contact_form",
-          current_path: currentPath,
-          course_count: selectedCourses.length,
-          has_email: Boolean(data.email),
-          utm_source: utmSource,
-          utm_medium: utmMedium,
-          utm_campaign: utmCampaign,
+          utmSource,
+          utmMedium,
+          utmCampaign,
+          analyticsDistinctId,
+          currentPath,
+          referrer,
         });
-        toast.success("Thank you for contacting us!", {
-          description: result.message,
-        });
-        reset();
-        setSelectedCourses([]);
-        setHasStarted(false);
-      } else {
+
+        if (result.success) {
+          captureAnalyticsEvent("contact_form_submitted", {
+            form_name: "contact",
+            source: "contact_form",
+            current_path: currentPath,
+            course_count: selectedCourses.length,
+            has_email: Boolean(email),
+            utm_source: utmSource,
+            utm_medium: utmMedium,
+            utm_campaign: utmCampaign,
+          });
+          toast.success("Thank you for contacting us!", {
+            description: result.message,
+          });
+          formRef.current?.reset();
+          setSelectedCourses([]);
+          setHasStarted(false);
+        } else {
+          // Map server-side Zod field errors back to per-field UI
+          if (result.errors) {
+            const fieldErrors: FieldErrors = {};
+            for (const [k, v] of Object.entries(result.errors)) {
+              if (Array.isArray(v) && v[0]) {
+                fieldErrors[k as keyof FieldErrors] = v[0];
+              }
+            }
+            setErrors(fieldErrors);
+          }
+          captureAnalyticsEvent("contact_form_submission_failed", {
+            form_name: "contact",
+            source: "contact_form",
+            current_path: currentPath,
+            error_message: result.message,
+          });
+          toast.error("Error", { description: result.message });
+        }
+      } catch {
         captureAnalyticsEvent("contact_form_submission_failed", {
           form_name: "contact",
           source: "contact_form",
           current_path: currentPath,
-          error_message: result.message,
+          error_message: "unexpected_error",
         });
         toast.error("Error", {
-          description: result.message,
+          description: "Something went wrong. Please try again later.",
         });
       }
-    } catch {
-      captureAnalyticsEvent("contact_form_submission_failed", {
-        form_name: "contact",
-        source: "contact_form",
-        current_path: currentPath,
-        error_message: "unexpected_error",
-      });
-      toast.error("Error", {
-        description: "Something went wrong. Please try again later.",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
+    });
   };
 
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      ref={formRef}
+      onSubmit={handleSubmit}
       onFocusCapture={handleFormStart}
       className="space-y-6"
+      noValidate={false}
     >
       <div className="grid md:grid-cols-2 gap-6">
         <div className="space-y-2">
           <Label htmlFor="name">Full Name *</Label>
           <Input
             id="name"
+            name="name"
             placeholder="Enter your full name"
             className={inputClassName}
-            {...register("name")}
+            required
+            minLength={2}
             aria-invalid={errors.name ? "true" : "false"}
           />
           {errors.name && (
-            <p className="text-sm text-destructive">{errors.name.message}</p>
+            <p className="text-sm text-destructive">{errors.name}</p>
           )}
         </div>
 
@@ -157,14 +161,14 @@ export function ContactForm() {
           <Label htmlFor="email">Email Address</Label>
           <Input
             id="email"
+            name="email"
             type="email"
             placeholder="Enter your email"
             className={inputClassName}
-            {...register("email")}
             aria-invalid={errors.email ? "true" : "false"}
           />
           {errors.email && (
-            <p className="text-sm text-destructive">{errors.email.message}</p>
+            <p className="text-sm text-destructive">{errors.email}</p>
           )}
         </div>
       </div>
@@ -174,14 +178,19 @@ export function ContactForm() {
           <Label htmlFor="phone">Phone Number *</Label>
           <Input
             id="phone"
+            name="phone"
             type="tel"
+            inputMode="numeric"
             placeholder="Enter 10-digit phone number"
             className={inputClassName}
-            {...register("phone")}
+            required
+            pattern="\d{10}"
+            maxLength={10}
+            title="Please enter a valid 10-digit phone number"
             aria-invalid={errors.phone ? "true" : "false"}
           />
           {errors.phone && (
-            <p className="text-sm text-destructive">{errors.phone.message}</p>
+            <p className="text-sm text-destructive">{errors.phone}</p>
           )}
         </div>
 
@@ -189,10 +198,7 @@ export function ContactForm() {
           <Label htmlFor="course">Courses Interested In</Label>
           <CourseSelect
             value={selectedCourses}
-            onValueChange={(value) => {
-              setSelectedCourses(value);
-              setValue("courses", value);
-            }}
+            onValueChange={(value) => setSelectedCourses(value)}
           />
         </div>
       </div>
@@ -201,23 +207,25 @@ export function ContactForm() {
         <Label htmlFor="message">Message *</Label>
         <Textarea
           id="message"
+          name="message"
           placeholder="Tell us about your requirements..."
           rows={5}
           className="px-4 py-3"
-          {...register("message")}
+          required
+          minLength={10}
           aria-invalid={errors.message ? "true" : "false"}
         />
         {errors.message && (
-          <p className="text-sm text-destructive">{errors.message.message}</p>
+          <p className="text-sm text-destructive">{errors.message}</p>
         )}
       </div>
 
       <Button
         type="submit"
-        disabled={isSubmitting}
+        disabled={isPending}
         className="h-12 w-full px-6 text-base font-semibold md:w-auto bg-secondary hover:bg-secondary/90 text-secondary-foreground"
       >
-        {isSubmitting ? (
+        {isPending ? (
           <>
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             Sending...

@@ -1,5 +1,10 @@
 import type { NextConfig } from "next";
 
+/* P-7 perf: bundle analysis via Turbopack-native flag —
+ *   `npx next build --experimental-analyze`
+ * emits a chunk treemap. @next/bundle-analyzer (webpack-only) does NOT
+ * work under Next 16's Turbopack default. */
+
 // Permanent redirects from legacy course slugs to SEO-targeted Pune slugs.
 // Keep these live for at least 12 months per Google guidance.
 const courseSlugRedirects = [
