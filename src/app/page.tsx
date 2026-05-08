@@ -1,13 +1,25 @@
 export const dynamic = "force-dynamic";
 
 import type { Metadata } from "next";
+import nextDynamic from "next/dynamic";
 import { HeroSection } from "@/components/home/hero-section";
 import { USPSection } from "@/components/home/usp-section";
-import { CoursesSection } from "@/components/home/courses-section";
-import { BootcampsSection } from "@/components/home/bootcamps-section";
-import { TestimonialsSection } from "@/components/home/testimonials-section";
 import { CompaniesSection } from "@/components/home/companies-section";
 import { CTASection } from "@/components/home/cta-section";
+
+/* Below-the-fold client components — lazy-imported so each ships in
+ * its own chunk that hydrates on idle, not blocking initial paint /
+ * TBT. ssr stays on (default) so HTML still renders for SEO + AI
+ * crawlers. P-3 perf batch. */
+const CoursesSection = nextDynamic(
+  () => import("@/components/home/courses-section").then((m) => m.CoursesSection),
+);
+const BootcampsSection = nextDynamic(
+  () => import("@/components/home/bootcamps-section").then((m) => m.BootcampsSection),
+);
+const TestimonialsSection = nextDynamic(
+  () => import("@/components/home/testimonials-section").then((m) => m.TestimonialsSection),
+);
 import { db } from "@/db";
 import { testimonials as testimonialsTable } from "@/db/schema";
 import { eq } from "drizzle-orm";

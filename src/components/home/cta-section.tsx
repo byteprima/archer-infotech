@@ -1,5 +1,7 @@
-"use client";
-
+/* CTASection is pure markup — no useState / onClick / event handlers
+ * required, so it does not need a client boundary. Removing "use client"
+ * means zero JS ships for this section, which trims the home-page
+ * hydration tree. Pillar 1 P3-09 + perf cleanup. */
 import Link from "next/link";
 import { ArrowRight, Phone } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
