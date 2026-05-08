@@ -161,16 +161,18 @@ export function TestimonialsSection({ testimonials }: { testimonials: Testimonia
               size="icon"
               onClick={prev}
               disabled={currentIndex === 0}
+              aria-label="Show previous testimonials"
             >
-              <ChevronLeft className="h-4 w-4" />
+              <ChevronLeft className="h-4 w-4" aria-hidden="true" />
             </Button>
             <Button
               variant="outline"
               size="icon"
               onClick={next}
               disabled={currentIndex >= maxIndex}
+              aria-label="Show next testimonials"
             >
-              <ChevronRight className="h-4 w-4" />
+              <ChevronRight className="h-4 w-4" aria-hidden="true" />
             </Button>
           </div>
         </div>

@@ -62,9 +62,14 @@
   --primary: oklch(0.33 0.08 250);
   --primary-foreground: oklch(0.99 0 0);
 
-  /* Secondary - Gold/Amber (#d97706) */
-  --secondary: oklch(0.67 0.17 70);
-  --secondary-foreground: oklch(0.15 0.02 70);
+  /* Secondary - Gold/Amber. Darkened from oklch(0.67 0.17 70) ≈ #d57e00
+   * to oklch(0.55 0.17 70) ≈ #ad5c00 so `text-secondary` on white meets
+   * WCAG AA 4.5:1 for normal text. The earlier shade was 2.93:1 — failing
+   * on every eyebrow / uppercase-tracking label across the site. White
+   * text on `bg-secondary` actually gets MORE contrast at the new shade,
+   * so the brand-button surface improves too. */
+  --secondary: oklch(0.55 0.17 70);
+  --secondary-foreground: oklch(0.99 0 0);
 
   /* Muted - Slate Gray */
   --muted: oklch(0.96 0.005 255);

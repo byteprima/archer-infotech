@@ -33,6 +33,13 @@ function NavigationMenuList({
   return (
     <NavigationMenuPrimitive.List
       data-slot="navigation-menu-list"
+      // Radix injects aria-orientation="horizontal" onto this <ul>, but
+      // aria-orientation is only valid on certain ARIA roles (menubar,
+      // tablist, toolbar, etc.). Setting role="menubar" here makes the
+      // injected attribute valid and matches what a horizontal nav menu
+      // is semantically. Fixes the desktop a11y "ARIA attributes do not
+      // match their roles" audit.
+      role="menubar"
       className={cn(
         "group flex flex-1 list-none items-center justify-center gap-0",
         className

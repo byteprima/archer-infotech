@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
-import { GoogleAnalytics } from "@next/third-parties/google";
+import { GoogleAnalyticsLazy } from "@/components/analytics/google-analytics-lazy";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { WhatsAppButton } from "@/components/common/whatsapp-button";
@@ -70,7 +70,7 @@ export default function RootLayout({
         <OrganizationJsonLd />
       </head>
       {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
-        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
+        <GoogleAnalyticsLazy gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
       )}
       {/* suppressHydrationWarning ignores attributes Grammarly / LanguageTool /
           other browser extensions inject into <body> before React hydrates. */}

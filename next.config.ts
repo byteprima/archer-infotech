@@ -119,6 +119,36 @@ const nextConfig: NextConfig = {
       permanent: true,
     }));
   },
+  /**
+   * Long-cache static assets. Next.js already sends the right Cache-Control
+   * for /_next/static/* but PSI flagged ~153KiB savings from longer TTLs on
+   * /images/* (logos, OG images, course thumbnails). These files are
+   * content-hashed via Next.js or otherwise immutable in our deployment,
+   * so 1-year cache + immutable is safe — we redeploy a fresh URL when
+   * an image changes.
+   */
+  async headers() {
+    return [
+      {
+        source: "/images/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      {
+        source: "/_next/static/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;

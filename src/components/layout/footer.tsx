@@ -164,7 +164,7 @@ export function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-lg font-semibold mb-4 text-white">Quick Links</h4>
+            <h2 className="text-lg font-semibold mb-4 text-white">Quick Links</h2>
             <ul className="space-y-2">
               {siteConfig.navigation.main.map((item) => (
                 <li key={item.name}>
@@ -181,7 +181,7 @@ export function Footer() {
 
           {/* Courses */}
           <div>
-            <h4 className="text-lg font-semibold mb-4 text-white">Course Categories</h4>
+            <h2 className="text-lg font-semibold mb-4 text-white">Course Categories</h2>
             <ul className="space-y-2">
               {categories.map((category) => {
                 const IconComponent = categoryIcons[category.icon];
@@ -202,7 +202,7 @@ export function Footer() {
 
           {/* Contact Info */}
           <div>
-            <h4 className="text-lg font-semibold mb-4 text-white">Contact Us</h4>
+            <h2 className="text-lg font-semibold mb-4 text-white">Contact Us</h2>
             <ul className="space-y-3">
               <li className="flex items-start gap-3">
                 <MapPin className="h-5 w-5 text-secondary shrink-0 mt-0.5" />
