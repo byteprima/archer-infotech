@@ -22,13 +22,22 @@ const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://archerinfotech.in";
  * resources on a small site.
  */
 export default function robots(): MetadataRoute.Robots {
+  /* Each AI-allowlist group MUST repeat /admin/ + /api/ disallows.
+   * Per RFC 9309 + Google's robots.txt spec, when a UA has its own group
+   * the wildcard `*` group's rules don't apply to it. Without these
+   * explicit Disallows, Perplexity/ChatGPT bots would waste crawl budget
+   * on /admin/login (auth-walled but still served) and /api/ endpoints.
+   * Allow: "/" is implicit (default), so omitting it is cleaner.
+   */
+  const protectedPaths = ["/admin/", "/api/"];
+
   return {
     rules: [
-      // Live-retrieval AI agents — explicitly welcome
-      { userAgent: "PerplexityBot", allow: "/" },
-      { userAgent: "Perplexity-User", allow: "/" },
-      { userAgent: "ChatGPT-User", allow: "/" },
-      { userAgent: "OAI-SearchBot", allow: "/" },
+      // Live-retrieval AI agents — explicitly welcome on public routes
+      { userAgent: "PerplexityBot", disallow: protectedPaths },
+      { userAgent: "Perplexity-User", disallow: protectedPaths },
+      { userAgent: "ChatGPT-User", disallow: protectedPaths },
+      { userAgent: "OAI-SearchBot", disallow: protectedPaths },
       // Known scraper-spam crawlers — block to save bandwidth
       { userAgent: "AhrefsBot", disallow: "/" },
       { userAgent: "SemrushBot", disallow: "/" },
@@ -38,7 +47,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/admin/", "/api/"],
+        disallow: protectedPaths,
       },
     ],
     sitemap: `${baseUrl}/sitemap.xml`,
