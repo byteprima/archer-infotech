@@ -4,7 +4,7 @@ import "./globals.css";
 import { GoogleAnalyticsLazy } from "@/components/analytics/google-analytics-lazy";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
-import { WhatsAppButton } from "@/components/common/whatsapp-button";
+import { WhatsAppButtonLazy } from "@/components/common/whatsapp-button-lazy";
 import { Toaster } from "@/components/ui/sonner";
 import { OrganizationJsonLd } from "@/components/seo/json-ld";
 import { siteConfig } from "@/data/site-config";
@@ -67,6 +67,24 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
       <head>
+        {/* Preconnect to third-party origins the page contacts during /
+            shortly after load. Establishing the DNS + TCP + TLS handshake
+            earlier saves 100-300ms per origin on mobile-4G — PSI's
+            network dependency tree currently shows zero preconnects.
+            Limit to four origins (Chrome ignores additional preconnects
+            beyond ~6, and each one consumes a connection slot).
+              - Google Tag Manager: gtag.js loader (lazy-mounted via
+                GoogleAnalyticsLazy, but the handshake can warm up early)
+              - Google Analytics: gtag config endpoint
+              - fonts.gstatic.com: served by next/font, but the runtime
+                still fetches the WOFF2 from there during paint
+              - static.cloudflareinsights.com: beacon.min.js
+            crossOrigin is required for fonts (anonymous CORS request);
+            for analytics it's harmless and matches the actual fetch. */}
+        <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://www.google-analytics.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://static.cloudflareinsights.com" />
         <OrganizationJsonLd />
       </head>
       {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
@@ -78,7 +96,7 @@ export default function RootLayout({
         <Header />
         <main className="flex-grow">{children}</main>
         <Footer />
-        <WhatsAppButton />
+        <WhatsAppButtonLazy />
         <Toaster />
       </body>
     </html>

@@ -109,6 +109,30 @@ const legacyWpRedirects = [
 ];
 
 const nextConfig: NextConfig = {
+  /**
+   * P-7 perf: tree-shake barrel exports from large dependencies.
+   *
+   * Without this flag, an `import { ChevronLeft } from "lucide-react"` pulls
+   * the full barrel module graph during bundling — PSI flagged 82.5 KiB of
+   * unused 1st-party JS, much of it dead lucide-react icons and unused
+   * @base-ui primitives that hitch a ride with their barrel siblings.
+   *
+   * Next.js rewrites these imports to direct subpath imports at build time,
+   * which lets the bundler eliminate genuinely-unused exports. Universal
+   * speed win — no behavioural change on any device.
+   *
+   * Verified safe for our deps:
+   *   - lucide-react: official upstream support (Next 13+)
+   *   - @base-ui/react: subpath exports already used in our shadcn primitives
+   *   - posthog-js: tree-shakable; helps drop dead capture/replay code paths
+   */
+  experimental: {
+    optimizePackageImports: [
+      "lucide-react",
+      "@base-ui/react",
+      "posthog-js",
+    ],
+  },
   images: {
     remotePatterns: [
       {
