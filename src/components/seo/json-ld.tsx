@@ -370,13 +370,14 @@ export function ReviewListJsonLd({ reviews }: { reviews: ReviewSchemaInput[] }) 
         bestRating: 5,
         worstRating: 1,
       },
-      // The thing being reviewed: prefer the specific course if known,
-      // otherwise the institute itself. Google validates either.
+      // The thing being reviewed: prefer the specific course label if known,
+      // otherwise the institute itself. Uses Thing (not Course) so Google
+      // doesn't validate against the full Course rich-result spec — the
+      // canonical Course schema lives on /courses/[category]/[slug] pages.
       itemReviewed: r.course
         ? {
-            "@type": "Course",
+            "@type": "Thing",
             name: r.course,
-            provider: { "@id": orgId },
           }
         : { "@id": orgId },
       // Publisher = the institute hosting the testimonial.
