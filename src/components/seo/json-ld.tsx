@@ -1,4 +1,5 @@
 import { siteConfig } from "@/data/site-config";
+import type { Batch } from "@/db/schema";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://archerinfotech.in";
 
@@ -332,6 +333,77 @@ export function NeighbourhoodJsonLd({
       type="application/ld+json"
       dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
     />
+  );
+}
+
+// EducationEvent schema for scheduled training batches (P8-25 + P3-20).
+//
+// Emits one EducationEvent per batch on /batch-schedule so Google (Event
+// rich results) and AI engines can surface "next Java batch in Pune" style
+// answers. Caller must pass only future, non-cancelled batches — use
+// `filterUpcomingBatches` from public-batches. Never mark up past events.
+export function BatchEventsJsonLd({ batches }: { batches: Batch[] }) {
+  if (batches.length === 0) return null;
+
+  const events = batches.map((b) => {
+    const isOnline = b.mode === "online";
+    return {
+      "@context": "https://schema.org",
+      "@type": "EducationEvent",
+      name: `${b.courseName} — ${isOnline ? "Live Online" : "Classroom"} Batch, Pune`,
+      description: `${b.courseName} training batch at Archer Infotech, Pune. ${b.duration}, ${b.timing}. ${isOnline ? "Live instructor-led online sessions." : "Classroom training at our Kothrud centre."} Includes placement assistance.`,
+      startDate: new Date(b.startDate).toISOString(),
+      eventAttendanceMode: isOnline
+        ? "https://schema.org/OnlineEventAttendanceMode"
+        : "https://schema.org/OfflineEventAttendanceMode",
+      eventStatus: "https://schema.org/EventScheduled",
+      location: isOnline
+        ? {
+            "@type": "VirtualLocation",
+            url: b.meetingLink || baseUrl,
+          }
+        : {
+            "@type": "Place",
+            name: siteConfig.name,
+            address: POSTAL_ADDRESS,
+          },
+      organizer: {
+        "@type": "EducationalOrganization",
+        "@id": baseUrl,
+        name: siteConfig.name,
+        url: baseUrl,
+      },
+      about: {
+        "@type": "Course",
+        name: b.courseName,
+        provider: {
+          "@type": "EducationalOrganization",
+          "@id": baseUrl,
+          name: siteConfig.name,
+        },
+      },
+      offers: {
+        "@type": "Offer",
+        url: `${baseUrl}/contact`,
+        category: "Paid",
+        availability:
+          b.seatsAvailable > 0
+            ? "https://schema.org/InStock"
+            : "https://schema.org/SoldOut",
+      },
+    };
+  });
+
+  return (
+    <>
+      {events.map((event, i) => (
+        <script
+          key={i}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(event) }}
+        />
+      ))}
+    </>
   );
 }
 

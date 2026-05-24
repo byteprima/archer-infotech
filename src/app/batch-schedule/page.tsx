@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import Link from "next/link";
 import { Calendar, Clock, Users, MapPin, Monitor, Phone } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -15,6 +14,8 @@ import { eq, asc } from "drizzle-orm";
 export const dynamic = "force-dynamic";
 
 import { buildPageMetadata } from "@/lib/seo";
+import { BatchEventsJsonLd } from "@/components/seo/json-ld";
+import { filterUpcomingBatches } from "@/lib/actions/public-batches";
 import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { FaqSection } from "@/components/seo/faq-section";
 import { batchScheduleFaqs } from "@/data/faqs";
@@ -92,6 +93,12 @@ export default async function BatchSchedulePage() {
       <PageEvent
         event="batch_schedule_page_viewed"
         properties={{ page_type: "batch_schedule", page_path: "/batch-schedule" }}
+      />
+
+      {/* EducationEvent schema for every upcoming batch — Event rich results
+          + AI "next batch in Pune" answers. P8-25 + P3-20. */}
+      <BatchEventsJsonLd
+        batches={filterUpcomingBatches([...offlineBatches, ...onlineBatches])}
       />
 
       {/* Hero Section */}

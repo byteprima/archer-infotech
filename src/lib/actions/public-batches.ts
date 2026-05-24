@@ -12,6 +12,22 @@ import { batches, type Batch } from "@/db/schema";
  *
  * Server-only: uses the Drizzle DB connection. Safe to call from Server Components.
  */
+/**
+ * Filter a list of batch rows down to future, still-running ones — used to
+ * decide which batches get EducationEvent schema (never mark up past or
+ * cancelled events). Pure data helper (not a component), so reading the
+ * current time here is safe.
+ */
+export function filterUpcomingBatches(rows: Batch[]): Batch[] {
+  const now = new Date();
+  return rows.filter(
+    (b) =>
+      b.status !== "cancelled" &&
+      b.status !== "completed" &&
+      new Date(b.startDate) >= now,
+  );
+}
+
 export async function getNextBatchForCourse(courseSlug: string): Promise<Batch | null> {
   const now = new Date();
   const fallbackSlug = courseSlug.replace(/-training-in-pune$/, "");

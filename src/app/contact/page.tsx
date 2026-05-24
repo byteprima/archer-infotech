@@ -84,15 +84,33 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h4 className="font-medium mb-1">Address</h4>
-                      <p className="text-sm text-muted-foreground">
-                        {siteConfig.contact.address.line1}
+                      {/* Semantic <address> + PostalAddress microdata —
+                          belt-and-braces backup to the LocalBusiness JSON-LD
+                          so crawlers that don't execute JSON-LD still read a
+                          machine-parsable NAP. P3-19. */}
+                      <address
+                        className="text-sm text-muted-foreground not-italic"
+                        itemScope
+                        itemType="https://schema.org/PostalAddress"
+                      >
+                        <span itemProp="streetAddress">
+                          {siteConfig.contact.address.line1},{" "}
+                          {siteConfig.contact.address.line2}
+                        </span>
                         <br />
-                        {siteConfig.contact.address.line2}
-                        <br />
-                        {siteConfig.contact.address.city},{" "}
-                        {siteConfig.contact.address.state} -{" "}
-                        {siteConfig.contact.address.pincode}
-                      </p>
+                        <span itemProp="addressLocality">
+                          {siteConfig.contact.address.city}
+                        </span>
+                        ,{" "}
+                        <span itemProp="addressRegion">
+                          {siteConfig.contact.address.state}
+                        </span>{" "}
+                        -{" "}
+                        <span itemProp="postalCode">
+                          {siteConfig.contact.address.pincode}
+                        </span>
+                        <meta itemProp="addressCountry" content="IN" />
+                      </address>
                     </div>
                   </div>
 
