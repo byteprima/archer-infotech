@@ -198,6 +198,14 @@ export function Footer() {
                   Press &amp; Media
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/tools/pune-it-salary-calculator"
+                  className="text-primary-foreground/80 hover:text-secondary transition-colors text-sm"
+                >
+                  Pune IT Salary Calculator
+                </Link>
+              </li>
             </ul>
           </div>
 
