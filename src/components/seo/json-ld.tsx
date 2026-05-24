@@ -370,14 +370,24 @@ export function ReviewListJsonLd({ reviews }: { reviews: ReviewSchemaInput[] }) 
         bestRating: 5,
         worstRating: 1,
       },
-      // The thing being reviewed: prefer the specific course label if known,
-      // otherwise the institute itself. Uses Thing (not Course) so Google
-      // doesn't validate against the full Course rich-result spec — the
-      // canonical Course schema lives on /courses/[category]/[slug] pages.
+      // The thing being reviewed. When a course is known, emit a complete
+      // Course: Google's review-snippet spec only accepts itemReviewed from a
+      // fixed list of supported types — `Thing` is rejected ("Invalid object
+      // type"), and a Course without `description`/`provider` is rejected
+      // ("Missing field description"). A full Course satisfies both, and
+      // course reviews on our own site aren't "self-serving" the way an
+      // Organization/LocalBusiness self-review would be. Falls back to the
+      // institute @id only when no course is recorded.
       itemReviewed: r.course
         ? {
-            "@type": "Thing",
+            "@type": "Course",
             name: r.course,
+            description: `${r.course} training at ${siteConfig.name}, a Pune IT training institute.`,
+            provider: {
+              "@type": "EducationalOrganization",
+              name: siteConfig.name,
+              sameAs: baseUrl,
+            },
           }
         : { "@id": orgId },
       // Publisher = the institute hosting the testimonial.
