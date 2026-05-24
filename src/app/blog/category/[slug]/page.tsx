@@ -1,110 +1,101 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import { FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BlogCard } from "@/components/blog/blog-card";
 import { BlogSidebar } from "@/components/blog/blog-sidebar";
 import { BlogListingJsonLd, BlogBreadcrumbJsonLd } from "@/components/blog/blog-json-ld";
 import { getPublishedPosts, getCategories, getRecentPosts } from "@/lib/actions/blog";
-import { siteConfig } from "@/data/site-config";
 import { buildPageMetadata } from "@/lib/seo";
-import { categoryPath } from "@/lib/blog/category-slug";
+import { siteConfig } from "@/data/site-config";
+import {
+  categoryToSlug,
+  categoryPath,
+  resolveCategorySlug,
+} from "@/lib/blog/category-slug";
 
-export const metadata: Metadata = buildPageMetadata({
-  title: "Blog",
-  description: `Read the latest articles, tutorials and insights from ${siteConfig.name}. Stay updated on IT trends, programming tips, career advice, and Pune training news.`,
-  path: "/blog",
-});
-
-interface BlogPageProps {
-  searchParams: Promise<{ category?: string; tag?: string; page?: string }>;
+interface CategoryPageProps {
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<{ page?: string }>;
 }
 
-export default async function BlogPage({ searchParams }: BlogPageProps) {
-  const params = await searchParams;
-  const category = params.category;
-  const tag = params.tag;
-  const page = parseInt(params.page || "1", 10);
+export async function generateStaticParams() {
+  const categories = await getCategories();
+  return categories.map((name) => ({ slug: categoryToSlug(name) }));
+}
 
-  // P5-06: category filtering now lives at the clean path
-  // /blog/category/<slug>. Redirect the legacy ?category= query so link
-  // equity and crawl signals consolidate on the canonical URL. Tag
-  // filtering stays as a query view on /blog (lower priority).
-  if (category) {
-    const tail = page > 1 ? `?page=${page}` : "";
-    redirect(`${categoryPath(category)}${tail}`);
-  }
+export async function generateMetadata({
+  params,
+}: CategoryPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const categories = await getCategories();
+  const category = resolveCategorySlug(slug, categories);
+  if (!category) return { title: "Category Not Found" };
 
-  // Preserve active filters across pagination links
-  const filterQS = [
-    category ? `category=${encodeURIComponent(category)}` : null,
-    tag ? `tag=${encodeURIComponent(tag)}` : null,
-  ]
-    .filter(Boolean)
-    .join("&");
-  const filterTail = filterQS ? `&${filterQS}` : "";
+  return buildPageMetadata({
+    title: `${category} Articles & Tutorials`,
+    description: `Browse ${category} articles, tutorials and career insights from ${siteConfig.name}'s expert trainers. IT training and tech career guidance from Pune.`,
+    path: categoryPath(category),
+  });
+}
 
-  const [{ posts, totalPages }, categories, recentPosts] = await Promise.all([
-    getPublishedPosts({ page, limit: 9, category, tag }),
-    getCategories(),
+export default async function BlogCategoryPage({
+  params,
+  searchParams,
+}: CategoryPageProps) {
+  const { slug } = await params;
+  const { page: pageParam } = await searchParams;
+  const page = parseInt(pageParam || "1", 10);
+
+  const categories = await getCategories();
+  const category = resolveCategorySlug(slug, categories);
+  if (!category) notFound();
+
+  const [{ posts, totalPages }, recentPosts] = await Promise.all([
+    getPublishedPosts({ page, limit: 9, category }),
     getRecentPosts(5),
   ]);
 
+  const basePath = categoryPath(category);
+
   return (
     <>
-      {/* JSON-LD Structured Data */}
       <BlogListingJsonLd posts={posts} />
       <BlogBreadcrumbJsonLd
         items={[
           { name: "Home", url: "/" },
           { name: "Blog", url: "/blog" },
+          { name: category, url: basePath },
         ]}
       />
 
-      {/* Hero Section */}
+      {/* Hero */}
       <section className="gradient-hero text-white py-12 md:py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl">
+            <p className="text-sm text-white/70 mb-2">
+              <Link href="/blog" className="hover:text-white underline-offset-2 hover:underline">
+                Blog
+              </Link>{" "}
+              / {category}
+            </p>
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-              Blog
+              {category}
             </h1>
             <p className="text-lg text-white/80">
-              Stay updated with the latest in technology, programming tutorials,
-              career tips, and insights from our expert trainers.
+              Articles, tutorials and career insights on {category.toLowerCase()}{" "}
+              from {siteConfig.name}&apos;s expert trainers.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Main Content */}
+      {/* Main content */}
       <section className="py-12">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-4 gap-8">
-            {/* Posts Grid */}
             <div className="lg:col-span-3">
-              {/* Active filter chip (category or tag) */}
-              {(category || tag) && (
-                <div className="mb-6 flex items-center gap-2 flex-wrap">
-                  <span className="text-muted-foreground">Filtered by:</span>
-                  {category && (
-                    <span className="bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-medium">
-                      {category}
-                    </span>
-                  )}
-                  {tag && (
-                    <span className="bg-secondary text-secondary-foreground px-3 py-1 rounded-full text-sm font-medium">
-                      #{tag}
-                    </span>
-                  )}
-                  <Link href="/blog">
-                    <Button variant="ghost" size="sm">
-                      Clear
-                    </Button>
-                  </Link>
-                </div>
-              )}
-
               {posts.length === 0 ? (
                 <div className="text-center py-16">
                   <div className="w-20 h-20 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
@@ -112,21 +103,14 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
                   </div>
                   <h2 className="text-xl font-semibold mb-2">No Posts Found</h2>
                   <p className="text-muted-foreground max-w-md mx-auto mb-6">
-                    {tag
-                      ? `There are no posts tagged "${tag}" yet.`
-                      : category
-                        ? `There are no posts in the "${category}" category yet.`
-                        : "We haven't published any blog posts yet. Check back soon!"}
+                    There are no posts in the &ldquo;{category}&rdquo; category yet.
                   </p>
-                  {(category || tag) && (
-                    <Link href="/blog">
-                      <Button>View All Posts</Button>
-                    </Link>
-                  )}
+                  <Link href="/blog">
+                    <Button>View All Posts</Button>
+                  </Link>
                 </div>
               ) : (
                 <>
-                  {/* Posts Grid */}
                   <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
                     {posts.map((post) => (
                       <BlogCard
@@ -143,16 +127,16 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
                     ))}
                   </div>
 
-                  {/* Pagination */}
+                  {/* Pagination — clean category paths */}
                   {totalPages > 1 && (
                     <div className="flex items-center justify-center gap-2 mt-12 flex-wrap">
                       {page > 1 && (
-                        <Link href={`/blog?page=${page - 1}${filterTail}`}>
+                        <Link href={page - 1 === 1 ? basePath : `${basePath}?page=${page - 1}`}>
                           <Button variant="outline" size="sm">&larr; Previous</Button>
                         </Link>
                       )}
                       {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
-                        <Link key={p} href={`/blog?page=${p}${filterTail}`}>
+                        <Link key={p} href={p === 1 ? basePath : `${basePath}?page=${p}`}>
                           <Button
                             variant={p === page ? "default" : "outline"}
                             size="sm"
@@ -163,7 +147,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
                         </Link>
                       ))}
                       {page < totalPages && (
-                        <Link href={`/blog?page=${page + 1}${filterTail}`}>
+                        <Link href={`${basePath}?page=${page + 1}`}>
                           <Button variant="outline" size="sm">Next &rarr;</Button>
                         </Link>
                       )}
@@ -173,7 +157,6 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
               )}
             </div>
 
-            {/* Sidebar */}
             <div className="lg:col-span-1">
               <BlogSidebar
                 categories={categories}

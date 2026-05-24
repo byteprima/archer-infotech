@@ -20,6 +20,7 @@ import {
 import { getRelatedBlogPosts } from "@/lib/actions/blog";
 import { TrainerByline } from "@/components/blog/trainer-byline";
 import { resolveBlogAuthor } from "@/lib/seo/blog-author";
+import { categoryPath } from "@/lib/blog/category-slug";
 import { ReadingTime } from "@/components/blog/reading-time";
 import {
   shouldEmitHowTo,
@@ -234,7 +235,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               ...(post.category
                 ? [{
                     name: post.category,
-                    href: `/blog?category=${encodeURIComponent(post.category)}`,
+                    href: categoryPath(post.category),
                   }]
                 : []),
               { name: post.title },

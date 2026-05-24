@@ -3,7 +3,8 @@ import { courses, categories } from "@/data/courses";
 import { bootcamps } from "@/data/bootcamps";
 import { teamMembers } from "@/data/team";
 import { neighbourhoods } from "@/data/locations";
-import { getAllPublishedSlugs } from "@/lib/actions/blog";
+import { getAllPublishedSlugs, getCategories } from "@/lib/actions/blog";
+import { categoryToSlug } from "@/lib/blog/category-slug";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://archerinfotech.in";
 
@@ -97,6 +98,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.log("Could not fetch blog slugs for sitemap:", error);
   }
 
+  // Blog category pages — clean paths (P5-06)
+  let blogCategoryPages: MetadataRoute.Sitemap = [];
+  try {
+    const categories = await getCategories();
+    blogCategoryPages = categories.map((name) => ({
+      url: `${baseUrl}/blog/category/${categoryToSlug(name)}`,
+      lastModified: new Date(),
+      changeFrequency: "weekly" as const,
+      priority: 0.6,
+    }));
+  } catch (error) {
+    console.log("Could not fetch blog categories for sitemap:", error);
+  }
+
   // Bootcamp pages
   const bootcampListingPage: MetadataRoute.Sitemap = [
     {
@@ -159,5 +174,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...locationListingPage,
     ...locationPages,
     ...blogPages,
+    ...blogCategoryPages,
   ];
 }

@@ -4,6 +4,7 @@ import { Tag, TrendingUp, Calendar } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { TrackedLink } from "@/components/analytics/tracked-link";
+import { categoryPath } from "@/lib/blog/category-slug";
 
 interface RecentPost {
   id: number;
@@ -46,7 +47,7 @@ export function BlogSidebar({
                 </Badge>
               </Link>
               {categories.map((category) => (
-                <Link key={category} href={`/blog?category=${encodeURIComponent(category)}`}>
+                <Link key={category} href={categoryPath(category)}>
                   <Badge
                     variant={currentCategory === category ? "default" : "outline"}
                     className="cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors"
