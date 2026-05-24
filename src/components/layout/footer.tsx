@@ -180,6 +180,16 @@ export function Footer() {
                   </Link>
                 </li>
               ))}
+              {/* Site-wide entry point into the neighbourhood location pages
+                  (P4-15) so they're internally linked and crawlable. */}
+              <li>
+                <Link
+                  href="/locations"
+                  className="text-primary-foreground/80 hover:text-secondary transition-colors text-sm"
+                >
+                  Locations in Pune
+                </Link>
+              </li>
             </ul>
           </div>
 

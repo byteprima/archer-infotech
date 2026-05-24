@@ -2,6 +2,7 @@ import { MetadataRoute } from "next";
 import { courses, categories } from "@/data/courses";
 import { bootcamps } from "@/data/bootcamps";
 import { teamMembers } from "@/data/team";
+import { neighbourhoods } from "@/data/locations";
 import { getAllPublishedSlugs } from "@/lib/actions/blog";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://archerinfotech.in";
@@ -130,6 +131,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }));
 
+  // Neighbourhood location pages (P4-15) + the /locations hub.
+  const locationListingPage: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/locations`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+  ];
+
+  const locationPages: MetadataRoute.Sitemap = neighbourhoods.map((area) => ({
+    url: `${baseUrl}/locations/${area.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }));
+
   return [
     ...staticPages,
     ...categoryPages,
@@ -138,6 +156,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...bootcampPages,
     ...trainerListingPage,
     ...trainerPages,
+    ...locationListingPage,
+    ...locationPages,
     ...blogPages,
   ];
 }

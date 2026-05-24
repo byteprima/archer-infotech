@@ -36,6 +36,33 @@ const SAME_AS = [
   siteConfig.googleMaps.url,
 ].filter(Boolean);
 
+// Service-area signal. Archer's centre is in Kothrud, but students commute
+// from across west/central Pune and the PCMC belt. Enumerating the priority
+// catchment neighbourhoods as `areaServed` Places tells Google/AI engines the
+// business serves these locations — the page-independent half of P4-19. When
+// the dedicated /locations/* neighbourhood pages ship (P4-15), each one adds
+// its own WebPage > about(Place) + LocalBusiness areaServed schema on top.
+const AREA_SERVED = [
+  "Kothrud",
+  "Karve Nagar",
+  "Erandwane",
+  "Warje",
+  "Bavdhan",
+  "Aundh",
+  "Baner",
+  "Hinjewadi",
+  "Wakad",
+  "Pimpri-Chinchwad",
+  "Deccan",
+  "Karve Road",
+].map((name) => ({ "@type": "Place" as const, name: `${name}, Pune` }));
+
+// City-level + neighbourhood-level service area, broadest first.
+const AREA_SERVED_FULL = [
+  { "@type": "City" as const, name: "Pune" },
+  ...AREA_SERVED,
+];
+
 // Combined EducationalOrganization + LocalBusiness — single source of truth, used site-wide.
 export function OrganizationJsonLd() {
   const schema = {
@@ -55,7 +82,7 @@ export function OrganizationJsonLd() {
     telephone: siteConfig.contact.phone,
     email: siteConfig.contact.email,
     sameAs: SAME_AS,
-    areaServed: { "@type": "City", name: "Pune" },
+    areaServed: AREA_SERVED_FULL,
     priceRange: "₹₹",
     openingHoursSpecification: OPENING_HOURS,
     knowsAbout: [
@@ -89,6 +116,7 @@ export function LocalBusinessJsonLd() {
     hasMap: siteConfig.googleMaps.url,
     openingHoursSpecification: OPENING_HOURS,
     priceRange: "₹₹",
+    areaServed: AREA_SERVED_FULL,
     // Entity-graph linkage so Google can match this LocalBusiness to the
     // social profiles + GBP record indexed elsewhere. P2-33.
     sameAs: SAME_AS,
@@ -234,6 +262,69 @@ export function BreadcrumbJsonLd({ items }: BreadcrumbJsonLdProps) {
       name: item.name,
       item: `${baseUrl}${item.url}`,
     })),
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
+
+// Neighbourhood location-page schema (P4-19).
+//
+// Signals to Google/AI engines that Archer serves a specific Pune
+// neighbourhood: a WebPage whose `about` is the Place, with `mainEntity`
+// pointing at the org @id and an `areaServed` Place scoped to this
+// neighbourhood. Pairs with the site-wide AREA_SERVED_FULL on the org schema.
+interface NeighbourhoodJsonLdProps {
+  /** Display name, e.g. "Hinjewadi". */
+  name: string;
+  /** Postal area name, e.g. "Hinjewadi, Pune". */
+  fullName: string;
+  /** Representative PIN code for the area. */
+  pincode: string;
+  /** URL slug under /locations/. */
+  slug: string;
+  /** Page title used as the WebPage name. */
+  pageName: string;
+}
+
+export function NeighbourhoodJsonLd({
+  name,
+  fullName,
+  pincode,
+  slug,
+  pageName,
+}: NeighbourhoodJsonLdProps) {
+  const place = {
+    "@type": "Place",
+    name: fullName,
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: name,
+      addressRegion: "Maharashtra",
+      postalCode: pincode,
+      addressCountry: "IN",
+    },
+  };
+
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: pageName,
+    url: `${baseUrl}/locations/${slug}`,
+    about: place,
+    mainEntity: {
+      "@type": ["EducationalOrganization", "LocalBusiness"],
+      "@id": baseUrl,
+      name: siteConfig.name,
+      url: baseUrl,
+      address: POSTAL_ADDRESS,
+      telephone: siteConfig.contact.phone,
+      areaServed: { "@type": "Place", name: fullName },
+    },
   };
 
   return (
