@@ -34,6 +34,7 @@ export async function generateMetadata({
     title: bootcamp.seo.title,
     description: bootcamp.seo.description,
     path: `/bootcamps/${slug}`,
+    lastModified: BOOTCAMP_LAST_REVIEWED,
   });
 }
 

@@ -7,6 +7,13 @@ interface PageMetadataOptions {
   path: string;
   ogImage?: string;
   noindex?: boolean;
+  /**
+   * ISO date (e.g. "2026-05-06") or Date of the content's last meaningful
+   * update. Emits a `last-modified` meta tag (UTC string) so real-time AI
+   * crawlers get an explicit freshness signal. P8-23. Only pass this where
+   * a truthful modified date exists — never fake freshness.
+   */
+  lastModified?: string | Date;
 }
 
 /**
@@ -25,9 +32,18 @@ export function buildPageMetadata({
   path,
   ogImage = siteConfig.ogImage,
   noindex = false,
+  lastModified,
 }: PageMetadataOptions): Metadata {
   const canonical = path === "/" ? "/" : path.replace(/\/$/, "");
   const fullUrl = `${siteConfig.url}${canonical}`;
+
+  // P8-23: a `last-modified` meta tag (UTC string) for real-time AI crawlers.
+  const lastModifiedUtc = lastModified
+    ? new Date(typeof lastModified === "string" && lastModified.length === 10
+        ? `${lastModified}T00:00:00Z`
+        : lastModified
+      ).toUTCString()
+    : undefined;
 
   // Strip any pre-existing " | Archer Info[space]Tech ..." suffix from the
   // input title — the root layout's title template (`%s | Archer Infotech`)
@@ -60,6 +76,9 @@ export function buildPageMetadata({
     },
     ...(noindex && {
       robots: { index: false, follow: false },
+    }),
+    ...(lastModifiedUtc && {
+      other: { "last-modified": lastModifiedUtc },
     }),
   };
 }

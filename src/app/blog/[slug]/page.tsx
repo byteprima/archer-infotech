@@ -103,6 +103,15 @@ export async function generateMetadata({
         images: [post.featuredImage],
       }),
     },
+    // P8-23: explicit freshness signal for real-time AI crawlers, using the
+    // post's true modified (or published) date — never faked.
+    ...((post.updatedAt || post.publishedAt) && {
+      other: {
+        "last-modified": new Date(
+          (post.updatedAt || post.publishedAt) as Date,
+        ).toUTCString(),
+      },
+    }),
   };
 }
 

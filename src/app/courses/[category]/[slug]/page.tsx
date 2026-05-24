@@ -68,6 +68,7 @@ export async function generateMetadata({
     title: `${course.title} Training in Pune with Placement`,
     description: course.description,
     path: `/courses/${categorySlug}/${slug}`,
+    lastModified: COURSE_LAST_REVIEWED,
   });
 }
 
