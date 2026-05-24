@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { legacyRedirectMap } from "@/lib/legacy-redirects";
 
 // Legacy WordPress query keys. Any URL bearing one of these is a WP-era artifact:
 // - p / page_id  → permalink shortcuts
@@ -20,6 +21,30 @@ export function middleware(request: NextRequest) {
 
   if (WP_GONE_PATHS.has(pathname)) {
     return new NextResponse(null, { status: 410 });
+  }
+
+  // Legacy URL redirects. Run here (before Next's built-in trailing-slash
+  // normalisation) so the trailing-slash variant Google indexed resolves in a
+  // single 308 instead of `/x/` → `/x` → destination. Look up both the raw and
+  // the slash-stripped path so `/x` and `/x/` both match the slash-less key.
+  const normalised =
+    pathname.length > 1 && pathname.endsWith("/")
+      ? pathname.slice(0, -1)
+      : pathname;
+  const legacyTarget =
+    legacyRedirectMap.get(pathname) ?? legacyRedirectMap.get(normalised);
+  if (legacyTarget) {
+    return NextResponse.redirect(new URL(legacyTarget, origin), 308);
+  }
+
+  // Trailing-slash normalisation. Next's built-in version is disabled
+  // (skipTrailingSlashRedirect) so legacy redirects above can run first; we
+  // replicate the default behaviour here for every other path: `/x/` → `/x`,
+  // preserving the query string. The root `/` is left untouched.
+  if (normalised !== pathname) {
+    const target = new URL(normalised, origin);
+    target.search = request.nextUrl.search;
+    return NextResponse.redirect(target, 308);
   }
 
   // /courses?category=X → /courses/X (legacy indexed URLs only — in-page filter
