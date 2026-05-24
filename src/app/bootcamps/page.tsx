@@ -17,6 +17,7 @@ import { TrackedLink } from "@/components/analytics/tracked-link";
 import { TrackedAnchor } from "@/components/analytics/tracked-anchor";
 import { BreadcrumbJsonLd } from "@/components/seo/json-ld";
 import { bootcamps } from "@/data/bootcamps";
+import { audiences } from "@/data/audiences";
 import { siteConfig } from "@/data/site-config";
 import { buildPageMetadata } from "@/lib/seo";
 import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
@@ -239,6 +240,39 @@ export default function BootcampsPage() {
       />
 
       {/* CTA */}
+      {/* Find your path — audience-intent landing pages (P4-17). Gives
+          these pages a crawlable internal-link entry point and helps
+          visitors self-select by their situation. */}
+      <section className="py-16 md:py-20 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-10">
+            <h2 className="text-2xl md:text-3xl font-bold mb-3">
+              Find your path
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Not sure which programme fits? Start from where you are — we&apos;ve
+              mapped the right track for each stage.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {audiences.map((a) => (
+              <Link
+                key={a.slug}
+                href={`/courses/for/${a.slug}`}
+                className="group rounded-lg border bg-background p-4 hover:border-primary hover:shadow-md transition-all"
+              >
+                <h3 className="font-semibold text-sm group-hover:text-primary transition-colors">
+                  {a.name}
+                </h3>
+                <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
+                  {a.tagline}
+                </p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="py-16 md:py-20">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-2xl md:text-3xl font-bold mb-4">

@@ -3,6 +3,7 @@ import { courses, categories } from "@/data/courses";
 import { bootcamps } from "@/data/bootcamps";
 import { teamMembers } from "@/data/team";
 import { neighbourhoods } from "@/data/locations";
+import { audiences } from "@/data/audiences";
 import { getAllPublishedSlugs, getCategories } from "@/lib/actions/blog";
 import { categoryToSlug } from "@/lib/blog/category-slug";
 
@@ -163,6 +164,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
+  // Audience-intent landing pages (P4-17).
+  const audiencePages: MetadataRoute.Sitemap = audiences.map((a) => ({
+    url: `${baseUrl}/courses/for/${a.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }));
+
   return [
     ...staticPages,
     ...categoryPages,
@@ -173,6 +182,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...trainerPages,
     ...locationListingPage,
     ...locationPages,
+    ...audiencePages,
     ...blogPages,
     ...blogCategoryPages,
   ];
