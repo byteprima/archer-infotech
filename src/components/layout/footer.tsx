@@ -190,6 +190,14 @@ export function Footer() {
                   Locations in Pune
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/press"
+                  className="text-primary-foreground/80 hover:text-secondary transition-colors text-sm"
+                >
+                  Press &amp; Media
+                </Link>
+              </li>
             </ul>
           </div>
 
