@@ -281,7 +281,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
             // Rich layout — fills the full container width to match
             // the Hero and Related Courses sections (no inner max-w).
             <>
-              <RichCourseContent rich={rich} />
+              <RichCourseContent rich={rich} courseName={course.shortTitle} />
               {/* FAQ from rich content — server-rendered, AI-citable */}
               {effectiveFaqs.length > 0 && (
                 <section className="mt-12 space-y-4">

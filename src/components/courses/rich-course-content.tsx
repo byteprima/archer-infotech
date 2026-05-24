@@ -20,6 +20,12 @@ import type { CourseRichContent } from "@/data/course-content/types";
 
 interface RichCourseContentProps {
   rich: CourseRichContent;
+  /**
+   * Short course name (e.g. "Java", "AWS", "MERN Stack") used to keep the
+   * keyword-bearing H3s in sync with the actual course. Without this the
+   * "companies hiring …" H3 would read "Java" on every page (P4-05).
+   */
+  courseName: string;
 }
 
 /**
@@ -30,7 +36,7 @@ interface RichCourseContentProps {
  * initial server-rendered HTML, no JS-hydrated tabs or accordions hide
  * content from Googlebot or AI search crawlers.
  */
-export function RichCourseContent({ rich }: RichCourseContentProps) {
+export function RichCourseContent({ rich, courseName }: RichCourseContentProps) {
   return (
     <div className="space-y-12">
       {/* Section 1 — Intro paragraph (lives directly under the H1 in the hero) */}
@@ -220,7 +226,9 @@ export function RichCourseContent({ rich }: RichCourseContentProps) {
 
         <div className="grid md:grid-cols-2 gap-6 pt-4">
           <div>
-            <h3 className="font-semibold mb-3">Pune companies hiring Java in 2026</h3>
+            <h3 className="font-semibold mb-3">
+              Pune companies hiring {courseName} professionals in 2026
+            </h3>
             <div className="flex flex-wrap gap-2">
               {rich.careerOutcomes.hiringCompanies.map((company) => (
                 <Badge key={company} variant="outline">
@@ -230,7 +238,7 @@ export function RichCourseContent({ rich }: RichCourseContentProps) {
             </div>
           </div>
           <div>
-            <h3 className="font-semibold mb-3">Roles after this course</h3>
+            <h3 className="font-semibold mb-3">Roles after this {courseName} course</h3>
             <div className="flex flex-wrap gap-2">
               {rich.careerOutcomes.rolesAfterCourse.map((role) => (
                 <Badge key={role} variant="secondary">
