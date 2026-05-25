@@ -214,6 +214,14 @@ export function Footer() {
                   Pune IT Career Roadmap
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/compare"
+                  className="text-primary-foreground/80 hover:text-secondary transition-colors text-sm"
+                >
+                  Compare Courses
+                </Link>
+              </li>
             </ul>
           </div>
 

@@ -4,6 +4,7 @@ import { bootcamps } from "@/data/bootcamps";
 import { teamMembers } from "@/data/team";
 import { neighbourhoods } from "@/data/locations";
 import { audiences } from "@/data/audiences";
+import { comparisons } from "@/data/comparisons";
 import { getAllPublishedSlugs, getCategories } from "@/lib/actions/blog";
 import { categoryToSlug } from "@/lib/blog/category-slug";
 
@@ -190,6 +191,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
+  // Comparison pages (P8-10) + the /compare hub.
+  const compareListingPage: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/compare`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
+  ];
+  const comparePages: MetadataRoute.Sitemap = comparisons.map((c) => ({
+    url: `${baseUrl}/compare/${c.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }));
+
   return [
     ...staticPages,
     ...categoryPages,
@@ -201,6 +218,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...locationListingPage,
     ...locationPages,
     ...audiencePages,
+    ...compareListingPage,
+    ...comparePages,
     ...blogPages,
     ...blogCategoryPages,
   ];
