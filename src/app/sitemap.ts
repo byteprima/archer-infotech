@@ -11,6 +11,12 @@ import { categoryToSlug } from "@/lib/blog/category-slug";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://archerinfotech.in";
 
+// Render at request time, not build time. The production image is built
+// without DATABASE_URL, so building this statically drops every DB-backed URL
+// (blog posts + blog categories) from the sitemap. Generating on demand lets
+// the DB-backed sections populate from the live database.
+export const dynamic = "force-dynamic";
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Static pages
   const staticPages: MetadataRoute.Sitemap = [

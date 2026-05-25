@@ -9,21 +9,19 @@ import { BlogListingJsonLd, BlogBreadcrumbJsonLd } from "@/components/blog/blog-
 import { getPublishedPosts, getCategories, getRecentPosts } from "@/lib/actions/blog";
 import { buildPageMetadata } from "@/lib/seo";
 import { siteConfig } from "@/data/site-config";
-import {
-  categoryToSlug,
-  categoryPath,
-  resolveCategorySlug,
-} from "@/lib/blog/category-slug";
+import { categoryPath, resolveCategorySlug } from "@/lib/blog/category-slug";
 
 interface CategoryPageProps {
   params: Promise<{ slug: string }>;
   searchParams: Promise<{ page?: string }>;
 }
 
-export async function generateStaticParams() {
-  const categories = await getCategories();
-  return categories.map((name) => ({ slug: categoryToSlug(name) }));
-}
+// Categories come from the database. The production image is built without
+// DATABASE_URL, so a static (generateStaticParams) route can't enumerate real
+// categories at build time and trips DYNAMIC_SERVER_USAGE on first request.
+// Render on demand at request time — same model as /blog — where the DB is
+// reachable. P5-06 follow-up.
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,
