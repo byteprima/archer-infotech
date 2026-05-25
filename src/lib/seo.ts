@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { siteConfig } from "@/data/site-config";
+import { buildHreflangAlternates } from "@/lib/seo/hreflang";
 
 interface PageMetadataOptions {
   title: string;
@@ -37,6 +38,11 @@ export function buildPageMetadata({
   const canonical = path === "/" ? "/" : path.replace(/\/$/, "");
   const fullUrl = `${siteConfig.url}${canonical}`;
 
+  // hreflang scaffolding (P3-23): dormant while English-only — returns
+  // undefined today, emits a full reciprocal set once mr/hi are added to
+  // LOCALES in lib/seo/hreflang.ts. No-op for current output.
+  const languages = buildHreflangAlternates(canonical);
+
   // P8-23: a `last-modified` meta tag (UTC string) for real-time AI crawlers.
   const lastModifiedUtc = lastModified
     ? new Date(typeof lastModified === "string" && lastModified.length === 10
@@ -58,7 +64,7 @@ export function buildPageMetadata({
   return {
     title: cleanTitle, // root template adds " | Archer Infotech"
     description,
-    alternates: { canonical },
+    alternates: { canonical, ...(languages && { languages }) },
     openGraph: {
       type: "website",
       locale: "en_IN",
