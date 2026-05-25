@@ -206,6 +206,14 @@ export function Footer() {
                   Pune IT Salary Calculator
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/tools/pune-it-career-roadmap"
+                  className="text-primary-foreground/80 hover:text-secondary transition-colors text-sm"
+                >
+                  Pune IT Career Roadmap
+                </Link>
+              </li>
             </ul>
           </div>
 
