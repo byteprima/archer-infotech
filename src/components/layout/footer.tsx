@@ -222,6 +222,14 @@ export function Footer() {
                   Compare Courses
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/guides"
+                  className="text-primary-foreground/80 hover:text-secondary transition-colors text-sm"
+                >
+                  IT Career Guides
+                </Link>
+              </li>
             </ul>
           </div>
 

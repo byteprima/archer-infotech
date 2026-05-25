@@ -5,6 +5,7 @@ import { teamMembers } from "@/data/team";
 import { neighbourhoods } from "@/data/locations";
 import { audiences } from "@/data/audiences";
 import { comparisons } from "@/data/comparisons";
+import { listicles } from "@/data/listicles";
 import { getAllPublishedSlugs, getCategories } from "@/lib/actions/blog";
 import { categoryToSlug } from "@/lib/blog/category-slug";
 
@@ -207,6 +208,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
+  // Listicle guide pages (P8-12) + the /guides hub.
+  const guidesListingPage: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/guides`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
+  ];
+  const guidePages: MetadataRoute.Sitemap = listicles.map((l) => ({
+    url: `${baseUrl}/guides/${l.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }));
+
   return [
     ...staticPages,
     ...categoryPages,
@@ -220,6 +237,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...audiencePages,
     ...compareListingPage,
     ...comparePages,
+    ...guidesListingPage,
+    ...guidePages,
     ...blogPages,
     ...blogCategoryPages,
   ];
