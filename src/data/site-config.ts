@@ -37,14 +37,15 @@ export const siteConfig = {
       "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3783.0!2d73.810452!3d18.5002215!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2bfe592dccbf1%3A0x539e5f9e90dcca38!2sArcher%20Infotech!5e0!3m2!1sen!2sin!4v1711712400000",
     placeId: "0x3bc2bfe592dccbf1:0x539e5f9e90dcca38",
     url: "https://www.google.com/maps/place/Archer+Infotech/@18.5002215,73.810452,17z/data=!3m1!4b1!4m6!3m5!1s0x3bc2bfe592dccbf1:0x539e5f9e90dcca38!8m2!3d18.5002215!4d73.8130269",
-    // Destination for /review (P7-04). INTERIM = the Maps place page (shows the
-    // "Write a review" button). ⚠️ REPLACE with the one-tap review link once
-    // generated in GBP → "Ask for reviews" (looks like
-    // https://g.page/r/XXXXXXXXXXXX/review) — then /review opens the review box
-    // directly. Single source of truth for the review CTA used on QR cards,
-    // email signatures, and printed posters.
-    reviewUrl:
-      "https://www.google.com/maps/place/Archer+Infotech/@18.5002215,73.810452,17z/data=!3m1!4b1!4m6!3m5!1s0x3bc2bfe592dccbf1:0x539e5f9e90dcca38!8m2!3d18.5002215!4d73.8130269",
+    // Destination for /review (P7-04). INTERIM = CID URL → opens Archer's full
+    // Google business panel (info, photos, reviews + the "Write a review"
+    // button). CID 6025358486108162616 derived from the hex feature id above
+    // (0x539e5f9e90dcca38). This is the best link achievable without GBP/Places
+    // access. ⚠️ REPLACE with the one-tap review link once generated in GBP →
+    // "Ask for reviews" (https://g.page/r/XXXXXXXXXXXX/review) — then /review
+    // opens the review box DIRECTLY (route also auto-upgrades to a 308).
+    // Single source of truth for the review CTA (QR cards, signatures, posters).
+    reviewUrl: "https://www.google.com/maps?cid=6025358486108162616",
   },
 
   // Stats — kept truthful and source-of-truth for hero counters, schema, llms.txt.
