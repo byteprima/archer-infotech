@@ -48,6 +48,26 @@ const nextConfig: NextConfig = {
     ],
   },
   /**
+   * Canonical-host redirect: any request hitting the `www.` host gets a
+   * permanent 308 to the apex URL. Dormant today (Traefik still 503s the
+   * www host); activates as soon as Coolify's `domains` field includes
+   * www.archerinfotech.in and Traefik starts routing it to Next. Audit
+   * issue #2 — kills the lingering 503 on `www.`, consolidates SEO signals
+   * on the apex.
+   */
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [
+          { type: "host", value: "www.archerinfotech.in" },
+        ],
+        destination: "https://archerinfotech.in/:path*",
+        permanent: true,
+      },
+    ];
+  },
+  /**
    * Long-cache static assets. Next.js already sends the right Cache-Control
    * for /_next/static/* but PSI flagged ~153KiB savings from longer TTLs on
    * /images/* (logos, OG images, course thumbnails). These files are
