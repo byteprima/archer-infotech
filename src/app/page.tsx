@@ -1,4 +1,8 @@
-export const dynamic = "force-dynamic";
+// ISR — re-render every 10 min instead of every request. Combined with the
+// Cloudflare s-maxage headers in next.config, repeat visits hit the edge
+// cache; LCP variance drops. revalidateTag("testimonials") in the admin
+// write path makes edits show up immediately.
+export const revalidate = 600;
 
 import type { Metadata } from "next";
 import nextDynamic from "next/dynamic";
@@ -20,9 +24,7 @@ const BootcampsSection = nextDynamic(
 const TestimonialsSection = nextDynamic(
   () => import("@/components/home/testimonials-section").then((m) => m.TestimonialsSection),
 );
-import { db } from "@/db";
-import { testimonials as testimonialsTable } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { getHomeTestimonials } from "@/lib/actions/public-testimonials";
 import { siteConfig } from "@/data/site-config";
 import { buildPageMetadata } from "@/lib/seo";
 import { ReviewListJsonLd } from "@/components/seo/json-ld";
@@ -38,23 +40,7 @@ export const metadata: Metadata = buildPageMetadata({
 });
 
 export default async function HomePage() {
-  const testimonials = await db
-    .select({
-      id: testimonialsTable.id,
-      name: testimonialsTable.name,
-      role: testimonialsTable.role,
-      company: testimonialsTable.company,
-      courseTaken: testimonialsTable.courseTaken,
-      content: testimonialsTable.content,
-      rating: testimonialsTable.rating,
-      photoUrl: testimonialsTable.photoUrl,
-      linkedinUrl: testimonialsTable.linkedinUrl,
-      githubUrl: testimonialsTable.githubUrl,
-      placedAt: testimonialsTable.placedAt,
-    })
-    .from(testimonialsTable)
-    .where(eq(testimonialsTable.isPublished, true))
-    .limit(6);
+  const testimonials = await getHomeTestimonials();
 
   return (
     <>

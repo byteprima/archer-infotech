@@ -2,7 +2,7 @@
 
 import { z } from "zod";
 import { desc, eq, sql } from "drizzle-orm";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import type { Testimonial } from "@/db";
 import { logAdminAction, requireAdminAction } from "@/lib/admin";
 
@@ -179,6 +179,9 @@ export async function createTestimonial(data: TestimonialFormData): Promise<Acti
     revalidatePath("/admin/testimonials");
     revalidatePath("/");
     revalidatePath("/placements");
+    // Drop the unstable_cache layer behind public-testimonials so edits show
+    // up immediately on / and /placements (otherwise up to 600s stale).
+    revalidateTag("testimonials", "default");
 
     await logAdminAction({
       action: "testimonial.create",
@@ -255,6 +258,7 @@ export async function updateTestimonial(
     revalidatePath("/admin/testimonials");
     revalidatePath("/");
     revalidatePath("/placements");
+    revalidateTag("testimonials", "default");
 
     await logAdminAction({
       action: "testimonial.update",
@@ -309,6 +313,7 @@ export async function deleteTestimonial(id: number): Promise<ActionResult> {
     revalidatePath("/admin/testimonials");
     revalidatePath("/");
     revalidatePath("/placements");
+    revalidateTag("testimonials", "default");
 
     await logAdminAction({
       action: "testimonial.delete",

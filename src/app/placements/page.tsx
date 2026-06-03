@@ -1,4 +1,7 @@
-export const dynamic = "force-dynamic";
+// ISR — testimonials are cached for 10 min; the page is then edge-cacheable
+// via the next.config s-maxage rules. Admin edits push instantly via
+// revalidateTag("testimonials"). No more per-request DB hit.
+export const revalidate = 600;
 
 import { Metadata } from "next";
 import Link from "next/link";
@@ -9,9 +12,7 @@ import { TrackedLink } from "@/components/analytics/tracked-link";
 import { siteConfig } from "@/data/site-config";
 import { getHiringPartners } from "@/data/companies";
 import { AnimatedCounter } from "@/components/common/animated-counter";
-import { db } from "@/db";
-import { testimonials as testimonialsTable } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { getAllPublishedTestimonials } from "@/lib/actions/public-testimonials";
 import { buildPageMetadata } from "@/lib/seo";
 import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { FaqSection } from "@/components/seo/faq-section";
@@ -26,7 +27,7 @@ export const metadata: Metadata = buildPageMetadata({
 
 export default async function PlacementsPage() {
   const companies = getHiringPartners();
-  const testimonials = await db.select().from(testimonialsTable).where(eq(testimonialsTable.isPublished, true));
+  const testimonials = await getAllPublishedTestimonials();
 
   return (
     <>
