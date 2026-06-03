@@ -391,6 +391,40 @@ export async function getAllPublishedSlugs(): Promise<string[]> {
   }
 }
 
+/**
+ * Like getAllPublishedSlugs but also returns each post's real
+ * updatedAt / publishedAt — used by the sitemap so each blog URL carries
+ * its actual `lastmod`, not a faked "today" for every URL on every build.
+ */
+export async function getAllPublishedSlugsWithDates(): Promise<
+  Array<{ slug: string; updatedAt: Date | null; publishedAt: Date | null }>
+> {
+  try {
+    if (!process.env.DATABASE_URL) {
+      const now = new Date();
+      return placeholderBlogs
+        .filter((p) => p.isPublished)
+        .map((p) => ({ slug: p.slug, updatedAt: now, publishedAt: now }));
+    }
+
+    const { db, blogPosts } = await import("@/db");
+
+    const result = await db
+      .select({
+        slug: blogPosts.slug,
+        updatedAt: blogPosts.updatedAt,
+        publishedAt: blogPosts.publishedAt,
+      })
+      .from(blogPosts)
+      .where(eq(blogPosts.isPublished, true));
+
+    return result;
+  } catch (error) {
+    console.error("Error fetching slugs with dates:", error);
+    return [];
+  }
+}
+
 // ============================================
 // ADMIN FUNCTIONS
 // ============================================

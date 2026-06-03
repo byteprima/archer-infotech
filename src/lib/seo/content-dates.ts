@@ -38,6 +38,25 @@ export const BOOTCAMP_LAST_REVIEWED = "2026-05-08";
 export const EVERGREEN_LAST_REVIEWED = "2026-05-08";
 
 /**
+ * Pages built or substantially advanced in the 2026-05-25 SEO push —
+ * neighbourhood location pages (/locations/*), audience landing pages
+ * (/courses/for/*), /press, /tools/* (salary calculator + career roadmap),
+ * /compare/*, /guides/*, and the new blog-category route family. They
+ * share one review cadence; bump together when re-audited.
+ */
+export const NEW_ASSETS_LAST_REVIEWED = "2026-05-25";
+
+/**
+ * Convert an ISO date string ("YYYY-MM-DD") to a `Date` at UTC midnight —
+ * used by sitemap.ts to stamp each URL with its real content-review date
+ * instead of `new Date()` (which would make Google see every URL as
+ * "modified today, every day" and discount the signal).
+ */
+export function isoToDate(iso: string): Date {
+  return new Date(iso + "T00:00:00Z");
+}
+
+/**
  * Format an ISO date as a short, human-readable label for the visible
  * `<time>` stamp shown on long-form pages.
  *

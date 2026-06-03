@@ -84,6 +84,11 @@ export default function RootLayout({
         <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://www.google-analytics.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* 4th (final) preconnect slot: www.google.com — every Google Maps
+            iframe (contact + 12 location pages) goes here, and the /review
+            redirect target (g.page) sits on Google infra too. Warming the
+            handshake saves 100-300ms on iframe load. */}
+        <link rel="preconnect" href="https://www.google.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://static.cloudflareinsights.com" />
         <OrganizationJsonLd />
       </head>
