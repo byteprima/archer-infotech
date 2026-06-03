@@ -1,4 +1,5 @@
 import { and, asc, eq, gte, inArray, sql } from "drizzle-orm";
+import { unstable_cache } from "next/cache";
 import { db } from "@/db";
 import { batches, type Batch } from "@/db/schema";
 
@@ -28,7 +29,7 @@ export function filterUpcomingBatches(rows: Batch[]): Batch[] {
   );
 }
 
-export async function getNextBatchForCourse(courseSlug: string): Promise<Batch | null> {
+async function _getNextBatchForCourseUncached(courseSlug: string): Promise<Batch | null> {
   const now = new Date();
   const fallbackSlug = courseSlug.replace(/-training-in-pune$/, "");
   const slugCandidates = courseSlug === fallbackSlug ? [courseSlug] : [courseSlug, fallbackSlug];
@@ -56,3 +57,15 @@ export async function getNextBatchForCourse(courseSlug: string): Promise<Batch |
     return null;
   }
 }
+
+/**
+ * Cached wrapper — every course-detail render previously hit the DB to
+ * compute the "Next batch" widget, contributing ~510ms TTFB on the heavy
+ * rich-content pages. unstable_cache memoises per courseSlug for 5 min;
+ * revalidate the `batches` tag when admin edits a batch to invalidate.
+ */
+export const getNextBatchForCourse = unstable_cache(
+  _getNextBatchForCourseUncached,
+  ["next-batch-for-course"],
+  { revalidate: 300, tags: ["batches"] },
+);

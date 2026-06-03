@@ -56,25 +56,82 @@ const nextConfig: NextConfig = {
    * an image changes.
    */
   async headers() {
+    // Edge-cacheable evergreen SEO routes. The home page is `force-dynamic`
+    // and Next/Cloudflare would otherwise send `private, no-cache, no-store`
+    // — overriding here lets Cloudflare cache the rendered HTML for 5 min
+    // (s-maxage) and serve stale-while-revalidate up to 1 day. Big LCP/TTFB
+    // win for repeat visitors and crawl efficiency. Excluded by listing:
+    // /admin, /api, /contact (form), /blog (DB-backed), /review (308).
+    const PUBLIC_CACHE = {
+      key: "Cache-Control",
+      value:
+        "public, max-age=0, s-maxage=300, stale-while-revalidate=86400, must-revalidate",
+    };
+
+    // Security headers — set globally on every response.
+    const SECURITY_HEADERS = [
+      // HSTS: 2 years + includeSubDomains + preload (no www subdomain in use today
+      // but matches the standard preload requirement).
+      {
+        key: "Strict-Transport-Security",
+        value: "max-age=63072000; includeSubDomains; preload",
+      },
+      { key: "X-Content-Type-Options", value: "nosniff" },
+      { key: "X-Frame-Options", value: "SAMEORIGIN" },
+      { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+      // Minimal permissions-policy — no use of these features anywhere on the site.
+      {
+        key: "Permissions-Policy",
+        value: "camera=(), microphone=(), geolocation=(), interest-cohort=()",
+      },
+    ];
+
+    const cacheRule = (source: string) => ({
+      source,
+      headers: [PUBLIC_CACHE],
+    });
+
     return [
+      // Long-cache static assets (content-hashed / immutable).
       {
         source: "/images/:path*",
         headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=31536000, immutable",
-          },
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
         ],
       },
       {
         source: "/_next/static/:path*",
         headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=31536000, immutable",
-          },
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
         ],
       },
+
+      // Edge cache for evergreen SEO routes.
+      cacheRule("/"),
+      cacheRule("/about"),
+      cacheRule("/placements"),
+      cacheRule("/internships"),
+      cacheRule("/corporate-training"),
+      cacheRule("/batch-schedule"),
+      cacheRule("/press"),
+      cacheRule("/trainers"),
+      cacheRule("/trainers/:slug"),
+      cacheRule("/bootcamps"),
+      cacheRule("/bootcamps/:slug"),
+      cacheRule("/courses"),
+      cacheRule("/courses/:category"),
+      cacheRule("/courses/:category/:slug"),
+      cacheRule("/courses/for/:audience"),
+      cacheRule("/compare"),
+      cacheRule("/compare/:slug"),
+      cacheRule("/guides"),
+      cacheRule("/guides/:slug"),
+      cacheRule("/locations"),
+      cacheRule("/locations/:slug"),
+      cacheRule("/tools/:path*"),
+
+      // Security headers — apply to every route.
+      { source: "/:path*", headers: SECURITY_HEADERS },
     ];
   },
 };

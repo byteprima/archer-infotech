@@ -12,6 +12,10 @@ import {
   GraduationCap,
   Phone,
   Calendar,
+  Calculator,
+  Scale,
+  ListChecks,
+  ArrowRight,
 } from "lucide-react";
 import { PageEvent } from "@/components/analytics/page-event";
 import { TrackedAnchor } from "@/components/analytics/tracked-anchor";
@@ -39,6 +43,7 @@ import { COURSE_LAST_REVIEWED } from "@/lib/seo/content-dates";
 import { RelatedReading } from "@/components/courses/related-reading";
 import { getRelatedBlogPosts } from "@/lib/actions/blog";
 import { deriveCourseKeywords } from "@/lib/seo/course-keywords";
+import { getRelatedAssetsForCourse } from "@/lib/seo/course-related-assets";
 
 interface CoursePageProps {
   params: Promise<{
@@ -701,6 +706,59 @@ export default async function CoursePage({ params }: CoursePageProps) {
       {/* Related reading — blog posts matched against course keywords.
           Renders nothing when no posts overlap. P5-28. */}
       <RelatedReading posts={relatedReading} courseTitle={course.shortTitle} />
+
+      {/* Related tools, comparisons & guides — contextual cross-link block
+          that pulls in the salary calculator + roadmap + topic-matched
+          /compare/* and /guides/* pages. Compounds internal-link authority
+          for the new SEO assets and improves the research journey. */}
+      {(() => {
+        const assets = getRelatedAssetsForCourse(course.slug, course.categorySlug);
+        if (assets.length === 0) return null;
+        const iconFor = (t: "tool" | "compare" | "guide") =>
+          t === "tool" ? Calculator : t === "compare" ? Scale : ListChecks;
+        const labelFor = (t: "tool" | "compare" | "guide") =>
+          t === "tool" ? "Tool" : t === "compare" ? "Comparison" : "Guide";
+        return (
+          <section className="py-12 border-t">
+            <div className="container mx-auto px-4">
+              <h2 className="text-2xl md:text-3xl font-bold mb-2">
+                Related tools, comparisons & guides
+              </h2>
+              <p className="text-muted-foreground mb-8">
+                Plan your {course.shortTitle} path — see salaries, compare with
+                alternatives, and pick up the practical guides students use.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                {assets.map((a) => {
+                  const Icon = iconFor(a.type);
+                  return (
+                    <Link
+                      key={a.href}
+                      href={a.href}
+                      className="group flex items-start gap-3 rounded-lg border p-4 hover:border-primary hover:shadow-md transition-all"
+                    >
+                      <span className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 text-primary shrink-0">
+                        <Icon className="h-5 w-5" />
+                      </span>
+                      <span className="flex-grow">
+                        <span className="block text-[11px] uppercase tracking-wide text-muted-foreground">
+                          {labelFor(a.type)}
+                        </span>
+                        <span className="block font-semibold text-sm group-hover:text-primary transition-colors">
+                          {a.title}
+                        </span>
+                        <span className="mt-1 inline-flex items-center gap-1 text-xs text-primary font-medium">
+                          Open <ArrowRight className="h-3 w-3" />
+                        </span>
+                      </span>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          </section>
+        );
+      })()}
 
       {/* CTA Section */}
       <section className="py-12 bg-muted/30">
