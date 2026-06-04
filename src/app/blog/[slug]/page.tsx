@@ -70,6 +70,18 @@ export async function generateMetadata({
   const title = rawTitle.replace(/\s*\|\s*Archer\s*Infotech\b.*$/i, "").trim();
   const description = post.metaDescription || post.excerpt || post.content.slice(0, 160);
 
+  // og:image + twitter:image MUST be absolute URLs — social-card parsers
+  // (Facebook, Twitter/X, LinkedIn) don't reliably resolve relative paths.
+  // After the 2026-06-04 P5-04 migration that swapped Unsplash absolute URLs
+  // to local "/images/blog/<id>.jpg" relative paths, this guard is what
+  // keeps social cards working. Pattern mirrors BlogPostJsonLd's image
+  // handling in src/components/seo/json-ld.tsx.
+  const ogImage = post.featuredImage
+    ? post.featuredImage.startsWith("http")
+      ? post.featuredImage
+      : `${siteConfig.url}${post.featuredImage}`
+    : null;
+
   return {
     title, // root template appends " | Archer Infotech"
     description,
@@ -80,10 +92,10 @@ export async function generateMetadata({
       description,
       type: "article",
       url: `${siteConfig.url}/blog/${slug}`,
-      ...(post.featuredImage && {
+      ...(ogImage && {
         images: [
           {
-            url: post.featuredImage,
+            url: ogImage,
             width: 1200,
             height: 630,
             alt: post.title,
@@ -99,8 +111,8 @@ export async function generateMetadata({
       card: "summary_large_image",
       title,
       description,
-      ...(post.featuredImage && {
-        images: [post.featuredImage],
+      ...(ogImage && {
+        images: [ogImage],
       }),
     },
     // P8-23: explicit freshness signal for real-time AI crawlers, using the
