@@ -61,7 +61,7 @@ Full stack development refers to the practice of working on both the frontend (c
 
 The journey to becoming a full stack developer is challenging but rewarding. At Archer Infotech, we offer comprehensive courses that cover all these technologies with hands-on training and placement assistance.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1461749280684-dccba630e2f6.jpg",
     category: "Career Guide",
     tags: "full stack, web development, career, programming",
     metaTitle: "Getting Started with Full Stack Development in 2025 | Archer Infotech",
@@ -138,7 +138,7 @@ Still powers a significant portion of the web, including WordPress and Laravel a
 
 The best language to learn depends on your career goals. At Archer Infotech, we offer courses in Python, Java, JavaScript, and more with industry-relevant curriculum.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1515879218367-8466d910aaa4.jpg",
     category: "Programming",
     tags: "programming languages, python, java, javascript, career",
     metaTitle: "Top 10 Programming Languages to Learn in 2025",
@@ -220,7 +220,7 @@ The de facto standard for container orchestration. Essential for managing contai
 
 Our DevOps and Cloud Computing course covers all these topics with hands-on labs on real cloud platforms. Join us to kickstart your DevOps career!
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1667372393119-3d4c48d07fc9.jpg",
     category: "DevOps",
     tags: "devops, cloud computing, aws, kubernetes, docker, career",
     metaTitle: "DevOps & Cloud Computing Career Roadmap 2025 | Archer Infotech",
@@ -321,7 +321,7 @@ Our Python programming course takes you from zero to job-ready with:
 
 Start your programming journey with us today!
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1526379095098-d400fd0bf935.jpg",
     category: "Programming",
     tags: "python, programming, beginners, career, data science",
     metaTitle: "Why Python is the Best First Programming Language | Archer Infotech",
@@ -437,7 +437,7 @@ Our courses include:
 
 Prepare confidently with our expert guidance!
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1573164713988-8665fc963095?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1573164713988-8665fc963095.jpg",
     category: "Career Guide",
     tags: "interviews, dsa, system design, career, placement",
     metaTitle: "How to Prepare for Technical Interviews | Archer Infotech",
@@ -547,7 +547,7 @@ Our Full Stack and Backend courses cover:
 
 Build robust applications with proper database knowledge!
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1544383835-bda2bc66a55d.jpg",
     category: "Programming",
     tags: "database, sql, nosql, mongodb, postgresql, backend",
     metaTitle: "SQL vs NoSQL: Complete Database Guide | Archer Infotech",
@@ -720,7 +720,7 @@ At Archer Infotech, MERN learners benefit from structured learning, guided proje
 
 If you want to start a career in web development, MERN is one of the fastest and most practical routes available today.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1516321318423-f06f85e504b3.jpg",
     category: "Full Stack Development",
     tags: "mern stack, react, node.js, mongodb, full stack, roadmap",
     metaTitle: "MERN Stack Developer Roadmap: Skills, Projects, and Jobs | Archer Infotech",
@@ -862,7 +862,7 @@ Archer Infotech helps students build job-ready resumes by combining technical tr
 
 A fresher resume does not need to look experienced. It needs to look clear, relevant, and credible.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1517048676732-d65bc937f952.jpg",
     category: "Career Guide",
     tags: "resume, fresher jobs, software developer, placement, career guide",
     metaTitle: "How to Build a Software Developer Resume as a Fresher | Archer Infotech",
@@ -1017,7 +1017,7 @@ Archer Infotech supports both paths through structured training in SQL, Python, 
 
 If you want a quicker route into data careers, start with Data Analyst. If you love coding, math, and predictive modeling, build toward Data Scientist.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1551288049-bebda4e38f71.jpg",
     category: "Data & AI",
     tags: "data analyst, data scientist, data science, career guide, python, sql",
     metaTitle: "Data Analyst vs Data Scientist: Which One Should You Choose? | Archer Infotech",
@@ -1180,7 +1180,7 @@ At Archer Infotech, students work on guided practical projects that help them mo
 
 Before applying for IT jobs, build projects that are complete, relevant, and genuinely yours. That is what creates confidence and credibility.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1516321497487-e288fb19713f.jpg",
     category: "Career Guide",
     tags: "projects, portfolio, fresher jobs, software developer, placement",
     metaTitle: "What Projects Should You Build Before Applying for IT Jobs? | Archer Infotech",
@@ -1329,7 +1329,7 @@ Archer Infotech supports students with technical training, project guidance, res
 
 Campus placements are competitive, but they are absolutely achievable with consistent preparation and the right strategy.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1521737604893-d14cc237f11d.jpg",
     category: "Career Guide",
     tags: "campus placements, IT jobs, aptitude, interviews, fresher careers",
     metaTitle: "How to Prepare for Campus Placements in IT | Archer Infotech",
@@ -1465,7 +1465,7 @@ Archer Infotech includes SQL and database concepts in multiple technical learnin
 
 If you are serious about an IT career, SQL should not be optional. It should be one of your foundation skills.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1516321165247-4aa89a48be28?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1516321165247-4aa89a48be28.jpg",
     category: "Programming",
     tags: "sql, databases, backend, data analyst, IT student, programming",
     metaTitle: "Why Learning SQL Is Important for Every IT Student | Archer Infotech",
@@ -1614,7 +1614,7 @@ Archer Infotech helps beginners approach AWS in a structured way through guided 
 
 If you are just starting, begin with Cloud Practitioner, learn the core services properly, and then move toward an associate certification with hands-on confidence.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1451187580459-43490279c0fa.jpg",
     category: "Cloud & DevOps",
     tags: "aws, cloud computing, certifications, beginner guide, devops",
     metaTitle: "AWS Certification Path for Beginners | Archer Infotech",
@@ -1781,7 +1781,7 @@ Archer Infotech helps learners approach DevOps with structure, hands-on labs, gu
 
 If you want to get hired in DevOps, learn the right tools in the right order and build small but meaningful practical projects around them.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1667372393119-3d4c48d07fc9.jpg",
     category: "DevOps",
     tags: "devops, docker, kubernetes, terraform, jenkins, aws, linux",
     metaTitle: "DevOps Tools You Must Learn to Get Hired | Archer Infotech",
@@ -1929,7 +1929,7 @@ Archer Infotech helps students strengthen the exact areas that improve employabi
 
 In 2025, the winning profile is not the one that knows the most buzzwords. It is the one that combines fundamentals, projects, clarity, and consistency.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1522202176988-66273c2fd55f.jpg",
     category: "Career Guide",
     tags: "freshers, recruiter expectations, placement, technical skills, career guide",
     metaTitle: "Top Skills Recruiters Look for in Freshers in 2025 | Archer Infotech",
@@ -2091,7 +2091,7 @@ Archer Infotech helps students learn Generative AI in a practical and career-foc
 
 Generative AI matters because it is no longer a future trend. It is already becoming part of how modern work gets done.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1677442136019-21780ecad995.jpg",
     category: "AI & GenAI",
     tags: "generative ai, ai for beginners, genai, artificial intelligence, career",
     metaTitle: "Generative AI for Beginners: What It Is and Why It Matters | Archer Infotech",
@@ -2266,7 +2266,7 @@ Archer Infotech helps freshers build applied AI skills through structured learni
 
 If you want to become an AI Engineer, start with foundations, build real projects, and grow steadily into applied AI and Generative AI workflows.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1620712943543-bcc4688e7485.jpg",
     category: "AI & GenAI",
     tags: "ai engineer, roadmap, python, machine learning, generative ai, fresher jobs",
     metaTitle: "AI Engineer Roadmap for Freshers in 2025 | Archer Infotech",
@@ -2425,7 +2425,7 @@ Archer Infotech helps students learn prompt engineering as part of a broader Gen
 
 Prompt engineering is a simple but powerful starting point for anyone entering the world of Generative AI.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1674027444485-cec3da58eef4?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1674027444485-cec3da58eef4.jpg",
     category: "AI & GenAI",
     tags: "prompt engineering, generative ai, ai tools, beginner guide, productivity",
     metaTitle: "Prompt Engineering for Beginners: A Practical Guide | Archer Infotech",
@@ -2572,7 +2572,7 @@ Archer Infotech helps students move from theory to portfolio-ready AI work throu
 
 If you want to apply for AI roles, build projects that are useful, understandable, and clearly presented.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1555949963-aa79dcee981c.jpg",
     category: "AI & GenAI",
     tags: "ai projects, generative ai projects, resume, portfolio, fresher jobs",
     metaTitle: "What Projects Should You Build for an AI or GenAI Resume? | Archer Infotech",
@@ -2731,7 +2731,7 @@ Archer Infotech helps students build the exact mix recruiters value: technical f
 
 Recruiters hire AI and GenAI freshers who show fundamentals, curiosity, clear communication, and practical evidence of learning.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1485827404703-89b55fcc595e.jpg",
     category: "Career Guide",
     tags: "ai careers, generative ai, fresher skills, recruiter expectations, python, machine learning",
     metaTitle: "Top Skills Recruiters Look for in AI and GenAI Freshers | Archer Infotech",
@@ -2791,7 +2791,7 @@ Spend the first month on foundations, the second on projects, and the third on r
 
 Generative AI is a good career path for graduates who combine curiosity with practical work. Archer Infotech can help you move from basics to guided projects and job-ready presentation.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1485827404703-89b55fcc595e.jpg",
     category: "Career Guide",
     tags: "generative ai careers, ai fresher jobs, genai roadmap, ai projects, career guide",
     metaTitle: "How to Start a Career in Generative AI After Graduation | Archer Infotech",
@@ -2836,7 +2836,7 @@ For most freshers, Python, SQL, and data basics should come first. After that, y
 
 There is no single best path for everyone. The right career path is the one that matches your strengths and leads to projects you can explain confidently in interviews.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1555949963-aa79dcee981c.jpg",
     category: "Career Guide",
     tags: "ai careers, data science, generative ai, career guide, freshers",
     metaTitle: "AI vs Data Science vs Generative AI: Which Career Path Should You Choose? | Archer Infotech",
@@ -2888,7 +2888,7 @@ Strong bridge projects include:
 
 The move from software development to AI engineering is realistic because the gap is smaller than it looks. Add AI-specific thinking to the engineering discipline you already have.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1516321318423-f06f85e504b3.jpg",
     category: "Career Guide",
     tags: "ai engineering, software developer career, transition to ai, machine learning, generative ai",
     metaTitle: "How to Transition from Software Development to AI Engineering | Archer Infotech",
@@ -2939,7 +2939,7 @@ Recruiters usually look for two things:
 
 The best career option is the one you can support with skills, projects, and clear communication. Build depth first, then specialize.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1451187580459-43490279c0fa.jpg",
     category: "Career Guide",
     tags: "ai jobs, machine learning careers, freshers, career options, ai training",
     metaTitle: "Best Career Options After Learning AI and Machine Learning | Archer Infotech",
@@ -2986,7 +2986,7 @@ LLMs do not think like humans. They can be wrong, overly confident, or outdated.
 
 Students should understand LLMs because they now sit behind many tools used in development, analytics, support, and business automation.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1485827404703-89b55fcc595e.jpg",
     category: "AI & GenAI",
     tags: "llm, large language model, generative ai, ai basics, beginner guide",
     metaTitle: "What Is a Large Language Model (LLM)? | Archer Infotech",
@@ -3032,7 +3032,7 @@ The system usually does three things:
 
 RAG matters because it helps AI tools become more useful and more grounded. It is one of the most practical concepts for students entering applied AI.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1677442136019-21780ecad995.jpg",
     category: "AI & GenAI",
     tags: "rag, retrieval augmented generation, llm applications, generative ai, ai concepts",
     metaTitle: "What Is Retrieval-Augmented Generation (RAG) in Simple Terms? | Archer Infotech",
@@ -3081,7 +3081,7 @@ Features and pricing change quickly. Before depending on any tool, check its cur
 
 Students do not need every AI tool. They need a small stack they understand well and can use responsibly.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1515879218367-8466d910aaa4.jpg",
     category: "AI & GenAI",
     tags: "generative ai tools, student tools, ai apps, productivity, genai",
     metaTitle: "Top Generative AI Tools Every Student Should Know | Archer Infotech",
@@ -3128,7 +3128,7 @@ Use them for learning, drafting, experimentation, and first-pass support. Do not
 
 Free AI tools can be very useful for students, but careful selection matters more than long tool lists.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1516321318423-f06f85e504b3.jpg",
     category: "AI & GenAI",
     tags: "free ai tools, students, ai tools 2026, productivity, genai",
     metaTitle: "Best Free AI Tools for Students in 2026 | Archer Infotech",
@@ -3174,7 +3174,7 @@ Then move into pandas, NumPy, notebooks, and applied projects.
 
 Python is not the only language in AI, but it is the most practical first language for most students and freshers.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1515879218367-8466d910aaa4.jpg",
     category: "Programming",
     tags: "python for ai, python programming, ai development, machine learning, beginner python",
     metaTitle: "Python for AI: Why It Is the Best Language to Start With | Archer Infotech",
@@ -3219,7 +3219,7 @@ Strong candidates can explain:
 
 If you are preparing for AI engineer roles, build fewer projects but explain them well. That is often a stronger signal than a long skill list.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1451187580459-43490279c0fa.jpg",
     category: "Career Guide",
     tags: "ai engineer skills, recruiter expectations, ai careers, machine learning, fresher jobs",
     metaTitle: "Top Skills Recruiters Look for in AI Engineers | Archer Infotech",
@@ -3258,7 +3258,7 @@ Many learners jump straight to models and ignore databases. That creates weak pr
 
 SQL is still one of the smartest supporting skills for AI and data careers. It improves both project quality and interview credibility.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1555949963-aa79dcee981c.jpg",
     category: "Data & AI",
     tags: "sql, ai careers, data careers, databases, data analysis, ai engineering",
     metaTitle: "SQL for AI and Data Careers: Why It Still Matters | Archer Infotech",
@@ -3297,7 +3297,7 @@ Start with data handling, then modeling, then application building. That sequenc
 
 The best library stack is the one that supports your goal. Learn fewer tools deeply and use them in real projects.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1515879218367-8466d910aaa4.jpg",
     category: "Programming",
     tags: "python libraries, ai development, machine learning libraries, python ai, programming",
     metaTitle: "Best Libraries to Learn for Python AI Development | Archer Infotech",
@@ -3340,7 +3340,7 @@ Try to include:
 
 A strong AI portfolio is not about volume. It is about clarity, relevance, and proof that you can ship practical work.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1555949963-aa79dcee981c.jpg",
     category: "Career Guide",
     tags: "ai portfolio, ai resume, fresher jobs, github projects, interview preparation",
     metaTitle: "How to Build an AI Portfolio That Gets Interview Calls | Archer Infotech",
@@ -3384,7 +3384,7 @@ Include:
 
 Pick two or three of these ideas, implement them cleanly, and explain them well. That is enough to strengthen a fresher resume.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1485827404703-89b55fcc595e.jpg",
     category: "AI & GenAI",
     tags: "generative ai projects, ai resume, portfolio projects, genai portfolio, fresher projects",
     metaTitle: "5 Generative AI Projects You Can Add to Your Resume | Archer Infotech",
@@ -3427,7 +3427,7 @@ Your project should include:
 
 A fresher who can explain a complete workflow often stands out more than someone who only shows isolated notebook experiments.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1451187580459-43490279c0fa.jpg",
     category: "AI & GenAI",
     tags: "ai projects, end to end ai, fresher portfolio, machine learning projects, generative ai",
     metaTitle: "End-to-End AI Project Ideas for Freshers | Archer Infotech",
@@ -3466,7 +3466,7 @@ Do not assume one prompt works the same way in every tool or model. Capabilities
 
 Advanced prompting is usually careful prompting, not complicated prompting.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1515879218367-8466d910aaa4.jpg",
     category: "AI & GenAI",
     tags: "prompt engineering, advanced prompting, genai, ai workflows, productivity",
     metaTitle: "Advanced Prompt Engineering Techniques for Better AI Results | Archer Infotech",
@@ -3511,7 +3511,7 @@ Tell the tool:
 
 Beginners improve quickly when they treat prompting like communication design rather than magic.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1485827404703-89b55fcc595e.jpg",
     category: "AI & GenAI",
     tags: "prompt engineering, beginners, ai mistakes, prompting tips, genai",
     metaTitle: "Common Prompt Engineering Mistakes Beginners Make | Archer Infotech",
@@ -3554,7 +3554,7 @@ Students should still:
 
 Prompt engineering is a practical academic skill when it supports learning instead of replacing it.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1516321318423-f06f85e504b3.jpg",
     category: "AI & GenAI",
     tags: "prompt engineering, students, productivity, learning, ai study tools",
     metaTitle: "How Students Can Use Prompt Engineering for Learning and Productivity | Archer Infotech",
@@ -3598,7 +3598,7 @@ Ask for:
 
 Templates work best when you customize them. Treat them as starting points, not universal answers.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1515879218367-8466d910aaa4.jpg",
     category: "AI & GenAI",
     tags: "prompt templates, developers, analysts, students, ai prompts",
     metaTitle: "Best Prompt Templates for Developers, Analysts, and Students | Archer Infotech",
@@ -3640,7 +3640,7 @@ Choose based on:
 
 There is no universal winner. Many students use one general assistant plus one coding assistant instead of expecting a single tool to do everything well.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1516321318423-f06f85e504b3.jpg",
     category: "AI & GenAI",
     tags: "chatgpt, github copilot, claude, ai comparison, student tools",
     metaTitle: "ChatGPT vs GitHub Copilot vs Claude: Which AI Tool Should Students Use? | Archer Infotech",
@@ -3683,7 +3683,7 @@ For most freshers, the safest path is basics first: Python, SQL, data work, simp
 
 Learn in the order that helps you build real understanding. Fast progress is useful, but strong fundamentals stay valuable longer.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1555949963-aa79dcee981c.jpg",
     category: "Data & AI",
     tags: "machine learning, generative ai, learning path, ai roadmap, beginners",
     metaTitle: "Machine Learning vs Generative AI: What Should You Learn First? | Archer Infotech",
@@ -3725,7 +3725,7 @@ Examples often discussed in 2026 include model families such as Llama, Gemma, an
 
 Beginners usually start faster with closed tools, then explore open models when they need more control, privacy options, or deployment flexibility.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1485827404703-89b55fcc595e.jpg",
     category: "AI & GenAI",
     tags: "open source ai, closed ai models, llms, ai tools, beginners",
     metaTitle: "Open Source AI Models vs Closed AI Models: What Beginners Should Know | Archer Infotech",
@@ -3764,7 +3764,7 @@ Rule-based chatbots follow predefined flows. AI chatbots are more flexible and c
 
 Businesses and learners should choose the simpler option when it solves the problem. Not every chatbot needs AI.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1451187580459-43490279c0fa.jpg",
     category: "AI & GenAI",
     tags: "chatbot, ai chatbot, rule based chatbot, conversational ai, chatbot comparison",
     metaTitle: "Rule-Based Chatbots vs AI Chatbots: What Is the Difference? | Archer Infotech",
@@ -3808,7 +3808,7 @@ Even strong use cases usually need:
 
 Generative AI is most valuable when it supports business workflows responsibly rather than replacing judgment.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1451187580459-43490279c0fa.jpg",
     category: "AI & GenAI",
     tags: "generative ai, business applications, ai in business, workflow automation, productivity, enterprise ai",
     metaTitle: "Real-World Applications of Generative AI in Business | Archer Infotech",
@@ -3851,7 +3851,7 @@ Developers still need:
 
 AI tools can improve developer productivity, but they do not replace strong engineering judgment. Career growth now depends on using AI well, not depending on it blindly.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1516321318423-f06f85e504b3.jpg",
     category: "Career Guide",
     tags: "generative ai, software development careers, ai for developers, future of coding, tech careers, ai engineer",
     metaTitle: "How Generative AI Is Changing Software Development Careers | Archer Infotech",
@@ -3894,7 +3894,7 @@ Support automation works best with:
 
 AI in support is strongest when it reduces repetitive work and helps human teams respond better.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1485827404703-89b55fcc595e.jpg",
     category: "AI & GenAI",
     tags: "ai customer support, support automation, ai chatbots, workflow automation, customer service ai, generative ai",
     metaTitle: "How Companies Use AI for Customer Support and Automation | Archer Infotech",
@@ -3936,7 +3936,7 @@ Marketing teams often use Generative AI as a drafting and planning assistant rat
 
 Generative AI can make marketing teams faster, but quality still depends on review, editing, and clear goals.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1460925895917-afdab827c52f.jpg",
     category: "AI & GenAI",
     tags: "generative ai marketing, ai in marketing, content generation, campaign automation, marketing productivity, business use cases",
     metaTitle: "Generative AI in Marketing: Real Business Use Cases | Archer Infotech",
@@ -3973,7 +3973,7 @@ In high-stakes sectors, AI usually supports professionals rather than replacing 
 
 Industry AI is worth studying because it shows where technical skill meets real business and social responsibility.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1576091160399-112ba8d25d1d.jpg",
     category: "AI & GenAI",
     tags: "ai in healthcare, ai in finance, ai in education, industry use cases, generative ai, applied ai",
     metaTitle: "How AI Is Used in Healthcare, Finance, and Education | Archer Infotech",
@@ -4015,7 +4015,7 @@ Small businesses do not need complex AI programs to benefit from Generative AI. 
 
 Small businesses usually gain the most when AI reduces repetitive work without creating hidden quality problems.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1556740749-887f6717d7e4?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1556740749-887f6717d7e4.jpg",
     category: "AI & GenAI",
     tags: "small business ai, generative ai for business, ai productivity, business automation, ai workflows, genai use cases",
     metaTitle: "How Small Businesses Can Use Generative AI Productively | Archer Infotech",
@@ -4057,7 +4057,7 @@ Choose the direction that matches your current strength:
 
 The better role for a fresher is the one supported by real skills and explainable projects, not the one with the flashier title.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1555949963-aa79dcee981c.jpg",
     category: "Career Guide",
     tags: "ai engineer, data scientist, freshers, ai career, career comparison",
     metaTitle: "AI Engineer vs Data Scientist: Which Role Is Better for Freshers? | Archer Infotech",
@@ -4099,7 +4099,7 @@ Pune has a mix of offline, hybrid, and online-first AI training options. That me
 
 The best AI course is the one that matches your career goal, learning level, and need for practical guidance.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1523240795612-9a054b0db644.jpg",
     category: "Career Guide",
     tags: "ai course pune, ai training pune, artificial intelligence course, fresher careers, placement support, career guide",
     metaTitle: "Best AI Course in Pune: What Should You Look For? | Archer Infotech",
@@ -4138,7 +4138,7 @@ Be careful of promises that focus only on certificates, unrealistic job guarante
 
 The right institute is the one that teaches practical GenAI work with enough structure for your current level.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1516321318423-f06f85e504b3.jpg",
     category: "Career Guide",
     tags: "generative ai course pune, genai training institute pune, ai training pune, prompt engineering course, ai projects, career guide",
     metaTitle: "Best Generative AI Training Institute in Pune: Key Things to Compare | Archer Infotech",
@@ -4183,7 +4183,7 @@ You should finish with:
 
 For freshers, the most useful AI classes are the ones that make the basics strong enough to support real projects.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1523240795612-9a054b0db644.jpg",
     category: "Career Guide",
     tags: "ai classes pune, fresher ai skills, python for ai, machine learning basics, ai training, career guide",
     metaTitle: "AI Classes in Pune for Freshers: Skills That Matter Most | Archer Infotech",
@@ -4222,7 +4222,7 @@ Do not choose a course only because it mentions popular tools. The right course 
 
 The right course is the one that fits your current level and leads to practical outcomes you can show in interviews.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1516321318423-f06f85e504b3.jpg",
     category: "Career Guide",
     tags: "generative ai course pune, genai classes pune, ai learning path, prompt engineering, ai upskilling, career guide",
     metaTitle: "How to Choose the Right Generative AI Course in Pune | Archer Infotech",
@@ -4260,7 +4260,7 @@ If your Python, SQL, or basic programming skills are still weak, start there fir
 
 The ROI of a GenAI course comes from skills and project quality, not from the title of the course alone.
     `.trim(),
-    featuredImage: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1200&h=630&fit=crop",
+    featuredImage: "/images/blog/1523240795612-9a054b0db644.jpg",
     category: "Career Guide",
     tags: "generative ai course worth it, genai for freshers, ai training pune, career roi, ai upskilling, fresher guide",
     metaTitle: "Is a Generative AI Course Worth It for Freshers in Pune? | Archer Infotech",
