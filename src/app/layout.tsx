@@ -1,11 +1,21 @@
 import type { Metadata } from "next";
+import nextDynamic from "next/dynamic";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { GoogleAnalyticsLazy } from "@/components/analytics/google-analytics-lazy";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { WhatsAppButtonLazy } from "@/components/common/whatsapp-button-lazy";
-import { Toaster } from "@/components/ui/sonner";
+// P-12 follow-up (2026-06-04): sonner Toaster was 37 KB in the eager shared
+// chunk on every public route. Dynamic-import it (ssr: false) so the heavy
+// sonner package lands in its OWN chunk that hydrates on idle, not in the
+// critical first-paint bundle. Toast calls fired during the brief load
+// window (typically only after a user click anyway) just render slightly
+// late — acceptable for our use case (form-submit feedback + admin actions).
+const Toaster = nextDynamic(
+  () => import("@/components/ui/sonner").then((m) => m.Toaster),
+  { ssr: false },
+);
 import { OrganizationJsonLd } from "@/components/seo/json-ld";
 import { siteConfig } from "@/data/site-config";
 
