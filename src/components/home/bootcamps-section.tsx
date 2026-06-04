@@ -14,6 +14,33 @@ import {
 } from "@/data/courses-minimal";
 import { captureAnalyticsEvent } from "@/lib/posthog/client";
 
+// Top-4 highlights for each bootcamp, inlined here to avoid carrying the
+// full `highlights: string[]` field on every course in courses-minimal.
+// Source of truth is `highlights[0..4]` in src/data/courses.ts under the
+// `bootcamps` category — keep them in sync if a bootcamp's lead pitch
+// changes. ~480 bytes of static strings vs ~13 KB if `highlights` were
+// added to CourseSummary for all 45 courses. P-12 follow-up fix.
+const BOOTCAMP_HIGHLIGHTS: Record<string, string[]> = {
+  "codeleap-bootcamp": [
+    "3 tracks: Web Dev, Python, AI/Data Science",
+    "No prior coding experience required",
+    "For 12th passouts waiting to join engineering",
+    "English communication modules included",
+  ],
+  "careercode-bootcamp": [
+    "6 specialisation tracks available",
+    "Runs alongside your engineering degree",
+    "1-2 technologies per semester",
+    "Communication & aptitude training included",
+  ],
+  "techready-bootcamp": [
+    "10 specialised programs",
+    "6 hours daily, full-time intensive",
+    "placement assistance",
+    "100+ company placement partners",
+  ],
+};
+
 function BootcampCard({ course }: { course: CourseSummary }) {
   return (
     <Card className="group overflow-hidden hover:shadow-xl transition-all hover:border-primary/30 h-full flex flex-col border-2">
@@ -33,7 +60,7 @@ function BootcampCard({ course }: { course: CourseSummary }) {
       </div>
       <CardContent className="p-6 flex-grow flex flex-col">
         <ul className="space-y-2 mb-4">
-          {course.highlights.slice(0, 4).map((highlight) => (
+          {(BOOTCAMP_HIGHLIGHTS[course.slug] ?? []).map((highlight) => (
             <li key={highlight} className="flex items-start gap-2 text-sm">
               <CheckCircle className="h-4 w-4 text-primary mt-0.5 shrink-0" />
               <span className="text-muted-foreground">{highlight}</span>
