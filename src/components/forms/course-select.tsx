@@ -4,7 +4,9 @@ import { useState, useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { Check, ChevronsUpDown, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { courses, categories } from "@/data/courses";
+// P-12 (2026-06-04) chunk-audit fix: import light-only data so the 79 KB
+// full course catalogue doesn't leak into the /contact form chunk.
+import { coursesSummary as courses, categories } from "@/data/courses-minimal";
 
 interface CourseSelectProps {
   value: string[];

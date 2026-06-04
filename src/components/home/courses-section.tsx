@@ -7,10 +7,15 @@ import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { buttonVariants } from "@/components/ui/button";
 import { CourseImagePlaceholder } from "@/components/courses/course-image-placeholder";
 import { cn } from "@/lib/utils";
-import { getPopularCourses, type Course } from "@/data/courses";
+// P-12 (2026-06-04) chunk-audit fix: import light-only data so the 79 KB
+// full course catalogue doesn't leak into the home-page shared chunk.
+import {
+  getPopularCoursesSummary,
+  type CourseSummary,
+} from "@/data/courses-minimal";
 import { captureAnalyticsEvent } from "@/lib/posthog/client";
 
-function CourseCard({ course }: { course: Course }) {
+function CourseCard({ course }: { course: CourseSummary }) {
   return (
     <Card className="group overflow-hidden hover:shadow-lg transition-all hover:border-primary/20 h-full flex flex-col">
       <CardHeader className="p-0 flex-shrink-0">
@@ -68,7 +73,7 @@ function CourseCard({ course }: { course: Course }) {
 }
 
 export function CoursesSection() {
-  const popularCourses = getPopularCourses().slice(0, 6);
+  const popularCourses = getPopularCoursesSummary().slice(0, 6);
 
   return (
     <section className="py-16 md:py-24 bg-muted/30">

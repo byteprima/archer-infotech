@@ -10,7 +10,11 @@ import {
   Smartphone,
   Sparkles,
 } from "lucide-react";
-import { categories, type Course } from "@/data/courses";
+// P-12 (2026-06-04) chunk-audit fix: light-only import (categories array +
+// {categorySlug,category,shortTitle} are all this component uses) so the
+// 79 KB full courses catalogue doesn't ride along into client bundles that
+// render <CourseImagePlaceholder> on the home/courses page.
+import { categories, type CourseSummary as Course } from "@/data/courses-minimal";
 
 const iconMap: Record<string, React.ElementType> = {
   Award,

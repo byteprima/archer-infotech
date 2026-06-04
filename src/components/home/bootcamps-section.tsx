@@ -6,10 +6,15 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { getCoursesByCategory, type Course } from "@/data/courses";
+// P-12 (2026-06-04) chunk-audit fix: import light-only data so the 79 KB
+// full course catalogue doesn't leak into the home-page shared chunk.
+import {
+  getCoursesByCategorySummary,
+  type CourseSummary,
+} from "@/data/courses-minimal";
 import { captureAnalyticsEvent } from "@/lib/posthog/client";
 
-function BootcampCard({ course }: { course: Course }) {
+function BootcampCard({ course }: { course: CourseSummary }) {
   return (
     <Card className="group overflow-hidden hover:shadow-xl transition-all hover:border-primary/30 h-full flex flex-col border-2">
       <div className="bg-gradient-to-r from-primary to-primary/80 p-4">
@@ -67,7 +72,7 @@ function BootcampCard({ course }: { course: Course }) {
 }
 
 export function BootcampsSection() {
-  const bootcamps = getCoursesByCategory("bootcamps");
+  const bootcamps = getCoursesByCategorySummary("bootcamps");
 
   return (
     <section className="py-16 md:py-24">

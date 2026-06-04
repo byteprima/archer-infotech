@@ -37,7 +37,9 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
-import { categories, getFeaturedCourses } from "@/data/courses";
+// P-12 (2026-06-04) chunk-audit fix: import light-only data so the 79 KB
+// full course catalogue doesn't leak into every page's header chunk.
+import { categories, getFeaturedCoursesSummary } from "@/data/courses-minimal";
 import { siteConfig } from "@/data/site-config";
 import { captureAnalyticsEvent } from "@/lib/posthog/client";
 
@@ -71,7 +73,7 @@ export function Header() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const featuredCourses = getFeaturedCourses().slice(0, 5);
+  const featuredCourses = getFeaturedCoursesSummary().slice(0, 5);
   const trackContactClick = (method: "phone" | "email", location: string) => {
     captureAnalyticsEvent("contact_method_clicked", {
       method,

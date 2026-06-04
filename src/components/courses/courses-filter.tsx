@@ -7,7 +7,15 @@ import { ArrowRight, Clock, BarChart } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { CourseImagePlaceholder } from "@/components/courses/course-image-placeholder";
-import { courses, categories, type Course } from "@/data/courses";
+// P-12 (2026-06-04) chunk-audit fix: import light-only data so the 79 KB
+// full course catalogue doesn't ship in the /courses client filter chunk —
+// only fields used by the card UI (title, slug, level, duration, mode,
+// shortDescription, image, categorySlug) are needed.
+import {
+  coursesSummary as courses,
+  categories,
+  type CourseSummary as Course,
+} from "@/data/courses-minimal";
 import { cn } from "@/lib/utils";
 
 function getCourseHref(course: Course): string {
