@@ -2600,7 +2600,7 @@ export const courses: Course[] = [
   {
     id: "selenium",
     slug: "selenium-training-in-pune",
-    title: "Selenium with Java Training",
+    title: "Selenium with Java",
     shortTitle: "Selenium",
     category: "Testing & QA",
     categorySlug: "testing-qa",
@@ -2663,7 +2663,7 @@ export const courses: Course[] = [
   {
     id: "software-testing",
     slug: "software-testing-training-in-pune",
-    title: "Software Testing & QA Training",
+    title: "Software Testing & QA",
     shortTitle: "Software Testing",
     category: "Testing & QA",
     categorySlug: "testing-qa",
@@ -2725,7 +2725,7 @@ export const courses: Course[] = [
   {
     id: "salesforce",
     slug: "salesforce-training-in-pune",
-    title: "Salesforce Admin + Developer Training",
+    title: "Salesforce Admin + Developer",
     shortTitle: "Salesforce",
     category: "Salesforce",
     categorySlug: "salesforce",
