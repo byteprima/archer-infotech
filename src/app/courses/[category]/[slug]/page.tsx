@@ -36,7 +36,11 @@ import { siteConfig } from "@/data/site-config";
 import { buildPageMetadata } from "@/lib/seo";
 import { getNextBatchForCourse } from "@/lib/actions/public-batches";
 import { getCourseRichContent } from "@/data/course-content";
-import { RichCourseContent } from "@/components/courses/rich-course-content";
+import { Suspense } from "react";
+import {
+  RichCourseContentAboveFold,
+  RichCourseContentBelowFold,
+} from "@/components/courses/rich-course-content";
 import Image from "next/image";
 import { LastUpdated } from "@/components/seo/last-updated";
 import { COURSE_LAST_REVIEWED } from "@/lib/seo/content-dates";
@@ -284,35 +288,55 @@ export default async function CoursePage({ params }: CoursePageProps) {
       <section aria-label="Course details" className="py-12 md:py-16">
         <div className="container mx-auto px-4">
           {rich ? (
-            // Rich layout — fills the full container width to match
-            // the Hero and Related Courses sections (no inner max-w).
+            // Rich layout — split into a synchronous above-the-fold half
+            // (intro + why-learn + who-for) and an async below-the-fold half
+            // (curriculum onward) wrapped in <Suspense>. The Suspense
+            // boundary lets Next/React flush the hero + above-fold in the
+            // first response chunk; the heavy ~350 lines below stream after.
+            // Course FAQ joins the same boundary so it streams too rather
+            // than blocking initial paint.
             <>
-              <RichCourseContent rich={rich} courseName={course.shortTitle} />
-              {/* FAQ from rich content — server-rendered, AI-citable */}
-              {effectiveFaqs.length > 0 && (
-                <section className="mt-12 space-y-4">
-                  <h2 className="text-2xl md:text-3xl font-bold">Frequently Asked Questions</h2>
-                  <div className="space-y-4">
-                    {effectiveFaqs.map((faq, i) => (
-                      <details
-                        key={i}
-                        className="group border rounded-lg bg-background"
-                        open={i < 3}
-                      >
-                        <summary className="cursor-pointer list-none p-5 font-medium flex items-start justify-between gap-4 hover:bg-muted/30 transition-colors">
-                          <span>{faq.question}</span>
-                          <span className="shrink-0 text-muted-foreground transition-transform group-open:rotate-45 text-xl leading-none">
-                            +
-                          </span>
-                        </summary>
-                        <div className="px-5 pb-5 text-sm text-muted-foreground leading-relaxed">
-                          {faq.answer}
-                        </div>
-                      </details>
-                    ))}
+              <RichCourseContentAboveFold rich={rich} />
+              <Suspense
+                fallback={
+                  <div
+                    aria-busy="true"
+                    className="min-h-[600px] flex items-center justify-center text-sm text-muted-foreground"
+                  >
+                    Loading course details…
                   </div>
-                </section>
-              )}
+                }
+              >
+                <RichCourseContentBelowFold
+                  rich={rich}
+                  courseName={course.shortTitle}
+                />
+                {/* FAQ from rich content — server-rendered, AI-citable */}
+                {effectiveFaqs.length > 0 && (
+                  <section className="mt-12 space-y-4">
+                    <h2 className="text-2xl md:text-3xl font-bold">Frequently Asked Questions</h2>
+                    <div className="space-y-4">
+                      {effectiveFaqs.map((faq, i) => (
+                        <details
+                          key={i}
+                          className="group border rounded-lg bg-background"
+                          open={i < 3}
+                        >
+                          <summary className="cursor-pointer list-none p-5 font-medium flex items-start justify-between gap-4 hover:bg-muted/30 transition-colors">
+                            <span>{faq.question}</span>
+                            <span className="shrink-0 text-muted-foreground transition-transform group-open:rotate-45 text-xl leading-none">
+                              +
+                            </span>
+                          </summary>
+                          <div className="px-5 pb-5 text-sm text-muted-foreground leading-relaxed">
+                            {faq.answer}
+                          </div>
+                        </details>
+                      ))}
+                    </div>
+                  </section>
+                )}
+              </Suspense>
             </>
           ) : (
           <div className="grid lg:grid-cols-3 gap-8">

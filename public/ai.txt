@@ -1,15 +1,14 @@
 # ai.txt — AI training-data preferences for archerinfotech.in
 # Spawning AI Foundation standard: https://site.spawning.ai/spawning-ai-txt
 #
-# Stance: we OPT OUT of having this site's content and media used for
-# generative-AI TRAINING datasets. This mirrors the site's Cloudflare
-# "Block AI scrapers and crawlers" policy for training bots (GPTBot,
-# ClaudeBot, Google-Extended, CCBot, Bytespider, meta-externalagent, …).
-#
-# This does NOT affect live-retrieval AI agents that fetch a page on demand
-# to answer a user's query and cite the source (PerplexityBot, ChatGPT-User,
-# OAI-SearchBot, etc.) — those are explicitly welcomed via /robots.txt and
-# guided by /llms.txt. Opting out of training has no impact on AI citations.
+# Stance (updated 2026-06-04): we OPT IN to having this site's content used
+# for generative-AI training datasets. Reach matters more to us than
+# exclusivity — the more LLMs trained on accurate Pune IT-training facts
+# from us, the more often we surface in genuine answers. This complements
+# our welcome posture toward live-retrieval AI agents in /robots.txt (and
+# the entity guide at /llms.txt). Note: ensure Cloudflare's "Block AI
+# scrapers and crawlers" rule is OFF or this opt-in is overridden at the
+# edge.
 
 User-Agent: *
-Disallow: /
+Allow: /

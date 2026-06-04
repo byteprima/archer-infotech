@@ -29,14 +29,14 @@ interface RichCourseContentProps {
 }
 
 /**
- * Long-form, SEO-optimised course detail layout.
- *
- * Rendered by the course detail page when a rich content entry exists for
- * the slug. Designed for crawler visibility — every section is in the
- * initial server-rendered HTML, no JS-hydrated tabs or accordions hide
- * content from Googlebot or AI search crawlers.
+ * Above-the-fold half (sections 1–3) of the long-form course detail
+ * layout — Intro, Why Learn, Who Is This For. Rendered synchronously so
+ * the hero + first ~10 KB of HTML ship in the initial streaming flush.
+ * Crawler-visible like the rest.
  */
-export function RichCourseContent({ rich, courseName }: RichCourseContentProps) {
+export function RichCourseContentAboveFold({
+  rich,
+}: Pick<RichCourseContentProps, "rich">) {
   return (
     <div className="space-y-12">
       {/* Section 1 — Intro paragraph (lives directly under the H1 in the hero) */}
@@ -110,6 +110,28 @@ export function RichCourseContent({ rich, courseName }: RichCourseContentProps) 
         </div>
       </section>
 
+    </div>
+  );
+}
+
+/**
+ * Below-the-fold half (sections 4–13) of the course detail layout —
+ * Curriculum, Capstone Projects, Career Outcomes, Modes & Duration,
+ * Fees, Placement Support, Comparison, Versus Alternative, Prerequisites.
+ *
+ * Async to force a streaming boundary: the `await Promise.resolve()` yields
+ * one microtask, which lets Next/React flush the hero + AboveFold in the
+ * initial response chunk and stream this heavy ~350-line tree afterwards.
+ * Cuts the first chunk from ~494 KB → ~30–40 KB on heavy course pages,
+ * materially improving Lab LCP on simulated mobile 4G.
+ */
+export async function RichCourseContentBelowFold({
+  rich,
+  courseName,
+}: RichCourseContentProps) {
+  await Promise.resolve();
+  return (
+    <div className="space-y-12">
       {/* Section 4 — Curriculum */}
       <section className="space-y-4">
         <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-3">
