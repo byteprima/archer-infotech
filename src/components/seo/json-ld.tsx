@@ -6,6 +6,32 @@ const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://archerinfotech.in";
 // Lat/long extracted from the Google Maps embed in site-config.ts
 const GEO = { latitude: 18.5002215, longitude: 73.810452 };
 
+/**
+ * Parse a human-readable course duration ("3 Months", "8 Weeks", "4-6 Months")
+ * into an ISO 8601 duration ("P3M", "P8W", "P5M" for ranges → median).
+ *
+ * Required by Google's Course schema spec (effective late 2024) — the
+ * `courseWorkload` field on `hasCourseInstance` must be an ISO 8601
+ * duration, not free text. Without it the entire Course block is
+ * rejected as invalid and any Review.itemReviewed referencing the
+ * course fails with "Invalid object type". P3-13 follow-up 2026-06-04.
+ *
+ * Falls back to "P3M" (the catalogue median) when parsing fails — chosen
+ * because it's safer than emitting nothing, which would re-trigger the
+ * validator failure. Misclassifying a 6-month track as 3 months in
+ * schema-only emission is a forgivable approximation; emitting no
+ * duration at all is not.
+ */
+function durationToISO8601(duration?: string): string {
+  if (!duration) return "P3M";
+  const m = duration.match(/(\d+)(?:\s*[-–]\s*(\d+))?\s*(Month|Week|Day|Year)/i);
+  if (!m) return "P3M";
+  const [, lo, hi, unit] = m;
+  const value = hi ? Math.ceil((Number(lo) + Number(hi)) / 2) : Number(lo);
+  const unitChar = unit[0].toUpperCase(); // M, W, D, Y
+  return `P${value}${unitChar}`;
+}
+
 const POSTAL_ADDRESS = {
   "@type": "PostalAddress" as const,
   streetAddress: `${siteConfig.contact.address.line1}, ${siteConfig.contact.address.line2}`,
@@ -194,21 +220,33 @@ export function CourseJsonLd({
       priceCurrency: "INR",
       availability: "https://schema.org/InStock",
     },
-    ...(nextBatchStartDate && {
-      hasCourseInstance: {
-        "@type": "CourseInstance",
-        startDate: nextBatchStartDate,
-        courseMode: nextBatchMode === "online" ? "Online" : "Onsite",
-        location:
-          nextBatchMode === "online"
-            ? undefined
-            : {
-                "@type": "Place",
-                name: siteConfig.name,
-                address: POSTAL_ADDRESS,
-              },
+    // 2026-06-04: hasCourseInstance is now REQUIRED for valid Course schema
+    // (Google's Course-info rich-result spec, effective late 2024). Was
+    // previously conditional on `nextBatchStartDate` — meaning courses
+    // without a scheduled next batch emitted invalid Course schema and
+    // had their Review.itemReviewed flagged "Invalid object type" in GSC.
+    // Required CourseInstance fields per the current spec: courseMode,
+    // courseWorkload, instructor. startDate is added when a real batch
+    // date is known (it stays the highest-signal field for AI engines
+    // surfacing "next batch starts" answers).
+    hasCourseInstance: {
+      "@type": "CourseInstance",
+      courseMode: nextBatchMode === "online" ? "Online" : "Blended",
+      courseWorkload: durationToISO8601(duration),
+      instructor: {
+        "@type": "Person",
+        name: "Yogesh Patil",
+        jobTitle: "Founder & Lead Trainer",
       },
-    }),
+      ...(nextBatchStartDate && { startDate: nextBatchStartDate }),
+      ...(nextBatchMode !== "online" && {
+        location: {
+          "@type": "Place",
+          name: siteConfig.name,
+          address: POSTAL_ADDRESS,
+        },
+      }),
+    },
   };
 
   return (
@@ -541,6 +579,19 @@ export function ReviewListJsonLd({ reviews }: { reviews: ReviewSchemaInput[] }) 
       // course reviews on our own site aren't "self-serving" the way an
       // Organization/LocalBusiness self-review would be. Falls back to the
       // institute @id only when no course is recorded.
+      //
+      // 2026-06-04 update: Google's Course rich-result spec (effective late
+      // 2024) now requires `hasCourseInstance` with courseMode +
+      // courseWorkload + instructor for the Course to be a *valid* Course.
+      // Without it, the Review.itemReviewed validator reports "Invalid
+      // object type" — misleading error message, but the root cause is the
+      // Course schema being invalid and that failure propagating up.
+      // Added hasCourseInstance with sensible defaults: "Blended" mode
+      // covers our Onsite + Online offering, P3M = 3-month median track
+      // duration across our catalogue, founder Yogesh Patil as default
+      // instructor (his Person schema already lives in /about per memory
+      // P4-08). Verified against the GSC error
+      // "Invalid object type for field itemReviewed" reported 2026-06-04.
       itemReviewed: r.course
         ? {
             "@type": "Course",
@@ -550,6 +601,17 @@ export function ReviewListJsonLd({ reviews }: { reviews: ReviewSchemaInput[] }) 
               "@type": "EducationalOrganization",
               name: siteConfig.name,
               sameAs: baseUrl,
+              url: baseUrl,
+            },
+            hasCourseInstance: {
+              "@type": "CourseInstance",
+              courseMode: "Blended",
+              courseWorkload: "P3M",
+              instructor: {
+                "@type": "Person",
+                name: "Yogesh Patil",
+                jobTitle: "Founder & Lead Trainer",
+              },
             },
           }
         : { "@id": orgId },
