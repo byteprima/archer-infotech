@@ -52,6 +52,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${baseUrl}/press`, lastModified: NEW_ASSETS, changeFrequency: "monthly", priority: 0.5 },
     { url: `${baseUrl}/tools/pune-it-salary-calculator`, lastModified: NEW_ASSETS, changeFrequency: "monthly", priority: 0.7 },
     { url: `${baseUrl}/tools/pune-it-career-roadmap`, lastModified: NEW_ASSETS, changeFrequency: "monthly", priority: 0.7 },
+    // Legal pages — shipped 2026-05-08 (P4-22 canonicals) but were missing
+    // from the sitemap. Low priority + yearly cadence — they rarely change,
+    // but inclusion is a baseline trust signal for Google + AI crawlers
+    // doing site-wide policy checks. 2026-06-04.
+    { url: `${baseUrl}/privacy-policy`, lastModified: EVERGREEN, changeFrequency: "yearly", priority: 0.3 },
+    { url: `${baseUrl}/terms-of-service`, lastModified: EVERGREEN, changeFrequency: "yearly", priority: 0.3 },
   ];
 
   // Category landing pages — refreshed with rich content in P4-11 (2026-05-08).
