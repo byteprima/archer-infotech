@@ -1,6 +1,8 @@
 import {
   Award,
   Brain,
+  Briefcase,
+  Bug,
   Cloud,
   Code,
   Database,
@@ -19,6 +21,8 @@ import { categories, type CourseSummary as Course } from "@/data/courses-minimal
 const iconMap: Record<string, React.ElementType> = {
   Award,
   Brain,
+  Briefcase,
+  Bug,
   Cloud,
   Code,
   Database,

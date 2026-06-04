@@ -115,6 +115,20 @@ export const categories: Category[] = [
     icon: "Database",
   },
   {
+    id: "testing-qa",
+    slug: "testing-qa",
+    name: "Testing & QA",
+    description: "Manual testing, Selenium automation, and ISTQB-aligned QA tracks",
+    icon: "Bug",
+  },
+  {
+    id: "salesforce",
+    slug: "salesforce",
+    name: "Salesforce",
+    description: "Salesforce Admin + Developer certification training (ADM 201 + PD1)",
+    icon: "Briefcase",
+  },
+  {
     id: "bootcamps",
     slug: "bootcamps",
     name: "Bootcamps",
@@ -2581,6 +2595,197 @@ export const courses: Course[] = [
     ],
     prerequisites: ["Final-year student or graduate (BE, BTech, BCA, BSc CS)", "Full-time availability (6 hours/day)"],
     careerOpportunities: ["Java Developer", "Python Developer", "MERN/MEAN Stack Developer", ".NET Developer", "Data Analyst", "Data Scientist", "ML Engineer", "Frontend Developer"],
+  },
+  // ── P4-10 additions (2026-06-04): Testing & QA + Salesforce tracks ───────
+  {
+    id: "selenium",
+    slug: "selenium-training-in-pune",
+    title: "Selenium with Java Training",
+    shortTitle: "Selenium",
+    category: "Testing & QA",
+    categorySlug: "testing-qa",
+    description: "Master Selenium WebDriver with Java for browser automation, TestNG for test orchestration, and the Page Object Model pattern. Build a production-grade automation framework integrated with Maven and Jenkins CI, ready for real Pune QA roles.",
+    shortDescription: "Selenium 4 + Java + TestNG + POM with CI/CD integration",
+    duration: "2 Months",
+    level: "Intermediate",
+    mode: ["Online", "Offline"],
+    image: "/images/courses/selenium.jpg",
+    isPopular: true,
+    highlights: [
+      "Selenium 4 WebDriver with Java",
+      "TestNG framework + parallel execution",
+      "Page Object Model + Page Factory patterns",
+      "Data-driven testing with Excel + Apache POI",
+      "Maven build management + Jenkins CI integration",
+      "BDD basics with Cucumber",
+    ],
+    modules: [
+      {
+        title: "Java for Testers",
+        topics: ["Java basics for QA", "OOP fundamentals (classes, inheritance, polymorphism)", "Collections framework essentials", "Exception handling", "File I/O for test data"],
+      },
+      {
+        title: "Selenium WebDriver Fundamentals",
+        topics: ["Selenium architecture", "Browser drivers + WebDriverManager", "Locators (id, name, XPath, CSS)", "Element interactions + waits (implicit, explicit, fluent)", "Handling alerts, frames, windows, dropdowns"],
+      },
+      {
+        title: "TestNG & Framework Design",
+        topics: ["TestNG annotations + suites", "Parameterisation + DataProviders", "Parallel test execution", "Listeners, retries, reports (ExtentReports)", "Assertions (hard vs soft)"],
+      },
+      {
+        title: "Advanced Selenium + CI/CD",
+        topics: ["Page Object Model + Page Factory", "Data-driven testing with Excel/CSV", "Cross-browser + Selenium Grid basics", "Maven dependency management", "Jenkins integration + scheduled runs", "Cucumber BDD primer"],
+      },
+    ],
+    faqs: [
+      {
+        question: "Do I need Java experience before joining?",
+        answer: "No — the course starts with a focused 'Java for Testers' module covering exactly what you need for Selenium. Programming aptitude helps but full Java fluency is not a prerequisite.",
+      },
+      {
+        question: "Selenium 3 vs Selenium 4 — what does this course cover?",
+        answer: "Selenium 4 throughout. We cover the new W3C protocol, relative locators, improved WebDriver BiDi APIs, and the new TestNG-Selenium 4 integration patterns that Pune product companies expect.",
+      },
+      {
+        question: "What career roles does this open up?",
+        answer: "Automation Test Engineer (₹3.5–6 LPA fresher), QA Automation Lead (₹6–10 LPA), and SDET roles at Pune product companies and IT services majors. Combined with API testing (Postman/Rest Assured), it sets up the Test Architect track.",
+      },
+      {
+        question: "What is the placement support like?",
+        answer: "Same placement assistance as our other tracks — interview prep, profile building, mock interviews, and connections with 100+ Pune hiring partners actively looking for Selenium engineers (Persistent, Capgemini, Mindtree, mid-tier product companies).",
+      },
+    ],
+    prerequisites: ["Basic programming aptitude (any language exposure helps)", "Logical thinking + attention to detail"],
+    careerOpportunities: ["Automation Test Engineer", "QA Automation Engineer", "SDET (Software Development Engineer in Test)", "Test Automation Lead"],
+    tools: ["Selenium WebDriver", "Java", "TestNG", "Maven", "Jenkins", "ExtentReports", "Cucumber", "Apache POI"],
+    targetAudience: ["Manual QA testers moving to automation", "Graduates targeting QA roles", "Java developers pivoting to QA"],
+  },
+  {
+    id: "software-testing",
+    slug: "software-testing-training-in-pune",
+    title: "Software Testing & QA Training",
+    shortTitle: "Software Testing",
+    category: "Testing & QA",
+    categorySlug: "testing-qa",
+    description: "Complete foundation in software testing — SDLC and STLC, test case design techniques, defect lifecycle with Jira, API testing with Postman, and ISTQB Foundation Level certification preparation. Industry-ready manual QA in 8–10 weeks.",
+    shortDescription: "Manual testing, SDLC/STLC, Jira, Postman, ISTQB Foundation prep",
+    duration: "2 Months",
+    level: "Beginner",
+    mode: ["Online", "Offline"],
+    image: "/images/courses/software-testing.jpg",
+    highlights: [
+      "SDLC + STLC fundamentals",
+      "Test case design (BVA, ECP, decision tables, state transition)",
+      "Defect lifecycle + Jira workflows",
+      "API testing with Postman",
+      "Agile + Scrum for testers",
+      "ISTQB Foundation Level certification preparation",
+    ],
+    modules: [
+      {
+        title: "Testing Fundamentals",
+        topics: ["SDLC models (Waterfall, V-Model, Agile)", "STLC phases", "Levels of testing (unit, integration, system, UAT)", "Types of testing (functional, non-functional, smoke, sanity, regression)", "Testing principles + verification vs validation"],
+      },
+      {
+        title: "Test Design Techniques",
+        topics: ["Equivalence partitioning", "Boundary value analysis", "Decision table testing", "State transition testing", "Use case + exploratory testing", "Writing professional test cases + test scenarios"],
+      },
+      {
+        title: "Manual Test Execution & Defect Management",
+        topics: ["Test planning + test strategy", "Test execution workflows", "Defect lifecycle (new → assigned → fixed → verified → closed)", "Severity vs priority", "Jira: creating + tracking bugs, dashboards, JQL basics", "Test reporting + metrics"],
+      },
+      {
+        title: "API Testing + ISTQB Prep",
+        topics: ["REST API fundamentals", "Postman: collections, environments, scripts", "Response validation + status codes", "Agile testing + Scrum ceremonies for testers", "ISTQB Foundation syllabus walkthrough + 200+ practice questions"],
+      },
+    ],
+    faqs: [
+      {
+        question: "Do I need a coding background?",
+        answer: "No — manual testing is the standard entry point into QA careers and requires no coding. Logical thinking, attention to detail, and clear written communication matter more than coding. Many of our graduates from non-IT backgrounds (commerce, science, mechanical) get placed in QA roles.",
+      },
+      {
+        question: "What is ISTQB and is the certification cost covered?",
+        answer: "ISTQB (International Software Testing Qualifications Board) Foundation Level is the global QA entry-level certification — widely accepted by Pune IT services companies. The course preps you fully (200+ practice MCQs + mock exams); the certification exam itself is paid separately to ISTQB (~₹4,500) when you choose to sit for it.",
+      },
+      {
+        question: "Can I move from manual testing to automation later?",
+        answer: "Yes — and most testers do. Manual testing teaches you what to test and why, which is exactly what automation engineers need. Our recommended path: Manual QA → 6–12 months experience → Selenium track (see /courses/testing-qa/selenium-training-in-pune) → Automation/SDET role.",
+      },
+      {
+        question: "What is the typical fresher salary?",
+        answer: "Pune QA fresher salaries range ₹2.5–4 LPA at services companies and ₹3.5–5 LPA at product companies. With 1–2 years experience + ISTQB + basic API testing, this moves to ₹4–6 LPA. Source: AmbitionBox + Indeed Pune QA listings, last 12 months.",
+      },
+    ],
+    prerequisites: ["Basic computer skills (browser, MS Office)", "Attention to detail + analytical thinking"],
+    careerOpportunities: ["Manual QA Tester", "Quality Analyst", "Test Engineer (Entry-level)", "QA Associate"],
+    tools: ["Jira", "Postman", "TestRail", "MS Excel", "Zephyr", "Bugzilla"],
+    targetAudience: ["Non-IT graduates entering tech", "Fresh graduates", "Career changers from non-IT roles"],
+  },
+  {
+    id: "salesforce",
+    slug: "salesforce-training-in-pune",
+    title: "Salesforce Admin + Developer Training",
+    shortTitle: "Salesforce",
+    category: "Salesforce",
+    categorySlug: "salesforce",
+    description: "Comprehensive Salesforce Admin + Developer track covering declarative configuration (Lightning, Flows, Validation Rules, Reports), Apex programming, SOQL/SOSL, Lightning Web Components, and integration patterns. Aligned with ADM 201 + Platform Developer I (PD1) certifications. Hands-on with a real Salesforce Developer Edition org.",
+    shortDescription: "ADM 201 + Platform Developer I (PD1) certification track with org-based labs",
+    duration: "3 Months",
+    level: "All Levels",
+    mode: ["Online", "Offline"],
+    image: "/images/courses/salesforce.jpg",
+    isPopular: true,
+    highlights: [
+      "Salesforce Lightning Experience deep-dive",
+      "Object model + relationships + validation rules",
+      "Apex programming (triggers, classes, batch, future)",
+      "SOQL + SOSL query languages",
+      "Lightning Web Components (LWC)",
+      "Process Builder, Flows, Approval Processes",
+      "ADM 201 + PD1 certification preparation",
+      "Trailhead playground exercises throughout",
+    ],
+    modules: [
+      {
+        title: "Salesforce Platform Overview + Admin Essentials",
+        topics: ["Salesforce ecosystem + cloud products", "Org setup + user management", "Standard objects (Account, Contact, Opportunity, Lead)", "Profiles, roles, permission sets", "Page layouts + record types"],
+      },
+      {
+        title: "Data Modeling, Security & UI Configuration",
+        topics: ["Custom objects + custom fields", "Object relationships (lookup, master-detail, many-to-many)", "Validation rules + formula fields", "Sharing rules + record-level security", "Lightning App Builder + Lightning pages", "Reports + dashboards"],
+      },
+      {
+        title: "Apex Programming + SOQL",
+        topics: ["Apex syntax + data types", "Triggers + trigger frameworks", "SOQL + SOSL queries", "Governor limits + bulk patterns", "Apex testing + code coverage requirements", "Asynchronous Apex (Batch, Queueable, Future)"],
+      },
+      {
+        title: "Lightning Web Components + Integration + Certification Prep",
+        topics: ["LWC fundamentals + decorators (@api, @track, @wire)", "LWC + Apex integration", "REST + SOAP API integrations", "Platform Events basics", "ADM 201 + PD1 mock exams + Trailhead Superbadges", "Resume + portfolio building"],
+      },
+    ],
+    faqs: [
+      {
+        question: "Should I start with Admin or Developer track?",
+        answer: "Both — this course covers both. The Pune Salesforce job market overwhelmingly hires for combined Admin + Developer profiles ('Salesforce Consultant'). Pure-Admin roles are rare; pure-Developer roles expect Admin literacy. We sequence Admin first (lower complexity) → Developer (deeper).",
+      },
+      {
+        question: "Do I need programming experience?",
+        answer: "Not for the Admin half. The Developer half (Apex, LWC) does involve programming but starts gently — Apex syntax is Java-like, and many of our Salesforce trainees come from non-CS backgrounds and pick it up. We allocate the first ~3 weeks of the Developer module specifically to programming foundations for non-coders.",
+      },
+      {
+        question: "What about the certification cost?",
+        answer: "ADM 201 + PD1 exam fees are paid separately to Salesforce (~₹16,500 / $200 each). The course preps you fully (Trailhead modules, mock exams, hands-on org work); you sit for the exams when you're ready. ~70-80% of our trainees clear at least ADM 201 within 3 months of course completion.",
+      },
+      {
+        question: "What does the Pune Salesforce job market look like?",
+        answer: "Pune has strong Salesforce demand at IT services majors (Cognizant, Accenture, TCS, Wipro, Capgemini) + boutique Salesforce partners (CloudFulcrum, Saksoft, Saviynt). Fresher salaries: ₹3.5–5 LPA. With 1+ year + 2 certifications: ₹5–8 LPA. Senior Salesforce Developers and Architects clear ₹15+ LPA. Source: AmbitionBox Pune + LinkedIn job aggregates 2026.",
+      },
+    ],
+    prerequisites: ["Basic understanding of business processes", "Comfort with web applications", "No prior CRM or programming experience required for the Admin half"],
+    careerOpportunities: ["Salesforce Administrator", "Salesforce Developer", "Salesforce Consultant", "Salesforce Business Analyst", "Salesforce Platform Engineer"],
+    tools: ["Salesforce Lightning Experience", "Apex", "SOQL", "Lightning Web Components", "Salesforce CLI", "VS Code Salesforce Extensions", "Trailhead", "Postman (API testing)"],
+    targetAudience: ["Career changers from non-IT", "Functional consultants moving into Salesforce", "Java developers pivoting to platform engineering"],
   },
 ];
 

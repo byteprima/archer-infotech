@@ -86,6 +86,20 @@ export const categories: Category[] = [
     icon: "Database",
   },
   {
+    id: "testing-qa",
+    slug: "testing-qa",
+    name: "Testing & QA",
+    description: "Manual testing, Selenium automation, and ISTQB-aligned QA tracks",
+    icon: "Bug",
+  },
+  {
+    id: "salesforce",
+    slug: "salesforce",
+    name: "Salesforce",
+    description: "Salesforce Admin + Developer certification training (ADM 201 + PD1)",
+    icon: "Briefcase",
+  },
+  {
     id: "bootcamps",
     slug: "bootcamps",
     name: "Bootcamps",
@@ -727,10 +741,49 @@ export const coursesSummary: CourseSummary[] = [
     mode: ["Online", "Offline"],
     image: "/images/courses/techready-bootcamp.jpg",
   },
+  {
+    id: "selenium",
+    slug: "selenium-training-in-pune",
+    title: "Selenium with Java Training",
+    shortTitle: "Selenium",
+    category: "Testing & QA",
+    categorySlug: "testing-qa",
+    shortDescription: "Selenium 4 + Java + TestNG + POM with CI/CD integration",
+    duration: "2 Months",
+    level: "Intermediate",
+    mode: ["Online", "Offline"],
+    image: "/images/courses/selenium.jpg",
+    isPopular: true,
+  },
+  {
+    id: "software-testing",
+    slug: "software-testing-training-in-pune",
+    title: "Software Testing & QA Training",
+    shortTitle: "Software Testing",
+    category: "Testing & QA",
+    categorySlug: "testing-qa",
+    shortDescription: "Manual testing, SDLC/STLC, Jira, Postman, ISTQB Foundation prep",
+    duration: "2 Months",
+    level: "Beginner",
+    mode: ["Online", "Offline"],
+    image: "/images/courses/software-testing.jpg",
+  },
+  {
+    id: "salesforce",
+    slug: "salesforce-training-in-pune",
+    title: "Salesforce Admin + Developer Training",
+    shortTitle: "Salesforce",
+    category: "Salesforce",
+    categorySlug: "salesforce",
+    shortDescription: "ADM 201 + Platform Developer I (PD1) certification track with org-based labs",
+    duration: "3 Months",
+    level: "All Levels",
+    mode: ["Online", "Offline"],
+    image: "/images/courses/salesforce.jpg",
+    isPopular: true,
+  },
 ];
 
-// Light helpers that don't need rich data —
-// kept in sync with the namesake helpers in courses.ts.
 export function getFeaturedCoursesSummary(): CourseSummary[] {
   return coursesSummary.filter((c) => c.isFeatured);
 }
