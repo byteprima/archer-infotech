@@ -1,10 +1,12 @@
 import { Suspense } from "react";
 import { Metadata } from "next";
+import Link from "next/link";
 import { CoursesFilter } from "@/components/courses/courses-filter";
 import { buildPageMetadata } from "@/lib/seo";
 import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { FaqSection } from "@/components/seo/faq-section";
 import { coursesFaqs } from "@/data/faqs";
+import { categories, courses } from "@/data/courses";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "IT Training Courses in Pune",
@@ -47,6 +49,77 @@ export default function CoursesPage() {
         placement assistance with 100+ corporate hiring partners — no
         separate placement fee.
       </DefinitiveAnswer>
+
+      {/* Server-rendered all-courses directory — grouped by category, every
+          course gets a real <a href> in initial HTML. The CoursesFilter
+          below is client-hydrated so Googlebot's first crawl pass sees only
+          its fallback shell; explicit anchor links here pass PageRank from
+          /courses (indexed) to all 45 child course pages immediately.
+          Directly addresses the 2026-06-04 finding that 3 course pages
+          (prompt-engineering, mongodb, oracle-database) were "Unknown to
+          Google" despite indexed parent categories — discovery signal,
+          not robots/canonical, was the missing piece. Also serves users:
+          fast browse-without-JS for the courses listing. */}
+      <section
+        aria-labelledby="all-courses-index-heading"
+        className="py-12 border-b bg-muted/30"
+      >
+        <div className="container mx-auto px-4 max-w-6xl">
+          <h2
+            id="all-courses-index-heading"
+            className="text-2xl md:text-3xl font-bold mb-2"
+          >
+            Browse all 40+ IT training courses
+          </h2>
+          <p className="text-muted-foreground mb-8 max-w-3xl">
+            Quick directory of every course we run, grouped by track. Use the
+            filter below for fees, duration and batch timings — or jump
+            straight to any course.
+          </p>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-6">
+            {categories.map((cat) => {
+              const catCourses = courses.filter(
+                (c) => c.categorySlug === cat.slug,
+              );
+              if (catCourses.length === 0) return null;
+              return (
+                <div key={cat.slug}>
+                  <h3 className="text-base font-semibold mb-2">
+                    <Link
+                      href={
+                        cat.slug === "bootcamps"
+                          ? "/bootcamps"
+                          : `/courses/${cat.slug}`
+                      }
+                      className="hover:text-primary hover:underline"
+                    >
+                      {cat.name}
+                    </Link>
+                  </h3>
+                  <ul className="space-y-1.5 text-sm list-none p-0">
+                    {catCourses.map((c) => {
+                      const href =
+                        c.categorySlug === "bootcamps"
+                          ? `/bootcamps/${c.slug.replace("-bootcamp", "")}`
+                          : `/courses/${c.categorySlug}/${c.slug}`;
+                      return (
+                        <li key={c.id}>
+                          <Link
+                            href={href}
+                            className="text-muted-foreground hover:text-primary hover:underline"
+                          >
+                            {c.title}
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
 
       {/*
         Reserve vertical space for the client-side CoursesFilter (filter sidebar

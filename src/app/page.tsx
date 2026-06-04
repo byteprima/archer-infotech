@@ -33,9 +33,15 @@ import { FaqSection } from "@/components/seo/faq-section";
 import { homeFaqs } from "@/data/faqs";
 
 // Match <title>, og:title and visible <h1> exactly — Pillar 1 #11.
+// Home-specific description (overrides siteConfig.description fallback) —
+// leads with brand to disambiguate from Archer Aviation / Archer Daniels
+// Midland on the "archer" SERP (76 impr / 0 clicks at pos 11.4 per GSC
+// 2026-06-04). Front-loads concrete placement partners + the 90% rate to
+// drive SERP CTR. ~152 chars, fits Google's desktop snippet window.
 export const metadata: Metadata = buildPageMetadata({
   title: `Pune's Most Trusted IT Training Institute Since ${siteConfig.foundingYear}`,
-  description: siteConfig.description,
+  description:
+    "Archer Infotech — Pune's IT training institute since 2009. Java, Python, Full Stack, AWS, DevOps & AI with 90% placement at TCS, Infosys, Persistent.",
   path: "/",
 });
 
