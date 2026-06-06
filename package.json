@@ -62,14 +62,13 @@
     "typescript": "^5"
   },
   "browserslist": [
-    ">0.3%",
+    "Chrome >= 93",
+    "Edge >= 93",
+    "Firefox >= 92",
+    "Safari >= 15.4",
+    "iOS >= 15.4",
     "not dead",
     "not op_mini all",
-    "not ie 11",
-    "Chrome >= 92",
-    "Edge >= 92",
-    "Firefox >= 90",
-    "Safari >= 15.4",
-    "iOS >= 15.4"
+    "not ie 11"
   ]
 }
