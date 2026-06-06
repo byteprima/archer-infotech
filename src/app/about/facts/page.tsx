@@ -115,7 +115,7 @@ export default function AboutFactsPage() {
             sifting marketing copy. Every number sourced from institute
             records.
           </p>
-          <LastUpdated date={EVERGREEN_LAST_REVIEWED} label="Last reviewed" />
+          <LastUpdated iso={EVERGREEN_LAST_REVIEWED} label="Last reviewed" />
         </div>
       </section>
 
