@@ -2787,6 +2787,80 @@ export const courses: Course[] = [
     tools: ["Salesforce Lightning Experience", "Apex", "SOQL", "Lightning Web Components", "Salesforce CLI", "VS Code Salesforce Extensions", "Trailhead", "Postman (API testing)"],
     targetAudience: ["Career changers from non-IT", "Functional consultants moving into Salesforce", "Java developers pivoting to platform engineering"],
   },
+  // ── P4-10 closer (2026-06-06): Agentic AI — the 5th and final priority
+  // course from the original list (Selenium, SW Testing, Salesforce, GenAI,
+  // Agentic AI). GenAI already existed as a category with multiple courses
+  // (Prompt Engineering, ChatGPT & LLMs, AI Tools). Agentic AI is the 2026-
+  // emerging vertical for engineers who want to build production agent
+  // systems using LangChain / LangGraph / OpenAI Assistants / Claude tool
+  // use — distinct enough from generic GenAI to warrant its own page.
+  // Lives under the existing generative-ai category. ─────────────────────
+  {
+    id: "agentic-ai",
+    slug: "agentic-ai-training-in-pune",
+    title: "Agentic AI",
+    shortTitle: "Agentic AI",
+    category: "Generative AI",
+    categorySlug: "generative-ai",
+    description: "Build production-grade AI agents with LangChain, LangGraph, OpenAI Assistants API, and Claude tool use. Learn the ReAct pattern, multi-step planning, memory and state management, multi-agent orchestration, and observability + deployment for real-world agent systems. The fastest-growing GenAI specialisation in the Pune product-engineering market.",
+    shortDescription: "LangChain + LangGraph + OpenAI Assistants + Claude tool use; ReAct, memory, multi-agent orchestration",
+    duration: "2 Months",
+    level: "Intermediate",
+    mode: ["Online", "Offline"],
+    image: "/images/courses/agentic-ai.jpg",
+    isPopular: true,
+    isFeatured: true,
+    highlights: [
+      "LangChain + LangGraph fundamentals",
+      "OpenAI Assistants API + Function Calling",
+      "Claude tool use + Computer Use API",
+      "ReAct pattern + planning + reflection loops",
+      "Memory (short-term, long-term, episodic) + state management",
+      "Multi-agent orchestration + supervisor patterns",
+      "Production deployment: observability, evals, cost controls",
+      "Capstone: a deployed multi-step agent",
+    ],
+    modules: [
+      {
+        title: "Foundations: LLMs as Reasoning Engines",
+        topics: ["LLM API basics (OpenAI, Anthropic, Google)", "Tool / function calling fundamentals", "System prompts + behaviour shaping", "Structured outputs (JSON mode + schema constraints)", "Token economics + context-window strategy", "When an agent is the right tool vs a workflow"],
+      },
+      {
+        title: "Agent Frameworks",
+        topics: ["LangChain core (chains, runnables, expression language)", "LangGraph (stateful agent graphs)", "OpenAI Assistants API + Threads", "Claude tool use + Computer Use API", "Framework comparison: when to use which", "Building a single-agent ReAct loop from scratch"],
+      },
+      {
+        title: "Multi-step Workflows + Memory",
+        topics: ["ReAct + reflection patterns", "Plan-and-execute architectures", "Short-term vs long-term memory", "Vector stores for episodic memory (Pinecone, Weaviate, pgvector)", "Conversation summarisation + context pruning", "Error recovery + retry strategies"],
+      },
+      {
+        title: "Multi-Agent Systems + Production",
+        topics: ["Supervisor + worker patterns", "Agent-to-agent communication protocols", "Tool registries + permissions", "Observability with LangSmith / Helicone", "Evals: deterministic + LLM-as-judge", "Cost controls + caching strategies", "Deployment: FastAPI + serverless edge", "Capstone project: build, deploy, and evaluate a real multi-step agent"],
+      },
+    ],
+    faqs: [
+      {
+        question: "What's the difference between an LLM and an AI agent?",
+        answer: "An LLM is a single-call inference engine — give it a prompt, get a completion. An AI agent is an LLM in a loop: it can call tools (search the web, query a database, execute code), observe the results, and decide what to do next until a goal is achieved. This course teaches the second.",
+      },
+      {
+        question: "Do I need to know Python or have ML background?",
+        answer: "Python yes — the entire ecosystem (LangChain, LangGraph, OpenAI/Anthropic SDKs) is Python-first. Deep ML / model-training background is NOT required — agentic AI is about orchestrating existing models, not training them. If you can write Python and understand REST APIs, you can take this course. We dedicate week 1 to Python+LLM-API fundamentals for anyone who needs the refresher.",
+      },
+      {
+        question: "Which frameworks does the course actually use?",
+        answer: "LangChain + LangGraph as the primary teaching framework (largest ecosystem, most Pune job postings reference them). We also cover OpenAI Assistants API and Claude tool use directly without a wrapper — so you understand what abstractions exist and when to bypass them. Side coverage of LlamaIndex (RAG-heavy) and CrewAI (multi-agent specialist). No framework lock-in.",
+      },
+      {
+        question: "What career roles does this prepare me for?",
+        answer: "AI Engineer (₹8-15 LPA fresher to mid in Pune), Agentic AI Developer, GenAI Application Engineer, AI Solutions Engineer, and senior IC / Architect tracks at product companies building AI-native features. Pune product companies (Persistent, Avaamo, Helpshift, GUVI, BrowserStack's AI team) and IT services AI practices (TCS AI, Infosys Topaz, Wipro AI360, Capgemini AI CoE) are all hiring. Source: Naukri + LinkedIn Pune AI Engineer listings, last 90 days.",
+      },
+    ],
+    prerequisites: ["Python (intermediate — comfortable with classes, async, REST APIs)", "Basic LLM exposure (have used ChatGPT or Claude as a user, ideally have called an LLM API once)", "Familiarity with Git and the command line"],
+    careerOpportunities: ["AI Engineer", "Agentic AI Developer", "GenAI Application Engineer", "AI Solutions Engineer", "GenAI Architect (Sr.)"],
+    tools: ["LangChain", "LangGraph", "OpenAI Assistants API", "Anthropic Claude API + tool use", "Pinecone / Weaviate / pgvector", "LangSmith / Helicone (observability)", "FastAPI", "Python 3.11+"],
+    targetAudience: ["Python developers pivoting to GenAI", "Backend engineers wanting agentic skills", "Data scientists moving up the stack", "Generative AI track graduates wanting a deeper agent specialisation"],
+  },
 ];
 
 export function getCoursesByCategory(categorySlug: string): Course[] {

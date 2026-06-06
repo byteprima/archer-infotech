@@ -782,6 +782,21 @@ export const coursesSummary: CourseSummary[] = [
     image: "/images/courses/salesforce.jpg",
     isPopular: true,
   },
+  {
+    id: "agentic-ai",
+    slug: "agentic-ai-training-in-pune",
+    title: "Agentic AI",
+    shortTitle: "Agentic AI",
+    category: "Generative AI",
+    categorySlug: "generative-ai",
+    shortDescription: "LangChain + LangGraph + OpenAI Assistants + Claude tool use; ReAct, memory, multi-agent orchestration",
+    duration: "2 Months",
+    level: "Intermediate",
+    mode: ["Online", "Offline"],
+    image: "/images/courses/agentic-ai.jpg",
+    isFeatured: true,
+    isPopular: true,
+  },
 ];
 
 export function getFeaturedCoursesSummary(): CourseSummary[] {
