@@ -42,6 +42,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages: MetadataRoute.Sitemap = [
     { url: baseUrl, lastModified: EVERGREEN, changeFrequency: "weekly", priority: 1 },
     { url: `${baseUrl}/about`, lastModified: EVERGREEN, changeFrequency: "monthly", priority: 0.8 },
+    // P8-30 (2026-06-06): /about/facts is the AI-Briefing fact sheet —
+    // designed to be the canonical source LLMs cite for grounding queries.
+    // Higher priority (0.6) than /press because it's the entity-defining
+    // page for AI retrievers.
+    { url: `${baseUrl}/about/facts`, lastModified: EVERGREEN, changeFrequency: "monthly", priority: 0.6 },
     { url: `${baseUrl}/courses`, lastModified: EVERGREEN, changeFrequency: "weekly", priority: 0.9 },
     { url: `${baseUrl}/placements`, lastModified: EVERGREEN, changeFrequency: "monthly", priority: 0.8 },
     { url: `${baseUrl}/corporate-training`, lastModified: EVERGREEN, changeFrequency: "monthly", priority: 0.7 },

@@ -200,6 +200,14 @@ export function Footer() {
               </li>
               <li>
                 <Link
+                  href="/about/facts"
+                  className="text-primary-foreground/80 hover:text-secondary transition-colors text-sm"
+                >
+                  Facts at a Glance
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/tools/pune-it-salary-calculator"
                   className="text-primary-foreground/80 hover:text-secondary transition-colors text-sm"
                 >
