@@ -699,14 +699,14 @@ export default function FullStackDeveloperCareerPath() {
               </li>
               <li>
                 <Link
-                  href="/bootcamps/careercode"
+                  href="/guides/best-full-stack-projects-for-pune-resume-2026"
                   className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
                 >
                   <span className="font-medium block text-sm">
-                    CareerCode Bootcamp
+                    10 Best Full Stack Projects for Pune Resume
                   </span>
                   <span className="text-xs text-muted-foreground">
-                    Bootcamp · full-stack track for engineering students
+                    Guide · portfolio projects ranked by recruiter signal
                   </span>
                 </Link>
               </li>

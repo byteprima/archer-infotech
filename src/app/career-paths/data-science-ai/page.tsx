@@ -662,14 +662,14 @@ export default function DataScienceAICareerPath() {
               </li>
               <li>
                 <Link
-                  href="/courses/data-ai"
+                  href="/guides/best-data-science-projects-pune-freshers-2026"
                   className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
                 >
                   <span className="font-medium block text-sm">
-                    Data &amp; AI Courses in Pune
+                    10 Best Data Science Projects for Pune Freshers
                   </span>
                   <span className="text-xs text-muted-foreground">
-                    Category · all data + AI tracks
+                    Guide · portfolio projects from analytics → GenAI
                   </span>
                 </Link>
               </li>

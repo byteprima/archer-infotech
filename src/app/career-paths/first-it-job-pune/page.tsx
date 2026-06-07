@@ -648,14 +648,14 @@ export default function FirstITJobPuneCareerPath() {
               </li>
               <li>
                 <Link
-                  href="/tools/pune-it-career-roadmap"
+                  href="/guides/leetcode-patterns-pune-fresher-it-interviews-2026"
                   className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
                 >
                   <span className="font-medium block text-sm">
-                    Pune IT Career Roadmap
+                    10 LeetCode Patterns for Pune Freshers
                   </span>
                   <span className="text-xs text-muted-foreground">
-                    Tool · 4 starting points → first job
+                    Guide · DSA prep ordered by interview frequency
                   </span>
                 </Link>
               </li>

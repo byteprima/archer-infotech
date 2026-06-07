@@ -180,6 +180,130 @@ export const listicles: Listicle[] = [
       { question: "Can an engineering graduate get into these roles directly?", answer: "Yes — all five reward demonstrable skill and projects over pedigree. A focused specialisation plus a strong portfolio lets a graduate target them directly, often via a placement-backed programme." },
     ],
   },
+
+  // 6 ─ Python libraries (P5-18 cluster spoke, 2026-06-07) ───────────────────
+  {
+    slug: "top-python-libraries-every-developer-should-know-2026",
+    shortLabel: "Top Python libraries",
+    metaTitle: "Top 10 Python Libraries Every Developer Should Know in 2026 (Pune Guide)",
+    metaDescription:
+      "The 10 Python libraries that show up most in Pune Python job posts in 2026 — covering web, data, ML, automation, and the rising agentic-AI stack. With what each does and when to learn it.",
+    h1: "Top 10 Python Libraries Every Developer Should Know in 2026",
+    intro:
+      "Pune Python job posts in 2026 reference a remarkably consistent library set across backend, data, ML and the rapidly-growing agentic AI segment. You don't need expertise in all 10 to be hireable — but you should at least recognise every name on this list, know what each does, and have hands-on time with the 3–4 that anchor your specialisation. Below are the libraries Pune recruiters actually probe, ordered by foundation-first then specialisation.",
+    entries: [
+      { name: "Requests / httpx", what: "The standard HTTP client for calling REST APIs from Python.", dataPoint: "Used in virtually every Python backend + automation role.", bestFor: "Foundation. Learn first." },
+      { name: "Pandas", what: "Tabular data manipulation — the data analyst / data scientist staple.", dataPoint: "Listed in 70%+ of Pune data + analytics Python job posts.", bestFor: "Data Analyst, Data Scientist tracks.", href: "/courses/data-ai/data-science-training-in-pune" },
+      { name: "NumPy", what: "Numerical arrays + linear algebra primitives. The foundation Pandas sits on.", dataPoint: "Essential for any ML or scientific-computing role.", bestFor: "Data Science, ML Engineer." },
+      { name: "scikit-learn", what: "Classical machine learning — regression, classification, clustering, model evaluation.", dataPoint: "The first ML library Pune recruiters probe at interview.", bestFor: "Data Science + ML Engineer foundations.", href: "/courses/data-ai/machine-learning-training-in-pune" },
+      { name: "FastAPI", what: "Modern async REST framework — fast, typed, auto-documented.", dataPoint: "Among the fastest-growing Python skills in Pune backend posts.", bestFor: "Backend, ML serving, agent-app APIs." },
+      { name: "Django", what: "Full-featured web framework with built-in admin + ORM.", dataPoint: "Pune services-sector default for Python web work.", bestFor: "Python Full Stack backend.", href: "/courses/full-stack-development/python-full-stack-training-in-pune" },
+      { name: "SQLAlchemy", what: "Python's most-used SQL toolkit + ORM.", dataPoint: "Standard pairing with FastAPI in Pune startup backends.", bestFor: "Backend developers using non-Django stacks." },
+      { name: "LangChain + LangGraph", what: "The agentic AI framework stack — multi-step LLM workflows + tool calls + memory.", dataPoint: "Pune AI Engineer postings reference these explicitly.", bestFor: "Agentic AI, GenAI specialists.", href: "/courses/generative-ai/agentic-ai-training-in-pune" },
+      { name: "PyTorch (or TensorFlow)", what: "Deep learning — model definition, training, GPU acceleration.", dataPoint: "PyTorch leads in Pune research + AI startup hiring; TensorFlow remains common in enterprise ML teams.", bestFor: "ML Engineer, AI Research tracks." },
+      { name: "Pydantic", what: "Type-safe data validation — the FastAPI + LangChain standard.", dataPoint: "Pydantic v2 is a 2024+ table-stakes skill in modern Python codebases.", bestFor: "Every modern Python developer." },
+    ],
+    methodology:
+      "Libraries were selected by frequency in Pune Python job postings (Naukri + LinkedIn, last 90 days, 2026-06 sample) cross-referenced with what hiring managers actually probe in technical screens. Foundation libraries (Requests, Pandas, NumPy) ranked first; specialisation libraries grouped by track.",
+    faqs: [
+      { question: "Which Python libraries should I learn first as a Pune beginner?", answer: "Foundation tier: Requests (for HTTP), Pandas (for tabular data), NumPy (for numerical work). These three open the door to either web or data tracks. After 4–6 weeks of hands-on practice with them, pick a specialisation library (scikit-learn for data, FastAPI for backend, etc.) and go deep there." },
+      { question: "Do I need TensorFlow AND PyTorch for ML jobs in Pune?", answer: "No — pick one and go deep. PyTorch dominates in Pune research and AI startup hiring; TensorFlow remains common at enterprise ML teams (Persistent ML, BrowserStack ML, services-major AI practices). Switching between them later is days, not weeks." },
+      { question: "Where does LangChain fit in this stack?", answer: "LangChain + LangGraph sit on top of regular Python — they're agent-orchestration frameworks, not a separate runtime. They expect comfort with Python fundamentals + Requests + Pydantic + an LLM API key. Don't rush LangChain before the foundations." },
+    ],
+  },
+
+  // 7 ─ Full Stack projects (P5-19 cluster spoke, 2026-06-07) ────────────────
+  {
+    slug: "best-full-stack-projects-for-pune-resume-2026",
+    shortLabel: "Full stack resume projects",
+    metaTitle: "10 Best Full Stack Projects for Your Pune Resume in 2026",
+    metaDescription:
+      "10 portfolio-ready full-stack projects that close Pune interviews in 2026 — across Java, MERN, .NET, and Python stacks. With what each demonstrates and who it's best for.",
+    h1: "10 Best Full Stack Projects for Your Pune Resume in 2026",
+    intro:
+      "Full-stack portfolio projects that actually close Pune interviews in 2026 share four traits: deployed to a live URL, authentication + database CRUD, at least one harder-than-CRUD concept (real-time, payments, file processing, third-party integration), and a clean GitHub README. The 10 projects below cover Java FS / MERN / .NET FS / Python FS stacks; each lists the harder concept it exercises and the kind of role it best signals to. Build 2–3 and push deployed.",
+    entries: [
+      { name: "E-commerce store with payment integration", what: "Full CRUD + auth + Razorpay or Stripe test-mode integration + order admin.", dataPoint: "Demonstrates the BFSI + retail pattern Pune services majors hire heavily for.", bestFor: "Java FS / .NET FS portfolios.", href: "/career-paths/full-stack-developer" },
+      { name: "Real-time chat application with WebSockets", what: "Authenticated chat with rooms + presence + persistent history.", dataPoint: "Exercises the real-time concept that pure-CRUD apps don't.", bestFor: "MERN / Node.js backend portfolios." },
+      { name: "Project management dashboard (Kanban-style)", what: "Drag-drop tasks + assignees + comments + activity log.", dataPoint: "Tests UI complexity + state management depth.", bestFor: "React / Angular portfolios." },
+      { name: "Booking / appointment platform", what: "Calendar UI + availability rules + confirmation emails.", dataPoint: "Hits the SaaS pattern Pune product startups screen for.", bestFor: "Any stack — high recruiter recognition." },
+      { name: "Multi-tenant SaaS skeleton", what: "Subdomain or path-based tenancy + role-based auth + isolated data.", dataPoint: "Demonstrates senior-fresher architectural thinking.", bestFor: "Product-company-targeted portfolios." },
+      { name: "Document / file upload + processing app", what: "Upload PDF/image + extract text or thumbnails + searchable history.", dataPoint: "Exercises file handling + async background jobs + storage.", bestFor: "Python FS or Java FS portfolios." },
+      { name: "Public REST API + interactive docs", what: "A well-documented backend API + Swagger/OpenAPI UI + auth + rate limiting.", dataPoint: "Pure-backend signal; cleanly separable from your frontend story.", bestFor: "Backend-leaning full-stack portfolios." },
+      { name: "Analytics dashboard with charts", what: "Multi-source data + filters + interactive visualisations + export.", dataPoint: "Shows data + frontend together — strong signal for product roles.", bestFor: "Anyone targeting analytics-heavy verticals." },
+      { name: "Internal-tool clone (mini-CRM, mini-help-desk)", what: "End-to-end workflow tool with realistic role permissions.", dataPoint: "Services-sector hiring loves this pattern — most projects look like this.", bestFor: "Java FS / .NET FS services-sector targets.", href: "/courses/full-stack-development/java-full-stack-training-in-pune" },
+      { name: "AI-augmented full-stack app (RAG search / LLM chat)", what: "Standard full-stack app + an LLM-powered feature (search, summarisation, chatbot).", dataPoint: "Most-asked-for 2026 differentiator — shows you've shipped real GenAI integration.", bestFor: "Standing out at product companies.", href: "/courses/generative-ai/agentic-ai-training-in-pune" },
+    ],
+    methodology:
+      "Projects were selected by what Pune full-stack interviewers actually probe in technical and project-walkthrough rounds (sampled across services-major and product-company hiring patterns over 17 years of placement-cell data), balanced across difficulty and stack so any full-stack learner can build 2–3 credible portfolio pieces.",
+    faqs: [
+      { question: "How many full-stack projects do I need on my Pune fresher resume?", answer: "Two to three substantial projects beat ten shallow ones. At least one must be deployed to a live URL, at least one must exercise a harder-than-CRUD concept (real-time, payments, file processing, LLM integration), and all must have clean GitHub READMEs." },
+      { question: "Do I need to build projects in multiple stacks?", answer: "No — depth in one stack beats shallow exposure to three. Build 2–3 projects in your chosen stack (Java FS / MERN / .NET FS / Python FS). Cross-stack experience is a 2-year+ goal, not a fresher requirement." },
+      { question: "Are AI-augmented projects worth the extra effort in 2026?", answer: "Yes — at most Pune product companies and increasingly at services majors too. A single full-stack app with an LLM-powered feature (RAG search, summarisation, chat) is the most-recognised 2026 differentiator on a fresher resume. Treat it as your portfolio's headline project." },
+    ],
+  },
+
+  // 8 ─ Data Science projects (P5-20 cluster spoke, 2026-06-07) ──────────────
+  {
+    slug: "best-data-science-projects-pune-freshers-2026",
+    shortLabel: "Data science resume projects",
+    metaTitle: "10 Best Data Science Projects for Pune Freshers in 2026",
+    metaDescription:
+      "10 portfolio-ready data science + ML projects that close Pune interviews in 2026 — from analytics dashboards to deployed ML models to GenAI apps. With what each demonstrates and the right fresher fit.",
+    h1: "10 Best Data Science Projects for Pune Freshers in 2026",
+    intro:
+      "Data science portfolio projects that move Pune freshers from interview calls to offers in 2026 share four traits: a real (messy) dataset, a clear problem statement framed in business terms, a defensible methodology, and at least one project that's deployed beyond a Jupyter notebook. The 10 below cover analytics, classical ML, deep learning, and the rapidly-growing GenAI segment; each lists what it demonstrates and who it suits. Build 2–3 across difficulty levels.",
+    entries: [
+      { name: "End-to-end EDA on a real (messy) dataset", what: "Find a real dataset (not Iris/Titanic) — web scrape, clean, analyse, visualise, write up insights.", dataPoint: "Pune interviewers read this kind of notebook end-to-end; tutorial clones get scrolled past.", bestFor: "Foundation Data Analyst / Data Scientist portfolios." },
+      { name: "Interactive analytics dashboard (Streamlit / Power BI)", what: "Multi-source data + filters + visualisations + clear storytelling.", dataPoint: "Demonstrates Data Analyst + business framing skills together.", bestFor: "Data Analyst portfolios.", href: "/courses/data-ai/data-analytics-training-in-pune" },
+      { name: "Supervised ML model with clear methodology", what: "Classification or regression project with proper train/test, cross-validation, evaluation metrics, and a writeup.", dataPoint: "The single most-requested Data Scientist portfolio piece.", bestFor: "Data Scientist track foundation.", href: "/courses/data-ai/data-science-training-in-pune" },
+      { name: "Deployed ML model behind an API", what: "scikit-learn / PyTorch model + FastAPI + Render or Cloudflare deployment.", dataPoint: "Moves you from 'I trained a model' to 'I shipped a model.'", bestFor: "ML Engineer portfolios.", href: "/courses/data-ai/machine-learning-training-in-pune" },
+      { name: "NLP project (sentiment / classification / NER)", what: "Apply transformer models (HuggingFace) to a real text classification problem.", dataPoint: "NLP is the largest hireable ML specialisation in Pune in 2026.", bestFor: "Data Scientist + ML Engineer NLP focus." },
+      { name: "Time-series forecasting project", what: "Forecast a real time-series (stock, weather, demand) with ARIMA + LSTM comparison.", dataPoint: "Tests statistical + ML breadth together.", bestFor: "Data Scientist + analytics-team-targeted portfolios." },
+      { name: "Computer vision / image classification project", what: "Train a CNN on a real image dataset; deploy a demo.", dataPoint: "Strong product-company signal; smaller hiring market than NLP.", bestFor: "ML Engineer with CV focus." },
+      { name: "Recommendation system (collaborative or content-based)", what: "Build a recommender on a real dataset (movies, products, articles).", dataPoint: "Exercises algorithm choice + evaluation rigour.", bestFor: "ML Engineer + product-DS roles." },
+      { name: "RAG chatbot over your own documents", what: "LangChain + vector store + LLM + a working UI on your notes/blog/PDFs.", dataPoint: "Highest-recognition 2026 GenAI portfolio piece in Pune.", bestFor: "GenAI / Agentic AI portfolios.", href: "/courses/generative-ai/agentic-ai-training-in-pune" },
+      { name: "Multi-agent system with observability + evals", what: "LangGraph supervisor + workers + LangSmith traces + eval framework.", dataPoint: "Pune AI Engineer hiring premium piece — supply gap means immediate interview signal.", bestFor: "Standing out for Pune AI Engineer roles.", href: "/career-paths/data-science-ai" },
+    ],
+    methodology:
+      "Projects were selected by what Pune data + ML interviewers actually probe in technical and case-study rounds, sampled across services-major analytics (TCS, Cognizant, Capgemini) and product / AI-native companies (ZS, Tiger Analytics, Persistent ML, Helpshift, GUVI). Difficulty is graded foundation → ML → modern AI so every learner can build a credible 2–3 project portfolio.",
+    faqs: [
+      { question: "Do I need a Kaggle competition entry on my data science resume?", answer: "No. Kaggle entries are recognised but not differentiating — recruiters can spot a competition clone instantly. A project on a real, messy dataset that you scoped, cleaned, modelled, and wrote up clearly outperforms a Kaggle silver medal at the fresher level." },
+      { question: "Should my portfolio projects be in notebooks or deployed apps?", answer: "Mix. At least 1 substantial Jupyter notebook for analytical storytelling; at least 1 deployed app (Streamlit dashboard, FastAPI-served model, or LLM web app). Pure-notebook portfolios cap at Data Analyst roles; deployed work opens ML Engineer + GenAI Engineer doors." },
+      { question: "Which 2026 specialisation gives the biggest portfolio premium?", answer: "Agentic AI / LLM-application engineering. The supply gap in Pune means a deployed multi-agent capstone with observability + evals on your GitHub generates outsized interview signal at product companies. The skill premium is currently ₹3–6 LPA over equivalent classical-ML profiles." },
+    ],
+  },
+
+  // 9 ─ LeetCode patterns (P5-21 cluster spoke, 2026-06-07) ──────────────────
+  {
+    slug: "leetcode-patterns-pune-fresher-it-interviews-2026",
+    shortLabel: "LeetCode patterns for Pune freshers",
+    metaTitle: "10 LeetCode Patterns Every Pune Fresher Should Master in 2026",
+    metaDescription:
+      "The 10 LeetCode patterns that cover 80% of Pune fresher IT interview DSA rounds in 2026 — with the canonical problem for each, why interviewers ask it, and target practice volume.",
+    h1: "10 LeetCode Patterns Every Pune Fresher Should Master in 2026",
+    intro:
+      "Pune fresher IT interviews — services majors, product companies, and growing startups alike — concentrate their DSA rounds on a remarkably small set of patterns. Learn these 10 to working depth (recognise the pattern in 60 seconds, write the canonical solution in 15–25 minutes) and you'll cover 80% of what comes up. Below is the priority-ordered set with the canonical problem for each, why it gets asked, and how much practice volume per pattern your target company tier needs.",
+    entries: [
+      { name: "Two Pointers", what: "Iterate two indices through an array — opposite-end (Two Sum II) or same-end (remove duplicates).", dataPoint: "The most-asked easy pattern across Pune services + product fresher screens.", bestFor: "Start here. Lowest-friction pattern to master." },
+      { name: "Sliding Window", what: "Maintain a moving window of valid elements; expand and contract by index.", dataPoint: "Underlies most substring / subarray problems — Longest Substring Without Repeating Characters being canonical.", bestFor: "Strings + array subrange interview questions." },
+      { name: "Fast & Slow Pointers (Floyd's cycle)", what: "Two pointers moving at different speeds — detect cycles + find middle nodes.", dataPoint: "Linked-list and cycle-detection rounds rely on this pattern almost exclusively.", bestFor: "Linked lists + linked-list-on-array problems." },
+      { name: "Binary Search (and its variants)", what: "Logarithmic search — classic + modified (find boundary, search rotated array).", dataPoint: "Appears in 25–30% of Pune product company DSA rounds, often disguised.", bestFor: "Anyone targeting product companies. Practice variants until they're automatic." },
+      { name: "Hash Map / Hash Set", what: "Trade memory for O(1) lookup — Two Sum and 80% of frequency-counting problems.", dataPoint: "The single most-used data structure in interview solutions, period.", bestFor: "Universal — learn first if not already comfortable." },
+      { name: "BFS / DFS on Trees", what: "Traverse binary trees — level order, in-order, post-order, recursive + iterative.", dataPoint: "Trees are screened in every Pune product company fresher round and many services-major rounds too.", bestFor: "Product-company-targeted prep. Memorise iterative versions." },
+      { name: "Recursion + Backtracking", what: "Generate combinations + permutations + subsets; solve constraint problems (N-Queens).", dataPoint: "The pattern interviewers use to test problem-decomposition thinking.", bestFor: "Anyone targeting beyond services-major tier." },
+      { name: "Dynamic Programming (basic)", what: "1D and 2D DP — Climbing Stairs, House Robber, Longest Common Subsequence.", dataPoint: "Differentiator between medium-only and hard-capable candidates.", bestFor: "Product-company DSA prep. 30+ DP problems before strong-company interviews." },
+      { name: "Greedy", what: "Make locally-optimal choices — Jump Game, Best Time to Buy and Sell Stock.", dataPoint: "Often disguised as 'array maximum' problems — pattern recognition is the test.", bestFor: "Standalone pattern; ~10 problems builds intuition." },
+      { name: "Heap / Priority Queue", what: "Top-K / Kth-largest patterns — using a heap to avoid full sorting.", dataPoint: "Common at product companies; rarer at services majors.", bestFor: "Product-company-targeted prep. Bonus pattern after the first 9.", href: "/career-paths/first-it-job-pune" },
+    ],
+    methodology:
+      "Patterns were ranked by Pune fresher interview frequency across services majors (Persistent, Capgemini, Mindtree, Tech Mahindra, Cognizant), product companies (BrowserStack, Druva, Helpshift, GUVI, ZS), and growing AI startups, weighted by the volume of fresher hiring at each tier. Practice volume targets: 50+ easy + 20 medium for services tier, 100+ medium + 20 hard for product tier, focused on these 10 patterns.",
+    faqs: [
+      { question: "How many LeetCode problems do I need to solve for a Pune fresher IT job?", answer: "Services-major tier: 50+ easy + 20 medium across these 10 patterns is the working baseline. Product-company tier: 100+ medium + 20 hard. Top-tier product companies (BrowserStack, Persistent product, AI startups): 250+ medium/hard with competitive-programming exposure. The patterns matter more than the count — 200 problems across all 10 patterns beats 500 random problems." },
+      { question: "Should I solve problems in Java or Python for Pune interviews?", answer: "Use the language you'll actually interview in. Most candidates pick Python for LeetCode practice (faster to write) regardless of their interview language — that's fine for pattern learning, but spend the last 2 weeks before interviews practising in your interview language so you don't fumble syntax under pressure." },
+      { question: "Which pattern should I learn first if I'm starting from zero?", answer: "Hash Map / Hash Set first — it underlies more solutions than any other single tool and is the easiest to develop intuition for. Two Pointers second. Then Sliding Window. After those three, you can solve a large share of easy-tier problems, which builds confidence before tackling Binary Search + tree patterns. Trying to start with DP or backtracking before this foundation usually ends in tutorial fatigue without retention." },
+    ],
+  },
 ];
 
 export function getListicle(slug: string): Listicle | undefined {

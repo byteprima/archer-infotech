@@ -670,14 +670,14 @@ export default function PythonDeveloperCareerPath() {
               </li>
               <li>
                 <Link
-                  href="/courses/generative-ai/agentic-ai-training-in-pune"
+                  href="/guides/top-python-libraries-every-developer-should-know-2026"
                   className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
                 >
                   <span className="font-medium block text-sm">
-                    Agentic AI Training in Pune
+                    Top 10 Python Libraries for 2026
                   </span>
                   <span className="text-xs text-muted-foreground">
-                    Course · LangChain + LangGraph specialisation
+                    Guide · ordered foundation-first then specialisation
                   </span>
                 </Link>
               </li>
