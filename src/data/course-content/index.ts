@@ -58,6 +58,12 @@ import { mongodbTrainingInPune } from "./mongodb-training-in-pune";
 import { oracleDatabaseTrainingInPune } from "./oracle-database-training-in-pune";
 import { firebaseTrainingInPune } from "./firebase-training-in-pune";
 
+// P4-10 follow-up — rich content for the 4 courses shipped 2026-06-04/06
+import { seleniumTrainingInPune } from "./selenium-training-in-pune";
+import { softwareTestingTrainingInPune } from "./software-testing-training-in-pune";
+import { salesforceTrainingInPune } from "./salesforce-training-in-pune";
+import { agenticAITrainingInPune } from "./agentic-ai-training-in-pune";
+
 /**
  * Registry of long-form rich content keyed by course slug.
  *
@@ -74,7 +80,12 @@ import { firebaseTrainingInPune } from "./firebase-training-in-pune";
  *   Android, Flutter, React Native, iOS / Swift,
  *   MySQL, PostgreSQL, MongoDB, Oracle Database, Firebase.
  *
- * Total: 41 of 41 tech-course slugs now have rich content (modulo the 3 bootcamps in bootcamps.ts).
+ * P4-10 follow-up (added 2026-06-07): Selenium with Java, Software Testing & QA,
+ *   Salesforce Admin + Developer, Agentic AI — all 4 rich-content overlays for
+ *   the courses shipped 2026-06-04/06.
+ *
+ * Total: 45 of 45 tech-course slugs now have rich content
+ * (modulo the 3 bootcamps in bootcamps.ts).
  */
 export const courseRichContent: Record<string, CourseRichContent> = {
   // Tier 1
@@ -134,6 +145,12 @@ export const courseRichContent: Record<string, CourseRichContent> = {
   "mongodb-training-in-pune": mongodbTrainingInPune,
   "oracle-database-training-in-pune": oracleDatabaseTrainingInPune,
   "firebase-training-in-pune": firebaseTrainingInPune,
+
+  // P4-10 follow-up — courses shipped 2026-06-04/06
+  "selenium-training-in-pune": seleniumTrainingInPune,
+  "software-testing-training-in-pune": softwareTestingTrainingInPune,
+  "salesforce-training-in-pune": salesforceTrainingInPune,
+  "agentic-ai-training-in-pune": agenticAITrainingInPune,
 };
 
 export function getCourseRichContent(slug: string): CourseRichContent | null {
