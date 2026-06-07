@@ -644,14 +644,14 @@ export default function PythonDeveloperCareerPath() {
               </li>
               <li>
                 <Link
-                  href="/tools/pune-it-career-roadmap"
+                  href="/compare/django-vs-fastapi-for-python-web-2026"
                   className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
                 >
                   <span className="font-medium block text-sm">
-                    Pune IT Career Roadmap
+                    Django vs FastAPI for Python Web
                   </span>
                   <span className="text-xs text-muted-foreground">
-                    Tool · 4 starting points → first job
+                    Comparison · Pune Python framework pick
                   </span>
                 </Link>
               </li>

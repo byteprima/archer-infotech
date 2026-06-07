@@ -673,14 +673,14 @@ export default function FullStackDeveloperCareerPath() {
               </li>
               <li>
                 <Link
-                  href="/tools/pune-it-career-roadmap"
+                  href="/compare/frontend-vs-backend-developer-career-pune"
                   className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
                 >
                   <span className="font-medium block text-sm">
-                    Pune IT Career Roadmap
+                    Frontend vs Backend Developer Career
                   </span>
                   <span className="text-xs text-muted-foreground">
-                    Tool · 4 starting points → first job
+                    Comparison · Pune specialisation framework
                   </span>
                 </Link>
               </li>

@@ -332,6 +332,137 @@ export const comparisons: Comparison[] = [
       },
     ],
   },
+
+  // 6 ─ Django vs FastAPI (P5-18 cluster spoke, 2026-06-07) ──────────────────
+  {
+    slug: "django-vs-fastapi-for-python-web-2026",
+    shortLabel: "Django vs FastAPI",
+    metaTitle: "Django vs FastAPI for Python Web Development (2026) — Pune Career Guide",
+    metaDescription:
+      "Django vs FastAPI in 2026: an honest comparison of speed, learning curve, Pune job demand, real-world use cases, and which framework to pick first. Includes hiring data and project-fit guidance.",
+    h1: "Django vs FastAPI for Python Web Development (2026)",
+    optionA: "Django",
+    optionB: "FastAPI",
+    verdict:
+      "For Pune fresher Python web developers in 2026, Django is the higher-volume hiring bet (largest pool of Pune services-sector + product-company Python web openings) while FastAPI is the fastest-growing skill and the modern default for ML serving + agentic AI backends. Pick Django first if you want maximum services-major fresher placement coverage; pick FastAPI first if you're targeting product startups, data/ML serving, or agentic AI engineering. Many Pune Python developers end up using both — the second framework is days to pick up, not weeks.",
+    table: [
+      { factor: "First-release year", a: "2005 (mature, battle-tested)", b: "2018 (modern, async-native)" },
+      { factor: "Pune fresher hiring volume", a: "Higher — services + product", b: "Growing fast — startups + ML + AI" },
+      { factor: "Learning curve", a: "Steeper — batteries-included means more concepts upfront", b: "Gentler — minimal scaffolding, learn as you grow" },
+      { factor: "Built-in admin / ORM", a: "Yes — admin + Django ORM + migrations", b: "No — pair with SQLAlchemy + Alembic" },
+      { factor: "Async support", a: "Added in 4.x but ORM still sync-bound", b: "Native async — best-in-class" },
+      { factor: "Auto-generated API docs", a: "Via DRF + drf-spectacular (manual setup)", b: "Built-in — Swagger + ReDoc automatically" },
+      { factor: "Performance (req/sec)", a: "Good (sync WSGI baseline)", b: "Excellent (async ASGI, 3–10x throughput)" },
+      { factor: "Best for", a: "Web apps with admin UI, CMS, internal tools, e-commerce", b: "REST APIs, ML model serving, agentic AI backends, microservices" },
+      { factor: "Pune salary band (fresher)", a: "₹4–7 LPA", b: "₹4–7 LPA (rising at AI shops)" },
+    ],
+    whenA: {
+      heading: "When Django is the better pick",
+      paragraphs: [
+        "If you're targeting Pune services-major Python web roles — the largest fresher hiring pool — Django is the expected default. Persistent, Capgemini, Cognizant, Mindtree Pune teams overwhelmingly run Django on their Python web engagements.",
+        "If your application needs a full-featured admin UI out of the box (CMS, internal tooling, e-commerce dashboards), Django's built-in admin saves weeks of work. FastAPI alternatives (FastAPI Admin, SQLAdmin) exist but aren't as polished.",
+        "If you want one framework that handles forms, auth, templating, ORM, migrations, and admin without configuration — Django's batteries-included philosophy delivers exactly that.",
+      ],
+    },
+    whenB: {
+      heading: "When FastAPI is the better pick",
+      paragraphs: [
+        "If you're building a pure REST API consumed by a separate frontend (React, mobile app, third-party clients), FastAPI's auto-generated Swagger docs + Pydantic validation deliver a materially better developer experience than DRF.",
+        "If your role involves ML model serving (scikit-learn / PyTorch / TensorFlow models behind an HTTP endpoint), FastAPI is the modern default — the LangChain + LangGraph ecosystem assumes FastAPI as the serving layer.",
+        "If you're targeting Pune product startups, AI-native companies (Persistent's Avaamo group, Helpshift, GUVI, BrowserStack AI), or agentic-AI specialisations, FastAPI fluency is the differentiator.",
+      ],
+    },
+    bottomLine:
+      "Pick Django first if you're optimising for the largest Pune services-sector Python hiring pool and want a batteries-included framework. Pick FastAPI first if you're targeting product startups, ML serving, or agentic AI engineering — where it's the modern default. Either way, expect to pick up the other within your first 12 months on the job; both are first-class Python web skills in 2026.",
+    relatedCourseSlugs: ["python-training-in-pune", "python-full-stack-training-in-pune", "agentic-ai-training-in-pune"],
+    faqs: [
+      {
+        question: "Which is easier to learn for a beginner — Django or FastAPI?",
+        answer:
+          "FastAPI is gentler at the very start (one file, one endpoint, fewer concepts) but Django becomes easier as your app grows because the patterns are already decided for you. For complete beginners targeting a Pune Python web role, Django is the more strategic pick — it teaches the patterns hiring managers expect.",
+      },
+      {
+        question: "Can I use Django and FastAPI in the same project?",
+        answer:
+          "Yes — and many production teams do. A common pattern: Django for the admin + business logic, FastAPI for high-throughput public APIs or ML model serving. They share the same Python ecosystem (SQLAlchemy works in Django too) so integration is straightforward.",
+      },
+      {
+        question: "Does FastAPI replace Django REST Framework?",
+        answer:
+          "For greenfield REST APIs, increasingly yes. FastAPI's auto-documentation + Pydantic + async patterns are materially better than DRF for new builds. But existing Django + DRF codebases stay on DRF — there's rarely a business case to migrate.",
+      },
+      {
+        question: "Which framework do Pune AI engineering teams use?",
+        answer:
+          "Overwhelmingly FastAPI. The LangChain + LangGraph + OpenAI/Anthropic SDK stack is FastAPI-first, and most Pune product companies with AI features (Persistent Avaamo, Helpshift, GUVI, BrowserStack AI) standardise on FastAPI for their agent + model serving layer.",
+      },
+    ],
+  },
+
+  // 7 ─ Frontend vs Backend (P5-19 cluster spoke, 2026-06-07) ────────────────
+  {
+    slug: "frontend-vs-backend-developer-career-pune",
+    shortLabel: "Frontend vs Backend",
+    metaTitle: "Frontend vs Backend Developer Career in Pune (2026) — Which to Pick",
+    metaDescription:
+      "Frontend vs backend developer career in 2026: an honest comparison of skills, salary bands, Pune hiring volume, day-to-day work, and how to pick your specialisation — or stay full-stack.",
+    h1: "Frontend vs Backend Developer Career in Pune (2026)",
+    optionA: "Frontend",
+    optionB: "Backend",
+    verdict:
+      "For Pune fresher developers in 2026, neither pure frontend nor pure backend dominates — full-stack roles outnumber both specialisations 4:1 at the fresher level. If you're choosing a long-term specialisation, frontend pays slightly less at fresher level but has lower entry barriers; backend pays slightly more and has cleaner senior-level ladder progression toward architect / staff roles. The pragmatic Pune answer: become hireable as full-stack first (broader fresher pool), then specialise into your stronger half over years 2–4.",
+    table: [
+      { factor: "Pune fresher hiring volume", a: "Moderate — ~150-250 listings/month", b: "Higher — ~250-400 listings/month" },
+      { factor: "Average Pune fresher salary", a: "₹3.5–6 LPA", b: "₹4–7 LPA" },
+      { factor: "Sr Engineer salary (5+ yrs)", a: "₹12–22 LPA", b: "₹14–26 LPA" },
+      { factor: "Core technical depth", a: "HTML / CSS / JavaScript / React or Angular + design sense", b: "Language depth (Java/Python/Go/.NET) + DB + system design" },
+      { factor: "Entry barrier", a: "Lower — visible output, faster early wins", b: "Higher — DB + system thinking takes longer" },
+      { factor: "Day-to-day work", a: "UI implementation, browser quirks, animations, accessibility, design-system fidelity", b: "Data modelling, API design, performance tuning, infra coordination" },
+      { factor: "Career ladder", a: "Frontend Engineer → Sr → Lead → Architect (smaller market)", b: "Backend Engineer → Sr → Staff / Principal / Architect (larger market)" },
+      { factor: "Hiring tilt", a: "Product companies + startups + design-heavy services", b: "Services majors + product cos + BFSI + e-commerce" },
+    ],
+    whenA: {
+      heading: "When frontend is the better specialisation",
+      paragraphs: [
+        "If you have a strong design sense and visual problem-solving instinct, frontend rewards those skills directly. Most engineers can build a backend that works; fewer can build a frontend that feels right.",
+        "If you want faster early-career wins and a more visible portfolio, frontend's deployed UIs are easier to show in interviews than backend APIs. A polished public portfolio site immediately reads as frontend competence.",
+        "If you're targeting Pune product companies, AI/SaaS startups, or design-heavy services consultancies (where UX matters as a competitive moat), frontend specialisation pays well and has growing senior-level demand.",
+      ],
+    },
+    whenB: {
+      heading: "When backend is the better specialisation",
+      paragraphs: [
+        "If you enjoy data modelling, query design, system architecture, and the invisible-but-critical layer of software, backend is genuinely more interesting work. Most senior engineering roles eventually trend backend-leaning.",
+        "If you want the broadest long-term career options — staff engineer, architect, technical lead, engineering manager, even moving into infrastructure or data engineering — backend depth opens more doors than frontend depth.",
+        "If you're targeting Pune services majors (where backend roles outnumber frontend roles roughly 2:1) or product companies where reliability + scaling matter (BFSI, e-commerce, BFSI), backend specialisation has higher hiring volume.",
+      ],
+    },
+    bottomLine:
+      "At fresher level, neither is wrong — Pune full-stack roles dominate hiring volume and give you exposure to both before you specialise. If you must pick now: choose frontend if you have design sense and want faster visible wins, backend if you want broader senior-level optionality. For most candidates, the realistic path is full-stack fresher → specialise after 2–4 years based on what your team needs and what you actually enjoy doing day-to-day.",
+    relatedCourseSlugs: ["mern-stack-training-in-pune", "java-full-stack-training-in-pune", "react-training-in-pune"],
+    faqs: [
+      {
+        question: "Should I learn frontend or backend first?",
+        answer:
+          "Frontend first if you're brand new to coding — the feedback loop is faster (visible output) which sustains motivation. Backend first if you have prior programming exposure and want to build deeper engineering fundamentals (data modelling, system thinking). Either way, expect to learn both at fresher level — full-stack roles are the dominant hiring tier in Pune.",
+      },
+      {
+        question: "Does backend pay more than frontend in Pune?",
+        answer:
+          "Slightly, at every experience tier. Fresher: ₹0.5 LPA delta. Senior (5+ yrs): ₹2–4 LPA delta. The gap widens at staff/principal level because backend has cleaner ladder progression into architect roles. But the absolute numbers are close — frontend at senior + lead level is well-paid too.",
+      },
+      {
+        question: "Is full-stack a real specialisation or a fresher-only thing?",
+        answer:
+          "Both. At fresher and 1–3 year levels, full-stack is the dominant hiring profile in Pune. At senior level (5+ years), most engineers specialise into their stronger half — but full-stack senior roles do exist, especially at smaller product companies and startups where one engineer needs to ship features end-to-end.",
+      },
+      {
+        question: "Which is more future-proof — frontend or backend?",
+        answer:
+          "Both — for different reasons. Backend is more stable in terms of underlying concepts (databases, APIs, system design haven't changed fundamentally in 20 years). Frontend evolves faster (React Server Components, edge runtimes, AI-native UIs) which makes it intellectually more dynamic but requires continuous learning. Pick based on what you enjoy; both have decades of career runway.",
+      },
+    ],
+  },
 ];
 
 export function getComparison(slug: string): Comparison | undefined {
