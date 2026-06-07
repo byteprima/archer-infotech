@@ -172,6 +172,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
+  // Career-path pillar pages (P5-18+, 2026-06-07). Hub + Python pillar live;
+  // 3 more pillars (Full Stack, Data Science / AI, First IT Job) ship in
+  // future sessions. High priority — these are the deepest content surfaces.
+  const careerPathsPages: MetadataRoute.Sitemap = [
+    { url: `${baseUrl}/career-paths`, lastModified: EVERGREEN, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${baseUrl}/career-paths/python-developer`, lastModified: EVERGREEN, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${baseUrl}/career-paths/full-stack-developer`, lastModified: EVERGREEN, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${baseUrl}/career-paths/data-science-ai`, lastModified: EVERGREEN, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${baseUrl}/career-paths/first-it-job-pune`, lastModified: EVERGREEN, changeFrequency: "monthly", priority: 0.8 },
+  ];
+
   return [
     ...staticPages,
     ...categoryPages,
@@ -187,6 +198,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...comparePages,
     ...guidesListingPage,
     ...guidePages,
+    ...careerPathsPages,
     ...blogPages,
     ...blogCategoryPages,
   ];

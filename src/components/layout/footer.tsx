@@ -238,6 +238,14 @@ export function Footer() {
                   IT Career Guides
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/career-paths"
+                  className="text-primary-foreground/80 hover:text-secondary transition-colors text-sm"
+                >
+                  Career Paths
+                </Link>
+              </li>
             </ul>
           </div>
 
