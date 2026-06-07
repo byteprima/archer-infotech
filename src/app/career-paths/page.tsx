@@ -32,6 +32,13 @@ interface PillarCard {
 
 const pillars: PillarCard[] = [
   {
+    slug: "java-developer",
+    title: "Become a Java Developer",
+    blurb:
+      "Java drives Pune's largest single-language fresher hiring volume — 2,000-2,800 listings/month, 2x any other language. Full roadmap covering Core Java → Spring Boot → 4 specialisation arcs (Backend / Full Stack / Microservices / Android), 12-month plan, salary bands.",
+    status: "live",
+  },
+  {
     slug: "python-developer",
     title: "Become a Python Developer",
     blurb:

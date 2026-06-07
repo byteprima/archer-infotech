@@ -177,6 +177,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // future sessions. High priority — these are the deepest content surfaces.
   const careerPathsPages: MetadataRoute.Sitemap = [
     { url: `${baseUrl}/career-paths`, lastModified: EVERGREEN, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${baseUrl}/career-paths/java-developer`, lastModified: EVERGREEN, changeFrequency: "monthly", priority: 0.8 },
     { url: `${baseUrl}/career-paths/python-developer`, lastModified: EVERGREEN, changeFrequency: "monthly", priority: 0.8 },
     { url: `${baseUrl}/career-paths/full-stack-developer`, lastModified: EVERGREEN, changeFrequency: "monthly", priority: 0.8 },
     { url: `${baseUrl}/career-paths/data-science-ai`, lastModified: EVERGREEN, changeFrequency: "monthly", priority: 0.8 },
