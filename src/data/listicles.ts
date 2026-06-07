@@ -352,6 +352,54 @@ export const listicles: Listicle[] = [
       },
     ],
   },
+
+  // 11 ─ Spring Boot projects (Java pillar spoke, 2026-06-07) ───────────────
+  {
+    slug: "best-spring-boot-projects-for-pune-resume-2026",
+    shortLabel: "Best Spring Boot resume projects",
+    metaTitle: "10 Best Spring Boot Projects for Your Pune Resume in 2026",
+    metaDescription:
+      "10 portfolio-ready Spring Boot projects that close Pune Java interviews in 2026 — from REST API foundations to deployed microservices. With what each demonstrates and the right fresher fit.",
+    h1: "10 Best Spring Boot Projects for Your Pune Resume in 2026",
+    intro:
+      "Spring Boot is the dominant Pune Java fresher framework — every services-major Pune codebase you'll touch runs on it. Portfolio projects that close Pune Java interviews share four traits: deployed to a live URL, authentication + relational database + REST API, at least one harder-than-CRUD concept (security, async, integration), and a clean GitHub README with the architectural choices documented. Below are 10 projects ordered foundation-first then specialisation. Build 2–3 across difficulty levels.",
+    entries: [
+      { name: "REST API + JWT Authentication", what: "Full CRUD REST API with Spring Security + JWT + role-based access + Swagger docs.", dataPoint: "The foundational Spring Boot interview project — exercises 80% of what services-major recruiters probe.", bestFor: "Foundation. Every Java fresher portfolio should have this." },
+      { name: "Spring Boot + PostgreSQL Banking App", what: "Account management + transactions + transfer endpoints + auditing + transactional integrity.", dataPoint: "Hits the BFSI pattern Pune services majors hire heavily for (BNP Paribas IT, Allianz tech, Cognizant + Capgemini BFSI accounts).", bestFor: "Backend portfolios targeting BFSI / enterprise verticals." },
+      { name: "E-commerce REST Backend", what: "Product catalogue + cart + order + payment (Razorpay test mode) + inventory management.", dataPoint: "Most-recognisable services-sector pattern — recruiters identify the architecture instantly.", bestFor: "Java Full Stack portfolios.", href: "/courses/full-stack-development/java-full-stack-training-in-pune" },
+      { name: "File Upload + Async Processing", what: "Upload PDF/image → process async via @Async or Kafka → return result via polling/webhook.", dataPoint: "Exercises async patterns that pure-CRUD apps don't.", bestFor: "Standing out beyond the typical CRUD portfolio." },
+      { name: "Spring Boot + React Full Stack", what: "Full backend stack (above) + React frontend + JWT integration + a real deployed full-stack app.", dataPoint: "The Pune-services-sector full-stack pattern — Java FS is the most-hired stack.", bestFor: "Java Full Stack track portfolios." },
+      { name: "Microservices with Spring Cloud", what: "3-service microservice architecture: API Gateway + Service Discovery (Eureka) + 2 business services + inter-service REST calls.", dataPoint: "Demonstrates senior-fresher architectural thinking; pays ₹2-4 LPA above standard backend band.", bestFor: "Targeting Pune product companies + above-band services roles.", href: "/courses/full-stack-development/spring-boot-microservices-training-in-pune" },
+      { name: "Spring Boot + Kafka Event-Driven App", what: "Producer + consumer + Kafka topic + dead-letter handling + at-least-once delivery patterns.", dataPoint: "Modern Pune product companies (Druva, Persistent product, BFSI tech) increasingly screen for async messaging fluency.", bestFor: "Product-company-targeted portfolios + senior-fresher band." },
+      { name: "Spring Boot + Docker + Deployment", what: "Existing project + Dockerfile + docker-compose for local dev + deployment to Render/Railway/Fly.io with environment-based config.", dataPoint: "Moves you from 'I built it locally' to 'I shipped it' — the deployment signal.", bestFor: "Every portfolio needs at least 1 deployed project." },
+      { name: "Spring Boot + Test Coverage", what: "JUnit 5 + Mockito + Testcontainers + 80%+ test coverage on one of your existing projects.", dataPoint: "Pune services sector screens hard on testing discipline; product companies require it.", bestFor: "Adding to your strongest existing project before applying — fastest portfolio differentiator." },
+      { name: "Spring Boot + LLM Integration", what: "REST API + LangChain4j (or OpenAI/Anthropic SDK) + a working LLM-powered feature (search, summarisation, chatbot) + RAG over your own docs.", dataPoint: "Most-recognised 2026 differentiator — shows you've shipped real GenAI integration on the JVM.", bestFor: "Standing out at product companies + JVM-shop AI engineering roles.", href: "/career-paths/java-developer" },
+    ],
+    methodology:
+      "Projects were selected by what Pune Java interviewers actually probe in technical and project-walkthrough rounds (sampled across services-major + product-company hiring patterns over 17 years of placement-cell data), balanced foundation → specialisation so any Java learner can build 2–3 credible portfolio pieces in their 3 months of Spring Boot module work.",
+    faqs: [
+      {
+        question: "How many Spring Boot projects do I need on my Pune Java fresher resume?",
+        answer:
+          "Two to three substantial deployed projects beat ten shallow ones. At least one must demonstrate the foundational pattern (REST API + JWT + database), at least one must exercise a harder-than-CRUD concept (async, microservices, Kafka, security depth, LLM integration), and all must have clean GitHub READMEs documenting the architectural choices.",
+      },
+      {
+        question: "Do I need microservices on my fresher resume for Pune Java jobs?",
+        answer:
+          "Not at services-major fresher level (₹3.5-6 LPA band) — a solid monolithic Spring Boot project closes most services interviews. Yes at product-company fresher level (₹6-9 LPA band) and at above-band services roles. One working microservices project demonstrates the senior-fresher architectural thinking that pays ₹2-4 LPA above standard backend band.",
+      },
+      {
+        question: "Should I learn Spring (Framework) before Spring Boot in 2026?",
+        answer:
+          "No — Spring Boot first. Pure Spring (Framework) is legacy at this point; Spring Boot is the default for new projects + the framework Pune services majors hire on. You'll encounter Spring (non-Boot) when working on older codebases at services majors, but the concepts transfer; learning the old syntax later takes days.",
+      },
+      {
+        question: "Where do I deploy Spring Boot projects for free?",
+        answer:
+          "Render (free tier with auto-sleep) for backend; Railway (small free credit per month); Fly.io (free tier with cold starts); or a tiny AWS EC2 instance if you have a student credit. Pair with PostgreSQL on Supabase or Neon (free tier) for the database. Total cost to deploy a portfolio of 3 Spring Boot projects: ₹0.",
+      },
+    ],
+  },
 ];
 
 export function getListicle(slug: string): Listicle | undefined {

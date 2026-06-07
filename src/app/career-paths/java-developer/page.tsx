@@ -614,14 +614,14 @@ export default function JavaDeveloperCareerPath() {
               </li>
               <li>
                 <Link
-                  href="/guides/java-frameworks-every-backend-developer-should-know"
+                  href="/guides/best-spring-boot-projects-for-pune-resume-2026"
                   className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
                 >
                   <span className="font-medium block text-sm">
-                    12 Java Frameworks Every Backend Dev Should Know
+                    10 Best Spring Boot Projects for Pune Resume
                   </span>
                   <span className="text-xs text-muted-foreground">
-                    Guide · framework ecosystem map
+                    Guide · portfolio projects foundation → microservices → AI
                   </span>
                 </Link>
               </li>
