@@ -57,6 +57,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${baseUrl}/press`, lastModified: NEW_ASSETS, changeFrequency: "monthly", priority: 0.5 },
     { url: `${baseUrl}/tools/pune-it-salary-calculator`, lastModified: NEW_ASSETS, changeFrequency: "monthly", priority: 0.7 },
     { url: `${baseUrl}/tools/pune-it-career-roadmap`, lastModified: NEW_ASSETS, changeFrequency: "monthly", priority: 0.7 },
+    // Glossary — Pune IT term reference (2026-06-07).
+    // High AI-engine-citation value: DefinedTermSet schema + per-term anchors.
+    { url: `${baseUrl}/glossary`, lastModified: EVERGREEN, changeFrequency: "monthly", priority: 0.6 },
     // Legal pages — shipped 2026-05-08 (P4-22 canonicals) but were missing
     // from the sitemap. Low priority + yearly cadence — they rarely change,
     // but inclusion is a baseline trust signal for Google + AI crawlers

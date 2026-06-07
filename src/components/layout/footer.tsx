@@ -246,6 +246,14 @@ export function Footer() {
                   Career Paths
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/glossary"
+                  className="text-primary-foreground/80 hover:text-secondary transition-colors text-sm"
+                >
+                  Pune IT Glossary
+                </Link>
+              </li>
             </ul>
           </div>
 
