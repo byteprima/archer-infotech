@@ -681,6 +681,19 @@ export default function PythonDeveloperCareerPath() {
                   </span>
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/compare/pandas-vs-numpy-when-to-use-which-2026"
+                  className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
+                >
+                  <span className="font-medium block text-sm">
+                    Pandas vs NumPy — When to Use Which
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    Comparison · data-science branch tool pick
+                  </span>
+                </Link>
+              </li>
             </ul>
           </section>
 

@@ -796,6 +796,72 @@ export const comparisons: Comparison[] = [
       },
     ],
   },
+
+  // 13 ─ Pandas vs NumPy (Python cluster spoke #3, 2026-06-07) ──────────────
+  {
+    slug: "pandas-vs-numpy-when-to-use-which-2026",
+    shortLabel: "Pandas vs NumPy",
+    metaTitle: "Pandas vs NumPy — When to Use Which (2026) | Pune Python Data Guide",
+    metaDescription:
+      "Pandas vs NumPy in 2026: an honest comparison for Pune Python data developers — when each is the right tool, performance trade-offs, integration patterns, and which to learn first.",
+    h1: "Pandas vs NumPy — When to Use Which (2026)",
+    optionA: "NumPy",
+    optionB: "Pandas",
+    verdict:
+      "NumPy and Pandas aren't really alternatives — they're complementary tools at different layers of the Python data stack. NumPy handles numerical arrays + linear algebra (the foundation Pandas is built on). Pandas adds labelled tabular data (DataFrames) + column-typed operations + missing-value handling on top. For Pune Python data fresher work, learn NumPy first to working depth (3-4 weeks), then layer Pandas on top (4-6 weeks) — Pandas without NumPy fluency creates confusion when you hit a performance wall and have to drop down to NumPy operations.",
+    table: [
+      { factor: "Primary purpose", a: "Numerical computation on n-dimensional arrays", b: "Labelled tabular data manipulation (DataFrames + Series)" },
+      { factor: "Core data structure", a: "ndarray (homogeneous, contiguous memory)", b: "DataFrame (heterogeneous columns, indexed rows)" },
+      { factor: "Built on top of", a: "C (foundational — no Python lib dependency)", b: "NumPy (DataFrame is essentially a dict of NumPy arrays + metadata)" },
+      { factor: "Best for", a: "Linear algebra, ML feature matrices, image arrays, scientific computing", b: "CSV/Excel data, time series, exploratory data analysis, dashboards" },
+      { factor: "Performance for numerical ops", a: "Fastest at the array level — vectorised C operations", b: "Slightly slower (overhead of labels + heterogeneous columns)" },
+      { factor: "Missing-value handling", a: "No native NaN handling outside floats", b: "First-class NaN support across all dtypes" },
+      { factor: "I/O", a: "Limited (np.save / np.load for binary)", b: "Rich (read_csv, read_excel, read_sql, read_json, read_parquet)" },
+      { factor: "Pune fresher hiring screen frequency", a: "~70% of data + ML interview rounds", b: "~85% of data + analytics interview rounds" },
+      { factor: "Learn first for Pune data career", a: "Yes — foundation", b: "Layer on top after NumPy comfort" },
+    ],
+    whenA: {
+      heading: "When NumPy is the right tool",
+      paragraphs: [
+        "If you're doing pure numerical computation — matrix multiplication, image arrays, ML feature matrices, scientific computing — NumPy's ndarray is the right primitive. Faster than Pandas at this layer because there's no label / index overhead.",
+        "If you're building or debugging an ML pipeline (scikit-learn, TensorFlow, PyTorch), the underlying tensors and feature matrices are NumPy arrays. Understanding NumPy directly is what separates 'I followed a tutorial' from 'I can diagnose a shape error in production.'",
+        "If you're solving Pune Python data interview questions involving linear algebra, dot products, broadcasting, or array reshaping, NumPy fluency is screened directly. Most Pune fresher data interviews probe NumPy basics in the technical round.",
+      ],
+    },
+    whenB: {
+      heading: "When Pandas is the right tool",
+      paragraphs: [
+        "If your data has columns with labels + meaning (sales data, user records, time series, CSV/Excel exports), Pandas DataFrames make analysis natural. SQL-like operations (filter, groupby, join, aggregate) read cleanly in Pandas.",
+        "If you're doing exploratory data analysis — looking at a real dataset, computing summary statistics, building visualisations — Pandas + matplotlib/seaborn is the right stack. Most Pune Data Analyst + Data Scientist day-to-day work is Pandas.",
+        "If you're prepping data for an ML model (cleaning, feature engineering, encoding categoricals, handling missing values), Pandas is where 80% of that work happens. The final step is usually converting the cleaned DataFrame to a NumPy array for the model.",
+      ],
+    },
+    bottomLine:
+      "Don't pick — learn both, in order. NumPy first (3-4 weeks of focused practice on array operations, broadcasting, indexing, linear algebra basics). Then Pandas (4-6 weeks of CSV → DataFrame → analysis → visualisation on real messy datasets). Most Pune Python data fresher interviews probe both; both appear in nearly every data pipeline. Treat them as one toolchain at two layers, not two competing libraries.",
+    relatedCourseSlugs: ["python-training-in-pune", "data-science-training-in-pune", "data-analytics-training-in-pune"],
+    faqs: [
+      {
+        question: "Can I use Pandas without learning NumPy first?",
+        answer:
+          "Functionally yes; productively no. Many Pandas operations return NumPy arrays under the hood — when you hit a confusing dtype error, a shape mismatch, or a performance bottleneck, you'll need NumPy fluency to debug it. Pune interviews also screen for NumPy directly. The shortcut you save by skipping NumPy costs you weeks of confused debugging later.",
+      },
+      {
+        question: "Is Pandas slower than NumPy? Should I always use NumPy for speed?",
+        answer:
+          "Pandas is slower for pure numerical operations because it manages labels + indexes + heterogeneous columns. For million-row analytical work, the overhead is noticeable. Realistic answer: use Pandas for development clarity + I/O + label-aware operations, drop down to NumPy operations on the underlying arrays (df.values or df.to_numpy()) when you have a real performance need. Don't pre-optimise; profile first.",
+      },
+      {
+        question: "What about Polars and DuckDB — are Pandas + NumPy still worth learning in 2026?",
+        answer:
+          "Yes, decisively. Polars and DuckDB are excellent modern alternatives (faster, lazy evaluation, query optimisation) but Pandas + NumPy remain the dominant Pune Python data hiring stack. ~85% of Pune fresher data job postings reference Pandas explicitly; Polars + DuckDB appear in <10% combined. Learn Pandas + NumPy first; add Polars in year 2 if a role requires it.",
+      },
+      {
+        question: "Which one should I learn first if I'm targeting Pune Data Analyst roles specifically?",
+        answer:
+          "Practical answer: Pandas first if you're under tight timeline for Data Analyst applications (Pandas is more visible in Analyst day-to-day work). Strategic answer: NumPy first if you have 3+ months of prep runway, because Pandas built on NumPy fluency is materially deeper. For Data Scientist + ML Engineer roles where mathematical operations matter, NumPy-first is the universal right answer.",
+      },
+    ],
+  },
 ];
 
 export function getComparison(slug: string): Comparison | undefined {
