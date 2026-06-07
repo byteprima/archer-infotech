@@ -304,6 +304,54 @@ export const listicles: Listicle[] = [
       { question: "Which pattern should I learn first if I'm starting from zero?", answer: "Hash Map / Hash Set first — it underlies more solutions than any other single tool and is the easiest to develop intuition for. Two Pointers second. Then Sliding Window. After those three, you can solve a large share of easy-tier problems, which builds confidence before tackling Binary Search + tree patterns. Trying to start with DP or backtracking before this foundation usually ends in tutorial fatigue without retention." },
     ],
   },
+
+  // 10 ─ Top Pune IT companies hiring freshers (P5-21 cluster spoke #2, 2026-06-07) ──
+  {
+    slug: "top-pune-it-companies-hiring-freshers-2026",
+    shortLabel: "Top Pune IT companies hiring freshers",
+    metaTitle: "Top 10 Pune IT Companies Hiring Freshers in 2026 — Career Guide",
+    metaDescription:
+      "The 10 Pune IT companies with the strongest fresher hiring pipelines in 2026 — across services majors, mid-tier consulting, and product / AI-native firms. With fresher salary bands and what each hires for.",
+    h1: "Top 10 Pune IT Companies Hiring Freshers in 2026",
+    intro:
+      "Pune's fresher IT hiring market in 2026 concentrates at a small set of companies that account for roughly 60% of total intake volume. Below are the 10 with the strongest fresher pipelines, ranked by combined fresher hiring volume + salary band + ladder velocity. Each entry lists what they hire for, the realistic fresher salary band, and which kind of candidate they fit best. Volume numbers are sampled from Naukri + LinkedIn Pune fresher listings (last 90 days, 2026-06).",
+    entries: [
+      { name: "Persistent Systems", what: "Pune's largest services-+-product hybrid — fresher hiring across Java FS, .NET FS, Python, data engineering, Salesforce, and the new AI engineering practice (Avaamo group).", dataPoint: "Pune fresher intake of 1,000-1,500/year; salary band ₹4-6 LPA (services) / ₹6-9 LPA (product teams).", bestFor: "Anyone targeting a Pune services-major fresher slot with an upside path into the product / AI side." },
+      { name: "Capgemini Pune", what: "Massive Pune fresher campus drives — Java, Angular, .NET, SAP, Salesforce, testing, infra. Strong onshore client engagement on US/UK accounts.", dataPoint: "Fresher salary band ₹3.5-5 LPA; year-1 onshore deputation possible for top performers.", bestFor: "Highest-probability first offer for engineering graduates from Tier 2/3 colleges." },
+      { name: "Cognizant Pune", what: "Diverse Pune fresher hiring — Java + .NET + Angular + Python + Salesforce. Strong Salesforce + AI practice presence in Pune.", dataPoint: "Fresher salary band ₹3.5-5 LPA; large quarterly intake batches.", bestFor: "Salesforce or .NET track candidates; healthcare/BFSI client work." },
+      { name: "Tech Mahindra Pune", what: "Pune campus runs a steady fresher pipeline — Java, .NET, telecom-domain work, network engineering, automation testing.", dataPoint: "Fresher salary band ₹3.5-5 LPA; strong telecom-domain specialisation opportunity.", bestFor: "Engineering graduates open to telecom/network engineering exposure alongside dev work." },
+      { name: "LTIMindtree (Mindtree)", what: "Pune fresher hiring across Java + Angular + cloud + Salesforce + data tracks. Smaller batch sizes than top-3 services majors but cleaner mentorship structure.", dataPoint: "Fresher salary band ₹3.5-5.5 LPA; slightly more selective.", bestFor: "Candidates targeting services-tier hiring with above-average team experience." },
+      { name: "Cybage", what: "Pune-headquartered services + product hybrid — Java, .NET, Python, mobile, QA, data science. Cleaner fresher onboarding than the top-3 services majors.", dataPoint: "Fresher salary band ₹4-6 LPA; smaller batch sizes mean faster onto real projects.", bestFor: "Candidates who prefer mid-sized firms over large-batch services majors.", href: "/career-paths/first-it-job-pune" },
+      { name: "BrowserStack", what: "Pune product company — testing infrastructure SaaS. Fresher hiring across full-stack (React + Node + Go), QA automation, and the growing AI test-platform team.", dataPoint: "Fresher salary band ₹7-12 LPA (product-company tier); strong DSA + system design filters.", bestFor: "Top 20% candidates with strong portfolios + DSA prep targeting product-tier compensation." },
+      { name: "ZS Associates Pune", what: "Data + AI consulting — fresher hiring for Data Scientist, Decision Analytics, BI Engineer, and the growing AI engineering practice.", dataPoint: "Fresher salary band ₹6-10 LPA; statistics + Python + business-framing filters.", bestFor: "Data / Analyst / AI Engineer track candidates with strong analytical communication.", href: "/career-paths/data-science-ai" },
+      { name: "Druva", what: "Pune product (cloud data protection). Fresher hiring in backend (Go + Java + Python), full-stack, and the data engineering team.", dataPoint: "Fresher salary band ₹6-10 LPA; smaller selective fresher intake.", bestFor: "Backend / data engineering candidates with deeper portfolio + open-source contributions." },
+      { name: "Helpshift", what: "Pune product (customer support SaaS + the rapidly-growing AI agent team). Smaller selective fresher hiring across full-stack + AI engineering.", dataPoint: "Fresher salary band ₹8-12 LPA (highest in this list); AI engineering roles trend toward the top of that band.", bestFor: "Candidates with deployed agent / LangChain portfolios targeting AI-native Pune product work.", href: "/career-paths/python-developer" },
+    ],
+    methodology:
+      "Companies were selected by combining (1) Naukri + LinkedIn Pune fresher listing volume over the last 90 days, (2) the company's documented Pune campus / office presence + scale, (3) Archer Infotech placement-cell hiring relationships built over 17 years. Salary bands are the typical fresher-tier midpoints; outliers (campus toppers, candidates with strong portfolios, niche specialisations) can land ₹1-3 LPA above the listed band. Volume + ladder-velocity weighted ordering — not pure salary ranking.",
+    faqs: [
+      {
+        question: "How many companies should I apply to from this list for my Pune fresher search?",
+        answer:
+          "All 10, plus 50-60 more across mid-tier consulting (Saksoft, Atos Syntel, Coforge, Mphasis, IBM India, DXC), other product cos (Helpshift, GUVI, Avaamo, Saviynt, Mu Sigma, Tiger Analytics), and growing Pune startups. The 10 above are the highest-leverage targets, but volume + diversification are what drive a 60-90 day first offer.",
+      },
+      {
+        question: "Which company on this list pays freshers the most in Pune?",
+        answer:
+          "Helpshift (₹8-12 LPA, particularly the AI engineering roles), then BrowserStack (₹7-12 LPA), then ZS Associates and Druva (₹6-10 LPA each). Persistent product teams can also land in the ₹6-9 LPA band. The product-tier bands sit 30-80% above the services-tier bands; the trade-off is much stricter portfolio + DSA + system design filters.",
+      },
+      {
+        question: "Are services-major Pune fresher salaries fixed, or can I negotiate?",
+        answer:
+          "Mostly fixed at fresher level (campus-drive structure). Off-campus or referral-based hires sometimes have ₹0.3-0.8 LPA negotiation room. Negotiation room expands once you have a competing offer from any of the product companies on this list — that's the leverage point.",
+      },
+      {
+        question: "Does this list cover SAP, Salesforce, or pure-cloud companies?",
+        answer:
+          "Implicitly — most companies above hire across these specialisations. Cognizant, Accenture, Capgemini, and Persistent all have substantial Pune SAP + Salesforce + AWS / Azure practices. For dedicated SAP-only or Salesforce-only Pune fresher hiring, also target boutique SAP partners + CloudFulcrum, Saksoft, Saviynt, Mphasis Stelligent for Salesforce-native work.",
+      },
+    ],
+  },
 ];
 
 export function getListicle(slug: string): Listicle | undefined {

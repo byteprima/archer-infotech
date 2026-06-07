@@ -622,14 +622,14 @@ export default function FirstITJobPuneCareerPath() {
               </li>
               <li>
                 <Link
-                  href="/placements"
+                  href="/guides/top-pune-it-companies-hiring-freshers-2026"
                   className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
                 >
                   <span className="font-medium block text-sm">
-                    Placement Outcomes
+                    Top 10 Pune IT Companies Hiring Freshers
                   </span>
                   <span className="text-xs text-muted-foreground">
-                    Track record · 5,000+ placed · 90% rate
+                    Guide · target-company list with salary bands
                   </span>
                 </Link>
               </li>
