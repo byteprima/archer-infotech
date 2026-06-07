@@ -597,14 +597,14 @@ export default function DataScienceAICareerPath() {
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <li>
                 <Link
-                  href="/compare/python-developer-vs-data-scientist"
+                  href="/compare/data-analyst-vs-data-scientist-career-pune"
                   className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
                 >
                   <span className="font-medium block text-sm">
-                    Python Developer vs Data Scientist
+                    Data Analyst vs Data Scientist Career
                   </span>
                   <span className="text-xs text-muted-foreground">
-                    Comparison · which career to pick
+                    Comparison · first-data-role pick framework
                   </span>
                 </Link>
               </li>

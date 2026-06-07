@@ -399,6 +399,140 @@ export const comparisons: Comparison[] = [
     ],
   },
 
+  // 8 ─ Data Analyst vs Data Scientist (P5-20 cluster spoke, 2026-06-07) ─────
+  // (Listed as #8 even though defined before #7 in source order; numbering
+  // follows registration order in the rendered hub.)
+  {
+    slug: "data-analyst-vs-data-scientist-career-pune",
+    shortLabel: "Data Analyst vs Data Scientist",
+    metaTitle: "Data Analyst vs Data Scientist Career in Pune (2026) — Which to Pick",
+    metaDescription:
+      "Data Analyst vs Data Scientist career in 2026: an honest comparison of entry barriers, Pune salary bands, skills required, hiring volume, and which makes the better first data role.",
+    h1: "Data Analyst vs Data Scientist Career in Pune (2026)",
+    optionA: "Data Analyst",
+    optionB: "Data Scientist",
+    verdict:
+      "For Pune freshers entering data careers in 2026, Data Analyst is the more accessible first role (lower entry barrier, faster placement, SQL + visualisation focus) while Data Scientist pays ₹1.5–3 LPA more at fresher level and requires materially deeper Python + statistics + ML preparation. About 60% of our Pune data graduates start as Analysts and pivot to Data Scientist by year 2 — the cleanest career arc. Pick Data Analyst first if you want faster entry; pick Data Scientist directly if you have engineering math comfort and 12+ months for thorough prep.",
+    table: [
+      { factor: "Pune fresher hiring volume", a: "Higher (~400-600 listings/mo)", b: "Moderate (~200-300 listings/mo)" },
+      { factor: "Pune fresher salary band", a: "₹3–6 LPA", b: "₹5–9 LPA" },
+      { factor: "Mid-career (3-5 yrs)", a: "₹6–10 LPA", b: "₹10–18 LPA" },
+      { factor: "Senior (6+ yrs)", a: "₹12–20 LPA", b: "₹18–30 LPA" },
+      { factor: "Entry barrier", a: "Lower — SQL + Excel + visualisation", b: "Higher — Python + statistics + ML methodology" },
+      { factor: "Core skill stack", a: "SQL + Excel + Tableau/Power BI + basic Python", b: "Python + Pandas + scikit-learn + statistics + SQL" },
+      { factor: "Math / stats depth", a: "Basic — averages, distributions, ratios", b: "Solid — hypothesis testing, regression, ML evaluation" },
+      { factor: "Best for", a: "Business-stakeholder communication, dashboards, ad-hoc analysis", b: "Predictive models, A/B tests, ML pipelines, deeper analytical work" },
+      { factor: "Realistic prep time", a: "6–9 months from zero", b: "12–18 months from zero" },
+    ],
+    whenA: {
+      heading: "When Data Analyst is the better first role",
+      paragraphs: [
+        "If you want the fastest path into a Pune data career, Data Analyst is the right entry point. Hiring volume is ~2x Data Scientist at fresher level, entry barriers are lower (SQL + visualisation > statistics + ML), and the career arc into Data Scientist after 18-24 months is well-trodden.",
+        "If you have strong business communication skills and enjoy translating numbers into stakeholder-readable insights, Data Analyst plays to those strengths directly. Dashboard design, ad-hoc analysis, business framing — these are the daily work and the daily rewards.",
+        "If your math background is light (commerce, BBA, non-CS science) and you're entering data from a non-quantitative degree, Data Analyst lets you build SQL + visualisation depth first, then add Python + statistics depth in year 2-3 toward a Scientist pivot.",
+      ],
+    },
+    whenB: {
+      heading: "When Data Scientist is the better first role",
+      paragraphs: [
+        "If you have engineering math comfort (mechanical, electrical, CS, statistics background) and can commit 12+ months to thorough preparation including statistics depth, Data Scientist is hireable directly at fresher level — and pays ₹1.5–3 LPA more than Analyst at the same career stage.",
+        "If you're targeting Pune product companies and AI-native firms (ZS Associates, Tiger Analytics, Persistent ML, BrowserStack AI), they hire Data Scientists at fresher level but mostly hire Analysts only at services majors. Targeting product companies often means committing to the Scientist path directly.",
+        "If you have prior Python + SQL experience from another tech role, you can compress the Data Scientist prep timeline to 6-9 months — closing the timeline gap with the Analyst path while keeping the salary premium.",
+      ],
+    },
+    bottomLine:
+      "Pick Data Analyst if you want the fastest path into a Pune data career (60% of our successful data placements start here) and have lighter math background. Pick Data Scientist directly if you have engineering math comfort, 12+ months for thorough prep, and want product-company-tier entry. The two roles ladder cleanly — Analyst → Scientist by year 2 is the most common arc.",
+    relatedCourseSlugs: ["data-analytics-training-in-pune", "data-science-training-in-pune", "machine-learning-training-in-pune"],
+    faqs: [
+      {
+        question: "Can I switch from Data Analyst to Data Scientist later?",
+        answer:
+          "Yes — and most do. About 60% of our Pune Data Analyst placements move to Data Scientist roles within 18-24 months. The pivot needs: 4-6 months of focused Python + statistics + scikit-learn prep alongside the analyst day-job, 1-2 portfolio ML projects, and applications timed to your company's internal job market or a clean external move.",
+      },
+      {
+        question: "What's the salary delta between Analyst and Scientist in Pune?",
+        answer:
+          "Fresher: ₹1.5-3 LPA premium for Scientist. Mid-career (3-5 yrs): ₹4-8 LPA premium. Senior: ₹6-10 LPA premium. The gap widens with experience because Data Scientist has higher ladder velocity into Sr / Staff / Principal roles. But Analyst at senior level (Lead Analyst, Analytics Manager) is also well-paid and has cleaner managerial-track options.",
+      },
+      {
+        question: "Do I need a Master's degree for either role in Pune?",
+        answer:
+          "For Data Analyst, no — Bachelor's + SQL + Tableau + portfolio is the standard fresher path. For Data Scientist, advanced degree is common but not mandatory; about 40% of our placed Data Scientists are Bachelor's only. ML Engineer + AI Research roles do skew toward Master's/PhD for the top compensation tiers.",
+      },
+      {
+        question: "What's the difference between Data Analyst and Business Analyst?",
+        answer:
+          "Data Analyst = data-focused (SQL queries, dashboards, statistical insights), Business Analyst = process-focused (requirements gathering, business workflow design, stakeholder coordination). Both touch data; Data Analyst goes deeper into the technical analysis side. Pune services majors hire both at fresher level; Data Analyst pays slightly more.",
+      },
+    ],
+  },
+
+  // 9 ─ Services vs Product first IT job (P5-21 cluster spoke, 2026-06-07) ───
+  {
+    slug: "services-vs-product-company-first-it-job-pune",
+    shortLabel: "Services vs Product first job",
+    metaTitle: "Services vs Product Company First IT Job in Pune (2026) — Which to Target",
+    metaDescription:
+      "Services vs product company for your first IT job in Pune in 2026: an honest comparison of fresher salaries, filter strictness, work culture, career velocity, and which to target as a fresh graduate.",
+    h1: "Services vs Product Company First IT Job in Pune (2026)",
+    optionA: "Services Major",
+    optionB: "Product Company",
+    verdict:
+      "For Pune freshers in 2026, services majors offer the higher-probability first offer (~80% of Pune fresher hiring volume, more forgiving filters, structured 60-90 day search) while product companies pay ₹2-6 LPA more and offer faster career velocity but expect deeper portfolio + DSA + system design at fresher level. The pragmatic Pune path: target services first for the high-probability first offer, then pivot to product after 18-24 months of services-sector experience. Going product-only often extends the search to 6-9 months.",
+    table: [
+      { factor: "Pune fresher hiring volume", a: "~80% of total", b: "~20% of total" },
+      { factor: "Fresher salary band", a: "₹3.5–6 LPA", b: "₹5–12 LPA" },
+      { factor: "Realistic search timeline", a: "60–90 days", b: "90–180 days" },
+      { factor: "Filter strictness", a: "Pattern + bench-readiness + reasonable DSA", b: "Portfolio + DSA + system design + technical communication" },
+      { factor: "Year-2 promotion rate", a: "10–15%", b: "20–35%" },
+      { factor: "Bench / training period", a: "3–6 months (paid, structured)", b: "2–6 weeks (faster onto real projects)" },
+      { factor: "Work pattern", a: "Client-engagement-driven, longer release cycles", b: "Own a feature end-to-end, ship weekly or daily" },
+      { factor: "Career arc", a: "Stable ladder; onshore deputation by year 3-5", b: "Faster equity + senior IC pivot; bigger compensation jumps" },
+      { factor: "Best for", a: "First offer probability + structured mentorship", b: "Faster equity + product mindset + senior-IC ambition" },
+    ],
+    whenA: {
+      heading: "When services-major is the better target",
+      paragraphs: [
+        "If you're optimising for first-offer probability inside 90 days, services-major hiring volume + more forgiving filters + larger fresher intake batches make this the higher-EV target. About 70% of our Pune fresher placements first-offer at services majors.",
+        "If you want structured 3-6 month bench training before your first project, services majors provide it as standard — paid, mentor-supported, with formal training tracks. Product companies expect you to ramp on real code in 2-6 weeks.",
+        "If your portfolio is moderate and you're not yet ready for product-company DSA + system design depth, services majors are still hireable. Use the first 18-24 months there to build production experience, then pivot product-ward.",
+      ],
+    },
+    whenB: {
+      heading: "When product-company is the better target",
+      paragraphs: [
+        "If you have a strong portfolio (3+ deployed projects, clean GitHub, technical blog), solid DSA prep (100+ medium LeetCode), and good interview communication, product companies are within reach at fresher level — and pay ₹2-6 LPA more.",
+        "If you want to own product features end-to-end from day one, work in smaller teams with faster shipping cadence, and have equity participation in company growth, product companies match that pattern. Services-sector work is structurally different.",
+        "If you're targeting a specific senior-IC career arc (Staff Engineer, Architect, Founding Engineer at startups), starting at product companies positions you ~2 years ahead vs. starting at services. The promotion velocity + responsibility scope differ substantially.",
+      ],
+    },
+    bottomLine:
+      "Target services majors for the high-probability first offer (~80% of Pune fresher hiring volume; first offer typically in 60-90 days). Pivot to product after 18-24 months of services-sector production experience. The reverse path (product-first) works for top 20% candidates with strong portfolios + DSA prep; for most candidates, services-first then product-pivot is the higher-probability path and the same long-term destination.",
+    relatedCourseSlugs: ["java-full-stack-training-in-pune", "python-training-in-pune", "mern-stack-training-in-pune"],
+    faqs: [
+      {
+        question: "Should I reject a services-major offer to wait for a product-company offer?",
+        answer:
+          "Almost never. The opportunity cost of waiting 3-6 more months for a product-company offer that may not arrive usually exceeds the ₹2-6 LPA salary delta. Accept the services offer, build 18-24 months of production experience + a strong GitHub side-project portfolio, then pivot to product. The salary delta closes quickly once you have services experience + portfolio depth.",
+      },
+      {
+        question: "What about Indian IT startups vs both services and big product?",
+        answer:
+          "Indian startups occupy a third position: salary often between services and big-product (₹4-9 LPA fresher), work pattern resembles product company (feature ownership, fast shipping), but volatility is higher (job security, equity outcomes). Treat startups as 'product company with higher risk + upside'. Same prep applies as for product companies.",
+      },
+      {
+        question: "Will services-major experience hurt my product-company prospects later?",
+        answer:
+          "No, with one caveat: product companies look for evidence you stayed sharp during services-sector work. Maintain a personal GitHub with side projects, stay current on modern tools, and keep DSA fresh. Engineers who treat services as 'just a job' for 3+ years sometimes struggle to pivot; engineers who treat it as 'learning the production discipline' typically pivot cleanly.",
+      },
+      {
+        question: "Are Pune services salaries fixed by industry tier or negotiable?",
+        answer:
+          "Fresher services-major offers have ₹0.3-0.8 LPA negotiation room with a competing offer in hand. Without a competing offer, the bands are largely fixed (campus-drive structure). Product companies have ₹1-2 LPA negotiation room. Always have a second offer in your pocket when negotiating either tier.",
+      },
+    ],
+  },
+
   // 7 ─ Frontend vs Backend (P5-19 cluster spoke, 2026-06-07) ────────────────
   {
     slug: "frontend-vs-backend-developer-career-pune",

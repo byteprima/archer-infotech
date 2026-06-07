@@ -635,14 +635,14 @@ export default function FirstITJobPuneCareerPath() {
               </li>
               <li>
                 <Link
-                  href="/guides/highest-paying-it-roles-pune-engineering-graduates"
+                  href="/compare/services-vs-product-company-first-it-job-pune"
                   className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
                 >
                   <span className="font-medium block text-sm">
-                    Highest-Paying IT Roles for Pune Graduates
+                    Services vs Product Company First Job
                   </span>
                   <span className="text-xs text-muted-foreground">
-                    Guide · role-by-role salary map
+                    Comparison · target-tier decision framework
                   </span>
                 </Link>
               </li>
