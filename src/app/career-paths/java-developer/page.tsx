@@ -653,14 +653,14 @@ export default function JavaDeveloperCareerPath() {
               </li>
               <li>
                 <Link
-                  href="/career-paths/first-it-job-pune"
+                  href="/compare/monolithic-vs-microservices-for-pune-java-developers-2026"
                   className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
                 >
                   <span className="font-medium block text-sm">
-                    First IT Job in Pune (path-agnostic)
+                    Monolithic vs Microservices for Pune Java
                   </span>
                   <span className="text-xs text-muted-foreground">
-                    Sibling pillar · search + interview playbook
+                    Comparison · architecture pick + salary upside
                   </span>
                 </Link>
               </li>
