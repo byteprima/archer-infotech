@@ -60,6 +60,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Glossary — Pune IT term reference (2026-06-07).
     // High AI-engine-citation value: DefinedTermSet schema + per-term anchors.
     { url: `${baseUrl}/glossary`, lastModified: EVERGREEN, changeFrequency: "monthly", priority: 0.6 },
+    // Interview questions bank (2026-06-07) — FAQPage schema, high AI-engine
+    // citation value for "X interview questions" long-tail queries.
+    { url: `${baseUrl}/interview-questions/pune-it-freshers-2026`, lastModified: EVERGREEN, changeFrequency: "monthly", priority: 0.7 },
     // Legal pages — shipped 2026-05-08 (P4-22 canonicals) but were missing
     // from the sitemap. Low priority + yearly cadence — they rarely change,
     // but inclusion is a baseline trust signal for Google + AI crawlers

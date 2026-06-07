@@ -254,6 +254,14 @@ export function Footer() {
                   Pune IT Glossary
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/interview-questions/pune-it-freshers-2026"
+                  className="text-primary-foreground/80 hover:text-secondary transition-colors text-sm"
+                >
+                  Interview Questions Bank
+                </Link>
+              </li>
             </ul>
           </div>
 
