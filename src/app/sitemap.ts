@@ -185,6 +185,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${baseUrl}/career-paths/full-stack-developer`, lastModified: EVERGREEN, changeFrequency: "monthly", priority: 0.8 },
     { url: `${baseUrl}/career-paths/data-science-ai`, lastModified: EVERGREEN, changeFrequency: "monthly", priority: 0.8 },
     { url: `${baseUrl}/career-paths/first-it-job-pune`, lastModified: EVERGREEN, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${baseUrl}/career-paths/cloud-devops-engineer`, lastModified: EVERGREEN, changeFrequency: "monthly", priority: 0.8 },
   ];
 
   return [

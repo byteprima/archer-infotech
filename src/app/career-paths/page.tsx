@@ -66,6 +66,13 @@ const pillars: PillarCard[] = [
       "Path-agnostic playbook (works for any tech stack): the 4 pillars of fresher hireability, the 90-day search plan, services-vs-product trade-off matrix, 8 patterns that derail freshers. Built from 17 years of placement data — 5,000+ freshers placed.",
     status: "live",
   },
+  {
+    slug: "cloud-devops-engineer",
+    title: "Become a Cloud / DevOps Engineer",
+    blurb:
+      "Pune cloud + DevOps listings run 800-1,200/month across AWS, Azure, GCP, Kubernetes, and SRE tracks. Full roadmap covering Linux + cloud + containers + IaC + CI/CD, 4 specialisation arcs (AWS / Azure / DevOps / SRE), salary trajectory ₹4-30+ LPA.",
+    status: "live",
+  },
 ];
 
 export default function CareerPathsHub() {
