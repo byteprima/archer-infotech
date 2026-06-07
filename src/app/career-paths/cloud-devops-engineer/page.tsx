@@ -650,14 +650,14 @@ export default function CloudDevOpsCareerPath() {
               </li>
               <li>
                 <Link
-                  href="/glossary"
+                  href="/compare/aws-vs-azure-for-pune-cloud-careers-2026"
                   className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
                 >
                   <span className="font-medium block text-sm">
-                    Pune IT Glossary
+                    AWS vs Azure for Pune Cloud Careers
                   </span>
                   <span className="text-xs text-muted-foreground">
-                    Reference · LangChain, microservices, GCC defined
+                    Comparison · Pune platform pick framework
                   </span>
                 </Link>
               </li>

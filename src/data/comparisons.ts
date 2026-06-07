@@ -663,6 +663,73 @@ export const comparisons: Comparison[] = [
       },
     ],
   },
+
+  // 11 ─ AWS vs Azure (Cloud / DevOps pillar spoke, 2026-06-07) ─────────────
+  {
+    slug: "aws-vs-azure-for-pune-cloud-careers-2026",
+    shortLabel: "AWS vs Azure",
+    metaTitle: "AWS vs Azure for Pune Cloud Careers (2026) — Which to Learn First",
+    metaDescription:
+      "AWS vs Azure for Pune cloud engineers in 2026: an honest comparison of hiring volume, certification cost, salary bands, vertical specialisation (BFSI vs services), and which platform to learn first.",
+    h1: "AWS vs Azure for Pune Cloud Careers (2026)",
+    optionA: "AWS",
+    optionB: "Azure",
+    verdict:
+      "For Pune fresher cloud engineers in 2026, AWS leads hiring volume (~55% of cloud listings) and is the higher-EV first pick for most candidates. Azure dominates Pune BFSI / Insurance / Healthcare verticals (~30% of listings, strong at BNP Paribas IT, Allianz tech, Cognizant Azure practice). Both pay similarly at fresher level (₹4-7 LPA services / ₹6-10 LPA product); both are first-class hireable skills. Pick AWS unless you're specifically targeting a BFSI Azure shop or transitioning from .NET enterprise background.",
+    table: [
+      { factor: "Pune cloud hiring volume share", a: "~55% of cloud listings", b: "~30% of cloud listings (~15% GCP, other)" },
+      { factor: "Fresher salary band (services)", a: "₹4–7 LPA", b: "₹4–7 LPA" },
+      { factor: "Fresher salary band (product/GCC)", a: "₹6–10 LPA", b: "₹6–10 LPA" },
+      { factor: "Entry certification", a: "AWS Solutions Architect Associate (SAA-C03)", b: "Azure Administrator (AZ-104)" },
+      { factor: "Exam fee", a: "$150 USD (~₹12,500)", b: "$165 USD (~₹13,700)" },
+      { factor: "Best vertical fit", a: "Services majors + product cos + SaaS startups", b: "BFSI + Insurance + Healthcare + .NET enterprise shops" },
+      { factor: "Ecosystem learning resources", a: "Largest — AWS docs + free training + community", b: "Strong — Microsoft Learn + structured paths" },
+      { factor: "Integration sweet spot", a: "AWS-native services (S3, Lambda, RDS, EKS)", b: "Microsoft ecosystem (AD, .NET, Office, SQL Server)" },
+      { factor: "IaC default", a: "Terraform or CloudFormation", b: "Bicep or ARM templates or Terraform" },
+      { factor: "Kubernetes managed service", a: "EKS (most mature in Pune)", b: "AKS (catching up; strong at .NET shops)" },
+    ],
+    whenA: {
+      heading: "When AWS is the better first pick",
+      paragraphs: [
+        "If you're optimising for hiring volume + ecosystem breadth, AWS's ~55% Pune cloud market share + the largest community + Terraform-first IaC patterns make it the higher-EV pick. Most services majors, product cos, and Pune startups default to AWS.",
+        "If you want the broadest career flexibility — services, product, startup, GCC, BFSI (where AWS is also growing) — AWS opens more doors than Azure. Switching from AWS to Azure later takes 4-6 weeks of focused work.",
+        "If you're targeting Pune product companies (Druva, Helpshift, BrowserStack), services major cloud practices, or growing SaaS startups, AWS is the default platform expectation.",
+      ],
+    },
+    whenB: {
+      heading: "When Azure is the better first pick",
+      paragraphs: [
+        "If you're targeting Pune BFSI / Insurance / Healthcare verticals (BNP Paribas IT, Allianz tech, Cognizant Azure practice, Mphasis, Atos Syntel), Azure is the platform default. These shops pay competitively + run modern Azure stacks.",
+        "If you're transitioning from a .NET enterprise background, Azure's Microsoft-ecosystem integration (Active Directory + Office 365 + SQL Server + .NET deployment patterns) maps naturally — easier conceptual transition than AWS for .NET-shop transitions.",
+        "If you have a structured-learning preference, Microsoft Learn's certification paths are more linear than AWS's broader documentation. AZ-104 → AZ-204 → AZ-305 is a cleaner progression than AWS's wider cert matrix.",
+      ],
+    },
+    bottomLine:
+      "Pick AWS unless you have a specific reason to pick Azure (BFSI targeting, .NET background, structured-learning preference). The hiring volume + ecosystem + flexibility advantages compound to make AWS the higher-EV first cloud for most Pune learners. Azure remains a fully valid pick with strong BFSI / enterprise hiring. After your first cloud cert + 1-2 years experience, picking up the other platform takes 4-6 weeks.",
+    relatedCourseSlugs: ["aws-training-in-pune", "azure-training-in-pune", "aws-solutions-architect-training-in-pune"],
+    faqs: [
+      {
+        question: "Should I learn AWS and Azure together as a fresher?",
+        answer:
+          "No — pick one and go deep first. Trying to learn both simultaneously creates surface-level fluency in both without depth in either. Most Pune cloud fresher interviews probe deeply on the platform you've certified on; shallow multi-platform exposure underperforms vs deep single-platform expertise. Add the second platform after 12-18 months on-the-job experience.",
+      },
+      {
+        question: "Which is better for DevOps engineering specifically — AWS or Azure?",
+        answer:
+          "Slight edge to AWS for pure DevOps roles in Pune product companies (Druva, Helpshift, BrowserStack) due to larger Terraform + Kubernetes + open-source ecosystem fit. Azure DevOps + Azure Pipelines are excellent tools but tie more closely to the Microsoft ecosystem. For Pune services-sector DevOps work, both are equally hireable.",
+      },
+      {
+        question: "Does GCP have a Pune market in 2026?",
+        answer:
+          "Smaller but growing. Pune GCP listings run ~15% of cloud volume (~120-180/month). Strong at data-engineering teams (ZS Associates, Tiger Analytics, Persistent data + AI), Pune AI startups, and selected Google Cloud Partner consultancies. GCP is the right pick if you're specifically targeting data + AI infrastructure roles; otherwise AWS or Azure leads on hiring breadth.",
+      },
+      {
+        question: "Do cloud certifications expire? How often should I renew?",
+        answer:
+          "AWS certifications expire after 3 years; Azure certifications stay current via the role-based recertification path (free or low-cost renewal every 12 months). Both vendors expect you to keep pace as platforms evolve. The realistic cadence: take your entry cert, then upgrade to associate / professional tier in year 2-3 of work, then specialisation certs in year 4-5.",
+      },
+    ],
+  },
 ];
 
 export function getComparison(slug: string): Comparison | undefined {
