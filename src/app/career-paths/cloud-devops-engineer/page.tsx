@@ -598,14 +598,14 @@ export default function CloudDevOpsCareerPath() {
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <li>
                 <Link
-                  href="/courses/cloud-devops/aws-training-in-pune"
+                  href="/guides/best-aws-projects-for-pune-resume-2026"
                   className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
                 >
                   <span className="font-medium block text-sm">
-                    AWS Training in Pune
+                    10 Best AWS Projects for Pune Resume
                   </span>
                   <span className="text-xs text-muted-foreground">
-                    Course · Cloud foundation + SAA prep
+                    Guide · portfolio projects foundation → AI integration
                   </span>
                 </Link>
               </li>

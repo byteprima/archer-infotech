@@ -400,6 +400,54 @@ export const listicles: Listicle[] = [
       },
     ],
   },
+
+  // 12 ─ AWS projects (Cloud / DevOps pillar spoke, 2026-06-07) ─────────────
+  {
+    slug: "best-aws-projects-for-pune-resume-2026",
+    shortLabel: "Best AWS resume projects",
+    metaTitle: "10 Best AWS Projects for Your Pune Resume in 2026",
+    metaDescription:
+      "10 portfolio-ready AWS projects that close Pune cloud interviews in 2026 — from foundational compute + storage to multi-account governance + serverless event-driven systems. With what each demonstrates and the right fresher fit.",
+    h1: "10 Best AWS Projects for Your Pune Resume in 2026",
+    intro:
+      "Pune AWS hiring volume runs at ~55% of cloud listings — the largest single cloud track. Portfolio projects that close Pune AWS interviews share four traits: built using Infrastructure-as-Code (Terraform or CloudFormation, not Console clicks), exercise at least one cross-service integration (not just spinning up a single EC2), demonstrate cost-awareness (resources tagged + within free tier), and documented on GitHub with a clear architecture diagram. Below are 10 projects ordered foundation-first then specialisation. Build 2–3 across difficulty.",
+    entries: [
+      { name: "Static Site on S3 + CloudFront + Route 53", what: "Deploy a static site (your portfolio) to S3, distribute via CloudFront CDN, with custom domain via Route 53.", dataPoint: "The foundational AWS project — exercises ~30% of AWS Solutions Architect Associate (SAA) exam areas in one build.", bestFor: "Foundation. Every cloud fresher portfolio should have this." },
+      { name: "Three-Tier Web App (EC2 + RDS + ALB)", what: "Spring Boot or Flask app on EC2 behind an Application Load Balancer, with PostgreSQL on RDS in a private subnet.", dataPoint: "Demonstrates VPC + subnet + security group design — the most-screened AWS networking topic at fresher interviews.", bestFor: "Java FS / Python FS portfolios targeting Pune services-major cloud roles.", href: "/courses/cloud-certifications/aws-solutions-architect-training-in-pune" },
+      { name: "Serverless REST API (Lambda + API Gateway + DynamoDB)", what: "Build a REST API where API Gateway triggers Lambda functions that read/write DynamoDB. No servers to manage.", dataPoint: "Serverless is the modern AWS pattern — appears in 40%+ of Pune product company cloud postings.", bestFor: "Product-company-targeted portfolios + above-band fresher salary." },
+      { name: "Infrastructure-as-Code Project with Terraform", what: "Provision a VPC + EC2 + RDS + ALB + S3 stack via Terraform, version-controlled on GitHub with module structure.", dataPoint: "IaC fluency moves you from 'Console clicker' to 'production-engineering thinking' — directly screened at Pune interviews.", bestFor: "Anyone targeting beyond services-major fresher tier. The highest-leverage portfolio differentiator." },
+      { name: "CI/CD Pipeline (CodePipeline or GitHub Actions → AWS)", what: "Source code push triggers automated build + test + deploy to a real AWS environment.", dataPoint: "Demonstrates DevOps thinking + automation discipline. Pune DevOps Engineer fresher roles screen heavily for this.", bestFor: "DevOps + SRE-targeted portfolios.", href: "/courses/cloud-devops/devops-training-in-pune" },
+      { name: "Event-Driven Architecture (SQS + SNS + Lambda)", what: "Producer Lambda → SQS queue → consumer Lambda → SNS notifications, with retry + dead-letter queue patterns.", dataPoint: "Tests async messaging patterns — moves you above pure-CRUD-app portfolio level.", bestFor: "Product-company portfolios + senior-fresher band targeting." },
+      { name: "EKS Kubernetes Deployment", what: "Deploy a multi-service application to AWS EKS with proper Deployment + Service + Ingress + Secret resources, plus Helm for templating.", dataPoint: "Kubernetes fluency appears in 50%+ of Pune cloud + DevOps postings in 2026; EKS specifically is the AWS-native managed K8s.", bestFor: "Standing out for DevOps + product company Cloud Engineer roles.", href: "/courses/cloud-devops/kubernetes-training-in-pune" },
+      { name: "Multi-Account Organization (AWS Organizations + SSO)", what: "Set up a 2-account AWS Organization with consolidated billing, SCPs, and centralised SSO access via IAM Identity Center.", dataPoint: "Demonstrates governance + security thinking — most-asked-about at Pune BFSI + enterprise cloud interviews.", bestFor: "BFSI / enterprise cloud track + Solutions Architect specialisation." },
+      { name: "Cost Optimisation Audit + Dashboard", what: "Use Cost Explorer + AWS Budgets + a custom CloudWatch dashboard to identify + reduce costs on a sample workload.", dataPoint: "Cost discipline is the signal that separates senior-track candidates from junior-only candidates — even at fresher level.", bestFor: "Signal-boosting any cloud portfolio. Differentiates from pure-deployment-focused projects." },
+      { name: "RAG-Powered AI App on AWS (Bedrock + S3 + Lambda)", what: "Build an LLM-powered Q&A app using Amazon Bedrock + RAG over documents stored in S3 + serverless backend.", dataPoint: "Most-recognised 2026 differentiator — combines cloud architecture with the rapidly-growing AI engineering specialisation.", bestFor: "Standing out at product companies + GenAI-adjacent cloud roles.", href: "/career-paths/cloud-devops-engineer" },
+    ],
+    methodology:
+      "Projects were selected by what Pune AWS interviewers actually probe in technical + project-walkthrough rounds, sampled across services-major cloud practices (Persistent, Capgemini, Cognizant, Mindtree) and product / GCC cos (Druva, Helpshift, BrowserStack, BNP Paribas IT). Difficulty graded foundation → specialisation; AWS free tier covers all 10 projects without significant cost. Cross-referenced with AWS Solutions Architect Associate (SAA-C03) exam domain weighting.",
+    faqs: [
+      {
+        question: "How many AWS projects do I need on my Pune fresher cloud resume?",
+        answer:
+          "Two to three substantial projects with proper documentation beat ten shallow ones. At least one must use Infrastructure-as-Code (Terraform or CloudFormation), at least one must exercise cross-service integration (not just spinning up a single resource), and all must have clean GitHub READMEs with architecture diagrams. The projects above are ordered so 2-3 across difficulty levels covers most interview probes.",
+      },
+      {
+        question: "Will the AWS free tier cover all these projects?",
+        answer:
+          "Yes if you're disciplined — stop EC2 instances when not in use, delete unused resources (especially RDS + EKS which cost even when idle), use small instance types (t2.micro / t3.micro), monitor with AWS Budgets. Set a billing alarm at $1 to catch surprises early. Realistic cost for 3 portfolio projects built carefully over 3-4 months: under $5 total even with free tier.",
+      },
+      {
+        question: "Do I need an AWS certification before building these projects?",
+        answer:
+          "No — and actually build first, certify second. Hands-on project work makes the SAA-C03 (Solutions Architect Associate) exam materially easier because you've experienced what the questions describe. Cert + 2-3 deployed projects = stronger fresher portfolio than cert alone. The exam is ~$150; budget for it in months 4-6 of cloud learning.",
+      },
+      {
+        question: "Should I learn AWS or Azure first if I'm starting from zero?",
+        answer:
+          "AWS for most Pune learners — it has ~55% of cloud listings vs Azure's ~30%, broader ecosystem, larger community. Azure makes sense if you're specifically targeting Pune BFSI / Insurance verticals (BNP Paribas IT, Allianz tech, Cognizant Azure practice) or transitioning from a .NET enterprise background. Full nuance in our AWS vs Azure compare.",
+      },
+    ],
+  },
 ];
 
 export function getListicle(slug: string): Listicle | undefined {
