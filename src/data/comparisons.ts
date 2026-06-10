@@ -928,6 +928,73 @@ export const comparisons: Comparison[] = [
       },
     ],
   },
+
+  // 15 ─ SRE vs DevOps (Cloud cluster spoke #3, 2026-06-07) ─────────────────
+  {
+    slug: "sre-vs-devops-engineer-career-pune-2026",
+    shortLabel: "SRE vs DevOps Engineer",
+    metaTitle: "SRE vs DevOps Engineer Career in Pune (2026) — Which to Target",
+    metaDescription:
+      "SRE vs DevOps Engineer in 2026: an honest comparison for Pune cloud engineers — entry tier, salary bands, daily work, software-engineering bar, and which role makes a better mid-career target.",
+    h1: "SRE vs DevOps Engineer Career in Pune (2026)",
+    optionA: "DevOps Engineer",
+    optionB: "SRE",
+    verdict:
+      "For Pune cloud engineers in 2026, DevOps Engineer is the realistic fresher-tier entry role (₹5-8 LPA fresher product / ₹4-7 LPA services); SRE is a 3+ year specialisation tier that pays materially more (₹14-30+ LPA at 3-6 yrs) but expects deeper software-engineering rigour + production-incident maturity. Most successful Pune SREs start as DevOps engineers, ladder up over 18-36 months by adding observability + incident-response + system-design depth. Pick DevOps for now; ladder toward SRE later.",
+    table: [
+      { factor: "Pune fresher hiring volume", a: "~400-600 listings/month", b: "Rare at fresher tier (~50/month, typically 3+ yrs)" },
+      { factor: "Fresher salary band (services)", a: "₹4-7 LPA", b: "Not fresher-targeted" },
+      { factor: "Fresher salary band (product)", a: "₹5-8 LPA", b: "Not fresher-targeted" },
+      { factor: "Mid-career (3-5 yrs)", a: "₹10-18 LPA", b: "₹14-24 LPA" },
+      { factor: "Senior (5+ yrs)", a: "₹16-26 LPA", b: "₹22-35 LPA" },
+      { factor: "Staff / Principal", a: "₹24-36 LPA", b: "₹30-50+ LPA" },
+      { factor: "Core focus", a: "CI/CD pipelines + automation + IaC + cloud platform expertise", b: "Production reliability + observability + incident response + capacity planning" },
+      { factor: "Software engineering bar", a: "Bash + Python scripting at production-grade quality", b: "Real software engineering in Go or Python — write services, not just scripts" },
+      { factor: "Daily work pattern", a: "Building automation, pipelines, infrastructure code", b: "Debugging production issues, reducing toil, defining SLOs, post-incident reviews" },
+      { factor: "Best for fresher entry", a: "Yes — established Pune services + product fresher hiring", b: "No — wait for 2-3 years experience" },
+    ],
+    whenA: {
+      heading: "When DevOps Engineer is the right target (fresher to mid-career)",
+      paragraphs: [
+        "If you're a fresher targeting Pune cloud entry, DevOps Engineer is the realistic role to optimise for. ~400-600 monthly listings at services majors + product companies; expected skill stack (Linux + cloud + Docker + Kubernetes + CI/CD + IaC) is achievable in 10-14 months of focused prep. Pay band starts at ₹4-7 LPA services / ₹5-8 LPA product and grows steeply with experience.",
+        "If you enjoy automation + building infrastructure systems + scripting solutions to operational problems, DevOps day-to-day work matches that taste directly. The role is intellectually engaging (every problem is novel) without requiring the deep software-engineering rigour of SRE.",
+        "If you want broad career optionality, DevOps Engineer experience opens doors to Cloud Engineer, Platform Engineer, Infrastructure Engineer, Solutions Architect, and SRE tracks. It's one of the highest-optionality cloud-adjacent roles for the first 5 years of a career.",
+      ],
+    },
+    whenB: {
+      heading: "When SRE is the right target (3+ years experience)",
+      paragraphs: [
+        "If you have 3+ years of DevOps or backend engineering experience + strong software engineering fundamentals (Go or Python at production-service-writing depth, not just scripting), SRE roles at Pune product companies (Druva, Helpshift, BrowserStack, Persistent product) pay materially above standard cloud band — ₹14-24 LPA at 3-6 years vs ₹10-18 LPA for DevOps.",
+        "If you find reliability engineering intrinsically interesting — distributed system design, observability architecture, capacity planning, blameless post-mortems, error budgets, SLO design — SRE is the natural specialisation. The work pattern is fundamentally different from DevOps; you're not building things, you're keeping things working at scale.",
+        "If your long-term ambition is Senior Staff / Principal / Distinguished tier at a major product company (₹50+ LPA + equity), SRE has cleaner ladder progression at this band than pure DevOps. Frontier Pune SRE roles increasingly require Computer Science depth comparable to Senior Backend roles.",
+      ],
+    },
+    bottomLine:
+      "Target DevOps Engineer for entry + early career (fresher to ~3 years), then ladder up to SRE if reliability engineering interests you. The compensation delta + software-engineering bar + day-to-day work differ enough that picking SRE as a fresher target usually fails (insufficient fresher hiring + insufficient real-system experience to demonstrate the SRE mindset). Most successful Pune SREs took the DevOps → SRE path; very few jumped straight in.",
+    relatedCourseSlugs: ["devops-training-in-pune", "kubernetes-training-in-pune", "aws-training-in-pune"],
+    faqs: [
+      {
+        question: "Can a fresher land an SRE role in Pune in 2026?",
+        answer:
+          "Extremely rarely. Most Pune SRE postings explicitly require 3+ years experience. The few fresher-tier SRE-labelled roles that exist are usually mislabelled DevOps Engineer roles, not real SRE work. Target DevOps for entry; revisit SRE after 2-3 years of solid DevOps experience + adding observability + incident-response depth.",
+      },
+      {
+        question: "How much does an SRE earn at top Pune product companies?",
+        answer:
+          "BrowserStack, Druva, Persistent product, Helpshift Staff SRE roles clear ₹30-50+ LPA + equity at 5-7 years experience. Senior SRE (3-5 years) lands ₹18-30 LPA. The pay premium over equivalent Backend roles is ~10-25% because SRE work is supply-constrained — Pune has fewer engineers with production-incident maturity than the demand requires.",
+      },
+      {
+        question: "What additional skills do I need to ladder from DevOps to SRE?",
+        answer:
+          "Software engineering depth (Go or Python at service-writing tier, not just scripting), distributed-system fundamentals (CAP theorem, consensus, replication patterns), observability architecture (Prometheus + Grafana + distributed tracing via Jaeger or Honeycomb), and the SRE mental model (Google SRE book + Site Reliability Workbook are foundational). Most ladder transitions take 18-36 months of deliberate skill-building.",
+      },
+      {
+        question: "Are DevOps Engineer and SRE titles used interchangeably at Pune services majors?",
+        answer:
+          "At services majors, often yes — the title is sometimes assigned by HR rather than by role responsibility, so a 'SRE' at a Pune services major is often doing DevOps work + on-call rotation. At Pune product companies + AI startups, the distinction is sharper: DevOps builds infrastructure, SRE owns production reliability. When evaluating a role, look at responsibilities + tooling expectations, not just the title.",
+      },
+    ],
+  },
 ];
 
 export function getComparison(slug: string): Comparison | undefined {

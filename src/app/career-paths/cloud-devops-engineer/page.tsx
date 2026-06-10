@@ -624,14 +624,14 @@ export default function CloudDevOpsCareerPath() {
               </li>
               <li>
                 <Link
-                  href="/courses/cloud-devops/devops-training-in-pune"
+                  href="/compare/sre-vs-devops-engineer-career-pune-2026"
                   className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
                 >
                   <span className="font-medium block text-sm">
-                    DevOps Training in Pune
+                    SRE vs DevOps Engineer Career
                   </span>
                   <span className="text-xs text-muted-foreground">
-                    Course · CI/CD + IaC + automation
+                    Comparison · fresher target + ladder path
                   </span>
                 </Link>
               </li>
