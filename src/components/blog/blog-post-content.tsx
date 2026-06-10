@@ -147,7 +147,14 @@ function cleanHtml(html: string): string {
   return html
     .replace(/<p>\s*<\/p>/g, "")
     .replace(/<code([^>]*)>\n/g, "<code$1>")
-    .replace(/\n<\/code>/g, "</code>");
+    .replace(/\n<\/code>/g, "</code>")
+    // P3-22 — silently demote in-body H1 to H2. The blog page template
+    // already renders the post title as the page-level H1; an `<h1>` in
+    // marked-rendered body content yields multiple-H1 pages (caught by
+    // the P3-22 SEO audit on /blog/getting-started-full-stack-development-2025).
+    // Demoting at the renderer prevents recurrence on any future post
+    // that accidentally uses a top-level `# heading` in its markdown.
+    .replace(/<h1(\s[^>]*)?>([\s\S]*?)<\/h1>/g, "<h2$1>$2</h2>");
 }
 
 export async function BlogPostContent({ content }: BlogPostContentProps) {
