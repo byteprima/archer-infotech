@@ -676,6 +676,19 @@ export default function CloudDevOpsCareerPath() {
               </li>
               <li>
                 <Link
+                  href="/compare/terraform-vs-ansible-for-pune-devops-2026"
+                  className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
+                >
+                  <span className="font-medium block text-sm">
+                    Terraform vs Ansible for Pune DevOps
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    Comparison · IaC + config management split
+                  </span>
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/career-paths/first-it-job-pune"
                   className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
                 >

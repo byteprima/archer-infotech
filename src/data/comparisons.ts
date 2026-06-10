@@ -1127,6 +1127,72 @@ export const comparisons: Comparison[] = [
       },
     ],
   },
+
+  // 18 ─ Terraform vs Ansible (Cloud / DevOps spoke #5, 2026-06-07) ────────
+  {
+    slug: "terraform-vs-ansible-for-pune-devops-2026",
+    shortLabel: "Terraform vs Ansible",
+    metaTitle: "Terraform vs Ansible for Pune DevOps Engineers (2026) — Which to Learn First",
+    metaDescription:
+      "Terraform vs Ansible in 2026: an honest comparison for Pune DevOps engineers — provisioning vs configuration, declarative vs procedural, hiring volume, and which tool to learn first.",
+    h1: "Terraform vs Ansible for Pune DevOps Engineers (2026)",
+    optionA: "Terraform",
+    optionB: "Ansible",
+    verdict:
+      "For Pune DevOps engineers in 2026, Terraform and Ansible aren't really alternatives — they solve different problems and are commonly used together. Terraform = provisioning (creating infrastructure: VPCs, EC2/VMs, RDS, K8s clusters). Ansible = configuration management (installing software, applying configs to existing servers). Pune hiring screens both: Terraform appears in ~65% of Pune DevOps + cloud postings, Ansible in ~40% (often together). Pick Terraform first for higher hiring leverage; learn Ansible next within months 7-9.",
+    table: [
+      { factor: "Primary purpose", a: "Provisioning infrastructure (create resources)", b: "Configuration management (configure existing servers)" },
+      { factor: "Pune DevOps hiring share (2026)", a: "~65% of postings reference Terraform", b: "~40% (often paired with Terraform)" },
+      { factor: "Style", a: "Declarative (HCL — what should exist)", b: "Procedural-leaning declarative (YAML playbooks — steps to run)" },
+      { factor: "State management", a: "Stateful (terraform.tfstate tracks resources)", b: "Stateless (each run is independent; no concept of state file)" },
+      { factor: "Agent requirement", a: "Agentless (uses cloud provider APIs)", b: "Agentless on target (uses SSH); requires Python on target" },
+      { factor: "Best for", a: "Provisioning AWS / Azure / GCP / K8s resources from scratch", b: "Installing nginx, applying app configs, OS package management" },
+      { factor: "Modularity", a: "Modules (reusable Terraform configs)", b: "Roles (reusable Ansible task collections)" },
+      { factor: "Learning curve", a: "Steeper (HCL syntax + state management + provider configs)", b: "Gentler (YAML + procedural mental model)" },
+      { factor: "Cloud-native maturity", a: "First-class for every major cloud (industry default for IaC)", b: "Excellent for OS / app config; weaker pure cloud provisioning" },
+    ],
+    whenA: {
+      heading: "When Terraform is the right tool",
+      paragraphs: [
+        "If you're provisioning cloud infrastructure (creating VPCs, EC2 instances, S3 buckets, RDS, EKS clusters, Lambda functions, IAM roles), Terraform is the industry default. Every major cloud provider + dozens of SaaS platforms publish Terraform providers; cross-cloud teams standardise on Terraform for vendor-agnostic IaC.",
+        "If you're targeting Pune cloud + DevOps fresher roles where ~65% of postings reference Terraform, fluency here is the higher-leverage first IaC skill. Services majors (Persistent, Capgemini, Cognizant cloud practices) + product companies (Druva, Helpshift, BrowserStack) standardise on Terraform for greenfield IaC.",
+        "If you want declarative-first infrastructure thinking (specify the desired state, let Terraform calculate the diff + apply), Terraform's approach forces production-engineering mental models that transfer to Kubernetes manifests, Pulumi, AWS CDK, and other modern IaC tools.",
+      ],
+    },
+    whenB: {
+      heading: "When Ansible is the right tool",
+      paragraphs: [
+        "If you need to configure software on existing servers (install nginx, copy app code, apply systemd configs, manage Linux users, rotate certs, restart services), Ansible's procedural-leaning playbook model fits naturally. Terraform can technically run shell commands but is awkward for ongoing configuration.",
+        "If your work involves a mix of cloud + on-premise infrastructure, Ansible's SSH-based agentless approach works uniformly across both. Common Pune services-sector pattern: Terraform provisions the EC2 instance, Ansible configures + deploys the application onto it.",
+        "If your team uses Red Hat OpenShift, RHEL servers, or has historical investment in Ansible Playbooks + Roles, the existing ecosystem + organisational knowledge tilts toward Ansible. Some Pune BFSI tech teams (Allianz, BNP Paribas IT) have substantial Ansible-based legacy infrastructure.",
+      ],
+    },
+    bottomLine:
+      "Pick Terraform first for infrastructure provisioning skill (months 7-8 of DevOps prep). Add Ansible for OS-level + application configuration management (months 8-9). The two are complementary, not competitors — most production Pune DevOps work uses both, often layered (Terraform provisions, Ansible configures). Learning both within 2-3 months of focused work is the realistic Pune DevOps fresher prep path.",
+    relatedCourseSlugs: ["devops-training-in-pune", "aws-training-in-pune", "kubernetes-training-in-pune"],
+    faqs: [
+      {
+        question: "Can I use Terraform to configure applications instead of Ansible?",
+        answer:
+          "Technically yes via remote-exec + local-exec provisioners, but it's not idiomatic and Terraform isn't designed for ongoing config drift management. Production teams that try this typically migrate to Ansible (or Salt or Chef) for the config layer within 6-12 months. Use the right tool for the right layer — Terraform for provisioning, config management tool for ongoing config.",
+      },
+      {
+        question: "What about CloudFormation, Pulumi, or AWS CDK?",
+        answer:
+          "CloudFormation = AWS-only IaC (smaller Pune hiring presence than Terraform). Pulumi + AWS CDK = code-as-IaC (TypeScript/Python instead of HCL). Pune hiring volume for these is materially smaller than Terraform: CloudFormation ~10% of postings, CDK + Pulumi combined ~5%. Learn Terraform first; add others only if a specific role requires them.",
+      },
+      {
+        question: "Should I learn Terraform Cloud / Spacelift / Atlantis for fresher Pune DevOps roles?",
+        answer:
+          "Not as fresher priority. Local terraform CLI + remote state in S3 + DynamoDB locking is the working baseline. Terraform Cloud + commercial alternatives are organisational-tier choices that you'll encounter at the job, not before. Spending fresher-prep time on these instead of Terraform fundamentals + Ansible basics + Kubernetes is the wrong allocation.",
+      },
+      {
+        question: "What's the most-failed Terraform interview question at Pune DevOps fresher rounds?",
+        answer:
+          "State management — candidates know `terraform apply` but miss what the state file represents + how to handle remote state + locking + state drift. Walk through: state file maps Terraform config to real-world resources; remote state (S3 + DynamoDB) prevents collisions between team members; `terraform import` brings existing resources under management. Understanding state separates fresher-level Terraform users from production-engineering thinkers.",
+      },
+    ],
+  },
 ];
 
 export function getComparison(slug: string): Comparison | undefined {
