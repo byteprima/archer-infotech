@@ -762,6 +762,19 @@ export default function FullStackDeveloperCareerPath() {
                   </span>
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/compare/rest-vs-graphql-for-pune-full-stack-2026"
+                  className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
+                >
+                  <span className="font-medium block text-sm">
+                    REST vs GraphQL for Pune Full Stack
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    Comparison · API style pick + when each fits
+                  </span>
+                </Link>
+              </li>
             </ul>
           </section>
 

@@ -1655,6 +1655,72 @@ export const comparisons: Comparison[] = [
       },
     ],
   },
+
+  // 26 ─ REST vs GraphQL (Full Stack cluster spoke #8, 2026-06-07) ─────────
+  {
+    slug: "rest-vs-graphql-for-pune-full-stack-2026",
+    shortLabel: "REST vs GraphQL",
+    metaTitle: "REST vs GraphQL for Pune Full Stack Developers (2026) — Which to Learn",
+    metaDescription:
+      "REST vs GraphQL in 2026: an honest comparison for Pune full-stack developers — hiring volume, learning curve, ecosystem maturity, caching, and which API style to learn first.",
+    h1: "REST vs GraphQL for Pune Full Stack Developers (2026)",
+    optionA: "REST",
+    optionB: "GraphQL",
+    verdict:
+      "For Pune full-stack developers in 2026, REST is the higher-EV first pick by a wide margin — ~90% of Pune full-stack postings reference REST APIs; ~15% reference GraphQL (some postings mention both). REST's simplicity + ecosystem maturity + caching ease make it the default choice for most production work. GraphQL solves real over-fetching + under-fetching problems for complex frontend-driven UIs but adds tooling + caching complexity. Master REST first; add GraphQL when a target role specifically requires it.",
+    table: [
+      { factor: "Pune full-stack hiring share", a: "~90% of postings reference REST", b: "~15% reference GraphQL (overlap with REST)" },
+      { factor: "API style", a: "Multiple endpoints — one per resource — fixed response structure", b: "Single endpoint — client queries exactly what it needs" },
+      { factor: "Over-fetching / under-fetching", a: "Over-fetching common (endpoint returns more than needed); under-fetching requires N+1 calls", b: "Eliminated — client requests exactly what it wants" },
+      { factor: "Caching", a: "Easy — HTTP-level caching, CDN-friendly, browser cache works natively", b: "Harder — single endpoint can't be HTTP-cached easily; needs Apollo Client or custom cache layer" },
+      { factor: "Type system", a: "Optional (OpenAPI / Swagger for documentation)", b: "Built-in strong typing via SDL (Schema Definition Language)" },
+      { factor: "Tooling maturity", a: "Vast — Postman, Insomnia, Swagger UI, REST Client extensions everywhere", b: "Strong — Apollo, urql, Relay, GraphiQL — but ecosystem narrower" },
+      { factor: "Learning curve", a: "Gentle — HTTP methods + URL paths + JSON body", b: "Steeper — schema design + resolver patterns + query/mutation/subscription distinction" },
+      { factor: "Best for", a: "Most CRUD apps, simple APIs, public APIs, microservices, mobile clients", b: "Complex frontend-driven UIs with deeply nested data, multi-team API ownership, mobile clients on limited bandwidth" },
+      { factor: "Pune company patterns", a: "Universal — all Pune services majors + product cos + startups use REST", b: "BrowserStack, GitHub-like product cos, complex frontend-heavy SaaS — minority of Pune full-stack roles" },
+    ],
+    whenA: {
+      heading: "When REST is the right choice",
+      paragraphs: [
+        "If you're building most CRUD applications, simple APIs, microservices, or public-facing APIs, REST's simplicity + tooling ecosystem + HTTP-cache friendliness make it the default choice. ~90% of Pune full-stack postings + production work is REST-based.",
+        "If you want gentle learning curve + transferable knowledge across stacks, REST patterns are universal. Spring Boot REST + Express REST + FastAPI REST + Django REST Framework — the concepts transfer directly with minimal stack-specific syntax differences.",
+        "If you're targeting Pune services-major + most product company + BFSI tech fresher roles, REST fluency is the table-stakes API skill. Adding GraphQL on top can be a differentiator at some product company roles but is rarely the primary need.",
+      ],
+    },
+    whenB: {
+      heading: "When GraphQL is the right choice",
+      paragraphs: [
+        "If your application has complex nested data + frontend teams that need different views of the same data, GraphQL eliminates over-fetching + under-fetching that plagues REST. The classic example: a social media feed where each post needs author + comments + reactions + media — REST requires multiple round-trips or returns everything; GraphQL gets exactly what's needed in one query.",
+        "If you have multi-team API ownership + want frontend teams to evolve their data requirements without backend changes, GraphQL's schema-driven design supports this naturally. Backend declares what's possible; frontends query what they need.",
+        "If you're targeting Pune product companies with mobile-heavy + bandwidth-constrained clients (BrowserStack mobile testing, GUVI education platform, mobile-first SaaS), GraphQL's payload-shaping advantages translate to real performance + UX wins.",
+      ],
+    },
+    bottomLine:
+      "Pick REST first for maximum Pune hiring coverage + simpler mental model + ecosystem maturity. Add GraphQL as a 2-3 week specialisation if you encounter it (product company role with complex frontend, or graph-database-backed system). Most full-stack developers eventually know both; REST first is the higher-leverage learning order. After REST proficiency, GraphQL takes weeks not months.",
+    relatedCourseSlugs: ["java-full-stack-training-in-pune", "mern-stack-training-in-pune", "python-full-stack-training-in-pune"],
+    faqs: [
+      {
+        question: "Should I learn both REST and GraphQL as a fresher?",
+        answer:
+          "REST first to working depth (build 3-5 endpoints + practice CRUD patterns + auth + error handling). Add GraphQL as a 2-3 week familiarisation when you encounter it. Both share core API design concepts (request → server processing → response); switching mental models is days. Spend ~80% of fresher API prep on REST + ~20% awareness of GraphQL.",
+      },
+      {
+        question: "What's the most-failed REST question at Pune full-stack interviews?",
+        answer:
+          "REST vs RPC + REST level maturity. Candidates use 'REST API' as a generic term but miss what makes an API actually RESTful (proper HTTP methods, status codes, resource-oriented URLs, HATEOAS — though HATEOAS is rare in production). Walking through the Richardson Maturity Model (Level 0 = single endpoint / RPC; Level 1 = multiple resources; Level 2 = HTTP verbs + status codes; Level 3 = hypermedia) signals architectural depth.",
+      },
+      {
+        question: "Is GraphQL faster than REST?",
+        answer:
+          "Not inherently — depends on use case. GraphQL saves bandwidth for complex frontend needs (one query vs multiple REST round-trips) but each query is server-side more complex (resolver overhead + N+1 query risks). For simple CRUD, REST is typically faster end-to-end. For complex nested data needs, GraphQL with proper batching (DataLoader pattern) can be materially faster.",
+      },
+      {
+        question: "Should I learn tRPC or gRPC alongside REST + GraphQL?",
+        answer:
+          "Not at fresher tier unless specifically targeting that ecosystem. tRPC (TypeScript end-to-end) is rising in modern TypeScript-first product companies (~5% of Pune postings). gRPC (binary protocol + Protocol Buffers) appears at high-performance backend roles (~3% of Pune postings). Both are valuable specialisations but secondary to REST + GraphQL coverage at fresher tier.",
+      },
+    ],
+  },
 ];
 
 export function getComparison(slug: string): Comparison | undefined {
