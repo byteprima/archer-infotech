@@ -710,6 +710,19 @@ export default function FullStackDeveloperCareerPath() {
                   </span>
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/guides/react-interview-questions-pune-freshers-2026"
+                  className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
+                >
+                  <span className="font-medium block text-sm">
+                    10 React Interview Questions for Pune Freshers
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    Guide · ranked by Pune interview frequency
+                  </span>
+                </Link>
+              </li>
             </ul>
           </section>
 
