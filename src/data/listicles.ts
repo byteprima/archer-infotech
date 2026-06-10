@@ -496,6 +496,54 @@ export const listicles: Listicle[] = [
       },
     ],
   },
+
+  // 14 ─ Python interview questions (Python pillar spoke #4, 2026-06-07) ────
+  {
+    slug: "python-interview-questions-pune-freshers-2026",
+    shortLabel: "Python interview Qs",
+    metaTitle: "10 Python Interview Questions Every Pune Fresher Should Master (2026)",
+    metaDescription:
+      "The 10 Python interview questions Pune freshers actually face in 2026 — across backend, data, and AI roles. With Pune-context answers and the depth expected at fresher tier.",
+    h1: "10 Python Interview Questions Every Pune Fresher Should Master (2026)",
+    intro:
+      "Pune Python fresher interviews — backend (Django/Flask/FastAPI), data analyst/scientist tracks, and the rapidly-growing AI engineer space — share a consistent question set covering language fundamentals, common idioms, and pragmatic problem-solving. Below are the 10 most-asked Python interview questions ranked by Pune interview frequency, with the answer depth expected at fresher tier. Practice these aloud — interviewers reward clear structure as much as technical correctness. Mastering these 10 covers ~70% of what's screened across services-major + product-company Python rounds.",
+    entries: [
+      { name: "What's the difference between a list, a tuple, and a set in Python?", what: "List: mutable, ordered, allows duplicates, uses []. Tuple: immutable, ordered, allows duplicates, uses (). Set: mutable, unordered, no duplicates, uses {}. Performance: sets give O(1) membership check vs lists' O(n).", dataPoint: "Asked at ~85% of Pune Python fresher rounds. Mention NamedTuple + dataclass(frozen=True) as senior-fresher signals.", bestFor: "First-pass language fundamentals screening." },
+      { name: "Explain Python's mutable vs immutable types.", what: "Immutable (int, float, str, tuple, frozenset) — cannot be changed after creation; operations create new objects. Mutable (list, dict, set, bytearray) — can be modified in place. Practical impact: immutables are safe as dict keys + thread-safe; mutables aren't.", dataPoint: "Asked at ~70% of Pune rounds. Common follow-up: 'why is `def f(x=[]):` an anti-pattern?' (mutable default — shared across all calls).", bestFor: "Demonstrating Python mental model depth." },
+      { name: "What's the difference between deep copy and shallow copy?", what: "Shallow copy (copy.copy or list[:]) duplicates the outer container but inner references stay shared. Deep copy (copy.deepcopy) recursively duplicates everything. Test with a nested list — modify an inner element in the shallow copy, see it change in the original; not so for deep copy.", dataPoint: "Asked at ~55% of Pune rounds. Common gotcha: '=' is NEITHER shallow NOR deep — it's a reference binding.", bestFor: "Memory model + reference semantics question." },
+      { name: "Explain list comprehensions with an example.", what: "Concise syntactic way to build a list by applying an expression to each element of an iterable, optionally filtered. Syntax: [expression for item in iterable if condition]. Example: [x*x for x in range(10) if x % 2 == 0] = squares of even numbers. Sister comprehensions for sets {} and dicts {k: v for ...}.", dataPoint: "Asked at ~75% of Pune rounds. Mention generator expressions ((x*x for x in range(10))) for memory efficiency on large iterables.", bestFor: "Pythonic-idioms screen; expected fluency." },
+      { name: "What's a decorator and when would you use one?", what: "A decorator is a function that takes another function and extends its behaviour without modifying its source code. Common use cases: logging, timing, caching (@lru_cache), authentication (@login_required), retry logic. Implementation: a wrapper function that calls the original. Pattern: `def decorator(func): def wrapper(*args, **kwargs): ... return wrapper`.", dataPoint: "Asked at ~60% of Pune rounds. Walk through writing a @timer decorator on the whiteboard if asked.", bestFor: "Higher-order function understanding; common Django middleware question." },
+      { name: "What's the difference between a list and a generator?", what: "List stores all elements in memory; generator produces elements lazily one at a time. Generators use yield in a function or generator expressions ((x for x in range(10))). Trade-off: lists can be iterated multiple times; generators only once. Use generators for large/infinite sequences where memory matters.", dataPoint: "Asked at ~50% of Pune rounds, especially data + AI tracks. Mention itertools as a standard-library source of generator-based utilities.", bestFor: "Memory + iteration semantics; common data-pipeline question." },
+      { name: "Explain *args and **kwargs.", what: "*args collects positional arguments as a tuple; **kwargs collects keyword arguments as a dict. Pattern: `def my_func(*args, **kwargs):`. Used for flexible function signatures + forwarding to another function (`other_func(*args, **kwargs)`). The names are convention — you can use *positional / **keyword names but stick with the convention.", dataPoint: "Asked at ~55% of Pune rounds. Common follow-up: 'forwarding kwargs to a function that doesn't accept them' (use **kwargs unpacking + signature inspection).", bestFor: "Function-signature flexibility question." },
+      { name: "What is the GIL (Global Interpreter Lock)?", what: "CPython's mechanism that allows only one thread to execute Python bytecode at a time. Implication: pure-Python multithreading doesn't give CPU-bound speedup (use multiprocessing instead). Threads are still useful for I/O-bound work (network calls, file I/O) where the GIL is released during system calls.", dataPoint: "Asked at ~45% of Pune rounds, especially product company + backend tracks. Mention Python 3.13+ optional no-GIL build as cutting-edge awareness.", bestFor: "Concurrency understanding; differentiates beyond services-major tier." },
+      { name: "What's the difference between __init__ and __new__ in a class?", what: "__new__ creates and returns the new instance (rarely overridden; mostly relevant for immutable types or metaclasses). __init__ initialises the already-created instance (set attributes, validate state) and returns None. The flow: __new__ runs first, then __init__ on the returned instance.", dataPoint: "Asked at ~30% of Pune rounds, mostly product company + OOP-focused interviews. Often a follow-up to 'design a Singleton in Python' — use __new__ to return the same instance every time.", bestFor: "OOP depth + design-pattern signal." },
+      { name: "How does Python handle errors? Explain try/except/finally/else.", what: "try wraps risky code; except catches specific exceptions; else runs if no exception was raised; finally always runs (cleanup, releasing resources). Practical use: catch specific exception types (ValueError, IOError) rather than bare except. Modern Python uses context managers (`with open(...) as f:`) for cleanup rather than try/finally.", dataPoint: "Asked at ~50% of Pune rounds. Common follow-up: 'create a custom exception' — subclass Exception or a more specific built-in.", bestFor: "Error-handling discipline screen." },
+    ],
+    methodology:
+      "Questions ranked by interview-frequency data from Archer Infotech's 17-year placement-cell debriefs across Pune services majors (Persistent, Capgemini, Mindtree, Tech Mahindra, Cognizant) and product companies + AI-native firms (Druva, ZS Associates, Tiger Analytics, Persistent Avaamo, Helpshift, GUVI). Frequencies reflect 2024-2026 cycles; older Python 2 specifics + tkinter / curses GUI questions have been deprioritised as they no longer appear at fresher tier.",
+    faqs: [
+      {
+        question: "Are these questions enough to clear a Pune Python fresher interview?",
+        answer:
+          "Necessary but not sufficient. These 10 cover ~70% of Pune Python fundamentals screens. For backend roles, you'll also need to know Django or Flask basics + REST + SQLAlchemy. For data roles, Pandas + NumPy + basic statistics. For AI roles, LangChain + LLM API patterns. The fundamentals here + role-specific depth is the working baseline.",
+      },
+      {
+        question: "How do Pune Python interviews differ by track (backend vs data vs AI)?",
+        answer:
+          "Backend (Django/FastAPI): expect deeper REST + ORM + middleware + decorator questions. Data: expect Pandas + NumPy + SQL + statistics fundamentals layered on top. AI engineer: expect LangChain + LLM API patterns + vector stores + RAG concepts. All three start from the same Python fundamentals (the questions above) and diverge into specialisation depth.",
+      },
+      {
+        question: "What's the most-failed Python question at Pune fresher interviews?",
+        answer:
+          "Mutable default arguments. Candidates know lists are mutable but miss the `def f(x=[]):` trap — the default list is shared across all calls because it's evaluated once at function definition, not on each call. Fix: `def f(x=None): if x is None: x = []`. This question separates surface-level Python knowledge from real mental-model depth.",
+      },
+      {
+        question: "Do I need to know async/await for Pune Python fresher interviews?",
+        answer:
+          "Services-major tier: no, sync Python is sufficient. Product company tier (especially FastAPI shops + AI startups): yes, basic async/await + asyncio understanding is increasingly expected. Add asyncio basics after solid sync Python foundation; it's 1-2 weeks of focused learning that materially improves product-company-targeted interview signal.",
+      },
+    ],
+  },
 ];
 
 export function getListicle(slug: string): Listicle | undefined {
