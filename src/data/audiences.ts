@@ -672,6 +672,256 @@ export const audiences: AudienceLanding[] = [
       },
     ],
   },
+
+  // ─── 10. PICT students → CareerCode ────────────────────────────────────────
+  // P4-18 second college page. PICT (Pune Institute of Computer Technology)
+  // is a top private engineering college with strong placements in software
+  // product companies and GCC captives.
+  {
+    slug: "pict-students",
+    name: "PICT students",
+    tagline:
+      "Build deep stack skills + interview prep alongside your PICT degree.",
+    metaTitle: "Coding Classes for PICT Students in Pune (2026)",
+    metaDescription:
+      "PICT students: deepen your stack expertise and interview prep beyond the syllabus. Archer Infotech — Kothrud — Java FS, MERN, Python, Data, Cloud with mock interviews and 100+ hiring partners.",
+    h1: "Coding Classes for PICT Students in Pune",
+    intro: [
+      "PICT (Pune Institute of Computer Technology) consistently ships students into top product companies — Walmart Labs, Microsoft, Atlassian, NetApp — and into the GCC captives of Pune's MNCs. The PICT placement cell is strong, but the difference between an offer and a top-tier offer almost always comes down to how deeply you know one stack, how clean your GitHub looks, and how rehearsed your interview answers are. That depth layer is exactly what Archer Infotech adds on top of your PICT coursework.",
+      "We're a 15-minute drive from PICT's Dhankawadi campus to our Kothrud centre — easy on a Saturday morning batch or two weekday evenings. PICT students typically join us in 2nd or 3rd year to build stack expertise before campus placements, with full LMS access so prep doesn't stop during exam weeks.",
+    ],
+    forYou: [
+      "You're a PICT undergrad (BE / BTech) in CS, IT, or ENTC",
+      "Your placement record is strong but you want top-tier product company offers",
+      "You'd rather go deep on one stack than survey-level on many",
+      "You want mock interview reps before TPO drives start in 4th year",
+      "You want a portfolio that holds up under technical scrutiny",
+    ],
+    programme: {
+      bootcampSlug: "careercode",
+      bootcampName: "CareerCode",
+      pitch:
+        "CareerCode runs semester-by-semester so PICT students can layer real stack depth (Java FS, MERN, Python or Data) on top of their CS syllabus without dropping academic load. Includes GitHub workflow, project portfolio, and the interview-question patterns Pune product companies actually use.",
+    },
+    alsoConsiderCourseSlugs: [
+      "java-full-stack-training-in-pune",
+      "mern-stack-training-in-pune",
+      "python-training-in-pune",
+      "data-science-training-in-pune",
+      "machine-learning-training-in-pune",
+    ],
+    whatYouGain: [
+      "Deep proficiency in one stack instead of shallow coverage of many",
+      "A portfolio of production-quality projects with clean GitHub history",
+      "Mock interview reps against real Pune product company question patterns",
+      "Internship referral pipeline through 100+ hiring partners",
+      "Steady skill compounding across PICT's semesters",
+    ],
+    eligibility:
+      "Open to PICT undergrads in any year. CS/IT branch students start at the project-focused tracks; we tailor pacing for 1st/2nd-year students who want to compound earlier.",
+    whyArcher: [
+      "Our 6-person faculty has 54+ combined years of industry experience at Pune MNCs (Capgemini, Tech Mahindra, MindTree, Amdocs). For PICT CS students aiming at product roles, we calibrate the stack work and interview prep to the question patterns those companies actually test — DSA, system design fundamentals, framework internals.",
+      "Kothrud centre is 15 min from PICT Dhankawadi. 17+ years of training Pune engineering students, 10,000+ trained, 5,000+ placed at MNCs + product companies. Many of our top placed alumni came in as 2nd/3rd-year PICT students, finished with deep stack expertise, and converted both campus and off-campus offers.",
+    ],
+    faqs: [
+      {
+        question: "How far is the Archer Kothrud centre from PICT Dhankawadi?",
+        answer:
+          "Roughly 15 minutes by two-wheeler via Sinhgad Road and Karve Road. PMPML connections also link Dhankawadi to Kothrud directly. Most PICT students attend evening batches plus Saturday sessions.",
+      },
+      {
+        question: "PICT placements are already strong — why add Archer?",
+        answer:
+          "The PICT placement cell delivers solid offers, but top-tier product company packages (Walmart Labs, Atlassian, NetApp) usually go to students with deep stack expertise and rehearsed system-design answers. Archer's CareerCode adds that depth layer on top of your CS coursework so you're not relying on the placement cell alone.",
+      },
+      {
+        question: "Which stack should a PICT CS student pick?",
+        answer:
+          "If you're targeting Pune MNC enterprise teams (TCS, Infosys, Persistent), Java Full Stack opens the widest pipeline. If you're targeting product startups or GCCs (Walmart Labs, Atlassian), MERN + a strong DSA layer is more aligned. We map your target list to a specific stack during your free demo.",
+      },
+      {
+        question: "Can I manage Archer batches alongside PICT's heavy CS load?",
+        answer:
+          "Yes — CareerCode is built precisely for semester-pacing. Most PICT students attend 2 evenings + Saturday batches with lifetime LMS access for exam weeks. We tune the schedule to your academic calendar.",
+      },
+      {
+        question: "Do you help PICT students with product company off-campus drives?",
+        answer:
+          "Yes. Beyond PICT's campus drives, our placement team runs targeted off-campus referrals to 100+ partners including product startups and GCCs. Mock interviews and resume review are included in every flagship course fee.",
+      },
+      {
+        question: "Is there a fast-track for PICT 3rd/4th-year students?",
+        answer:
+          "Yes — our flagship courses (Java Full Stack, MERN, Python, DS) are 3-6 month tracks designed to ship interview-ready before campus placements. Best if you start at the start of 3rd year; still very doable in early 4th year.",
+      },
+    ],
+  },
+
+  // ─── 11. VIT Pune students → CareerCode ────────────────────────────────────
+  // P4-18 third college page. VIT (Vishwakarma Institute of Technology),
+  // Bibwewadi is a top private autonomous engineering college with strong
+  // industry connections.
+  {
+    slug: "vit-pune-students",
+    name: "VIT Pune students",
+    tagline: "Production-grade stack + project portfolio alongside your VIT degree.",
+    metaTitle: "Coding Classes for VIT Pune Students (2026)",
+    metaDescription:
+      "VIT Pune students: build the production-grade stack + portfolio that converts campus drives into top offers. Archer Infotech — Kothrud — Java FS, MERN, Python, Data, Cloud with placement assistance.",
+    h1: "Coding Classes for VIT Pune Students",
+    intro: [
+      "VIT Pune (Vishwakarma Institute of Technology) in Bibwewadi runs a strong autonomous BE programme with solid placement connections — TCS, Infosys, Wipro, Cognizant, Capgemini and growing product company access. The standard VIT placement pipeline opens at 3rd year; what gets you the upper-band offers is whether you've already built production-grade projects, mastered a stack, and rehearsed system-design questions before drives start.",
+      "We're a 15-20 minute drive from VIT Bibwewadi to our Kothrud centre via Sinhgad Road. VIT students typically join CareerCode in 2nd or 3rd year so the stack work compounds across semesters and the portfolio is ready when campus drives arrive.",
+    ],
+    forYou: [
+      "You're a VIT Pune undergrad in CS, IT, ENTC or AI/DS branch",
+      "VIT's placement record is good but you want top-band offers, not median ones",
+      "You want depth in one stack (Java FS, MERN, Python, Data) over breadth",
+      "You want a real GitHub portfolio + DSA rehearsal before TPO drives",
+      "You're comfortable splitting time between VIT coursework and after-college batches",
+    ],
+    programme: {
+      bootcampSlug: "careercode",
+      bootcampName: "CareerCode",
+      pitch:
+        "CareerCode pairs VIT's autonomous BE syllabus with production-stack depth — Java FS, MERN, Python or Data + project portfolio + interview prep. Pacing fits VIT's academic calendar; LMS access covers exam-week catchup.",
+    },
+    alsoConsiderCourseSlugs: [
+      "java-full-stack-training-in-pune",
+      "mern-stack-training-in-pune",
+      "python-training-in-pune",
+      "data-science-training-in-pune",
+      "aws-solutions-architect-training-in-pune",
+    ],
+    whatYouGain: [
+      "Production-stack expertise that matches Pune product company hiring bars",
+      "A portfolio of real projects with proper Git workflow and documentation",
+      "Mock interview reps for DSA + system-design + behavioural rounds",
+      "Internship + placement referrals through 100+ hiring partners",
+      "A steady skill ramp that doesn't conflict with VIT's academic load",
+    ],
+    eligibility:
+      "Open to VIT Pune undergrads (BE) in any year and any branch. CS/IT/AI students start at project tracks; mechanical / civil / ENTC students start at fundamentals — no prior coding experience required.",
+    whyArcher: [
+      "Our trainers are working professionals from Pune MNCs (Capgemini, Tech Mahindra, MindTree, Amdocs) plus product-startup leaders. For VIT students aiming at Pune's growing product ecosystem, we calibrate the curriculum to what those hiring panels actually test — not generic syllabus content.",
+      "Kothrud centre is 15-20 min from VIT Bibwewadi via Sinhgad Road. 17+ years in Pune training, 10,000+ trained, 5,000+ placed at MNCs and product companies, 100+ active hiring partners. Many of our top placed alumni are former VIT students who joined CareerCode in 2nd/3rd year.",
+    ],
+    faqs: [
+      {
+        question: "How far is Archer Kothrud from VIT Bibwewadi?",
+        answer:
+          "Roughly 15-20 minutes by two-wheeler or rickshaw via Sinhgad Road and Karve Road. PMPML routes connect Bibwewadi to Kothrud. Most VIT students attend evening + weekend batches.",
+      },
+      {
+        question: "I'm a VIT 2nd-year student — should I start now?",
+        answer:
+          "Yes — that's our highest-ROI entry point. Starting in 2nd year lets you finish 3rd year with deep stack expertise. By the time VIT's TPO drives open in 3rd/4th year, your portfolio + interview prep is already done. Earlier the better.",
+      },
+      {
+        question: "VIT is autonomous and has a rigorous BE syllabus — will Archer add too much load?",
+        answer:
+          "CareerCode's semester pacing is built specifically to coexist with rigorous autonomous syllabi. 2 evenings + Saturday batches is the typical load; LMS lifetime access lets you catch up during exam weeks without losing the cohort.",
+      },
+      {
+        question: "Which stack should a VIT CS student pick?",
+        answer:
+          "Java Full Stack opens the widest Pune MNC pipeline. MERN + DSA layer is sharper for GCC captives and product startups. Data Science is the right pick if you've enjoyed VIT's stats / data courses. We map your interest + target companies to a specific stack during your free demo.",
+      },
+      {
+        question: "Do you help with off-campus drives at top product companies?",
+        answer:
+          "Yes. Beyond VIT's TPO drives, our placement team runs off-campus referrals to product startups (Atlassian, Walmart Labs, NetApp area) plus 100+ MNC and GCC partners. Mock interviews and resume review are included.",
+      },
+      {
+        question: "What's the typical Archer outcome for a VIT student?",
+        answer:
+          "A 3-6 month flagship track + sustained CareerCode pacing typically produces a ₹4-6 LPA fresher band offer (₹10+ LPA for top performers in Java FS / MERN / DS / DevOps). Offer quality depends on stack depth, interview prep consistency, and target company list.",
+      },
+    ],
+  },
+
+  // ─── 12. MIT-WPU students → CareerCode ─────────────────────────────────────
+  // P4-18 fourth college page. MIT-WPU (MIT World Peace University) is a
+  // large multi-discipline private university with growing CS/IT
+  // enrollment.
+  {
+    slug: "mit-wpu-students",
+    name: "MIT-WPU students",
+    tagline: "Build job-ready coding + projects alongside your MIT-WPU degree.",
+    metaTitle: "Coding Classes for MIT-WPU Students in Pune (2026)",
+    metaDescription:
+      "MIT-WPU students: layer industry-ready coding skills + a real portfolio on top of your degree. Archer Infotech — Kothrud — Java FS, MERN, Python, Data, Cloud with mock interviews + placement support.",
+    h1: "Coding Classes for MIT-WPU Students in Pune",
+    intro: [
+      "MIT-WPU (MIT World Peace University) runs Pune's largest private CS + IT engineering programmes by intake, spanning BTech, BCA, MCA and multiple electives. The breadth of MIT-WPU's syllabus means most students leave with a solid theoretical base — but the offers that move you from median to top-band are won on stack depth, portfolio quality and interview rehearsal. That's where Archer Infotech's CareerCode fits on top of your academic load.",
+      "We're a 15-20 minute drive from MIT-WPU's Kothrud campus to our centre — same neighbourhood, so commute time barely affects your academic schedule. MIT-WPU students typically join in 2nd or 3rd year to compound stack expertise before TPO drives.",
+    ],
+    forYou: [
+      "You're a MIT-WPU undergrad (BTech / BCA) in CS, IT, AI/DS or related branch",
+      "Your degree gives you breadth; you want depth on one stack + interview prep",
+      "You want a job-ready portfolio before campus drives, not just a transcript",
+      "You're targeting Pune MNCs, GCCs or product startups",
+      "You prefer steady skill ramp over final-year cramming",
+    ],
+    programme: {
+      bootcampSlug: "careercode",
+      bootcampName: "CareerCode",
+      pitch:
+        "CareerCode is a semester-by-semester programming track built for engineering and CS students. MIT-WPU students typically pick Java Full Stack, MERN, Python or Data Science as their primary stack, then layer in placement-focused project work and interview prep.",
+    },
+    alsoConsiderCourseSlugs: [
+      "java-full-stack-training-in-pune",
+      "mern-stack-training-in-pune",
+      "python-training-in-pune",
+      "data-science-training-in-pune",
+      "devops-training-in-pune",
+    ],
+    whatYouGain: [
+      "Deep stack proficiency (one of Java FS, MERN, Python, Data, Cloud / DevOps)",
+      "A production-quality project portfolio with clean GitHub history",
+      "Mock interview reps for DSA, framework internals, and HR rounds",
+      "Internship referrals through our 100+ Pune hiring partner network",
+      "Pacing that fits MIT-WPU's semester calendar without disrupting academics",
+    ],
+    eligibility:
+      "Open to MIT-WPU students across BTech, BCA, MCA and related programmes. CS / IT students can dive into project-focused tracks; non-CS branches start at fundamentals — no prior coding experience required.",
+    whyArcher: [
+      "Our 6-person faculty has 54+ combined years of Pune MNC experience (Capgemini, Tech Mahindra, MindTree, Amdocs). For MIT-WPU students, that means the stack work and interview prep mirror exactly what hiring panels at Pune MNCs and GCCs test on placement day — not academic-theory rephrased.",
+      "Our Kothrud centre is the same neighbourhood as MIT-WPU's campus (15-20 min drive). 17+ years training Pune engineering students, 10,000+ trained, 5,000+ placed at TCS, Infosys, Persistent, Tech Mahindra, Wipro, Capgemini and 100+ other employers.",
+    ],
+    faqs: [
+      {
+        question: "How far is Archer Kothrud from MIT-WPU's campus?",
+        answer:
+          "15-20 minutes by two-wheeler — same neighbourhood. Many MIT-WPU students cycle or use rickshaws. Evening batches fit easily after college lectures end.",
+      },
+      {
+        question: "I'm in MIT-WPU's BCA programme — is CareerCode the right fit?",
+        answer:
+          "Yes. BCA students benefit massively from CareerCode because the programme adds the production-stack depth that gets you treated like a CS/IT candidate at placement panels. Java Full Stack and MERN are the most common picks for BCA students.",
+      },
+      {
+        question: "Will Archer batches conflict with MIT-WPU's academic load?",
+        answer:
+          "No — semester pacing is designed for this. 2 evenings + Saturday is typical; LMS lifetime access covers exam-week catchup so you don't lose the cohort.",
+      },
+      {
+        question: "What's the typical placement outcome for MIT-WPU students who join Archer?",
+        answer:
+          "Most flagship-course graduates land ₹4-6 LPA fresher offers, with top performers in Java FS / MERN / DS / DevOps crossing ₹10 LPA. Outcomes scale with stack depth + interview prep consistency, not just the certificate.",
+      },
+      {
+        question: "Do you cover AI / ML for MIT-WPU AI&DS students?",
+        answer:
+          "Yes — Data Science and Machine Learning tracks pair well with MIT-WPU's AI&DS curriculum. Generative AI track is also strong if you're interested in LLMs, RAG, LangChain and the modern AI stack.",
+      },
+      {
+        question: "Is there a separate batch for MIT-WPU students?",
+        answer:
+          "No — you join the regular CareerCode cohort. That's actually a feature: mixed-college batches expose you to students from COEP, PICT, VIT, BVUC and other colleges, which is closer to the real workplace mix.",
+      },
+    ],
+  },
 ];
 
 /** Look up an audience landing page by slug. */
