@@ -585,6 +585,93 @@ export const audiences: AudienceLanding[] = [
       },
     ],
   },
+
+  // ─── 9. COEP students → CareerCode ─────────────────────────────────────────
+  // P4-18 first college-specific page. COEP (College of Engineering Pune) is
+  // Pune's top-tier engineering college — narrow keyword target with
+  // higher conversion intent than the generic "engineering students"
+  // page. Footer + courses-for-you index pick this up automatically via
+  // the existing AudienceLanding plumbing.
+  {
+    slug: "coep-students",
+    name: "COEP students",
+    tagline:
+      "Practical industry skills + placement prep alongside your COEP degree.",
+    metaTitle: "Coding Classes for COEP Students in Pune (2026)",
+    metaDescription:
+      "COEP students: build the placement-ready coding and project skills your syllabus doesn't fully cover. Archer Infotech — Kothrud — Java, Full Stack, Python, Data, Cloud. Semester-by-semester pacing.",
+    h1: "Coding Classes for COEP Students in Pune",
+    intro: [
+      "COEP (College of Engineering Pune) is one of India's top-tier engineering colleges, and its placement cell consistently delivers strong campus drives. But the gap that matters at the offer stage isn't your degree — it's whether you've built real applications, contributed to GitHub, mastered a modern stack, and rehearsed the interview patterns Pune's product companies actually test. That practical layer is exactly what Archer Infotech adds.",
+      "We're a short rickshaw or PMPML ride from COEP's Shivajinagar campus to our Kothrud centre — close enough to fit batches around your academic calendar without sacrificing core study time. Many COEP students join us in 2nd or 3rd year to compound skills before campus placements arrive in 4th year. Earlier you start, the more your final-year interviews feel like a recap, not a scramble.",
+    ],
+    forYou: [
+      "You're a COEP undergrad (BE / BTech) in any branch — CS, IT, ENTC, Mech, Civil, Instrumentation",
+      "Your COEP placement record is strong, but you want practical depth your syllabus doesn't fully cover",
+      "You're aiming at top product companies (Walmart, Microsoft, Atlassian, NetApp) or fast-growing GCCs",
+      "You want internship + interview preparation that fits around COEP's heavy academic load",
+      "You want to compound skills semester-by-semester rather than cram in final year",
+    ],
+    programme: {
+      bootcampSlug: "careercode",
+      bootcampName: "CareerCode",
+      pitch:
+        "CareerCode is our semester-by-semester programming track designed for engineering students. COEP students typically join in 2nd or 3rd year — six specialisation paths, real projects, GitHub workflow, and mock-interview reps that line up with COEP's academic calendar.",
+    },
+    alsoConsiderCourseSlugs: [
+      "java-full-stack-training-in-pune",
+      "mern-stack-training-in-pune",
+      "python-training-in-pune",
+      "data-science-training-in-pune",
+      "aws-solutions-architect-training-in-pune",
+    ],
+    whatYouGain: [
+      "A production-grade portfolio of real projects to show campus and off-campus recruiters",
+      "Deep familiarity with one stack (Java Full Stack, MERN, Python, Data or Cloud) — not a shallow cross-section",
+      "Mock interview reps against the question patterns Pune's top employers actually use",
+      "An internship referral pipeline through our 100+ hiring partner network",
+      "Skills built steadily across COEP's semesters so final-year placement season feels prepared, not panicked",
+    ],
+    eligibility:
+      "Open to COEP undergrads in any year and any branch. We tailor the starting point — fundamentals if you're 1st-year, project-focused tracks if you're 3rd/4th-year. No pre-requisite stack required.",
+    whyArcher: [
+      "Our 6-person faculty has 54+ combined years of industry experience at Pune MNCs (Capgemini, Tech Mahindra, MindTree, Amdocs) — so what we teach is calibrated to what hiring panels at companies COEP students target actually expect. Founder Yogesh Patil personally leads the flagship Java and Cloud tracks.",
+      "We're at Kothrud (10-12 min from COEP via Karve Road or Senapati Bapat Marg). 17+ years training Pune engineering students, 10,000+ trained, 5,000+ placed at MNCs including TCS, Infosys, Wipro, Persistent Systems and 100+ other Pune employers. COEP students consistently rank among our highest-completion-rate cohorts.",
+    ],
+    faqs: [
+      {
+        question: "How far is the Archer Kothrud centre from COEP?",
+        answer:
+          "10-12 minutes by rickshaw or two-wheeler via Karve Road or Senapati Bapat Marg. The PMPML 109 / 110 bus routes also connect Shivajinagar to Kothrud directly. Most COEP students attend evening or weekend batches alongside college.",
+      },
+      {
+        question: "I'm a COEP fresher (1st year) — should I really start now?",
+        answer:
+          "Yes — and that's our highest-ROI entry point. 1st-year COEP students who start CareerCode finish 3rd year with deep stack expertise and a portfolio. By the time TPO drives start in 4th year, your interview prep is already done. Earlier the better.",
+      },
+      {
+        question:
+          "Will joining Archer conflict with my COEP academic workload?",
+        answer:
+          "No — CareerCode is built semester-by-semester precisely so it doesn't conflict. Most COEP students attend 2-3 evenings a week plus Saturday batches. Pacing is tailored to your semester schedule, and we provide LMS lifetime access so you can catch up during exam weeks.",
+      },
+      {
+        question: "Do you help with off-campus placements at top companies?",
+        answer:
+          "Yes. Beyond COEP's campus drives, our placement team runs off-campus referrals to 100+ hiring partners — TCS, Infosys, Wipro, Tech Mahindra, Persistent, Capgemini, Cognizant, plus product startups. Mock interviews and resume review are included in every flagship course fee.",
+      },
+      {
+        question: "Which track should a COEP CS student pick — Java FS or MERN?",
+        answer:
+          "Both are strong. Java Full Stack opens more Pune MNC roles (TCS, Infosys, Persistent's enterprise teams). MERN opens more product-startup and GCC roles (Walmart Labs, Atlassian, NetApp). Pick based on the company tier you're targeting — and we're happy to map this out in a free demo.",
+      },
+      {
+        question: "Is there a discount for COEP students?",
+        answer:
+          "We don't run college-specific discounts because we keep base fees transparent and competitive. We do run EMI options on every flagship course and seasonal fee offers — ask the admissions team during your free demo for current offers.",
+      },
+    ],
+  },
 ];
 
 /** Look up an audience landing page by slug. */
