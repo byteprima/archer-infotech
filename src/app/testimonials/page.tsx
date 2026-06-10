@@ -27,7 +27,6 @@ import { FaqSection } from "@/components/seo/faq-section";
 import { LastUpdated } from "@/components/seo/last-updated";
 import {
   BreadcrumbJsonLd,
-  AggregateRatingJsonLd,
   ReviewListJsonLd,
   type ReviewSchemaInput,
 } from "@/components/seo/json-ld";
@@ -153,10 +152,15 @@ export default async function TestimonialsPage() {
           { name: "Testimonials", url: "/testimonials" },
         ]}
       />
-      <AggregateRatingJsonLd
-        ratingValue={googleRatingValue}
-        ratingCount={googleReviewCount}
-      />
+      {/* P8-04 — AggregateRatingJsonLd intentionally NOT emitted here:
+          the canonical OrganizationJsonLd block (in the root layout) now
+          carries the same 5.0 / 126 rating site-wide via the @id-linked
+          EducationalOrganization. A second top-level Org block here
+          would orphan the rating to a partial Org missing url/address/
+          telephone — caught by the P8-04 validator. The full Review[]
+          on the page (next) gives the same rating-context AI engines
+          and Google use for SERP star eligibility, attached to the
+          page's Reviews not a redundant Org. */}
       <ReviewListJsonLd reviews={reviewSchemas} />
 
       {/* Hero */}
