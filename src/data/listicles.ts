@@ -832,6 +832,54 @@ export const listicles: Listicle[] = [
       },
     ],
   },
+
+  // 21 ─ LangChain tips (Python cluster spoke #6, 2026-06-07) ──────────────
+  {
+    slug: "langchain-tips-for-pune-ai-engineers-2026",
+    shortLabel: "LangChain tips",
+    metaTitle: "10 LangChain Tips Every Pune AI Engineer Should Know (2026)",
+    metaDescription:
+      "The 10 LangChain + LangGraph practical tips Pune AI engineers actually use in production in 2026 — prompts, chains, agents, memory, observability, cost controls. With Pune-context patterns.",
+    h1: "10 LangChain Tips Every Pune AI Engineer Should Know (2026)",
+    intro:
+      "LangChain + LangGraph appear in ~80% of Pune AI Engineer postings in 2026 — fluency here is the table-stakes skill for the highest-paid Pune fresher tier (₹8-15 LPA). Below are the 10 practical LangChain tips ranked by Pune AI team interview-frequency + day-to-day production-use prevalence. Each entry covers what to do + why it matters + the failure mode you avoid. If you've built one production-grade RAG or agent app and applied these 10 tips, you've covered ~80% of what Pune AI engineer rounds screen for.",
+    entries: [
+      { name: "Use LCEL (LangChain Expression Language) over legacy chains", what: "LCEL is the modern composable interface: prompt | model | parser. Cleaner than legacy LLMChain or SequentialChain. Stream + batch + async work for free; composition is more debuggable. Legacy chains are being deprecated.", dataPoint: "Asked at ~65% of Pune AI engineer rounds. Walking through an LCEL example signals current 2024-2026 LangChain familiarity.", bestFor: "Foundation modern pattern; expected fluency." },
+      { name: "Use Pydantic models + structured output for reliable LLM responses", what: "Define a Pydantic schema, pass to `with_structured_output()` on a chat model. The model returns parsed Pydantic objects, not strings. Cuts string-parsing brittleness; raises validation errors early. Works across OpenAI + Anthropic + Gemini providers.", dataPoint: "Asked at ~55% of Pune AI rounds. Most production-grade LangChain code uses this; legacy `parse_obj` + regex approaches are tutorials-only.", bestFor: "Production reliability; differentiates beyond tutorial-only candidates." },
+      { name: "Implement retries with exponential backoff via tenacity or langchain's built-in", what: "LLM APIs fail transiently (rate limits, timeouts, 5xx errors). Wrap calls with retry logic: `@retry(stop=stop_after_attempt(3), wait=wait_exponential(min=1, max=10))`. Modern LangChain models support `with_retry()` directly. Don't ship LLM apps without this.", dataPoint: "Asked at ~45% of Pune production-focused rounds. The #1 production reliability gap in fresher candidates.", bestFor: "Production reliability; pattern recognition signal." },
+      { name: "Use LangSmith for observability + tracing from day 1", what: "Set 3 env vars (LANGCHAIN_TRACING_V2, LANGCHAIN_API_KEY, LANGCHAIN_PROJECT) → all LangChain calls automatically traced in LangSmith dashboard. See full chain execution, latency, costs, prompts, errors. Free tier covers fresher portfolio + small projects.", dataPoint: "Asked at ~50% of Pune AI rounds. Showing LangSmith traces in interviews signals production-engineering thinking.", bestFor: "Observability discipline; product-company differentiator." },
+      { name: "Cache LLM calls during development with langchain.cache", what: "Set `set_llm_cache(InMemoryCache())` or SQLite cache → identical prompts return cached responses, no API calls. Cuts dev iteration cost + speed. Use SQLite cache for persistence across runs; in-memory for ephemeral testing.", dataPoint: "Asked at ~30% of Pune rounds. Mention semantic caching for production (cache near-duplicate prompts) — senior signal.", bestFor: "Dev velocity + cost discipline." },
+      { name: "Implement RAG with proper chunking + metadata + reranking", what: "Bad RAG: dump full documents in vector store. Good RAG: chunk semantically (200-500 tokens per chunk), preserve metadata (source, page, section), retrieve top-k by similarity (k=10-20), then rerank with a cross-encoder (CohereRerank, BGE reranker) down to top-3-5 for the LLM context. Reranking 2-3x improves retrieval quality.", dataPoint: "Asked at ~70% of Pune RAG / LLM-app rounds. Reranking is the senior-fresher RAG quality differentiator.", bestFor: "RAG quality differentiator; signals architectural depth." },
+      { name: "Use LangGraph for any agent beyond a simple ReAct loop", what: "LangChain's create_react_agent is fine for prototypes. Production agents need: state management, conditional routing, error handling, human-in-the-loop, multi-agent coordination. LangGraph (the modern LangChain agent framework) provides all this via explicit state graphs. Less magic, more debuggable.", dataPoint: "Asked at ~60% of Pune agentic AI rounds. LangGraph fluency = modern Pune AI engineer differentiator.", bestFor: "Agent architecture depth; senior-AI-engineer signal." },
+      { name: "Set explicit token + cost budgets per request", what: "Use LangChain's callback handlers to count tokens + costs per chain run. Fail-fast on runaway costs (e.g. circuit-break if a single chain exceeds N tokens). Critical for production LLM apps where one bug can burn ₹50K of OpenAI credits overnight.", dataPoint: "Asked at ~40% of Pune production-tier rounds. Cost-discipline questions separate hobbyist candidates from production engineers.", bestFor: "Production cost engineering signal." },
+      { name: "Build evals before chasing benchmark scores", what: "Define your task's eval first: 10-50 representative inputs + expected behaviour or rubric. Run evals on every prompt + model change. LangChain's evaluation module + LangSmith datasets support this. Without evals, prompt + model changes are guess + check.", dataPoint: "Asked at ~50% of Pune product company AI rounds. Eval discipline is the strongest signal of production-LLM-engineer maturity.", bestFor: "Engineering rigour differentiator; product company essential." },
+      { name: "Use streaming responses for user-facing chat apps", what: "Default LangChain returns the full response after the LLM completes. For chat UIs, stream tokens as they generate via `.astream()` or LangChain Server. Drastically improves perceived latency (token-by-token vs 5-30 second wait).", dataPoint: "Asked at ~35% of Pune frontend-paired AI rounds. UX-aware AI engineers know this; backend-only candidates often miss it.", bestFor: "Frontend-AI integration signal; product-quality differentiator." },
+    ],
+    methodology:
+      "Tips ranked by Pune AI engineer interview-frequency from Archer Infotech's placement-cell debriefs + Pune AI team production-use prevalence (Persistent Avaamo, Helpshift, GUVI, BrowserStack AI, ZS AI practice). Frequencies reflect 2024-2026 LangChain ecosystem evolution; deprecated patterns (LLMChain, legacy parsers, older agent types) prioritised out. Focuses on production-grade patterns over tutorial-grade quickstarts.",
+    faqs: [
+      {
+        question: "Do I need LangChain to be a Pune AI engineer in 2026?",
+        answer:
+          "Effectively yes for the highest-paying Pune fresher AI roles. ~80% of Pune AI engineer postings reference LangChain or LangGraph explicitly. Alternative ecosystems (LlamaIndex for RAG-only, raw OpenAI/Anthropic SDKs for simple cases) exist but represent ~20% of postings. Learn LangChain primary; alternatives as secondary skills.",
+      },
+      {
+        question: "What's the difference between LangChain and LangGraph?",
+        answer:
+          "LangChain = the broader framework (model interfaces, chains, retrievers, agents). LangGraph = a specific LangChain framework for building stateful, controllable agent workflows via explicit state graphs. Use LangChain for prompts + RAG + simple chains; LangGraph for any non-trivial agent. Both made by the same team; LangGraph is essentially the production-grade agent framework on top of LangChain.",
+      },
+      {
+        question: "What's the most-failed LangChain question at Pune AI engineer interviews?",
+        answer:
+          "Cost + reliability in production. Candidates can build prototypes but fail when asked 'how would you handle 1000 concurrent users + rate limits + cost budgets + caching?' Production LangChain involves circuit breakers + retries + cost callbacks + semantic caching + LangSmith observability. Prototype-only patterns scale poorly.",
+      },
+      {
+        question: "Should I learn LangChain or build from scratch with raw LLM APIs?",
+        answer:
+          "Both, but LangChain first for hiring leverage. Building one project from scratch with raw OpenAI / Anthropic SDK teaches the fundamentals (request format, streaming, function calling, structured output). Then LangChain on top makes you fluent in the Pune-default ecosystem. ~6 weeks of raw-SDK + ~6 weeks of LangChain is the realistic AI-engineer prep path.",
+      },
+    ],
+  },
 ];
 
 export function getListicle(slug: string): Listicle | undefined {
