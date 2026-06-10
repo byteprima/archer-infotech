@@ -635,6 +635,19 @@ export default function FirstITJobPuneCareerPath() {
               </li>
               <li>
                 <Link
+                  href="/guides/linkedin-optimisation-tips-pune-it-freshers-2026"
+                  className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
+                >
+                  <span className="font-medium block text-sm">
+                    10 LinkedIn Optimisation Tips for Pune IT Freshers
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    Guide · search-strategy + alumni-referral playbook
+                  </span>
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/compare/services-vs-product-company-first-it-job-pune"
                   className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
                 >
