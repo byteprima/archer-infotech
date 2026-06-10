@@ -640,6 +640,54 @@ export const listicles: Listicle[] = [
       },
     ],
   },
+
+  // 17 ─ SQL interview Qs (Data Science pillar spoke #4, 2026-06-07) ────────
+  {
+    slug: "sql-interview-questions-pune-data-freshers-2026",
+    shortLabel: "SQL interview Qs",
+    metaTitle: "10 SQL Interview Questions Every Pune Data Fresher Should Master (2026)",
+    metaDescription:
+      "The 10 SQL interview questions Pune data analyst, data scientist, and backend freshers actually face in 2026 — joins, window functions, query optimisation, indexes. With Pune-context answers.",
+    h1: "10 SQL Interview Questions Every Pune Data Fresher Should Master (2026)",
+    intro:
+      "SQL is the most-screened technical skill across Pune data + backend fresher interviews — 85%+ of postings reference it explicitly, and almost every Data Analyst, Data Scientist, ML Engineer, and Backend Engineer round includes SQL questions. Below are the 10 most-asked SQL interview questions ranked by Pune interview-debrief frequency. Each answer covers the depth expected at fresher tier. Master these 10 + practice 50+ problems on LeetCode SQL or HackerRank SQL, and you've covered ~80% of Pune SQL fresher screens.",
+    entries: [
+      { name: "Explain INNER, LEFT, RIGHT, and FULL OUTER JOIN with examples.", what: "INNER: only matched rows in both tables. LEFT: all left + matched right (right NULL if no match). RIGHT: mirror of LEFT. FULL OUTER: all rows from both, NULL where no match (not in MySQL — emulate via UNION). Walk through a Users + Orders example: INNER gives users with orders; LEFT gives all users including no-order ones.", dataPoint: "Asked at ~95% of Pune SQL fresher rounds. Most-screened SQL concept by frequency.", bestFor: "Universal fresher screening; expected to know cold." },
+      { name: "What's the difference between WHERE and HAVING?", what: "WHERE filters rows before grouping/aggregation; HAVING filters groups after aggregation. WHERE can't use aggregate functions (SUM, COUNT, AVG); HAVING can. Example: `WHERE order_date >= '2026-01-01'` (filter rows) vs `HAVING SUM(amount) > 1000` (filter aggregated groups). Both can appear in the same query.", dataPoint: "Asked at ~75% of Pune rounds. Common follow-up: 'why can't I use COUNT() in WHERE?' (rows aren't aggregated yet at WHERE phase).", bestFor: "Query-execution-order understanding." },
+      { name: "Explain window functions with an example.", what: "Window functions perform calculations across a set of rows related to the current row WITHOUT collapsing them (unlike GROUP BY). Syntax: `func() OVER (PARTITION BY col1 ORDER BY col2)`. Common: ROW_NUMBER() (rank), RANK() (rank with ties skip), DENSE_RANK() (no skip), LAG/LEAD (previous/next row), SUM() OVER (running totals).", dataPoint: "Asked at ~60% of Pune data + backend product company rounds. Modern SQL discriminator — older candidates often miss this; senior-fresher signal.", bestFor: "Differentiating beyond basic SQL fluency." },
+      { name: "When should you add an index? When shouldn't you?", what: "Add on: columns frequently in WHERE filters, JOIN conditions, ORDER BY, foreign keys. Index columns with high selectivity (many distinct values) + read-heavy workloads. Don't index: small tables (<1000 rows), low-selectivity columns (boolean flags, gender), write-heavy tables where index maintenance cost outweighs read benefit, every column 'just in case'. Use EXPLAIN to verify usage.", dataPoint: "Asked at ~65% of Pune rounds. Trade-off framing (each index adds write overhead + storage) signals senior-fresher depth.", bestFor: "Performance + production-engineering signal." },
+      { name: "What is a CTE (Common Table Expression) and when do you use it?", what: "A named temporary result set referenced within a single query, defined via WITH. Use when: breaking complex queries into readable steps, recursive queries (organisation hierarchies, dependency graphs), avoiding subquery repetition. Cleaner than nested subqueries. Recursive variant: `WITH RECURSIVE cte AS (base case UNION ALL recursive case) SELECT * FROM cte`.", dataPoint: "Asked at ~45% of Pune rounds, especially product company + analytics-leaning interviews. Modern SQL feature; most pre-2015 SQL learners miss it.", bestFor: "Query-readability + advanced SQL signal." },
+      { name: "Explain ACID properties of transactions.", what: "Atomicity: transaction fully completes or has no effect — rollback on failure. Consistency: transaction moves DB from one valid state to another, respecting all constraints. Isolation: concurrent transactions appear sequential (controlled by isolation level: READ COMMITTED, REPEATABLE READ, SERIALIZABLE). Durability: committed data survives crashes (typically via write-ahead logging).", dataPoint: "Asked at ~70% of Pune backend rounds. Walk through a banking transfer example — debit + credit must be atomic.", bestFor: "Database fundamentals; differentiator from data-analyst-only tracks." },
+      { name: "How do you find the second-highest salary from an Employees table?", what: "Multiple approaches: (1) `SELECT MAX(salary) FROM employees WHERE salary < (SELECT MAX(salary) FROM employees)` — works but two table scans. (2) Window function: `SELECT salary FROM (SELECT DISTINCT salary, DENSE_RANK() OVER (ORDER BY salary DESC) AS rank FROM employees) WHERE rank = 2` — handles ties cleanly. (3) `SELECT salary FROM employees ORDER BY salary DESC LIMIT 1 OFFSET 1` — simplest but doesn't handle ties.", dataPoint: "Asked at ~50% of Pune rounds — the canonical SQL puzzle. Knowing 3 approaches + their trade-offs (ties handling, performance) is the senior-fresher signal.", bestFor: "Practical-SQL competence + edge-case thinking." },
+      { name: "What's the N+1 query problem? How do you fix it in SQL or ORMs?", what: "Fetching N parent entities then accessing a related child triggers 1 query for the list + N queries for children = N+1 total. Fix in raw SQL: single query with JOIN. Fix in ORMs: eager loading via JOIN FETCH (JPA), `.includes()` (Rails), `.select_related()` / `.prefetch_related()` (Django). Most ORMs default to lazy loading — recognising and fixing N+1 is a senior-fresher signal.", dataPoint: "Asked at ~50% of Pune backend rounds (~60% at product cos). The most-asked-about query performance pattern.", bestFor: "Backend + ORM-fluency discriminator." },
+      { name: "Explain the difference between UNION and UNION ALL.", what: "UNION combines result sets from multiple SELECTs AND removes duplicate rows (extra sort/hash step → slower). UNION ALL combines without deduplication (faster). Use UNION when you actually need unique rows; UNION ALL when you know they're disjoint or duplicates are fine. Common production mistake: defaulting to UNION when UNION ALL would work + perform 30-50% faster.", dataPoint: "Asked at ~35% of Pune rounds. Performance-awareness question — knowing the deduplication overhead distinguishes senior-fresher candidates.", bestFor: "Query performance depth." },
+      { name: "How do you write a query to find duplicate rows in a table?", what: "Standard approach: `SELECT col1, col2, COUNT(*) FROM table GROUP BY col1, col2 HAVING COUNT(*) > 1`. To return the full duplicate rows (not just the keys): subquery + join, or window function `SELECT * FROM (SELECT *, ROW_NUMBER() OVER (PARTITION BY col1, col2 ORDER BY id) AS rn FROM table) t WHERE rn > 1`. The window-function version also lets you keep one and delete the rest.", dataPoint: "Asked at ~40% of Pune rounds, especially data analyst + ETL-focused interviews. Common data-quality interview puzzle.", bestFor: "Data-quality + GROUP BY fluency." },
+    ],
+    methodology:
+      "Questions ranked by interview-frequency data from Archer Infotech's placement-cell debriefs across Pune services majors, product companies, and data + analytics consultancies (ZS Associates, Tiger Analytics, Mu Sigma). SQL is the most-universal screened tech skill across data + backend tracks — questions cover the depth expected at fresher tier regardless of stack specialisation. Frequencies reflect 2024-2026 cycles; older PL/SQL specifics + stored-procedure depth deprioritised as they appear less at fresher tier.",
+    faqs: [
+      {
+        question: "Which database should I practice on for Pune SQL interviews?",
+        answer:
+          "PostgreSQL is the safest pick — most production Pune work uses PostgreSQL or MySQL with very similar syntax. MS SQL Server is common at BFSI / .NET shops. SQLite is fine for learning + LeetCode SQL practice. Avoid only practising on NoSQL stores (MongoDB) — they don't transfer to SQL interview questions.",
+      },
+      {
+        question: "How many SQL problems should I solve before Pune fresher interviews?",
+        answer:
+          "Minimum: 50 LeetCode SQL Easy + 30 Medium. Strong: 100 across difficulties + 20 from real datasets (Kaggle, NYC Taxi, IMDb). The goal: pattern recognition within 30 seconds + correct query within 5-10 minutes. Speed comes from practice volume — there's no shortcut.",
+      },
+      {
+        question: "Do Pune Data Analyst interviews require window functions?",
+        answer:
+          "Increasingly yes at product companies + analytics consultancies (ZS, Tiger Analytics, Mu Sigma) — ~70% of these rounds probe window functions at fresher level. Services-major data analyst interviews are less strict (~30% probe window functions). The pragmatic answer: learn ROW_NUMBER + RANK + LAG/LEAD + SUM/AVG OVER — covers 90% of window function interview questions.",
+      },
+      {
+        question: "What's the most-failed SQL question at Pune fresher interviews?",
+        answer:
+          "Tied between (1) confusing GROUP BY + HAVING with WHERE, and (2) writing nested subqueries when a JOIN or CTE would be cleaner. Both signal weak query-execution-order understanding. Practice walking through a query's logical execution order (FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY → LIMIT) — most failed questions trace to this mental model gap.",
+      },
+    ],
+  },
 ];
 
 export function getListicle(slug: string): Listicle | undefined {
