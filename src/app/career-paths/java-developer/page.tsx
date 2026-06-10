@@ -653,6 +653,19 @@ export default function JavaDeveloperCareerPath() {
               </li>
               <li>
                 <Link
+                  href="/guides/microservices-patterns-pune-java-developers-2026"
+                  className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
+                >
+                  <span className="font-medium block text-sm">
+                    10 Microservices Patterns for Pune Java Developers
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    Guide · Spring Cloud + patterns ranked by interview frequency
+                  </span>
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/courses/programming/java-training-in-pune"
                   className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
                 >

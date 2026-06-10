@@ -736,6 +736,54 @@ export const listicles: Listicle[] = [
       },
     ],
   },
+
+  // 19 ─ Microservices patterns (Java cluster spoke #5, 2026-06-07) ────────
+  {
+    slug: "microservices-patterns-pune-java-developers-2026",
+    shortLabel: "Microservices patterns for Java",
+    metaTitle: "10 Microservices Patterns Every Pune Java Developer Should Know (2026)",
+    metaDescription:
+      "The 10 microservices patterns Pune Java developers actually use in production in 2026 — API Gateway, Service Discovery, Circuit Breaker, Saga, Event Sourcing. With Spring Cloud + Pune-context implementations.",
+    h1: "10 Microservices Patterns Every Pune Java Developer Should Know (2026)",
+    intro:
+      "Pune Java + Spring Boot work increasingly leans microservices at product companies + modern services-major engagements — microservices patterns appear in ~40% of Pune Java fresher product-company interviews and bump fresher offers ₹2-4 LPA above standard backend band. Below are the 10 highest-value microservices patterns ranked by Pune interview-frequency + production-use prevalence. Each entry covers what the pattern solves + how it maps to Spring Cloud / Java tooling. Master these 10 + build one working multi-service portfolio project to claim above-band fresher targeting.",
+    entries: [
+      { name: "API Gateway", what: "Single entry point that routes incoming requests to backend services — handles cross-cutting concerns (auth, rate-limiting, request transformation, logging) so individual services don't repeat them.", dataPoint: "Asked at ~70% of Pune microservices interviews. Spring Cloud Gateway + Netflix Zuul are the JVM defaults; cloud-native shops use AWS API Gateway or Kong.", bestFor: "Foundation pattern — every microservices system has one." },
+      { name: "Service Discovery", what: "Mechanism for services to find each other by logical name (not hardcoded IPs/ports). Services register themselves on startup; consumers query the registry to locate them.", dataPoint: "Spring Cloud Netflix Eureka is the Java-default. Kubernetes-native shops use built-in DNS-based service discovery instead.", bestFor: "Production microservices — hardcoded service URLs don't scale." },
+      { name: "Circuit Breaker", what: "Prevents cascading failures by 'opening' the circuit when downstream service fails repeatedly — fails fast instead of waiting on timeouts. Closes after a wait period to test recovery.", dataPoint: "Asked at ~55% of Pune product company rounds. Resilience4j (Spring Cloud's modern default; replaces deprecated Hystrix) is the Java standard.", bestFor: "Reliability patterns; SRE + senior-fresher signal." },
+      { name: "Saga Pattern", what: "Distributed transaction management without 2PC. Long-running business process is split into local transactions, each with a compensating action if a later step fails. Two flavours: choreography (event-driven) + orchestration (central coordinator).", dataPoint: "Asked at ~35% of Pune BFSI + e-commerce microservices interviews. Walk through an order placement example: order created → payment failed → inventory rollback via compensating event.", bestFor: "BFSI + e-commerce + transactional system signal." },
+      { name: "Event-Driven Architecture (Kafka)", what: "Services communicate via events on a message broker rather than direct sync HTTP calls — producers emit events, consumers process them async. Decouples services + enables fan-out + replay.", dataPoint: "Apache Kafka is the dominant Pune event broker. Async patterns appear in ~50% of Pune product company microservices roles.", bestFor: "Modern Pune product company + financial-services interviews." },
+      { name: "Database per Service", what: "Each microservice owns its own database — no shared schema. Avoids tight coupling but introduces complexity for cross-service queries (use API composition or CQRS).", dataPoint: "Asked at ~40% of Pune rounds. The fundamental data-ownership rule of microservices — violating it (shared DB) is the #1 anti-pattern.", bestFor: "Architecture-tier question; demonstrates microservices-discipline maturity." },
+      { name: "CQRS (Command Query Responsibility Segregation)", what: "Split write model (commands) from read model (queries) — often different stores optimised for each. Pair with Event Sourcing for full event-log audit + replay-ability.", dataPoint: "Asked at ~25% of Pune product company rounds — more common at financial services + analytics-heavy systems. Senior-fresher pattern.", bestFor: "Read-heavy or audit-heavy systems; differentiator at top product cos." },
+      { name: "Distributed Tracing", what: "Correlate logs + spans across services to trace a single request across the system. OpenTelemetry is the modern standard; Spring Cloud Sleuth + Zipkin or Jaeger are JVM-friendly backends.", dataPoint: "Asked at ~45% of Pune SRE + observability-leaning interviews. Strong signal for operational maturity beyond pure-dev candidates.", bestFor: "Observability-track signal; senior-fresher product-company differentiator." },
+      { name: "Config Server (Externalised Configuration)", what: "Centralised configuration management for all services — config changes without redeploy + environment-specific values managed in one place. Spring Cloud Config Server is the Java default; backed by Git for versioning.", dataPoint: "Asked at ~40% of Pune rounds. Mention HashiCorp Vault for sensitive config (passwords, API keys) — 12-factor app discipline.", bestFor: "Configuration management depth; production-readiness signal." },
+      { name: "Bulkhead Pattern", what: "Isolate failures by partitioning resources (thread pools, connection pools) per dependency — failure in one downstream doesn't exhaust shared resources + take down the whole service. Resilience4j supports bulkhead + circuit breaker together.", dataPoint: "Asked at ~25% of Pune SRE + high-reliability interviews. Less common at services-major fresher tier but excellent senior-fresher signal.", bestFor: "Reliability engineering depth; SRE-track differentiator." },
+    ],
+    methodology:
+      "Patterns ranked by Pune interview-frequency data from Archer Infotech's placement-cell debriefs over 2024-2026 cycles + production-use prevalence at Pune product companies (Persistent product, Druva, BFSI tech teams). Spring Cloud naming reflects the Java JVM ecosystem; cloud-native (Kubernetes) shops may use the same patterns with different tooling. Frequencies skew toward Pune product company + modernising services-major engagements.",
+    faqs: [
+      {
+        question: "Do I need to know all 10 patterns for fresher Pune Java microservices interviews?",
+        answer:
+          "Foundation 4 yes (API Gateway + Service Discovery + Circuit Breaker + Config Server) — these define what a microservices system fundamentally needs. Architecture-tier 3 (Database per Service + Event-Driven + Distributed Tracing) signal senior-fresher awareness. Advanced 3 (Saga + CQRS + Bulkhead) are differentiators for product company + above-band fresher targeting. Master the foundation 4 + know the others exist at conceptual level.",
+      },
+      {
+        question: "Should I build all 10 patterns into one portfolio microservices project?",
+        answer:
+          "No — that's over-engineering. Build one working multi-service project (3-4 services + API Gateway + Service Discovery + 1 Circuit Breaker + Database per Service + 1 async Kafka event flow) and document the patterns you used. Quality + working deployment beats kitchen-sink complexity. Recruiters notice realistic scope; over-architected portfolios signal inexperience.",
+      },
+      {
+        question: "What's the most-failed microservices interview question at Pune fresher rounds?",
+        answer:
+          "When to NOT use microservices. Candidates can recite patterns but fail to articulate when a monolith is the right choice (<5 dev teams, <100K concurrent users, simple business capabilities). The mature answer: 'We'd start with a modular monolith and extract services only when a specific capability needs independent deployment or scaling.' This signals production-engineering judgment over pattern-collecting.",
+      },
+      {
+        question: "What's the Pune salary premium for Java microservices fluency at fresher tier?",
+        answer:
+          "₹2-4 LPA above standard backend band. Standard Pune Java services-major fresher: ₹3.5-6 LPA. Spring Boot + Spring Cloud microservices fluency moves you to product company + modernising services-major targeting at ₹5-8 LPA fresher band. The skill investment (3-4 months of focused work + one working multi-service portfolio project) pays back within the first year on the job.",
+      },
+    ],
+  },
 ];
 
 export function getListicle(slug: string): Listicle | undefined {
