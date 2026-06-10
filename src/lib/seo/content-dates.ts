@@ -39,12 +39,23 @@ export const EVERGREEN_LAST_REVIEWED = "2026-05-08";
 
 /**
  * Pages built or substantially advanced in the 2026-05-25 SEO push —
- * neighbourhood location pages (/locations/*), audience landing pages
- * (/courses/for/*), /press, /tools/* (salary calculator + career roadmap),
- * /compare/*, /guides/*, and the new blog-category route family. They
- * share one review cadence; bump together when re-audited.
+ * audience landing pages (/courses/for/*), /press, /tools/* (salary
+ * calculator + career roadmap), /compare/*, /guides/*, and the new
+ * blog-category route family. They share one review cadence; bump
+ * together when re-audited.
+ *
+ * Note: /locations/* was originally in this set but has since been
+ * individually re-audited under P4-21 — see LOCATIONS_LAST_REVIEWED.
  */
 export const NEW_ASSETS_LAST_REVIEWED = "2026-05-25";
+
+/**
+ * Neighbourhood location pages (`/locations/[slug]`). Substantially
+ * advanced 2026-06-10 under P4-21 — programmatic-SEO discipline pass:
+ * cross-neighbourhood internal-link block, section anchor IDs, and
+ * visible LastUpdated stamp added to all 12 location pages.
+ */
+export const LOCATIONS_LAST_REVIEWED = "2026-06-10";
 
 /**
  * Convert an ISO date string ("YYYY-MM-DD") to a `Date` at UTC midnight —

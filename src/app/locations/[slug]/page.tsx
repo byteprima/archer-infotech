@@ -9,6 +9,7 @@ import {
   CheckCircle,
   Phone,
   Clock,
+  ArrowRight,
 } from "lucide-react";
 import { PageEvent } from "@/components/analytics/page-event";
 import { TrackedAnchor } from "@/components/analytics/tracked-anchor";
@@ -20,14 +21,19 @@ import {
   BreadcrumbJsonLd,
 } from "@/components/seo/json-ld";
 import { Breadcrumbs } from "@/components/seo/breadcrumbs";
+import { LastUpdated } from "@/components/seo/last-updated";
 import {
   neighbourhoods,
   getNeighbourhood,
+  getNearbyNeighbourhoods,
   directionsUrlFrom,
 } from "@/data/locations";
 import { getCourse } from "@/data/courses";
 import { siteConfig } from "@/data/site-config";
 import { buildPageMetadata } from "@/lib/seo";
+import {
+  LOCATIONS_LAST_REVIEWED,
+} from "@/lib/seo/content-dates";
 
 interface LocationPageProps {
   params: Promise<{ slug: string }>;
@@ -48,6 +54,7 @@ export async function generateMetadata({
     title: area.metaTitle,
     description: area.metaDescription,
     path: `/locations/${slug}`,
+    lastModified: LOCATIONS_LAST_REVIEWED,
   });
 }
 
@@ -63,6 +70,11 @@ export default async function LocationPage({ params }: LocationPageProps) {
   const popularCourses = area.popularCourseSlugs
     .map((courseSlug) => getCourse(courseSlug))
     .filter((c): c is NonNullable<typeof c> => Boolean(c));
+
+  // P4-21 — resolve cross-neighbourhood links so AI engines + crawlers
+  // can hop laterally between location pages without bouncing through
+  // the hub.
+  const nearbyAreas = getNearbyNeighbourhoods(area.slug);
 
   return (
     <>
@@ -135,6 +147,7 @@ export default async function LocationPage({ params }: LocationPageProps) {
         <div className="container mx-auto px-4 py-12 md:py-16 space-y-14 max-w-4xl">
           {/* Intro */}
           <section className="prose prose-slate max-w-none space-y-4">
+            <LastUpdated iso={LOCATIONS_LAST_REVIEWED} className="text-xs md:text-sm text-muted-foreground !mt-0 !mb-2" />
             {area.intro.map((p, i) => (
               <p key={i} className="text-lg leading-relaxed text-foreground">
                 {p}
@@ -143,7 +156,7 @@ export default async function LocationPage({ params }: LocationPageProps) {
           </section>
 
           {/* Commute & directions */}
-          <section className="space-y-5">
+          <section id="commute" className="space-y-5 scroll-mt-24">
             <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-3">
               <Navigation className="h-7 w-7 text-secondary" />
               Getting to our Kothrud centre from {area.name}
@@ -199,7 +212,7 @@ export default async function LocationPage({ params }: LocationPageProps) {
           </section>
 
           {/* Landmarks */}
-          <section className="space-y-4">
+          <section id="landmarks" className="space-y-4 scroll-mt-24">
             <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-3">
               <Building2 className="h-7 w-7 text-secondary" />
               Landmarks near {area.name}
@@ -214,7 +227,7 @@ export default async function LocationPage({ params }: LocationPageProps) {
           </section>
 
           {/* Why convenient */}
-          <section className="space-y-4">
+          <section id="why-convenient" className="space-y-4 scroll-mt-24">
             <h2 className="text-2xl md:text-3xl font-bold">
               Why {area.name} students choose Archer Infotech
             </h2>
@@ -227,7 +240,7 @@ export default async function LocationPage({ params }: LocationPageProps) {
 
           {/* Popular courses */}
           {popularCourses.length > 0 && (
-            <section className="space-y-5">
+            <section id="popular-courses" className="space-y-5 scroll-mt-24">
               <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-3">
                 <GraduationCap className="h-7 w-7 text-secondary" />
                 Courses popular with {area.name} students
@@ -270,7 +283,7 @@ export default async function LocationPage({ params }: LocationPageProps) {
 
           {/* Local FAQs */}
           {area.localFaqs.length > 0 && (
-            <section className="space-y-4">
+            <section id="local-faqs" className="space-y-4 scroll-mt-24">
               <h2 className="text-2xl md:text-3xl font-bold">
                 {area.name} — Frequently Asked Questions
               </h2>
@@ -293,6 +306,47 @@ export default async function LocationPage({ params }: LocationPageProps) {
                   </details>
                 ))}
               </div>
+            </section>
+          )}
+
+          {/* Nearby areas — P4-21 cross-neighbourhood link graph */}
+          {nearbyAreas.length > 0 && (
+            <section id="nearby-areas" className="space-y-5 scroll-mt-24">
+              <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-3">
+                <MapPin className="h-7 w-7 text-secondary" />
+                Nearby IT training locations
+              </h2>
+              <p className="text-muted-foreground">
+                Live in one of these neighbouring areas? Each has its own page
+                with directions, landmarks, and commute notes for our Kothrud
+                centre.
+              </p>
+              <div className="grid sm:grid-cols-3 gap-4">
+                {nearbyAreas.map((n) => (
+                  <Link
+                    key={n.slug}
+                    href={`/locations/${n.slug}`}
+                    className="group rounded-lg border p-5 hover:border-primary hover:shadow-md transition-all"
+                  >
+                    <div className="flex items-start justify-between gap-2 mb-2">
+                      <h3 className="font-semibold group-hover:text-primary transition-colors">
+                        IT Training in {n.name}
+                      </h3>
+                      <ArrowRight className="h-4 w-4 text-muted-foreground shrink-0 mt-1 group-hover:text-primary transition-colors" />
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      {n.commute.distanceLabel}
+                    </p>
+                  </Link>
+                ))}
+              </div>
+              <p className="text-sm text-muted-foreground">
+                See the full list on the{" "}
+                <Link href="/locations" className="text-primary hover:underline">
+                  locations hub
+                </Link>
+                .
+              </p>
             </section>
           )}
         </div>

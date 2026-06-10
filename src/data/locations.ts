@@ -56,6 +56,81 @@ export interface NeighbourhoodLocation {
   localFaqs: { question: string; answer: string }[];
 }
 
+/**
+ * P4-21 — geographically-nearby neighbourhood map for cross-internal-
+ * linking. Maintained as an external map (vs per-entry field) to keep
+ * the 12 detailed entries clean. Each neighbourhood points to 3 closest
+ * neighbours — designed around real Pune geography (west / central / PCMC
+ * belts). Strengthens the location-cluster internal-link graph.
+ *
+ * Each cross-link contributes ~3 inbound + 3 outbound internal links
+ * per neighbourhood page = 36 new internal cross-links across the 12 pages.
+ */
+const NEARBY_NEIGHBOURHOODS_MAP: Record<string, string[]> = {
+  // West / central Pune belt
+  "it-training-in-kothrud": [
+    "it-training-in-karve-nagar",
+    "it-training-in-erandwane",
+    "it-training-in-karve-road",
+  ],
+  "it-training-in-karve-nagar": [
+    "it-training-in-kothrud",
+    "it-training-in-erandwane",
+    "it-training-in-warje",
+  ],
+  "it-training-in-erandwane": [
+    "it-training-in-kothrud",
+    "it-training-in-karve-nagar",
+    "it-training-in-deccan",
+  ],
+  "it-training-in-warje": [
+    "it-training-in-karve-nagar",
+    "it-training-in-kothrud",
+    "it-training-in-bavdhan",
+  ],
+  "it-training-in-bavdhan": [
+    "it-training-in-warje",
+    "it-training-in-baner",
+    "it-training-in-kothrud",
+  ],
+  "it-training-in-deccan": [
+    "it-training-in-erandwane",
+    "it-training-in-karve-road",
+    "it-training-in-kothrud",
+  ],
+  "it-training-in-karve-road": [
+    "it-training-in-kothrud",
+    "it-training-in-erandwane",
+    "it-training-in-deccan",
+  ],
+  // North-west / Aundh-Baner-Hinjewadi belt
+  "it-training-in-aundh": [
+    "it-training-in-baner",
+    "it-training-in-wakad",
+    "it-training-in-karve-road",
+  ],
+  "it-training-in-baner": [
+    "it-training-in-aundh",
+    "it-training-in-bavdhan",
+    "it-training-in-wakad",
+  ],
+  "it-training-in-hinjewadi": [
+    "it-training-in-wakad",
+    "it-training-in-baner",
+    "it-training-in-pimpri-chinchwad",
+  ],
+  "it-training-in-wakad": [
+    "it-training-in-hinjewadi",
+    "it-training-in-baner",
+    "it-training-in-aundh",
+  ],
+  "it-training-in-pimpri-chinchwad": [
+    "it-training-in-wakad",
+    "it-training-in-hinjewadi",
+    "it-training-in-aundh",
+  ],
+};
+
 // Destination is the verified Kothrud centre; origin varies per page so the
 // Google Maps directions link is unique to each neighbourhood.
 export const CENTRE_DESTINATION = "Archer Infotech, Kothrud, Pune 411038";
@@ -844,4 +919,19 @@ export function getNeighbourhood(slug: string): NeighbourhoodLocation | undefine
 /** All neighbourhoods ordered by priority (home turf first). */
 export function getNeighbourhoodsByPriority(): NeighbourhoodLocation[] {
   return [...neighbourhoods].sort((a, b) => a.priority - b.priority);
+}
+
+/**
+ * P4-21 — resolve the 3 nearby neighbourhood slugs for a given area
+ * into full NeighbourhoodLocation objects, filtering out any that
+ * don't resolve (defensive: if a slug is removed from the catalogue,
+ * the page still renders cleanly).
+ */
+export function getNearbyNeighbourhoods(
+  slug: string
+): NeighbourhoodLocation[] {
+  const nearbySlugs = NEARBY_NEIGHBOURHOODS_MAP[slug] ?? [];
+  return nearbySlugs
+    .map((s) => getNeighbourhood(s))
+    .filter((n): n is NeighbourhoodLocation => Boolean(n));
 }
