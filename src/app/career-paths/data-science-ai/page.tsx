@@ -699,6 +699,19 @@ export default function DataScienceAICareerPath() {
                   </span>
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/guides/top-statistics-concepts-pune-data-scientists-2026"
+                  className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
+                >
+                  <span className="font-medium block text-sm">
+                    Top 10 Statistics Concepts for Pune Data Scientists
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    Guide · ranked by interview frequency + day-to-day use
+                  </span>
+                </Link>
+              </li>
             </ul>
           </section>
 

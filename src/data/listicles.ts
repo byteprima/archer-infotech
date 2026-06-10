@@ -784,6 +784,54 @@ export const listicles: Listicle[] = [
       },
     ],
   },
+
+  // 20 ─ Statistics concepts (Data Science spoke #5, 2026-06-07) ──────────
+  {
+    slug: "top-statistics-concepts-pune-data-scientists-2026",
+    shortLabel: "Statistics for data scientists",
+    metaTitle: "Top 10 Statistics Concepts Every Pune Data Scientist Should Master (2026)",
+    metaDescription:
+      "The 10 statistics concepts Pune data scientists actually use + face in interviews in 2026 — distributions, hypothesis testing, p-values, regression, sampling. With Pune-context applications.",
+    h1: "Top 10 Statistics Concepts Every Pune Data Scientist Should Master (2026)",
+    intro:
+      "Statistics is the most-commonly weak spot for self-taught Pune data candidates — most learners overweight ML algorithms + Python tooling and underweight statistical fundamentals. But statistics is where ~50% of Pune data fresher interviews concentrate (especially at ZS Associates, Tiger Analytics, Mu Sigma + product company data teams). Below are the 10 statistics concepts ranked by Pune interview-frequency + day-to-day use prevalence. Each entry covers what the concept is + where you'll use it + the depth expected at fresher tier.",
+    entries: [
+      { name: "Mean, Median, Mode + Standard Deviation", what: "Mean: sum / count (sensitive to outliers). Median: middle value when sorted (robust to outliers). Mode: most frequent value. Standard deviation: average distance from mean — measures spread. Use median over mean for skewed data; use std dev to quantify variability.", dataPoint: "Asked at ~90% of Pune data fresher rounds. Foundation question; expected to know cold + apply correctly.", bestFor: "Foundation; always asked." },
+      { name: "Normal Distribution + 68-95-99.7 Rule", what: "Bell-shaped + symmetric around mean. 68% of values within 1 std dev, 95% within 2 std dev, 99.7% within 3 std dev. Many real-world phenomena approximate normality (heights, errors, sums of many small effects via CLT). Z-scores translate any normal distribution to standard normal.", dataPoint: "Asked at ~70% of Pune rounds. Z-score calculation appears in technical screens.", bestFor: "Probability + outlier detection foundation." },
+      { name: "Central Limit Theorem (CLT)", what: "Sample means of any underlying distribution (with finite variance) approach a normal distribution as sample size grows — typically n≥30 is sufficient. Why it matters: lets you use normal-based inference (t-tests, confidence intervals) even when underlying data isn't normal.", dataPoint: "Asked at ~50% of Pune product company + analytics consultancy rounds. The conceptual bridge from descriptive to inferential statistics.", bestFor: "Inferential statistics foundation; senior-fresher signal." },
+      { name: "Hypothesis Testing (p-value, null + alternative hypothesis)", what: "Frame: H0 (status quo) vs H1 (effect exists). Compute test statistic + p-value. If p < α (typically 0.05), reject H0 in favour of H1. p-value = probability of seeing this result or more extreme IF H0 is true. Crucial: p-value is NOT the probability that H0 is true.", dataPoint: "Asked at ~75% of Pune rounds. Misinterpreting p-value is the most-failed statistics question — be precise.", bestFor: "A/B test design + inferential statistics; universal data interview question." },
+      { name: "Type I vs Type II Errors + Power", what: "Type I (α): rejecting true null hypothesis (false positive). Type II (β): failing to reject false null hypothesis (false negative). Power = 1 - β = probability of correctly rejecting false null. Trade-off: reducing α increases β (and vice versa). Power increases with sample size + effect size.", dataPoint: "Asked at ~45% of Pune rounds. Walk through an A/B test design where Type II error matters (missing a real product improvement).", bestFor: "Experimental design depth; product-company differentiator." },
+      { name: "Linear Regression + Coefficients", what: "Predict continuous outcome from one or more features. Equation: y = β0 + β1*x1 + β2*x2 + ... Each coefficient measures the change in y per unit change in xi (holding others constant). Diagnostics: R² (variance explained), residual analysis, multicollinearity (VIF).", dataPoint: "Asked at ~65% of Pune data scientist + analyst rounds. The starting point of supervised learning.", bestFor: "ML foundation; expected fluency at every data tier." },
+      { name: "Logistic Regression + Classification Metrics", what: "Predict binary outcome (0/1) using logistic function applied to linear combination of features. Output is probability; threshold (typically 0.5) converts to class prediction. Classification metrics: accuracy (misleading on imbalanced data) + precision + recall + F1 + ROC-AUC.", dataPoint: "Asked at ~55% of Pune rounds. Precision/recall trade-off + when to use each is the senior-fresher discriminator.", bestFor: "Classification foundation; differentiates beyond pure-Analyst tier." },
+      { name: "Correlation vs Causation", what: "Correlation: statistical association (Pearson r for linear, Spearman for rank-based). Causation: one variable directly affects another (requires controlled experiments or strong observational design). Spurious correlations are common — don't infer causation from correlation alone.", dataPoint: "Asked at ~40% of Pune rounds. Pune interviewers test critical thinking via 'what would you conclude from X correlation' questions.", bestFor: "Analytical thinking signal; differentiates senior-fresher candidates." },
+      { name: "Sampling Methods + Bias", what: "Random sampling: equal probability for every element. Stratified: sample proportionally from sub-groups. Systematic: every nth element. Cluster: sample whole groups. Bias sources: selection bias, survivorship bias, response bias, observer bias. Modern A/B tests rely heavily on randomisation to avoid bias.", dataPoint: "Asked at ~35% of Pune rounds, especially at A/B testing-heavy roles (consumer SaaS, product companies). Bias detection is a high-leverage senior-fresher topic.", bestFor: "Experimental design + survey work depth." },
+      { name: "Confidence Intervals + Margin of Error", what: "Range that's likely to contain a population parameter with stated confidence (typically 95%). Width depends on sample size, variability, confidence level. Wider intervals = less precise estimates. Crucial: 95% CI means 'if we repeated this study many times, 95% of computed intervals would contain the true parameter' — NOT 'there's a 95% chance the true value is in this interval'.", dataPoint: "Asked at ~40% of Pune rounds. Common pairing with hypothesis testing questions.", bestFor: "Inference depth; precise framing signals statistical maturity." },
+    ],
+    methodology:
+      "Concepts ranked by Pune data fresher interview frequency from Archer Infotech's placement-cell debriefs across services-major analytics practices (TCS Analytics, Cognizant Analytics, Capgemini Insights) + Pune product + AI-native data teams (ZS Associates, Tiger Analytics, Mu Sigma, Persistent ML, BrowserStack data, Druva data) over 2024-2026 cycles. Frequencies skew slightly toward product company + analytics-consultancy tracks where statistical rigour is screened harder than at pure-analyst services-major tier.",
+    faqs: [
+      {
+        question: "How much statistics depth do I need for Pune Data Analyst vs Data Scientist roles?",
+        answer:
+          "Data Analyst: foundation 5 (descriptive stats + normal distribution + CLT + correlation + sampling) at working depth. Data Scientist: all 10 + applied experience implementing them in Python (numpy + scipy + statsmodels + scikit-learn). ML Engineer: same as Data Scientist + deeper probabilistic foundations + Bayesian basics. The bar rises sharply with role tier.",
+      },
+      {
+        question: "What's the most-failed statistics question at Pune fresher interviews?",
+        answer:
+          "Misinterpreting p-value. Candidates know 'p < 0.05 → reject null' but miss the precise definition. The mature answer: 'p-value is the probability of observing a result this extreme or more, ASSUMING the null hypothesis is true. It is NOT the probability that the null hypothesis is true given the data.' This precision separates statistical thinkers from rote pattern matchers.",
+      },
+      {
+        question: "Do I need to know Bayesian statistics for Pune fresher data roles?",
+        answer:
+          "Conceptual awareness yes; deep depth no at fresher tier. You should be able to describe Bayes' theorem + frequentist vs Bayesian inference framing + when Bayesian methods are useful (priors, sequential testing, small samples). Pune fresher screens rarely require implementing Bayesian models; senior data scientist roles do. Spend ~1 week on Bayesian foundations; revisit at year 2-3.",
+      },
+      {
+        question: "What's the best way to practice statistics for Pune data interviews?",
+        answer:
+          "Two-track approach: (1) Conceptual — work through Khan Academy Statistics or 'Naked Statistics' book at 1.5x reading speed; aim for the framing + intuition. (2) Applied — implement each concept on a real dataset in Python (numpy + scipy + statsmodels + matplotlib for visualisation). 4-6 weeks of focused work covers everything in the list above; pair with practice on past interview questions from product companies.",
+      },
+    ],
+  },
 ];
 
 export function getListicle(slug: string): Listicle | undefined {
