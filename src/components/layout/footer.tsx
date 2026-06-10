@@ -262,6 +262,14 @@ export function Footer() {
                   Interview Questions Bank
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/questions"
+                  className="text-primary-foreground/80 hover:text-secondary transition-colors text-sm"
+                >
+                  Pune IT Career FAQs
+                </Link>
+              </li>
             </ul>
           </div>
 

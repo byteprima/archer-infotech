@@ -18,6 +18,7 @@ import {
   NEW_ASSETS_LAST_REVIEWED,
   isoToDate,
 } from "@/lib/seo/content-dates";
+import { questionCategories } from "@/data/questions";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://archerinfotech.in";
 
@@ -63,6 +64,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Interview questions bank (2026-06-07) — FAQPage schema, high AI-engine
     // citation value for "X interview questions" long-tail queries.
     { url: `${baseUrl}/interview-questions/pune-it-freshers-2026`, lastModified: EVERGREEN, changeFrequency: "monthly", priority: 0.7 },
+    // P5-24 Q&A hub + 7 category pages (2026-06-10) — PAA-style queries
+    // about Archer Infotech + Pune IT careers. FAQPage schema per category.
+    { url: `${baseUrl}/questions`, lastModified: EVERGREEN, changeFrequency: "monthly", priority: 0.7 },
     // Legal pages — shipped 2026-05-08 (P4-22 canonicals) but were missing
     // from the sitemap. Low priority + yearly cadence — they rarely change,
     // but inclusion is a baseline trust signal for Google + AI crawlers
@@ -178,6 +182,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
+  // Q&A category pages (P5-24, 2026-06-10) — 7 PAA-style categories
+  // with 10 questions each = 70 Q&As + FAQPage schema per category.
+  const questionCategoryPages: MetadataRoute.Sitemap = questionCategories.map(
+    (c) => ({
+      url: `${baseUrl}/questions/${c.slug}`,
+      lastModified: EVERGREEN,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    })
+  );
+
   // Career-path pillar pages (P5-18+, 2026-06-07). Hub + Python pillar live;
   // 3 more pillars (Full Stack, Data Science / AI, First IT Job) ship in
   // future sessions. High priority — these are the deepest content surfaces.
@@ -207,6 +222,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...guidesListingPage,
     ...guidePages,
     ...careerPathsPages,
+    ...questionCategoryPages,
     ...blogPages,
     ...blogCategoryPages,
   ];
