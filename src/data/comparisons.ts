@@ -1787,6 +1787,72 @@ export const comparisons: Comparison[] = [
       },
     ],
   },
+
+  // 28 ─ Bachelor's vs Bootcamp (First IT Job cluster spoke #8, 2026-06-07) ──
+  {
+    slug: "bachelors-degree-vs-bootcamp-for-pune-it-careers-2026",
+    shortLabel: "Bachelor's vs Bootcamp",
+    metaTitle: "Bachelor's Degree vs Bootcamp for Pune IT Careers (2026) — Which Path",
+    metaDescription:
+      "Bachelor's degree vs bootcamp for Pune IT careers in 2026: an honest comparison of duration, cost, career outcomes, employer perception, and which path fits your situation.",
+    h1: "Bachelor's Degree vs Bootcamp for Pune IT Careers (2026)",
+    optionA: "Bachelor's Degree",
+    optionB: "Bootcamp",
+    verdict:
+      "For Pune IT entry in 2026, both paths produce successful careers — choice depends on age, prior education, financial situation, and target role. A Bachelor's degree (4 years, ₹4-15 lakhs) opens services-major campus drives + GCC + government IT roles + future Master's options. A bootcamp (3-9 months, ₹50K-2L) compresses time-to-employment for career changers, dropouts, or non-CS graduates targeting product company + startup roles. The right answer depends on situation, not abstract comparison.",
+    table: [
+      { factor: "Duration", a: "4 years (BE/BTech/BSc-CS/BCA)", b: "3-9 months (focused tech-stack bootcamp)" },
+      { factor: "Cost (Pune)", a: "₹4-15 lakhs (private engineering); ₹50K-2L (government/aided)", b: "₹50K-2L (most Pune IT bootcamps)" },
+      { factor: "Pune services-major campus eligibility", a: "Yes (BE/BTech preferred at Tier 1/2 services majors)", b: "No (off-campus + product company route)" },
+      { factor: "Product company / startup hireability", a: "Yes — same as bootcamp graduate with strong portfolio", b: "Yes — focus on portfolio + DSA depth" },
+      { factor: "Government IT job eligibility", a: "Yes (most require Bachelor's or higher)", b: "Generally no (degree requirement) — exceptions for vocational pathways" },
+      { factor: "Foreign Master's / job eligibility", a: "Bachelor's required for US H1B + most foreign tech immigration", b: "Often not sufficient alone for foreign-job immigration filters" },
+      { factor: "Best for", a: "Recent 12th passouts; targeting services-major campus drives + future-Master's optionality + government roles", b: "Career changers; non-CS graduates; dropouts; faster-employment-seekers targeting product cos / startups" },
+      { factor: "Skill depth after completion", a: "Broad CS foundation + variable practical depth (highly project-dependent)", b: "Narrow stack-specific depth + immediate production-readiness" },
+      { factor: "Pune company perception", a: "Universal acceptance + signals patience + foundation depth", b: "Increasingly accepted at product cos + startups; weaker at conservative BFSI / government" },
+    ],
+    whenA: {
+      heading: "When pursuing a Bachelor's degree is the right choice",
+      paragraphs: [
+        "If you're a recent 12th passout with college eligibility + financial capacity (or scholarship/loan access) + 4-year time runway, a Bachelor's degree opens the broadest set of career paths — services-major campus drives, GCCs, government IT roles, future Master's degree options, foreign job immigration. The optionality multiplies over the next 20 years.",
+        "If you're targeting Pune services-major campus drives (Persistent, Capgemini, TCS, Infosys, Cognizant, Wipro), these explicitly require active Bachelor's enrollment + good academics. Off-campus paths exist but campus volume + structured timing favours degree students.",
+        "If you have any uncertainty about your eventual specialisation (backend, full-stack, data, AI, cybersecurity, embedded, robotics), Bachelor's gives 4 years to discover via varied coursework + projects. Bootcamps commit you to one specialisation upfront.",
+      ],
+    },
+    whenB: {
+      heading: "When a bootcamp is the right choice",
+      paragraphs: [
+        "If you're a non-CS graduate (commerce, science, mechanical, BBA) wanting to transition to IT, a bootcamp delivers focused IT skills in 3-9 months vs 2-4 years of re-doing a degree. About 40% of Pune bootcamp graduates come from non-IT backgrounds; placement rates are competitive with CS-grad direct hires for product company + startup roles.",
+        "If you're a career changer in your 20s or 30s with financial commitments + no time for a 4-year degree, bootcamps are the realistic path. The 3-9 month compressed timeline + ₹50K-2L cost vs Bachelor's 4 years + ₹4-15L makes the economics work for working professionals.",
+        "If you're targeting Pune product companies + AI startups specifically (where portfolio + interview performance matter more than degree pedigree), bootcamps focused on stack depth + production projects deliver the right preparation. Many top-tier Pune AI engineers + product company senior engineers are bootcamp graduates.",
+      ],
+    },
+    bottomLine:
+      "Don't compare in the abstract — compare against your situation. Recent 12th passouts with means + time: Bachelor's, then specialisation. Career changers + non-CS graduates + dropouts + age-30+ entrants: bootcamp + portfolio + interview prep. Many Pune IT careers start with Bachelor's then add specialised bootcamps later (data science, AI, cybersecurity) — they're not always either/or. The wrong move is following the social default without considering your actual constraints + goals.",
+    relatedCourseSlugs: ["java-full-stack-training-in-pune", "python-training-in-pune", "data-science-training-in-pune"],
+    faqs: [
+      {
+        question: "Do Pune services majors hire bootcamp graduates without a Bachelor's degree?",
+        answer:
+          "Rarely at campus drive tier; possible at off-campus + lateral hiring tier. Most Pune services-major fresher hiring assumes BE/BTech/BSc-CS minimum. Some accept BCA or non-IT Bachelor's + bootcamp certification (Persistent + Capgemini are slightly more flexible than TCS + Infosys on this). Product companies + startups don't care about the degree if your portfolio + interview signal is strong.",
+      },
+      {
+        question: "Is doing a bootcamp during my Bachelor's degree worth it?",
+        answer:
+          "Yes, for stack specialisation that your degree curriculum doesn't cover well. Pune Bachelor's degrees give CS foundation but uneven practical depth in modern stacks (React, Spring Boot, modern data engineering, AI engineering). A bootcamp in your stack of choice during your 3rd-4th year complements the degree well + materially improves your placement-cell interview signal.",
+      },
+      {
+        question: "What's the most-failed pattern at Pune bootcamp graduate job searches?",
+        answer:
+          "Treating the bootcamp certificate as the qualification. The certificate signals 'I learned this tech stack' — recruiters care about what you can build, not the certificate. Successful bootcamp graduates: deployed portfolio projects on GitHub + technical blog explaining one substantial build + DSA prep alongside bootcamp + active LinkedIn presence. Without these, the certificate alone underperforms.",
+      },
+      {
+        question: "Will AI / automation eliminate the need for both Bachelor's and bootcamps?",
+        answer:
+          "Not in the foreseeable future for Pune IT careers. Both paths produce engineers who can use AI tools to build software faster — they don't eliminate the engineer. What changes: junior tier work that's purely repetitive may shrink; engineering work that's creative + judgment-driven grows. Both Bachelor's and bootcamp graduates need to continually upskill (specifically including AI tool fluency); the qualification path matters less than the continual-learning habit.",
+      },
+    ],
+  },
 ];
 
 export function getComparison(slug: string): Comparison | undefined {

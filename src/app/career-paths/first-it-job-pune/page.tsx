@@ -700,6 +700,19 @@ export default function FirstITJobPuneCareerPath() {
               </li>
               <li>
                 <Link
+                  href="/compare/bachelors-degree-vs-bootcamp-for-pune-it-careers-2026"
+                  className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
+                >
+                  <span className="font-medium block text-sm">
+                    Bachelor's Degree vs Bootcamp for Pune IT
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    Comparison · qualification path decision framework
+                  </span>
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/guides/leetcode-patterns-pune-fresher-it-interviews-2026"
                   className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
                 >
