@@ -707,6 +707,19 @@ export default function PythonDeveloperCareerPath() {
                   </span>
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/compare/django-vs-flask-for-pune-python-web-2026"
+                  className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
+                >
+                  <span className="font-medium block text-sm">
+                    Django vs Flask for Pune Python Web
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    Comparison · web framework pick + when each fits
+                  </span>
+                </Link>
+              </li>
             </ul>
           </section>
 
