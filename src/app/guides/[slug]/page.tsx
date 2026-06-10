@@ -12,6 +12,8 @@ import { listicles, getListicle } from "@/data/listicles";
 import { buildPageMetadata } from "@/lib/seo";
 import { summariseToMeta } from "@/lib/seo/meta-trim";
 import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
+import { getRecommendedCourseForGuide } from "@/lib/seo/guide-to-course";
+import { GraduationCap } from "lucide-react";
 
 interface GuidePageProps {
   params: Promise<{ slug: string }>;
@@ -152,6 +154,42 @@ export default async function GuidePage({ params }: GuidePageProps) {
           />
         </div>
       </article>
+
+      {/* Recommended Archer course — DevOps-outcome push pattern.
+          Routes each /guides/[slug] guide to its most relevant course
+          category hub so spoke → hub link equity compounds. Renders
+          nothing when slug keywords don't confidently match a course
+          (the generic CTA below still fires). */}
+      {(() => {
+        const rec = getRecommendedCourseForGuide(slug);
+        if (!rec) return null;
+        return (
+          <section className="py-10 border-t bg-background">
+            <div className="container mx-auto px-4">
+              <Link
+                href={rec.href}
+                className="group flex items-start gap-4 max-w-4xl mx-auto rounded-xl border-2 border-primary/20 bg-primary/5 p-5 md:p-6 hover:border-primary hover:shadow-md transition-all"
+              >
+                <span className="flex items-center justify-center w-12 h-12 rounded-lg bg-primary text-primary-foreground shrink-0">
+                  <GraduationCap className="h-6 w-6" />
+                </span>
+                <div className="flex-grow">
+                  <p className="text-[11px] uppercase tracking-wide font-semibold text-primary mb-1">
+                    Recommended Archer course
+                  </p>
+                  <h3 className="font-bold text-lg group-hover:text-primary transition-colors">
+                    {rec.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    {rec.blurb}
+                  </p>
+                </div>
+                <ArrowRight className="h-5 w-5 text-primary shrink-0 mt-2 group-hover:translate-x-0.5 transition-transform" />
+              </Link>
+            </div>
+          </section>
+        );
+      })()}
 
       {/* CTA */}
       <section className="py-12 bg-muted/30 border-t">

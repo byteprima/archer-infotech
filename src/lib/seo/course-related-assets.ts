@@ -51,6 +51,26 @@ const COMPARES = {
     href: "/compare/coding-bootcamp-vs-self-study",
     type: "compare",
   },
+  // DevOps cluster — built to feed the cloud-devops outcome push.
+  // GSC showed 134 impressions / 0 clicks for DevOps queries at pos
+  // 55-91 (all landing on /courses/cloud-devops). Surfacing these
+  // spokes from the hub + course detail pages compounds the topic-
+  // cluster authority signal.
+  awsAzure: {
+    title: "AWS vs Azure for Pune cloud careers",
+    href: "/compare/aws-vs-azure-for-pune-cloud-careers-2026",
+    type: "compare",
+  },
+  sreDevOps: {
+    title: "SRE vs DevOps Engineer in Pune",
+    href: "/compare/sre-vs-devops-engineer-career-pune-2026",
+    type: "compare",
+  },
+  terraformAnsible: {
+    title: "Terraform vs Ansible for Pune DevOps",
+    href: "/compare/terraform-vs-ansible-for-pune-devops-2026",
+    type: "compare",
+  },
 } as const satisfies Record<string, RelatedAsset>;
 
 const GUIDES = {
@@ -77,6 +97,27 @@ const GUIDES = {
   highestPaying: {
     title: "5 highest-paying IT roles in Pune",
     href: "/guides/highest-paying-it-roles-pune-engineering-graduates",
+    type: "guide",
+  },
+  // DevOps cluster guides — see COMPARES section comment for rationale.
+  dockerBestPractices: {
+    title: "10 Docker best practices for Pune DevOps",
+    href: "/guides/docker-best-practices-pune-devops-engineers-2026",
+    type: "guide",
+  },
+  githubActionsWorkflows: {
+    title: "10 GitHub Actions workflows for Pune DevOps",
+    href: "/guides/github-actions-workflows-pune-devops-engineers-2026",
+    type: "guide",
+  },
+  kubernetesInterview: {
+    title: "10 Kubernetes interview questions (Pune)",
+    href: "/guides/kubernetes-interview-questions-pune-devops-freshers-2026",
+    type: "guide",
+  },
+  linuxCommands: {
+    title: "Top 25 Linux commands for Pune DevOps",
+    href: "/guides/linux-commands-pune-devops-freshers-2026",
     type: "guide",
   },
 } as const satisfies Record<string, RelatedAsset>;
@@ -109,6 +150,15 @@ export function getRelatedAssetsForCourse(
   if (isJava || isPython) picks.push(COMPARES.javaPython);
   if (isFullStack || slug.includes("mern")) picks.push(COMPARES.mernJavaFs);
   if (isPython || isData) picks.push(COMPARES.pyDevDataSci);
+  if (isCloud) {
+    // DevOps push — these surface on every cloud-devops course detail
+    // page so the cluster's internal-link graph compounds.
+    picks.push(COMPARES.awsAzure);
+    picks.push(COMPARES.sreDevOps);
+    if (slug.includes("devops") || slug.includes("terraform") || slug.includes("ansible")) {
+      picks.push(COMPARES.terraformAnsible);
+    }
+  }
   picks.push(COMPARES.onlineOffline);
   if (isMobile || isFrontend) picks.push(COMPARES.bootcampSelf);
 
@@ -117,6 +167,16 @@ export function getRelatedAssetsForCourse(
   if (isJava) picks.push(GUIDES.javaFrameworks);
   if (isFullStack || isFrontend) picks.push(GUIDES.freeFullStack);
   if (isData || isAi || isCloud) picks.push(GUIDES.highestPaying);
+  if (isCloud) {
+    // DevOps outcome push — pick the cluster's spoke guides so the
+    // course detail page distributes link equity downward.
+    if (slug.includes("devops") || cat === "cloud-devops") {
+      picks.push(GUIDES.dockerBestPractices);
+      picks.push(GUIDES.githubActionsWorkflows);
+      picks.push(GUIDES.kubernetesInterview);
+      picks.push(GUIDES.linuxCommands);
+    }
+  }
   picks.push(GUIDES.freshSkills);
 
   // Dedupe + cap at 6.
@@ -124,4 +184,40 @@ export function getRelatedAssetsForCourse(
   return picks
     .filter((a) => (seen.has(a.href) ? false : (seen.add(a.href), true)))
     .slice(0, 6);
+}
+
+/**
+ * Category-hub variant — surfaces the SAME cluster spokes (guides,
+ * compares, tools) on /courses/[category] hub pages, not just the per-
+ * course detail pages. Currently scoped to cloud-devops where the GSC
+ * data showed 134 impressions / 0 clicks at depth-of-funnel positions
+ * 55-91 — internal-link compounding is the cheapest way to shift the
+ * hub up the SERP. Expand to other clusters as opportunity buckets
+ * surface in kpi_report.py.
+ */
+export function getRelatedAssetsForCategory(
+  categorySlug: string,
+): RelatedAsset[] {
+  const cat = categorySlug.toLowerCase();
+  const picks: RelatedAsset[] = [TOOLS.salaryCalc, TOOLS.careerRoadmap];
+
+  if (cat === "cloud-devops" || cat === "cloud-certifications") {
+    picks.push(COMPARES.awsAzure);
+    picks.push(COMPARES.sreDevOps);
+    picks.push(COMPARES.terraformAnsible);
+    picks.push(GUIDES.dockerBestPractices);
+    picks.push(GUIDES.githubActionsWorkflows);
+    picks.push(GUIDES.kubernetesInterview);
+    picks.push(GUIDES.linuxCommands);
+    picks.push(GUIDES.highestPaying);
+  }
+
+  // Future buckets — wire up when KPI report identifies them. For now,
+  // return tools-only on categories without a curated cluster so the
+  // section still renders something useful.
+
+  const seen = new Set<string>();
+  return picks
+    .filter((a) => (seen.has(a.href) ? false : (seen.add(a.href), true)))
+    .slice(0, 8);
 }

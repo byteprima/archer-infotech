@@ -10,6 +10,8 @@ import { categories, courses, getCategory } from "@/data/courses";
 import { buildPageMetadata } from "@/lib/seo";
 import { getCategoryContent } from "@/data/category-content";
 import { FaqSection } from "@/components/seo/faq-section";
+import { getRelatedAssetsForCategory } from "@/lib/seo/course-related-assets";
+import { Calculator, Scale, ListChecks } from "lucide-react";
 
 interface CategoryPageProps {
   params: Promise<{ category: string }>;
@@ -242,6 +244,61 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           </div>
         </section>
       )}
+
+      {/* DevOps outcome push — surface cluster spokes (guides,
+          compares, tools) on the category hub so the topic-cluster
+          link graph compounds. Currently scoped to cloud-devops /
+          cloud-certifications where KPI data showed 134 impressions
+          / 0 clicks at depth-of-funnel positions 55-91. Renders
+          nothing on categories without a curated cluster beyond the
+          two universal tools. */}
+      {(() => {
+        const assets = getRelatedAssetsForCategory(categorySlug);
+        if (assets.length <= 2) return null; // tools-only = skip
+        const iconFor = (t: "tool" | "compare" | "guide") =>
+          t === "tool" ? Calculator : t === "compare" ? Scale : ListChecks;
+        const labelFor = (t: "tool" | "compare" | "guide") =>
+          t === "tool" ? "Tool" : t === "compare" ? "Comparison" : "Guide";
+        return (
+          <section className="py-12 border-t bg-muted/30">
+            <div className="container mx-auto px-4">
+              <div className="max-w-3xl mx-auto text-center mb-8">
+                <h2 className="text-2xl md:text-3xl font-bold mb-2">
+                  Plan your {category.name} path
+                </h2>
+                <p className="text-muted-foreground">
+                  Comparisons, salary tools, and hands-on guides that pair
+                  with {category.name.toLowerCase()} courses at Archer Infotech.
+                </p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
+                {assets.map((a) => {
+                  const Icon = iconFor(a.type);
+                  return (
+                    <Link
+                      key={a.href}
+                      href={a.href}
+                      className="group flex items-start gap-3 rounded-lg border p-4 bg-background hover:border-primary hover:shadow-md transition-all"
+                    >
+                      <span className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 text-primary shrink-0">
+                        <Icon className="h-5 w-5" />
+                      </span>
+                      <span className="flex-grow">
+                        <span className="block text-[11px] uppercase tracking-wide text-muted-foreground">
+                          {labelFor(a.type)}
+                        </span>
+                        <span className="block font-medium text-foreground group-hover:text-primary transition-colors mt-0.5 text-sm">
+                          {a.title}
+                        </span>
+                      </span>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          </section>
+        );
+      })()}
 
       {/* Category-level FAQs — paired with FAQPage JSON-LD via the
           existing FaqSection component. AI engines lift these
