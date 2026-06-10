@@ -738,6 +738,19 @@ export default function DataScienceAICareerPath() {
                   </span>
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/guides/feature-engineering-techniques-pune-data-scientists-2026"
+                  className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
+                >
+                  <span className="font-medium block text-sm">
+                    10 Feature Engineering Techniques for Pune Data Scientists
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    Guide · encoding + scaling + binning + interactions + imputation
+                  </span>
+                </Link>
+              </li>
             </ul>
           </section>
 

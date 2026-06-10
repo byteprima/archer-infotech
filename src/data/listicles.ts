@@ -1264,6 +1264,54 @@ export const listicles: Listicle[] = [
       },
     ],
   },
+
+  // 30 ─ Feature engineering (Data Science spoke #8, 2026-06-07) ─────────
+  {
+    slug: "feature-engineering-techniques-pune-data-scientists-2026",
+    shortLabel: "Feature engineering techniques",
+    metaTitle: "10 Feature Engineering Techniques Every Pune Data Scientist Should Master (2026)",
+    metaDescription:
+      "The 10 feature engineering techniques Pune data scientists actually use to improve ML model accuracy in 2026 — encoding, scaling, binning, interactions, target encoding. With practical Pune-context examples.",
+    h1: "10 Feature Engineering Techniques Every Pune Data Scientist Should Master (2026)",
+    intro:
+      "Feature engineering is consistently the highest-impact ML skill in production — typically more meaningful than picking the 'right' algorithm. Pune data scientist interviews at ZS Associates, Tiger Analytics, Mu Sigma, Persistent ML increasingly probe feature engineering depth (~55% of mid-to-senior fresher rounds). Below are the 10 highest-value feature engineering techniques ranked by Pune interview frequency + day-to-day production-use prevalence. Each covers what the technique does + when to apply it + the failure mode you avoid. Master these 10 on real datasets = production-grade data scientist signal.",
+    entries: [
+      { name: "One-hot encoding for categorical features", what: "Convert categorical columns to multiple binary columns: `pd.get_dummies(df, columns=['city'])` creates city_Pune, city_Mumbai, city_Delhi. Use drop_first=True to avoid multicollinearity with linear models. Common gotcha: high-cardinality columns (10,000+ unique values) blow up dimensionality.", dataPoint: "Asked at ~85% of Pune data scientist rounds. Foundation technique; expected to know cold.", bestFor: "Low-cardinality categoricals; tree-based + linear models." },
+      { name: "Label encoding for ordinal categoricals", what: "Map ordered categories to integers preserving order: low=0, medium=1, high=2. Use sklearn's OrdinalEncoder with explicit category order. Don't use LabelEncoder for input features (it doesn't handle unseen values cleanly + assumes meaningless integer ordering).", dataPoint: "Asked at ~60% of Pune rounds. Common follow-up: when to use ordinal vs one-hot encoding for the same column.", bestFor: "Ordered categories (low/med/high, S/M/L/XL, never/rarely/often)." },
+      { name: "Target encoding for high-cardinality categoricals", what: "Replace categorical values with the target's mean for each category: cities replaced by mean churn rate per city. Critical: compute on training set only + apply to test set to avoid leakage. Use smoothing for low-sample categories (Bayesian target encoding) to prevent overfitting.", dataPoint: "Asked at ~45% of Pune product company + analytics consultancy rounds. Senior-fresher differentiator over one-hot.", bestFor: "High-cardinality categoricals; tree-based models; classification + regression." },
+      { name: "Scaling: StandardScaler vs MinMaxScaler", what: "StandardScaler: z-score normalisation (mean=0, std=1) — preserves outliers' relative position. MinMaxScaler: [0, 1] range — sensitive to outliers. Use Standard for most cases (linear models, neural networks); MinMax for image data + cases needing bounded range. Tree-based models don't need scaling.", dataPoint: "Asked at ~70% of Pune rounds. Walking through when each is appropriate signals understanding.", bestFor: "Linear models, neural networks, distance-based algorithms (KNN, K-Means)." },
+      { name: "Feature interactions + polynomial features", what: "Create combinations: price * quantity = revenue. PolynomialFeatures generates all degree-N combinations automatically. Useful when domain knowledge suggests interactions matter (income × education for credit risk). Caution: explodes feature count + risk overfitting.", dataPoint: "Asked at ~35% of Pune rounds. Domain-knowledge application signal.", bestFor: "Linear models capturing non-linear relationships; small feature sets." },
+      { name: "Binning continuous variables", what: "Convert age into buckets (0-18, 18-30, 30-50, 50+) via pd.cut() or pd.qcut() (equal-frequency bins). Useful for: non-linear relationships in linear models, monotonic constraints in tree models, business-rule interpretability. Trade-off: information loss.", dataPoint: "Asked at ~30% of Pune rounds, especially BFSI + risk-modelling contexts where binning supports regulatory interpretability.", bestFor: "Non-linear relationships; regulatory contexts; interpretability requirements." },
+      { name: "Date/time feature extraction", what: "From a timestamp extract: year, month, day, dayofweek, hour, is_weekend, is_holiday, days_since_event, time_since_signup. Captures seasonality + recency patterns. Use sin/cos transforms for cyclical features (hour-of-day, day-of-year) so model knows 23h is close to 0h.", dataPoint: "Asked at ~50% of Pune rounds. Universal applicability + creative-application signal.", bestFor: "Any time-series data; user behaviour patterns; seasonal effects." },
+      { name: "Handling missing values: imputation strategies", what: "Simple: mean/median/mode imputation per column. Better: KNN imputation (sklearn.impute.KNNImputer) — uses similar rows' values. Better still: tree-based imputation via IterativeImputer or model-based (predict the missing value from other features). Always create a 'was missing' flag column — missingness itself often carries information.", dataPoint: "Asked at ~65% of Pune rounds. The 'was missing' flag is the senior-fresher discriminator.", bestFor: "Real-world messy datasets (~always required)." },
+      { name: "Log transformation for skewed distributions", what: "`np.log1p(x)` for right-skewed columns (income, prices, counts). Compresses large values + spreads small values; helps linear models that assume normality. log1p over log because it handles zeros gracefully. Reverse with expm1() for predictions.", dataPoint: "Asked at ~40% of Pune rounds. Walking through 'before histogram → after histogram' signals real EDA experience.", bestFor: "Right-skewed continuous features; income / prices / counts." },
+      { name: "Feature selection: filter, wrapper, embedded", what: "Filter methods: correlation/chi-squared/mutual information (fast, model-agnostic). Wrapper methods: recursive feature elimination with a model (slow, accurate). Embedded methods: tree-based feature importance, L1 regularisation coefficients (good middle ground). Use filter for initial screening + embedded for final selection on tree-based models.", dataPoint: "Asked at ~45% of Pune product company + analytics consultancy rounds. Demonstrates pragmatic ML workflow understanding.", bestFor: "High-dimensional datasets; interpretability requirements; model latency optimisation." },
+    ],
+    methodology:
+      "Techniques ranked by Pune data scientist + ML engineer interview-frequency from Archer Infotech's placement-cell debriefs over 2024-2026 cycles + production-use prevalence at Pune analytics consultancies (ZS Associates, Tiger Analytics, Mu Sigma) + product company ML teams (Druva, Helpshift, BrowserStack ML, Persistent product). Focuses on tabular data feature engineering (most common Pune ML work); deep learning feature engineering (embeddings, augmentation) covered separately in ML-engineering tracks.",
+    faqs: [
+      {
+        question: "How much feature engineering do I need for Pune Data Analyst vs Data Scientist roles?",
+        answer:
+          "Data Analyst: foundation 3 (one-hot encoding, scaling, date/time extraction) at conceptual depth. Data Scientist: all 10 at working depth + ability to walk through trade-offs. ML Engineer: + deeper production patterns (feature pipelines, feature stores, versioning). The bar rises sharply with role tier.",
+      },
+      {
+        question: "Should I learn manual feature engineering or use automated tools (AutoML, featuretools)?",
+        answer:
+          "Manual first — automated tools are excellent productivity boosters but only after you understand what they're doing. Pune interview rounds probe your understanding of why a transformation matters, not just whether you applied it. Learn manual techniques on 5-10 real datasets, then use featuretools / Featurewiz / Open-FE for production.",
+      },
+      {
+        question: "What's the most-failed feature engineering question at Pune data scientist interviews?",
+        answer:
+          "Data leakage from target encoding + statistics computed on the full dataset. Candidates compute mean/median/target-encoding using the entire dataset including test rows. Correct pattern: fit transformer on training set only, then transform train + test separately. This signals understanding of train/test boundary integrity.",
+      },
+      {
+        question: "Should I use feature engineering with deep learning models too?",
+        answer:
+          "Less for unstructured data (images, audio, text — deep learning learns features automatically). Still useful for tabular data with deep learning — most kaggle wins on tabular use thoughtful feature engineering + a deep model. For LLM applications: prompt engineering and structured output design replace traditional feature engineering at the application layer.",
+      },
+    ],
+  },
 ];
 
 export function getListicle(slug: string): Listicle | undefined {
