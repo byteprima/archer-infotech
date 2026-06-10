@@ -674,6 +674,19 @@ export default function FirstITJobPuneCareerPath() {
               </li>
               <li>
                 <Link
+                  href="/compare/internship-vs-direct-fresher-it-job-pune-2026"
+                  className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
+                >
+                  <span className="font-medium block text-sm">
+                    Internship vs Direct Fresher Job in Pune
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    Comparison · pre-graduation vs post-graduation entry
+                  </span>
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/guides/leetcode-patterns-pune-fresher-it-interviews-2026"
                   className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
                 >

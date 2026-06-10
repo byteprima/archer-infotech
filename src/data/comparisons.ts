@@ -1457,6 +1457,72 @@ export const comparisons: Comparison[] = [
       },
     ],
   },
+
+  // 23 ─ Internship vs Direct (First IT Job cluster spoke #6, 2026-06-07) ──
+  {
+    slug: "internship-vs-direct-fresher-it-job-pune-2026",
+    shortLabel: "Internship vs Direct fresher",
+    metaTitle: "Internship vs Direct Fresher IT Job in Pune (2026) — Which Path to Take",
+    metaDescription:
+      "Internship vs direct fresher IT job in Pune in 2026: an honest comparison of salary, conversion rates, learning curve, career impact, and which path to pursue.",
+    h1: "Internship vs Direct Fresher IT Job in Pune (2026)",
+    optionA: "Internship",
+    optionB: "Direct Fresher Job",
+    verdict:
+      "For Pune IT entry in 2026, the right answer is usually 'both, in sequence' — internship during your final year + degree if available, direct fresher job afterwards. Internships are pre-graduation paid roles (₹15-50K/month) with high conversion to full-time offers (~30-40%); direct fresher jobs are post-graduation full-time roles (₹3.5-7 LPA). Pure direct-fresher candidates miss the internship signal advantage; pure-internship candidates without conversion need to job-search anyway. The sequential approach maximises learning + offer outcomes.",
+    table: [
+      { factor: "Timing", a: "During degree (typically final-year, summer or 6-month)", b: "After degree completion" },
+      { factor: "Compensation", a: "₹15,000-50,000/month (stipend, sometimes pro-rated salary)", b: "₹3.5-7 LPA (services), ₹5-12 LPA (product) annual" },
+      { factor: "Duration", a: "3-6 months (2-month summer common at MNCs; 6-month preferred)", b: "Open-ended permanent employment" },
+      { factor: "Conversion to full-time", a: "~30-40% at services majors, ~20-30% at product cos", b: "N/A — already full-time" },
+      { factor: "Skill development", a: "Higher per-month (focused mentorship + structured projects)", b: "Steady (production project work, broader but less curated)" },
+      { factor: "Resume signal", a: "Strong — proves real-world capability beyond academics", b: "Standard — depends on portfolio + interview performance" },
+      { factor: "Networking value", a: "Extremely high (manager + team + alumni for future referrals)", b: "Builds gradually over time on the job" },
+      { factor: "Best fit", a: "Pre-graduation students with bandwidth + access to internship opportunities", b: "Post-graduation candidates, career changers, those without internship access" },
+      { factor: "Pune common patterns", a: "Persistent + Cognizant + TCS + Infosys formal internship programs; Pune startups offer many off-campus internships", b: "Universal — all Pune IT hiring paths" },
+    ],
+    whenA: {
+      heading: "When prioritising an internship is the right choice",
+      paragraphs: [
+        "If you're a final-year engineering / BCA / BSc student, securing a quality 3-6 month internship during your degree is one of the highest-ROI fresher career moves. ~30-40% conversion to full-time offers means you can effectively skip the post-graduation job search; the other 60-70% who don't convert get exceptional resume signal + referral networks for off-campus offers.",
+        "If you have the academic flexibility (low-class-load semester, summer break, or 6-month industrial training requirement in your degree program), use it for an internship at a Pune services major (Persistent, Cognizant, TCS, Infosys formal internship programs) or a Pune product startup (often hires interns off-campus year-round).",
+        "If your portfolio is moderate + you want production experience signal beyond personal projects, an internship gives you real-world stack exposure (CI/CD, code review, agile workflows, production deployments, real bugs) that's almost impossible to replicate via personal projects alone.",
+      ],
+    },
+    whenB: {
+      heading: "When pursuing a direct fresher job is the right choice",
+      paragraphs: [
+        "If you've already graduated + missed the internship window (most common reality), direct fresher search is your primary path. ~95% of Pune fresher IT placements happen through direct full-time job search; internship availability for post-graduates is much smaller (some product startups offer 'extended internship' programs but it's not the default path).",
+        "If you have strong portfolio + interview readiness (3+ deployed projects, DSA prep, system design basics), direct fresher offers at product companies (₹5-12 LPA) materially exceed typical internship-to-conversion offers (₹3.5-7 LPA services-major default). For top 20% candidates, going directly product is the higher-EV path.",
+        "If you're a career changer transitioning from non-IT (commerce, mechanical, BBA → IT), most internship programs aren't accessible — they're designed for degree students currently enrolled. Direct fresher job search via portfolio + bootcamp completion is the realistic path.",
+      ],
+    },
+    bottomLine:
+      "The honest answer: pursue both opportunistically. If you're a final-year student, apply aggressively for internships during your degree — even with low conversion-to-fulltime, the signal + experience + network compounds. After graduation (with or without internship), pursue direct fresher applications regardless of internship outcome. Pure internship-only thinking misses the post-graduation job market reality; pure direct-fresher-only thinking misses the highest-ROI pre-graduation opportunity. Stack them.",
+    relatedCourseSlugs: ["java-full-stack-training-in-pune", "python-training-in-pune", "mern-stack-training-in-pune"],
+    faqs: [
+      {
+        question: "What's a realistic internship stipend in Pune in 2026?",
+        answer:
+          "Services majors: ₹15,000-25,000/month (Persistent, Cognizant, TCS interns). Mid-tier consultancies + GCCs: ₹25,000-40,000/month. Product companies + AI startups: ₹40,000-75,000/month (BrowserStack, Druva, Helpshift summer interns can clear ₹50-80K). Some unpaid internships still exist at smaller shops — avoid unless the brand or learning is exceptional.",
+      },
+      {
+        question: "How do I land an internship at a Pune product company?",
+        answer:
+          "Apply directly on company career pages (Druva, BrowserStack, Helpshift, GUVI all run internship listings) + LinkedIn job postings + referrals from college alumni. Build 2-3 strong portfolio projects + clean GitHub before applying — product company internship filters are stricter than services-major campus drives. Realistic timeline: 60-90 days of focused search for the first product internship offer.",
+      },
+      {
+        question: "If I get an internship, does it count as work experience on my resume?",
+        answer:
+          "Yes for technical credentials + skills signal; partially for compensation negotiation. Recruiters value real production experience over class projects. List internships under Experience with full detail (tech stack, problem solved, outcomes). Most fresher CTC calculations treat you as fresher post-internship though — internship stipend doesn't compound into your starting full-time salary.",
+      },
+      {
+        question: "What's the most-failed internship-to-fulltime conversion pattern at Pune services majors?",
+        answer:
+          "Treating the internship as 'just a tryout' rather than active performance. Candidates who treat the internship as low-pressure miss the conversion bar (~40% baseline rate). Strong interns: take ownership of projects, raise meaningful PRs, ask thoughtful technical questions in design reviews, build internal network beyond their immediate team. The pattern: conversion is mostly about your visible contribution + reliability, not pure technical depth.",
+      },
+    ],
+  },
 ];
 
 export function getComparison(slug: string): Comparison | undefined {
