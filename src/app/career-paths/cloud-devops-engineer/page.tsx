@@ -663,6 +663,19 @@ export default function CloudDevOpsCareerPath() {
               </li>
               <li>
                 <Link
+                  href="/guides/docker-best-practices-pune-devops-engineers-2026"
+                  className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
+                >
+                  <span className="font-medium block text-sm">
+                    10 Docker Best Practices for Pune DevOps
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    Guide · multi-stage + caching + security + HEALTHCHECK + scanning
+                  </span>
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/courses/cloud-devops/kubernetes-training-in-pune"
                   className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
                 >
