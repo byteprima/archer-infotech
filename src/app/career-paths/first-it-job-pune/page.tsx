@@ -648,6 +648,19 @@ export default function FirstITJobPuneCareerPath() {
               </li>
               <li>
                 <Link
+                  href="/guides/salary-negotiation-tips-pune-it-freshers-2026"
+                  className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
+                >
+                  <span className="font-medium block text-sm">
+                    10 Salary Negotiation Tips for Pune IT Freshers
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    Guide · anchoring + leverage + post-offer playbook
+                  </span>
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/compare/services-vs-product-company-first-it-job-pune"
                   className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
                 >

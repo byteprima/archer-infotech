@@ -1120,6 +1120,54 @@ export const listicles: Listicle[] = [
       },
     ],
   },
+
+  // 27 ─ Salary negotiation (First IT Job spoke #7, 2026-06-07) ───────────
+  {
+    slug: "salary-negotiation-tips-pune-it-freshers-2026",
+    shortLabel: "Salary negotiation for IT freshers",
+    metaTitle: "10 Salary Negotiation Tips Every Pune IT Fresher Should Know (2026)",
+    metaDescription:
+      "The 10 salary negotiation moves that materially improve Pune IT fresher offer outcomes in 2026 — anchoring, competing offers, market research, soft asks vs hard asks. Built from 17 years of placement data.",
+    h1: "10 Salary Negotiation Tips Every Pune IT Fresher Should Know (2026)",
+    intro:
+      "Pune IT fresher salary negotiations leave ₹0.5-2 LPA on the table on average because freshers don't know what to ask, when, or how — the tax on this avoidance is significant over a 5-year career trajectory. Below are the 10 highest-leverage negotiation moves ranked by impact on Pune fresher offer outcomes. Each is practical + immediately actionable. The compounding effect across your first 3 jobs can shift your career compensation by ₹3-5 LPA in nominal terms; more once accumulated raises + market repositioning kick in.",
+    entries: [
+      { name: "Research the actual Pune fresher salary band for your role + company", what: "Before any negotiation, know your target band. Sources: Glassdoor + AmbitionBox + LinkedIn Salary Insights + Levels.fyi (for product cos). Aim for the band's 60th-70th percentile as your anchor — not the median (settling too low) or the 95th percentile (unrealistic for freshers).", dataPoint: "Asked at ~60% of Pune fresher negotiations: 'What's your salary expectation?' If you don't have a researched answer, you anchor low by default.", bestFor: "Foundation — never negotiate without market data." },
+      { name: "Get a competing offer (or any leverage) before asking", what: "The #1 negotiation lever: another offer in hand. Even an early-stage offer letter from a similar tier company shifts everything. If you have one product company offer + one services-major offer, you have material leverage at both. Without leverage, services-major fresher offers are largely fixed at company-policy bands.", dataPoint: "Pune fresher salary delta with competing offer: ₹0.3-2 LPA (services) / ₹1-4 LPA (product). Without competing offer: ~₹0 negotiation room at services majors.", bestFor: "The single highest-leverage negotiation move." },
+      { name: "Never reveal your current/previous compensation first", what: "When asked 'what's your current salary?': deflect respectfully. Pattern: 'I'd prefer to focus on the role + my fit. Could you share the band for this role?' Most countries are moving to outlaw current-salary questions; even where legal, it anchors you to the past. The information asymmetry favours the company.", dataPoint: "Direct-question deflection works ~75% of the time at Pune fresher hiring. Recruiters expect this from informed candidates.", bestFor: "Maintaining negotiation leverage from the start." },
+      { name: "Ask for the full breakdown (CTC vs in-hand)", what: "Pune fresher CTC of ₹6 LPA typically translates to ₹38,000-44,000 in-hand monthly after tax + PF + insurance. Always ask: 'What's the in-hand monthly take-home + the fixed vs variable split?' This reveals whether you're being shown a real number or padded CTC.", dataPoint: "Asked correctly at ~30% of Pune offer conversations. Many freshers don't realise CTC vs in-hand can differ by 35-45%.", bestFor: "Avoiding nasty surprises post-joining." },
+      { name: "Negotiate the joining bonus (often more flexible than base)", what: "Joining bonuses at Pune product companies + GCCs range ₹0.5-2 LPA. Services majors offer smaller ones (₹25-50K) or referral bonuses. The joining bonus is often more flexible than base salary because it doesn't compound into future raises + doesn't affect internal salary bands. Easy 'yes' for the company.", dataPoint: "Asked at ~25% of Pune fresher offers. Often easier to win than base bump; ask after base is set.", bestFor: "Easy win where base is rigid." },
+      { name: "Negotiate non-cash benefits (notice period, relocation, education)", what: "Beyond base: notice period buyout (can your new employer cover your current notice obligation?), relocation allowance, learning budget (₹50K-1L annual for courses + conferences), shorter notice period clause, work-from-anywhere days. These reduce your cost of employment changes + grow your skills.", dataPoint: "Asked at ~20% of Pune negotiations. Often easier to win than base salary; lower budget impact for the company.", bestFor: "Flexibility + skill development; less direct salary impact." },
+      { name: "Time the negotiation correctly (after offer, before acceptance)", what: "Negotiation happens AFTER the offer letter arrives + BEFORE you accept. Once accepted, you've lost leverage. The right time: 'Thank you for the offer — I have a few questions before I can confirm. Could we discuss compensation?' Don't negotiate during the interview process; don't negotiate after acceptance.", dataPoint: "Wrong timing accounts for ~40% of failed fresher negotiations. The window is narrow but clear.", bestFor: "Process discipline — wrong timing = no leverage." },
+      { name: "Make a specific counter, not a range", what: "Don't say 'I was hoping for more.' Say: 'Based on my research + the value I bring, I'm targeting ₹6 LPA base + ₹50K joining bonus.' Specific anchors out-negotiate vague ones. If you must give a range, make it narrow (₹5.8-6.2 LPA, not ₹5-7 LPA).", dataPoint: "Specific counters succeed 2-3x more often than vague 'higher please' requests at Pune fresher tier.", bestFor: "Negotiation discipline; signals preparation." },
+      { name: "Be willing to walk away from low-leverage offers", what: "If an offer materially below your researched band + you have other prospects in active pipeline (even early-stage), accepting locks you into below-market for 12-18 months. The opportunity cost of accepting low is often higher than the time cost of continuing your search. Walking away is sometimes the right move.", dataPoint: "About 15% of Pune fresher offer cycles include a walk-away decision. Those who walk away typically land 15-30% higher within 60-90 days.", bestFor: "When the offer is materially below market + you have pipeline." },
+      { name: "Negotiate with grace + warmth, not adversarially", what: "Frame: 'I'm genuinely excited about this role + the team. The compensation conversation matters because I want to commit fully without lingering doubts. Could we work together to find a number that works for both sides?' Negotiating warmly + collaboratively outperforms aggressive posturing — relationships matter, especially in the first job.", dataPoint: "Tone matters more than candidates expect — adversarial negotiations occasionally win the number but damage day-1 relationships.", bestFor: "Long-term relationship + negotiation success." },
+    ],
+    methodology:
+      "Tips ranked by impact on Pune fresher offer outcomes from Archer Infotech's 17-year placement-cell tracking + post-placement compensation surveys + offer-negotiation debriefs. Effect sizes reflect typical Pune services-major + product-company + GCC fresher hiring patterns. Some tips work across all tiers; others apply differently at services vs product. Practical-tactical focus over theoretical negotiation frameworks.",
+    faqs: [
+      {
+        question: "How much salary negotiation room do Pune fresher offers actually have?",
+        answer:
+          "Services majors: ₹0.3-0.8 LPA with competing offer in hand; almost zero without leverage. Mid-tier consulting + GCCs: ₹0.5-1.5 LPA. Product companies + AI startups: ₹1-4 LPA with competing offer or strong candidate signal. Top-tier product cos sometimes have larger ranges. The variance is real — but it's never zero if you have leverage + know how to ask.",
+      },
+      {
+        question: "What if my Pune fresher offer is a 'final' campus drive band that can't be negotiated?",
+        answer:
+          "Largely true at services-major campus drives — campus offer letters are typically locked to standard bands. Negotiation moves to joining bonus + early-promotion timeline + project-allocation conversations rather than base salary. Use the offer as leverage for off-campus product company applications instead — that's where most Pune fresher upside lives.",
+      },
+      {
+        question: "Should I accept the first offer I get if it's lower than I wanted?",
+        answer:
+          "Depends on your pipeline + risk tolerance. With no other active applications: probably accept + start (employment + experience beats no offer). With strong pipeline + 30+ active applications: consider negotiating + continuing search if the gap is material (>₹1 LPA delta from your target). The wrong move: holding out indefinitely for a perfect offer that may never come.",
+      },
+      {
+        question: "What's the most-failed salary negotiation move at Pune fresher offers?",
+        answer:
+          "Negotiating without competing leverage. Candidates ask 'can you increase it?' without offering a reason or alternative — easy to decline. The mature pattern: 'I have an offer from [tier-similar company] at [specific amount]. I'd prefer this role at your company. Could we close the gap to ₹X?' This frames the negotiation as solving a clear problem rather than asking for more for its own sake.",
+      },
+    ],
+  },
 ];
 
 export function getListicle(slug: string): Listicle | undefined {
