@@ -705,6 +705,19 @@ export default function JavaDeveloperCareerPath() {
               </li>
               <li>
                 <Link
+                  href="/guides/java-streams-api-patterns-pune-developers-2026"
+                  className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
+                >
+                  <span className="font-medium block text-sm">
+                    10 Java Streams API Patterns for Pune Developers
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    Guide · filter + map + collect + flatMap + Optional
+                  </span>
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/courses/programming/java-training-in-pune"
                   className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
                 >
