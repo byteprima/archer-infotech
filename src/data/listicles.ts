@@ -1408,6 +1408,54 @@ export const listicles: Listicle[] = [
       },
     ],
   },
+
+  // 33 ─ Year-one mistakes (First IT Job spoke #9, 2026-06-07) ────────────
+  {
+    slug: "year-one-mistakes-pune-it-freshers-make-2026",
+    shortLabel: "Year-one mistakes for freshers",
+    metaTitle: "10 Year-One Mistakes Pune IT Freshers Make (and How to Avoid Them, 2026)",
+    metaDescription:
+      "The 10 mistakes Pune IT freshers most commonly make in their first year on the job that limit career velocity. Built from 17 years of placement-cell + alumni tracking.",
+    h1: "10 Year-One Mistakes Pune IT Freshers Make (and How to Avoid Them, 2026)",
+    intro:
+      "Landing the first Pune IT offer is the start, not the finish. Year-one performance shapes the next 3-5 years of your career — promotion timing, project allocation quality, internal network strength, and salary trajectory all compound from year-one signals. Below are the 10 most common year-one mistakes Pune IT freshers make, ranked by impact on career velocity. Each entry covers the mistake + why it's harmful + the corrected pattern. Avoiding these compounds materially over your first 5 years.",
+    entries: [
+      { name: "Treating the bench period as a vacation", what: "Services-major freshers get 3-6 months of paid bench time intended for training + skill-building. Many treat it as a holiday + emerge unprepared for project allocation. Reality: bench performance influences first-project allocation; first project shapes the next 18 months.", dataPoint: "Pune services-major freshers who actively use bench (cert pursuits + side projects + internal hackathons) get 2-3x higher chance of premium project allocation.", bestFor: "Foundation — bench is opportunity, not vacation." },
+      { name: "Avoiding code reviews + design discussions", what: "Junior engineers often stay silent in code reviews + design discussions, fearing wrong opinions. The cost: invisibility + missed learning. Reality: senior engineers WANT junior input — diverse perspective catches blind spots; questions you ask reveal you're engaged.", dataPoint: "Year-one engineers who participate actively in code reviews + design discussions get promoted 6-12 months faster on average vs silent peers.", bestFor: "Visibility + learning velocity; first major junior-to-engineer differentiator." },
+      { name: "Not building a deliberate skill outside core work", what: "Year-one work assigns you specific tasks (Spring Boot CRUD endpoints, React component work, etc.). Without deliberate side learning, you become specialised in a single narrow stack. Reality: spend 4-6 hours/week building skills that complement core work — data engineering, DevOps, AI tools, system design.", dataPoint: "Engineers who explicitly invest in adjacent skills get 30-40% higher year-2-to-3 salary growth vs single-stack-only peers.", bestFor: "Long-term career growth + role flexibility." },
+      { name: "Failing to build internal network beyond immediate team", what: "Year-one engineers naturally stay within their 5-person team. Reality: internal mobility, project allocations, mentorship, and learning opportunities flow through cross-team relationships. Strong internal network = better project access + faster recognition.", dataPoint: "Engineers who actively build cross-team relationships (lunch + chai + Slack channels + cross-team projects) get 2-3x more internal mobility options + faster promotions.", bestFor: "Internal mobility + career insurance." },
+      { name: "Not maintaining + updating a personal portfolio", what: "After landing first job, most freshers stop building portfolio projects + side work. Reality: in 12-18 months when you next interview (internal or external), your portfolio is stale. Maintaining 1-2 side projects per year + technical blog posts keeps interview-readiness fresh.", dataPoint: "Engineers with maintained portfolios switch jobs 50% faster + at 20-40% higher salary jumps vs those with stale portfolios.", bestFor: "Future job-search readiness; never letting interview muscles atrophy." },
+      { name: "Underrating soft skills (communication + ownership)", what: "Technical depth gets you the job; soft skills determine year-1-to-3 trajectory. Reality: communicating clearly, taking ownership of problems beyond strict task assignment, asking great clarifying questions — these signal seniority faster than technical depth alone.", dataPoint: "Year-one engineers identified as 'high-ownership' get promoted 9-15 months ahead of equally technical 'execute-the-task' peers.", bestFor: "Promotion velocity; engineering culture fit." },
+      { name: "Saying yes to everything (or saying no to everything)", what: "Extreme of either fails. Yes-to-everything = overcommitted + missed deadlines + burnt out. No-to-everything = signal of low initiative + missed growth opportunities. Reality: thoughtful prioritisation + occasional stretches that grow you matter. Learn to evaluate effort vs payoff before responding.", dataPoint: "Engineers who develop thoughtful prioritisation by month 6 progress faster + maintain trust longer than either extreme.", bestFor: "Workload management + manager trust." },
+      { name: "Not asking for feedback proactively", what: "Most year-one freshers wait for annual review feedback (too late + too vague). Reality: ask your manager + 2-3 senior engineers for specific feedback every 1-2 months. Specific questions: 'What's one thing I did well this quarter?' + 'What's one thing I should do differently?' beats general 'how am I doing?'", dataPoint: "Engineers who actively seek feedback by month 3 + apply it have 2x faster promotion timing vs those who don't.", bestFor: "Feedback loop optimisation; faster trajectory correction." },
+      { name: "Neglecting health + work-life sustainability", what: "Year-one excitement + ambition leads many to overwork — 12+ hour days, weekend coding, sleep neglect. Reality: 5-year career sustainability matters more than year-one heroics. Sustainable 9-10 hour days + healthy sleep + exercise compound better than burnt-out heroics that lead to year-2 exhaustion.", dataPoint: "Engineers who maintain sustainable habits in year-one have ~3x higher 5-year career retention + senior-tier progression rates.", bestFor: "Career longevity + sustained performance." },
+      { name: "Settling without negotiating after year-1 review", what: "Year-one reviews often come with a salary increment offer. Many freshers accept whatever's offered (typically 8-15% standard increment). Reality: with one year of demonstrated value + market intelligence, year-1 increments have negotiation room. Knowing market rates + asking for fair adjustment is appropriate.", dataPoint: "Engineers who negotiate year-1 increments get 5-15% higher raises on average than those who accept default offers.", bestFor: "Compensation trajectory; compounds over 5+ years." },
+    ],
+    methodology:
+      "Mistakes ranked by impact on career velocity from Archer Infotech's 17-year placement-cell + alumni tracking across services majors (Persistent, Capgemini, Mindtree, Tech Mahindra, Cognizant, Wipro, Infosys, TCS) + product companies (Druva, BrowserStack, GUVI, Helpshift, Persistent product) + BFSI tech teams. Effect sizes reflect observed differences between similar-tier freshers; individual outcomes vary widely. Focuses on patterns that compound materially over the first 5 years.",
+    faqs: [
+      {
+        question: "What's the most-failed pattern at Pune services-major year-1 reviews?",
+        answer:
+          "Confusing 'completing assigned tasks' with 'exceeding expectations'. Year-1 freshers who simply finish what's assigned without taking ownership of bigger problems or proactively improving systems get standard review ratings. Those who go beyond task completion into proactive problem-solving + cross-team contribution + initiative get above-band ratings + faster promotion timing.",
+      },
+      {
+        question: "When should I look for my second job after my first Pune IT role?",
+        answer:
+          "Realistic window: 18-30 months at the first role typically. <12 months = signal of impatience or poor fit. 12-18 months = possible but raises questions. 18-30 months = sweet spot for first internal promotion or external move. >36 months without role evolution = signal of stagnation. Plan your career narrative + skill building around this timeline.",
+      },
+      {
+        question: "Should I get a Master's degree after 2-3 years of work experience?",
+        answer:
+          "Depends on goal. International tech career via US/UK Master's: yes, materially helps. Indian product company progression: usually no — your work experience + portfolio + interview performance matter more. Career change to research or specialised tech (advanced AI, computational biology, robotics): yes, often required. Don't pursue Master's by default; pursue it for specific career-progression goals.",
+      },
+      {
+        question: "How important is networking at year-one for long-term career?",
+        answer:
+          "Extremely. Year-one network compounds over 10-20 years — manager who promotes you, peer who refers you to their next company, senior who mentors you into senior roles, recruiter who remembers you for premium opportunities. Internal network at first company + external network (LinkedIn + alumni + meetups + open source) both matter. Invest 30-60 minutes/week deliberately.",
+      },
+    ],
+  },
 ];
 
 export function getListicle(slug: string): Listicle | undefined {
