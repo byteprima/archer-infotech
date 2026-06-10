@@ -100,9 +100,15 @@ const KEYWORD_RULES: Array<{
         "React, Angular, Next.js and Node.js — the modern web stack Pune product companies hire from.",
     },
   },
-  // Node / Backend
+  // Node / Backend / Full Stack — covers the 2nd opportunity bucket
+  // surfaced by kpi_report.py (full-stack-development category at pos
+  // 74.6 with 114 impressions / 1 click). Matches both Node-specific
+  // guides AND general full-stack-development guides.
   {
-    match: (s) => /\b(node|nodejs|express|backend)\b/.test(s),
+    match: (s) =>
+      /\b(node|nodejs|express|backend|full-stack|full_stack|fullstack|mern|microservices|rest|graphql|authentication|authorization|postgresql|postgres)\b/.test(
+        s,
+      ),
     rec: {
       title: "Full Stack Development Courses in Pune",
       href: "/courses/full-stack-development",

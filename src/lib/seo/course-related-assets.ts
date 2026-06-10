@@ -71,6 +71,34 @@ const COMPARES = {
     href: "/compare/terraform-vs-ansible-for-pune-devops-2026",
     type: "compare",
   },
+  // Full Stack cluster — 2nd opportunity bucket per kpi_report.py
+  // (114 impressions / 1 click for /courses/full-stack-development at
+  // pos 74.6 — same pattern as cloud-devops).
+  reactAngular: {
+    title: "React vs Angular for Pune frontend",
+    href: "/compare/react-vs-angular-for-pune-frontend-2026",
+    type: "compare",
+  },
+  frontendBackend: {
+    title: "Frontend vs Backend developer career",
+    href: "/compare/frontend-vs-backend-developer-career-pune",
+    type: "compare",
+  },
+  monoMicroservices: {
+    title: "Monolith vs Microservices for Pune Java",
+    href: "/compare/monolithic-vs-microservices-for-pune-java-developers-2026",
+    type: "compare",
+  },
+  restGraphQL: {
+    title: "REST vs GraphQL for Pune Full Stack",
+    href: "/compare/rest-vs-graphql-for-pune-full-stack-2026",
+    type: "compare",
+  },
+  tailwindBootstrap: {
+    title: "Tailwind vs Bootstrap for Pune frontend",
+    href: "/compare/tailwind-vs-bootstrap-for-pune-frontend-2026",
+    type: "compare",
+  },
 } as const satisfies Record<string, RelatedAsset>;
 
 const GUIDES = {
@@ -120,6 +148,42 @@ const GUIDES = {
     href: "/guides/linux-commands-pune-devops-freshers-2026",
     type: "guide",
   },
+  // Full Stack cluster guides — see COMPARES.reactAngular comment.
+  fullStackProjects: {
+    title: "Best Full Stack projects for Pune resumes",
+    href: "/guides/best-full-stack-projects-for-pune-resume-2026",
+    type: "guide",
+  },
+  springBootProjects: {
+    title: "Best Spring Boot projects for Pune resumes",
+    href: "/guides/best-spring-boot-projects-for-pune-resume-2026",
+    type: "guide",
+  },
+  springBootInterview: {
+    title: "10 Spring Boot interview questions (Pune Java)",
+    href: "/guides/spring-boot-interview-questions-pune-java-freshers-2026",
+    type: "guide",
+  },
+  microservicesPatterns: {
+    title: "10 Microservices patterns for Pune Java devs",
+    href: "/guides/microservices-patterns-pune-java-developers-2026",
+    type: "guide",
+  },
+  nodeJsConcepts: {
+    title: "10 Node.js concepts for Pune Full Stack devs",
+    href: "/guides/nodejs-concepts-pune-full-stack-developers-2026",
+    type: "guide",
+  },
+  postgresqlQueries: {
+    title: "10 PostgreSQL queries for Pune Full Stack devs",
+    href: "/guides/postgresql-queries-pune-full-stack-developers-2026",
+    type: "guide",
+  },
+  authPatterns: {
+    title: "10 Auth patterns for Pune Full Stack devs",
+    href: "/guides/authentication-authorization-patterns-pune-full-stack-2026",
+    type: "guide",
+  },
 } as const satisfies Record<string, RelatedAsset>;
 
 /**
@@ -159,6 +223,22 @@ export function getRelatedAssetsForCourse(
       picks.push(COMPARES.terraformAnsible);
     }
   }
+  if (isFullStack || isFrontend) {
+    // Full Stack push — 2nd opportunity bucket. Surface frontend/full-
+    // stack-specific compares so the cluster's internal-link graph
+    // compounds the same way the DevOps push does for cloud-devops.
+    picks.push(COMPARES.reactAngular);
+    picks.push(COMPARES.frontendBackend);
+    if (slug.includes("java") || slug.includes("spring") || slug.includes("microservice")) {
+      picks.push(COMPARES.monoMicroservices);
+    }
+    if (isFullStack) {
+      picks.push(COMPARES.restGraphQL);
+    }
+    if (isFrontend) {
+      picks.push(COMPARES.tailwindBootstrap);
+    }
+  }
   picks.push(COMPARES.onlineOffline);
   if (isMobile || isFrontend) picks.push(COMPARES.bootcampSelf);
 
@@ -176,6 +256,21 @@ export function getRelatedAssetsForCourse(
       picks.push(GUIDES.kubernetesInterview);
       picks.push(GUIDES.linuxCommands);
     }
+  }
+  if (isFullStack) {
+    // Full Stack outcome push — 2nd opportunity bucket. Each FS course
+    // page distributes link equity to the cluster's spoke guides.
+    picks.push(GUIDES.fullStackProjects);
+    picks.push(GUIDES.nodeJsConcepts);
+    if (slug.includes("java") || slug.includes("spring")) {
+      picks.push(GUIDES.springBootProjects);
+      picks.push(GUIDES.springBootInterview);
+      picks.push(GUIDES.microservicesPatterns);
+    }
+    if (slug.includes("postgres") || slug.includes("sql") || slug.includes("database")) {
+      picks.push(GUIDES.postgresqlQueries);
+    }
+    picks.push(GUIDES.authPatterns);
   }
   picks.push(GUIDES.freshSkills);
 
@@ -210,6 +305,21 @@ export function getRelatedAssetsForCategory(
     picks.push(GUIDES.kubernetesInterview);
     picks.push(GUIDES.linuxCommands);
     picks.push(GUIDES.highestPaying);
+  }
+
+  // Full Stack cluster — 2nd opportunity bucket per kpi_report.py
+  // (114 impressions / 1 click for /courses/full-stack-development at
+  // pos 74.6, queries dominated by "full stack developer classes in
+  // pune" + "full stack java developer course in pune").
+  if (cat === "full-stack-development") {
+    picks.push(COMPARES.mernJavaFs);
+    picks.push(COMPARES.reactAngular);
+    picks.push(COMPARES.frontendBackend);
+    picks.push(COMPARES.restGraphQL);
+    picks.push(GUIDES.fullStackProjects);
+    picks.push(GUIDES.nodeJsConcepts);
+    picks.push(GUIDES.springBootProjects);
+    picks.push(GUIDES.authPatterns);
   }
 
   // Future buckets — wire up when KPI report identifies them. For now,
