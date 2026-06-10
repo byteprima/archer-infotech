@@ -995,6 +995,72 @@ export const comparisons: Comparison[] = [
       },
     ],
   },
+
+  // 16 ─ Java vs Kotlin (Java cluster spoke #4, 2026-06-07) ─────────────────
+  {
+    slug: "java-vs-kotlin-for-pune-backend-developers-2026",
+    shortLabel: "Java vs Kotlin",
+    metaTitle: "Java vs Kotlin for Pune Backend Developers (2026) — Which to Learn First",
+    metaDescription:
+      "Java vs Kotlin for Pune backend developers in 2026: an honest comparison of hiring volume, Android vs server-side trade-offs, learning curve, and which language to pick first.",
+    h1: "Java vs Kotlin for Pune Backend Developers (2026)",
+    optionA: "Java",
+    optionB: "Kotlin",
+    verdict:
+      "For Pune fresher backend developers in 2026, Java is the higher-EV first language pick by a wide margin — ~95% of Pune Spring Boot + enterprise backend listings reference Java; Kotlin appears in ~5%. Kotlin's real strength is Android (now Google's official preferred Android language); server-side Kotlin adoption is growing at product companies + Pune AI startups but remains niche. Pick Java first for backend; learn Kotlin as a secondary language if targeting Android or modernising-startup roles.",
+    table: [
+      { factor: "Pune backend hiring volume share", a: "~95% of Spring Boot + enterprise listings", b: "~5% (mostly product company + startup)" },
+      { factor: "Pune Android hiring share", a: "~30% of Android listings (legacy + maintenance)", b: "~70% (Google's preferred Android language)" },
+      { factor: "Pune fresher salary band", a: "₹3.5-6 LPA services / ₹5-9 LPA product", b: "Same band for equivalent skill" },
+      { factor: "Language characteristics", a: "Verbose, stable, strict OOP, mature null handling via Optional", b: "Concise, null-safe types built-in, data classes, extension functions, coroutines" },
+      { factor: "Interop with Java codebases", a: "Native", b: "100% bidirectional Java interop (Kotlin compiles to JVM bytecode)" },
+      { factor: "Spring Boot support", a: "Native default", b: "First-class Kotlin support since Spring Boot 2.0+ (coroutines + DSL)" },
+      { factor: "Learning curve from scratch", a: "Steeper (more boilerplate, more concepts upfront)", b: "Gentler (more concise, modern syntax)" },
+      { factor: "Best for", a: "Backend services, enterprise apps, services-major employment", b: "Android development, modernising-startup backend, concise JVM scripting" },
+      { factor: "Switching cost", a: "Easy → Kotlin (drop into existing Java project)", b: "Easy → Java (Kotlin compiles to JVM)" },
+    ],
+    whenA: {
+      heading: "When Java is the right first language",
+      paragraphs: [
+        "If you're optimising for Pune fresher hiring volume, Java is the answer. ~95% of Pune Spring Boot + enterprise backend listings reference Java; the services-major hiring pipeline (Persistent, Capgemini, Mindtree, Tech Mahindra, Cognizant, Wipro, Infosys, TCS) overwhelmingly hires Java fresher developers. Realistic outcome: 70% of Pune Java track graduates land first offers within 90 days.",
+        "If you want maximum long-term career flexibility within the JVM ecosystem (backend services + Android + microservices + enterprise integration + data engineering), Java is the universal-compatibility layer. Every JVM library + framework supports Java; some support Kotlin partially.",
+        "If you're targeting BFSI / Insurance / Healthcare verticals (BNP Paribas IT, Allianz tech, Cognizant Pune BFSI practices), Java is the established enterprise default — these shops haven't and won't migrate to Kotlin for the foreseeable future.",
+      ],
+    },
+    whenB: {
+      heading: "When Kotlin is the right first language",
+      paragraphs: [
+        "If you're specifically targeting Pune Android development roles, Kotlin is Google's official preferred Android language since 2017 + the default since 2019. ~70% of new Pune Android job postings reference Kotlin; pure-Java Android work is increasingly legacy maintenance.",
+        "If you're targeting modernising Pune product startups (smaller AI / SaaS companies that adopted Kotlin from scratch), Kotlin-first backend roles exist but remain a smaller share of Pune backend hiring. Realistic strategy: learn Java first, add Kotlin in months 9-12 if Android or modern-startup targeting matters.",
+        "If you're transitioning from a Java background and want to add a concise + null-safe + coroutine-supporting language to your stack, Kotlin's learning curve is days-to-weeks not months. Most JVM teams that adopt Kotlin do so incrementally — adding it to existing Java codebases service-by-service.",
+      ],
+    },
+    bottomLine:
+      "Java for backend; Kotlin for Android. If you're hireable in only one language, pick Java — the hiring volume + ecosystem + enterprise depth advantages compound to maximum Pune market access. Add Kotlin in year 1-2 of work if Android opens up or your team adopts it for new microservices. The two languages share the JVM + bytecode, so cross-skill is fast once you've mastered either.",
+    relatedCourseSlugs: ["java-training-in-pune", "java-full-stack-training-in-pune", "android-development-training-in-pune"],
+    faqs: [
+      {
+        question: "Should I learn Kotlin if I'm targeting Pune backend roles?",
+        answer:
+          "Only after Java fluency. Pune backend hiring is overwhelmingly Java + Spring Boot; Kotlin backend work is a niche specialisation (~5% of listings). The pragmatic order: Java + Spring Boot to portfolio depth → first backend job → add Kotlin in year 1-2 if your team adopts it or you pivot to Android. Going Kotlin-first restricts your fresher offer pool significantly.",
+      },
+      {
+        question: "Is Java becoming obsolete? Should I learn Kotlin or another language instead?",
+        answer:
+          "No — Java has 30+ years of enterprise codebases that aren't migrating, plus an evolving language (modern Java 21+ adds records, sealed classes, pattern matching, virtual threads). Pune Java fresher hiring volume has been roughly stable or growing for the last 5 years. The 'Java is dying' narrative is overstated; Pune services majors will be hiring Java engineers for decades.",
+      },
+      {
+        question: "Can I use Kotlin in Spring Boot?",
+        answer:
+          "Yes, with first-class support since Spring Boot 2.0. Kotlin + Spring Boot + Spring Cloud is a clean modern combination — adds null-safety, conciseness, coroutines for async. But Pune services-sector adoption is limited; Kotlin Spring Boot is more common at product companies and startups. Demonstrating Kotlin + Spring Boot fluency materially differentiates you for product-company-targeted roles.",
+      },
+      {
+        question: "Which is better for Android in 2026 — Java or Kotlin?",
+        answer:
+          "Kotlin, decisively. Google has been Kotlin-first for Android since 2019; Jetpack Compose (the modern Android UI framework) is Kotlin-only; most new Pune Android shop work is Kotlin. Pure-Java Android work remains as legacy codebase maintenance. If Android is your target, learn Kotlin alongside Java; Kotlin-only Android-focused learners ship faster.",
+      },
+    ],
+  },
 ];
 
 export function getComparison(slug: string): Comparison | undefined {

@@ -640,6 +640,19 @@ export default function JavaDeveloperCareerPath() {
               </li>
               <li>
                 <Link
+                  href="/compare/java-vs-kotlin-for-pune-backend-developers-2026"
+                  className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
+                >
+                  <span className="font-medium block text-sm">
+                    Java vs Kotlin for Pune Backend
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    Comparison · backend language pick + Android pivot
+                  </span>
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/courses/programming/java-training-in-pune"
                   className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
                 >
