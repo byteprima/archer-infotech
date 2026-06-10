@@ -679,6 +679,19 @@ export default function JavaDeveloperCareerPath() {
               </li>
               <li>
                 <Link
+                  href="/compare/maven-vs-gradle-for-pune-java-developers-2026"
+                  className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
+                >
+                  <span className="font-medium block text-sm">
+                    Maven vs Gradle for Pune Java Developers
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    Comparison · build tool pick + Android pivot signal
+                  </span>
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/courses/programming/java-training-in-pune"
                   className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
                 >
