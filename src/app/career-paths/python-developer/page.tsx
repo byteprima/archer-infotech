@@ -759,6 +759,19 @@ export default function PythonDeveloperCareerPath() {
                   </span>
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/compare/pydantic-vs-dataclasses-for-pune-python-developers-2026"
+                  className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
+                >
+                  <span className="font-medium block text-sm">
+                    Pydantic vs Dataclasses for Pune Python
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    Comparison · data modeling pick + trust boundary pattern
+                  </span>
+                </Link>
+              </li>
             </ul>
           </section>
 

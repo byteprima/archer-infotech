@@ -1919,6 +1919,72 @@ export const comparisons: Comparison[] = [
       },
     ],
   },
+
+  // 30 ─ Pydantic vs Dataclasses (Python cluster spoke #9, 2026-06-07) ────
+  {
+    slug: "pydantic-vs-dataclasses-for-pune-python-developers-2026",
+    shortLabel: "Pydantic vs Dataclasses",
+    metaTitle: "Pydantic vs Dataclasses for Pune Python Developers (2026) — Which to Use",
+    metaDescription:
+      "Pydantic vs Dataclasses in 2026: an honest comparison for Pune Python developers — validation, performance, FastAPI / LangChain integration, and which data modeling pattern to use when.",
+    h1: "Pydantic vs Dataclasses for Pune Python Developers (2026)",
+    optionA: "Dataclasses",
+    optionB: "Pydantic",
+    verdict:
+      "For Pune Python developers in 2026, neither is universally better — they solve different problems. Dataclasses (stdlib since Python 3.7) for simple data containers with minimal overhead. Pydantic v2 for data validation, parsing, serialization, FastAPI request/response models, LangChain structured outputs. Both appear in ~50% of Pune Python product company codebases — often together. Use dataclasses for internal data containers + Pydantic for trust boundaries (API inputs, LLM outputs, config files).",
+    table: [
+      { factor: "Standard library", a: "Yes (Python 3.7+, no external dependency)", b: "No (separate `pydantic` package; v2 since 2023)" },
+      { factor: "Primary purpose", a: "Reduce boilerplate for classes that mostly store data", b: "Data validation + parsing + serialization at trust boundaries" },
+      { factor: "Type annotations", a: "Used for documentation only (not enforced at runtime)", b: "Used for validation + type coercion at runtime" },
+      { factor: "Runtime validation", a: "None (you write your own __post_init__)", b: "Built-in (raises ValidationError on bad data)" },
+      { factor: "Serialization", a: "Manual (use `asdict()` for dict conversion)", b: "Built-in (`.model_dump()`, `.model_dump_json()`)" },
+      { factor: "Performance overhead", a: "Minimal (just normal Python classes)", b: "Some overhead at instance creation (v2 is 5-50x faster than v1)" },
+      { factor: "FastAPI integration", a: "Limited (FastAPI uses Pydantic for request/response models)", b: "Native (FastAPI is built on Pydantic)" },
+      { factor: "LangChain integration", a: "Limited", b: "Native (LangChain `with_structured_output()` uses Pydantic models)" },
+      { factor: "Best for", a: "Internal data containers; configuration in trusted code paths; lightweight transfer objects", b: "API request/response models; LLM structured outputs; config file parsing; user input validation" },
+    ],
+    whenA: {
+      heading: "When dataclasses are the right pick",
+      paragraphs: [
+        "If you're building internal data structures within a trust boundary (data passed between functions you control), dataclasses' simplicity + zero overhead + stdlib availability make them the lightweight default. Don't pull in Pydantic for objects that move between trusted code only.",
+        "If you need named-tuple-like immutable records, dataclass(frozen=True) is the clean answer. Performance-conscious code (hot loops, data structures created millions of times) benefits from dataclasses' overhead vs Pydantic's.",
+        "If you're working in code that runs without external dependencies (CLI tools, embedded scripts, code that ships as a single file), dataclasses are part of stdlib while Pydantic requires installation. Avoiding dependencies is sometimes a hard requirement.",
+      ],
+    },
+    whenB: {
+      heading: "When Pydantic is the right pick",
+      paragraphs: [
+        "If you're defining API request/response models in FastAPI, Pydantic is the native + idiomatic choice. FastAPI uses Pydantic internally; using dataclasses requires explicit conversion + loses auto-generated OpenAPI schema benefits.",
+        "If you're working with LLM structured outputs (LangChain `with_structured_output()`, OpenAI structured outputs, Anthropic tool use), Pydantic models give you type-safe LLM responses + validation errors when the LLM returns invalid data. The dominant pattern in Pune AI engineer work.",
+        "If you're parsing user input + external data (JSON from APIs, YAML config files, CSV rows, form data), Pydantic's automatic type coercion + validation + clear error messages make this safer + more concise than manual checking. Don't trust input — validate at the boundary.",
+      ],
+    },
+    bottomLine:
+      "Use both — they're complementary, not competitors. Dataclasses for trusted internal data (50%+ of your codebase by line count). Pydantic for trust boundaries: APIs, LLM outputs, config files, user input. Most production Pune Python codebases use both — dataclasses in service-layer data structures, Pydantic at the edges. Master both within 1-2 weeks; the distinction in usage matters more than the specific syntax.",
+    relatedCourseSlugs: ["python-training-in-pune", "agentic-ai-training-in-pune"],
+    faqs: [
+      {
+        question: "Should I learn Pydantic v1 or v2 for Pune Python work?",
+        answer:
+          "Pydantic v2 — released 2023, 5-50x faster than v1, current default. Almost all new Pune Python codebases + tutorials use v2. v1 awareness useful for legacy codebase maintenance but spending fresher prep time on v1 specifics is wrong allocation. v2's API is similar (.model_validate, .model_dump vs v1's parse_obj, dict).",
+      },
+      {
+        question: "Can I use dataclasses with FastAPI?",
+        answer:
+          "Possible but awkward. FastAPI generates OpenAPI schema from Pydantic models automatically; dataclasses require explicit conversion. Recommendation: use Pydantic for FastAPI request/response models even if your internal data is dataclasses. Convert at the FastAPI boundary.",
+      },
+      {
+        question: "What's the most-failed Pydantic question at Pune Python interviews?",
+        answer:
+          "Difference between validation + parsing + serialization. Candidates know Pydantic 'validates' but miss the layered model: Pydantic parses raw data (e.g., JSON string), validates against type hints, can coerce types (str → int when input is numeric string), and serializes back (.model_dump_json). The mature answer covers all 4 phases + when each runs.",
+      },
+      {
+        question: "Should I learn attrs (the third Python data modeling library) too?",
+        answer:
+          "Not at fresher tier. attrs predates dataclasses + offers more features but is no longer the default choice — most new Pune Python work uses dataclasses or Pydantic. Learn attrs as encountered in legacy codebases; don't prioritise it over Pydantic fluency for fresher prep.",
+      },
+    ],
+  },
 ];
 
 export function getComparison(slug: string): Comparison | undefined {
