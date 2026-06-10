@@ -775,6 +775,19 @@ export default function FullStackDeveloperCareerPath() {
                   </span>
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/guides/authentication-authorization-patterns-pune-full-stack-2026"
+                  className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
+                >
+                  <span className="font-medium block text-sm">
+                    10 Authentication & Authorization Patterns
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    Guide · bcrypt + JWT + OAuth + RBAC + MFA + CORS
+                  </span>
+                </Link>
+              </li>
             </ul>
           </section>
 

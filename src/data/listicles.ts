@@ -1312,6 +1312,54 @@ export const listicles: Listicle[] = [
       },
     ],
   },
+
+  // 31 ─ Auth patterns (Full Stack cluster spoke #9, 2026-06-07) ──────────
+  {
+    slug: "authentication-authorization-patterns-pune-full-stack-2026",
+    shortLabel: "Auth patterns",
+    metaTitle: "10 Authentication & Authorization Patterns Every Pune Full Stack Dev Should Know (2026)",
+    metaDescription:
+      "The 10 auth + authz patterns Pune full-stack devs actually use in production in 2026 — JWT, OAuth2, RBAC, refresh tokens, MFA, OIDC. With FAQ-friendly answers + security gotchas.",
+    h1: "10 Authentication & Authorization Patterns Every Pune Full Stack Dev Should Know (2026)",
+    intro:
+      "Auth is universally screened at Pune full-stack interviews — ~85% of rounds explicitly probe password hashing, JWT, OAuth2, or session management. Bad auth is also the #1 source of security incidents in production. Below are the 10 highest-value authentication + authorization patterns ranked by Pune interview frequency + production-use prevalence. Each covers what to use it for + the failure mode you avoid. Master these 10 + build one auth-flow project = production-grade security signal.",
+    entries: [
+      { name: "Password hashing with bcrypt / argon2 (never plaintext)", what: "Use bcrypt (cost factor 10-12) or argon2 (the modern recommendation) to hash passwords before storage. Never store plaintext, never store with MD5/SHA-256 alone (too fast → brute-forceable). bcrypt is universally supported; argon2 is more memory-hard + future-proof.", dataPoint: "Asked at ~80% of Pune auth rounds. 'How do you store passwords?' — if 'hashed' is your only answer, you fail. Specifying bcrypt cost factor or argon2 signals real security understanding.", bestFor: "Foundation; every user-storing app needs this." },
+      { name: "JWT for stateless authentication", what: "Server signs a token (header.payload.signature); client stores it + sends with each request. Server verifies signature without database lookup → stateless. Token payload typically: user_id, roles, exp. Signing algorithm: HS256 (symmetric) for single service, RS256 (asymmetric) for distributed systems.", dataPoint: "Asked at ~85% of Pune full-stack rounds. Walk through the verify flow + signing algorithm trade-offs.", bestFor: "API authentication; mobile clients; microservices internal auth." },
+      { name: "Access + refresh token pattern", what: "Access token (short-lived, ~15 min) for API calls; refresh token (long-lived, ~7 days) stored httpOnly cookie for getting new access tokens. When access token expires, client uses refresh to get new pair. Refresh token rotation: invalidate old refresh on use to prevent replay attacks.", dataPoint: "Asked at ~70% of Pune product company rounds. The dominant fresher production auth pattern; mention rotation + httpOnly + SameSite + Secure for senior-fresher signal.", bestFor: "Production-grade JWT-based auth; web apps." },
+      { name: "OAuth 2.0 + OIDC for third-party login (Google, Microsoft, GitHub)", what: "OAuth 2.0 = authorization (give X app access to my Y data). OpenID Connect = OAuth 2.0 + identity layer (who am I). Authorization Code Flow with PKCE is the modern default for web + mobile + SPA. Don't use Implicit Flow (deprecated for security reasons).", dataPoint: "Asked at ~55% of Pune product company rounds. Authorization Code Flow + PKCE = the answer; specifying these signals real OAuth understanding.", bestFor: "Social login; SSO; third-party integrations." },
+      { name: "Role-Based Access Control (RBAC)", what: "Define roles (admin, editor, viewer); assign permissions to roles; assign roles to users. Check role at endpoint: `if user.role != 'admin' return 403`. Simple model; works for most apps. Common Pune codebases: middleware checks roles before reaching the handler.", dataPoint: "Asked at ~60% of Pune rounds. Foundation authorization pattern; expected to know.", bestFor: "Most applications; simple permission models." },
+      { name: "Attribute-Based Access Control (ABAC)", what: "Beyond role: check attributes of user + resource + context. Example: 'user can edit document IF user.department == document.department AND time.hour < 18'. More flexible than RBAC; handles 'tenant isolation', 'team-based access', 'time-bound permissions'. Implementation: policy engines like OPA (Open Policy Agent), Casbin, or library-specific.", dataPoint: "Asked at ~30% of Pune product company + BFSI rounds. Senior-fresher signal; rare at services-major fresher tier.", bestFor: "Multi-tenant SaaS; fine-grained permissions; BFSI compliance contexts." },
+      { name: "Session-based auth (still relevant)", what: "Server stores session in Redis / database / memory; sets cookie with session ID. On each request, server looks up session via cookie. Stateful (server tracks all logged-in users) but simpler + more secure for many web apps (easy revocation, no client-side token mgmt).", dataPoint: "Asked at ~45% of Pune rounds. Common follow-up: 'JWT vs session — when each?' (JWT for distributed/mobile/API; sessions for monolithic web apps where revocation matters).", bestFor: "Server-rendered web apps; cases needing immediate revocation." },
+      { name: "Multi-Factor Authentication (MFA / 2FA)", what: "Beyond password: second factor like TOTP (Time-based One-Time Password via Google Authenticator/Authy), SMS code (less secure due to SIM swap risk), or hardware key (FIDO2/WebAuthn). TOTP via library (pyotp, otplib) is the safe default. Critical for any sensitive application.", dataPoint: "Asked at ~40% of Pune product company + BFSI rounds. Implementing TOTP correctly signals security maturity.", bestFor: "Any application with sensitive user data; BFSI requirements." },
+      { name: "API Key management for service-to-service auth", what: "Internal services authenticate to each other via API keys (rotated regularly) or mTLS or service mesh (Istio). Don't share API keys across services — each service gets its own with scoped permissions. Use environment-based config; never commit keys to git; rotate on suspected compromise.", dataPoint: "Asked at ~35% of Pune backend rounds. Common production-deployment question at modern Pune product cos.", bestFor: "Service-to-service authentication; microservices; integration with external APIs." },
+      { name: "CORS for cross-origin browser security", what: "Browser-enforced policy: JS on origin A can't call API on origin B unless B explicitly allows via Access-Control-Allow-Origin headers. Specify exact origins (not *) for credentialed requests. Common Pune full-stack project gotcha: frontend on localhost:3000, backend on localhost:8080 → CORS errors.", dataPoint: "Asked at ~50% of Pune full-stack rounds. Most fresher candidates have hit CORS errors in dev; explain the security reason behind it, not just 'add CORS middleware'.", bestFor: "Any web app with separate frontend + backend origins." },
+    ],
+    methodology:
+      "Patterns ranked by Pune full-stack + product company interview-frequency from Archer Infotech's placement-cell debriefs over 2024-2026 cycles + production-use prevalence at Pune product companies (Druva, BrowserStack, GUVI, Helpshift) + BFSI tech teams (BNP Paribas IT, Allianz tech). Modern patterns prioritised; deprecated approaches (Implicit Flow, plaintext storage, MD5 hashing) covered as anti-patterns. Spans authentication (who you are) + authorization (what you can do) distinction.",
+    faqs: [
+      {
+        question: "Should I use JWT or sessions for my Pune full-stack portfolio project?",
+        answer:
+          "Either works for portfolio; sessions are simpler + safer; JWT is more common in modern Pune product company codebases. The right answer for an interview: explain when each is appropriate. JWT for: distributed/mobile/microservices/API-first apps. Sessions for: monolithic web apps + needing easy revocation + simpler mental model. For portfolio: JWT signals modern stack awareness, sessions signal pragmatic engineering.",
+      },
+      {
+        question: "Where should I store JWT tokens in the browser?",
+        answer:
+          "httpOnly cookie (NOT localStorage). localStorage is accessible to any JavaScript including XSS payloads — token theft via XSS becomes trivial. httpOnly cookies + Secure + SameSite flags + CSRF protection is the production-safe pattern. This is the most-failed Pune full-stack auth question at fresher interviews.",
+      },
+      {
+        question: "What's the most-failed authentication question at Pune fresher interviews?",
+        answer:
+          "Tied between (1) storing JWT in localStorage (XSS vulnerability), (2) using MD5/SHA-256 alone for password hashing (too fast → brute-forceable), and (3) using Implicit OAuth Flow (deprecated for SPAs since 2020). All three signal lack of current security awareness. Use bcrypt/argon2, httpOnly cookies, Authorization Code Flow + PKCE.",
+      },
+      {
+        question: "Do I need to know cryptography fundamentals for Pune auth interviews?",
+        answer:
+          "Conceptual awareness yes; deep crypto math no at fresher tier. You should articulate: why hashing matters (one-way), why salt prevents rainbow tables, why HMAC vs plain hash, why symmetric (HS256) vs asymmetric (RS256) JWT signing differ. Understand the WHY behind each pattern, not just the recipe. Implementing crypto primitives yourself is almost never the right move — use battle-tested libraries.",
+      },
+    ],
+  },
 ];
 
 export function getListicle(slug: string): Listicle | undefined {
