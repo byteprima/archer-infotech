@@ -11,6 +11,7 @@ import { FaqSection } from "@/components/seo/faq-section";
 import { comparisons, getComparison } from "@/data/comparisons";
 import { getCourse } from "@/data/courses";
 import { buildPageMetadata } from "@/lib/seo";
+import { summariseToMeta } from "@/lib/seo/meta-trim";
 import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
 
 interface ComparePageProps {
@@ -28,7 +29,9 @@ export async function generateMetadata({ params }: ComparePageProps): Promise<Me
 
   return buildPageMetadata({
     title: cmp.metaTitle,
-    description: cmp.metaDescription,
+    // P3-22 — clamp to Google's mobile snippet band (14 compares had
+    // data-side descriptions over 180 chars per the audit).
+    description: summariseToMeta(cmp.metaDescription, 175),
     path: `/compare/${slug}`,
     lastModified: EVERGREEN_LAST_REVIEWED,
   });

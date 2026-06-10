@@ -10,6 +10,7 @@ import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { FaqSection } from "@/components/seo/faq-section";
 import { listicles, getListicle } from "@/data/listicles";
 import { buildPageMetadata } from "@/lib/seo";
+import { summariseToMeta } from "@/lib/seo/meta-trim";
 import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
 
 interface GuidePageProps {
@@ -27,7 +28,9 @@ export async function generateMetadata({ params }: GuidePageProps): Promise<Meta
 
   return buildPageMetadata({
     title: guide.metaTitle,
-    description: guide.metaDescription,
+    // P3-22 — clamp to Google's mobile snippet band (22 guides had
+    // data-side descriptions over 180 chars per the audit).
+    description: summariseToMeta(guide.metaDescription, 175),
     path: `/guides/${slug}`,
     lastModified: EVERGREEN_LAST_REVIEWED,
   });

@@ -15,6 +15,7 @@ import {
 } from "@/data/team";
 import { getCourse } from "@/data/courses";
 import { buildPageMetadata } from "@/lib/seo";
+import { summariseToMeta } from "@/lib/seo/meta-trim";
 
 interface TrainerPageProps {
   params: Promise<{ slug: string }>;
@@ -29,9 +30,13 @@ export async function generateMetadata({ params }: TrainerPageProps): Promise<Me
   const trainer = getTrainer(slug);
   if (!trainer) return { title: "Trainer Not Found" };
 
+  // P3-22 — trainer bios run 250-373 chars (intentional editorial body
+  // copy). For the <meta name="description"> we summarise to the first
+  // full sentence within Google's mobile snippet band so the SERP shows
+  // a clean editorial cut instead of Google's mid-sentence truncation.
   return buildPageMetadata({
     title: `${trainer.name} — ${trainer.role} | Archer Infotech`,
-    description: trainer.bio,
+    description: summariseToMeta(trainer.bio, 165),
     path: `/trainers/${slug}`,
     ogImage: trainer.image,
   });

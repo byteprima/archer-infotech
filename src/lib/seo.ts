@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { siteConfig } from "@/data/site-config";
 import { buildHreflangAlternates } from "@/lib/seo/hreflang";
+import { summariseToMeta } from "@/lib/seo/meta-trim";
 
 interface PageMetadataOptions {
   title: string;
@@ -59,25 +60,50 @@ export function buildPageMetadata({
   //   "CodeLeap... | Archer Infotech, Kothrud | Archer Infotech"
   // The regex tolerates the legacy "Archer Info Tech" misspelling for safety.
   const cleanTitle = title.replace(/\s*\|\s*Archer\s*Info\s*Tech\b.*$/i, "").trim();
-  const fullTitle = `${cleanTitle} | ${siteConfig.name}`;
+
+  // P3-22 — auto-skip the brand suffix when (a) adding it would push the
+  // title past Google's ~60-char mobile snippet truncation point, or
+  // (b) the title already contains "Archer Infotech" naturally (so the
+  // suffix would just be redundant). The site-wide audit flagged 196
+  // title-long pages largely because the 18-char " | Archer Infotech"
+  // suffix pushes long-but-acceptable inputs over budget. `title:
+  // { absolute }` bypasses the root layout's title template.
+  const TITLE_SNIPPET_BUDGET = 60;
+  const BRAND_SUFFIX_LEN = ` | ${siteConfig.name}`.length; // 18
+  const titleAlreadyHasBrand = /archer\s*infotech/i.test(cleanTitle);
+  const suffixBlowsBudget =
+    cleanTitle.length + BRAND_SUFFIX_LEN > TITLE_SNIPPET_BUDGET;
+  const skipBrandSuffix = titleAlreadyHasBrand || suffixBlowsBudget;
+
+  const fullTitle = skipBrandSuffix
+    ? cleanTitle
+    : `${cleanTitle} | ${siteConfig.name}`;
+
+  // P3-22 — universal safety net for long descriptions. Pages whose
+  // input description fits Google's mobile snippet band (≤180 chars)
+  // pass through unchanged; longer ones get clipped at the last full
+  // sentence boundary within `175` chars so the SERP shows a clean
+  // editorial cut instead of Google's mid-sentence truncation.
+  const safeDescription = summariseToMeta(description, 175);
 
   return {
-    title: cleanTitle, // root template adds " | Archer Infotech"
-    description,
+    // root template adds " | Archer Infotech" UNLESS we bypass via absolute.
+    title: skipBrandSuffix ? { absolute: cleanTitle } : cleanTitle,
+    description: safeDescription,
     alternates: { canonical, ...(languages && { languages }) },
     openGraph: {
       type: "website",
       locale: "en_IN",
       url: fullUrl,
       title: fullTitle,
-      description,
+      description: safeDescription,
       siteName: siteConfig.name,
       images: [{ url: ogImage, width: 1200, height: 630, alt: fullTitle }],
     },
     twitter: {
       card: "summary_large_image",
       title: fullTitle,
-      description,
+      description: safeDescription,
       images: [ogImage],
     },
     ...(noindex && {
