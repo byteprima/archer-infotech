@@ -736,6 +736,19 @@ export default function FullStackDeveloperCareerPath() {
                   </span>
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/guides/nodejs-concepts-pune-full-stack-developers-2026"
+                  className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
+                >
+                  <span className="font-medium block text-sm">
+                    10 Node.js Concepts for Pune Full Stack Devs
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    Guide · event loop + streams + middleware + auth + testing
+                  </span>
+                </Link>
+              </li>
             </ul>
           </section>
 
