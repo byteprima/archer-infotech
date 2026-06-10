@@ -4,6 +4,7 @@ import { bootcamps } from "@/data/bootcamps";
 import { teamMembers } from "@/data/team";
 import { neighbourhoods } from "@/data/locations";
 import { audiences } from "@/data/audiences";
+import { courseLocations } from "@/data/course-locations";
 import { comparisons } from "@/data/comparisons";
 import { listicles } from "@/data/listicles";
 import {
@@ -169,6 +170,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
+  // P4-16 course × location combo landing pages (2026-06-10).
+  const courseLocationPages: MetadataRoute.Sitemap = courseLocations.map(
+    (c) => ({
+      url: `${baseUrl}/courses/in/${c.slug}`,
+      lastModified: EVERGREEN,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    }),
+  );
+
   // Comparison pages (P8-10) + the /compare hub — 2026-05-25.
   const compareListingPage: MetadataRoute.Sitemap = [
     { url: `${baseUrl}/compare`, lastModified: NEW_ASSETS, changeFrequency: "monthly", priority: 0.6 },
@@ -226,6 +237,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...locationListingPage,
     ...locationPages,
     ...audiencePages,
+    ...courseLocationPages,
     ...compareListingPage,
     ...comparePages,
     ...guidesListingPage,
