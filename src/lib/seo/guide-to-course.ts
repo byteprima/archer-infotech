@@ -50,9 +50,10 @@ const KEYWORD_RULES: Array<{
         "AWS Solutions Architect, Azure Administrator, and Google Cloud certs with hands-on labs and exam prep.",
     },
   },
-  // Java / Spring
+  // Java Full Stack (Spring + microservices guides) — route to the
+  // Full Stack track which is the natural sales path for these topics.
   {
-    match: (s) => /\b(java|spring|spring-boot)\b/.test(s),
+    match: (s) => /\b(spring|spring-boot|microservic)\b/.test(s),
     rec: {
       title: "Java Full Stack Training in Pune",
       href: "/courses/full-stack-development/java-full-stack-training-in-pune",
@@ -60,9 +61,22 @@ const KEYWORD_RULES: Array<{
         "Core Java + Spring Boot + microservices + React, with the Pune-MNC interview prep we cover end-to-end.",
     },
   },
-  // Python / Django / FastAPI / ML
+  // Generic Java (concurrency, streams, fundamentals) — route to the
+  // Java training detail page in the programming category, which is
+  // the 3rd opportunity bucket per kpi_report.py (31 impressions /
+  // 1 click at pos 49.8 for /courses/programming/java-training-in-pune).
   {
-    match: (s) => /\b(python|django|fastapi|pandas|numpy)\b/.test(s),
+    match: (s) => /\b(java)\b/.test(s),
+    rec: {
+      title: "Java Training in Pune",
+      href: "/courses/programming/java-training-in-pune",
+      blurb:
+        "Core Java fundamentals + OOP + Streams + Concurrency + collections — the foundation for every Pune Java role.",
+    },
+  },
+  // Python / Django / FastAPI / Pandas
+  {
+    match: (s) => /\b(python|django|fastapi|pandas|numpy|pytest|pydantic)\b/.test(s),
     rec: {
       title: "Python Training in Pune",
       href: "/courses/programming/python-training-in-pune",
@@ -70,9 +84,14 @@ const KEYWORD_RULES: Array<{
         "Python from fundamentals to Django/FastAPI + data libraries (Pandas, NumPy) + interview prep.",
     },
   },
-  // Data / ML / AI
+  // Data / ML / AI / Data engineering — 4th opportunity bucket per
+  // kpi_report.py (data-ai category at pos 60.7 with 19i / 0c for
+  // /courses/data-ai/data-engineering-training-in-pune).
   {
-    match: (s) => /\b(data-science|machine-learning|ml|statistics|feature-engineering)\b/.test(s),
+    match: (s) =>
+      /\b(data-science|machine-learning|ml|statistics|feature-engineering|data-engineering|tensorflow|pytorch|xgboost|supervised|unsupervised)\b/.test(
+        s,
+      ),
     rec: {
       title: "Data Science & AI Courses in Pune",
       href: "/courses/data-ai",

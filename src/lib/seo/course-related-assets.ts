@@ -99,6 +99,40 @@ const COMPARES = {
     href: "/compare/tailwind-vs-bootstrap-for-pune-frontend-2026",
     type: "compare",
   },
+  // Java cluster — 3rd opportunity bucket (programming category, 31i
+  // / 1c pos 49.8). Most queries are "java training in pune".
+  javaKotlin: {
+    title: "Java vs Kotlin for Pune backend",
+    href: "/compare/java-vs-kotlin-for-pune-backend-developers-2026",
+    type: "compare",
+  },
+  mavenGradle: {
+    title: "Maven vs Gradle for Pune Java devs",
+    href: "/compare/maven-vs-gradle-for-pune-java-developers-2026",
+    type: "compare",
+  },
+  // Data-AI cluster — 4th opportunity bucket (data-ai category, 19i /
+  // 0c pos 60.7 for /courses/data-ai/data-engineering-training-in-pune).
+  pandasNumpy: {
+    title: "Pandas vs NumPy for Pune Python data",
+    href: "/compare/pandas-vs-numpy-when-to-use-which-2026",
+    type: "compare",
+  },
+  tensorflowPytorch: {
+    title: "TensorFlow vs PyTorch for Pune ML",
+    href: "/compare/tensorflow-vs-pytorch-for-pune-ml-engineers-2026",
+    type: "compare",
+  },
+  supervisedUnsupervised: {
+    title: "Supervised vs Unsupervised ML in Pune",
+    href: "/compare/supervised-vs-unsupervised-learning-pune-data-scientists-2026",
+    type: "compare",
+  },
+  randomForestXgboost: {
+    title: "Random Forest vs XGBoost for Pune DS",
+    href: "/compare/random-forest-vs-xgboost-for-pune-data-scientists-2026",
+    type: "compare",
+  },
 } as const satisfies Record<string, RelatedAsset>;
 
 const GUIDES = {
@@ -184,6 +218,49 @@ const GUIDES = {
     href: "/guides/authentication-authorization-patterns-pune-full-stack-2026",
     type: "guide",
   },
+  // Java cluster guides
+  javaConcurrency: {
+    title: "10 Java concurrency patterns for Pune devs",
+    href: "/guides/java-concurrency-patterns-pune-developers-2026",
+    type: "guide",
+  },
+  javaStreams: {
+    title: "10 Java Streams API patterns for Pune devs",
+    href: "/guides/java-streams-api-patterns-pune-developers-2026",
+    type: "guide",
+  },
+  // Modern Web cluster guides
+  reactInterview: {
+    title: "10 React interview questions (Pune Freshers)",
+    href: "/guides/react-interview-questions-pune-freshers-2026",
+    type: "guide",
+  },
+  // Data-AI cluster guides
+  pythonInterview: {
+    title: "10 Python interview questions (Pune Freshers)",
+    href: "/guides/python-interview-questions-pune-freshers-2026",
+    type: "guide",
+  },
+  sqlInterview: {
+    title: "10 SQL interview questions (Pune Data)",
+    href: "/guides/sql-interview-questions-pune-data-freshers-2026",
+    type: "guide",
+  },
+  statisticsConcepts: {
+    title: "Top 10 statistics concepts for Pune DS",
+    href: "/guides/top-statistics-concepts-pune-data-scientists-2026",
+    type: "guide",
+  },
+  pythonTesting: {
+    title: "10 Python testing strategies for Pune devs",
+    href: "/guides/python-testing-strategies-pune-engineers-2026",
+    type: "guide",
+  },
+  featureEngineering: {
+    title: "10 Feature engineering techniques (Pune DS)",
+    href: "/guides/feature-engineering-techniques-pune-data-scientists-2026",
+    type: "guide",
+  },
 } as const satisfies Record<string, RelatedAsset>;
 
 /**
@@ -239,6 +316,20 @@ export function getRelatedAssetsForCourse(
       picks.push(COMPARES.tailwindBootstrap);
     }
   }
+  // Java cluster (programming category) — 3rd opportunity push
+  if (cat === "programming" && isJava) {
+    picks.push(COMPARES.javaKotlin);
+    picks.push(COMPARES.mavenGradle);
+  }
+  // Data-AI cluster — 4th opportunity push
+  if (isData) {
+    picks.push(COMPARES.pandasNumpy);
+    if (slug.includes("machine-learning") || slug.includes("ml") || slug.includes("data-science")) {
+      picks.push(COMPARES.tensorflowPytorch);
+      picks.push(COMPARES.supervisedUnsupervised);
+      picks.push(COMPARES.randomForestXgboost);
+    }
+  }
   picks.push(COMPARES.onlineOffline);
   if (isMobile || isFrontend) picks.push(COMPARES.bootcampSelf);
 
@@ -271,6 +362,34 @@ export function getRelatedAssetsForCourse(
       picks.push(GUIDES.postgresqlQueries);
     }
     picks.push(GUIDES.authPatterns);
+  }
+  // Java cluster — 3rd opportunity push
+  if (cat === "programming" && isJava) {
+    picks.push(GUIDES.javaConcurrency);
+    picks.push(GUIDES.javaStreams);
+    if (slug.includes("spring")) {
+      picks.push(GUIDES.springBootInterview);
+    }
+  }
+  // Modern Web (frontend) cluster
+  if (isFrontend) {
+    picks.push(GUIDES.reactInterview);
+  }
+  // Data-AI cluster — 4th opportunity push
+  if (isData) {
+    picks.push(GUIDES.pythonInterview);
+    if (slug.includes("sql") || slug.includes("data-engineering")) {
+      picks.push(GUIDES.sqlInterview);
+    }
+    if (slug.includes("data-science") || slug.includes("machine-learning") || slug.includes("ml")) {
+      picks.push(GUIDES.statisticsConcepts);
+      picks.push(GUIDES.featureEngineering);
+    }
+  }
+  // Python guides — for python course pages even outside data-ai
+  if (isPython) {
+    picks.push(GUIDES.pythonInterview);
+    picks.push(GUIDES.pythonTesting);
   }
   picks.push(GUIDES.freshSkills);
 
@@ -320,6 +439,48 @@ export function getRelatedAssetsForCategory(
     picks.push(GUIDES.nodeJsConcepts);
     picks.push(GUIDES.springBootProjects);
     picks.push(GUIDES.authPatterns);
+  }
+
+  // Java cluster (programming category) — 3rd opportunity bucket
+  // (31 impressions / 1 click for /courses/programming/java-training-
+  // in-pune at pos 49.8).
+  if (cat === "programming") {
+    picks.push(COMPARES.javaPython);
+    picks.push(COMPARES.javaKotlin);
+    picks.push(COMPARES.mavenGradle);
+    picks.push(COMPARES.monoMicroservices);
+    picks.push(GUIDES.javaFrameworks);
+    picks.push(GUIDES.javaConcurrency);
+    picks.push(GUIDES.javaStreams);
+    picks.push(GUIDES.springBootInterview);
+  }
+
+  // Modern Web cluster — 4th opportunity bucket (32i / 1c pos 23.1
+  // for /courses/modern-web/react-training-in-pune; promising
+  // because position is already top-of-page-2).
+  if (cat === "modern-web") {
+    picks.push(COMPARES.reactAngular);
+    picks.push(COMPARES.frontendBackend);
+    picks.push(COMPARES.tailwindBootstrap);
+    picks.push(GUIDES.reactInterview);
+    picks.push(GUIDES.freeFullStack);
+    picks.push(GUIDES.nodeJsConcepts);
+    picks.push(GUIDES.fullStackProjects);
+  }
+
+  // Data + AI cluster — 5th opportunity bucket (19i / 0c pos 60.7
+  // for /courses/data-ai/data-engineering-training-in-pune; queries
+  // include "data engineering training pune", "cloud data engineer
+  // course in pune").
+  if (cat === "data-ai") {
+    picks.push(COMPARES.pyDevDataSci);
+    picks.push(COMPARES.pandasNumpy);
+    picks.push(COMPARES.tensorflowPytorch);
+    picks.push(COMPARES.supervisedUnsupervised);
+    picks.push(GUIDES.pythonInterview);
+    picks.push(GUIDES.sqlInterview);
+    picks.push(GUIDES.statisticsConcepts);
+    picks.push(GUIDES.featureEngineering);
   }
 
   // Future buckets — wire up when KPI report identifies them. For now,
