@@ -1325,6 +1325,72 @@ export const comparisons: Comparison[] = [
       },
     ],
   },
+
+  // 21 ─ JUnit vs TestNG (Java cluster spoke #6, 2026-06-07) ───────────────
+  {
+    slug: "junit-vs-testng-for-pune-java-developers-2026",
+    shortLabel: "JUnit vs TestNG",
+    metaTitle: "JUnit vs TestNG for Pune Java Developers (2026) — Which to Learn",
+    metaDescription:
+      "JUnit 5 vs TestNG in 2026: an honest comparison for Pune Java developers — Spring Boot integration, parallel execution, data providers, hiring volume, and which to learn first.",
+    h1: "JUnit vs TestNG for Pune Java Developers (2026)",
+    optionA: "JUnit 5",
+    optionB: "TestNG",
+    verdict:
+      "For Pune Java developers in 2026, JUnit 5 (Jupiter) is the higher-EV first pick — ~85% of Pune Spring Boot + modern Java listings reference JUnit, ~30% reference TestNG (often in QA + Selenium automation contexts). JUnit 5's deep Spring Boot integration + modern annotation model + parameterized tests cover almost all unit + integration testing needs. TestNG remains strong in Selenium-based automation testing + scenarios needing complex test orchestration (data providers, parallel execution out of the box).",
+    table: [
+      { factor: "Pune Java hiring share", a: "~85% of Spring Boot + dev listings", b: "~30% (overlap with JUnit; common in QA automation)" },
+      { factor: "Created by / current version", a: "Junit team; JUnit 5 (Jupiter) is current — modern modular architecture", b: "Cedric Beust; TestNG 7.x current — single-jar simplicity" },
+      { factor: "Annotations style", a: "@Test, @BeforeEach, @AfterEach, @BeforeAll, @AfterAll — clear lifecycle naming", b: "@Test, @BeforeMethod, @AfterMethod, @BeforeClass, @AfterClass, @BeforeSuite — broader hierarchy" },
+      { factor: "Spring Boot integration", a: "Native + first-class — @SpringBootTest, @WebMvcTest, @DataJpaTest all assume JUnit 5", b: "Manually configured — works but not the documented happy path" },
+      { factor: "Parameterized tests", a: "@ParameterizedTest + multiple source annotations (ValueSource, CsvSource, MethodSource)", b: "@DataProvider + @Test(dataProvider) — more flexible but more boilerplate" },
+      { factor: "Parallel execution", a: "junit-platform.properties configuration — added in JUnit 5", b: "Built-in parallel modes (methods, tests, classes, instances) via testng.xml" },
+      { factor: "Mocking pairing", a: "Mockito + Mockito-JUnit-Jupiter — standard combo", b: "Mockito + Mockito-TestNG — works but smaller ecosystem" },
+      { factor: "Best for", a: "Unit + integration testing of Spring Boot apps; modern Java backend development", b: "Selenium-based QA automation, scenarios needing complex test orchestration" },
+      { factor: "Common Pune contexts", a: "Persistent + Cognizant + Capgemini + Mindtree backend teams", b: "QA automation engineering + Pune testing-services consultancies" },
+    ],
+    whenA: {
+      heading: "When JUnit 5 is the right pick",
+      paragraphs: [
+        "If you're a Java developer targeting Pune backend roles (Spring Boot + Spring Data + Spring Cloud), JUnit 5 is the dominant default. Spring Boot's testing infrastructure (@SpringBootTest, @WebMvcTest, @DataJpaTest, @MockBean) is documented + designed around JUnit 5; using TestNG with Spring Boot requires manual setup that goes against the framework's grain.",
+        "If you want modern annotations + nested test classes + lambda-based assertions + dynamic tests, JUnit 5's design reflects post-2015 Java testing patterns. The modular architecture (junit-platform + junit-jupiter + junit-vintage) supports running legacy JUnit 4 tests alongside JUnit 5 ones during migration — useful at services majors with legacy codebases.",
+        "If you're targeting Pune services majors + product companies + AI startups doing Java backend development, JUnit 5 fluency maps directly to their hiring stack. ~85% of Pune Java + Spring Boot postings explicitly mention JUnit.",
+      ],
+    },
+    whenB: {
+      heading: "When TestNG is the right pick",
+      paragraphs: [
+        "If you're targeting Pune QA + automation testing roles using Selenium WebDriver, TestNG is the dominant pairing. Selenium + TestNG + Maven + Jenkins is the canonical Pune QA automation stack at services majors (Persistent QA, Capgemini QA, Mindtree QA). TestNG's @DataProvider + parallel-execution defaults fit data-driven UI testing patterns.",
+        "If your testing scenario needs sophisticated test orchestration — complex dependencies between tests, fine-grained parallel control (parallel methods + classes + instances), or testng.xml-driven suite configuration — TestNG's design accommodates this more naturally than JUnit 5.",
+        "If you're transitioning from a Pune QA / SDET role to QA Architect / Senior SDET, deep TestNG knowledge is the existing-codebase reality. Most Pune Selenium-based automation codebases predate JUnit 5's maturity + are TestNG-based; new QA shops are slowly adopting JUnit 5, but TestNG remains the established default.",
+      ],
+    },
+    bottomLine:
+      "Pick JUnit 5 first if you're a Java developer (backend, full-stack, AI engineering on JVM). Pick TestNG first if you're specifically targeting QA automation engineering or Selenium-based testing roles. The two are mostly interchangeable for unit testing; the differentiation matters at integration + system-test scale. Most Pune Java engineers ultimately know both; the order matters less than depth in your primary specialisation.",
+    relatedCourseSlugs: ["java-training-in-pune", "java-full-stack-training-in-pune", "selenium-training-in-pune"],
+    faqs: [
+      {
+        question: "Should I learn JUnit 4 or JUnit 5 in 2026?",
+        answer:
+          "JUnit 5 — JUnit 4 is legacy (last release 2021, in maintenance mode). New Spring Boot projects + most active Pune Java codebases have migrated. Knowing JUnit 4 helps for legacy codebase maintenance, but spending fresher prep time on JUnit 4 vs JUnit 5 is the wrong allocation. Junit-vintage-engine runs JUnit 4 tests in JUnit 5 — that's enough for legacy support.",
+      },
+      {
+        question: "Can I use both JUnit and TestNG in the same project?",
+        answer:
+          "Technically yes via separate Maven test plugins, but practically no — teams pick one for consistency. Mixed-framework codebases create CI complexity + onboarding friction + reporting inconsistencies. Stick with one framework per codebase; pick TestNG for QA automation contexts + JUnit 5 for dev unit + integration testing.",
+      },
+      {
+        question: "What's the most-failed JUnit + Spring Boot testing question at Pune interviews?",
+        answer:
+          "When to use @SpringBootTest vs @WebMvcTest vs @DataJpaTest. Candidates use @SpringBootTest for everything (loads full app context — slow + heavyweight) when @WebMvcTest (controllers only, mocks services) or @DataJpaTest (repositories only, embedded DB) is appropriate. Test pyramid + test scope discipline is the signal that separates senior-fresher candidates.",
+      },
+      {
+        question: "Should I use Testcontainers for integration tests in Pune Java projects?",
+        answer:
+          "Yes for production-grade integration tests against real databases. Embedded H2 / in-memory databases catch ~70% of bugs but miss vendor-specific issues (PostgreSQL JSONB, Oracle date handling, MySQL collation). Testcontainers spins up real Docker containers per test run — slower but materially better confidence. Pune product company codebases increasingly standardise on this.",
+      },
+    ],
+  },
 ];
 
 export function getComparison(slug: string): Comparison | undefined {

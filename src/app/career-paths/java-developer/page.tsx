@@ -666,6 +666,19 @@ export default function JavaDeveloperCareerPath() {
               </li>
               <li>
                 <Link
+                  href="/compare/junit-vs-testng-for-pune-java-developers-2026"
+                  className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
+                >
+                  <span className="font-medium block text-sm">
+                    JUnit vs TestNG for Pune Java Developers
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    Comparison · testing framework pick + Spring Boot integration
+                  </span>
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/courses/programming/java-training-in-pune"
                   className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
                 >
