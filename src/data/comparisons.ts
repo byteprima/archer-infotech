@@ -1061,6 +1061,72 @@ export const comparisons: Comparison[] = [
       },
     ],
   },
+
+  // 17 ─ Campus vs Off-campus (First IT Job cluster spoke #4, 2026-06-07) ──
+  {
+    slug: "campus-vs-off-campus-placement-pune-2026",
+    shortLabel: "Campus vs Off-campus",
+    metaTitle: "Campus vs Off-campus Placement in Pune (2026) — Which Strategy to Pursue",
+    metaDescription:
+      "Campus vs off-campus placement in Pune in 2026: an honest comparison of fresher salary bands, offer conversion rates, eligibility filters, and which path to prioritise based on your situation.",
+    h1: "Campus vs Off-campus Placement in Pune (2026)",
+    optionA: "Campus Placement",
+    optionB: "Off-campus Placement",
+    verdict:
+      "For Pune fresher IT job seekers in 2026, both paths are valid and most successful candidates pursue both in parallel. Campus placement (services majors hiring through college drives) offers higher conversion rates per applicant + structured fresher salary bands (₹3.5-6 LPA), but is constrained to Tier-2/Tier-3 engineering college students with active campus partnerships. Off-campus placement (direct applications, referrals, off-campus drives) opens the full Pune market including product companies (₹5-12 LPA) and works for all candidates regardless of college tier. The pragmatic answer: take any campus offer in hand as a safety net, continue off-campus applications for upside.",
+    table: [
+      { factor: "Eligibility", a: "Tier-2/Tier-3 college students with services-major campus partnerships", b: "Anyone — fresher, dropout, career changer, college tier irrelevant" },
+      { factor: "Pune fresher hiring share", a: "~60% of fresher offers", b: "~40% of fresher offers (growing fast)" },
+      { factor: "Conversion rate per applicant", a: "~10-25% (selective campus filters)", b: "~3-8% (much broader pool)" },
+      { factor: "Typical fresher salary band", a: "₹3.5-6 LPA (services major default)", b: "₹4-12 LPA (range across services + product + startup)" },
+      { factor: "Hiring timeline", a: "Final-year academic cycle (Aug-Mar)", b: "Year-round; product companies hire continuously" },
+      { factor: "Application effort per offer", a: "Lower (campus drive registration)", b: "Higher (CV tailoring + applications + referrals)" },
+      { factor: "Companies accessible", a: "Mostly services majors + occasional product cos", b: "All — services, product, startup, GCC, BFSI tech" },
+      { factor: "Bench / training period after joining", a: "3-6 months (standard at services majors)", b: "Often 2-6 weeks (faster onto real projects)" },
+      { factor: "Negotiation room", a: "Almost none (campus drive salary fixed)", b: "₹0.3-2 LPA with competing offer in hand" },
+    ],
+    whenA: {
+      heading: "When campus placement is the right primary path",
+      paragraphs: [
+        "If you're a final-year student at a Pune engineering college with active services-major campus partnerships (most VIT, COEP, PICT, MIT, PCCOE, AIT, JSPM run multiple campus drives each cycle), campus placement is the higher-conversion-per-effort path. Sign up for every drive your college runs — even if the company isn't your top pick, an offer in hand is leverage.",
+        "If you want predictable timeline + structured services-major training, campus placement delivers it. You'll know within a defined window (Aug-Mar of final year) whether you have an offer; the 3-6 month bench period gives you paid training before your first project; the salary band is set by company policy with little surprise.",
+        "If you don't have strong personal projects or referral network yet, campus placement's lower-application-effort + filter-based selection works in your favour. You don't need to convince 50 individual hiring managers; you need to pass a structured drive + interview cycle.",
+      ],
+    },
+    whenB: {
+      heading: "When off-campus placement is the right primary path",
+      paragraphs: [
+        "If you're at a non-partnering college, a dropout, a career changer, or a graduate beyond the campus-recruitment window, off-campus is your only path. The ~40% of Pune fresher offers that come through off-campus channels go to candidates in this situation overwhelmingly.",
+        "If you're targeting Pune product companies (Druva, Helpshift, BrowserStack, GUVI, ZS Associates) or AI startups, off-campus is the dominant path — product companies do limited campus hiring, mostly running off-campus drives + direct applications via LinkedIn + referrals.",
+        "If you have a strong portfolio (3+ deployed projects, GitHub history, technical writing), the salary upside justifies the higher application effort. Product company off-campus offers (₹5-12 LPA) materially exceed services-major campus offers (₹3.5-6 LPA); a 90-day off-campus search investment can pay back many times over the career.",
+      ],
+    },
+    bottomLine:
+      "Most successful Pune fresher placements happen via both paths in parallel — campus offers as a safety net, off-campus pursuit for upside. Take the first decent campus offer you receive, then continue off-campus applications for 60-90 days. About 30% of our placement-cell graduates ultimately accept off-campus offers after declining or holding campus offers. Don't treat them as either/or — they're complementary funnels.",
+    relatedCourseSlugs: ["java-full-stack-training-in-pune", "python-training-in-pune", "mern-stack-training-in-pune"],
+    faqs: [
+      {
+        question: "Should I reject a campus offer to wait for a better off-campus offer?",
+        answer:
+          "Almost never reject without one in hand. The opportunity cost of waiting 3-6 more months for an off-campus offer that may not materialise usually exceeds the ₹2-6 LPA salary delta. Accept the campus offer with conditional joining flexibility, continue off-campus applications during your notice period (if any), pivot if a materially better off-campus offer lands. The risk-reward favours having a guaranteed offer + searching for upside.",
+      },
+      {
+        question: "What if my college doesn't have services-major campus partnerships?",
+        answer:
+          "Off-campus is your primary path then. Focus on: (1) building 2-3 strong portfolio projects + GitHub presence over 6-9 months, (2) LinkedIn cold outreach to alumni at target companies for referrals, (3) attending off-campus drives in Pune that any candidate can register for, (4) direct application via Naukri + LinkedIn + company career sites. Expect 60-120 day timeline vs campus path's 30-60 days, but the offer quality at product companies can be materially higher.",
+      },
+      {
+        question: "How many off-campus applications should I send for a fresher Pune IT job?",
+        answer:
+          "Realistic target: 60-100 well-targeted applications over 8-12 weeks. Tier them: ~30% services majors via portal applications, ~30% mid-tier consulting + GCC via portals + LinkedIn, ~30% product companies + startups via LinkedIn referrals + direct outreach, ~10% pure 'why not' shots at top-tier product cos. Track everything (applied date, source, response stage, interview outcomes) in a spreadsheet — diagnose your funnel before applying harder.",
+      },
+      {
+        question: "Do Pune product companies hire freshers via off-campus drives?",
+        answer:
+          "Yes increasingly — BrowserStack, Druva, Helpshift, GUVI, Persistent product teams, ZS Associates, and Pune AI startups all run periodic off-campus drives or accept direct fresher applications. The bar is higher (portfolio + DSA + system design fundamentals expected) but pay is 30-80% above services-major campus offers. Treat product-company off-campus as the upside play; services-major campus as the safety net.",
+      },
+    ],
+  },
 ];
 
 export function getComparison(slug: string): Comparison | undefined {
