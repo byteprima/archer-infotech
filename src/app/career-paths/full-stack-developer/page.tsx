@@ -723,6 +723,19 @@ export default function FullStackDeveloperCareerPath() {
                   </span>
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/compare/tailwind-vs-bootstrap-for-pune-frontend-2026"
+                  className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
+                >
+                  <span className="font-medium block text-sm">
+                    Tailwind vs Bootstrap for Pune Frontend
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    Comparison · utility-first vs component library pick
+                  </span>
+                </Link>
+              </li>
             </ul>
           </section>
 
