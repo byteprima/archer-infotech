@@ -38,8 +38,11 @@ import { buildPageMetadata } from "@/lib/seo";
 import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
 
 export const metadata: Metadata = buildPageMetadata({
-  title:
-    "Archer Infotech Reviews & Student Testimonials — 5.0 Stars from 126+ Verified Reviews",
+  // P3-22 — original 85-char title was over the 60-char Google
+  // snippet budget. Brand stays in the title since the page IS the
+  // brand's review hub; the buildPageMetadata auto-skip suffix logic
+  // detects "Archer Infotech" and won't double it.
+  title: "Archer Infotech Reviews — 5.0★ from 126+ Google Reviews",
   description:
     "Read 5.0-star Google-verified reviews + placement testimonials from Archer Infotech students. Names, courses, hiring companies and LinkedIn profiles — all verifiable, none fabricated. Updated 2026-06-10.",
   path: "/testimonials",

@@ -38,6 +38,7 @@ import {
   getRecentPosts,
 } from "@/lib/actions/blog";
 import { siteConfig } from "@/data/site-config";
+import { summariseToMeta } from "@/lib/seo/meta-trim";
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
@@ -68,7 +69,23 @@ export async function generateMetadata({
   // (triple brand). See SEO/work-plan/raw/pillar5.json P5-02.
   const rawTitle = post.metaTitle || post.title;
   const title = rawTitle.replace(/\s*\|\s*Archer\s*Infotech\b.*$/i, "").trim();
-  const description = post.metaDescription || post.excerpt || post.content.slice(0, 160);
+  const rawDescription = post.metaDescription || post.excerpt || post.content.slice(0, 160);
+  // P3-22 — clamp description to Google's mobile snippet band (≤175
+  // chars, sentence-boundary cut).
+  const description = summariseToMeta(rawDescription, 175);
+
+  // P3-22 — auto-skip the " | Archer Infotech" suffix when (a) the
+  // root template would push the rendered title past ~60 chars, or
+  // (b) the title already mentions the brand. Inlined here (not via
+  // buildPageMetadata) because this generateMetadata emits BlogPosting-
+  // specific OpenGraph fields (publishedTime, modifiedTime, authors,
+  // section) that the shared helper doesn't expose.
+  const TITLE_SNIPPET_BUDGET = 60;
+  const BRAND_SUFFIX = ` | ${siteConfig.name}`;
+  const titleAlreadyHasBrand = /archer\s*infotech/i.test(title);
+  const suffixBlowsBudget = title.length + BRAND_SUFFIX.length > TITLE_SNIPPET_BUDGET;
+  const skipBrandSuffix = titleAlreadyHasBrand || suffixBlowsBudget;
+  const fullTitle = skipBrandSuffix ? title : `${title}${BRAND_SUFFIX}`;
 
   // og:image + twitter:image MUST be absolute URLs — social-card parsers
   // (Facebook, Twitter/X, LinkedIn) don't reliably resolve relative paths.
@@ -83,12 +100,16 @@ export async function generateMetadata({
     : null;
 
   return {
-    title, // root template appends " | Archer Infotech"
+    // When skipBrandSuffix is true, use `absolute` to bypass the root
+    // layout's title template — otherwise the template would re-append
+    // the suffix and undo our trim.
+    title: skipBrandSuffix ? { absolute: title } : title,
     description,
     alternates: { canonical: `/blog/${slug}` },
     openGraph: {
-      // OG titles do NOT use the title.template, so we explicitly add brand once.
-      title: `${title} | ${siteConfig.name}`,
+      // OG titles do NOT use the title.template, so always emit the
+      // resolved fullTitle here.
+      title: fullTitle,
       description,
       type: "article",
       url: `${siteConfig.url}/blog/${slug}`,

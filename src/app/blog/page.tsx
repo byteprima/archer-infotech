@@ -12,7 +12,9 @@ import { buildPageMetadata } from "@/lib/seo";
 import { categoryPath } from "@/lib/blog/category-slug";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Blog",
+  // P3-22 — original "Blog" alone rendered as 22-char `<title>` after the
+  // " | Archer Infotech" suffix, below Google's snippet floor.
+  title: "IT Training Blog — Java, Python, AI, Cloud & Careers",
   description: `Read the latest articles, tutorials and insights from ${siteConfig.name}. Stay updated on IT trends, programming tips, career advice, and Pune training news.`,
   path: "/blog",
 });
