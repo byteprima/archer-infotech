@@ -749,6 +749,19 @@ export default function FullStackDeveloperCareerPath() {
                   </span>
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/guides/postgresql-queries-pune-full-stack-developers-2026"
+                  className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
+                >
+                  <span className="font-medium block text-sm">
+                    10 PostgreSQL Queries for Pune Full Stack Devs
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    Guide · JSONB + window functions + UPSERT + indexes
+                  </span>
+                </Link>
+              </li>
             </ul>
           </section>
 
