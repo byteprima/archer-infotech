@@ -627,6 +627,19 @@ export default function JavaDeveloperCareerPath() {
               </li>
               <li>
                 <Link
+                  href="/guides/spring-boot-interview-questions-pune-java-freshers-2026"
+                  className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
+                >
+                  <span className="font-medium block text-sm">
+                    10 Spring Boot Interview Questions for Pune Freshers
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    Guide · ranked by Pune interview frequency
+                  </span>
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/courses/programming/java-training-in-pune"
                   className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
                 >

@@ -448,6 +448,54 @@ export const listicles: Listicle[] = [
       },
     ],
   },
+
+  // 13 ─ Spring Boot interview questions (Java pillar spoke #3, 2026-06-07) ──
+  {
+    slug: "spring-boot-interview-questions-pune-java-freshers-2026",
+    shortLabel: "Spring Boot interview Qs",
+    metaTitle: "10 Spring Boot Interview Questions Every Pune Java Fresher Should Master (2026)",
+    metaDescription:
+      "The 10 Spring Boot interview questions Pune Java freshers actually face in 2026 — auto-configuration, dependency injection, REST design, JPA, transactions, testing. With Pune-context answers.",
+    h1: "10 Spring Boot Interview Questions Every Pune Java Fresher Should Master (2026)",
+    intro:
+      "Pune Java fresher interviews — services majors + product companies alike — converge on a remarkably consistent Spring Boot question set. Below are the 10 most-asked questions ranked by interview frequency, each with the depth of answer expected at fresher tier. Practice these aloud, not just silently — interviewers reward clear structure as much as technical correctness. If you can answer these 10 confidently with concrete examples, you've covered ~70% of what's screened across Pune services-major and product-company Java fresher rounds.",
+    entries: [
+      { name: "What is Spring Boot auto-configuration and how does it work?", what: "Auto-configuration applies sensible defaults based on classpath dependencies — add spring-boot-starter-data-jpa and you get DataSource + EntityManager + transaction manager without writing config.", dataPoint: "Asked at ~80% of Pune Spring Boot fresher rounds. Mention @EnableAutoConfiguration + spring.factories + conditional annotations like @ConditionalOnMissingBean for senior-fresher signal.", bestFor: "First-pass interview screening question; expected to know cold." },
+      { name: "Constructor injection vs @Autowired field injection — which is better?", what: "Constructor injection is the modern preference: immutable dependencies, fails fast at startup if missing, materially easier to unit test (no reflection required).", dataPoint: "Asked at ~60% of Pune rounds. Mention final fields + Lombok @RequiredArgsConstructor as the idiomatic 2026 pattern.", bestFor: "Demonstrating modern best-practice awareness." },
+      { name: "What's the difference between @Component, @Service, @Repository, and @Controller?", what: "All are specialisations of @Component (each makes the class a Spring-managed bean). Semantic differences: @Service = business-logic, @Repository = data-access (adds JPA exception translation), @Controller = web layer (with @RestController = @Controller + @ResponseBody).", dataPoint: "Asked at ~70% of Pune rounds. The exception-translation behaviour of @Repository is the differentiator that signals senior-fresher awareness.", bestFor: "Foundation Spring Boot architecture question." },
+      { name: "Explain Spring Boot REST API design with @RequestMapping variants.", what: "@GetMapping / @PostMapping / @PutMapping / @PatchMapping / @DeleteMapping are method-specific shortcuts for @RequestMapping(method = X). @PathVariable extracts URL segments, @RequestParam handles query params, @RequestBody deserialises JSON.", dataPoint: "Walk through a complete CRUD controller verbally; interviewers want to see fluency, not memorised syntax.", bestFor: "Hands-on REST round; often asked alongside live coding." },
+      { name: "How do you handle exceptions in Spring Boot REST APIs?", what: "@ControllerAdvice + @ExceptionHandler centralises exception handling. Map custom exceptions to ResponseEntity with appropriate HTTP status + error body. Mention Problem Details (RFC 7807) for modern API responses.", dataPoint: "Asked at ~55% of Pune product company rounds. Generic 500 errors signal weak engineering thinking; structured error responses signal production readiness.", bestFor: "Differentiating beyond services-major fresher tier." },
+      { name: "What's the N+1 query problem in JPA and how do you fix it?", what: "Fetching a list of N parent entities then accessing a related child triggers 1 query for the list + N queries for the children = N+1 total queries. Fix: eager fetching via JOIN FETCH in JPQL, @EntityGraph annotations, or batch fetching configuration.", dataPoint: "Asked at ~50% of Pune product company rounds; rare at services-major fresher tier but signals senior-fresher awareness when raised proactively.", bestFor: "Strong signal at product-company interviews; differentiates from pure-CRUD candidates." },
+      { name: "Explain @Transactional and its propagation behaviours.", what: "@Transactional starts a database transaction around the annotated method (auto-rollback on RuntimeException, commit on normal return). Propagation REQUIRED (default) joins existing transaction or creates one; REQUIRES_NEW always creates a new one; SUPPORTS uses one if present; NESTED creates a savepoint.", dataPoint: "Asked at ~45% of Pune rounds. Mention common pitfall: self-invocation doesn't trigger proxying (the AOP advice is on the proxy, not the bean itself).", bestFor: "Transactional integrity question; common in BFSI-targeted interviews." },
+      { name: "How do you secure a Spring Boot REST API?", what: "Spring Security with stateless JWT authentication is the modern default. Filter chain configuration via SecurityFilterChain bean: disable CSRF for REST APIs, require authentication on protected endpoints, use BCryptPasswordEncoder for password hashing, write a custom OncePerRequestFilter for JWT parsing.", dataPoint: "Asked at ~60% of Pune rounds including services majors. Spring Security 6 + Lambda DSL is the 2026 pattern; older XML config knowledge is unnecessary.", bestFor: "Architecture-tier question; demonstrates production-readiness thinking." },
+      { name: "What testing strategy do you use for Spring Boot apps?", what: "Three-layer pyramid: JUnit 5 + Mockito unit tests on service logic, @WebMvcTest for controller layer (mocking services), @DataJpaTest for repository layer (in-memory H2 or Testcontainers). Mention Testcontainers for integration tests against real PostgreSQL — the modern Pune product-company pattern.", dataPoint: "Asked at ~55% of Pune rounds. Services majors check awareness; product companies probe depth + idiomatic patterns.", bestFor: "Demonstrating professional engineering discipline." },
+      { name: "How do you externalise configuration in Spring Boot?", what: "application.yml or application.properties with profile-specific variants (application-dev.yml, application-prod.yml). Use @Value for single properties, @ConfigurationProperties for grouped + type-safe binding. Sensitive values (DB passwords, API keys) load from environment variables or Spring Cloud Config + Vault in production.", dataPoint: "Asked at ~40% of Pune rounds. Mention 12-factor app principles + never committing secrets to git for senior-fresher signal.", bestFor: "Configuration management round; common at DevOps-leaning interviews." },
+    ],
+    methodology:
+      "Questions ranked by interview-frequency data from Archer Infotech's 17-year placement-cell debriefs across Pune services majors (Persistent, Capgemini, Mindtree, Tech Mahindra, Cognizant, Wipro, Infosys, TCS) and product companies (Persistent product, Druva, Cybage, BFSI tech teams). Frequencies reflect 2024-2026 hiring cycles; older questions about XML Spring config + Servlet API depth have been deprioritised as they no longer appear at fresher tier.",
+    faqs: [
+      {
+        question: "How long should I spend preparing Spring Boot for Pune Java fresher interviews?",
+        answer:
+          "If you've already built 2-3 Spring Boot projects to portfolio depth, dedicated interview prep is 1-2 weeks of focused practice on these 10 questions + 1-2 weeks of mock interviews. If you haven't built projects yet, build first (3-4 months) then prep (2-4 weeks) — depth in real code beats interview-question memorisation every time.",
+      },
+      {
+        question: "What's the most-failed Spring Boot question at Pune fresher interviews?",
+        answer:
+          "Transactions + @Transactional self-invocation. Candidates know @Transactional rolls back on RuntimeException but miss that calling a @Transactional method from within the same class bypasses the AOP proxy (because the call doesn't go through the proxy). Practical fix: extract the transactional method to a separate bean, or use AspectJ instead of Spring AOP.",
+      },
+      {
+        question: "Do I need to know Spring Cloud microservices for Java fresher interviews?",
+        answer:
+          "Services-major tier: no, monolithic Spring Boot is sufficient. Product company tier (Persistent product, Druva, BFSI modernisation): yes, basic Spring Cloud awareness (Eureka, API Gateway, Circuit Breaker basics) bumps fresher offers ₹1-3 LPA above standard band. Add Spring Cloud knowledge after solid monolithic Spring Boot foundation.",
+      },
+      {
+        question: "How should I demonstrate Spring Boot knowledge if I can't recall every annotation?",
+        answer:
+          "Walk through the concept first ('I'd use a Spring-managed bean here so dependencies are injected'), then approximate the annotation ('something like @Service or @Component'). Interviewers reward clear understanding over perfect recall — a candidate who explains the WHY beats one who memorises annotations without understanding when each fits.",
+      },
+    ],
+  },
 ];
 
 export function getListicle(slug: string): Listicle | undefined {
