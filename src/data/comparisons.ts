@@ -1853,6 +1853,72 @@ export const comparisons: Comparison[] = [
       },
     ],
   },
+
+  // 29 ─ Random Forest vs XGBoost (Data Science spoke #9, 2026-06-07) ──────
+  {
+    slug: "random-forest-vs-xgboost-for-pune-data-scientists-2026",
+    shortLabel: "Random Forest vs XGBoost",
+    metaTitle: "Random Forest vs XGBoost for Pune Data Scientists (2026) — Which to Use",
+    metaDescription:
+      "Random Forest vs XGBoost in 2026: an honest comparison for Pune data scientists — accuracy, training speed, hyperparameter complexity, interview frequency, and which to learn first.",
+    h1: "Random Forest vs XGBoost for Pune Data Scientists (2026)",
+    optionA: "Random Forest",
+    optionB: "XGBoost",
+    verdict:
+      "For Pune data scientists in 2026, both are first-class tabular ML algorithms — XGBoost (and LightGBM) typically wins on accuracy + Kaggle competitions, Random Forest is faster to train + tune + more interpretable. ~70% of Pune data scientist interviews probe both. Pick Random Forest first as your foundational ensemble + baseline algorithm — simpler to understand + fewer hyperparameters to tune. Add XGBoost as the production accuracy-tier algorithm + interview-screening favourite.",
+    table: [
+      { factor: "Pune ML interview frequency", a: "~80% of data scientist + ML engineer rounds", b: "~75% of rounds (often asked together)" },
+      { factor: "Algorithm type", a: "Bagging ensemble (parallel trees + averaging)", b: "Gradient boosting ensemble (sequential trees + correcting previous errors)" },
+      { factor: "Accuracy on typical tabular data", a: "Strong baseline; often within 1-3% of XGBoost", b: "Frequently the highest-accuracy choice on tabular data" },
+      { factor: "Training speed", a: "Faster (parallel tree building)", b: "Slower (sequential boosting); but optimized C++ implementation" },
+      { factor: "Inference / prediction speed", a: "Fast", b: "Fast (often comparable to RF in optimized libraries)" },
+      { factor: "Hyperparameter complexity", a: "~5 to tune meaningfully (n_estimators, max_depth, min_samples_*)", b: "~15+ to tune meaningfully (learning_rate, max_depth, subsample, colsample_*, reg_alpha, reg_lambda, etc.)" },
+      { factor: "Overfitting tendency", a: "Low (variance reduction via averaging many trees)", b: "Higher (without careful early_stopping + regularisation)" },
+      { factor: "Handling of missing values", a: "Requires explicit imputation upfront", b: "Native missing value handling (DMatrix learns optimal direction)" },
+      { factor: "Best for", a: "Quick baselines, smaller datasets, interpretability via feature_importances_, low-tuning-time scenarios", b: "Maximum accuracy on competitions + production, larger datasets, fine-grained accuracy gains" },
+    ],
+    whenA: {
+      heading: "When Random Forest is the right pick",
+      paragraphs: [
+        "If you're building a quick baseline + want a strong starting point with minimal hyperparameter tuning, Random Forest is the right first algorithm. n_estimators=100 + max_depth=None + min_samples_split=2 (defaults) usually gives 90% of the achievable performance on typical tabular data.",
+        "If your dataset is small (<10K rows) + you don't need every last accuracy percentage point, Random Forest's simpler tuning + faster training make it the higher-ROI choice. Saving 30 minutes of hyperparameter tuning for a 1% accuracy gain rarely matters in practice.",
+        "If interpretability + feature_importances_ matter for stakeholder communication (BFSI risk models, healthcare predictions, regulatory contexts), Random Forest's averaged tree importances are typically cleaner + more stable than XGBoost's gain-based ones.",
+      ],
+    },
+    whenB: {
+      heading: "When XGBoost is the right pick",
+      paragraphs: [
+        "If you're targeting maximum accuracy on tabular data + have the time + expertise to tune hyperparameters carefully, XGBoost (or LightGBM) typically delivers ~1-3% accuracy gains over Random Forest on most datasets. At product company scale these gains translate to material revenue impact.",
+        "If you're competing on Kaggle / Pune analytics consultancy competitive use cases (ZS Associates client deliverables, Tiger Analytics consultative work) where 'best possible accuracy' matters, XGBoost is the canonical choice. Most modern Kaggle wins on tabular data use XGBoost or LightGBM.",
+        "If your dataset has substantial missing values + you want native missing-value handling without preprocessing, XGBoost's DMatrix learns optimal directions for missing data. Random Forest requires explicit imputation upfront with its own trade-offs.",
+      ],
+    },
+    bottomLine:
+      "Learn both — they're complementary, not competitors. Random Forest as your baseline + foundational ensemble + interpretation algorithm. XGBoost as your production accuracy-tier + competitive ML algorithm. Most Pune data scientists use Random Forest for quick experiments + XGBoost for production-grade final models. The 1-2 weeks of focused study to learn both pays back over your full ML career.",
+    relatedCourseSlugs: ["data-science-training-in-pune", "machine-learning-training-in-pune"],
+    faqs: [
+      {
+        question: "Should I learn LightGBM + CatBoost too, or are Random Forest + XGBoost enough?",
+        answer:
+          "Random Forest + XGBoost cover ~85% of Pune fresher interview tabular-ML questions. LightGBM is excellent (similar to XGBoost, faster training) — learn it as XGBoost's sibling once XGBoost is comfortable. CatBoost specialises in categorical-feature-heavy datasets; learn it if your target role works with such data (BFSI risk, customer analytics). Cover RF + XGB to working depth, then add others as needed.",
+      },
+      {
+        question: "What's the realistic accuracy gap between Random Forest and XGBoost on typical Pune problems?",
+        answer:
+          "Typically 1-3% on most tabular datasets. On clean datasets with strong features, the gap is smaller. On messy datasets with complex non-linear relationships, the gap can grow to 5%+. For interview prep + portfolio: build a project comparing RF + XGB on the same dataset + show the actual gap + explain the trade-off — this demonstrates real evaluation discipline beyond textbook knowledge.",
+      },
+      {
+        question: "What's the most-failed Random Forest / XGBoost question at Pune interviews?",
+        answer:
+          "Hyperparameter tuning strategy. Candidates know the hyperparameters exist but fail at: 'how would you systematically tune this for a new dataset?' Strong answer: random search or Bayesian optimization (Optuna) over a sensible range, with cross-validation, time-budget-bound, and early stopping. Demonstrating systematic tuning vs grid-search-everything signals real production experience.",
+      },
+      {
+        question: "Are Random Forest + XGBoost being replaced by deep learning for tabular data?",
+        answer:
+          "Not in 2026 for typical Pune tabular ML problems. Despite TabNet + FT-Transformer + other tabular DL approaches, XGBoost + LightGBM + CatBoost continue to win or match on most real-world tabular benchmarks. For computer vision, NLP, audio: deep learning dominates. For tabular: gradient boosting trees remain the practical default at most Pune analytics + product company use cases.",
+      },
+    ],
+  },
 ];
 
 export function getComparison(slug: string): Comparison | undefined {

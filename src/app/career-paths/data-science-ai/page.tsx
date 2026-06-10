@@ -751,6 +751,19 @@ export default function DataScienceAICareerPath() {
                   </span>
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/compare/random-forest-vs-xgboost-for-pune-data-scientists-2026"
+                  className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
+                >
+                  <span className="font-medium block text-sm">
+                    Random Forest vs XGBoost for Pune Data Scientists
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    Comparison · tabular ML algorithm pick + hyperparameter complexity
+                  </span>
+                </Link>
+              </li>
             </ul>
           </section>
 
