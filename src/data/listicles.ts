@@ -1072,6 +1072,54 @@ export const listicles: Listicle[] = [
       },
     ],
   },
+
+  // 26 ─ Python testing (Python cluster spoke #7, 2026-06-07) ──────────────
+  {
+    slug: "python-testing-strategies-pune-engineers-2026",
+    shortLabel: "Python testing strategies",
+    metaTitle: "10 Python Testing Strategies Every Pune Engineer Should Know (2026)",
+    metaDescription:
+      "The 10 Python testing strategies Pune backend + data + AI engineers actually use in production in 2026 — pytest, fixtures, mocking, async, parametrize, coverage. With Pune-context patterns.",
+    h1: "10 Python Testing Strategies Every Pune Engineer Should Know (2026)",
+    intro:
+      "Testing discipline separates fresher candidates who can build prototypes from those hireable for production work. Pune Python interviews increasingly screen testing depth — ~55% of Pune Python product company rounds explicitly probe pytest patterns, mocking strategies, and coverage thresholds. Below are the 10 highest-value Python testing strategies ranked by Pune interview frequency + production-use prevalence. Each covers what to do + why it matters + the gotcha that trips up fresher candidates. Master these 10 + add 70%+ coverage to one portfolio project = production-grade testing signal.",
+    entries: [
+      { name: "Use pytest over unittest (modern Pune default)", what: "pytest is the standard Python test runner — simpler assertion syntax (`assert x == y` not `self.assertEqual(x, y)`), powerful fixtures, parametrize, plugins ecosystem. unittest still works but pytest's developer-experience advantages dominate modern Pune Python codebases.", dataPoint: "Asked at ~75% of Pune Python rounds. unittest knowledge useful for legacy maintenance; pytest is the modern hiring default.", bestFor: "Foundation; expected default at every modern Pune Python team." },
+      { name: "Fixtures for shared setup + teardown", what: "Define reusable setup via `@pytest.fixture` decorator; functions request them by name as arguments. Scope controls lifecycle: function (default), class, module, session. Use yield for cleanup: `yield value; cleanup()`. Replaces setUp/tearDown boilerplate.", dataPoint: "Asked at ~65% of Pune rounds. Common gotcha: fixture scope mismatch (function-scoped fixture inside session-scoped — error).", bestFor: "Shared test infrastructure; database connections; HTTP clients." },
+      { name: "Parametrize for testing multiple inputs", what: "`@pytest.mark.parametrize('input, expected', [(1, 1), (2, 4), (3, 9)])` runs the test function once per parameter set with the values injected. Cleaner than loops; each parametrized case appears as separate test result. Add IDs for clarity: `parametrize(..., ids=['one', 'two', 'three'])`.", dataPoint: "Asked at ~55% of Pune rounds. Data-driven testing pattern; differentiates from candidates writing duplicate test functions.", bestFor: "Boundary value testing; multiple input variations." },
+      { name: "Mock external dependencies via unittest.mock or pytest-mock", what: "`@patch('module.requests.get')` replaces requests.get with a Mock object for the test's duration. Use return_value for simple cases, side_effect for sequences or exceptions. pytest-mock provides cleaner `mocker` fixture: `mocker.patch('module.requests.get')`.", dataPoint: "Asked at ~70% of Pune rounds. Mocking discipline differentiates production-ready candidates from prototype-only ones.", bestFor: "Isolating units; avoiding network/database calls in unit tests." },
+      { name: "Use pytest-asyncio for async function testing", what: "Async test: `@pytest.mark.asyncio\\nasync def test_thing(): result = await fetch_data(); assert result == ...`. Configure via pytest.ini or pyproject.toml. Critical for testing FastAPI handlers + async LangChain agents + httpx clients — increasingly common in Pune Python product work.", dataPoint: "Asked at ~40% of Pune product company rounds. Modern async-Python signal; rare at services-major fresher tier.", bestFor: "FastAPI + LangChain + httpx + any async codebase." },
+      { name: "Test web apps via TestClient (FastAPI) or test_client (Flask)", what: "FastAPI: `from fastapi.testclient import TestClient; client = TestClient(app); response = client.get('/endpoint'); assert response.status_code == 200`. Flask: `app.test_client()`. No real server needed — tests run in-process. Faster + more reliable than spinning up the server for tests.", dataPoint: "Asked at ~50% of Pune Python web rounds. Walking through testing a complete endpoint flow signals real production experience.", bestFor: "API testing; integration tests for web frameworks." },
+      { name: "Mock LLM API calls in agentic AI / RAG tests", what: "Don't call real OpenAI / Anthropic APIs in tests (slow + costly + non-deterministic). Mock: `mocker.patch('openai.ChatCompletion.create', return_value=mock_response)`. For LangChain: use FakeChatModel or VCR-cassette pattern for deterministic LLM responses. Critical for AI engineer test discipline.", dataPoint: "Asked at ~45% of Pune AI engineer rounds. Production-grade AI test discipline; differentiates beyond tutorial-quality candidates.", bestFor: "AI engineer testing; cost-controlled CI runs." },
+      { name: "Property-based testing with Hypothesis", what: "Generate hundreds of random inputs to find edge cases your hand-written examples miss: `@given(st.integers())\\ndef test_sort_idempotent(xs): assert sorted(sorted(xs)) == sorted(xs)`. Hypothesis finds + shrinks failing examples automatically. Catches off-by-one + integer-overflow + empty-list bugs example-based tests miss.", dataPoint: "Asked at ~25% of Pune product company rounds. Senior-fresher engineering rigour signal; rare at services-major fresher tier.", bestFor: "Algorithmic code; data-pipeline transformations; library code." },
+      { name: "Coverage tracking with pytest-cov", what: "`pytest --cov=mymodule --cov-report=term-missing` shows which lines + branches aren't covered. Aim for ~80% baseline (not 100% — diminishing returns on edge cases + setup code). Use `# pragma: no cover` for legitimately unreachable code (defensive raises).", dataPoint: "Asked at ~50% of Pune product company rounds. Specifying a target coverage % shows engineering discipline; '100% coverage' answer signals inexperience.", bestFor: "Quality gates; CI coverage thresholds; identifying untested paths." },
+      { name: "Test pyramid: unit > integration > E2E", what: "Many unit tests (fast, isolated, easy to debug) → fewer integration tests (real database, real HTTP layer) → very few E2E tests (real browser, full stack). E2E catches user-visible bugs but is slow + flaky. Don't invert: heavy E2E + few unit tests is a maintenance nightmare.", dataPoint: "Asked at ~55% of Pune rounds. Test-strategy thinking signal; senior-fresher differentiator from candidates who just write 'tests'.", bestFor: "Test-strategy maturity; production-engineering signal." },
+    ],
+    methodology:
+      "Strategies ranked by Pune Python interview-frequency from Archer Infotech's placement-cell debriefs over 2024-2026 cycles + production-use prevalence at Pune Python product companies (Druva, BrowserStack, GUVI, ZS Associates, Persistent Avaamo, Helpshift). pytest-first modern patterns prioritised; older unittest specifics kept where legacy maintenance matters. Async + AI testing patterns reflect rapidly-growing modern Pune product company hiring.",
+    faqs: [
+      {
+        question: "Should I learn unittest or pytest as a Pune Python fresher?",
+        answer:
+          "pytest first to working depth. unittest awareness for legacy codebase maintenance (Pune services-major projects often have years of unittest-based test suites). Modern Pune Python product companies + AI startups are pytest-first; spending fresher prep time on pytest patterns vs unittest specifics is the right allocation.",
+      },
+      {
+        question: "What test coverage % should I target for Pune fresher portfolio projects?",
+        answer:
+          "~70-80% is realistic + sufficient. Don't chase 100% — diminishing returns on edge cases + defensive code. Show that you understand what's covered + why some code intentionally isn't (e.g. `# pragma: no cover` for unreachable code). Recruiters value coverage discipline + intentional gaps over 100% theatre.",
+      },
+      {
+        question: "How do I mock LLM API calls without breaking tests when prompts change?",
+        answer:
+          "Three patterns: (1) Mock at the highest reasonable level — typically the orchestration function, not the LLM call directly. (2) Use VCR cassettes (vcr-langchain or vcrpy) to record real responses once + replay. (3) For chain testing, use LangChain's FakeChatModel or BatchModel that returns scripted responses by prompt content. The 'prompts change' problem is real — design tests around behaviour, not exact LLM output strings.",
+      },
+      {
+        question: "What's the most-failed Python testing question at Pune fresher interviews?",
+        answer:
+          "Mocking depth + scope. Candidates know `@patch` exists but miss: (1) where to patch (module that uses the import, not the module that defines it — patch at use-site), (2) Mock vs MagicMock (MagicMock auto-implements magic methods like __iter__), (3) side_effect for sequences + exceptions, (4) reset_mock + assert_called_with assertion patterns. Walking through 'mock a function called from another module' demonstrates real mocking maturity.",
+      },
+    ],
+  },
 ];
 
 export function getListicle(slug: string): Listicle | undefined {
