@@ -720,6 +720,446 @@ export const courseLocations: CourseLocationCombo[] = [
       },
     ],
   },
+
+  // ─── 13. Python Full Stack in Kothrud ────────────────────────────────────
+  {
+    slug: "python-full-stack-in-kothrud",
+    courseSlug: "python-full-stack-training-in-pune",
+    locationSlug: "it-training-in-kothrud",
+    shortLabel: "Python Full Stack in Kothrud",
+    metaTitle: "Python Full Stack Training in Kothrud (2026)",
+    metaDescription:
+      "Python Full Stack Training in Kothrud — Archer Infotech (Kothrud centre). Django + Flask + FastAPI + React with placement assistance at Pune product startups. Classroom + online batches.",
+    h1: "Python Full Stack Training in Kothrud, Pune",
+    intro: [
+      "Python Full Stack is the natural progression for Kothrud students who started with Python and want to add the frontend + deployment layer that completes the picture for Pune product startups and Django-heavy GCC captives. The stack — Django (or Flask/FastAPI) + Django REST + React + PostgreSQL + deployment — is exactly what hiring panels at product startups in the Kothrud–Karve Nagar belt screen on.",
+      "The home-neighbourhood commute means classroom batches are typically 5-15 minutes away — most Kothrud Python Full Stack students attend 2 evenings + Saturday morning at the centre. Live-online format is available for students with conflicting schedules; LMS lifetime access covers exam-week catchup.",
+    ],
+    whyHere: [
+      "Python Full Stack is the natural next step from Core Python for product startup roles",
+      "Kothrud students attend classroom in 5-15 min — short commute compounds attendance consistency",
+      "Pairs well with the Data Science track for AI&DS students wanting backend + ML capability",
+      "Trainers have production Django/FastAPI experience at Pune product companies — interview prep maps directly",
+      "Pune Python Full Stack fresher band is ₹4-6 LPA with top performers at product captives crossing ₹10 LPA",
+    ],
+    faqs: [
+      {
+        question: "Should I take Core Python before Python Full Stack?",
+        answer:
+          "If you have zero Python exposure, yes — Core Python first makes Full Stack much more learnable. If you already have college Python coursework with labs, you can start directly in Full Stack.",
+      },
+      {
+        question: "Django vs Flask vs FastAPI — what does the track cover?",
+        answer:
+          "All three. Django is the primary because it's most widely hired; Flask covers small-API and microservice patterns; FastAPI covers modern async REST + ML deployment patterns. Students pick a primary focus mid-track.",
+      },
+      {
+        question: "Which Pune companies hire Python Full Stack freshers?",
+        answer:
+          "Pune product startups (especially fintech, healthtech, SaaS), Django-heavy GCC captives, and product wings of Pune MNCs. Pure Python Full Stack roles are less common than Java FS volume, but product-company pay tends to be higher.",
+      },
+      {
+        question: "How long is the Python Full Stack course?",
+        answer:
+          "Flagship Python Full Stack runs 4-6 months covering Django + Flask + FastAPI + React + PostgreSQL + deployment, plus 8-10 production-style projects.",
+      },
+      {
+        question: "Can I switch between classroom and online?",
+        answer:
+          "Yes — format-switching is supported. Most Kothrud students start classroom + LMS catchup, then shift to live-online during exam weeks or work crunches.",
+      },
+      {
+        question: "What does Python Full Stack training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+
+  // ─── 14. Java Full Stack in Wakad ────────────────────────────────────────
+  {
+    slug: "java-full-stack-in-wakad",
+    courseSlug: "java-full-stack-training-in-pune",
+    locationSlug: "it-training-in-wakad",
+    shortLabel: "Java Full Stack in Wakad",
+    metaTitle: "Java Full Stack Training in Wakad, Pune (2026)",
+    metaDescription:
+      "Java Full Stack Training for Wakad-area learners — Archer Infotech. Spring Boot + microservices + React with placement assistance at Wakad-Hinjewadi-Baner MNCs. Live-online + classroom.",
+    h1: "Java Full Stack Training in Wakad, Pune",
+    intro: [
+      "Wakad sits between Hinjewadi and Baner-Balewadi — placing residents within easy reach of both the Hinjewadi MNC corridor and the Baner GCC + product-startup belt. Java Full Stack is the most-hired pattern across this combined corridor, so Wakad-resident learners have arguably the strongest geographic alignment for a Java FS career in Pune.",
+      "Wakad is about 20 km from our Kothrud centre. Most Wakad students join live-online batches (same curriculum, instructors, mock interviews and placement support as classroom), with Saturday classroom + weekday online for those who want occasional in-person time on harder Spring Boot + microservices modules.",
+    ],
+    whyHere: [
+      "Wakad residents have the best dual-corridor positioning: Hinjewadi MNCs to the west, Baner GCCs to the east",
+      "Java Full Stack is the dominant hiring pattern across both corridors — 70%+ of MNC fresher offers",
+      "Live-online format eliminates the 20 km Wakad-Kothrud commute; Saturday classroom is available",
+      "Trainers have 10+ years at the exact MNCs Wakad-area students target",
+      "100+ hiring partner network includes the Hinjewadi MNCs + Baner GCCs Wakad students are closest to",
+    ],
+    faqs: [
+      {
+        question: "What's the Wakad-Kothrud commute math?",
+        answer:
+          "Roughly 20 km via Mumbai-Bangalore Expressway or via Aundh-Baner-Kothrud route — 30-40 min by two-wheeler depending on time and traffic. Most Wakad students attend live-online primarily.",
+      },
+      {
+        question: "Hinjewadi MNCs or Baner GCCs — which is the better target for Wakad?",
+        answer:
+          "Both are well within commute reach. Hinjewadi MNCs (Infosys, TCS, Wipro) have higher Java FS volume; Baner GCCs typically have higher per-offer pay band. Pick by company tier and culture preference; the stack work is identical.",
+      },
+      {
+        question: "Does live-online cover the same content as classroom?",
+        answer:
+          "Yes — exactly. Multi-year placement data confirms identical outcomes when students engage consistently. The deciding variable is your engagement, not format.",
+      },
+      {
+        question: "How long is the Java Full Stack course?",
+        answer:
+          "Flagship Java Full Stack runs 4-6 months covering Java + Spring Boot + microservices + React + databases + 8-10 production-style projects.",
+      },
+      {
+        question: "Will Archer help with both Hinjewadi and Baner drives?",
+        answer:
+          "Yes — our 100+ hiring partner network includes employers across both corridors. Placement team makes targeted referrals based on your stack depth and target preference.",
+      },
+      {
+        question: "What does Java Full Stack training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+
+  // ─── 15. DevOps in Wakad ─────────────────────────────────────────────────
+  {
+    slug: "devops-in-wakad",
+    courseSlug: "devops-training-in-pune",
+    locationSlug: "it-training-in-wakad",
+    shortLabel: "DevOps in Wakad",
+    metaTitle: "DevOps Training in Wakad, Pune (2026)",
+    metaDescription:
+      "DevOps Training for Wakad-area learners — Archer Infotech. Docker + Kubernetes + Jenkins + Terraform + AWS targeting Hinjewadi MNCs and Baner GCCs. Live-online + classroom.",
+    h1: "DevOps Training in Wakad, Pune",
+    intro: [
+      "Wakad sits at the centre of two of Pune's strongest DevOps hiring corridors — Hinjewadi MNCs scaling DevOps + SRE teams aggressively, and Baner-Balewadi GCC captives running production cloud infrastructure. Wakad residents have arguably the best geographic alignment in Pune for a DevOps career path. Archer Infotech's flagship DevOps track covers the stack both corridors actually screen on.",
+      "Wakad is about 20 km from our Kothrud centre. Most Wakad DevOps learners join live-online batches with cloud-sandbox labs accessible from anywhere; Saturday classroom is available for the harder Kubernetes and Terraform modules.",
+    ],
+    whyHere: [
+      "Dual-corridor advantage: Hinjewadi MNCs (DevOps/SRE scale-up) and Baner GCCs (production cloud operations)",
+      "DevOps + Cloud is the fastest-growing track in both corridors — fresher band ₹4-6.5 LPA, top performers ₹11+ LPA",
+      "Live-online format with cloud-sandbox labs eliminates Wakad-Kothrud commute",
+      "Trainers have production DevOps experience at both corridor types — services MNCs and product-style GCCs",
+      "AWS SAA-C03 cert pairs naturally — many Wakad students stack DevOps + AWS for full cloud-engineer applications",
+    ],
+    faqs: [
+      {
+        question: "What's the Wakad-Kothrud commute pattern for DevOps classes?",
+        answer:
+          "Most Wakad students attend live-online primarily — labs run in cloud sandboxes accessible from anywhere. Saturday classroom for harder K8s + Terraform modules is a popular option.",
+      },
+      {
+        question: "Hinjewadi MNCs or Baner GCCs — which is better for Wakad DevOps freshers?",
+        answer:
+          "Both. Hinjewadi MNCs have higher DevOps fresher volume (TCS/Infosys/Wipro scaling SRE aggressively); Baner GCCs have higher per-offer pay band for production-cloud work. Pick by company tier and culture preference.",
+      },
+      {
+        question: "Does the track include hands-on Kubernetes?",
+        answer:
+          "Yes — full K8s coverage with hands-on cluster setup, deployment patterns, services, ingress, scaling and basic operators. Students run real K8s workloads in cloud sandboxes.",
+      },
+      {
+        question: "Should I add AWS Solutions Architect after DevOps?",
+        answer:
+          "Common pattern — DevOps + SAA covers both the automation/deployment layer and the architecture/services layer. Many Wakad students stack both for stronger Hinjewadi + Baner applications.",
+      },
+      {
+        question: "How long is the DevOps course?",
+        answer:
+          "Flagship DevOps runs 3-4 months including Docker, Kubernetes, Jenkins, Terraform, AWS, Linux, Git, production-style projects, and certification prep.",
+      },
+      {
+        question: "What does DevOps training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+
+  // ─── 16. MERN Stack in Baner ─────────────────────────────────────────────
+  {
+    slug: "mern-stack-in-baner",
+    courseSlug: "mern-stack-training-in-pune",
+    locationSlug: "it-training-in-baner",
+    shortLabel: "MERN Stack in Baner",
+    metaTitle: "MERN Stack Training in Baner, Pune (2026)",
+    metaDescription:
+      "MERN Stack Training in Baner — Archer Infotech. MongoDB + Express + React + Node.js + TypeScript with placement support at Baner-Balewadi product startups and GCCs. Mixed classroom + online.",
+    h1: "MERN Stack Training in Baner, Pune",
+    intro: [
+      "Baner-Balewadi is one of Pune's densest product-startup and GCC belts — many of those engineering teams run on MERN (MongoDB + Express + React + Node) or close variants (Next.js, TypeScript-first React). MERN Stack hiring volume in the Baner corridor is steady and well-paid at product captives. Archer Infotech's flagship MERN track covers the stack these teams actually use.",
+      "Baner is about 15 km from our Kothrud centre via Pune University Road. The most common pattern for Baner MERN students is Saturday classroom (collaborative pairing for React + Node integration) plus weekday live-online for hands-on assignments.",
+    ],
+    whyHere: [
+      "MERN is the dominant full-stack pattern at Baner-Balewadi product startups and modern GCC captives",
+      "Product company pay band — top performers at Baner product captives cross ₹12 LPA",
+      "Mixed classroom + live-online format fits Baner residents' typical schedule",
+      "Stacks well with TypeScript + Next.js (covered in flagship MERN) — current trend at Baner product teams",
+      "Trainers have production MERN experience at Pune product companies — interview prep maps to Baner hiring panels",
+    ],
+    faqs: [
+      {
+        question: "MERN or Java Full Stack for a Baner target list?",
+        answer:
+          "MERN is sharper for Baner product captives + product startups. Java FS opens more services MNC volume. Baner-resident students aiming at product roles typically pick MERN; those aiming at services pipelines pick Java FS.",
+      },
+      {
+        question: "Which Baner companies hire MERN freshers?",
+        answer:
+          "Multiple Baner-Balewadi product startups (fintech, SaaS, healthtech), Fortune 500 GCC captives with React + Node engineering teams, and the product wings of Pune MNCs running Baner offices.",
+      },
+      {
+        question: "Does the MERN track include TypeScript and Next.js?",
+        answer:
+          "Yes — TypeScript is woven throughout, Next.js App Router is covered as the modern React deployment pattern. Plus Express + Node fundamentals and MongoDB design patterns.",
+      },
+      {
+        question: "How long is the MERN Stack course?",
+        answer:
+          "Flagship MERN runs 4-6 months covering React, Node, Express, MongoDB, TypeScript, Next.js, plus 8-10 production-style projects.",
+      },
+      {
+        question: "What outcome should I expect?",
+        answer:
+          "Pune MERN fresher band is ₹4-6 LPA with top performers at Baner product captives crossing ₹12 LPA.",
+      },
+      {
+        question: "What does MERN Stack training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+
+  // ─── 17. Data Science in Hinjewadi ───────────────────────────────────────
+  {
+    slug: "data-science-in-hinjewadi",
+    courseSlug: "data-science-training-in-pune",
+    locationSlug: "it-training-in-hinjewadi",
+    shortLabel: "Data Science in Hinjewadi",
+    metaTitle: "Data Science Training in Hinjewadi, Pune (2026)",
+    metaDescription:
+      "Data Science Training for Hinjewadi-area learners — Archer Infotech. Python + Pandas + scikit-learn + TensorFlow + production ML pipelines at Hinjewadi GCCs. Live-online + classroom.",
+    h1: "Data Science Training in Hinjewadi, Pune",
+    intro: [
+      "Hinjewadi GCC captives have scaled Data Science and ML engineering teams aggressively over the past few years — financial services, retail analytics, healthcare data, telecom platforms all have dedicated DS/ML wings in Hinjewadi. Pune services MNCs (TCS, Infosys, Wipro, Cognizant) also hire fresher data scientists for analytics and ML consulting roles. Archer Infotech's flagship Data Science track covers the stack and pipelines hiring panels here actually screen on.",
+      "Hinjewadi is about 25 km from our Kothrud centre, so most Hinjewadi-area Data Science students join live-online batches. The curriculum builds end-to-end ML — Python, Pandas, NumPy, scikit-learn, deep learning fundamentals, production deployment — through 8-10 portfolio projects.",
+    ],
+    whyHere: [
+      "Hinjewadi GCC captives have scaled DS/ML teams aggressively — fresher demand is steady and growing",
+      "Pune services MNCs also hire fresher data scientists for analytics consulting roles in Hinjewadi",
+      "Data Science fresher band ₹4-7 LPA, top performers at GCC captives crossing ₹12 LPA",
+      "Live-online format eliminates the 25 km Hinjewadi-Kothrud commute; cloud labs accessible anywhere",
+      "Pairs naturally with Machine Learning and Generative AI tracks for deeper specialisation",
+    ],
+    faqs: [
+      {
+        question: "Which Hinjewadi companies hire Data Science freshers?",
+        answer:
+          "BFSI GCC captives, retail analytics teams, healthcare data wings, telecom platforms, plus the analytics + ML consulting wings of Pune services MNCs (TCS, Infosys, Wipro, Cognizant).",
+      },
+      {
+        question: "Do I need Python before joining Data Science?",
+        answer:
+          "Basic Python helps; the Data Science track includes Python fundamentals as a refresher. Students with zero Python add a 1-month Python primer; those with college Python exposure start directly.",
+      },
+      {
+        question: "Does the track cover deep learning and modern ML?",
+        answer:
+          "Yes — TensorFlow + PyTorch are covered in the ML specialisation following core Data Science. Many Hinjewadi students stack both for product captive applications.",
+      },
+      {
+        question: "How does Data Science differ from Generative AI?",
+        answer:
+          "Data Science is the foundation — Python + Pandas + statistical ML + classical ML pipelines. Generative AI is the modern LLM layer (LangChain, RAG, fine-tuning) that builds on top. Many Hinjewadi students take DS first, then GenAI for the AI product wave.",
+      },
+      {
+        question: "How long is the Data Science course?",
+        answer:
+          "Flagship Data Science runs 4-6 months covering Python, Pandas, NumPy, scikit-learn, deep learning fundamentals, production pipelines and 8-10 portfolio projects.",
+      },
+      {
+        question: "What does Data Science training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+
+  // ─── 18. Generative AI in Kothrud ────────────────────────────────────────
+  {
+    slug: "generative-ai-in-kothrud",
+    courseSlug: "genai-training-in-pune",
+    locationSlug: "it-training-in-kothrud",
+    shortLabel: "Generative AI in Kothrud",
+    metaTitle: "Generative AI Training in Kothrud, Pune (2026)",
+    metaDescription:
+      "Generative AI Training in Kothrud — Archer Infotech (Kothrud centre). LLMs + LangChain + RAG + agentic AI + OpenAI/Claude APIs with placement assistance at Pune AI startups. Classroom + online.",
+    h1: "Generative AI Training in Kothrud, Pune",
+    intro: [
+      "Generative AI is the fastest-emerging Pune tech hiring wave — AI startups, product captives with AI wings, and the modern engineering teams of Pune MNCs are all building AI features using LLMs, LangChain, RAG pipelines, and agentic patterns. The Kothrud-resident concentration of MIT-WPU CS / AI&DS students, Cummins COE undergrads, and working professionals makes our home-neighbourhood centre the most accessible GenAI-track location in Pune.",
+      "Living in Kothrud means the classroom commute is 5-15 min — most GenAI students attend 2 evenings + Saturday morning, with cloud-sandbox labs for hands-on LLM prompt engineering, RAG indexing, and agent workflow building.",
+    ],
+    whyHere: [
+      "GenAI is the fastest-emerging Pune tech hiring wave — Kothrud's student + working-professional density makes it the most accessible location",
+      "Pairs naturally with Data Science / ML for students who already have Python + ML fundamentals",
+      "Kothrud students reach the centre in 5-15 min — short commute compounds attendance consistency",
+      "Trainers have production GenAI experience at AI startups + Pune product captives building LLM features",
+      "Pune GenAI fresher band is ₹5-8 LPA with top performers at AI-first startups crossing ₹14 LPA",
+    ],
+    faqs: [
+      {
+        question: "Do I need Python / ML background before GenAI?",
+        answer:
+          "Basic Python is essential; full ML/DS background helps but isn't required. Students with Python coursework can start directly. The track includes a Python + ML primer for students new to the foundations.",
+      },
+      {
+        question: "What's covered in the GenAI track?",
+        answer:
+          "LLM fundamentals (GPT-4, Claude, open models), prompt engineering, LangChain framework, RAG pipelines (vector databases + embeddings + retrieval), fine-tuning patterns, and Agentic AI (LangGraph + multi-agent workflows). Plus deployment patterns and observability.",
+      },
+      {
+        question: "Which Pune companies hire GenAI freshers?",
+        answer:
+          "Pune AI startups (rapidly growing), product captives with AI wings (financial services AI, retail AI, healthcare LLMs), and the modern engineering teams of Pune MNCs building AI-augmented products. Demand is strong and growing fast.",
+      },
+      {
+        question: "Should I take Data Science before GenAI?",
+        answer:
+          "Not strictly required, but very helpful. DS gives you the ML pipeline fundamentals; GenAI builds the modern LLM layer on top. Many Kothrud students take DS first, then GenAI for the AI wave; some skip DS and start direct in GenAI if they have Python coursework.",
+      },
+      {
+        question: "How long is the Generative AI course?",
+        answer:
+          "Flagship GenAI runs 3-4 months covering LLMs, LangChain, RAG, fine-tuning, agentic patterns, plus 8-10 production-style projects (chatbots, document Q&A, agentic workflows, deployed AI apps).",
+      },
+      {
+        question: "What does GenAI training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+
+  // ─── 19. Machine Learning in Baner ───────────────────────────────────────
+  {
+    slug: "machine-learning-in-baner",
+    courseSlug: "machine-learning-training-in-pune",
+    locationSlug: "it-training-in-baner",
+    shortLabel: "Machine Learning in Baner",
+    metaTitle: "Machine Learning Training in Baner, Pune (2026)",
+    metaDescription:
+      "Machine Learning Training in Baner — Archer Infotech. Production ML pipelines + TensorFlow + PyTorch + MLOps at Baner-Balewadi GCC captives and product startups. Mixed classroom + online.",
+    h1: "Machine Learning Training in Baner, Pune",
+    intro: [
+      "Baner-Balewadi GCC captives running advanced analytics and ML engineering teams, plus product startups building AI-augmented features, all hire fresher ML engineers — ₹4-7 LPA fresher band with product captives crossing ₹12 LPA for top performers. The stack is Python + ML pipelines (scikit-learn, TensorFlow, PyTorch) + production deployment (model serving, monitoring, MLOps). Archer Infotech's flagship Machine Learning track covers this with production-style projects.",
+      "Baner is about 15 km from our Kothrud centre via Pune University Road. Most Baner ML students mix Saturday classroom (collaborative work on model architecture + hyperparameter tuning) with weekday live-online for hands-on training runs in cloud sandboxes.",
+    ],
+    whyHere: [
+      "Baner-Balewadi has the densest concentration of Pune ML engineering teams across both GCC captives and product startups",
+      "ML Engineer fresher band ₹4-7 LPA, top performers at product captives crossing ₹12 LPA",
+      "Mixed classroom + live-online format fits Baner residents' schedule patterns",
+      "Stacks well with Generative AI track for students targeting the AI product startup wave",
+      "Trainers have production ML experience at Pune product companies — what they teach maps directly to Baner hiring panels",
+    ],
+    faqs: [
+      {
+        question: "Should I take Data Science before Machine Learning?",
+        answer:
+          "Helpful but not strictly required. ML builds on Python + classical ML fundamentals; DS provides those plus broader analytics depth. Many students take DS first, then ML; some with strong Python + math skip directly to ML.",
+      },
+      {
+        question: "Which Baner-Balewadi companies hire ML freshers?",
+        answer:
+          "Fortune 500 GCC captives (BFSI ML platforms, retail analytics, healthcare ML), product startups (especially fintech and AI-augmented SaaS), and the ML wings of Pune MNCs running Baner offices.",
+      },
+      {
+        question: "Does the track include deep learning + neural networks?",
+        answer:
+          "Yes — TensorFlow + PyTorch coverage, CNNs for vision, RNNs/transformers for sequence, plus modern transfer learning patterns. Foundation for both classical ML production and modern GenAI work.",
+      },
+      {
+        question: "How long is the Machine Learning course?",
+        answer:
+          "Flagship ML runs 4-6 months covering classical ML + deep learning + MLOps basics + 8-10 production-style projects.",
+      },
+      {
+        question: "Does it include MLOps and model deployment?",
+        answer:
+          "Yes — basic MLOps coverage including model serving, monitoring, versioning, and cloud deployment patterns. Students who want deeper MLOps can add our DevOps + Cloud tracks.",
+      },
+      {
+        question: "What does Machine Learning training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+
+  // ─── 20. Software Testing in Hinjewadi ───────────────────────────────────
+  {
+    slug: "software-testing-in-hinjewadi",
+    courseSlug: "software-testing-training-in-pune",
+    locationSlug: "it-training-in-hinjewadi",
+    shortLabel: "Software Testing in Hinjewadi",
+    metaTitle: "Software Testing Training in Hinjewadi (2026)",
+    metaDescription:
+      "Software Testing Training for Hinjewadi-area learners — Archer Infotech. Manual + Selenium automation + API testing + Postman for Hinjewadi MNC QA roles. Live-online + classroom.",
+    h1: "Software Testing Training in Hinjewadi, Pune",
+    intro: [
+      "Software Testing — manual + Selenium automation + API testing + Postman + performance basics — is one of the highest-volume fresher hiring tracks at Hinjewadi services MNCs (TCS, Infosys, Wipro, Cognizant, Capgemini, Tech Mahindra). QA engineer roles often have softer entry barriers than developer roles but consistent demand, making this a strong path for fresher candidates without deep development background. Archer Infotech's flagship Software Testing track covers exactly the stack Hinjewadi MNC QA panels screen on.",
+      "Hinjewadi is about 25 km from our Kothrud centre, so most Hinjewadi-area testing students join live-online batches. The curriculum covers manual testing fundamentals + STLC, Selenium WebDriver + TestNG/JUnit, REST API testing + Postman, basic performance testing concepts, and JIRA + agile workflows.",
+    ],
+    whyHere: [
+      "Software Testing is one of the highest-volume Hinjewadi services MNC fresher tracks — steady demand across TCS, Infosys, Wipro, Cognizant, Capgemini, Tech Mahindra",
+      "Softer entry barriers than developer roles — strong path for fresher candidates without deep development background",
+      "Pune Software Testing fresher band is ₹3-4.5 LPA with top performers in automation testing crossing ₹7 LPA",
+      "Live-online format eliminates the 25 km Hinjewadi-Kothrud commute",
+      "Selenium + API testing automation are growing rapidly — automation testers are paid better than pure-manual testers",
+    ],
+    faqs: [
+      {
+        question: "Which Hinjewadi companies hire Software Testing freshers?",
+        answer:
+          "All major Hinjewadi services MNCs — TCS, Infosys, Wipro, Cognizant, Capgemini, Tech Mahindra, Persistent — hire QA freshers at consistent volume. Plus QA wings at Hinjewadi GCC captives.",
+      },
+      {
+        question: "Manual or automation testing — which should I learn?",
+        answer:
+          "The track covers both, which is the right answer for Hinjewadi MNC drives. Manual testing fundamentals (STLC, test cases, bug life cycle, agile) are screened on at every fresher panel; Selenium + API automation are the value-add that pushes pay band higher.",
+      },
+      {
+        question: "Do I need development background for testing?",
+        answer:
+          "No deep coding background needed. Basic programming literacy (any language) helps for automation; pure manual testing roles have softer entry barriers. We start from fundamentals.",
+      },
+      {
+        question: "Does the track include API testing and Postman?",
+        answer:
+          "Yes — REST API testing concepts, Postman for manual API testing, plus REST Assured for Java-based automation. API testing is increasingly important at Hinjewadi product captives.",
+      },
+      {
+        question: "How long is the Software Testing course?",
+        answer:
+          "Flagship Software Testing runs 2-3 months covering manual + Selenium automation + API testing + Postman + basic performance testing concepts.",
+      },
+      {
+        question: "What does Software Testing training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
 ];
 
 /** Look up a course×location combo by slug. */
