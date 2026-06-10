@@ -712,6 +712,19 @@ export default function DataScienceAICareerPath() {
                   </span>
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/compare/power-bi-vs-tableau-for-pune-data-analysts-2026"
+                  className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
+                >
+                  <span className="font-medium block text-sm">
+                    Power BI vs Tableau for Pune Data Analysts
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    Comparison · BI tool pick + Pune company patterns
+                  </span>
+                </Link>
+              </li>
             </ul>
           </section>
 

@@ -1391,6 +1391,72 @@ export const comparisons: Comparison[] = [
       },
     ],
   },
+
+  // 22 ─ Power BI vs Tableau (Data Science cluster spoke #6, 2026-06-07) ───
+  {
+    slug: "power-bi-vs-tableau-for-pune-data-analysts-2026",
+    shortLabel: "Power BI vs Tableau",
+    metaTitle: "Power BI vs Tableau for Pune Data Analysts (2026) — Which to Learn First",
+    metaDescription:
+      "Power BI vs Tableau in 2026: an honest comparison for Pune data analysts — hiring volume, licensing cost, Microsoft ecosystem fit, learning curve, and which BI tool to learn first.",
+    h1: "Power BI vs Tableau for Pune Data Analysts (2026)",
+    optionA: "Power BI",
+    optionB: "Tableau",
+    verdict:
+      "For Pune Data Analysts in 2026, Power BI has slightly higher hiring share (~55% of postings) vs Tableau (~40%), driven by Microsoft ecosystem dominance + materially lower licensing cost. Tableau remains the strong choice at large-enterprise analytics consultancies + Pune product cos with established Tableau investment. Both are first-class hireable BI skills. Pick Power BI first if you're targeting services-major + BFSI analytics roles; pick Tableau first if targeting analytics consultancies (ZS Associates, Tiger Analytics, Mu Sigma) or product companies with mature data teams.",
+    table: [
+      { factor: "Pune Data Analyst posting share", a: "~55% reference Power BI", b: "~40% reference Tableau (~5% Looker / Qlik / other)" },
+      { factor: "Backed by", a: "Microsoft (since 2014)", b: "Salesforce (since 2019 acquisition)" },
+      { factor: "Licensing cost", a: "₹800/user/month (Pro); free desktop version", b: "~₹6,000/user/month (Creator); free Public version (data must be public)" },
+      { factor: "Best for", a: "Microsoft ecosystem shops (Office 365 + Azure + Dynamics)", b: "Large enterprise analytics teams + Pune analytics consultancies" },
+      { factor: "Data modeling", a: "DAX (Data Analysis Expressions) for measures + Power Query (M) for ETL", b: "Drag-and-drop visualization model; LOD (Level of Detail) expressions for advanced cases" },
+      { factor: "Learning curve", a: "Steeper (DAX + Power Query both require deeper learning)", b: "Gentler start (drag-and-drop visual analytics)" },
+      { factor: "Visualization sophistication", a: "Strong (~50 built-in + custom visuals + 1000+ marketplace)", b: "Best-in-class (the most expressive analytical visualisations + custom chart types)" },
+      { factor: "Real-time + streaming data", a: "Excellent (live connect to Azure SQL, ADX, streaming datasets)", b: "Good (hyper-fast in-memory, less native streaming support)" },
+      { factor: "Pune company patterns", a: "Cognizant Analytics, TCS BFSI, Capgemini Insights, BNP Paribas IT, Allianz tech", b: "ZS Associates, Mu Sigma, Tiger Analytics, Persistent analytics, Druva data team" },
+    ],
+    whenA: {
+      heading: "When Power BI is the right pick",
+      paragraphs: [
+        "If you're targeting Pune services-major analytics roles (Cognizant Analytics, TCS BFSI, Capgemini Insights, Wipro AI360 analytics) where the Microsoft ecosystem dominates, Power BI is the established default. ~55% of Pune Data Analyst postings reference Power BI explicitly.",
+        "If your target company has Office 365 + Azure + Dynamics + SQL Server in production, Power BI's deep ecosystem integration (live SQL Server connections, Azure Analysis Services, DirectQuery into Synapse, Teams + Sharepoint embedding) materially reduces engineering friction. BFSI shops in Pune (BNP Paribas IT, Allianz tech) standardize on this stack.",
+        "If licensing cost matters at your target tier (mid-size product companies, startups, internal-only analytics work), Power BI's ~₹800/user/month Pro tier vs Tableau's ~₹6,000/user/month Creator tier is a significant gap. Many Pune startups + small teams pick Power BI for budget reasons alone.",
+      ],
+    },
+    whenB: {
+      heading: "When Tableau is the right pick",
+      paragraphs: [
+        "If you're targeting Pune analytics consultancies (ZS Associates, Mu Sigma, Tiger Analytics) where Tableau is the established BI tool for client-facing dashboards + analytical work, Tableau is the right pick. ~70% of analytics-consultancy Data Analyst postings specifically require Tableau.",
+        "If you want the most expressive visual analytics + advanced visualisation patterns (small multiples, dual-axis with synchronized axes, LOD calculations, advanced filtering), Tableau's design philosophy and tooling consistently lead in this dimension. Pune product company data teams (Druva, BrowserStack data, Persistent analytics) often standardize on Tableau for this reason.",
+        "If you're working in a Tableau-established codebase + dashboard ecosystem (most Pune analytics consultancies + many product companies have years of Tableau workbooks), entering that world without Tableau fluency limits both impact + career growth. Joining a Tableau shop with Power BI background means weeks of re-skilling.",
+      ],
+    },
+    bottomLine:
+      "Both are first-class hireable BI skills in Pune in 2026. Pick Power BI first for hiring volume + ecosystem flexibility + cost. Pick Tableau first if targeting analytics consultancies or product companies with mature Tableau investment. ~30% of senior Pune Data Analysts know both — but for fresher prep, depth in one beats shallow exposure to both. Cross-tool transfer is 2-4 weeks of focused work later in career.",
+    relatedCourseSlugs: ["data-analytics-training-in-pune", "data-science-training-in-pune"],
+    faqs: [
+      {
+        question: "Should I learn both Power BI and Tableau as a Pune fresher?",
+        answer:
+          "No — pick one and go deep. Trying to learn both simultaneously creates surface-level fluency without depth. Pune fresher data interviews probe BI tool depth (DAX nuances in Power BI, LOD expressions in Tableau, dashboard performance tuning); shallow multi-tool exposure underperforms vs deep single-tool expertise. Add the second tool after 12-18 months on-the-job experience.",
+      },
+      {
+        question: "How important is SQL alongside Power BI / Tableau for Pune Data Analyst roles?",
+        answer:
+          "Universal foundation — SQL is the most-screened skill at ~95% of Pune Data Analyst interviews, layered alongside BI tool fluency. Most production data work flows: write SQL queries → pull data into Power BI / Tableau → build dashboards. Pure BI tool fluency without SQL depth caps your fresher Pune Data Analyst opportunities at services-major tier; product companies + consultancies expect strong SQL too.",
+      },
+      {
+        question: "Which is better for portfolio + interview signal — Power BI or Tableau?",
+        answer:
+          "Either works. Build 2-3 dashboards on real public datasets (Kaggle, IndianRailways, government open data, World Bank) using your chosen tool. Deploy + share interactive versions: Power BI free version → publish to Power BI Service; Tableau → Tableau Public (free but data must be public). The artifact matters more than the tool — recruiters care that you can ship.",
+      },
+      {
+        question: "What's the most-failed Power BI / Tableau question at Pune Data Analyst interviews?",
+        answer:
+          "Performance optimisation of slow dashboards. Candidates know how to build dashboards but fail when asked 'this dashboard takes 30 seconds to load — how would you fix it?' Strong answer: identify slow queries via Power BI Performance Analyzer or Tableau Performance Recording, push aggregations to the database, use incremental refresh, reduce data volume via filters at source, avoid expensive measures + calculated columns. Production optimisation thinking signals real Data Analyst maturity.",
+      },
+    ],
+  },
 ];
 
 export function getComparison(slug: string): Comparison | undefined {
