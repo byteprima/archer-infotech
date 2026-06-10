@@ -260,7 +260,7 @@ export const audiences: AudienceLanding[] = [
     slug: "bsc-cs-students",
     name: "BSc Computer Science students",
     tagline: "Convert a BSc-CS into a job-ready developer profile.",
-    metaTitle: "IT Training for BSc Computer Science Students in Pune — Archer Infotech",
+    metaTitle: "IT Training for BSc CS Students in Pune (2026)",
     metaDescription:
       "BSc Computer Science students in Pune: add job-ready full-stack, Java or data skills and placement prep to your degree with Archer Infotech's CareerCode. Real projects, mentor-led, Kothrud.",
     h1: "IT Training for BSc Computer Science Students in Pune",

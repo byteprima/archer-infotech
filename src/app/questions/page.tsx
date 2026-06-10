@@ -21,7 +21,10 @@ import {
  */
 
 export const metadata: Metadata = buildPageMetadata({
-  title: `Pune IT Careers + Archer Infotech FAQs — ${totalQuestionsAcrossCategories()} Common Questions Answered`,
+  // P3-22 title compaction — original 69-char title pushed over the
+  // 60-char Google snippet budget; this ≤49-char form keeps the count
+  // + the dual-topic positioning + brand.
+  title: `${totalQuestionsAcrossCategories()} FAQs: Pune IT Careers + Archer Infotech (2026)`,
   description: `${totalQuestionsAcrossCategories()} most-asked questions about Pune IT careers + Archer Infotech in 2026 — salaries, courses, fees, placements, admissions, bootcamps, batch formats. Honest answers with verified facts.`,
   path: "/questions",
   lastModified: EVERGREEN_LAST_REVIEWED,

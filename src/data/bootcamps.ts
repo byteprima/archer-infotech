@@ -134,7 +134,7 @@ export const bootcamps: Bootcamp[] = [
       "Most coding bootcamps in Pune are built for working professionals or final-year engineering students. CodeLeap is different — one of the few programs in Pune designed exclusively for 12th-pass students aged 17–19 who want to enter Engineering, IT, or Computer Science with real skills already in place. In just 2 months, students at our Kothrud campus learn the same foundations that final-year engineering students struggle with: Python programming, full web development, AI tools, GitHub, and interview-ready career skills.",
     seo: {
       title:
-        "CodeLeap Bootcamp in Pune | Coding Course After 12th | Python, Web Development & AI | Archer Infotech, Kothrud",
+        "CodeLeap Bootcamp Pune — Coding After 12th (Python, AI)",
       description:
         "CodeLeap is Pune's 2-month coding bootcamp built specifically for 12th-pass students. Learn Python programming, web development, AI tools, GitHub & career skills in Kothrud, Pune. Online + offline classes. Enroll now.",
       keywords: [

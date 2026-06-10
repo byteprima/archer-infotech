@@ -22,7 +22,7 @@ import {
  */
 
 export const metadata: Metadata = buildPageMetadata({
-  title: `${totalQuestionCount()}+ Pune IT Fresher Interview Questions (2026) — Java, Python, Cloud, SQL`,
+  title: `${totalQuestionCount()}+ Pune IT Fresher Interview Questions (2026)`,
   description: `${totalQuestionCount()} interview questions Pune freshers actually face in 2026 — behavioural, DSA, Java + Spring Boot, Python, Full Stack, Cloud / DevOps, SQL, system design — with concrete answers and Pune-specific context.`,
   path: "/interview-questions/pune-it-freshers-2026",
   lastModified: EVERGREEN_LAST_REVIEWED,

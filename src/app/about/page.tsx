@@ -17,7 +17,7 @@ import { aboutFaqs } from "@/data/faqs";
 import { PersonJsonLd } from "@/components/seo/json-ld";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "About Archer Infotech — Pune's Trusted IT Training Institute Since 2009",
+  title: "About Archer Infotech — Pune IT Institute Since 2009",
   description:
     "Learn about Archer Infotech, Pune's trusted IT training institute since 2009. Our mission, vision, and team of expert trainers behind 10,000+ students trained and 5,000+ placed.",
   path: "/about",

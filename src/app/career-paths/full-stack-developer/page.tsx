@@ -39,7 +39,7 @@ import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
  */
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "How to Become a Full Stack Developer in Pune — Complete 2026 Roadmap",
+  title: "How to Become a Full Stack Developer in Pune (2026)",
   description:
     "The full path to becoming a full stack developer in Pune in 2026 — choosing between MERN, MEAN, Java Full Stack, .NET Full Stack, and Python Full Stack; the 12-month plan; salary bands; hiring companies; mistakes to avoid. Sourced from Pune full-stack hiring data — 1,800+ monthly listings.",
   path: "/career-paths/full-stack-developer",

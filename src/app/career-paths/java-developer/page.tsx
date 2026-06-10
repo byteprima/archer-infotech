@@ -38,7 +38,7 @@ import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
  */
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "How to Become a Java Developer in Pune — Complete 2026 Career Roadmap",
+  title: "How to Become a Java Developer in Pune (2026)",
   description:
     "The full Java developer career path for Pune in 2026: 12-month plan, four specialisation arcs (Backend / Full Stack / Android / Enterprise Architect), salary trajectory, hiring companies, and mistakes to avoid. Java drives 30%+ of Pune fresher hiring volume.",
   path: "/career-paths/java-developer",

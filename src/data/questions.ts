@@ -42,7 +42,7 @@ export const questionCategories: QuestionCategory[] = [
   {
     slug: "about-archer-infotech",
     label: "About Archer Infotech",
-    metaTitle: "About Archer Infotech — FAQs About Pune's 17-Year-Old IT Training Institute",
+    metaTitle: "About Archer Infotech — Pune IT Institute FAQs (2026)",
     metaDescription:
       "The most-asked questions about Archer Infotech — founded 2009, Pune Kothrud campus, 10,000+ engineers trained, 5,000+ placed, 90% placement rate. Honest answers + verified facts.",
     h1: "About Archer Infotech — Frequently Asked Questions",
@@ -126,7 +126,7 @@ export const questionCategories: QuestionCategory[] = [
   {
     slug: "pune-it-careers-2026",
     label: "Pune IT Careers in 2026",
-    metaTitle: "Pune IT Careers FAQ 2026 — Salaries, Jobs, Best Courses, Growth Tracks",
+    metaTitle: "Pune IT Careers FAQ — Salaries, Jobs, Courses (2026)",
     metaDescription:
       "PAA-style answers to the most-asked questions about IT careers in Pune in 2026 — salary bands, best stacks to learn, hiring outlook, course choice, services vs product.",
     h1: "Pune IT Careers in 2026 — Frequently Asked Questions",
@@ -214,7 +214,7 @@ export const questionCategories: QuestionCategory[] = [
   {
     slug: "courses-and-fees-2026",
     label: "Courses & Fees",
-    metaTitle: "Archer Infotech Courses & Fees FAQ 2026 — Java, Python, Full Stack, AI, Cloud",
+    metaTitle: "Archer Infotech Courses & Fees FAQ (2026)",
     metaDescription:
       "Common questions about Archer Infotech courses + fees — Java, Python, Full Stack, Data Science, Cloud / DevOps, AI engineering tracks. Duration, cost ranges, EMI options, what's included.",
     h1: "Courses & Fees at Archer Infotech — Frequently Asked Questions",
@@ -298,7 +298,7 @@ export const questionCategories: QuestionCategory[] = [
   {
     slug: "placements-and-outcomes",
     label: "Placements & Outcomes",
-    metaTitle: "Archer Infotech Placement FAQ 2026 — Rate, Companies, Process, Salaries",
+    metaTitle: "Archer Infotech Placement FAQ — Rate, Companies (2026)",
     metaDescription:
       "Common questions about placement support at Archer Infotech — 90% institute rate, 100+ corporate partners, process timeline, salary outcomes, what's bundled vs not.",
     h1: "Placements & Outcomes — Frequently Asked Questions",
@@ -384,7 +384,7 @@ export const questionCategories: QuestionCategory[] = [
   {
     slug: "admissions-and-eligibility",
     label: "Admissions & Eligibility",
-    metaTitle: "Archer Infotech Admissions FAQ 2026 — Eligibility, Prerequisites, How to Enrol",
+    metaTitle: "Archer Infotech Admissions FAQ — Eligibility + Enrol (2026)",
     metaDescription:
       "Common questions about admissions at Archer Infotech — eligibility criteria, prerequisites, demo class, batch starts, age limits, mid-degree enrolment.",
     h1: "Admissions & Eligibility — Frequently Asked Questions",
@@ -466,7 +466,7 @@ export const questionCategories: QuestionCategory[] = [
   {
     slug: "bootcamps-explained",
     label: "Bootcamps Explained",
-    metaTitle: "Archer Infotech Bootcamps FAQ — CodeLeap, CareerCode, TechReady (2026)",
+    metaTitle: "Bootcamps FAQ — CodeLeap, CareerCode, TechReady (2026)",
     metaDescription:
       "Common questions about the 3 Archer Infotech bootcamps — CodeLeap (12th passouts), CareerCode (engineering students), TechReady (graduates). Duration, structure, outcomes.",
     h1: "Bootcamps Explained — Frequently Asked Questions",
@@ -550,7 +550,7 @@ export const questionCategories: QuestionCategory[] = [
   {
     slug: "online-vs-offline-batches",
     label: "Online vs Offline Batches",
-    metaTitle: "Online vs Offline Batches FAQ at Archer Infotech (2026) — Formats Explained",
+    metaTitle: "Online vs Offline Batches FAQ — Archer Infotech (2026)",
     metaDescription:
       "Common questions about Archer Infotech batch formats — live online vs classroom, weekday vs weekend, recordings, batch sizes, attendance flexibility.",
     h1: "Online vs Offline Batches at Archer Infotech — Frequently Asked Questions",

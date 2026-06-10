@@ -26,7 +26,8 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
   const rich = getCategoryContent(categorySlug);
 
   return buildPageMetadata({
-    title: rich?.h1 ?? `${category.name} Training in Pune`,
+    // P3-22 — prefer metaTitle (≤60-char SERP cut) over h1 when set.
+    title: rich?.metaTitle ?? rich?.h1 ?? `${category.name} Training in Pune`,
     description:
       rich?.subhead ??
       `Explore ${category.name} courses at Archer Infotech, Pune — classroom and online batches, expert trainers, and placement assistance. ${category.description ?? ""}`.trim(),

@@ -40,7 +40,7 @@ import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
  */
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "How to Become a Python Developer in Pune — Complete 2026 Career Roadmap",
+  title: "How to Become a Python Developer in Pune (2026)",
   description:
     "The full Python developer career path for Pune in 2026: 12-month plan, four specialisation tracks (Backend / Data Science / ML / Automation), salary trajectory, hiring companies, and mistakes to avoid. Sourced from Pune hiring data — 1,400+ monthly Python listings.",
   path: "/career-paths/python-developer",

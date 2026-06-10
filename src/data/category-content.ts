@@ -40,6 +40,14 @@ export interface CategoryContent {
   slug: string;
   /** Page <h1>. Override of the default `${name} Training in Pune`. */
   h1: string;
+  /**
+   * Optional SEO `<title>` override — kept shorter than h1 to fit
+   * Google's ~60-char mobile snippet budget. When absent, the page
+   * falls back to h1 (legacy behaviour). H1 stays the visible heading
+   * with full keyword-stuffed phrasing; metaTitle is the SERP optimal
+   * cut. P3-22 title compaction.
+   */
+  metaTitle?: string;
   /** ~25-35 word subhead that doubles as meta description prefix. */
   subhead: string;
   /**
@@ -140,6 +148,7 @@ export const categoryContent: CategoryContent[] = [
   // ============================================================
   {
     slug: "full-stack-development",
+    metaTitle: "Full Stack Courses in Pune — Java, MERN, Python, .NET",
     h1: "Full Stack Development Courses in Pune — Java, MERN, Python and .NET Stacks",
     subhead:
       "Build complete production web applications end-to-end at Pune's most-trusted full-stack institute — Java Full Stack, MERN, Python Full Stack and .NET Full Stack tracks with placement assistance.",
@@ -221,6 +230,7 @@ export const categoryContent: CategoryContent[] = [
   // ============================================================
   {
     slug: "modern-web",
+    metaTitle: "Modern Web Courses in Pune — React, Angular, Node.js",
     h1: "Modern Web Development Courses in Pune — React, Angular, Next.js and Node.js",
     subhead:
       "Specialise in the modern web stack — React, Angular, Next.js, Node.js — at Archer Infotech's Kothrud Pune classes, with project-led training and placement assistance.",
@@ -297,6 +307,7 @@ export const categoryContent: CategoryContent[] = [
   // ============================================================
   {
     slug: "cloud-devops",
+    metaTitle: "Cloud + DevOps Courses in Pune — AWS, Azure, K8s",
     h1: "Cloud and DevOps Courses in Pune — AWS, Azure, Kubernetes, Docker and Terraform",
     subhead:
       "Build the operational layer of modern software at Pune's trusted Cloud and DevOps institute — AWS, Azure, Google Cloud, Docker, Kubernetes, Jenkins, Terraform with placement assistance.",
@@ -535,6 +546,7 @@ export const categoryContent: CategoryContent[] = [
   // ============================================================
   {
     slug: "generative-ai",
+    metaTitle: "Generative AI Courses in Pune — LLMs, RAG, LangChain",
     h1: "Generative AI Courses in Pune — ChatGPT, LLMs, RAG, LangChain and Prompt Engineering",
     subhead:
       "Build production AI applications with LLMs, RAG and modern AI tooling at Archer Infotech's Pune institute — Generative AI, ChatGPT/Claude integration, Prompt Engineering, AI Engineer roadmap.",
@@ -616,6 +628,7 @@ export const categoryContent: CategoryContent[] = [
   // ============================================================
   {
     slug: "mobile-app-development",
+    metaTitle: "Mobile App Courses in Pune — Android, iOS, React Native",
     h1: "Mobile App Development Courses in Pune — Android, iOS, React Native and Flutter",
     subhead:
       "Build native and cross-platform mobile apps at Archer Infotech, Kothrud Pune — Android (Kotlin), iOS (Swift), React Native, Flutter classes with project-led delivery and placement assistance.",
