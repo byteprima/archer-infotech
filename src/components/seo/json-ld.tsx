@@ -103,6 +103,15 @@ export function OrganizationJsonLd() {
     image: `${baseUrl}${siteConfig.ogImage}`,
     description: siteConfig.description,
     foundingDate: String(siteConfig.foundingYear),
+    // P8-04 — founder gives Google + AI engines a verified named expert
+    // to attribute the institute to. Matches the canonical founder
+    // record on /trainers/yogesh-patil.
+    founder: {
+      "@type": "Person",
+      name: "Yogesh Patil",
+      jobTitle: "Founder & Lead Trainer",
+      url: `${baseUrl}/trainers/yogesh-patil`,
+    },
     address: POSTAL_ADDRESS,
     geo: { "@type": "GeoCoordinates", ...GEO },
     hasMap: siteConfig.googleMaps.url,
@@ -112,6 +121,18 @@ export function OrganizationJsonLd() {
     areaServed: AREA_SERVED_FULL,
     priceRange: "₹₹",
     openingHoursSpecification: OPENING_HOURS,
+    // P8-04 — aggregateRating sourced from the 126+ verified Google
+    // Business Profile reviews (5.0★ as of 2026-06-10). Same figure
+    // already in /testimonials' AggregateRatingJsonLd — this puts it
+    // on the canonical site-wide Org block so every page's Org schema
+    // benefits, not just /testimonials.
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: 5.0,
+      ratingCount: 126,
+      bestRating: 5,
+      worstRating: 1,
+    },
     knowsAbout: [
       "Java", "Python", "JavaScript", "React", "Angular", "Node.js",
       "AWS", "Azure", "Google Cloud", "DevOps", "Kubernetes", "Docker",
@@ -226,11 +247,14 @@ export function CourseJsonLd({
     "@type": "Course",
     name,
     description,
-    provider: {
-      "@type": "EducationalOrganization",
-      name: provider,
-      sameAs: baseUrl,
-    },
+    // P8-04 — provider is a reference to the canonical Org block
+    // emitted by OrganizationJsonLd at the same baseUrl @id. Avoids
+    // re-declaring the Org partially (no `url` field, no `address`,
+    // etc.) which was the dominant validator error: 54 × pages
+    // missing `EducationalOrganization.url` on the Course.provider
+    // nested block. Google + AI engines resolve `@id` references
+    // back to the canonical block on the same page.
+    provider: { "@id": baseUrl },
     ...(duration && { timeRequired: duration }),
     ...(category && { courseCode: category }),
     url: `${baseUrl}${url}`,
@@ -474,11 +498,10 @@ export function BatchEventsJsonLd({ batches }: { batches: Batch[] }) {
       about: {
         "@type": "Course",
         name: b.courseName,
-        provider: {
-          "@type": "EducationalOrganization",
-          "@id": baseUrl,
-          name: siteConfig.name,
-        },
+        // P8-04 — provider is an @id-keyed reference to the canonical
+        // Org block; avoids the partial-redeclaration that triggers
+        // EducationalOrganization.url validator errors.
+        provider: { "@id": baseUrl },
       },
       offers: {
         "@type": "Offer",
@@ -534,11 +557,8 @@ export function PersonJsonLd({
     ...(image && { image: image.startsWith("http") ? image : `${baseUrl}${image}` }),
     ...(knowsAbout && knowsAbout.length > 0 && { knowsAbout }),
     ...(linkedin && { sameAs: [linkedin] }),
-    worksFor: {
-      "@type": "EducationalOrganization",
-      name: siteConfig.name,
-      url: baseUrl,
-    },
+    // P8-04 — @id reference to the canonical Org block.
+    worksFor: { "@id": baseUrl },
     url: `${baseUrl}${url}`,
   };
 
@@ -562,9 +582,15 @@ export function AggregateRatingJsonLd({
   ratingCount,
   itemName = siteConfig.name,
 }: AggregateRatingJsonLdProps) {
+  // P8-04 — emit as an `@id`-referenced rating attached to the canonical
+  // Org block. Without `@id: baseUrl` the validator (correctly) reports
+  // an EducationalOrganization missing `url`, `address`, `telephone`,
+  // etc — and Google's structured-data parser may treat this as a
+  // duplicate-conflict orphan Org. Linking to @id resolves both.
   const schema = {
     "@context": "https://schema.org",
     "@type": "EducationalOrganization",
+    "@id": baseUrl,
     name: itemName,
     aggregateRating: {
       "@type": "AggregateRating",
@@ -657,12 +683,8 @@ export function ReviewListJsonLd({ reviews }: { reviews: ReviewSchemaInput[] }) 
             "@type": "Course",
             name: r.course,
             description: `${r.course} training at ${siteConfig.name}, a Pune IT training institute.`,
-            provider: {
-              "@type": "EducationalOrganization",
-              name: siteConfig.name,
-              sameAs: baseUrl,
-              url: baseUrl,
-            },
+            // P8-04 — @id-reference instead of partial Org redeclaration.
+            provider: { "@id": orgId },
             hasCourseInstance: {
               "@type": "CourseInstance",
               courseMode: "Blended",

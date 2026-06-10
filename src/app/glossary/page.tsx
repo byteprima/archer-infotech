@@ -48,7 +48,13 @@ export default function GlossaryPage() {
     name: "Pune IT Glossary",
     description:
       "A practical glossary of 25+ Pune-relevant IT terms covering tech stacks, tools, roles, and career terminology.",
-    inDefinedTermSet: glossaryEntries.map((e) => ({
+    // P8-04 — Schema.org spec: a DefinedTermSet uses `hasDefinedTerm`
+    // to list its terms. `inDefinedTermSet` is the INVERSE relation —
+    // used on a DefinedTerm to point UP at its parent set, not on the
+    // set to point DOWN at its terms. The pre-fix payload claimed
+    // `inDefinedTermSet` on the set, which Google's validator (and
+    // ours) flag as `hasDefinedTerm` missing.
+    hasDefinedTerm: glossaryEntries.map((e) => ({
       "@type": "DefinedTerm",
       "@id": `https://archerinfotech.in/glossary#${e.slug}`,
       name: e.term,
