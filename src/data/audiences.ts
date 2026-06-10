@@ -922,6 +922,338 @@ export const audiences: AudienceLanding[] = [
       },
     ],
   },
+
+  // ─── 13. PCCOE students → CareerCode ───────────────────────────────────────
+  // P4-18 fifth college page. PCCOE (Pimpri Chinchwad College of Engineering)
+  // sits in the Akurdi/Nigdi belt — adjacent to Hinjewadi IT corridor, which
+  // is its biggest placement advantage.
+  {
+    slug: "pccoe-students",
+    name: "PCCOE students",
+    tagline:
+      "Stack depth + interview prep alongside your PCCOE degree, with the Hinjewadi pipeline in mind.",
+    metaTitle: "Coding Classes for PCCOE Students in Pune (2026)",
+    metaDescription:
+      "PCCOE students: build the production-stack depth + interview prep to convert Hinjewadi IT proximity into top offers. Archer Infotech — Kothrud + online — Java FS, MERN, Python, Data, Cloud.",
+    h1: "Coding Classes for PCCOE Students in Pune",
+    intro: [
+      "PCCOE (Pimpri Chinchwad College of Engineering) sits in the Akurdi-Nigdi belt — right next to the Hinjewadi IT corridor, home to Infosys, TCS, Wipro, Cognizant and dozens of GCC captives. That proximity is PCCOE's biggest hiring advantage: campus drives reach you early and recruiters know the college. What separates the median PCCOE offer from a top-band one is the same lever as everywhere else — stack depth, portfolio quality, and rehearsed interview answers.",
+      "PCCOE is about 30 km from our Kothrud centre, so most PCCOE students join us in online (live instructor-led) batches that cover the same curriculum as classroom cohorts. For students who prefer in-person, Saturday classroom + weekday online is a common pattern. CareerCode pacing is built to layer on top of PCCOE's academic load.",
+    ],
+    forYou: [
+      "You're a PCCOE undergrad (BE / BTech) in CS, IT, ENTC, AI&DS or related branch",
+      "You want to convert Hinjewadi-proximity placement drives into top-band offers",
+      "You'd rather go deep on one stack than survey across many",
+      "You want mock interview reps + portfolio polish before campus drives",
+      "Online + occasional in-person batches fit your schedule better than daily commute",
+    ],
+    programme: {
+      bootcampSlug: "careercode",
+      bootcampName: "CareerCode",
+      pitch:
+        "CareerCode runs in both classroom and live-online formats so PCCOE students can pick the schedule that fits their commute. The curriculum, projects, interview prep and placement support are identical across formats.",
+    },
+    alsoConsiderCourseSlugs: [
+      "java-full-stack-training-in-pune",
+      "mern-stack-training-in-pune",
+      "python-training-in-pune",
+      "aws-solutions-architect-training-in-pune",
+      "devops-training-in-pune",
+    ],
+    whatYouGain: [
+      "Production stack expertise calibrated to Hinjewadi-belt hiring patterns (Java FS, MERN, Cloud, DevOps)",
+      "A project portfolio recruiters at Infosys / TCS / Wipro / Cognizant actually look for",
+      "Mock interview reps for DSA + framework internals + behavioural rounds",
+      "Resume + LinkedIn polish that surfaces in recruiter searches",
+      "100+ Pune hiring partner network for off-campus referrals",
+    ],
+    eligibility:
+      "Open to PCCOE students across all years and branches. CS / IT / AI&DS students start at project tracks; other branches start at fundamentals — no prior coding required.",
+    whyArcher: [
+      "Our 6-person faculty has 54+ combined years at Pune MNCs (Capgemini, Tech Mahindra, MindTree, Amdocs) — exactly the hiring panels PCCOE students face most often. Online batches are live instructor-led, not recorded, so PCCOE students get the same Q&A access as classroom students.",
+      "17+ years training Pune engineering students; 10,000+ trained; 5,000+ placed at TCS, Infosys, Wipro, Tech Mahindra, Persistent and 100+ other Pune-belt employers. Our Hinjewadi-corridor placement record is among our strongest.",
+    ],
+    faqs: [
+      {
+        question: "PCCOE is in Akurdi — that's far from Kothrud. How does this work?",
+        answer:
+          "Most PCCOE students join our live online (live instructor-led) batches — same curriculum, projects, Q&A access and placement support as classroom cohorts. For students who want some in-person time, Saturday classroom + weekday online is a popular pattern.",
+      },
+      {
+        question: "Will Archer help me with Hinjewadi-belt campus drives?",
+        answer:
+          "Yes — Hinjewadi MNC drives (Infosys, TCS, Wipro, Cognizant, Capgemini) are the natural hiring path for PCCOE students. Our trainers are working professionals from these companies, so the interview prep and stack work map directly to their question patterns.",
+      },
+      {
+        question: "Which stack converts best for a PCCOE CS student?",
+        answer:
+          "Java Full Stack opens the widest pipeline at Hinjewadi MNCs. MERN is sharper for GCC captives and product startups. DevOps + Cloud (AWS) is rising fast in the Hinjewadi belt — and pays well at fresher level if you build a real portfolio.",
+      },
+      {
+        question: "Will online batches give the same outcomes as classroom?",
+        answer:
+          "Yes. Curriculum, project work, mock interviews and placement referrals are identical. The only difference is the format. We have years of placement data confirming online cohorts deliver the same outcomes when students engage consistently.",
+      },
+      {
+        question: "Do you cover the AI&DS branch curriculum?",
+        answer:
+          "Yes — our Data Science, Machine Learning, and Generative AI tracks pair very well with PCCOE's AI&DS syllabus. Students typically pick DS / ML as primary and add GenAI as a second specialisation.",
+      },
+      {
+        question: "Are there EMI options for PCCOE students?",
+        answer:
+          "Yes — every flagship course supports EMI. Ask the admissions team during your free demo for current EMI partners and seasonal offers.",
+      },
+    ],
+  },
+
+  // ─── 14. AISSMS COE students → CareerCode ──────────────────────────────────
+  // P4-18 sixth college page. AISSMS COE in Shivajinagar — central Pune,
+  // legacy engineering college with broad branch coverage.
+  {
+    slug: "aissms-coe-students",
+    name: "AISSMS COE students",
+    tagline: "Industry-ready stack + portfolio alongside your AISSMS COE degree.",
+    metaTitle: "Coding Classes for AISSMS COE Students Pune (2026)",
+    metaDescription:
+      "AISSMS COE students: build the production-grade coding skills + interview prep that convert campus drives into top offers. Archer Infotech — Kothrud — Java FS, MERN, Python, Data, Cloud with 100+ partners.",
+    h1: "Coding Classes for AISSMS COE Students in Pune",
+    intro: [
+      "AISSMS COE (All India Shri Shivaji Memorial Society's College of Engineering) is a long-running Pune engineering college in Shivajinagar with broad branch coverage — CS, IT, ENTC, Mech, Civil, Production. The placement cell delivers a steady pipeline to Pune MNCs, but the difference between a median offer and a top-band one is the same lever every Pune engineering student faces: how deeply you know one stack, how clean your GitHub is, and how rehearsed your interview answers are.",
+      "AISSMS COE is about 10 km from our Kothrud centre via JM Road and Karve Road — typically 20-25 min by two-wheeler or rickshaw. Most AISSMS COE students attend evening or weekend classroom batches, with live-online available for students who prefer schedule flexibility.",
+    ],
+    forYou: [
+      "You're an AISSMS COE undergrad (BE) in any branch",
+      "You want to convert AISSMS COE's placement record into top-band offers",
+      "You'd rather go deep on one stack than skim across many",
+      "You want mock interview reps + GitHub-quality projects before campus drives",
+      "Evening + weekend batches fit your AISSMS COE class schedule",
+    ],
+    programme: {
+      bootcampSlug: "careercode",
+      bootcampName: "CareerCode",
+      pitch:
+        "CareerCode pairs AISSMS COE's BE syllabus with production-stack depth. Pacing is built for semester rhythm so your degree work and stack work compound instead of competing for time.",
+    },
+    alsoConsiderCourseSlugs: [
+      "java-full-stack-training-in-pune",
+      "mern-stack-training-in-pune",
+      "python-training-in-pune",
+      "data-science-training-in-pune",
+      "aws-solutions-architect-training-in-pune",
+    ],
+    whatYouGain: [
+      "Deep stack expertise in one track (Java FS, MERN, Python, Data, Cloud)",
+      "A production-quality project portfolio with clean Git history",
+      "Mock interview reps that map to Pune MNC question patterns",
+      "Internship + placement referrals via our 100+ hiring partner network",
+      "Semester-paced ramp that fits AISSMS COE's academic load",
+    ],
+    eligibility:
+      "Open to AISSMS COE undergrads (BE) in any year and branch. CS / IT students start at project tracks; other branches start at fundamentals — no prior coding experience required.",
+    whyArcher: [
+      "Our 6-person faculty has 54+ combined years at Pune MNCs (Capgemini, Tech Mahindra, MindTree, Amdocs). For AISSMS COE students aiming at services MNCs and growing GCC captives, the stack work and interview prep map directly to their hiring panels.",
+      "Kothrud centre is 20-25 min from AISSMS COE via JM Road. 17+ years training Pune engineering students, 10,000+ trained, 5,000+ placed at TCS, Infosys, Wipro, Tech Mahindra, Persistent and 100+ other partners.",
+    ],
+    faqs: [
+      {
+        question: "How far is Archer Kothrud from AISSMS COE Shivajinagar?",
+        answer:
+          "Roughly 20-25 minutes by two-wheeler or rickshaw via JM Road and Karve Road. PMPML routes connect Shivajinagar to Kothrud directly. Most AISSMS COE students attend evening or weekend batches.",
+      },
+      {
+        question: "I'm in AISSMS COE Mechanical / Civil / Production — is this useful?",
+        answer:
+          "Very. Many of Pune's software hires come from non-CS engineering branches. CareerCode starts from fundamentals, so your branch doesn't limit which software track you can pick. Java Full Stack and Python are the most common entry points.",
+      },
+      {
+        question: "Can I manage Archer alongside AISSMS COE's academic load?",
+        answer:
+          "Yes — CareerCode semester pacing is built for it. 2 evenings + Saturday batches is typical; LMS lifetime access lets you catch up during exam weeks.",
+      },
+      {
+        question: "What's the typical placement outcome?",
+        answer:
+          "Flagship-track graduates typically land ₹4-6 LPA fresher band offers, with top performers in Java FS / MERN / DS / DevOps crossing ₹10 LPA. Outcomes scale with stack depth and interview prep consistency, not the certificate alone.",
+      },
+      {
+        question: "Do you help with off-campus drives?",
+        answer:
+          "Yes. Beyond AISSMS COE's TPO drives, our placement team runs off-campus referrals to 100+ partners — services MNCs, GCC captives, product startups. Mock interviews and resume review are included in every flagship course.",
+      },
+      {
+        question: "Are evening + Saturday batches consistent week-to-week?",
+        answer:
+          "Yes — batches run on a fixed weekly schedule. Holidays during AISSMS COE's exam weeks are factored in. LMS access lets you watch any missed session.",
+      },
+    ],
+  },
+
+  // ─── 15. Cummins COE for Women students → CareerCode ───────────────────────
+  // P4-18 seventh college page. Cummins College of Engineering for Women,
+  // Karvenagar — women-only college, very close to Kothrud, strong
+  // placement record.
+  {
+    slug: "cummins-coe-women-students",
+    name: "Cummins College of Engineering for Women students",
+    tagline: "Industry-ready coding + interview prep alongside your Cummins COE degree.",
+    metaTitle: "Coding Classes for Cummins COE Women Students (2026)",
+    metaDescription:
+      "Cummins College of Engineering for Women students: build job-ready stack depth + portfolio + interview prep. Archer Infotech — Kothrud (10 min from Karvenagar) — Java FS, MERN, Python, Data, Cloud.",
+    h1: "Coding Classes for Cummins COE for Women Students",
+    intro: [
+      "Cummins College of Engineering for Women in Karvenagar is one of Pune's longest-running women's engineering colleges, with a strong placement record across MNCs and product companies. The placement cell delivers solid offers — what unlocks the top-band ones (and the product company / GCC roles) is the same as for every engineering college: stack depth, portfolio quality, and rehearsed technical interviews. Archer Infotech sits 10 minutes from Karvenagar, so commute is barely a constraint.",
+      "Many Cummins COE students join CareerCode in 2nd or 3rd year so the stack work compounds across semesters and the portfolio is ready when campus drives begin. We also see a strong contingent of working-professional alumni (Cummins COE batchmates) attending evening and weekend batches together — peer continuity that matters.",
+    ],
+    forYou: [
+      "You're a Cummins COE for Women undergrad (BE) in CS, IT, ENTC, Mech or related branch",
+      "You want to convert Cummins COE's strong placement record into top-band offers",
+      "You'd rather build one stack deeply than skim broadly",
+      "You want a mixed-college peer environment to mirror real workplace teams",
+      "Evening / weekend batches fit your academic load and any home obligations",
+    ],
+    programme: {
+      bootcampSlug: "careercode",
+      bootcampName: "CareerCode",
+      pitch:
+        "CareerCode runs semester-by-semester so Cummins COE students can layer stack expertise on top of their degree. The Karvenagar↔Kothrud commute is 10 minutes — easy on a Saturday morning or after college.",
+    },
+    alsoConsiderCourseSlugs: [
+      "java-full-stack-training-in-pune",
+      "mern-stack-training-in-pune",
+      "python-training-in-pune",
+      "data-science-training-in-pune",
+      "machine-learning-training-in-pune",
+    ],
+    whatYouGain: [
+      "Production-stack depth in one track (Java FS, MERN, Python, Data, Cloud)",
+      "A real portfolio of projects with clean Git history",
+      "Mock interview reps for DSA + system design + behavioural rounds",
+      "Internship + placement referrals via our 100+ hiring partner network",
+      "A peer cohort of women in engineering compounding skills together",
+    ],
+    eligibility:
+      "Open to all Cummins COE for Women undergrads (BE) in any year and branch. Tailored starting point — fundamentals if you're 1st-year, project-focused if you're 3rd/4th-year.",
+    whyArcher: [
+      "Our 6-person faculty has 54+ combined years of industry experience at Pune MNCs (Capgemini, Tech Mahindra, MindTree, Amdocs) — exactly the hiring panels Cummins COE students target. We've trained women engineers from Cummins COE across batches with consistent placement outcomes.",
+      "Our Kothrud centre is 10 minutes from Cummins COE Karvenagar. 17+ years training Pune engineering students, 10,000+ trained, 5,000+ placed at TCS, Infosys, Wipro, Tech Mahindra, Persistent, Capgemini and 100+ other partners.",
+    ],
+    faqs: [
+      {
+        question: "How far is Archer Kothrud from Cummins COE Karvenagar?",
+        answer:
+          "About 10 minutes by two-wheeler, rickshaw or PMPML — same neighbourhood. Most Cummins COE students attend evening + Saturday batches without significant commute time.",
+      },
+      {
+        question: "Are there women-only batches?",
+        answer:
+          "No — you join the regular CareerCode cohort, which intentionally mixes students from COEP, PICT, VIT, Cummins COE, MIT-WPU and other colleges. That mix mirrors real Pune workplaces and is an asset, not a downside.",
+      },
+      {
+        question: "Which stack converts best for a Cummins COE CS student?",
+        answer:
+          "Java Full Stack opens the widest Pune MNC pipeline. MERN is sharper for product startups and GCC captives. Data Science / ML is the right pick if you've enjoyed Cummins COE's data / analytics courses. We map your interest + target list to a stack in your free demo.",
+      },
+      {
+        question: "Will Archer help with companies that have women-focused hiring drives?",
+        answer:
+          "Yes. Many Pune MNCs (TCS, Infosys, Wipro) and GCC captives run women-only or women-priority hiring drives. Our placement team flags these and supports interview prep against their specific question patterns.",
+      },
+      {
+        question: "Can I take CareerCode while balancing home obligations?",
+        answer:
+          "Yes — evening + Saturday is the most common pattern, and live-online is an option for students who can't commit to fixed in-person time. LMS access covers any missed session.",
+      },
+      {
+        question: "What's the typical outcome for a Cummins COE student?",
+        answer:
+          "Flagship-track graduates typically land ₹4-6 LPA fresher band offers, with top performers in Java FS / MERN / DS / DevOps crossing ₹10 LPA. Outcomes depend on stack depth + interview prep consistency, not gender or college.",
+      },
+    ],
+  },
+
+  // ─── 16. VIIT students → CareerCode ────────────────────────────────────────
+  // P4-18 eighth college page. VIIT (Vishwakarma Institute of Information
+  // Technology) in Kondhwa Budruk — sister college to VIT Pune, focused
+  // more on IT/CS placements.
+  {
+    slug: "viit-students",
+    name: "VIIT students",
+    tagline: "Build deep IT stack + project portfolio alongside your VIIT degree.",
+    metaTitle: "Coding Classes for VIIT Pune Students (2026)",
+    metaDescription:
+      "VIIT (Vishwakarma Institute of Information Technology) students: build production-stack depth + portfolio + interview prep. Archer Infotech — Kothrud + online — Java FS, MERN, Python, Data, Cloud.",
+    h1: "Coding Classes for VIIT Pune Students",
+    intro: [
+      "VIIT (Vishwakarma Institute of Information Technology), the Bansilal Ramnath Agarwal Charitable Trust college in Kondhwa Budruk, runs a strong IT-focused engineering programme with consistent placement outcomes. The placement record is solid; the gap between the median offer and a top-band one is the same lever every Pune engineering college faces: stack depth, production-quality projects, and interview readiness.",
+      "VIIT is roughly 15-20 km from our Kothrud centre, so most VIIT students opt for our live-online batches (same curriculum, instructors, mock interviews and placement support as classroom). For students who want occasional in-person time, Saturday classroom + weekday online is a common pattern.",
+    ],
+    forYou: [
+      "You're a VIIT undergrad (BE / BTech) in CS, IT, ENTC, AI/DS or related branch",
+      "You want VIIT's IT-focused syllabus to translate into top-band Pune offers",
+      "You'd rather build deep on one stack than skim across many",
+      "You want production-quality projects + mock interview reps before TPO drives",
+      "Online + occasional in-person batches fit your schedule better than daily commute",
+    ],
+    programme: {
+      bootcampSlug: "careercode",
+      bootcampName: "CareerCode",
+      pitch:
+        "CareerCode runs in both classroom and live-online so VIIT students can pick the format that fits their commute. Curriculum, projects, interview prep and placement referrals are identical across formats.",
+    },
+    alsoConsiderCourseSlugs: [
+      "java-full-stack-training-in-pune",
+      "mern-stack-training-in-pune",
+      "python-training-in-pune",
+      "data-science-training-in-pune",
+      "aws-solutions-architect-training-in-pune",
+    ],
+    whatYouGain: [
+      "Production-stack depth in one track (Java FS, MERN, Python, Data, Cloud)",
+      "A real GitHub portfolio + interview-ready DSA layer",
+      "Mock interview reps for Pune MNC + product company question patterns",
+      "Internship + placement referrals via our 100+ hiring partner network",
+      "Semester pacing that fits VIIT's IT syllabus load",
+    ],
+    eligibility:
+      "Open to VIIT undergrads in any year and any branch. CS / IT / AI&DS students start at project tracks; other branches start at fundamentals — no prior coding required.",
+    whyArcher: [
+      "Our 6-person faculty has 54+ combined years at Pune MNCs (Capgemini, Tech Mahindra, MindTree, Amdocs) plus product-startup leadership. For VIIT students, the curriculum and interview prep map directly to the Pune services + product companies most likely to recruit you.",
+      "17+ years training Pune engineering students; 10,000+ trained; 5,000+ placed at TCS, Infosys, Wipro, Persistent, Tech Mahindra, Capgemini and 100+ other partners. Live-online format means VIIT's Kondhwa-Kothrud distance is a non-issue.",
+    ],
+    faqs: [
+      {
+        question: "VIIT is in Kondhwa — how do I attend Archer Kothrud regularly?",
+        answer:
+          "Most VIIT students join our live-online batches — same instructors, projects, Q&A access and placement support as classroom. For students who want some classroom time, Saturday in-person + weekday online is the common pattern.",
+      },
+      {
+        question: "How is VIIT different from VIT Pune for Archer's purposes?",
+        answer:
+          "VIIT and VIT Pune are sister institutions but run as independent colleges with different placement cells and academic calendars. We have dedicated pages for both; the curriculum and outcomes are identical, only the positioning copy differs.",
+      },
+      {
+        question: "Which stack works best for VIIT CS / IT students?",
+        answer:
+          "Java Full Stack opens the widest Pune MNC pipeline (TCS, Infosys, Persistent). MERN is sharper for GCC captives and product startups. Cloud + DevOps is rising fast and pays well at fresher level if you build a real portfolio.",
+      },
+      {
+        question: "Do online batches really deliver the same outcomes as classroom?",
+        answer:
+          "Yes — multi-year placement data confirms it. The deciding variables are engagement consistency and project completion, not the format. Most VIIT students prefer online for the commute savings.",
+      },
+      {
+        question: "Will Archer help with VIIT's TPO drives?",
+        answer:
+          "Yes. Beyond VIIT's TPO drives, our placement team runs off-campus referrals to 100+ partners. Resume polish, mock interviews and recruiter introductions are included in every flagship course.",
+      },
+      {
+        question: "Is there EMI for VIIT students?",
+        answer:
+          "Yes — every flagship course supports EMI. Ask the admissions team during your free demo for current EMI partners and seasonal offers.",
+      },
+    ],
+  },
 ];
 
 /** Look up an audience landing page by slug. */
