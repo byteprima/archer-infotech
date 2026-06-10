@@ -1589,6 +1589,72 @@ export const comparisons: Comparison[] = [
       },
     ],
   },
+
+  // 25 ─ Supervised vs Unsupervised (Data Science spoke #7, 2026-06-07) ────
+  {
+    slug: "supervised-vs-unsupervised-learning-pune-data-scientists-2026",
+    shortLabel: "Supervised vs Unsupervised",
+    metaTitle: "Supervised vs Unsupervised Learning for Pune Data Scientists (2026)",
+    metaDescription:
+      "Supervised vs unsupervised learning in 2026: an honest comparison for Pune data scientists + ML engineers — labelled vs unlabelled data, use cases, algorithms, hiring frequency, and which to focus on first.",
+    h1: "Supervised vs Unsupervised Learning for Pune Data Scientists (2026)",
+    optionA: "Supervised Learning",
+    optionB: "Unsupervised Learning",
+    verdict:
+      "For Pune data scientists in 2026, supervised learning is the dominant practice area — ~80% of Pune ML use cases are supervised (classification + regression with labelled data), ~15% unsupervised (clustering, dimensionality reduction, anomaly detection), ~5% reinforcement learning + self-supervised. Both are first-class data science skills; supervised gets the bulk of interview frequency + day-to-day production work. Master supervised learning first; add unsupervised techniques as specialisation depth.",
+    table: [
+      { factor: "Pune ML use case share", a: "~80% of production ML workloads", b: "~15% (clustering, anomaly detection, dim reduction)" },
+      { factor: "Data requirement", a: "Labelled data (each example has the correct answer)", b: "Unlabelled data (find structure without ground truth)" },
+      { factor: "Common algorithms", a: "Linear/Logistic Regression, Random Forests, XGBoost, Neural Networks, SVMs", b: "K-Means, DBSCAN, PCA, t-SNE, UMAP, Hierarchical clustering, Autoencoders" },
+      { factor: "Evaluation metrics", a: "Accuracy, Precision, Recall, F1, ROC-AUC (classification), RMSE, MAE, R² (regression)", b: "Silhouette score, Davies-Bouldin index, explained variance — harder to evaluate without ground truth" },
+      { factor: "Typical business problems", a: "Fraud detection, churn prediction, demand forecasting, image classification, sentiment analysis", b: "Customer segmentation, anomaly detection, recommendation systems (sometimes), dimensionality reduction" },
+      { factor: "Pune interview frequency", a: "~75% of data science rounds focus here", b: "~30% of rounds (often paired with supervised)" },
+      { factor: "Data acquisition cost", a: "Expensive (manual labelling required at scale)", b: "Cheap (unlabelled data is plentiful)" },
+      { factor: "Easier to start", a: "Yes (clear feedback loop: model output vs label)", b: "Harder (no objective 'right answer'; evaluation is judgment-driven)" },
+      { factor: "Pune company patterns", a: "ZS Associates predictive modelling, BFSI fraud detection, Druva data analytics, BrowserStack ML", b: "Customer-segmentation use cases at ZS + Tiger Analytics, anomaly detection at BFSI tech + product cos" },
+    ],
+    whenA: {
+      heading: "When supervised learning is the right approach",
+      paragraphs: [
+        "If you have labelled data (historical examples where you know the correct outcome) + want to predict that outcome for new data, supervised learning is the right framing. Most Pune ML use cases at services majors + product companies fall here: predicting customer churn, fraud detection, demand forecasting, image classification.",
+        "If you're a fresher data scientist building portfolio projects, supervised learning is easier to start with — clear evaluation (your model's predictions vs known correct answers gives objective accuracy). Kaggle competitions + standard ML coursework focus heavily here for the same reason.",
+        "If your Pune target role is at ZS Associates, Tiger Analytics, Mu Sigma, BrowserStack ML, Druva data, or Pune BFSI tech teams (analytics + fraud detection + risk scoring), supervised learning fluency directly maps to day-to-day work. ~75% of Pune data science interview rounds focus here.",
+      ],
+    },
+    whenB: {
+      heading: "When unsupervised learning is the right approach",
+      paragraphs: [
+        "If you don't have labelled data + want to find natural structure (clusters of similar customers, anomalous transactions, latent topics in documents), unsupervised learning is the right framing. Customer segmentation + anomaly detection are the most common Pune unsupervised use cases.",
+        "If your role involves exploratory data analysis (looking at a new dataset to understand its structure before deciding what to predict), unsupervised techniques (PCA for dimensionality reduction, K-Means or DBSCAN for clustering) are essential first-pass analysis tools.",
+        "If you're working in fraud detection / cybersecurity / sensor monitoring contexts where the 'normal' patterns are known but the 'abnormal' ones aren't pre-labelled, unsupervised anomaly detection (Isolation Forest, One-Class SVM, autoencoder reconstruction error) is the appropriate technique class.",
+      ],
+    },
+    bottomLine:
+      "Both are essential data science skills. Master supervised learning first (foundation of ~80% of Pune ML work + clearer evaluation framework + most-screened at interviews). Add unsupervised techniques (clustering + dimensionality reduction + anomaly detection) as your second focus. Most Pune data scientists use both regularly: unsupervised for EDA + feature engineering, supervised for the actual production prediction model. They're complementary, not competitors.",
+    relatedCourseSlugs: ["data-science-training-in-pune", "machine-learning-training-in-pune"],
+    faqs: [
+      {
+        question: "Should I learn supervised + unsupervised at the same time as a fresher?",
+        answer:
+          "Supervised first to working depth (Linear/Logistic Regression, decision trees, Random Forests, XGBoost, basic Neural Networks). Then add unsupervised (K-Means, PCA, DBSCAN) as a 3-4 week extension. Trying to learn both simultaneously usually means surface-level fluency in both without depth in either. Supervised gives clearer feedback (right/wrong predictions); start there.",
+      },
+      {
+        question: "What about semi-supervised + reinforcement + self-supervised learning?",
+        answer:
+          "Semi-supervised (using both labelled + unlabelled data) is increasingly used in production but specialised. Reinforcement learning is mostly research + gaming + robotics; rare in Pune commercial data work. Self-supervised learning (LLM pre-training pattern) is core to modern AI but mostly research depth — Pune AI engineers use the resulting models (LLMs) without training them. For fresher prep, supervised + unsupervised is the priority pair.",
+      },
+      {
+        question: "Which unsupervised algorithm should I learn first?",
+        answer:
+          "K-Means for clustering (simplest + most common interview question). PCA for dimensionality reduction. Then DBSCAN for non-spherical clustering. Then t-SNE / UMAP for visualisation. Autoencoders for anomaly detection at scale. Cover the first 2 deeply, the next 3 conceptually for fresher prep. Each algorithm: when to use, key hyperparameters, evaluation approach.",
+      },
+      {
+        question: "What's the most-failed supervised vs unsupervised question at Pune data interviews?",
+        answer:
+          "Which framing fits this business problem? Candidates can recite algorithm names but fail to articulate why classification (supervised) is appropriate for 'predict churn' vs why clustering (unsupervised) fits 'find customer segments'. The mature answer: identify whether the business question implies a known target outcome (supervised) or seeks emergent structure (unsupervised). Walking through 3 Pune-specific examples per side signals real problem-framing maturity.",
+      },
+    ],
+  },
 ];
 
 export function getComparison(slug: string): Comparison | undefined {
