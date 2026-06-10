@@ -13,6 +13,7 @@ import {
 import { categoryToSlug } from "@/lib/blog/category-slug";
 import {
   EVERGREEN_LAST_REVIEWED,
+  LOCATIONS_LAST_REVIEWED,
   COURSE_LAST_REVIEWED,
   BOOTCAMP_LAST_REVIEWED,
   NEW_ASSETS_LAST_REVIEWED,
@@ -30,6 +31,7 @@ const EVERGREEN = isoToDate(EVERGREEN_LAST_REVIEWED);
 const COURSE = isoToDate(COURSE_LAST_REVIEWED);
 const BOOTCAMP = isoToDate(BOOTCAMP_LAST_REVIEWED);
 const NEW_ASSETS = isoToDate(NEW_ASSETS_LAST_REVIEWED);
+const LOCATIONS = isoToDate(LOCATIONS_LAST_REVIEWED);
 
 // Render at request time, not build time. The production image is built
 // without DATABASE_URL, so building this statically drops every DB-backed URL
@@ -50,6 +52,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${baseUrl}/about/facts`, lastModified: EVERGREEN, changeFrequency: "monthly", priority: 0.6 },
     { url: `${baseUrl}/courses`, lastModified: EVERGREEN, changeFrequency: "weekly", priority: 0.9 },
     { url: `${baseUrl}/placements`, lastModified: EVERGREEN, changeFrequency: "monthly", priority: 0.8 },
+    // P7-26 flagship trust page (2026-06-10) — student reviews +
+    // testimonials hub with Review schema + AggregateRating from the
+    // 126+ Google review feed. Priority 0.8 to match /placements: both
+    // are top-of-funnel proof surfaces.
+    { url: `${baseUrl}/testimonials`, lastModified: EVERGREEN, changeFrequency: "monthly", priority: 0.8 },
     { url: `${baseUrl}/corporate-training`, lastModified: EVERGREEN, changeFrequency: "monthly", priority: 0.7 },
     { url: `${baseUrl}/internships`, lastModified: EVERGREEN, changeFrequency: "monthly", priority: 0.7 },
     { url: `${baseUrl}/batch-schedule`, lastModified: EVERGREEN, changeFrequency: "weekly", priority: 0.8 },
@@ -141,13 +148,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }));
 
-  // Neighbourhood location pages (P4-15) + the /locations hub — 2026-05-25.
+  // Neighbourhood location pages (P4-15 + P4-21 refresh 2026-06-10).
+  // Locations now have their own LOCATIONS_LAST_REVIEWED constant
+  // independent of NEW_ASSETS — see content-dates.ts for the rationale.
   const locationListingPage: MetadataRoute.Sitemap = [
-    { url: `${baseUrl}/locations`, lastModified: NEW_ASSETS, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${baseUrl}/locations`, lastModified: LOCATIONS, changeFrequency: "monthly", priority: 0.7 },
   ];
   const locationPages: MetadataRoute.Sitemap = neighbourhoods.map((area) => ({
     url: `${baseUrl}/locations/${area.slug}`,
-    lastModified: NEW_ASSETS,
+    lastModified: LOCATIONS,
     changeFrequency: "monthly",
     priority: 0.7,
   }));

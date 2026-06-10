@@ -270,6 +270,16 @@ export function Footer() {
                   Pune IT Career FAQs
                 </Link>
               </li>
+              {/* P7-26 flagship trust page (2026-06-10) — student reviews +
+                  testimonials hub with Review schema. */}
+              <li>
+                <Link
+                  href="/testimonials"
+                  className="text-primary-foreground/80 hover:text-secondary transition-colors text-sm"
+                >
+                  Student Reviews &amp; Testimonials
+                </Link>
+              </li>
             </ul>
           </div>
 
