@@ -1254,6 +1254,334 @@ export const audiences: AudienceLanding[] = [
       },
     ],
   },
+
+  // ─── 17. JSPM RSCOE students → CareerCode ──────────────────────────────────
+  // P4-18 ninth college page. JSPM's Rajarshi Shahu College of Engineering
+  // in Tathawade — adjacent to Hinjewadi IT corridor.
+  {
+    slug: "jspm-rscoe-students",
+    name: "JSPM RSCOE students",
+    tagline: "Hinjewadi-corridor placement-ready stack alongside your RSCOE degree.",
+    metaTitle: "Coding Classes for JSPM RSCOE Students Pune (2026)",
+    metaDescription:
+      "JSPM RSCOE students: build the production-stack depth + interview prep to convert Hinjewadi proximity into top offers. Archer Infotech — Kothrud + live-online — Java FS, MERN, Python, Cloud.",
+    h1: "Coding Classes for JSPM RSCOE Students in Pune",
+    intro: [
+      "JSPM's Rajarshi Shahu College of Engineering (RSCOE) in Tathawade is one of the larger Pune engineering colleges by intake, sitting right next to the Hinjewadi IT corridor. Hinjewadi MNCs — Infosys, TCS, Wipro, Cognizant, Capgemini, plus dozens of GCC captives — are the natural hiring pipeline for RSCOE students, and the campus drives reach you reliably. What converts the median offer into a top-band one is the same lever every engineering college faces: stack depth, GitHub portfolio, and rehearsed interview answers.",
+      "RSCOE is about 25 km from our Kothrud centre, so most RSCOE students join our live-online (live instructor-led) batches. Curriculum, projects, mock interviews and placement support are identical to classroom. For occasional in-person time, Saturday classroom + weekday online is a common pattern.",
+    ],
+    forYou: [
+      "You're a JSPM RSCOE undergrad (BE / BTech) in CS, IT, ENTC, AI&DS or related branch",
+      "You want Hinjewadi-corridor drives to convert into top-band offers, not median ones",
+      "You'd rather build deep on one stack than survey across many",
+      "You want production-quality projects + DSA rehearsal before campus drives",
+      "Online + occasional in-person fits your schedule better than daily commute to Kothrud",
+    ],
+    programme: {
+      bootcampSlug: "careercode",
+      bootcampName: "CareerCode",
+      pitch:
+        "CareerCode runs in both classroom and live-online formats so RSCOE students can pick whichever fits their commute. Same curriculum, same placement support across formats.",
+    },
+    alsoConsiderCourseSlugs: [
+      "java-full-stack-training-in-pune",
+      "mern-stack-training-in-pune",
+      "python-training-in-pune",
+      "aws-solutions-architect-training-in-pune",
+      "devops-training-in-pune",
+    ],
+    whatYouGain: [
+      "Stack depth calibrated to Hinjewadi-belt MNC hiring patterns",
+      "A production-quality GitHub portfolio recruiters at TCS / Infosys / Wipro look for",
+      "Mock interview reps for DSA + framework internals + behavioural rounds",
+      "Internship + placement referrals through 100+ Pune hiring partners",
+      "Live-online flexibility so the 25 km RSCOE-Kothrud commute isn't a blocker",
+    ],
+    eligibility:
+      "Open to RSCOE undergrads in any year and any branch. CS / IT / AI&DS start at project tracks; other branches start at fundamentals.",
+    whyArcher: [
+      "Our 6-person faculty has 54+ combined years at Pune MNCs (Capgemini, Tech Mahindra, MindTree, Amdocs). For RSCOE students aiming at the Hinjewadi belt, our interview prep maps directly to their hiring panels' question patterns.",
+      "Live-online format eliminates the RSCOE-Kothrud commute as a barrier. 17+ years training Pune engineering students; 10,000+ trained; 5,000+ placed at TCS, Infosys, Wipro, Tech Mahindra, Persistent and 100+ other partners — many of them via Hinjewadi-belt drives that RSCOE students see directly.",
+    ],
+    faqs: [
+      {
+        question: "RSCOE is in Tathawade — how do I attend Archer Kothrud regularly?",
+        answer:
+          "Most RSCOE students join our live-online batches — same instructors, projects, Q&A access and placement support as classroom. For occasional in-person time, Saturday classroom + weekday online is a common pattern.",
+      },
+      {
+        question: "Hinjewadi drives are already strong for RSCOE — what does Archer add?",
+        answer:
+          "Hinjewadi drives reach RSCOE reliably, but offer quality maps to stack depth, project portfolio, and interview prep. CareerCode adds those exact layers on top of your BE coursework so you convert into top-band offers, not median ones.",
+      },
+      {
+        question: "Which stack converts best for RSCOE CS / IT students?",
+        answer:
+          "Java Full Stack opens the widest Hinjewadi MNC pipeline. MERN is sharper for GCC captives and product startups. Cloud + DevOps pays well at fresher level and is rising fast in the Hinjewadi belt.",
+      },
+      {
+        question: "Do online batches deliver the same outcomes as classroom?",
+        answer:
+          "Yes — multi-year placement data confirms identical outcomes when students engage consistently. Curriculum, project work, mock interviews and referrals are the same. The deciding variable is your engagement, not the format.",
+      },
+      {
+        question: "Will Archer help with off-campus drives?",
+        answer:
+          "Yes. Beyond RSCOE's TPO drives, our placement team runs off-campus referrals to 100+ partners. Mock interviews and resume polish are included in every flagship course.",
+      },
+      {
+        question: "Is EMI available for RSCOE students?",
+        answer:
+          "Yes — every flagship course supports EMI. Ask the admissions team during your free demo for current EMI partners and seasonal offers.",
+      },
+    ],
+  },
+
+  // ─── 18. Sinhgad COE students → CareerCode ─────────────────────────────────
+  // P4-18 tenth college page. Sinhgad College of Engineering in Vadgaon
+  // Budruk — Sinhgad Road belt, broad branch coverage.
+  {
+    slug: "sinhgad-coe-students",
+    name: "Sinhgad COE students",
+    tagline: "Industry-ready coding skills alongside your Sinhgad COE degree.",
+    metaTitle: "Coding Classes for Sinhgad COE Students Pune (2026)",
+    metaDescription:
+      "Sinhgad COE students: layer production-grade stack depth + interview prep on top of your engineering degree. Archer Infotech — Kothrud — Java FS, MERN, Python, Cloud, DevOps with placement support.",
+    h1: "Coding Classes for Sinhgad COE Students in Pune",
+    intro: [
+      "Sinhgad College of Engineering in Vadgaon Budruk is part of one of Pune's largest engineering networks (Sinhgad Technical Education Society), with broad branch coverage and steady placement pipelines into Pune MNCs and Hinjewadi-belt employers. The placement record is solid; converting it into top-band offers comes down to the same lever every Pune engineering student faces — stack depth, portfolio quality, rehearsed interview answers.",
+      "Sinhgad COE is about 15 km from our Kothrud centre via Sinhgad Road, so most Sinhgad COE students attend evening or weekend classroom batches with live-online as a flexible fallback. CareerCode pacing fits the BE academic calendar.",
+    ],
+    forYou: [
+      "You're a Sinhgad COE undergrad (BE) in CS, IT, ENTC, Mech, Civil or related branch",
+      "You want Sinhgad COE's placement record to convert into top-band offers",
+      "You'd rather build deep stack expertise than skim breadth",
+      "You want mock interviews + project portfolio before campus drives",
+      "Evening / weekend batches plus live-online flexibility fit your schedule",
+    ],
+    programme: {
+      bootcampSlug: "careercode",
+      bootcampName: "CareerCode",
+      pitch:
+        "CareerCode runs in both classroom (Kothrud) and live-online formats. Sinhgad COE students pick whichever fits their commute. Curriculum and placement support are identical.",
+    },
+    alsoConsiderCourseSlugs: [
+      "java-full-stack-training-in-pune",
+      "mern-stack-training-in-pune",
+      "python-training-in-pune",
+      "data-science-training-in-pune",
+      "devops-training-in-pune",
+    ],
+    whatYouGain: [
+      "Stack depth in one track (Java FS, MERN, Python, Data, Cloud / DevOps)",
+      "A production-quality project portfolio with clean Git history",
+      "Mock interview reps that map to Pune MNC question patterns",
+      "Internship + placement referrals via our 100+ hiring partners",
+      "Pacing that fits Sinhgad COE's BE academic calendar",
+    ],
+    eligibility:
+      "Open to Sinhgad COE undergrads in any year and branch. CS / IT students start at project tracks; non-CS branches start at fundamentals — no prior coding required.",
+    whyArcher: [
+      "Our 6-person faculty has 54+ combined years at Pune MNCs (Capgemini, Tech Mahindra, MindTree, Amdocs). The curriculum and interview prep are calibrated to the hiring panels Sinhgad COE students face most often — Pune services MNCs, Hinjewadi-belt GCCs, growing product companies.",
+      "Kothrud centre is 15 min from Sinhgad COE via Sinhgad Road. 17+ years training Pune engineering students, 10,000+ trained, 5,000+ placed at MNCs and product companies including 100+ active hiring partners.",
+    ],
+    faqs: [
+      {
+        question: "How far is Archer Kothrud from Sinhgad COE Vadgaon Budruk?",
+        answer:
+          "Roughly 15 minutes by two-wheeler via Sinhgad Road. PMPML connections also link Vadgaon Budruk to Kothrud. Most Sinhgad COE students attend evening or Saturday classroom batches.",
+      },
+      {
+        question: "Sinhgad has a large student base — do batches still feel personalised?",
+        answer:
+          "Yes — CareerCode cohorts cap at sizes that keep instructor Q&A access intact. Mixed-college batches expose you to peers from COEP, PICT, VIT, Cummins COE, AISSMS, RSCOE etc — closer to real workplace mix.",
+      },
+      {
+        question: "Which stack works best for a Sinhgad COE CS student?",
+        answer:
+          "Java Full Stack opens the widest Pune MNC pipeline. MERN is sharper for product startups. DevOps + Cloud (AWS) is rising fast and pays well at fresher level if you build real portfolio work.",
+      },
+      {
+        question: "Will Archer help with TPO drives + off-campus?",
+        answer:
+          "Yes. Beyond Sinhgad's TPO drives, our placement team runs off-campus referrals to 100+ partners. Mock interviews and resume polish are included in every flagship course fee.",
+      },
+      {
+        question: "Can I balance Archer alongside Sinhgad COE's academic load?",
+        answer:
+          "Yes — CareerCode is semester-paced for exactly this reason. 2 evenings + Saturday is the typical load; LMS lifetime access covers exam-week catchup.",
+      },
+      {
+        question: "What's the typical placement outcome?",
+        answer:
+          "Flagship-track graduates typically land ₹4-6 LPA fresher band offers, with top performers in Java FS / MERN / DS / DevOps crossing ₹10 LPA. Outcome depends on stack depth + interview prep consistency.",
+      },
+    ],
+  },
+
+  // ─── 19. MIT-AOE students → CareerCode ─────────────────────────────────────
+  // P4-18 eleventh college page. MIT Academy of Engineering (MIT-AOE) in
+  // Alandi — distinct from MIT-WPU; engineering-focused autonomous college.
+  {
+    slug: "mit-aoe-students",
+    name: "MIT-AOE students",
+    tagline: "Stack depth + portfolio + interview prep alongside your MIT-AOE degree.",
+    metaTitle: "Coding Classes for MIT-AOE Students Pune (2026)",
+    metaDescription:
+      "MIT-AOE (Alandi) students: build production-stack depth, GitHub portfolio and interview prep beyond the syllabus. Archer Infotech — Kothrud + live-online — Java FS, MERN, Python, Cloud.",
+    h1: "Coding Classes for MIT-AOE Students in Pune",
+    intro: [
+      "MIT Academy of Engineering (MIT-AOE) in Alandi is an autonomous engineering college distinct from MIT-WPU's Kothrud campus — its own academic calendar, placement cell and curriculum. The placement pipeline delivers steady Pune MNC and GCC offers; converting median offers into top-band ones is the same lever every Pune engineering college faces — stack depth, GitHub portfolio, rehearsed interview answers.",
+      "MIT-AOE Alandi is roughly 25 km from our Kothrud centre, so most MIT-AOE students join our live-online batches (same curriculum, instructors, mock interviews and placement support as classroom). Saturday classroom + weekday online is also a common pattern.",
+    ],
+    forYou: [
+      "You're an MIT-AOE undergrad in CS, IT, ENTC, AI&DS, Mech or related branch",
+      "You want autonomous-curriculum strength to convert into top-band placement offers",
+      "You'd rather build deep on one stack than skim across many",
+      "You want production-quality projects + DSA prep before TPO drives start",
+      "Live-online + Saturday classroom fits your Alandi-Kothrud commute pattern",
+    ],
+    programme: {
+      bootcampSlug: "careercode",
+      bootcampName: "CareerCode",
+      pitch:
+        "CareerCode runs in both classroom and live-online formats — pick whichever fits your commute. Same curriculum, same placement support across formats.",
+    },
+    alsoConsiderCourseSlugs: [
+      "java-full-stack-training-in-pune",
+      "mern-stack-training-in-pune",
+      "python-training-in-pune",
+      "data-science-training-in-pune",
+      "aws-solutions-architect-training-in-pune",
+    ],
+    whatYouGain: [
+      "Stack depth in one production track (Java FS, MERN, Python, Data, Cloud)",
+      "A GitHub portfolio + DSA rehearsal recruiters at Pune MNCs and product companies look for",
+      "Mock interview reps for technical + behavioural rounds",
+      "Internship + placement referrals via 100+ hiring partners",
+      "Live-online flexibility so MIT-AOE's Alandi distance isn't a blocker",
+    ],
+    eligibility:
+      "Open to MIT-AOE undergrads in any year and any branch. CS / IT / AI&DS start at project tracks; other branches start at fundamentals — no prior coding required.",
+    whyArcher: [
+      "Our 6-person faculty has 54+ combined years at Pune MNCs (Capgemini, Tech Mahindra, MindTree, Amdocs). For MIT-AOE students targeting services MNCs, GCC captives, and growing product companies, the stack work and interview prep match those hiring panels directly.",
+      "Live-online format means MIT-AOE Alandi's distance from Kothrud is a non-issue. 17+ years training Pune engineering students; 10,000+ trained; 5,000+ placed at TCS, Infosys, Wipro, Tech Mahindra, Persistent, Capgemini and 100+ other partners.",
+    ],
+    faqs: [
+      {
+        question: "How is MIT-AOE different from MIT-WPU for Archer's purposes?",
+        answer:
+          "MIT-AOE (Alandi) and MIT-WPU (Kothrud) are sister institutions under the MAEER umbrella but run independently — different academic calendars, placement cells, and locations. We have dedicated pages for both because the commute math and college positioning differ meaningfully.",
+      },
+      {
+        question: "MIT-AOE is in Alandi — how do I attend Archer Kothrud regularly?",
+        answer:
+          "Most MIT-AOE students join our live-online batches — same instructors, projects, Q&A access and placement support as classroom. For occasional in-person time, Saturday classroom + weekday online is a common pattern.",
+      },
+      {
+        question: "Which stack converts best for MIT-AOE CS / IT students?",
+        answer:
+          "Java Full Stack opens the widest Pune MNC pipeline. MERN is sharper for GCC captives and product startups. AI&DS branch students often pair Data Science with their AI coursework for stronger product company applications.",
+      },
+      {
+        question: "Do online batches really deliver the same outcomes?",
+        answer:
+          "Yes — multi-year placement data confirms identical outcomes when students engage consistently. The deciding variables are project completion and interview prep frequency, not format.",
+      },
+      {
+        question: "Will Archer help with off-campus drives?",
+        answer:
+          "Yes. Beyond MIT-AOE's TPO drives, our placement team runs targeted off-campus referrals to 100+ Pune hiring partners. Mock interviews and resume review are included in every flagship course fee.",
+      },
+      {
+        question: "What outcome should I expect?",
+        answer:
+          "Flagship-track graduates typically land ₹4-6 LPA fresher band offers, with top performers in Java FS / MERN / DS / DevOps crossing ₹10 LPA. Outcomes scale with stack depth + interview prep consistency.",
+      },
+    ],
+  },
+
+  // ─── 20. DYP COE students → CareerCode ─────────────────────────────────────
+  // P4-18 twelfth (final) college page. D. Y. Patil College of Engineering in
+  // Akurdi — sits in the same Pimpri Chinchwad belt as PCCOE; near Hinjewadi.
+  {
+    slug: "dypcoe-students",
+    name: "D. Y. Patil COE students",
+    tagline: "Hinjewadi-corridor stack depth alongside your D. Y. Patil COE degree.",
+    metaTitle: "Coding Classes for D. Y. Patil COE Students Pune (2026)",
+    metaDescription:
+      "D. Y. Patil COE Akurdi students: convert Hinjewadi-corridor proximity into top-band placement offers. Archer Infotech — Kothrud + live-online — Java FS, MERN, Python, Cloud, DevOps with 100+ partners.",
+    h1: "Coding Classes for D. Y. Patil COE Students in Pune",
+    intro: [
+      "D. Y. Patil College of Engineering (DYPCOE) in Akurdi is part of the broader DY Patil education group and sits in the Pimpri Chinchwad belt next to the Hinjewadi IT corridor. That proximity to Infosys, TCS, Wipro, Cognizant, Capgemini and the Hinjewadi GCC captives is DYPCOE's biggest placement advantage. Converting it into top-band offers depends on the same lever as everywhere else: stack depth, portfolio quality, and rehearsed interview answers.",
+      "DYPCOE Akurdi is about 30 km from our Kothrud centre, so most DYPCOE students join our live-online batches. Curriculum, projects, mock interviews and placement support are identical to classroom. Saturday classroom + weekday online is a common pattern for students who want occasional in-person time.",
+    ],
+    forYou: [
+      "You're a DYPCOE Akurdi undergrad (BE / BTech) in CS, IT, ENTC, AI&DS or related branch",
+      "You want Hinjewadi-corridor drives to convert into top-band offers",
+      "You'd rather build deep on one stack than skim across many",
+      "You want mock interview reps + project portfolio before campus drives",
+      "Live-online + Saturday classroom fits your Akurdi-Kothrud commute",
+    ],
+    programme: {
+      bootcampSlug: "careercode",
+      bootcampName: "CareerCode",
+      pitch:
+        "CareerCode runs in both classroom and live-online formats — DYPCOE students pick whichever fits their commute. Same curriculum, same placement support across formats.",
+    },
+    alsoConsiderCourseSlugs: [
+      "java-full-stack-training-in-pune",
+      "mern-stack-training-in-pune",
+      "python-training-in-pune",
+      "aws-solutions-architect-training-in-pune",
+      "devops-training-in-pune",
+    ],
+    whatYouGain: [
+      "Stack depth calibrated to Hinjewadi-belt MNC hiring patterns",
+      "A production-quality GitHub portfolio recruiters at TCS / Infosys / Wipro look for",
+      "Mock interview reps for DSA + framework internals + behavioural rounds",
+      "Internship + placement referrals via our 100+ hiring partner network",
+      "Live-online flexibility so the 30 km Akurdi-Kothrud commute isn't a barrier",
+    ],
+    eligibility:
+      "Open to DYPCOE undergrads in any year and any branch. CS / IT / AI&DS start at project tracks; non-CS branches start at fundamentals — no prior coding required.",
+    whyArcher: [
+      "Our 6-person faculty has 54+ combined years at Pune MNCs (Capgemini, Tech Mahindra, MindTree, Amdocs) — exactly the hiring panels DYPCOE students face most often through Hinjewadi-belt drives. Interview prep maps directly to their question patterns.",
+      "Live-online format eliminates the DYPCOE-Kothrud commute as a barrier. 17+ years training Pune engineering students; 10,000+ trained; 5,000+ placed at TCS, Infosys, Wipro, Tech Mahindra, Persistent and 100+ other partners.",
+    ],
+    faqs: [
+      {
+        question: "DYPCOE Akurdi is far from Kothrud — how does this work?",
+        answer:
+          "Most DYPCOE students join our live-online batches — same instructors, projects, Q&A access and placement support as classroom. For occasional in-person time, Saturday classroom + weekday online is the common pattern.",
+      },
+      {
+        question: "How is DYPCOE different from PCCOE for Archer's purposes?",
+        answer:
+          "Both DYPCOE Akurdi and PCCOE sit in the Pimpri Chinchwad belt with similar Hinjewadi proximity, but they run as separate colleges with their own placement cells and academic calendars. We have dedicated pages for both because the positioning copy differs even when the commute math is similar.",
+      },
+      {
+        question: "Which stack converts best for DYPCOE CS / IT students?",
+        answer:
+          "Java Full Stack opens the widest Hinjewadi MNC pipeline. MERN is sharper for GCC captives and product startups. Cloud + DevOps (AWS) pays well at fresher level and is rising fast in the Hinjewadi belt.",
+      },
+      {
+        question: "Do online batches deliver the same outcomes as classroom?",
+        answer:
+          "Yes — multi-year placement data confirms identical outcomes when students engage consistently. The deciding variable is your engagement and project completion, not the batch format.",
+      },
+      {
+        question: "Will Archer help with off-campus drives?",
+        answer:
+          "Yes. Beyond DYPCOE's TPO drives, our placement team runs off-campus referrals to 100+ partners. Mock interviews, resume polish and recruiter introductions are included.",
+      },
+      {
+        question: "Is EMI available?",
+        answer:
+          "Yes — every flagship course supports EMI. Ask the admissions team during your free demo for current EMI partners and seasonal offers.",
+      },
+    ],
+  },
 ];
 
 /** Look up an audience landing page by slug. */
