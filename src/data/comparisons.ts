@@ -1721,6 +1721,72 @@ export const comparisons: Comparison[] = [
       },
     ],
   },
+
+  // 27 ─ EKS vs ECS (Cloud / DevOps spoke #8, 2026-06-07) ──────────────────
+  {
+    slug: "eks-vs-ecs-for-pune-aws-engineers-2026",
+    shortLabel: "EKS vs ECS",
+    metaTitle: "EKS vs ECS for Pune AWS Engineers (2026) — Which to Learn First",
+    metaDescription:
+      "EKS vs ECS in 2026: an honest comparison for Pune AWS engineers — Kubernetes vs proprietary, hiring volume, complexity, cost, and which AWS container orchestration to learn first.",
+    h1: "EKS vs ECS for Pune AWS Engineers (2026)",
+    optionA: "EKS",
+    optionB: "ECS",
+    verdict:
+      "For Pune AWS engineers in 2026, EKS (managed Kubernetes) is the higher-EV first pick by career transferability — ~60% of Pune AWS container postings reference EKS or Kubernetes; ~30% reference ECS / Fargate; ~10% other (App Runner, Lightsail). Kubernetes skills transfer across cloud providers + on-premises; ECS skills are AWS-only. ECS remains the right choice for simpler use cases at AWS-only shops with smaller team capacity. Pick EKS for career portability + ecosystem leverage; pick ECS if your specific role requires it.",
+    table: [
+      { factor: "Pune AWS container postings share", a: "~60% reference EKS / Kubernetes on AWS", b: "~30% reference ECS / Fargate" },
+      { factor: "Orchestration platform", a: "Kubernetes (open source, cross-cloud portable)", b: "AWS proprietary container service" },
+      { factor: "Operating complexity", a: "Higher — Kubernetes concepts + many moving parts (control plane, nodes, etcd, networking)", b: "Lower — abstracted away by AWS, simpler mental model" },
+      { factor: "Cross-cloud portability", a: "Excellent — same kubectl/manifest skills work on EKS, AKS, GKE, on-prem", b: "AWS-only (skills don't transfer to Azure or GCP equivalents)" },
+      { factor: "Ecosystem", a: "Vast Kubernetes ecosystem (Helm, Argo, Istio, Prometheus operator, thousands of CRDs + tools)", b: "Smaller — AWS-native integrations only" },
+      { factor: "Cost", a: "$0.10/hour per cluster control plane + EC2/Fargate compute", b: "Free orchestration (no control plane charge) + EC2/Fargate compute" },
+      { factor: "Best for", a: "Multi-cloud strategy, complex microservices, established Kubernetes teams, modern Pune product cos", b: "Simple containerised apps, AWS-only shops, smaller teams that prefer managed simplicity" },
+      { factor: "Career portability", a: "High — Kubernetes is universal", b: "Lower — proprietary skill set" },
+      { factor: "Pune company patterns", a: "Druva, BrowserStack, Helpshift, Persistent product, AI startups, modern services-major engagements", b: "Smaller Pune product cos + some BFSI engagements + startups optimising for simplicity" },
+    ],
+    whenA: {
+      heading: "When EKS is the right pick",
+      paragraphs: [
+        "If you're targeting career portability + cross-cloud transferable skills, EKS is the higher-EV choice. Kubernetes fluency moves with you to AKS, GKE, on-premises Kubernetes — skills compound across roles. ECS skills are AWS-only.",
+        "If your target organisation uses Kubernetes elsewhere (most modern Pune product companies + AI startups), EKS is what they run on AWS. Druva, BrowserStack, Helpshift, Persistent product all standardise on EKS for AWS workloads.",
+        "If your application benefits from the Kubernetes ecosystem (Helm packaging, Argo for GitOps, Istio for service mesh, custom controllers via operators), EKS gives you access to this. ECS has narrower AWS-native integrations.",
+      ],
+    },
+    whenB: {
+      heading: "When ECS is the right pick",
+      paragraphs: [
+        "If you're running simple containerised applications at an AWS-only shop with no current Kubernetes investment + a small DevOps team, ECS (especially with Fargate) materially reduces operating complexity. No control plane to manage, simpler mental model, faster to learn.",
+        "If your application doesn't benefit from Kubernetes-specific patterns (no service mesh need, no custom controllers, no complex multi-tenancy), the simplicity wins of ECS outweigh Kubernetes flexibility. Many smaller Pune product cos consciously choose ECS for this reason.",
+        "If cost optimisation matters + you're running few containers, ECS's free control plane vs EKS's $0.10/hour ($72/month + ~₹6,000/month) per cluster can matter. At larger scales the cost is negligible; at small scales it can be a noticeable line item.",
+      ],
+    },
+    bottomLine:
+      "Pick EKS first if you're targeting modern Pune product companies + AI startups + career-portable Kubernetes skills. Pick ECS if you specifically join an AWS-only shop using ECS + want simpler operating model. After EKS proficiency, ECS takes 1-2 weeks to learn; the reverse is harder (Kubernetes has more conceptual depth). Most Pune AWS engineers eventually know both; EKS-first is the higher-leverage order.",
+    relatedCourseSlugs: ["aws-training-in-pune", "kubernetes-training-in-pune", "devops-training-in-pune"],
+    faqs: [
+      {
+        question: "Should I learn vanilla Kubernetes first or jump straight to EKS?",
+        answer:
+          "Vanilla Kubernetes first (via minikube or kind on your laptop) for 2-3 weeks to learn the primitives. Then add EKS specifically since AWS leads Pune cloud hiring volume. EKS-specific concepts (IAM roles for service accounts, AWS Load Balancer Controller, EBS CSI driver, Cluster Autoscaler) layer on top of Kubernetes fundamentals. Don't skip the vanilla layer.",
+      },
+      {
+        question: "What about EKS Fargate vs EKS with EC2 worker nodes?",
+        answer:
+          "EKS Fargate: serverless — AWS manages worker nodes, you only pay per-pod. Simpler operationally; ~30% more expensive at scale. EKS + EC2: you manage worker nodes (often via managed node groups); cheaper at scale but more operational responsibility. Most Pune production EKS clusters use EC2 worker nodes; Fargate is common for lightweight or burst workloads.",
+      },
+      {
+        question: "What's the most-failed EKS / ECS question at Pune AWS interviews?",
+        answer:
+          "When to use which + why. Candidates know both exist but fail to articulate the trade-off. The mature answer: 'EKS for career portability + ecosystem leverage at the cost of complexity; ECS for simpler operating model at the cost of cross-cloud transferability'. Walking through 2-3 specific use cases per side signals real architectural thinking.",
+      },
+      {
+        question: "Should I learn AWS App Runner or other simpler AWS container services?",
+        answer:
+          "Conceptual awareness yes; deep depth no at fresher tier. App Runner is excellent for very simple containerised web apps (auto-scales, manages everything). Lightsail Containers similar. But Pune AWS hiring focuses on EKS + ECS — App Runner mentions appear in <5% of postings. Spend prep time on the two majors; learn the simpler services as encountered.",
+      },
+    ],
+  },
 ];
 
 export function getComparison(slug: string): Comparison | undefined {

@@ -650,6 +650,19 @@ export default function CloudDevOpsCareerPath() {
               </li>
               <li>
                 <Link
+                  href="/compare/eks-vs-ecs-for-pune-aws-engineers-2026"
+                  className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
+                >
+                  <span className="font-medium block text-sm">
+                    EKS vs ECS for Pune AWS Engineers
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    Comparison · AWS container orchestration pick
+                  </span>
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/courses/cloud-devops/kubernetes-training-in-pune"
                   className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
                 >
