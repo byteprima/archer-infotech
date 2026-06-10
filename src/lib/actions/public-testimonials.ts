@@ -64,3 +64,37 @@ export const getAllPublishedTestimonials = unstable_cache(
   ["all-published-testimonials"],
   { revalidate: 600, tags: ["testimonials"] },
 );
+
+/**
+ * P7-33 — testimonials matched to a specific course title for the
+ * course detail page. Substring match on `courseTaken` in both
+ * directions so "Java" testimonials match "Java Full Stack" course
+ * pages (and vice-versa). Returned testimonials feed both the
+ * visible "Student feedback" panel and the per-course aggregateRating
+ * + review[] block inside `CourseJsonLd` so each course page becomes
+ * SERP star-snippet eligible against its own Course schema.
+ */
+export const getCourseTestimonials = unstable_cache(
+  async (courseTitle: string) => {
+    try {
+      const all = await db
+        .select()
+        .from(testimonialsTable)
+        .where(eq(testimonialsTable.isPublished, true));
+      const needle = courseTitle.toLowerCase();
+      return all.filter((t) => {
+        if (!t.courseTaken) return false;
+        const haystack = t.courseTaken.toLowerCase();
+        // Bidirectional substring — e.g., "Java" testimonial matches
+        // "Java Full Stack" course, and "Java Full Stack" testimonial
+        // matches "Java" course.
+        return needle.includes(haystack) || haystack.includes(needle);
+      });
+    } catch (error) {
+      console.error("getCourseTestimonials failed (build-time prerender?)", error);
+      return [];
+    }
+  },
+  ["course-testimonials"],
+  { revalidate: 600, tags: ["testimonials"] },
+);

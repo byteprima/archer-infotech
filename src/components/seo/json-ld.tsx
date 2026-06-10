@@ -180,6 +180,31 @@ interface CourseJsonLdProps {
    * cosmetic change. P3-18.
    */
   dateModified?: string;
+  /**
+   * P7-33 — per-course aggregate rating, derived from the course-matched
+   * testimonials. When at least one testimonial matches, embed an
+   * `aggregateRating` on the Course schema so the page becomes SERP
+   * star-snippet eligible against its own Course (not the Org). Skip
+   * entirely when no testimonials match — a fabricated rating is worse
+   * than no rating.
+   */
+  aggregateRating?: {
+    ratingValue: number;
+    ratingCount: number;
+  };
+  /**
+   * P7-33 — optional Review objects embedded inside the Course schema.
+   * Cap at 5 to keep the JSON-LD blob lightweight. Each Review must have
+   * a Person author + reviewBody + reviewRating; itemReviewed is the
+   * parent Course itself so we don't need to repeat it inline.
+   */
+  reviews?: Array<{
+    id: string | number;
+    authorName: string;
+    authorRole?: string | null;
+    body: string;
+    rating: number;
+  }>;
 }
 
 export function CourseJsonLd({
@@ -193,6 +218,8 @@ export function CourseJsonLd({
   nextBatchMode,
   datePublished,
   dateModified,
+  aggregateRating,
+  reviews,
 }: CourseJsonLdProps) {
   const schema = {
     "@context": "https://schema.org",
@@ -247,6 +274,39 @@ export function CourseJsonLd({
         },
       }),
     },
+    // P7-33 — per-course aggregateRating. Only emit when at least one
+    // matched testimonial exists; a synthetic rating would be a
+    // structured-data spam violation.
+    ...(aggregateRating && aggregateRating.ratingCount > 0 && {
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: aggregateRating.ratingValue,
+        ratingCount: aggregateRating.ratingCount,
+        bestRating: 5,
+        worstRating: 1,
+      },
+    }),
+    // P7-33 — embedded Reviews. Each one keys to the parent Course
+    // schema by virtue of being a child of it, so itemReviewed is
+    // implicit and we save bytes vs the ReviewListJsonLd block.
+    ...(reviews && reviews.length > 0 && {
+      review: reviews.map((r) => ({
+        "@type": "Review",
+        "@id": `${baseUrl}${url}#review-${r.id}`,
+        author: {
+          "@type": "Person",
+          name: r.authorName,
+          ...(r.authorRole && { jobTitle: r.authorRole }),
+        },
+        reviewBody: r.body,
+        reviewRating: {
+          "@type": "Rating",
+          ratingValue: r.rating,
+          bestRating: 5,
+          worstRating: 1,
+        },
+      })),
+    }),
   };
 
   return (

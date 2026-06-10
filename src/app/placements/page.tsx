@@ -17,6 +17,7 @@ import { buildPageMetadata } from "@/lib/seo";
 import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { FaqSection } from "@/components/seo/faq-section";
 import { placementsFaqs } from "@/data/faqs";
+import { ReviewRibbon } from "@/components/seo/review-ribbon";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Placements at Archer Infotech — 5,000+ Students Placed Since 2009",
@@ -38,11 +39,14 @@ export default async function PlacementsPage() {
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
               5,000+ Students Placed Since 2009 at Top IT Companies in Pune
             </h1>
-            <p className="text-lg text-white/80">
+            <p className="text-lg text-white/80 mb-5">
               As a leading IT solutions provider, Archer Infotech helps both
               businesses and students. We provide &apos;Mission Ready&apos; IT
               Professionals who hit the ground running from day 1.
             </p>
+            {/* P7-33 — trust ribbon: 5.0★ from 126+ Google reviews,
+                routes to /testimonials. */}
+            <ReviewRibbon variant="light" />
           </div>
         </div>
       </section>

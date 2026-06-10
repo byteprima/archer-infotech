@@ -30,6 +30,9 @@ import {
 } from "@/components/ui/accordion";
 import { CourseJsonLd, FAQJsonLd, BreadcrumbJsonLd } from "@/components/seo/json-ld";
 import { Breadcrumbs } from "@/components/seo/breadcrumbs";
+import { ReviewRibbon } from "@/components/seo/review-ribbon";
+import { getCourseTestimonials } from "@/lib/actions/public-testimonials";
+import { Star, Quote } from "lucide-react";
 import { courses, getCourse, getCategory, getRelatedCourses } from "@/data/courses";
 import { getTrainersForCourse } from "@/data/team";
 import { siteConfig } from "@/data/site-config";
@@ -116,6 +119,36 @@ export default async function CoursePage({ params }: CoursePageProps) {
   const relatedKeywords = deriveCourseKeywords(slug, course.category);
   const relatedReading = await getRelatedBlogPosts(relatedKeywords, 3);
 
+  // P7-33 — course-matched testimonials feed both the visible
+  // "Student feedback" panel below and the per-course aggregateRating +
+  // review[] block inside CourseJsonLd above. When fewer than 1
+  // testimonial matches, we emit neither the schema rating nor the
+  // visible section — synthetic ratings are a structured-data spam
+  // violation, and a one-card "Student feedback" panel looks thin.
+  const courseTestimonials = await getCourseTestimonials(course.title);
+  const courseAggregateRating =
+    courseTestimonials.length > 0
+      ? {
+          ratingValue:
+            Math.round(
+              (courseTestimonials.reduce(
+                (sum, t) => sum + (t.rating ?? 5),
+                0,
+              ) /
+                courseTestimonials.length) *
+                10,
+            ) / 10,
+          ratingCount: courseTestimonials.length,
+        }
+      : undefined;
+  const courseReviewsForSchema = courseTestimonials.slice(0, 5).map((t) => ({
+    id: t.id,
+    authorName: t.name,
+    authorRole: t.role,
+    body: t.content,
+    rating: t.rating ?? 5,
+  }));
+
   return (
     <>
       <PageEvent
@@ -138,6 +171,8 @@ export default async function CoursePage({ params }: CoursePageProps) {
         nextBatchStartDate={nextBatch ? new Date(nextBatch.startDate).toISOString() : undefined}
         nextBatchMode={nextBatch?.mode === "online" ? "online" : nextBatch ? "offline" : undefined}
         dateModified={COURSE_LAST_REVIEWED}
+        aggregateRating={courseAggregateRating}
+        reviews={courseReviewsForSchema}
       />
       <FAQJsonLd faqs={effectiveFaqs} />
       <BreadcrumbJsonLd
@@ -218,7 +253,11 @@ export default async function CoursePage({ params }: CoursePageProps) {
                   </span>
                 </div>
               )}
-              <p className="text-lg text-white/80 mb-6">{course.description}</p>
+              <p className="text-lg text-white/80 mb-4">{course.description}</p>
+              {/* P7-33 — trust ribbon: 5.0★ from 126+ Google reviews,
+                  routes to /testimonials. Visible signal that pairs with
+                  the per-course aggregateRating in CourseJsonLd. */}
+              <ReviewRibbon variant="light" className="mb-6" />
               <div className="flex flex-wrap gap-6 text-sm">
                 <div className="flex items-center gap-2">
                   <Clock className="h-5 w-5" />
@@ -730,6 +769,76 @@ export default async function CoursePage({ params }: CoursePageProps) {
       {/* Related reading — blog posts matched against course keywords.
           Renders nothing when no posts overlap. P5-28. */}
       <RelatedReading posts={relatedReading} courseTitle={course.shortTitle} />
+
+      {/* P7-33 — course-matched student feedback. Pairs with the
+          aggregateRating + review[] block embedded in CourseJsonLd above
+          so the visible signal and structured-data signal say the same
+          thing. Renders nothing when no testimonials match. */}
+      {courseTestimonials.length > 0 && (
+        <section
+          aria-labelledby="course-feedback-heading"
+          className="py-12 bg-muted/30 border-t"
+        >
+          <div className="container mx-auto px-4">
+            <div className="max-w-3xl mx-auto text-center mb-8">
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary mb-3">
+                Student Feedback
+              </p>
+              <h2
+                id="course-feedback-heading"
+                className="text-2xl md:text-3xl font-bold mb-3"
+              >
+                What {course.shortTitle} students say
+              </h2>
+              <p className="text-muted-foreground text-sm">
+                {courseTestimonials.length}{" "}
+                published testimonial
+                {courseTestimonials.length !== 1 && "s"} from{" "}
+                {course.shortTitle} students, alongside our overall 5.0★
+                rating from 126+ Google reviews.{" "}
+                <Link
+                  href="/testimonials"
+                  className="text-primary hover:underline font-medium"
+                >
+                  See all
+                </Link>
+                .
+              </p>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-6xl mx-auto">
+              {courseTestimonials.slice(0, 6).map((t) => (
+                <Card key={t.id} className="h-full">
+                  <CardContent className="pt-6 flex flex-col h-full">
+                    <Quote className="h-7 w-7 text-secondary mb-3 shrink-0" />
+                    <p className="text-sm text-muted-foreground flex-grow mb-4 leading-relaxed">
+                      &ldquo;{t.content}&rdquo;
+                    </p>
+                    <div className="pt-3 border-t">
+                      <div className="font-semibold text-sm">{t.name}</div>
+                      {(t.role || t.placedAt) && (
+                        <div className="text-xs text-muted-foreground">
+                          {t.role}
+                          {t.role && t.placedAt && " — placed at "}
+                          {!t.role && t.placedAt && "Placed at "}
+                          {t.placedAt}
+                        </div>
+                      )}
+                      <div className="flex items-center gap-1 mt-1">
+                        {Array.from({ length: t.rating ?? 5 }).map((_, i) => (
+                          <Star
+                            key={i}
+                            className="h-3 w-3 fill-secondary text-secondary"
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Related tools, comparisons & guides — contextual cross-link block
           that pulls in the salary calculator + roadmap + topic-matched
