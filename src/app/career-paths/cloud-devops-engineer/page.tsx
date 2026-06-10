@@ -611,6 +611,19 @@ export default function CloudDevOpsCareerPath() {
               </li>
               <li>
                 <Link
+                  href="/guides/kubernetes-interview-questions-pune-devops-freshers-2026"
+                  className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
+                >
+                  <span className="font-medium block text-sm">
+                    10 Kubernetes Interview Questions for Pune Freshers
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    Guide · ranked by Pune interview frequency
+                  </span>
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/courses/cloud-devops/kubernetes-training-in-pune"
                   className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
                 >
