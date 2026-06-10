@@ -64,6 +64,10 @@ export default async function HomePage() {
           body: t.content,
           rating: t.rating,
           course: t.courseTaken,
+          // P8-04 — datePublished from DB createdAt; truthful.
+          datePublished: t.createdAt
+            ? new Date(t.createdAt).toISOString().slice(0, 10)
+            : null,
         }))}
       />
 

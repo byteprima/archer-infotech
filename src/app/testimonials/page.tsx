@@ -142,6 +142,10 @@ export default async function TestimonialsPage() {
       body: t.content,
       rating: t.rating ?? 5,
       course: t.courseTaken,
+      // P8-04 — datePublished from the DB createdAt; truthful, not invented.
+      datePublished: t.createdAt
+        ? new Date(t.createdAt).toISOString().slice(0, 10)
+        : null,
     }));
 
   return (

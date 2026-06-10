@@ -30,6 +30,9 @@ export const getHomeTestimonials = unstable_cache(
           linkedinUrl: testimonialsTable.linkedinUrl,
           githubUrl: testimonialsTable.githubUrl,
           placedAt: testimonialsTable.placedAt,
+          // P8-04 — feeds Review.datePublished in the home-page
+          // ReviewListJsonLd. Truthful date from the DB; never invented.
+          createdAt: testimonialsTable.createdAt,
         })
         .from(testimonialsTable)
         .where(eq(testimonialsTable.isPublished, true))

@@ -90,6 +90,11 @@ export default async function LocationPage({ params }: LocationPageProps) {
         pincode={area.pincode}
         slug={area.slug}
         pageName={pageName}
+        // P8-04 — pull description + datePublished from the same
+        // canonical sources the meta tags use, so visible signal,
+        // <meta>, and JSON-LD all agree.
+        description={area.metaDescription}
+        datePublished={LOCATIONS_LAST_REVIEWED}
       />
       <FAQJsonLd faqs={area.localFaqs} />
       <BreadcrumbJsonLd

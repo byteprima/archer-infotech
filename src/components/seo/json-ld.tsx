@@ -412,6 +412,19 @@ interface NeighbourhoodJsonLdProps {
   slug: string;
   /** Page title used as the WebPage name. */
   pageName: string;
+  /**
+   * P8-04 — short description for the WebPage block. Optional but
+   * recommended by Google's structured-data spec; when supplied,
+   * raises the page's rich-result eligibility band.
+   */
+  description?: string;
+  /**
+   * P8-04 — ISO date for the WebPage's `datePublished`. Use the
+   * location-page review-cadence constant (LOCATIONS_LAST_REVIEWED)
+   * so the schema's freshness signal matches the visible "Last
+   * updated" stamp on the page.
+   */
+  datePublished?: string;
 }
 
 export function NeighbourhoodJsonLd({
@@ -420,6 +433,8 @@ export function NeighbourhoodJsonLd({
   pincode,
   slug,
   pageName,
+  description,
+  datePublished,
 }: NeighbourhoodJsonLdProps) {
   const place = {
     "@type": "Place",
@@ -438,6 +453,8 @@ export function NeighbourhoodJsonLd({
     "@type": "WebPage",
     name: pageName,
     url: `${baseUrl}/locations/${slug}`,
+    ...(description && { description }),
+    ...(datePublished && { datePublished }),
     about: place,
     mainEntity: {
       "@type": ["EducationalOrganization", "LocalBusiness"],
@@ -631,6 +648,14 @@ export interface ReviewSchemaInput {
   rating: number;
   /** Optional course taken — adds itemReviewed of type Course. */
   course?: string | null;
+  /**
+   * Optional ISO date for the review's `datePublished` field
+   * (recommended by Google's Review rich-result spec). For
+   * testimonials, the `createdAt` timestamp from the DB is the
+   * canonical source. Without it the validator flags missing
+   * `Review.datePublished`. P8-04.
+   */
+  datePublished?: string | null;
 }
 
 export function ReviewListJsonLd({ reviews }: { reviews: ReviewSchemaInput[] }) {
@@ -657,6 +682,9 @@ export function ReviewListJsonLd({ reviews }: { reviews: ReviewSchemaInput[] }) 
         bestRating: 5,
         worstRating: 1,
       },
+      // P8-04 — datePublished is a Google-recommended Review field.
+      // Pass through only when supplied; never invent a date.
+      ...(r.datePublished && { datePublished: r.datePublished }),
       // The thing being reviewed. When a course is known, emit a complete
       // Course: Google's review-snippet spec only accepts itemReviewed from a
       // fixed list of supported types — `Thing` is rejected ("Invalid object
