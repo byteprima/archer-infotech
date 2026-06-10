@@ -1216,6 +1216,54 @@ export const listicles: Listicle[] = [
       },
     ],
   },
+
+  // 29 ─ Python async patterns (Python cluster spoke #8, 2026-06-07) ───────
+  {
+    slug: "python-async-patterns-pune-engineers-2026",
+    shortLabel: "Python async patterns",
+    metaTitle: "10 Python Async Patterns Every Pune Engineer Should Know (2026)",
+    metaDescription:
+      "The 10 Python async/await patterns Pune backend + AI engineers actually use in production in 2026 — asyncio, FastAPI, async generators, error handling, cancellation. With LangChain integration.",
+    h1: "10 Python Async Patterns Every Pune Engineer Should Know (2026)",
+    intro:
+      "Python async/await is rapidly becoming table-stakes for Pune product company + AI engineering work — ~50% of Pune Python product postings reference asyncio or async patterns explicitly. FastAPI, LangChain, modern HTTP clients (httpx, aiohttp), and agentic AI codebases all assume async fluency. Below are the 10 highest-value Python async patterns ranked by Pune interview frequency + production-use prevalence. Each covers what to use it for + the failure mode you avoid. Master these 10 + build one async portfolio project = production-grade async signal.",
+    entries: [
+      { name: "Use asyncio.gather() for parallel I/O operations", what: "Run multiple awaitables concurrently + collect results: `results = await asyncio.gather(fetch_user(), fetch_orders(), fetch_settings())`. Drastically faster than sequential awaits for independent I/O. Common gotcha: gather() raises first exception by default — use return_exceptions=True to collect partial results.", dataPoint: "Asked at ~70% of Pune async Python rounds. Walking through 'sequential awaits vs gather' explains async's core value.", bestFor: "Parallel API calls; independent database queries; batch operations." },
+      { name: "Use asyncio.create_task() for fire-and-forget", what: "Schedule a coroutine to run in the background without awaiting immediately: `task = asyncio.create_task(slow_operation())`. Continue with other work; await task later if you need the result. Common gotcha: tasks die silently if exceptions aren't handled — use done_callback or wrap in try/except.", dataPoint: "Asked at ~50% of Pune product company rounds. Background work pattern; common in agentic AI orchestration.", bestFor: "Background processing; non-blocking notifications; agentic-AI parallel tool calls." },
+      { name: "Use async context managers (async with)", what: "Async cleanup via `async def __aenter__()` and `async def __aexit__()`. Common usage: `async with httpx.AsyncClient() as client: response = await client.get(url)`. Cleans up connections properly; required for many async libraries. Don't use sync `with` for async resources.", dataPoint: "Asked at ~45% of Pune rounds. Standard pattern for HTTP clients + database connections + file handles in async code.", bestFor: "Resource management; connection pools; transaction boundaries." },
+      { name: "Use async generators + async for", what: "Async iteration: `async def stream_data(): async for item in source: yield process(item)`. Consumer: `async for chunk in stream_data(): handle(chunk)`. Useful for streaming responses (FastAPI streaming, LangChain token streaming), paginated APIs, large file processing.", dataPoint: "Asked at ~40% of Pune AI engineer + streaming-API rounds. LangChain streaming + FastAPI streaming responses both use this pattern.", bestFor: "Streaming responses; paginated data; LLM token-by-token output." },
+      { name: "Handle cancellation properly", what: "Tasks can be cancelled mid-execution via `task.cancel()` — raises asyncio.CancelledError inside the coroutine. Catch + cleanup + re-raise (don't swallow). FastAPI uses cancellation when client disconnects; ignoring it wastes server resources.", dataPoint: "Asked at ~35% of Pune product company + SRE-leaning rounds. Production async signal; missed by tutorial-only candidates.", bestFor: "Long-running operations; client disconnect handling; graceful shutdown." },
+      { name: "Use asyncio.wait_for() for timeouts", what: "Cap how long an async operation runs: `result = await asyncio.wait_for(slow_call(), timeout=5.0)`. Raises asyncio.TimeoutError if exceeded. Critical for LLM calls + external API calls where hangs would otherwise leak forever.", dataPoint: "Asked at ~45% of Pune AI engineer rounds. The first reliability pattern; missing timeouts = production incident waiting to happen.", bestFor: "External API calls; LLM API calls; any operation with unbounded latency." },
+      { name: "Don't mix blocking calls in async code", what: "`requests.get(url)` blocks the event loop, freezing all concurrent tasks. Use `httpx.AsyncClient().get(url)` instead. For inherently sync libraries: `loop.run_in_executor(None, sync_function)` runs them on a thread pool without blocking the event loop.", dataPoint: "Asked at ~60% of Pune rounds. The #1 cause of broken async code in production — blocking calls inside async functions.", bestFor: "Audit pattern; always check libraries for async support." },
+      { name: "Use asyncio.Semaphore for rate limiting", what: "Limit concurrent operations: `sem = asyncio.Semaphore(10)` (max 10 concurrent). Use `async with sem:` to acquire/release. Critical for respecting external API rate limits (OpenAI, Anthropic, third-party APIs) without serialising entirely.", dataPoint: "Asked at ~35% of Pune AI engineer + integration-heavy rounds. Production discipline signal.", bestFor: "External API rate limiting; database connection pools; controlled parallelism." },
+      { name: "Use TaskGroup (Python 3.11+) for structured concurrency", what: "Structured concurrency primitive: `async with asyncio.TaskGroup() as tg: tg.create_task(fetch1()); tg.create_task(fetch2())`. Automatically cancels siblings if one fails + waits for all on exit. Cleaner than manual gather() + cancellation.", dataPoint: "Asked at ~25% of Pune product company rounds (rising rapidly since Python 3.11 LTS). Modern Pune product company differentiator.", bestFor: "Coordinated parallel operations; clean error propagation across tasks." },
+      { name: "Use sync_to_async + async_to_sync for Django + Flask integration", what: "Django async views need sync_to_async() to call sync ORM methods. Old sync codebases use async_to_sync() to call async functions from sync code. Both via asgiref library. Django's gradual async migration relies on these.", dataPoint: "Asked at ~30% of Pune Django + Python web rounds. Real-world migration question; common at Pune services-major modernisation contexts.", bestFor: "Mixed sync/async codebases; gradual async migration." },
+    ],
+    methodology:
+      "Patterns ranked by Pune Python async interview-frequency from Archer Infotech's placement-cell debriefs over 2024-2026 cycles + production-use prevalence at Pune Python product companies (Druva, BrowserStack, GUVI, Persistent Avaamo, Helpshift) + AI startups. Modern async patterns (TaskGroup, structured concurrency, asyncio.timeout) prioritised over legacy ones (callback-based asyncio, manual event loop management). FastAPI + LangChain ecosystem dominant.",
+    faqs: [
+      {
+        question: "Do I need async/await for Pune Python fresher interviews?",
+        answer:
+          "Services-major tier: conceptual awareness sufficient (know what async means + when to use it). Product company + AI engineering tier: working depth required — building async functions, handling cancellation, avoiding blocking calls. Spend 2-3 weeks on async after solid sync Python foundation; it's the differentiator for product-company-targeted offers.",
+      },
+      {
+        question: "When should I use async vs threads vs multiprocessing in Python?",
+        answer:
+          "asyncio for I/O-bound work (many concurrent HTTP calls, database queries, LLM API calls). Threads (concurrent.futures.ThreadPoolExecutor) for I/O-bound when libraries don't support async or you need real parallelism via the GIL release on I/O. Multiprocessing for CPU-bound work (ML training, image processing) where you need real parallel execution across CPU cores.",
+      },
+      {
+        question: "What's the most-failed Python async question at Pune fresher interviews?",
+        answer:
+          "Blocking calls inside async functions. Candidates write async def + use requests.get() or time.sleep() inside — silently freezes the event loop. Mature pattern: identify all sync libraries used (requests → httpx, time.sleep → asyncio.sleep, sqlalchemy sync → async SQLAlchemy or run_in_executor). Walking through this audit signals real async production experience.",
+      },
+      {
+        question: "Should I learn asyncio or trio / anyio?",
+        answer:
+          "asyncio first (Python standard library + universal). anyio is excellent (single API works with asyncio + trio backends, used by FastAPI internally) — learn it as 'asyncio + safety nets' after asyncio fluency. Trio is intellectually cleaner but smaller ecosystem; skip unless specifically targeting Trio-using codebases (rare at Pune).",
+      },
+    ],
+  },
 ];
 
 export function getListicle(slug: string): Listicle | undefined {

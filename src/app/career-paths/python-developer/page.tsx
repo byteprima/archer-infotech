@@ -746,6 +746,19 @@ export default function PythonDeveloperCareerPath() {
                   </span>
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/guides/python-async-patterns-pune-engineers-2026"
+                  className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
+                >
+                  <span className="font-medium block text-sm">
+                    10 Python Async Patterns for Pune Engineers
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    Guide · asyncio + gather + cancellation + TaskGroup
+                  </span>
+                </Link>
+              </li>
             </ul>
           </section>
 
