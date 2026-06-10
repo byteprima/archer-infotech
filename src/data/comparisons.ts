@@ -862,6 +862,72 @@ export const comparisons: Comparison[] = [
       },
     ],
   },
+
+  // 14 ─ TensorFlow vs PyTorch (Data Science cluster spoke #3, 2026-06-07) ──
+  {
+    slug: "tensorflow-vs-pytorch-for-pune-ml-engineers-2026",
+    shortLabel: "TensorFlow vs PyTorch",
+    metaTitle: "TensorFlow vs PyTorch for Pune ML Engineers (2026) — Which to Learn",
+    metaDescription:
+      "TensorFlow vs PyTorch in 2026: an honest comparison for Pune ML engineers — research vs production trade-off, hiring volume by company tier, deployment ecosystems, and which framework to learn first.",
+    h1: "TensorFlow vs PyTorch for Pune ML Engineers (2026)",
+    optionA: "TensorFlow",
+    optionB: "PyTorch",
+    verdict:
+      "For Pune ML engineers in 2026, PyTorch is the higher-EV first pick — it leads at Pune product companies + AI startups (~65% of postings), dominates academic research, and has the cleaner mental model for learners. TensorFlow remains strong at enterprise ML teams + services-major AI practices (Persistent ML, TCS AI, Wipro AI360) and where mobile / on-device deployment matters. Both are first-class hireable skills. Pick PyTorch unless you're specifically targeting a TensorFlow shop or mobile-ML role.",
+    table: [
+      { factor: "Backed by", a: "Google", b: "Meta (Facebook), now Linux Foundation" },
+      { factor: "Pune ML postings share (2026)", a: "~30-35% of ML listings", b: "~60-65% of ML listings (~5% other)" },
+      { factor: "Best fit", a: "Enterprise ML, services-major AI practices, mobile / on-device", b: "Research, AI startups, product company ML, LLM-adjacent work" },
+      { factor: "Graph paradigm", a: "Static (graph defined upfront, optimised before execution)", b: "Dynamic (define-by-run — graph built as code executes)" },
+      { factor: "Beginner learning curve", a: "Steeper — Keras helps but TF concepts are heavier", b: "Gentler — Pythonic feel, debugger works like normal Python" },
+      { factor: "Production deployment", a: "TF Serving, TFX, TensorFlow Lite (mobile), TF.js (web) — mature ecosystem", b: "TorchServe + TorchScript + ONNX — catching up fast" },
+      { factor: "Mobile / edge deployment", a: "Strong — TF Lite is the industry default for on-device ML", b: "Improving — PyTorch Mobile + ExecuTorch" },
+      { factor: "LLM + agentic AI ecosystem", a: "Available but trailing", b: "Dominant — HuggingFace Transformers, vLLM, most modern LLM tooling is PyTorch-first" },
+      { factor: "Pune fresher salary impact", a: "Same band as PyTorch for equivalent skill", b: "Same band; specialisation matters more than framework choice" },
+    ],
+    whenA: {
+      heading: "When TensorFlow is the better pick",
+      paragraphs: [
+        "If you're targeting Pune services-major AI practices (Persistent ML, TCS AI, Wipro AI360, Infosys Topaz, Capgemini AI CoE) or large enterprise ML teams (BMC Software, Druva enterprise tier), TensorFlow remains the entrenched default. Switching to a TF-shop later costs 4-6 weeks of framework adaptation.",
+        "If your role involves mobile / edge ML deployment, TF Lite is the industry default. Pune mobile-app teams running ML models (Avaamo's mobile AI features, Helpshift mobile, BFSI mobile apps with fraud detection) standardise on TF Lite. PyTorch Mobile is improving but ecosystem maturity is years behind.",
+        "If you have a Keras background or comfort with structured-framework patterns, TensorFlow's Keras API is the most beginner-friendly high-level interface in deep learning. Many transitioning data scientists pick TF first for this reason.",
+      ],
+    },
+    whenB: {
+      heading: "When PyTorch is the better pick",
+      paragraphs: [
+        "If you're targeting Pune product companies (Persistent Avaamo group, BrowserStack AI, Druva AI, Helpshift, GUVI AI) or AI startups, PyTorch is the dominant choice. ~65% of Pune ML postings reference PyTorch; most cutting-edge LLM + agentic AI work assumes PyTorch.",
+        "If you're working with LLMs or building anything in the agentic AI space (LangChain, LangGraph, HuggingFace Transformers, vLLM, fine-tuning, RAG pipelines), the entire ecosystem is PyTorch-first. Trying to do modern LLM work in TensorFlow involves continuous tooling friction.",
+        "If you're learning deep learning for the first time, PyTorch's define-by-run paradigm matches Python's mental model — you can step through model code in a debugger like any Python program. This is materially easier for beginners than TensorFlow's static-graph approach (even with eager mode).",
+      ],
+    },
+    bottomLine:
+      "Pick PyTorch unless you have a specific reason to pick TensorFlow (services-major AI practice targeting, mobile / on-device deployment, existing Keras comfort). The Pune hiring volume + LLM ecosystem + beginner-friendliness compound to make PyTorch the higher-EV first ML framework for most learners in 2026. TensorFlow remains a fully valid choice with strong enterprise + mobile-ML hiring; cross-framework experience develops naturally in year 2-3 of work.",
+    relatedCourseSlugs: ["machine-learning-training-in-pune", "data-science-training-in-pune", "agentic-ai-training-in-pune"],
+    faqs: [
+      {
+        question: "Should I learn TensorFlow and PyTorch together as a beginner?",
+        answer:
+          "No — pick one, go deep, add the other after your first ML job. Trying to learn both simultaneously creates surface-level fluency without depth in either. Pune ML interviews probe framework depth (your debugging instincts + idiomatic patterns + understanding of common gotchas), not framework breadth. 6 months on one beats 3 months each on both.",
+      },
+      {
+        question: "Does JAX matter for Pune ML jobs in 2026?",
+        answer:
+          "Almost zero. JAX has academic + research momentum but ~5 of Pune ML postings reference it (mostly Google-adjacent research roles or large-model training teams). Skip JAX unless you're specifically targeting research-tier roles; PyTorch covers the same space with materially better hiring economics.",
+      },
+      {
+        question: "What about HuggingFace — is it a framework or a library?",
+        answer:
+          "Library / model hub built on top of PyTorch (primarily) + TensorFlow. HuggingFace Transformers gives pre-trained models + fine-tuning utilities for LLMs + NLP models — assumes PyTorch underneath for most modern workflows. Learn it after PyTorch fundamentals; it's table stakes for any Pune LLM / NLP / agentic AI role.",
+      },
+      {
+        question: "Will I need to know CUDA + GPU programming for Pune ML jobs?",
+        answer:
+          "Conceptual understanding (what GPUs do, memory model, batch sizes, when to use mixed precision) — yes, screened at most product-company interviews. Writing custom CUDA kernels — almost never at fresher tier; specialisation work for senior ML engineers at frontier model teams. Spend 1-2 weeks learning the conceptual layer, not the implementation layer.",
+      },
+    ],
+  },
 ];
 
 export function getComparison(slug: string): Comparison | undefined {
