@@ -17,8 +17,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { requireAdminPage } from "@/lib/admin";
 import { loadDashboardSnapshot } from "@/lib/seo-dashboard/load";
 import { getSeoApiConfig } from "@/lib/seo-dashboard/auth";
+import { getDailyHistory, getKeywordHistory } from "@/lib/seo-dashboard/history";
+import { geoGridStatus } from "@/lib/seo-dashboard/geo-grid";
 import { OverviewTab } from "./_components/overview-tab";
 import { SearchPerformanceTab } from "./_components/search-performance-tab";
+import { RankingsTab } from "./_components/rankings-tab";
+import { TrendsTab } from "./_components/trends-tab";
 import { IndexationTab } from "./_components/indexation-tab";
 import { CwvTab } from "./_components/cwv-tab";
 import { SchemaTab } from "./_components/schema-tab";
@@ -108,11 +112,21 @@ async function DashboardBody({ force }: { force: boolean }) {
   // when the user explicitly asks for a refresh.
   const snapshot = await loadDashboardSnapshot({ force, skipPsi: !force });
 
+  // Time-series + tracker reads (cheap local DB queries; empty until the
+  // daily snapshot job has run).
+  const [history, keywords] = await Promise.all([
+    getDailyHistory(90).catch(() => []),
+    getKeywordHistory(90).catch(() => []),
+  ]);
+  const geo = geoGridStatus();
+
   return (
     <>
       <Tabs defaultValue="overview" className="w-full">
         <TabsList className="mb-8 flex-wrap">
           <TabsTrigger value="overview">Overview</TabsTrigger>
+          <TabsTrigger value="rankings">Rankings</TabsTrigger>
+          <TabsTrigger value="trends">Trends</TabsTrigger>
           <TabsTrigger value="search">Search Performance</TabsTrigger>
           <TabsTrigger value="indexation">Indexation</TabsTrigger>
           <TabsTrigger value="cwv">Core Web Vitals</TabsTrigger>
@@ -122,6 +136,14 @@ async function DashboardBody({ force }: { force: boolean }) {
 
         <TabsContent value="overview">
           <OverviewTab snapshot={snapshot} />
+        </TabsContent>
+
+        <TabsContent value="rankings">
+          <RankingsTab snapshot={snapshot} />
+        </TabsContent>
+
+        <TabsContent value="trends">
+          <TrendsTab history={history} keywords={keywords} geo={geo} />
         </TabsContent>
 
         <TabsContent value="search">

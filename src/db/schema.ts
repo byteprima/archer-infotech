@@ -2,6 +2,7 @@ import {
   sqliteTable,
   text,
   integer,
+  real,
 } from "drizzle-orm/sqlite-core";
 
 // ============================================
@@ -227,6 +228,38 @@ export const aiCitationAudits = sqliteTable("ai_citation_audits", {
     .$defaultFn(() => new Date()),
 });
 
+// SEO daily metrics — one row per day (keyed on the GSC anchor date,
+// which lags ~3 days). Turns the live-snapshot dashboard into a time
+// series: headline totals, branded split, position distribution, and
+// per-segment rollup are stored as a JSON payload (DailyRollup shape in
+// src/lib/seo-dashboard/history.ts) for trend lines over weeks/months.
+// Written by the POST /api/seo/snapshot cron route.
+export const seoDailyMetrics = sqliteTable("seo_daily_metrics", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  // ISO date (YYYY-MM-DD) — the GSC window end (anchor). Unique = one row/day.
+  date: text("date").notNull().unique(),
+  capturedAt: integer("captured_at", { mode: "timestamp" })
+    .notNull()
+    .$defaultFn(() => new Date()),
+  // JSON-encoded DailyRollup (totals, brandedSplit, positionDist, segments).
+  payload: text("payload").notNull(),
+});
+
+// SEO keyword ranks — daily snapshot of the tracked target money
+// keywords (TARGET_KEYWORDS in targets.ts). One row per (date, keyword)
+// so each keyword gets a position/clicks/impressions sparkline over time.
+export const seoKeywordRanks = sqliteTable("seo_keyword_ranks", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  date: text("date").notNull(), // YYYY-MM-DD (GSC anchor)
+  keyword: text("keyword").notNull(),
+  // Best-ranking URL GSC attributes to this query, if known.
+  page: text("page"),
+  clicks: integer("clicks").notNull().default(0),
+  impressions: integer("impressions").notNull().default(0),
+  ctr: real("ctr").notNull().default(0),
+  position: real("position").notNull().default(0),
+});
+
 // Audit logs table - for tracking admin actions
 export const auditLogs = sqliteTable("audit_logs", {
   id: integer("id").primaryKey({ autoIncrement: true }),
@@ -266,6 +299,12 @@ export type NewSeoMetricsCache = typeof seoMetricsCache.$inferInsert;
 
 export type AiCitationAudit = typeof aiCitationAudits.$inferSelect;
 export type NewAiCitationAudit = typeof aiCitationAudits.$inferInsert;
+
+export type SeoDailyMetric = typeof seoDailyMetrics.$inferSelect;
+export type NewSeoDailyMetric = typeof seoDailyMetrics.$inferInsert;
+
+export type SeoKeywordRank = typeof seoKeywordRanks.$inferSelect;
+export type NewSeoKeywordRank = typeof seoKeywordRanks.$inferInsert;
 
 // Auth types
 export type User = typeof user.$inferSelect;

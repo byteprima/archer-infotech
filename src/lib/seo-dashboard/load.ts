@@ -29,6 +29,8 @@ export interface DashboardSnapshot {
   gscPages28d: { result: GscQueryResult | null; error: string | null };
   /** Top 50 queries by clicks in the last 28 days. */
   gscQueries28d: { result: GscQueryResult | null; error: string | null };
+  /** Top queries in the prior 28-day window — drives the movers panel. */
+  gscQueriesPrior28d: { result: GscQueryResult | null; error: string | null };
   /** PSI mobile summary for the small set of priority URLs. */
   psiByUrl: Map<string, { mobile?: PsiSummary; desktop?: PsiSummary; error?: string }>;
   /** CrUX origin-level mobile data. */
@@ -86,37 +88,45 @@ export async function loadDashboardSnapshot(
   const recent = gscDateRange(28);
   const prior = gscDateRange(28, 31); // 28-day window ending 31 days before anchor
 
-  const [gsc28dRes, gscPrior28dRes, gscPagesRes, gscQueriesRes] = await Promise.allSettled([
-    gscQuery({
-      ...recent,
-      dimensions: ["date"],
-      rowLimit: 28,
-      force,
-    }),
-    gscQuery({
-      ...prior,
-      dimensions: ["date"],
-      rowLimit: 28,
-      force,
-    }),
-    gscQuery({
-      ...recent,
-      dimensions: ["page"],
-      rowLimit: 50,
-      force,
-    }),
-    gscQuery({
-      ...recent,
-      dimensions: ["query"],
-      rowLimit: 50,
-      force,
-    }),
-  ]);
+  const [gsc28dRes, gscPrior28dRes, gscPagesRes, gscQueriesRes, gscQueriesPriorRes] =
+    await Promise.allSettled([
+      gscQuery({
+        ...recent,
+        dimensions: ["date"],
+        rowLimit: 28,
+        force,
+      }),
+      gscQuery({
+        ...prior,
+        dimensions: ["date"],
+        rowLimit: 28,
+        force,
+      }),
+      gscQuery({
+        ...recent,
+        dimensions: ["page"],
+        rowLimit: 50,
+        force,
+      }),
+      gscQuery({
+        ...recent,
+        dimensions: ["query"],
+        rowLimit: 200,
+        force,
+      }),
+      gscQuery({
+        ...prior,
+        dimensions: ["query"],
+        rowLimit: 200,
+        force,
+      }),
+    ]);
 
   const gsc28d = unwrapSettled(gsc28dRes, record);
   const gscPrior28d = unwrapSettled(gscPrior28dRes, record);
   const gscPages28d = unwrapSettled(gscPagesRes, record);
   const gscQueries28d = unwrapSettled(gscQueriesRes, record);
+  const gscQueriesPrior28d = unwrapSettled(gscQueriesPriorRes, record);
 
   // ----- CrUX origin-level mobile + history -----
   let cruxOriginMobile: { result: CruxResponse | null; error: string | null };
@@ -239,6 +249,7 @@ export async function loadDashboardSnapshot(
     gscPrior28d,
     gscPages28d,
     gscQueries28d,
+    gscQueriesPrior28d,
     psiByUrl,
     cruxOriginMobile,
     cruxOriginHistory,
