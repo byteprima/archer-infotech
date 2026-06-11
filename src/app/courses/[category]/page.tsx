@@ -10,6 +10,7 @@ import { categories, courses, getCategory } from "@/data/courses";
 import { buildPageMetadata } from "@/lib/seo";
 import { getCategoryContent } from "@/data/category-content";
 import { FaqSection } from "@/components/seo/faq-section";
+import { NewsletterSignupForm } from "@/components/newsletter/newsletter-signup-form";
 import { getRelatedAssetsForCategory } from "@/lib/seo/course-related-assets";
 import { Calculator, Scale, ListChecks } from "lucide-react";
 
@@ -310,6 +311,18 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           items={rich.faqs}
         />
       )}
+
+      {/* P5-17 — newsletter banner. */}
+      <section className="py-8 bg-background border-t">
+        <div className="container mx-auto px-4 max-w-3xl">
+          <NewsletterSignupForm
+            placement={`category:${category.slug}`}
+            variant="banner"
+            headline={`Pune ${category.name} hiring — monthly briefing`}
+            subhead="Hiring updates, salary movements, and an employer spotlight every month. Free."
+          />
+        </div>
+      </section>
     </>
   );
 }

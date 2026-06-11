@@ -8,6 +8,7 @@ import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 import { BreadcrumbJsonLd } from "@/components/seo/json-ld";
 import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { FaqSection } from "@/components/seo/faq-section";
+import { NewsletterSignupForm } from "@/components/newsletter/newsletter-signup-form";
 import { listicles, getListicle } from "@/data/listicles";
 import { buildPageMetadata } from "@/lib/seo";
 import { summariseToMeta } from "@/lib/seo/meta-trim";
@@ -151,6 +152,14 @@ export default async function GuidePage({ params }: GuidePageProps) {
             heading="FAQs"
             intro={`Common questions about ${guide.shortLabel.toLowerCase()}.`}
             items={guide.faqs}
+          />
+
+          {/* P5-17 — newsletter banner. */}
+          <NewsletterSignupForm
+            placement={`guide:${slug}`}
+            variant="banner"
+            headline="Pune IT careers — monthly briefing"
+            subhead="Hiring updates, salary movements, and an employer spotlight every month. Free."
           />
         </div>
       </article>

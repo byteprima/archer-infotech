@@ -16,6 +16,7 @@ import { getAllPublishedTestimonials } from "@/lib/actions/public-testimonials";
 import { buildPageMetadata } from "@/lib/seo";
 import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { FaqSection } from "@/components/seo/faq-section";
+import { NewsletterSignupForm } from "@/components/newsletter/newsletter-signup-form";
 import { placementsFaqs } from "@/data/faqs";
 import { ReviewRibbon } from "@/components/seo/review-ribbon";
 
@@ -559,6 +560,18 @@ export default async function PlacementsPage() {
         intro="The most-asked questions about placement at Archer Infotech — hiring partners, packages, process, freshers, working professionals and what's included in the fee."
         items={placementsFaqs}
       />
+
+      {/* P5-17 — newsletter banner. */}
+      <section className="py-8 bg-background border-t">
+        <div className="container mx-auto px-4 max-w-3xl">
+          <NewsletterSignupForm
+            placement="placements"
+            variant="banner"
+            headline="Pune IT hiring + placement updates — monthly briefing"
+            subhead="See who's hiring whom in Pune. Salary movements, employer spotlights, placement-ready insights every month. Free."
+          />
+        </div>
+      </section>
 
       {/* CTA Section */}
       <section className="py-16 gradient-hero text-white">

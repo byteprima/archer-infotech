@@ -31,6 +31,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { type Bootcamp } from "@/data/bootcamps";
+import { NewsletterSignupForm } from "@/components/newsletter/newsletter-signup-form";
 import { siteConfig } from "@/data/site-config";
 import { cn } from "@/lib/utils";
 import { Breadcrumbs } from "@/components/seo/breadcrumbs";
@@ -1173,6 +1174,18 @@ export function BootcampDetailPage({
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* P5-17 — newsletter banner after FAQ block (before article close). */}
+      <section className="border-t bg-background py-8">
+        <div className="container mx-auto px-4 max-w-3xl">
+          <NewsletterSignupForm
+            placement={`bootcamp:${slug}`}
+            variant="banner"
+            headline={`${bootcamp.name} careers in Pune — monthly briefing`}
+            subhead="Hiring updates, salary movements, and an employer spotlight every month. Free."
+          />
         </div>
       </section>
       </article>

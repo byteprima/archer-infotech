@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import { NewsletterSignupForm } from "@/components/newsletter/newsletter-signup-form";
 import { ChevronLeft, Calendar, User, Tag, Share2, MessageCircle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -433,6 +434,19 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     bio and LinkedIn. Mirrors the Person schema emitted in
                     BlogPostJsonLd. P5-12. */}
                 <TrainerByline trainer={authorTrainer} variant="footer" />
+
+                {/* P5-17 — newsletter signup banner. Highest-converting
+                    placement for blog posts (reader has just consumed
+                    value; the "keep getting this" close lands well).
+                    Source-tagged per post for analytics. */}
+                <div className="mt-12">
+                  <NewsletterSignupForm
+                    placement={`blog-inline:${post.slug}`}
+                    variant="banner"
+                    headline="Pune IT careers — monthly briefing"
+                    subhead="One email a month with the most actionable Pune IT hiring + salary updates. Free."
+                  />
+                </div>
 
                 {/* Tags — semantic <ul>, each tag is an internal link to the
                     tag-filtered blog index. Builds topic-cluster internal

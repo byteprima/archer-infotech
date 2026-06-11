@@ -8,6 +8,7 @@ import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 import { BreadcrumbJsonLd } from "@/components/seo/json-ld";
 import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { FaqSection } from "@/components/seo/faq-section";
+import { NewsletterSignupForm } from "@/components/newsletter/newsletter-signup-form";
 import { comparisons, getComparison } from "@/data/comparisons";
 import { getCourse } from "@/data/courses";
 import { buildPageMetadata } from "@/lib/seo";
@@ -164,6 +165,14 @@ export default async function ComparePage({ params }: ComparePageProps) {
             heading={`${cmp.shortLabel} — FAQs`}
             intro={`Common questions comparing ${cmp.optionA} and ${cmp.optionB}.`}
             items={cmp.faqs}
+          />
+
+          {/* P5-17 — newsletter banner. */}
+          <NewsletterSignupForm
+            placement={`compare:${slug}`}
+            variant="banner"
+            headline="Pune IT careers — monthly briefing"
+            subhead="Hiring updates, salary movements, and an employer spotlight every month. Free."
           />
         </div>
       </article>

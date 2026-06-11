@@ -7,6 +7,7 @@ import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 import { BreadcrumbJsonLd } from "@/components/seo/json-ld";
 import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { FaqSection } from "@/components/seo/faq-section";
+import { NewsletterSignupForm } from "@/components/newsletter/newsletter-signup-form";
 import { SalaryCalculator } from "@/components/tools/salary-calculator";
 import { buildPageMetadata } from "@/lib/seo";
 import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
@@ -208,6 +209,16 @@ export default function SalaryCalculatorPage() {
           heading="Pune IT salary — FAQs"
           intro="Common questions about IT pay in Pune by role, experience and city comparison."
           items={salaryFaqs}
+        />
+
+        {/* P5-17 — newsletter banner positioned before the conversion CTA
+            so the lower-commitment ask (newsletter subscription) is
+            offered before the higher-commitment one (book a demo). */}
+        <NewsletterSignupForm
+          placement="tool-salary-calculator"
+          variant="banner"
+          headline="Track Pune IT salaries month-over-month"
+          subhead="Get our monthly briefing with hiring updates, salary band shifts, and one Pune employer spotlight. Free."
         />
 
         {/* CTA */}

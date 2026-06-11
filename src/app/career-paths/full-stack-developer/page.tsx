@@ -18,6 +18,7 @@ import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 import { BreadcrumbJsonLd, FAQJsonLd } from "@/components/seo/json-ld";
 import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { FaqSection } from "@/components/seo/faq-section";
+import { NewsletterSignupForm } from "@/components/newsletter/newsletter-signup-form";
 import { LastUpdated } from "@/components/seo/last-updated";
 import { buildPageMetadata } from "@/lib/seo";
 import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
@@ -796,6 +797,14 @@ export default function FullStackDeveloperCareerPath() {
             heading="Frequently asked questions"
             intro="Common questions from prospective full-stack developers we've trained over the last 17 years."
             items={faqs}
+          />
+
+          {/* P5-17 — newsletter banner. */}
+          <NewsletterSignupForm
+            placement="career-path-full-stack-developer"
+            variant="banner"
+            headline="Pune full-stack careers — monthly briefing"
+            subhead="Hiring updates, salary movements, and an employer spotlight every month. Free."
           />
         </div>
       </article>

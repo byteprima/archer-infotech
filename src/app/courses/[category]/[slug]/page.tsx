@@ -48,6 +48,7 @@ import Image from "next/image";
 import { LastUpdated } from "@/components/seo/last-updated";
 import { COURSE_LAST_REVIEWED } from "@/lib/seo/content-dates";
 import { RelatedReading } from "@/components/courses/related-reading";
+import { NewsletterSignupForm } from "@/components/newsletter/newsletter-signup-form";
 import { getRelatedBlogPosts } from "@/lib/actions/blog";
 import { deriveCourseKeywords } from "@/lib/seo/course-keywords";
 import { getRelatedAssetsForCourse } from "@/lib/seo/course-related-assets";
@@ -892,6 +893,22 @@ export default async function CoursePage({ params }: CoursePageProps) {
           </section>
         );
       })()}
+
+      {/* P5-17 — newsletter banner. Positioned before the high-commitment
+          CTA so the lower-commitment ask (free monthly briefing) catches
+          considering-but-not-ready visitors. Source-tagged per course for
+          analytics. Single insertion here applies to all ~45 course detail
+          pages. */}
+      <section className="py-8 bg-background border-t">
+        <div className="container mx-auto px-4 max-w-3xl">
+          <NewsletterSignupForm
+            placement={`course-detail:${slug}`}
+            variant="banner"
+            headline={`${course.shortTitle} careers in Pune — monthly briefing`}
+            subhead="Hiring updates, salary movements, and an employer spotlight every month. Free, unsubscribe anytime."
+          />
+        </div>
+      </section>
 
       {/* CTA Section */}
       <section className="py-12 bg-muted/30">

@@ -23,6 +23,7 @@ import { siteConfig } from "@/data/site-config";
 import { buildPageMetadata } from "@/lib/seo";
 import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { FaqSection } from "@/components/seo/faq-section";
+import { NewsletterSignupForm } from "@/components/newsletter/newsletter-signup-form";
 import { corporateTrainingFaqs } from "@/data/faqs";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -311,6 +312,20 @@ export default function CorporateTrainingPage() {
         intro="What we cover, customisation, on-site vs online, engagement length, certification preparation, success measurement, and how to request a proposal."
         items={corporateTrainingFaqs}
       />
+
+      {/* P5-17 — newsletter banner. Corporate L&D decision-makers value
+          the monthly briefing more than the average reader — focused on
+          hiring/skills movements they need to plan against. */}
+      <section className="py-8 bg-background border-t">
+        <div className="container mx-auto px-4 max-w-3xl">
+          <NewsletterSignupForm
+            placement="corporate-training"
+            variant="banner"
+            headline="Pune IT hiring + skills demand — monthly briefing for L&D"
+            subhead="Hiring volume, skills gap trends, employer spotlight, salary movements. Free, unsubscribe anytime."
+          />
+        </div>
+      </section>
 
       {/* CTA Section */}
       <section className="py-16 gradient-hero text-white">

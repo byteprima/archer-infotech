@@ -13,6 +13,7 @@ import { TrackedLink } from "@/components/analytics/tracked-link";
 import { buildPageMetadata } from "@/lib/seo";
 import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { FaqSection } from "@/components/seo/faq-section";
+import { NewsletterSignupForm } from "@/components/newsletter/newsletter-signup-form";
 import { aboutFaqs } from "@/data/faqs";
 import { PersonJsonLd } from "@/components/seo/json-ld";
 
@@ -677,6 +678,18 @@ export default function AboutPage() {
         intro="The founding story, leadership, training history and what makes Archer Infotech different from other Pune IT institutes."
         items={aboutFaqs}
       />
+
+      {/* P5-17 — newsletter banner. */}
+      <section className="py-8 bg-background border-t">
+        <div className="container mx-auto px-4 max-w-3xl">
+          <NewsletterSignupForm
+            placement="about"
+            variant="banner"
+            headline="Pune IT careers — monthly briefing"
+            subhead="Hiring updates, salary movements, and an employer spotlight every month. Free."
+          />
+        </div>
+      </section>
 
       {/* CTA Section */}
       <section className="py-16 gradient-hero text-white">

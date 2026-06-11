@@ -14,6 +14,7 @@ import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 import { BreadcrumbJsonLd } from "@/components/seo/json-ld";
 import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { FaqSection } from "@/components/seo/faq-section";
+import { NewsletterSignupForm } from "@/components/newsletter/newsletter-signup-form";
 import { careerPaths } from "@/data/career-roadmap";
 import { getCourse } from "@/data/courses";
 import { getSalaryRole, formatRange, formatLpa } from "@/data/salary-data";
@@ -251,6 +252,16 @@ export default function CareerRoadmapPage() {
           heading="Pune IT career roadmap — FAQs"
           intro="How to start, the fastest paths, switching careers, and which paths pay the most."
           items={roadmapFaqs}
+        />
+
+        {/* P5-17 — newsletter banner positioned before the conversion CTA
+            so the lower-commitment newsletter ask comes before the
+            counselling-session ask. */}
+        <NewsletterSignupForm
+          placement="tool-career-roadmap"
+          variant="banner"
+          headline="Pune IT career briefing — monthly"
+          subhead="One email a month with hiring updates, salary movements, and an employer spotlight. Free."
         />
 
         {/* CTA */}

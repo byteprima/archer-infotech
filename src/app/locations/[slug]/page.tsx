@@ -21,6 +21,7 @@ import {
   BreadcrumbJsonLd,
 } from "@/components/seo/json-ld";
 import { Breadcrumbs } from "@/components/seo/breadcrumbs";
+import { NewsletterSignupForm } from "@/components/newsletter/newsletter-signup-form";
 import { LastUpdated } from "@/components/seo/last-updated";
 import {
   neighbourhoods,
@@ -356,6 +357,18 @@ export default async function LocationPage({ params }: LocationPageProps) {
           )}
         </div>
       </article>
+
+      {/* P5-17 — newsletter banner. */}
+      <section className="py-8 bg-background border-t">
+        <div className="container mx-auto px-4 max-w-3xl">
+          <NewsletterSignupForm
+            placement={`location:${slug}`}
+            variant="banner"
+            headline={`Pune IT careers — monthly briefing`}
+            subhead={`Hiring updates, salary movements, and an employer spotlight every month. Free.`}
+          />
+        </div>
+      </section>
 
       {/* CTA */}
       <section className="py-12 bg-muted/30 border-t">

@@ -21,6 +21,7 @@ import {
 } from "@/components/seo/json-ld";
 import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 import { audiences, getAudience } from "@/data/audiences";
+import { NewsletterSignupForm } from "@/components/newsletter/newsletter-signup-form";
 import { getCourse } from "@/data/courses";
 import { siteConfig } from "@/data/site-config";
 import { buildPageMetadata } from "@/lib/seo";
@@ -273,6 +274,18 @@ export default async function AudiencePage({ params }: AudiencePageProps) {
           )}
         </div>
       </article>
+
+      {/* P5-17 — newsletter banner. */}
+      <section className="py-8 bg-background border-t">
+        <div className="container mx-auto px-4 max-w-3xl">
+          <NewsletterSignupForm
+            placement={`audience:${slug}`}
+            variant="banner"
+            headline={`Pune IT careers — briefing for ${audience.name}`}
+            subhead="Hiring updates, salary movements, and an employer spotlight every month. Free."
+          />
+        </div>
+      </section>
 
       {/* CTA */}
       <section className="py-12 bg-muted/30 border-t">

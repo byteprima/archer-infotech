@@ -23,6 +23,7 @@ import { TrackedLink } from "@/components/analytics/tracked-link";
 import { buildPageMetadata } from "@/lib/seo";
 import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { FaqSection } from "@/components/seo/faq-section";
+import { NewsletterSignupForm } from "@/components/newsletter/newsletter-signup-form";
 import { internshipsFaqs } from "@/data/faqs";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -583,6 +584,18 @@ export default function InternshipsPage() {
         intro="Eligibility, certificates, the difference between 3-month and 6-month tracks, fees, and how the program connects to placement."
         items={internshipsFaqs}
       />
+
+      {/* P5-17 — newsletter banner. */}
+      <section className="py-8 bg-background border-t">
+        <div className="container mx-auto px-4 max-w-3xl">
+          <NewsletterSignupForm
+            placement="internships"
+            variant="banner"
+            headline="Pune IT careers — monthly briefing"
+            subhead="Hiring updates, salary movements, and an employer spotlight every month. Free."
+          />
+        </div>
+      </section>
 
       {/* CTA Section */}
       <section className="py-16 gradient-hero text-white">

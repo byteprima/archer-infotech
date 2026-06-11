@@ -16,6 +16,7 @@ import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 import { BreadcrumbJsonLd, FAQJsonLd } from "@/components/seo/json-ld";
 import { LastUpdated } from "@/components/seo/last-updated";
 import { FaqSection } from "@/components/seo/faq-section";
+import { NewsletterSignupForm } from "@/components/newsletter/newsletter-signup-form";
 import {
   courseLocations,
   getCourseLocationCombo,
@@ -265,6 +266,18 @@ export default async function CourseLocationPage({
         items={combo.faqs}
         anchorId="combo-faqs"
       />
+
+      {/* P5-17 — newsletter banner. */}
+      <section className="py-8 bg-background border-t">
+        <div className="container mx-auto px-4 max-w-3xl">
+          <NewsletterSignupForm
+            placement={`combo:${combo.slug}`}
+            variant="banner"
+            headline={`${combo.shortLabel} — monthly briefing`}
+            subhead="Hiring updates, salary movements, and an employer spotlight every month. Free."
+          />
+        </div>
+      </section>
 
       {/* Bottom CTA */}
       <section className="py-12 gradient-hero text-white">
