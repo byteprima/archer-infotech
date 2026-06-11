@@ -2,10 +2,6 @@ import {
   TrendingUp,
   TrendingDown,
   Minus,
-  Eye,
-  MousePointerClick,
-  Percent,
-  ArrowUpDown,
   Activity,
   AlertCircle,
   Info,
@@ -14,54 +10,84 @@ import {
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import type { DashboardSnapshot } from "@/lib/seo-dashboard/load";
-import { extractP75 } from "@/lib/seo-dashboard/crux";
+import type { DailyRollup } from "@/lib/seo-dashboard/history";
 import type { Suggestion } from "@/lib/seo-dashboard/rules";
+import { buildOverview, type OverviewKpi, type OverviewModel } from "@/lib/seo-dashboard/overview";
+import { STATUS_STYLES } from "@/lib/seo-dashboard/targets";
+import { StatusDot, StatusBadge, Sparkline } from "./status";
 
 interface Props {
   snapshot: DashboardSnapshot;
+  history: DailyRollup[];
 }
 
 /**
- * Overview tab — at-a-glance KPI tiles + suggestions. The single
- * highest-leverage view; shows whether the SEO needle is moving.
+ * Overview tab — executive scorecard. Answers "is SEO healthy and
+ * trending right?" at a glance: health score, non-branded-first KPIs
+ * with trend sparklines, ranking-bucket health, a Core Web Vitals
+ * rollup (field → lab fallback), indexation coverage, and a status
+ * strip into the detail tabs.
  */
-export function OverviewTab({ snapshot }: Props) {
-  const kpis = computeKpis(snapshot);
+export function OverviewTab({ snapshot, history }: Props) {
+  const m = buildOverview(snapshot, history);
 
   return (
     <div className="space-y-8">
-      <SectionHeader
-        title="Headline metrics — last 28 days vs prior 28 days"
-        subtitle="GSC search analytics rolled up; CrUX origin-level field data; cache stats below."
-      />
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {kpis.map((k) => (
-          <KpiTile key={k.label} kpi={k} />
-        ))}
+      {/* Health score + status strip */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <HealthCard health={m.health} />
+        <StatusStrip strip={m.statusStrip} />
       </div>
 
-      <SectionHeader
-        title="Suggestions"
-        subtitle={`${snapshot.suggestions.length} active — sorted by severity. Re-evaluated on every refresh.`}
-      />
-      {snapshot.suggestions.length === 0 ? (
-        <Card>
-          <CardContent className="pt-6 pb-6 flex items-center gap-3">
-            <Lightbulb className="h-5 w-5 text-muted-foreground" />
-            <p className="text-sm text-muted-foreground">
-              No active suggestions. Either everything is healthy or the data
-              has not populated yet &mdash; check again after the next scheduled
-              cache refresh.
-            </p>
-          </CardContent>
-        </Card>
-      ) : (
-        <div className="space-y-3">
-          {snapshot.suggestions.map((s) => (
-            <SuggestionRow key={s.id} suggestion={s} />
+      {/* KPI tiles — non-branded first, with sparklines */}
+      <div>
+        <SectionHeader
+          title="Headline — last 28 days vs prior 28 days"
+          subtitle="Non-branded = true organic discovery. Sparkline shows daily trajectory once the snapshot job has 2+ days."
+        />
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
+          {m.kpis.map((k) => (
+            <KpiTile key={k.label} kpi={k} />
           ))}
         </div>
-      )}
+      </div>
+
+      {/* Ranking health + CWV rollup */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <RankingCard ranking={m.ranking} />
+        <CwvCard cwv={m.cwv} />
+      </div>
+
+      {/* Suggestions (top 5) */}
+      <div>
+        <SectionHeader
+          title="Suggestions"
+          subtitle={`${snapshot.suggestions.length} active — sorted by severity.`}
+        />
+        <div className="mt-4">
+          {snapshot.suggestions.length === 0 ? (
+            <Card>
+              <CardContent className="pt-6 pb-6 flex items-center gap-3">
+                <Lightbulb className="h-5 w-5 text-muted-foreground" />
+                <p className="text-sm text-muted-foreground">
+                  No active suggestions — everything healthy, or data has not populated yet.
+                </p>
+              </CardContent>
+            </Card>
+          ) : (
+            <div className="space-y-3">
+              {snapshot.suggestions.slice(0, 5).map((s) => (
+                <SuggestionRow key={s.id} suggestion={s} />
+              ))}
+              {snapshot.suggestions.length > 5 && (
+                <p className="text-xs text-muted-foreground">
+                  …and {snapshot.suggestions.length - 5} more.
+                </p>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
 
       {(snapshot.gsc28d.error || snapshot.cruxOriginMobile.error) && (
         <Card className="border-amber-200 bg-amber-50/50">
@@ -90,205 +116,189 @@ export function OverviewTab({ snapshot }: Props) {
 }
 
 // ---------------------------------------------------------------------
-// KPI computation
+// Health score
 // ---------------------------------------------------------------------
 
-interface Kpi {
-  label: string;
-  value: string;
-  /** Delta sign — null when no prior data to compare. */
-  trend: "up" | "down" | "flat" | null;
-  /** Human-readable delta string, e.g. "+12.4%" or "+1.3pp". */
-  delta: string | null;
-  /** When true, "up" is good (impressions, clicks). When false, "up" is bad (position, CWV ms). */
-  upIsGood: boolean;
-  icon: React.ComponentType<{ className?: string }>;
+function HealthCard({ health }: { health: OverviewModel["health"] }) {
+  const s = STATUS_STYLES[health.status];
+  return (
+    <Card className="lg:col-span-1">
+      <CardContent className="pt-6">
+        <div className="flex items-center justify-between mb-1">
+          <span className="text-xs font-medium text-muted-foreground">SEO health score</span>
+          <StatusBadge status={health.status} />
+        </div>
+        <div className="flex items-baseline gap-2">
+          <span className="text-5xl font-bold leading-none">{health.score}</span>
+          <span className="text-lg text-muted-foreground">/100</span>
+        </div>
+        <div className="mt-4 space-y-2">
+          {health.components.map((c) => (
+            <div key={c.label} className="flex items-center gap-2">
+              <span className="text-xs text-muted-foreground w-44 shrink-0">{c.label}</span>
+              <div className="h-1.5 flex-grow rounded-full bg-muted overflow-hidden">
+                <div
+                  className={`h-full ${c.score === null ? "bg-muted-foreground/20" : s.dot}`}
+                  style={{ width: `${c.score ?? 0}%` }}
+                />
+              </div>
+              <span className="text-xs tabular-nums w-8 text-right text-muted-foreground">
+                {c.score === null ? "—" : Math.round(c.score)}
+              </span>
+            </div>
+          ))}
+        </div>
+      </CardContent>
+    </Card>
+  );
 }
 
-function computeKpis(snapshot: DashboardSnapshot): Kpi[] {
-  const kpis: Kpi[] = [];
-
-  // GSC headline rollups
-  const cur = snapshot.gsc28d.result;
-  const prev = snapshot.gscPrior28d.result;
-  const sumImp = (rs?: { impressions: number }[] | null) =>
-    rs ? rs.reduce((a, r) => a + r.impressions, 0) : 0;
-  const sumClk = (rs?: { clicks: number }[] | null) =>
-    rs ? rs.reduce((a, r) => a + r.clicks, 0) : 0;
-  const wAvg = (
-    rs: { impressions: number; ctr?: number; position?: number }[] | null | undefined,
-    key: "ctr" | "position",
-  ) => {
-    if (!rs || rs.length === 0) return 0;
-    const totalImp = rs.reduce((a, r) => a + r.impressions, 0);
-    if (totalImp === 0) return 0;
-    return rs.reduce((a, r) => a + (r[key] ?? 0) * r.impressions, 0) / totalImp;
-  };
-
-  kpis.push({
-    label: "Impressions (28d)",
-    value: cur ? formatInt(sumImp(cur.rows)) : "—",
-    ...computeDelta(sumImp(cur?.rows), sumImp(prev?.rows), "count"),
-    upIsGood: true,
-    icon: Eye,
-  });
-  kpis.push({
-    label: "Clicks (28d)",
-    value: cur ? formatInt(sumClk(cur.rows)) : "—",
-    ...computeDelta(sumClk(cur?.rows), sumClk(prev?.rows), "count"),
-    upIsGood: true,
-    icon: MousePointerClick,
-  });
-  kpis.push({
-    label: "Avg CTR (28d)",
-    value: cur ? `${(wAvg(cur.rows, "ctr") * 100).toFixed(2)}%` : "—",
-    ...computeDelta(wAvg(cur?.rows, "ctr"), wAvg(prev?.rows, "ctr"), "pp"),
-    upIsGood: true,
-    icon: Percent,
-  });
-  kpis.push({
-    label: "Avg Position (28d)",
-    value: cur ? wAvg(cur.rows, "position").toFixed(1) : "—",
-    // Position: lower = better, so upIsGood=false
-    ...computeDelta(wAvg(cur?.rows, "position"), wAvg(prev?.rows, "position"), "abs"),
-    upIsGood: false,
-    icon: ArrowUpDown,
-  });
-
-  // CrUX origin-level CWV
-  const crux = snapshot.cruxOriginMobile.result?.record;
-  const lcp = extractP75(crux?.metrics.largest_contentful_paint);
-  const inp = extractP75(crux?.metrics.interaction_to_next_paint);
-  const cls = extractP75(crux?.metrics.cumulative_layout_shift);
-  const ttfb = extractP75(crux?.metrics.experimental_time_to_first_byte);
-
-  kpis.push({
-    label: "LCP p75 mobile",
-    value: lcp !== null ? `${(lcp / 1000).toFixed(2)}s` : "no data",
-    trend: null,
-    delta: null,
-    upIsGood: false,
-    icon: Activity,
-  });
-  kpis.push({
-    label: "INP p75 mobile",
-    value: inp !== null ? `${Math.round(inp)}ms` : "no data",
-    trend: null,
-    delta: null,
-    upIsGood: false,
-    icon: Activity,
-  });
-  kpis.push({
-    label: "CLS p75 mobile",
-    value: cls !== null ? cls.toFixed(3) : "no data",
-    trend: null,
-    delta: null,
-    upIsGood: false,
-    icon: Activity,
-  });
-  kpis.push({
-    label: "TTFB p75 mobile",
-    value: ttfb !== null ? `${Math.round(ttfb)}ms` : "no data",
-    trend: null,
-    delta: null,
-    upIsGood: false,
-    icon: Activity,
-  });
-
-  return kpis;
-}
-
-function computeDelta(
-  cur: number | undefined,
-  prev: number | undefined,
-  format: "count" | "pp" | "abs",
-): { trend: Kpi["trend"]; delta: string | null } {
-  if (typeof cur !== "number" || typeof prev !== "number" || prev === 0) {
-    return { trend: null, delta: null };
-  }
-  const diff = cur - prev;
-  if (Math.abs(diff) < 0.0001) return { trend: "flat", delta: "0%" };
-  const trend: "up" | "down" = diff > 0 ? "up" : "down";
-
-  if (format === "pp") {
-    return { trend, delta: `${diff >= 0 ? "+" : ""}${(diff * 100).toFixed(1)}pp` };
-  }
-  if (format === "abs") {
-    return { trend, delta: `${diff >= 0 ? "+" : ""}${diff.toFixed(1)}` };
-  }
-  // count → relative %
-  const pct = (diff / prev) * 100;
-  return { trend, delta: `${pct >= 0 ? "+" : ""}${pct.toFixed(1)}%` };
-}
-
-function formatInt(n: number): string {
-  return n.toLocaleString("en-IN");
+function StatusStrip({ strip }: { strip: OverviewModel["statusStrip"] }) {
+  return (
+    <Card className="lg:col-span-2">
+      <CardContent className="pt-6 h-full">
+        <span className="text-xs font-medium text-muted-foreground">At a glance</span>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-3">
+          {strip.map((s) => (
+            <div key={s.label} className="flex items-start gap-2">
+              <StatusDot status={s.status} />
+              <div>
+                <div className="text-sm font-medium leading-tight">{s.label}</div>
+                <div className="text-xs text-muted-foreground">{s.hint}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </CardContent>
+    </Card>
+  );
 }
 
 // ---------------------------------------------------------------------
-// UI bits
+// KPI tile
 // ---------------------------------------------------------------------
 
-function KpiTile({ kpi }: { kpi: Kpi }) {
-  const Icon = kpi.icon;
+function KpiTile({ kpi }: { kpi: OverviewKpi }) {
   const trendColor =
     kpi.trend === "flat" || kpi.trend === null
       ? "text-muted-foreground"
       : (kpi.trend === "up") === kpi.upIsGood
         ? "text-emerald-600"
         : "text-rose-600";
-  const TrendIcon =
-    kpi.trend === "up"
-      ? TrendingUp
-      : kpi.trend === "down"
-        ? TrendingDown
-        : Minus;
+  const TrendIcon = kpi.trend === "up" ? TrendingUp : kpi.trend === "down" ? TrendingDown : Minus;
   return (
     <Card>
       <CardContent className="pt-6">
         <div className="flex items-start justify-between mb-3">
-          <Icon className="h-4 w-4 text-muted-foreground" />
-          {kpi.delta && (
+          {kpi.delta ? (
             <span className={`inline-flex items-center gap-1 text-xs font-medium ${trendColor}`}>
               <TrendIcon className="h-3 w-3" />
               {kpi.delta}
             </span>
+          ) : (
+            <span className="text-xs text-muted-foreground">vs prior 28d</span>
           )}
+          <Sparkline values={kpi.series} width={64} height={20} lowerIsBetter={!kpi.upIsGood} />
         </div>
         <div className="text-2xl font-bold leading-none">{kpi.value}</div>
-        <div className="text-xs text-muted-foreground mt-2">{kpi.label}</div>
+        <div className="text-xs font-medium mt-2">{kpi.label}</div>
+        {kpi.sub && <div className="text-xs text-muted-foreground mt-0.5">{kpi.sub}</div>}
       </CardContent>
     </Card>
   );
 }
 
+// ---------------------------------------------------------------------
+// Ranking buckets
+// ---------------------------------------------------------------------
+
+function RankingCard({ ranking }: { ranking: OverviewModel["ranking"] }) {
+  const max = Math.max(1, ...ranking.buckets.map((b) => b.count));
+  return (
+    <Card>
+      <CardContent className="pt-6">
+        <div className="flex items-baseline justify-between mb-4">
+          <span className="text-sm font-semibold">Ranking health</span>
+          <span className="text-xs text-muted-foreground">
+            {ranking.strikingCount} striking-distance · {(ranking.page1Share * 100).toFixed(0)}% page 1
+          </span>
+        </div>
+        {ranking.total === 0 ? (
+          <p className="text-sm text-muted-foreground">No query data yet.</p>
+        ) : (
+          <div className="space-y-2">
+            {ranking.buckets.map((b) => (
+              <div key={b.key} className="flex items-center gap-2">
+                <span className="text-xs text-muted-foreground w-16 shrink-0">{b.label}</span>
+                <div className="h-4 flex-grow rounded bg-muted overflow-hidden">
+                  <div
+                    className="h-full bg-emerald-500/70"
+                    style={{ width: `${(b.count / max) * 100}%` }}
+                  />
+                </div>
+                <span className="text-xs tabular-nums w-8 text-right">{b.count}</span>
+              </div>
+            ))}
+          </div>
+        )}
+        <p className="text-xs text-muted-foreground mt-3">
+          Query position distribution (last 28d). Striking-distance = positions 4–15 with impressions.
+        </p>
+      </CardContent>
+    </Card>
+  );
+}
+
+// ---------------------------------------------------------------------
+// CWV rollup
+// ---------------------------------------------------------------------
+
+function CwvCard({ cwv }: { cwv: OverviewModel["cwv"] }) {
+  return (
+    <Card>
+      <CardContent className="pt-6">
+        <div className="flex items-center gap-2 mb-4">
+          <Activity className="h-4 w-4 text-muted-foreground" />
+          <span className="text-sm font-semibold">Core Web Vitals</span>
+          <span className="text-xs text-muted-foreground ml-auto uppercase tracking-wide">
+            {cwv.source === "field" ? "field" : cwv.source === "lab" ? "lab estimate" : "no data"}
+          </span>
+        </div>
+        {cwv.metrics.length === 0 ? (
+          <p className="text-sm text-muted-foreground">{cwv.note}</p>
+        ) : (
+          <>
+            <div className="grid grid-cols-3 gap-3">
+              {cwv.metrics.map((mt) => (
+                <div key={mt.key} className="rounded-lg border p-3">
+                  <div className="flex items-center gap-1.5 mb-1">
+                    <StatusDot status={mt.status} />
+                    <span className="text-xs text-muted-foreground">{mt.label}</span>
+                  </div>
+                  <div className="text-lg font-bold">{mt.value}</div>
+                </div>
+              ))}
+            </div>
+            <p className="text-xs text-muted-foreground mt-3">{cwv.note}</p>
+          </>
+        )}
+      </CardContent>
+    </Card>
+  );
+}
+
+// ---------------------------------------------------------------------
+// Suggestions + headers
+// ---------------------------------------------------------------------
+
 function SuggestionRow({ suggestion }: { suggestion: Suggestion }) {
   const palette =
     suggestion.severity === "critical"
-      ? {
-          bg: "bg-rose-50/60 border-rose-200",
-          icon: AlertCircle,
-          iconColor: "text-rose-600",
-          label: "Critical",
-          labelColor: "bg-rose-100 text-rose-800",
-        }
+      ? { bg: "bg-rose-50/60 border-rose-200", icon: AlertCircle, iconColor: "text-rose-600", label: "Critical", labelColor: "bg-rose-100 text-rose-800" }
       : suggestion.severity === "warn"
-        ? {
-            bg: "bg-amber-50/60 border-amber-200",
-            icon: AlertTriangle,
-            iconColor: "text-amber-600",
-            label: "Warning",
-            labelColor: "bg-amber-100 text-amber-800",
-          }
-        : {
-            bg: "bg-blue-50/60 border-blue-200",
-            icon: Info,
-            iconColor: "text-blue-600",
-            label: "Info",
-            labelColor: "bg-blue-100 text-blue-800",
-          };
+        ? { bg: "bg-amber-50/60 border-amber-200", icon: AlertTriangle, iconColor: "text-amber-600", label: "Warning", labelColor: "bg-amber-100 text-amber-800" }
+        : { bg: "bg-blue-50/60 border-blue-200", icon: Info, iconColor: "text-blue-600", label: "Info", labelColor: "bg-blue-100 text-blue-800" };
   const Icon = palette.icon;
-
   return (
     <div className={`rounded-lg border ${palette.bg} p-4`}>
       <div className="flex items-start gap-3">
@@ -296,35 +306,14 @@ function SuggestionRow({ suggestion }: { suggestion: Suggestion }) {
         <div className="flex-grow space-y-2">
           <div className="flex items-baseline gap-2 flex-wrap">
             <h3 className="font-semibold text-sm">{suggestion.title}</h3>
-            <span
-              className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${palette.labelColor}`}
-            >
+            <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${palette.labelColor}`}>
               {palette.label}
             </span>
             {suggestion.workPlanRef && (
-              <span className="text-xs text-muted-foreground">
-                {suggestion.workPlanRef}
-              </span>
+              <span className="text-xs text-muted-foreground">{suggestion.workPlanRef}</span>
             )}
           </div>
           <p className="text-sm text-muted-foreground leading-relaxed">{suggestion.detail}</p>
-          {suggestion.affected && suggestion.affected.length > 0 && (
-            <div>
-              <p className="text-xs font-medium text-foreground mb-1">Affected:</p>
-              <ul className="space-y-0.5 text-xs text-muted-foreground font-mono">
-                {suggestion.affected.slice(0, 5).map((url) => (
-                  <li key={url} className="truncate">
-                    {url}
-                  </li>
-                ))}
-                {suggestion.affected.length > 5 && (
-                  <li className="italic">
-                    …and {suggestion.affected.length - 5} more
-                  </li>
-                )}
-              </ul>
-            </div>
-          )}
           <div className="pt-2 border-t border-current/10">
             <p className="text-xs font-medium text-foreground">
               <span className="opacity-60">Action: </span>

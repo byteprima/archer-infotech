@@ -135,7 +135,7 @@ async function DashboardBody({ force }: { force: boolean }) {
         </TabsList>
 
         <TabsContent value="overview">
-          <OverviewTab snapshot={snapshot} />
+          <OverviewTab snapshot={snapshot} history={history} />
         </TabsContent>
 
         <TabsContent value="rankings">
