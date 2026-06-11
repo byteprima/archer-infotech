@@ -144,6 +144,7 @@ export async function getAccessToken(): Promise<string> {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body,
+    signal: AbortSignal.timeout(15_000),
   });
   if (!resp.ok) {
     const txt = await resp.text();

@@ -6,6 +6,10 @@
 import { getAccessToken, getSeoApiConfig } from "./auth";
 import { withCache } from "./cache";
 
+/** Per-request timeout for GSC calls — without it a slow Google
+ *  response can hang the whole server-rendered dashboard indefinitely. */
+const GSC_TIMEOUT_MS = 30_000;
+
 const SEARCH_ANALYTICS = "https://searchconsole.googleapis.com/webmasters/v3/sites";
 const URL_INSPECT =
   "https://searchconsole.googleapis.com/v1/urlInspection/index:inspect";
@@ -77,6 +81,7 @@ export async function gscQuery({
           dimensions,
           rowLimit,
         }),
+        signal: AbortSignal.timeout(GSC_TIMEOUT_MS),
       });
       if (!resp.ok) {
         const txt = await resp.text();
@@ -146,6 +151,7 @@ export async function gscInspect(targetUrl: string, opts: { force?: boolean } = 
           inspectionUrl: targetUrl,
           siteUrl: cfg.defaultProperty,
         }),
+        signal: AbortSignal.timeout(GSC_TIMEOUT_MS),
       });
       if (!resp.ok) {
         const txt = await resp.text();

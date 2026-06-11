@@ -30,7 +30,7 @@ export type CacheSource =
   | "crux-url"
   | "crux-history";
 
-interface WithCacheOptions {
+interface WithCacheOptions<T = unknown> {
   source: CacheSource;
   scopeValue: string;
   variant?: string;
@@ -38,6 +38,14 @@ interface WithCacheOptions {
   ttlSeconds: number;
   /** When true, ignore any existing cache row and force a re-fetch. */
   force?: boolean;
+  /**
+   * Optional per-result TTL override (seconds). When provided, its
+   * return value is used instead of `ttlSeconds` for the freshly
+   * fetched payload — lets a wrapper cache an "empty/negative" response
+   * (e.g. CrUX 404 "no data yet") for a shorter window so the dashboard
+   * auto-recovers once real field data appears.
+   */
+  ttlForResult?: (data: T) => number;
 }
 
 /**
@@ -49,10 +57,10 @@ interface WithCacheOptions {
  *     data when the dashboard is being viewed.
  */
 export async function withCache<T>(
-  options: WithCacheOptions,
+  options: WithCacheOptions<T>,
   fetcher: () => Promise<T>,
 ): Promise<{ data: T; fetchedAt: Date; fromCache: boolean }> {
-  const { source, scopeValue, variant, ttlSeconds, force } = options;
+  const { source, scopeValue, variant, ttlSeconds, force, ttlForResult } = options;
   const now = new Date();
 
   if (!force) {
@@ -111,7 +119,8 @@ export async function withCache<T>(
     throw err;
   }
 
-  const expiresAt = new Date(now.getTime() + ttlSeconds * 1000);
+  const effectiveTtl = ttlForResult ? ttlForResult(data) : ttlSeconds;
+  const expiresAt = new Date(now.getTime() + effectiveTtl * 1000);
   await db.insert(seoMetricsCache).values({
     source,
     scopeValue,

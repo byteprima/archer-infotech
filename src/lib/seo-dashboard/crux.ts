@@ -14,6 +14,13 @@ import { withCache } from "./cache";
 const CRUX_ENDPOINT =
   "https://chromeuxreport.googleapis.com/v1/records:queryRecord";
 
+/** Per-request timeout for CrUX calls — Google usually answers in 1-2s. */
+const CRUX_TIMEOUT_MS = 30_000;
+const CRUX_TTL_SECONDS = 24 * 60 * 60;
+/** "No data yet" (404) is cached for a shorter window so the dashboard
+ *  auto-recovers once the origin/URL crosses CrUX's sampling threshold. */
+const CRUX_NODATA_TTL_SECONDS = 4 * 60 * 60;
+
 export type FormFactor = "PHONE" | "DESKTOP" | "TABLET";
 
 export type CruxMetric =
@@ -76,7 +83,8 @@ export async function cruxQuery({
       source,
       scopeValue,
       variant: formFactor,
-      ttlSeconds: 24 * 60 * 60,
+      ttlSeconds: CRUX_TTL_SECONDS,
+      ttlForResult: (d) => (d.noData ? CRUX_NODATA_TTL_SECONDS : CRUX_TTL_SECONDS),
       force,
     },
     async () => {
@@ -89,10 +97,11 @@ export async function cruxQuery({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body,
+        signal: AbortSignal.timeout(CRUX_TIMEOUT_MS),
       });
       if (resp.status === 404) {
         // Not enough real-user data for this origin/URL/formFactor.
-        // Cache the negative response so we don't re-query for 24h.
+        // Cache the negative response (shorter TTL — see above).
         return { noData: true } as CruxResponse;
       }
       if (!resp.ok) {
@@ -165,7 +174,8 @@ export async function cruxHistory({
       source: "crux-history",
       scopeValue,
       variant: formFactor,
-      ttlSeconds: 24 * 60 * 60,
+      ttlSeconds: CRUX_TTL_SECONDS,
+      ttlForResult: (d) => (d.noData ? CRUX_NODATA_TTL_SECONDS : CRUX_TTL_SECONDS),
       force,
     },
     async () => {
@@ -178,6 +188,7 @@ export async function cruxHistory({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body,
+        signal: AbortSignal.timeout(CRUX_TIMEOUT_MS),
       });
       if (resp.status === 404) {
         return { noData: true } as CruxHistoryResponse;
