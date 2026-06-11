@@ -1160,6 +1160,446 @@ export const courseLocations: CourseLocationCombo[] = [
       },
     ],
   },
+
+  // ─── 21. Java Full Stack in Baner ────────────────────────────────────────
+  {
+    slug: "java-full-stack-in-baner",
+    courseSlug: "java-full-stack-training-in-pune",
+    locationSlug: "it-training-in-baner",
+    shortLabel: "Java Full Stack in Baner",
+    metaTitle: "Java Full Stack Training in Baner, Pune (2026)",
+    metaDescription:
+      "Java Full Stack Training for Baner-area learners — Archer Infotech. Spring Boot + microservices + React + placement support at Baner GCCs and Pune MNCs. Mixed classroom + online batches.",
+    h1: "Java Full Stack Training in Baner, Pune",
+    intro: [
+      "Baner-Balewadi GCC captives and the Pune MNCs running their Baner offices all hire Java Full Stack engineers consistently — Spring Boot + microservices + React + databases is the standard pattern. The Baner-Balewadi belt has higher per-offer pay band than services-MNC averages because of the GCC + product captive concentration, making Java Full Stack a strong path for Baner-resident learners.",
+      "Baner is about 15 km from our Kothrud centre via Pune University Road. The most common pattern for Baner Java Full Stack students is Saturday classroom (collaborative pairing on Spring Boot + microservices integration) plus weekday live-online for hands-on coding and project work.",
+    ],
+    whyHere: [
+      "Baner-Balewadi GCC captives + product wings of Pune MNCs hire Java Full Stack consistently at higher pay bands",
+      "Top performers at Baner GCCs cross ₹12 LPA — among the highest Java FS fresher bands in Pune",
+      "Mixed classroom + live-online format fits Baner residents' schedule patterns",
+      "Trainers have production Java FS experience at Pune MNCs + GCCs Baner students target",
+      "Pairs well with AWS SAA for cloud-deployed Java microservices roles at GCC captives",
+    ],
+    faqs: [
+      {
+        question: "Java FS or MERN for a Baner-focused career?",
+        answer:
+          "Java FS opens more services MNC volume; MERN opens more pure product company volume. Both are strong at Baner GCC captives — pick by company tier and language preference. Many Baner students learn Java FS first (broader pipeline), then add MERN.",
+      },
+      {
+        question: "Which Baner companies hire Java Full Stack freshers?",
+        answer:
+          "Fortune 500 GCC captives (BFSI, retail, healthcare, telecom), product wings of Pune MNCs running Baner offices, plus mid-stage product companies in the Baner-Balewadi corridor.",
+      },
+      {
+        question: "Does the track cover microservices + cloud?",
+        answer:
+          "Yes — Spring Boot microservices + REST APIs + service-to-service patterns + Docker basics + AWS deployment. Students who want deeper cloud can add our AWS Solutions Architect track.",
+      },
+      {
+        question: "How long is the Java Full Stack course?",
+        answer:
+          "Flagship Java Full Stack runs 4-6 months covering Java + Spring Boot + microservices + React + databases + 8-10 production-style projects.",
+      },
+      {
+        question: "Will Archer help with Baner GCC drives?",
+        answer:
+          "Yes — our 100+ hiring partner network includes the Fortune 500 GCC captives and product companies in the Baner-Balewadi corridor. Mock interviews and resume polish are included.",
+      },
+      {
+        question: "What does Java Full Stack training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+
+  // ─── 22. DevOps in Kothrud ───────────────────────────────────────────────
+  {
+    slug: "devops-in-kothrud",
+    courseSlug: "devops-training-in-pune",
+    locationSlug: "it-training-in-kothrud",
+    shortLabel: "DevOps in Kothrud",
+    metaTitle: "DevOps Training in Kothrud, Pune (2026)",
+    metaDescription:
+      "DevOps Training in Kothrud — Archer Infotech (Kothrud centre). Docker + Kubernetes + Jenkins + Terraform + AWS with placement assistance at Pune MNCs and GCCs. Classroom + online batches.",
+    h1: "DevOps Training in Kothrud, Pune",
+    intro: [
+      "DevOps + Cloud is one of Pune's fastest-growing fresher hiring tracks — strong volume at Hinjewadi MNCs scaling SRE/DevOps teams, plus Baner-Balewadi GCC captives running production cloud operations. The Kothrud-resident concentration of MIT-WPU CS students, Cummins COE undergrads, and working professionals makes our home-neighbourhood centre the most accessible classroom DevOps track in Pune.",
+      "Living in Kothrud means the classroom commute is 5-15 minutes — most Kothrud DevOps students attend 2 evenings + Saturday morning at the centre, with cloud-sandbox labs accessible from home or laptop for hands-on practice. LMS lifetime access covers exam-week catchup.",
+    ],
+    whyHere: [
+      "Kothrud students reach the centre in 5-15 min — shortest classroom commute for hands-on DevOps work",
+      "DevOps + Cloud is the fastest-growing Pune fresher track — ₹4-6.5 LPA fresher / ₹11+ LPA top performers",
+      "Pairs naturally with AWS SAA for full cloud-engineer applications",
+      "Trainers have production DevOps experience at Pune MNCs + GCCs — interview prep maps to Pune hiring panels",
+      "Strong alignment with Kothrud's working-professional density — many DevOps students are mid-career upskillers",
+    ],
+    faqs: [
+      {
+        question: "Where exactly is Archer's Kothrud centre for DevOps classes?",
+        answer:
+          "Off Karve Road, near Natraj Gas Agency in the Londhe Wada / Chaitanya Nagar area. Most Kothrud students reach us in 5-15 minutes by two-wheeler, rickshaw or PMPML.",
+      },
+      {
+        question: "Do I need development experience before DevOps?",
+        answer:
+          "Basic Linux + Git + scripting helps a lot. Pure freshers with zero coding background can still start, but the learning curve is steeper. Students with even basic Java or Python coursework find DevOps more learnable.",
+      },
+      {
+        question: "Which Pune companies hire DevOps freshers?",
+        answer:
+          "Hinjewadi MNCs (Infosys, TCS, Wipro, Cognizant, Capgemini, Tech Mahindra scaling SRE/DevOps aggressively) + Baner-Balewadi GCC captives + product startups across the city. Demand is strong and growing.",
+      },
+      {
+        question: "Should I stack AWS Solutions Architect with DevOps?",
+        answer:
+          "Common pattern — DevOps + SAA covers both the automation/deployment layer and the architecture/services layer. Many Kothrud students stack both for stronger Pune cloud-engineer applications.",
+      },
+      {
+        question: "How long is the DevOps course?",
+        answer:
+          "Flagship DevOps runs 3-4 months including Docker, Kubernetes, Jenkins, Terraform, AWS, Linux, Git, production-style projects, and certification prep.",
+      },
+      {
+        question: "What does DevOps training in Kothrud cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+
+  // ─── 23. Java Full Stack in Aundh ────────────────────────────────────────
+  {
+    slug: "java-full-stack-in-aundh",
+    courseSlug: "java-full-stack-training-in-pune",
+    locationSlug: "it-training-in-aundh",
+    shortLabel: "Java Full Stack in Aundh",
+    metaTitle: "Java Full Stack Training in Aundh, Pune (2026)",
+    metaDescription:
+      "Java Full Stack Training for Aundh-area learners — Archer Infotech. Spring Boot + microservices + React + placement support targeting Aundh + Baner GCCs. Live-online + Saturday classroom.",
+    h1: "Java Full Stack Training in Aundh, Pune",
+    intro: [
+      "Aundh sits adjacent to Baner-Balewadi — Aundh-resident learners have natural geographic alignment with the Baner GCC + product-startup corridor, plus easy access to Hinjewadi MNCs via Mumbai-Bangalore Expressway. Java Full Stack is the most-hired pattern across both corridors, making this a strong combination for Aundh students who want maximum career-corridor optionality.",
+      "Aundh is about 13 km from our Kothrud centre — typically 25-30 min by two-wheeler. Most Aundh-area Java FS students mix live-online (weekday evenings) with Saturday classroom (for harder Spring Boot + microservices integration sessions). Many also join exclusively online for schedule flexibility.",
+    ],
+    whyHere: [
+      "Aundh's geographic position covers Baner GCCs (east) + Hinjewadi MNCs (west) — maximum career-corridor optionality",
+      "Java Full Stack is dominant at both corridors, so the same training opens both pipelines",
+      "Live-online + Saturday classroom is the typical Aundh student pattern",
+      "Trainers have 10+ years at the exact MNCs + GCCs Aundh students target",
+      "100+ hiring partner network covers both corridors with targeted placement referrals",
+    ],
+    faqs: [
+      {
+        question: "How far is Archer Kothrud from Aundh?",
+        answer:
+          "Roughly 13 km — typically 25-30 minutes by two-wheeler via DP Road or Aundh-Ravet BRTS. Most Aundh students mix live-online primarily with Saturday in-person batches.",
+      },
+      {
+        question: "Aundh is between Baner and Hinjewadi — which is the better target?",
+        answer:
+          "Both are within commute reach. Baner GCCs have higher pay band; Hinjewadi MNCs have higher volume. Pick by company tier and culture preference. The Java FS stack work is identical for both.",
+      },
+      {
+        question: "Which companies are nearby in Aundh-Baner-Hinjewadi corridor?",
+        answer:
+          "Infosys, TCS, Wipro, Cognizant, Capgemini, Tech Mahindra in Hinjewadi; Fortune 500 GCC captives + product startups in Baner-Balewadi; product wings of Pune MNCs across both areas.",
+      },
+      {
+        question: "Will live-online cover the same as classroom?",
+        answer:
+          "Yes — exactly. Multi-year placement data confirms identical outcomes when students engage consistently. The Aundh→Kothrud commute makes live-online + Saturday classroom a popular hybrid.",
+      },
+      {
+        question: "How long is the Java Full Stack course?",
+        answer:
+          "Flagship Java Full Stack runs 4-6 months covering Java + Spring Boot + microservices + React + databases + 8-10 production-style projects.",
+      },
+      {
+        question: "What does Java Full Stack training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+
+  // ─── 24. MERN Stack in Wakad ─────────────────────────────────────────────
+  {
+    slug: "mern-stack-in-wakad",
+    courseSlug: "mern-stack-training-in-pune",
+    locationSlug: "it-training-in-wakad",
+    shortLabel: "MERN Stack in Wakad",
+    metaTitle: "MERN Stack Training in Wakad, Pune (2026)",
+    metaDescription:
+      "MERN Stack Training for Wakad-area learners — Archer Infotech. MongoDB + Express + React + Node.js + TypeScript targeting Hinjewadi product captives and Baner startups. Live-online + classroom.",
+    h1: "MERN Stack Training in Wakad, Pune",
+    intro: [
+      "Wakad's dual-corridor position — Hinjewadi MNCs to the west, Baner GCC + product-startup belt to the east — makes it one of Pune's strongest residential bases for a MERN Stack career path. The stack — MongoDB + Express + React + Node.js + TypeScript — is the dominant full-stack pattern at Hinjewadi product captives and Baner product startups, both within easy commute from Wakad.",
+      "Wakad is about 20 km from our Kothrud centre. Most Wakad-area MERN students join live-online batches (curriculum + projects + mock interviews + placement support identical to classroom). Saturday classroom + weekday online is a common alternative for students who want occasional pairing time on Node + MongoDB integration.",
+    ],
+    whyHere: [
+      "Wakad residents reach both Hinjewadi product captives + Baner product startups easily — dual-corridor MERN demand",
+      "Product company pay band — top performers cross ₹12 LPA at Baner + Hinjewadi product captives",
+      "Live-online format eliminates the 20 km Wakad-Kothrud commute",
+      "Modern stack (TypeScript, Next.js) maps to current Hinjewadi + Baner hiring trends",
+      "Pairs naturally with React for students who want to deepen frontend before backend",
+    ],
+    faqs: [
+      {
+        question: "MERN or Java FS for Wakad — which has better outcomes?",
+        answer:
+          "Both are strong from Wakad's dual-corridor position. MERN is sharper for product companies (Baner + Hinjewadi product captives, higher per-offer pay band). Java FS is sharper for services MNC volume. Pick by company tier preference.",
+      },
+      {
+        question: "Which Wakad-corridor companies hire MERN freshers?",
+        answer:
+          "Hinjewadi product captives (BFSI, retail, SaaS GCCs), Baner-Balewadi product startups, plus the modern engineering teams of Pune MNCs running Wakad-corridor offices.",
+      },
+      {
+        question: "Does the MERN track include TypeScript and Next.js?",
+        answer:
+          "Yes — TypeScript is woven throughout, Next.js App Router is covered as the modern React deployment pattern. Plus Express + Node fundamentals and MongoDB design patterns.",
+      },
+      {
+        question: "What's the Wakad-Kothrud commute pattern for classes?",
+        answer:
+          "Most Wakad students attend live-online primarily. The 20 km commute makes it easier to attend online from home/office and use Saturday classroom for pairing sessions.",
+      },
+      {
+        question: "How long is the MERN Stack course?",
+        answer:
+          "Flagship MERN runs 4-6 months covering React, Node, Express, MongoDB, TypeScript, Next.js + 8-10 production-style projects.",
+      },
+      {
+        question: "What does MERN Stack training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+
+  // ─── 25. Data Science in Kothrud ─────────────────────────────────────────
+  {
+    slug: "data-science-in-kothrud",
+    courseSlug: "data-science-training-in-pune",
+    locationSlug: "it-training-in-kothrud",
+    shortLabel: "Data Science in Kothrud",
+    metaTitle: "Data Science Training in Kothrud, Pune (2026)",
+    metaDescription:
+      "Data Science Training in Kothrud — Archer Infotech (Kothrud centre). Python + Pandas + scikit-learn + TensorFlow + production ML pipelines. Targeting Pune product startups + GCC data teams.",
+    h1: "Data Science Training in Kothrud, Pune",
+    intro: [
+      "MIT-WPU's CS / AI&DS programmes, Cummins COE for Women's strong analytics curriculum, and the dense Kothrud working-professional concentration all funnel into Data Science demand at our home-neighbourhood centre. The Pune Data Science ecosystem — Baner GCC captives, Hinjewadi product wings, fast-growing product startups — hires fresher data scientists consistently at ₹4-7 LPA fresher band, with top performers crossing ₹12 LPA at product captives.",
+      "Living in Kothrud means the classroom commute is 5-15 minutes — perfect for the hands-on, pairing-heavy work that Data Science requires. Most Kothrud DS students attend 2 evenings + Saturday morning at the centre, with LMS lifetime access for exam-week catchup. Cloud-sandbox labs cover deep learning training runs.",
+    ],
+    whyHere: [
+      "Kothrud students reach the centre in 5-15 min — short commute compounds attendance for pairing-heavy DS work",
+      "MIT-WPU + Cummins COE for Women supply consistent AI&DS branch students into our Kothrud cohorts",
+      "Data Science fresher band ₹4-7 LPA, top performers at GCC captives crossing ₹12 LPA",
+      "Pairs naturally with Machine Learning + Generative AI tracks for deeper specialisation",
+      "Trainers have production ML/DS experience at Pune product companies — interview prep maps to Pune hiring panels",
+    ],
+    faqs: [
+      {
+        question: "Is Kothrud a good location to learn Data Science in Pune?",
+        answer:
+          "Yes — Kothrud's dense MIT-WPU + Cummins COE student concentration plus working-professional density means our Kothrud centre runs the most consistent DS cohorts. Short commute also helps for the pairing-heavy practical work DS requires.",
+      },
+      {
+        question: "Do I need Python before joining Data Science?",
+        answer:
+          "Basic Python helps; the Data Science track includes a Python refresher. Students with zero Python typically add a 1-month Python primer; those with college Python coursework start directly.",
+      },
+      {
+        question: "Which Pune companies hire Data Science freshers?",
+        answer:
+          "Baner-Balewadi GCC captives + product startups, Hinjewadi GCC data teams, plus the analytics + ML consulting wings of Pune services MNCs (TCS, Infosys, Wipro, Cognizant).",
+      },
+      {
+        question: "Does the track cover deep learning + modern ML?",
+        answer:
+          "Yes — TensorFlow + PyTorch are covered in the Machine Learning specialisation following core Data Science. Many Kothrud students stack both for product captive applications.",
+      },
+      {
+        question: "Should I take Data Science before Generative AI?",
+        answer:
+          "Helpful but not strictly required. DS provides ML pipeline fundamentals; GenAI builds the modern LLM layer. Common Kothrud pattern: DS first, then GenAI for the AI product wave.",
+      },
+      {
+        question: "How long is the Data Science course?",
+        answer:
+          "Flagship Data Science runs 4-6 months covering Python, Pandas, NumPy, scikit-learn, deep learning fundamentals, production pipelines and 8-10 portfolio projects.",
+      },
+    ],
+  },
+
+  // ─── 26. React in Baner ──────────────────────────────────────────────────
+  {
+    slug: "react-in-baner",
+    courseSlug: "react-training-in-pune",
+    locationSlug: "it-training-in-baner",
+    shortLabel: "React in Baner",
+    metaTitle: "React Training in Baner, Pune (2026)",
+    metaDescription:
+      "React Training in Baner — Archer Infotech. Modern React + hooks + Redux + Next.js + TypeScript with placement support at Baner product captives + startups. Mixed classroom + live-online.",
+    h1: "React Training in Baner, Pune",
+    intro: [
+      "React is the dominant frontend at Baner-Balewadi product captives + product startups — multiple Fortune 500 GCC captives, mid-stage product companies, and unicorns all run engineering teams on React + TypeScript + Next.js. Frontend roles at these companies pay better than services-MNC frontend equivalents because of the product-team focus. Archer Infotech's flagship React track covers exactly this modern stack.",
+      "Baner is about 15 km from our Kothrud centre via Pune University Road. Most Baner React students mix Saturday classroom (collaborative work on React + Redux patterns) with weekday live-online for hands-on assignments. Many also extend into MERN Stack after React for broader full-stack opportunities.",
+    ],
+    whyHere: [
+      "React is dominant at Baner-Balewadi product captives + product startups — strong fresher demand",
+      "Product company pay band — top performers at Baner product captives cross ₹10 LPA",
+      "Mixed classroom + live-online format fits Baner residents' typical schedule patterns",
+      "Stacks well with Node.js + MongoDB for MERN Stack progression — most Baner React devs grow into full-stack roles",
+      "Trainers have production React + Next.js experience at Pune product companies",
+    ],
+    faqs: [
+      {
+        question: "React alone or full MERN for Baner product company targets?",
+        answer:
+          "If you're aiming at pure frontend roles, React alone is sharp. Most Baner product captives prefer full-stack candidates, so MERN (React + Node + Express + Mongo) opens broader pipeline. Many students start with React, then add Node + DB layer.",
+      },
+      {
+        question: "Does the track cover Next.js and TypeScript?",
+        answer:
+          "Yes — modern React with hooks, Next.js (App Router), TypeScript, Redux Toolkit, and testing patterns. The curriculum maps to what Baner product captives actually screen on at fresher and 0-3 year drives.",
+      },
+      {
+        question: "Which Baner-Balewadi companies hire React freshers?",
+        answer:
+          "Multiple Fortune 500 GCC captives (BFSI, retail, healthcare, telecom), product startups (including unicorns), plus the product wings of Pune MNCs running Baner offices.",
+      },
+      {
+        question: "Do I need JavaScript before React?",
+        answer:
+          "Basic JavaScript helps; the React track includes a JS refresher covering ES6+ syntax, async/await, modules, and the patterns React relies on. Students with zero JS typically add a 2-3 week primer.",
+      },
+      {
+        question: "How long is the React course?",
+        answer:
+          "Flagship React runs 2-3 months covering React, hooks, Redux, Next.js, TypeScript + 6-8 production-style projects. Add 2-3 more months for MERN Stack progression.",
+      },
+      {
+        question: "What does React training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+
+  // ─── 27. .NET Full Stack in Hinjewadi ────────────────────────────────────
+  {
+    slug: "dotnet-full-stack-in-hinjewadi",
+    courseSlug: "dotnet-full-stack-training-in-pune",
+    locationSlug: "it-training-in-hinjewadi",
+    shortLabel: ".NET Full Stack in Hinjewadi",
+    metaTitle: ".NET Full Stack Training in Hinjewadi (2026)",
+    metaDescription:
+      ".NET Full Stack Training for Hinjewadi-area learners — Archer Infotech. C# + .NET Core + ASP.NET + Azure + React with placement support at Hinjewadi Microsoft-stack MNCs and GCCs. Live-online + classroom.",
+    h1: ".NET Full Stack Training in Hinjewadi, Pune",
+    intro: [
+      "The Microsoft stack — C# + .NET Core + ASP.NET + Entity Framework + Azure — is heavily represented at Hinjewadi MNCs (especially Cognizant, Capgemini, Tech Mahindra enterprise teams) plus a growing number of Hinjewadi GCC captives running Microsoft technology. .NET Full Stack is the natural pattern for fresher candidates targeting these specific employers. Archer Infotech's flagship .NET Full Stack track covers C# + ASP.NET + React + Azure deployment + databases.",
+      "Hinjewadi is about 25 km from our Kothrud centre, so most Hinjewadi-area .NET students join live-online batches. The curriculum builds C# fundamentals → ASP.NET Core MVC → REST APIs → Entity Framework Core → React/Angular frontend → Azure deployment through 8-10 production-style projects.",
+    ],
+    whyHere: [
+      ".NET Full Stack is heavily hired at Hinjewadi Microsoft-stack MNCs (Cognizant, Capgemini, Tech Mahindra enterprise teams)",
+      "Growing demand at Hinjewadi GCC captives running Microsoft technology (Azure, Power Platform integrations)",
+      "Pune .NET FS fresher band is ₹3.5-5.5 LPA with top performers crossing ₹9 LPA",
+      "Live-online format eliminates the 25 km Hinjewadi-Kothrud commute",
+      "Stacks well with Azure cert (separate Microsoft AZ-204 or AZ-104) for cloud-deployed .NET roles",
+    ],
+    faqs: [
+      {
+        question: "Which Hinjewadi companies hire .NET Full Stack freshers?",
+        answer:
+          "Cognizant, Capgemini, Tech Mahindra enterprise teams (heavy Microsoft stack), plus growing Hinjewadi GCC captives running Azure + .NET workloads. Volume is lower than Java FS but consistent.",
+      },
+      {
+        question: ".NET or Java for a Hinjewadi MNC career?",
+        answer:
+          "Java has higher Hinjewadi services MNC volume; .NET is sharper at Microsoft-stack employers (Cognizant, Capgemini, Tech Mahindra enterprise wings) and Azure-based GCCs. Both are strong; pick by company-list preference.",
+      },
+      {
+        question: "Does the .NET track cover ASP.NET Core MVC and Web API?",
+        answer:
+          "Yes — both MVC and Web API patterns are covered, plus Entity Framework Core for data access, Azure deployment basics, and React/Angular for the frontend layer.",
+      },
+      {
+        question: "Do I need C# background before joining?",
+        answer:
+          "No — the track starts from C# fundamentals (OOP, LINQ, async). Students with any prior OOP language (Java, C++, Python) typically find C# straightforward to pick up.",
+      },
+      {
+        question: "How long is the .NET Full Stack course?",
+        answer:
+          "Flagship .NET Full Stack runs 4-6 months covering C# + ASP.NET Core MVC + Web API + Entity Framework + React/Angular + Azure deployment + 8-10 production-style projects.",
+      },
+      {
+        question: "What does .NET Full Stack training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+
+  // ─── 28. AWS in Kothrud ──────────────────────────────────────────────────
+  {
+    slug: "aws-in-kothrud",
+    courseSlug: "aws-training-in-pune",
+    locationSlug: "it-training-in-kothrud",
+    shortLabel: "AWS in Kothrud",
+    metaTitle: "AWS Training in Kothrud, Pune (2026)",
+    metaDescription:
+      "AWS Training in Kothrud — Archer Infotech (Kothrud centre). AWS Solutions Architect Associate prep + hands-on labs + placement assistance at Pune cloud roles. Classroom + online.",
+    h1: "AWS Training in Kothrud, Pune",
+    intro: [
+      "AWS is by a wide margin the most-hired cloud platform across Pune — every major Pune services MNC and most Pune GCC captives run primary workloads on AWS. AWS Solutions Architect Associate (SAA-C03) is the single most-screened cloud certification at fresher and 0-3 year hiring panels. The Kothrud-resident concentration of MIT-WPU students, Cummins COE undergrads, and working-professional upskillers makes our home-neighbourhood centre the most accessible AWS track location.",
+      "Living in Kothrud means the classroom commute is 5-15 minutes — most Kothrud AWS students attend 2 evenings + Saturday morning at the centre. Cloud labs run in students' own AWS Free Tier accounts, accessible from any browser. The track is built around the SAA-C03 exam blueprint plus 10+ production-style architectures.",
+    ],
+    whyHere: [
+      "Kothrud students reach the centre in 5-15 min — short commute helps with consistent attendance for SAA exam prep",
+      "AWS is the dominant cloud at Pune MNCs + GCC captives — SAA-C03 is most-screened fresher cert",
+      "Pune Cloud Engineer fresher band ₹4-6.5 LPA, top performers crossing ₹11 LPA at GCC captives",
+      "Pairs well with DevOps for full cloud-engineer applications",
+      "Working-professional friendly — many Kothrud mid-career students upskill via AWS evenings + weekends",
+    ],
+    faqs: [
+      {
+        question: "Does the track fully prepare me for the SAA-C03 exam?",
+        answer:
+          "Yes — the flagship AWS track is built around the SAA-C03 exam blueprint covering all six domains plus 10+ hands-on architectures (VPC, EC2, S3, RDS, Lambda, ECS, CloudFormation, IAM, monitoring). Most students attempt the exam within 4-6 weeks of completion.",
+      },
+      {
+        question: "Should I take DevOps before or after AWS?",
+        answer:
+          "AWS gives you the cloud platform fundamentals; DevOps adds the automation and deployment layer. Many Kothrud students take AWS first (faster SAA certification), then add DevOps for full cloud-engineer roles.",
+      },
+      {
+        question: "How are hands-on labs delivered?",
+        answer:
+          "Labs run in your own AWS Free Tier account — we provide step-by-step lab guides and budget controls so you don't accidentally over-spend. Live instructor support during sessions for blockers.",
+      },
+      {
+        question: "Which Pune companies hire AWS-skilled engineers?",
+        answer:
+          "Every major Pune services MNC + 100+ Pune GCC captives + product companies. AWS Solutions Architect Associate is the most-screened cert at fresher and 0-3 year drives.",
+      },
+      {
+        question: "How long is the AWS course?",
+        answer:
+          "Flagship AWS runs 2-3 months covering all six SAA-C03 exam domains plus 10+ hands-on architectures. Most students take the exam within 4-6 weeks of completion.",
+      },
+      {
+        question: "What does AWS training in Kothrud cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. AWS exam fee (~₹12,000 for SAA-C03) is paid separately to AWS. Ask admissions during your free demo for current course fee + EMI partners.",
+      },
+    ],
+  },
 ];
 
 /** Look up a course×location combo by slug. */
