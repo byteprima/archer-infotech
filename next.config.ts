@@ -65,6 +65,20 @@ const nextConfig: NextConfig = {
         destination: "https://archerinfotech.in/:path*",
         permanent: true,
       },
+      /**
+       * P5-27 — refresh-urgency scorer (2026-06-11) surfaced
+       * `/courses?category=<slug>` as a query-param duplicate
+       * competing with the clean `/courses/<category-slug>` URL.
+       * Score 54.3 (high urgency). 301-redirect the query-param
+       * form to the canonical clean URL so the SEO signal
+       * consolidates on the right page.
+       */
+      {
+        source: "/courses",
+        has: [{ type: "query", key: "category", value: "(?<cat>.+)" }],
+        destination: "/courses/:cat",
+        permanent: true,
+      },
     ];
   },
   /**

@@ -14,11 +14,17 @@
 
 /**
  * Course detail pages (`/courses/[category]/[slug]`).
- * Last meaningful refresh: Pillar 1 #6 — Tier 1 + Tier 2/3/4 long-form
- * content shipped 2026-05-06 in commits dbdeea0 + a9a4d58 (rich
- * curriculum, FAQs, outcomes, prereqs, projects across 41 tech courses).
+ * Last meaningful refresh: 2026-06-11 — P7-33 cross-pillar Review +
+ * AggregateRating distribution + cluster-linking outcome push (5
+ * category hubs wired with bidirectional spoke links) + P4-16 40
+ * course×location combo pages cross-referencing the course detail
+ * pages. The course content itself remains from the 2026-05-06
+ * Pillar 1 #6 long-form work; this date bump reflects the link-
+ * graph + schema + cluster-linking refresh that flows through every
+ * course detail page render. P5-27 refresh-urgency-scorer-driven
+ * bump.
  */
-export const COURSE_LAST_REVIEWED = "2026-05-06";
+export const COURSE_LAST_REVIEWED = "2026-06-11";
 
 /**
  * Bootcamp detail pages (`/bootcamps/[slug]`).
@@ -31,23 +37,36 @@ export const BOOTCAMP_LAST_REVIEWED = "2026-05-08";
 /**
  * Evergreen marketing surfaces (Home, About, Placements, Courses index,
  * Bootcamps index, Trainers, Contact, Internships, Corporate Training,
- * Batch Schedule). Last meaningful refresh: 2026-05-08 — definitive
- * answer paragraphs and FAQ blocks shipped (P8-07 + P8-08, commit
- * 87ca989).
+ * Batch Schedule). Last meaningful refresh: 2026-06-11 — P7-33 +
+ * cluster-linking + P8-04 schema audit (canonical OrganizationJsonLd
+ * gains founder + aggregateRating site-wide via @id linkage) + 5
+ * category hub pages now carry "Plan your <Category> path" spoke
+ * block. The marketing content itself is from the 2026-05-08
+ * P8-07 + P8-08 work; this bump reflects the schema + link-graph
+ * refresh that flows through every evergreen surface render.
+ * P5-27 refresh-urgency-scorer-driven bump.
  */
-export const EVERGREEN_LAST_REVIEWED = "2026-05-08";
+export const EVERGREEN_LAST_REVIEWED = "2026-06-11";
 
 /**
  * Pages built or substantially advanced in the 2026-05-25 SEO push —
  * audience landing pages (/courses/for/*), /press, /tools/* (salary
  * calculator + career roadmap), /compare/*, /guides/*, and the new
- * blog-category route family. They share one review cadence; bump
- * together when re-audited.
+ * blog-category route family.
+ *
+ * Last refresh: 2026-06-11 — /guides/* gained the "Recommended
+ * Archer course" reverse-link block (P5-22-supporting cluster
+ * push); /compare/* + /guides/* metaDescription trimmed via
+ * `summariseToMeta` (P3-22); audience pages doubled in count
+ * (8 → 20 with 12 new college-specific entries from P4-18). The
+ * core content is from the 2026-05-25 push; this bump reflects
+ * the structural + link-graph + audience-expansion refresh
+ * across all NEW_ASSETS surfaces.
  *
  * Note: /locations/* was originally in this set but has since been
  * individually re-audited under P4-21 — see LOCATIONS_LAST_REVIEWED.
  */
-export const NEW_ASSETS_LAST_REVIEWED = "2026-05-25";
+export const NEW_ASSETS_LAST_REVIEWED = "2026-06-11";
 
 /**
  * Neighbourhood location pages (`/locations/[slug]`). Substantially
