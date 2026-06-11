@@ -61,6 +61,11 @@ const SAME_AS = [
   // the Kothrud centre. Anchors the LocalBusiness schema to the actual
   // GBP record Google already indexes.
   siteConfig.googleMaps.url,
+  // Wikidata entity (P6-06 — submitted 2026-06-11). The canonical
+  // machine-readable identifier; Google Knowledge Graph + every major
+  // AI engine maps brand → Wikidata Q-id. Most-valuable sameAs link in
+  // the entire graph.
+  siteConfig.social.wikidata,
 ].filter(Boolean);
 
 // Service-area signal. Archer's centre is in Kothrud, but students commute

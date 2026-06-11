@@ -22,13 +22,17 @@ export const siteConfig = {
     },
   },
 
-  // Social Links
+  // Social Links + canonical knowledge-graph URLs (P6-06 — Wikidata 2026-06-11).
   social: {
     facebook: "https://facebook.com/archerinfotech",
     instagram: "https://instagram.com/archerinfotech",
     linkedin: "https://linkedin.com/company/archerinfotech",
     twitter: "https://twitter.com/archerinfotech",
     youtube: "https://youtube.com/@archerinfotech",
+    // Wikidata entity — the entity is the canonical machine-readable
+    // identifier Google + AI engines map back to our brand. Submitted
+    // 2026-06-11 via wikidata_submit.py (P6-06).
+    wikidata: "https://www.wikidata.org/wiki/Q140177819",
   },
 
   // Google Maps
