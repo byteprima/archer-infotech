@@ -92,14 +92,44 @@ const nextConfig: NextConfig = {
   async headers() {
     // Edge-cacheable evergreen SEO routes. The home page is `force-dynamic`
     // and Next/Cloudflare would otherwise send `private, no-cache, no-store`
-    // — overriding here lets Cloudflare cache the rendered HTML for 5 min
-    // (s-maxage) and serve stale-while-revalidate up to 1 day. Big LCP/TTFB
-    // win for repeat visitors and crawl efficiency. Excluded by listing:
+    // — overriding here lets Cloudflare cache the rendered HTML and serve
+    // stale-while-revalidate up to 1 day. Big LCP/TTFB win for repeat
+    // visitors and crawl efficiency. Excluded by listing:
     // /admin, /api, /contact (form), /blog (DB-backed), /review (308).
-    const PUBLIC_CACHE = {
+    //
+    // P8-24 — three-tier cache TTL aligned to actual content update cadence.
+    // Each tier keeps the same stale-while-revalidate budget (1 day) but
+    // varies s-maxage based on how often content actually changes. Tradeoff
+    // window = s-maxage = max time users might see stale content after a
+    // deploy. With stale-while-revalidate intact, the origin recovery
+    // path is unchanged.
+    //
+    //   DYNAMIC      (5 min)  — routes that meaningfully change weekly+
+    //                            (home, placements, batch-schedule)
+    //   STABLE       (1 hour) — routes that change quarterly
+    //                            (about/courses/bootcamps/trainers/etc)
+    //   VERY_STABLE  (6 hour) — routes that change annually+
+    //                            (compare/guides/tools/career-paths/reports)
+    //
+    // Justification for raising stable-route TTL: a 1-hour s-maxage means
+    // Cloudflare returns to origin ~24x/day per route instead of ~288x.
+    // Hit rate increases proportionally; TTFB falls. The 1-hour staleness
+    // window is acceptable because evergreen routes don't carry
+    // time-sensitive content — the rare deploy lag is invisible to users.
+    const PUBLIC_CACHE_DYNAMIC = {
       key: "Cache-Control",
       value:
         "public, max-age=0, s-maxage=300, stale-while-revalidate=86400, must-revalidate",
+    };
+    const PUBLIC_CACHE_STABLE = {
+      key: "Cache-Control",
+      value:
+        "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400, must-revalidate",
+    };
+    const PUBLIC_CACHE_VERY_STABLE = {
+      key: "Cache-Control",
+      value:
+        "public, max-age=0, s-maxage=21600, stale-while-revalidate=86400, must-revalidate",
     };
 
     // Security headers — set globally on every response.
@@ -120,9 +150,18 @@ const nextConfig: NextConfig = {
       },
     ];
 
-    const cacheRule = (source: string) => ({
+    // Per-tier rule builders.
+    const dynRule = (source: string) => ({
       source,
-      headers: [PUBLIC_CACHE],
+      headers: [PUBLIC_CACHE_DYNAMIC],
+    });
+    const stableRule = (source: string) => ({
+      source,
+      headers: [PUBLIC_CACHE_STABLE],
+    });
+    const veryStableRule = (source: string) => ({
+      source,
+      headers: [PUBLIC_CACHE_VERY_STABLE],
     });
 
     return [
@@ -140,29 +179,47 @@ const nextConfig: NextConfig = {
         ],
       },
 
-      // Edge cache for evergreen SEO routes.
-      cacheRule("/"),
-      cacheRule("/about"),
-      cacheRule("/placements"),
-      cacheRule("/internships"),
-      cacheRule("/corporate-training"),
-      cacheRule("/batch-schedule"),
-      cacheRule("/press"),
-      cacheRule("/trainers"),
-      cacheRule("/trainers/:slug"),
-      cacheRule("/bootcamps"),
-      cacheRule("/bootcamps/:slug"),
-      cacheRule("/courses"),
-      cacheRule("/courses/:category"),
-      cacheRule("/courses/:category/:slug"),
-      cacheRule("/courses/for/:audience"),
-      cacheRule("/compare"),
-      cacheRule("/compare/:slug"),
-      cacheRule("/guides"),
-      cacheRule("/guides/:slug"),
-      cacheRule("/locations"),
-      cacheRule("/locations/:slug"),
-      cacheRule("/tools/:path*"),
+      // DYNAMIC — meaningfully changes weekly+ (5-min edge cache).
+      // / — home leads with current Pune hiring outlook; weekly meta refreshes.
+      // /placements — new placements published with each batch close.
+      // /batch-schedule — DB-backed upcoming-batch dates change weekly.
+      dynRule("/"),
+      dynRule("/placements"),
+      dynRule("/batch-schedule"),
+
+      // STABLE — changes quarterly (1-hour edge cache).
+      // Course/bootcamp/trainer/audience pages refresh on quarterly content
+      // review cadence per P5-27 playbook. /press + /internships + corporate
+      // training are stable but occasionally bumped.
+      stableRule("/about"),
+      stableRule("/internships"),
+      stableRule("/corporate-training"),
+      stableRule("/press"),
+      stableRule("/trainers"),
+      stableRule("/trainers/:slug"),
+      stableRule("/bootcamps"),
+      stableRule("/bootcamps/:slug"),
+      stableRule("/courses"),
+      stableRule("/courses/:category"),
+      stableRule("/courses/:category/:slug"),
+      stableRule("/courses/for/:audience"),
+      stableRule("/locations"),
+      stableRule("/locations/:slug"),
+
+      // VERY_STABLE — changes annually+ (6-hour edge cache).
+      // Compare + guide pages are deeply evergreen (e.g. Java vs Python).
+      // Tools are interactive but their HTML wrapper is static; the
+      // calculator state lives client-side. Career-paths pillars and the
+      // /reports landing pages refresh only on annual data updates.
+      veryStableRule("/compare"),
+      veryStableRule("/compare/:slug"),
+      veryStableRule("/guides"),
+      veryStableRule("/guides/:slug"),
+      veryStableRule("/tools/:path*"),
+      veryStableRule("/career-paths"),
+      veryStableRule("/career-paths/:slug"),
+      veryStableRule("/reports"),
+      veryStableRule("/reports/:slug"),
 
       // Security headers — apply to every route.
       { source: "/:path*", headers: SECURITY_HEADERS },
