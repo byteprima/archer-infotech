@@ -49,6 +49,8 @@ import { LastUpdated } from "@/components/seo/last-updated";
 import { COURSE_LAST_REVIEWED } from "@/lib/seo/content-dates";
 import { RelatedReading } from "@/components/courses/related-reading";
 import { NewsletterSignupForm } from "@/components/newsletter/newsletter-signup-form";
+import { VideoEmbed } from "@/components/seo/video-embed";
+import { getCourseVideo } from "@/data/course-videos";
 import { getRelatedBlogPosts } from "@/lib/actions/blog";
 import { deriveCourseKeywords } from "@/lib/seo/course-keywords";
 import { getRelatedAssetsForCourse } from "@/lib/seo/course-related-assets";
@@ -336,6 +338,26 @@ export default async function CoursePage({ params }: CoursePageProps) {
             // Course FAQ joins the same boundary so it streams too rather
             // than blocking initial paint.
             <>
+              {/* P5-26 — course intro video. Lazy-loaded YouTube iframe +
+                  VideoObject JSON-LD. Renders nothing when no video is
+                  mapped for this slug (see src/data/course-videos.ts). */}
+              {(() => {
+                const courseVideo = getCourseVideo(slug);
+                if (!courseVideo) return null;
+                return (
+                  <div className="container mx-auto px-4 max-w-3xl">
+                    <VideoEmbed
+                      youtubeId={courseVideo.youtubeId}
+                      title={courseVideo.title}
+                      description={courseVideo.description}
+                      uploadDate={courseVideo.uploadDate}
+                      duration={courseVideo.duration}
+                      schemaId={`course-intro-${slug}`}
+                    />
+                  </div>
+                );
+              })()}
+
               <RichCourseContentAboveFold rich={rich} />
               <Suspense
                 fallback={
