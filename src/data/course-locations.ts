@@ -2040,6 +2040,226 @@ export const courseLocations: CourseLocationCombo[] = [
       },
     ],
   },
+
+  // ─── 37. Data Engineering in Hinjewadi ───────────────────────────────────
+  {
+    slug: "data-engineering-in-hinjewadi",
+    courseSlug: "data-engineering-training-in-pune",
+    locationSlug: "it-training-in-hinjewadi",
+    shortLabel: "Data Engineering in Hinjewadi",
+    metaTitle: "Data Engineering Training in Hinjewadi (2026)",
+    metaDescription:
+      "Data Engineering Training for Hinjewadi-area learners — Archer Infotech. Python + SQL + Spark + Airflow + cloud data platforms targeting Hinjewadi GCC data captives. Live-online + classroom.",
+    h1: "Data Engineering Training in Hinjewadi, Pune",
+    intro: [
+      "Hinjewadi GCC captives have scaled data engineering teams aggressively — financial services data platforms, retail data lakes, healthcare data pipelines, telecom analytics infrastructure all hire fresher data engineers consistently. Pune services MNCs (TCS, Infosys, Wipro, Cognizant) similarly hire fresher data engineers for analytics + ETL roles. The stack is Python + SQL + Spark + Airflow + cloud data platforms (AWS Glue, S3, Redshift or equivalents) — exactly what Archer Infotech's Data Engineering track covers.",
+      "Hinjewadi is about 25 km from our Kothrud centre, so most Hinjewadi-area Data Engineering students join live-online batches. Cloud labs run in students' own AWS Free Tier accounts. Curriculum covers Python + SQL fundamentals → ETL patterns → Spark + PySpark → Airflow DAG design → cloud data platforms → 8-10 production-style pipeline projects.",
+    ],
+    whyHere: [
+      "Hinjewadi GCC captives have scaled data engineering teams aggressively — fresher demand is steady and growing",
+      "Data Engineering fresher band ₹4-7 LPA, top performers at Hinjewadi GCC captives crossing ₹12 LPA",
+      "Strong career-progression — data engineers move into ML engineering, platform engineering, or analytics engineering",
+      "Live-online format eliminates the 25 km Hinjewadi-Kothrud commute; cloud labs accessible from anywhere",
+      "Pairs naturally with AWS SAA for cloud-deployed data platform roles at Hinjewadi GCCs",
+    ],
+    faqs: [
+      {
+        question: "Which Hinjewadi companies hire data engineering freshers?",
+        answer:
+          "Fortune 500 GCC captives running data platforms (BFSI, retail, healthcare, telecom) + Pune services MNCs running data + ETL consulting wings + product companies with growing data teams.",
+      },
+      {
+        question: "Data Engineering vs Data Science — which should I pick?",
+        answer:
+          "Data Engineering is the infrastructure layer (ETL pipelines, data platforms, batch + streaming, cloud data warehousing). Data Science is the modelling layer (ML, analytics, predictions). Both are needed; pick by which work appeals to you. Data engineers earn similar bands to data scientists at GCC captives.",
+      },
+      {
+        question: "Do I need Python before Data Engineering?",
+        answer:
+          "Basic Python helps; the track includes Python fundamentals as a refresher. Students with zero Python add a 1-month Python primer; those with college Python coursework start directly.",
+      },
+      {
+        question: "Does the track cover Spark and Airflow?",
+        answer:
+          "Yes — both Spark (PySpark) and Apache Airflow are core to the curriculum, plus cloud data platform basics (AWS Glue, S3, Redshift patterns). These are the most-screened tools at Hinjewadi data engineering fresher panels.",
+      },
+      {
+        question: "Should I stack AWS SAA with Data Engineering?",
+        answer:
+          "Common pattern — Data Engineering + SAA covers both the data pipelines layer and the cloud platform layer. Many Hinjewadi-bound students stack both for stronger applications at cloud-native data platform teams.",
+      },
+      {
+        question: "What does Data Engineering training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+
+  // ─── 38. Agentic AI in Kothrud ───────────────────────────────────────────
+  {
+    slug: "agentic-ai-in-kothrud",
+    courseSlug: "agentic-ai-training-in-pune",
+    locationSlug: "it-training-in-kothrud",
+    shortLabel: "Agentic AI in Kothrud",
+    metaTitle: "Agentic AI Training in Kothrud, Pune (2026)",
+    metaDescription:
+      "Agentic AI Training in Kothrud — Archer Infotech (Kothrud centre). LangGraph + OpenAI Assistants API + Claude tool use + multi-agent workflows for AI product roles. Classroom + online.",
+    h1: "Agentic AI Training in Kothrud, Pune",
+    intro: [
+      "Agentic AI — multi-agent workflows, tool-using LLMs, autonomous task execution — is the newest layer of the AI stack and the fastest-growing hiring pattern at Pune AI startups and AI-augmented product companies. The Kothrud-resident concentration of MIT-WPU CS / AI&DS students, Cummins COE undergrads, and working-professional AI/ML upskillers makes our home-neighbourhood centre the most accessible Agentic AI track in Pune.",
+      "Living in Kothrud means the classroom commute is 5-15 minutes — perfect for the pairing-heavy, project-driven work that Agentic AI requires. Most Kothrud Agentic AI students attend 2 evenings + Saturday morning at the centre. Cloud sandboxes give access to OpenAI Assistants API, Claude tool use, LangGraph + LangChain ecosystems, and the model APIs needed for agent workflow experimentation.",
+    ],
+    whyHere: [
+      "Agentic AI is the newest + fastest-growing layer of Pune AI hiring — early-mover advantage matters",
+      "Kothrud students reach the centre in 5-15 min — short commute compounds attendance for project-heavy AI work",
+      "Pune Agentic AI / AI engineer band ₹5-9 LPA at AI startups, top performers at AI-first companies crossing ₹15 LPA",
+      "Pairs naturally with Generative AI track for foundational LLM + RAG before agent workflows",
+      "Trainers have production agentic AI experience at Pune AI startups + product captives building autonomous workflows",
+    ],
+    faqs: [
+      {
+        question: "Should I take Generative AI before Agentic AI?",
+        answer:
+          "Strongly recommended. GenAI covers LLM fundamentals, prompt engineering, LangChain, RAG — the foundations Agentic AI builds on. Most Kothrud students take GenAI first, then Agentic AI for multi-agent orchestration and autonomous workflow design.",
+      },
+      {
+        question: "What's covered in the Agentic AI track?",
+        answer:
+          "LangGraph (state-machine driven agents), OpenAI Assistants API, Claude tool use, multi-agent orchestration patterns, ReAct + planning loops, agent memory + persistence, tool integration + safety patterns, plus deployment and observability for agent workflows.",
+      },
+      {
+        question: "Which Pune companies hire Agentic AI engineers?",
+        answer:
+          "Pune AI startups (rapidly growing), AI-augmented product companies (BFSI AI, retail AI, healthcare LLMs), and modern engineering teams of Pune MNCs building agentic workflows for client products. Demand is small but premium-paid.",
+      },
+      {
+        question: "Do I need ML / Python background?",
+        answer:
+          "Python fluency is essential. ML / DS background helps for understanding model behaviour; GenAI background is strongly recommended for LLM + RAG foundations. We tailor the entry point based on your existing background in a free demo.",
+      },
+      {
+        question: "How long is the Agentic AI course?",
+        answer:
+          "Flagship Agentic AI runs 2-3 months covering LangGraph + Assistants API + tool use + multi-agent patterns + 6-8 production-style agent projects.",
+      },
+      {
+        question: "What does Agentic AI training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+
+  // ─── 39. Java Full Stack in Karve Nagar ──────────────────────────────────
+  {
+    slug: "java-full-stack-in-karve-nagar",
+    courseSlug: "java-full-stack-training-in-pune",
+    locationSlug: "it-training-in-karve-nagar",
+    shortLabel: "Java Full Stack in Karve Nagar",
+    metaTitle: "Java Full Stack Training in Karve Nagar (2026)",
+    metaDescription:
+      "Java Full Stack Training for Karve Nagar learners — Archer Infotech (Kothrud centre, 5 min away). Spring Boot + microservices + React + placement support at Pune MNCs. Classroom + online batches.",
+    h1: "Java Full Stack Training in Karve Nagar, Pune",
+    intro: [
+      "Karve Nagar sits immediately adjacent to Kothrud, so Karve Nagar-resident learners have the shortest practical commute to our Kothrud centre — typically 5 minutes by two-wheeler or rickshaw, 10-12 minutes on foot. Java Full Stack is the most-hired Pune pattern, and the Kothrud-Karve Nagar belt has its own concentration of working professionals and engineering students who want classroom-paced Java FS learning.",
+      "Living in Karve Nagar means classroom attendance is effectively zero-friction — most Karve Nagar Java FS students attend 2 evenings + Saturday morning at the centre. The home-neighbourhood proximity also makes it easy to attend exam-week pop-up sessions or trainer office hours without a separate commute calculation.",
+    ],
+    whyHere: [
+      "Karve Nagar is adjacent to Kothrud — 5 min commute, the shortest classroom path in Pune",
+      "Java Full Stack is the most-hired Pune pattern — 70%+ of services MNC fresher offers go to Java/Spring Boot candidates",
+      "Working-professional friendly — many Karve Nagar mid-career students upskill via evening + weekend classroom batches",
+      "Trainers have 10+ years at Pune MNCs targeting hiring panels Karve Nagar students face",
+      "Same-neighbourhood proximity means exam-week pop-up sessions and trainer office hours are easy to attend",
+    ],
+    faqs: [
+      {
+        question: "How far is Archer Kothrud from Karve Nagar?",
+        answer:
+          "Roughly 5 minutes by two-wheeler or rickshaw — same neighbourhood. Many Karve Nagar students walk if the weather is good (10-12 min). Easiest commute among Pune-area combinations.",
+      },
+      {
+        question: "Which Pune companies hire Java Full Stack freshers?",
+        answer:
+          "All major services MNCs (TCS, Infosys, Wipro, Cognizant, Capgemini, Tech Mahindra, Persistent), Hinjewadi + Baner GCC captives, plus the modern engineering teams of Pune product companies.",
+      },
+      {
+        question: "Does the track include hands-on Spring Boot + microservices?",
+        answer:
+          "Yes — Spring Boot is a primary focus, including microservices architecture, REST APIs, Spring Security, JPA + Hibernate, plus 8-10 production-style projects. This is the exact stack Pune MNC hiring panels screen on.",
+      },
+      {
+        question: "Can I attend evening + Saturday batches?",
+        answer:
+          "Yes — that's the most common pattern for Karve Nagar students. 2 evenings + Saturday morning is typical; LMS lifetime access covers any missed session.",
+      },
+      {
+        question: "How long is the Java Full Stack course?",
+        answer:
+          "Flagship Java Full Stack runs 4-6 months covering Java + Spring Boot + microservices + React + databases + 8-10 production-style projects.",
+      },
+      {
+        question: "What does Java Full Stack training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+
+  // ─── 40. Software Testing in Pimpri-Chinchwad ────────────────────────────
+  {
+    slug: "software-testing-in-pimpri-chinchwad",
+    courseSlug: "software-testing-training-in-pune",
+    locationSlug: "it-training-in-pimpri-chinchwad",
+    shortLabel: "Software Testing in Pimpri-Chinchwad",
+    metaTitle: "Software Testing Training in Pimpri-Chinchwad (2026)",
+    metaDescription:
+      "Software Testing Training for Pimpri-Chinchwad learners — Archer Infotech. Manual + Selenium + API testing + Postman for Hinjewadi MNC QA roles. Live-online + Saturday classroom.",
+    h1: "Software Testing Training in Pimpri-Chinchwad, Pune",
+    intro: [
+      "Pimpri-Chinchwad engineering students often pick Software Testing as their primary fresher career path because of the soft entry barrier and consistent hiring volume at Hinjewadi services MNCs (TCS, Infosys, Wipro, Cognizant, Capgemini, Tech Mahindra). QA freshers don't need deep development background, and the Hinjewadi pipeline for QA roles is reliably open for Pimpri-Chinchwad-belt graduates. Archer Infotech's flagship Software Testing track covers manual + Selenium + API testing + Postman + STLC + agile workflows.",
+      "Pimpri-Chinchwad is about 30 km from our Kothrud centre, so most students in this belt join live-online batches. Curriculum builds manual testing fundamentals + Selenium WebDriver automation + REST API testing + Postman + basic performance testing concepts through real-world test scenarios.",
+    ],
+    whyHere: [
+      "Software Testing is one of the highest-volume Hinjewadi services MNC fresher tracks accessible to Pimpri-Chinchwad belt students",
+      "Soft entry barrier — strong fit for non-CS branch students or freshers without deep development background",
+      "Pune Software Testing fresher band ₹3-4.5 LPA with top performers in automation crossing ₹7 LPA",
+      "Live-online format eliminates the 30 km Pimpri-Chinchwad-Kothrud commute",
+      "Selenium automation upskill path lifts pay band — manual ₹3-4.5 → automation ₹5-7 LPA after 1-2 years",
+    ],
+    faqs: [
+      {
+        question: "Software Testing or Java FS for a Pimpri-Chinchwad student?",
+        answer:
+          "Java FS has higher pay band ceiling but harder entry path. Software Testing has lower pay band entry but softer barrier — strong for non-CS branches or freshers without deep coding. Many students pick Testing for fresher entry, then upskill into Selenium automation, then bridge to development or DevOps.",
+      },
+      {
+        question: "Which Hinjewadi/PCMC companies hire Testing freshers?",
+        answer:
+          "All major Hinjewadi services MNCs — TCS, Infosys, Wipro, Cognizant, Capgemini, Tech Mahindra, Persistent — hire QA freshers at consistent volume. Plus QA wings at Hinjewadi GCC captives.",
+      },
+      {
+        question: "Should I learn Selenium automation alongside manual testing?",
+        answer:
+          "Recommended — Selenium automation lifts the pay band significantly (₹3-4.5 → ₹5-7 LPA after 1-2 years experience). The flagship Software Testing track covers Selenium fundamentals; students who want deeper automation specialise via our dedicated Selenium track.",
+      },
+      {
+        question: "Do I need development background for testing?",
+        answer:
+          "No deep coding background needed for manual testing. Basic programming literacy helps for automation; pure manual testing has the softest entry barriers. We start from fundamentals.",
+      },
+      {
+        question: "How long is the Software Testing course?",
+        answer:
+          "Flagship Software Testing runs 2-3 months covering manual + Selenium automation + API testing + Postman + basic performance testing concepts.",
+      },
+      {
+        question: "What does Software Testing training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
 ];
 
 /** Look up a course×location combo by slug. */
