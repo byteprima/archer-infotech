@@ -18,6 +18,7 @@ import {
   LucideIcon,
 } from "lucide-react";
 import { TrackedAnchor } from "@/components/analytics/tracked-anchor";
+import { NewsletterSignupForm } from "@/components/newsletter/newsletter-signup-form";
 import { siteConfig } from "@/data/site-config";
 import { categories } from "@/data/courses";
 
@@ -349,6 +350,28 @@ export function Footer() {
                 </span>
               </li>
             </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* P5-17 — Newsletter strip between main footer and bottom bar.
+          One email per month with Pune IT hiring + salary updates. Captures
+          to leads table with source="newsletter_signup:footer"; admin tooling
+          exports newsletter_signup-tagged leads to email platform when
+          integration ships. */}
+      <div className="border-t border-primary-foreground/10 bg-primary-foreground/5">
+        <div className="container mx-auto px-4 py-8">
+          <div className="grid md:grid-cols-2 gap-6 items-center max-w-4xl mx-auto">
+            <div>
+              <h2 className="text-lg font-semibold text-white mb-1">
+                Pune IT careers — monthly briefing
+              </h2>
+              <p className="text-sm text-primary-foreground/80">
+                One email a month with the most actionable Pune IT hiring +
+                salary updates. Free, unsubscribe anytime.
+              </p>
+            </div>
+            <NewsletterSignupForm placement="footer" variant="compact" />
           </div>
         </div>
       </div>
