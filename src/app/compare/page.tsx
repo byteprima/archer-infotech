@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Scale, ArrowRight } from "lucide-react";
 import { PageEvent } from "@/components/analytics/page-event";
 import { Breadcrumbs } from "@/components/seo/breadcrumbs";
-import { BreadcrumbJsonLd } from "@/components/seo/json-ld";
+import { BreadcrumbJsonLd, CategoryCollectionJsonLd } from "@/components/seo/json-ld";
 import { comparisons } from "@/data/comparisons";
 import { buildPageMetadata } from "@/lib/seo";
 
@@ -23,6 +23,16 @@ export default function CompareIndexPage() {
           { name: "Home", url: "/" },
           { name: "Compare", url: "/compare" },
         ]}
+      />
+      <CategoryCollectionJsonLd
+        name="Compare IT Courses & Career Paths"
+        description="Side-by-side comparisons for Pune IT learners — Java vs Python, MERN vs Java Full Stack, online vs offline training, Python Developer vs Data Scientist, and bootcamp vs self-study."
+        url="/compare"
+        items={comparisons.map((c) => ({
+          name: `${c.optionA} vs ${c.optionB}`,
+          url: `/compare/${c.slug}`,
+          description: c.metaDescription,
+        }))}
       />
 
       <header className="gradient-hero text-white py-12 md:py-16">

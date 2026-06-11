@@ -104,24 +104,22 @@ export function BlogPostJsonLd({
           }),
           ...(authorPerson.bio && { description: authorPerson.bio }),
           ...(authorPerson.linkedin && { sameAs: [authorPerson.linkedin] }),
-          worksFor: {
-            "@type": "EducationalOrganization",
-            name: siteConfig.name,
-            url: baseUrl,
-          },
+          // P8-04 wave 3 — @id-reference to canonical Org @id graph
+          // instead of partial Org redeclaration. Eliminates the schema
+          // validator's "partial Org without required fields" warning
+          // across every blog post.
+          worksFor: { "@id": baseUrl },
         }
       : {
           "@type": "Person",
           name: author || siteConfig.name,
         },
-    publisher: {
-      "@type": "Organization",
-      name: siteConfig.name,
-      logo: {
-        "@type": "ImageObject",
-        url: `${baseUrl}/images/logo.svg`,
-      },
-    },
+    // P8-04 wave 3 — publisher = @id-reference to the canonical
+    // OrganizationJsonLd graph (in <RootLayout>'s organization schema)
+    // rather than a partial Org redeclaration. Required logo/name
+    // already live on the canonical Org schema; redeclaring them here
+    // either drifts or triggers "partial entity" warnings.
+    publisher: { "@id": baseUrl },
     ...(category && {
       articleSection: category,
     }),
@@ -162,14 +160,9 @@ export function BlogListingJsonLd({ posts }: BlogListingJsonLdProps) {
     name: `${siteConfig.name} Blog`,
     description: `Read the latest articles, tutorials, and insights from ${siteConfig.name} - your guide to IT training and career development.`,
     url: `${baseUrl}/blog`,
-    publisher: {
-      "@type": "Organization",
-      name: siteConfig.name,
-      logo: {
-        "@type": "ImageObject",
-        url: `${baseUrl}/images/logo.svg`,
-      },
-    },
+    // P8-04 wave 3 — publisher = @id-reference, matches the BlogPosting
+    // schema and the canonical Org graph.
+    publisher: { "@id": baseUrl },
     blogPost: posts.map((post) => ({
       "@type": "BlogPosting",
       headline: post.title,

@@ -14,7 +14,11 @@ import { TrackedAnchor } from "@/components/analytics/tracked-anchor";
 import { TrackedLink } from "@/components/analytics/tracked-link";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { FAQJsonLd, BreadcrumbJsonLd } from "@/components/seo/json-ld";
+import {
+  FAQJsonLd,
+  BreadcrumbJsonLd,
+  CategoryCollectionJsonLd,
+} from "@/components/seo/json-ld";
 import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 import { audiences, getAudience } from "@/data/audiences";
 import { getCourse } from "@/data/courses";
@@ -66,6 +70,16 @@ export default async function AudiencePage({ params }: AudiencePageProps) {
           { name: "Courses", url: "/courses" },
           { name: audience.name, url: `/courses/for/${slug}` },
         ]}
+      />
+      <CategoryCollectionJsonLd
+        name={audience.metaTitle}
+        description={audience.metaDescription}
+        url={`/courses/for/${slug}`}
+        items={alsoConsider.map((c) => ({
+          name: c.title,
+          url: `/courses/${c.categorySlug}/${c.slug}`,
+          description: c.shortDescription,
+        }))}
       />
 
       <article aria-labelledby="audience-title">

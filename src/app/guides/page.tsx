@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ListChecks, ArrowRight } from "lucide-react";
 import { PageEvent } from "@/components/analytics/page-event";
 import { Breadcrumbs } from "@/components/seo/breadcrumbs";
-import { BreadcrumbJsonLd } from "@/components/seo/json-ld";
+import { BreadcrumbJsonLd, CategoryCollectionJsonLd } from "@/components/seo/json-ld";
 import { listicles } from "@/data/listicles";
 import { buildPageMetadata } from "@/lib/seo";
 
@@ -23,6 +23,16 @@ export default function GuidesIndexPage() {
           { name: "Home", url: "/" },
           { name: "Guides", url: "/guides" },
         ]}
+      />
+      <CategoryCollectionJsonLd
+        name="IT Career & Learning Guides"
+        description="Practical guides for Pune IT learners — best Python projects, top fresher skills, Java frameworks, free full-stack resources and the highest-paying IT roles in Pune."
+        url="/guides"
+        items={listicles.map((l) => ({
+          name: l.h1,
+          url: `/guides/${l.slug}`,
+          description: l.metaDescription,
+        }))}
       />
 
       <header className="gradient-hero text-white py-12 md:py-16">

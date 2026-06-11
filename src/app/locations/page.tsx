@@ -3,7 +3,7 @@ import Link from "next/link";
 import { MapPin, ArrowRight } from "lucide-react";
 import { PageEvent } from "@/components/analytics/page-event";
 import { Breadcrumbs } from "@/components/seo/breadcrumbs";
-import { BreadcrumbJsonLd } from "@/components/seo/json-ld";
+import { BreadcrumbJsonLd, CategoryCollectionJsonLd } from "@/components/seo/json-ld";
 import { getNeighbourhoodsByPriority } from "@/data/locations";
 import { buildPageMetadata } from "@/lib/seo";
 import { siteConfig } from "@/data/site-config";
@@ -26,6 +26,16 @@ export default function LocationsIndexPage() {
           { name: "Home", url: "/" },
           { name: "Locations", url: "/locations" },
         ]}
+      />
+      <CategoryCollectionJsonLd
+        name="IT Training Across Pune — Locations We Serve"
+        description="Archer Infotech's training centre is in Kothrud and serves students across Pune — Karve Nagar, Erandwane, Baner, Aundh, Hinjewadi, Wakad, Pimpri-Chinchwad, Deccan and more."
+        url="/locations"
+        items={areas.map((area) => ({
+          name: `IT training in ${area.name}`,
+          url: `/locations/${area.slug}`,
+          description: area.tagline,
+        }))}
       />
 
       <header className="gradient-hero text-white py-12 md:py-16">

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Compass, ArrowRight } from "lucide-react";
 import { Breadcrumbs } from "@/components/seo/breadcrumbs";
-import { BreadcrumbJsonLd } from "@/components/seo/json-ld";
+import { BreadcrumbJsonLd, CategoryCollectionJsonLd } from "@/components/seo/json-ld";
 import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { buildPageMetadata } from "@/lib/seo";
 import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
@@ -83,6 +83,18 @@ export default function CareerPathsHub() {
           { name: "Home", url: "/" },
           { name: "Career Paths", url: "/career-paths" },
         ]}
+      />
+      <CategoryCollectionJsonLd
+        name="Pune IT Career Paths — Structured Roadmaps for 2026"
+        description="Deep-dive career roadmaps for Pune IT learners — Python Developer, Java Developer, Full Stack Developer, Data Science / AI / ML, Cloud / DevOps Engineer, and First IT Job."
+        url="/career-paths"
+        items={pillars
+          .filter((p) => p.status === "live")
+          .map((p) => ({
+            name: p.title,
+            url: `/career-paths/${p.slug}`,
+            description: p.blurb,
+          }))}
       />
 
       <article aria-labelledby="hub-title">
