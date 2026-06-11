@@ -66,6 +66,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${baseUrl}/press`, lastModified: NEW_ASSETS, changeFrequency: "monthly", priority: 0.5 },
     { url: `${baseUrl}/tools/pune-it-salary-calculator`, lastModified: NEW_ASSETS, changeFrequency: "monthly", priority: 0.7 },
     { url: `${baseUrl}/tools/pune-it-career-roadmap`, lastModified: NEW_ASSETS, changeFrequency: "monthly", priority: 0.7 },
+    // P6-13 — Pune IT Hiring Report 2026 landing page (live preview +
+    // gated download). PDF lands early Q3 2026; the on-site page is the
+    // crawlable asset today.
+    { url: `${baseUrl}/reports`, lastModified: NEW_ASSETS, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${baseUrl}/reports/pune-it-hiring-report-2026`, lastModified: NEW_ASSETS, changeFrequency: "monthly", priority: 0.7 },
     // Glossary — Pune IT term reference (2026-06-07).
     // High AI-engine-citation value: DefinedTermSet schema + per-term anchors.
     { url: `${baseUrl}/glossary`, lastModified: EVERGREEN, changeFrequency: "monthly", priority: 0.6 },

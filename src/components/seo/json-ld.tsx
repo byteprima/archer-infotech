@@ -801,3 +801,74 @@ export function CategoryCollectionJsonLd({
     />
   );
 }
+
+/**
+ * Report schema (Schema.org Report, subclass of CreativeWork).
+ *
+ * Used for downloadable PDF / data reports that we publish as
+ * linkable assets — e.g. the Pune IT Hiring Report 2026. Carries
+ * datePublished + dateModified + author (Org @id-ref) + about +
+ * keywords + abstract.
+ *
+ * P6-13.
+ */
+interface ReportJsonLdProps {
+  /** Display name, e.g. "Pune IT Hiring Report 2026". */
+  name: string;
+  /** Plain-English description of what the report covers. */
+  description: string;
+  /** Canonical site-relative URL, e.g. "/reports/pune-it-hiring-report-2026". */
+  url: string;
+  /** ISO date the report was first published. */
+  datePublished: string;
+  /** ISO date the report was last updated. */
+  dateModified: string;
+  /** Topic keywords used by AI engines + Google Discover. */
+  keywords: string[];
+  /** Single-paragraph executive summary (used as `abstract`). */
+  abstract?: string;
+}
+
+export function ReportJsonLd({
+  name,
+  description,
+  url,
+  datePublished,
+  dateModified,
+  keywords,
+  abstract,
+}: ReportJsonLdProps) {
+  const fullUrl = `${baseUrl}${url}`;
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "Report",
+    name,
+    description,
+    url: fullUrl,
+    inLanguage: "en-IN",
+    datePublished,
+    dateModified,
+    keywords: keywords.join(", "),
+    ...(abstract && { abstract }),
+    // P8-04 — author + publisher = @id-ref to canonical Org graph.
+    author: { "@id": baseUrl },
+    publisher: { "@id": baseUrl },
+    about: {
+      "@type": "Thing",
+      name: "Pune IT Hiring Market",
+      description:
+        "The Pune Information Technology hiring market across product companies, services majors, BFSI captives, and startups.",
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": fullUrl,
+    },
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
