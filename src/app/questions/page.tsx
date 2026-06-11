@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { MessageCircleQuestion, ArrowRight, BookOpenCheck } from "lucide-react";
 import { Breadcrumbs } from "@/components/seo/breadcrumbs";
-import { BreadcrumbJsonLd } from "@/components/seo/json-ld";
+import { BreadcrumbJsonLd, CategoryCollectionJsonLd } from "@/components/seo/json-ld";
 import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { LastUpdated } from "@/components/seo/last-updated";
 import { buildPageMetadata } from "@/lib/seo";
@@ -38,6 +38,19 @@ export default function QuestionsHub() {
           { name: "Home", url: "/" },
           { name: "Questions", url: "/questions" },
         ]}
+      />
+      {/* P8-04 wave 4 — CollectionPage exposing question categories. The
+          individual /questions/[slug] pages already emit FAQPage schema;
+          this is the hub-level ItemList that ties categories together. */}
+      <CategoryCollectionJsonLd
+        name="Pune IT Careers + Archer Infotech — FAQs"
+        description="Question categories spanning Pune IT careers and Archer Infotech — salaries, courses, fees, placements, admissions, bootcamps, batch formats. Verified facts only."
+        url="/questions"
+        items={questionCategories.map((c) => ({
+          name: c.label,
+          url: `/questions/${c.slug}`,
+          description: c.intro,
+        }))}
       />
 
       <article aria-labelledby="hub-title">

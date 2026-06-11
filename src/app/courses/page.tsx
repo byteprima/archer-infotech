@@ -7,6 +7,7 @@ import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { FaqSection } from "@/components/seo/faq-section";
 import { coursesFaqs } from "@/data/faqs";
 import { categories, courses } from "@/data/courses";
+import { CategoryCollectionJsonLd } from "@/components/seo/json-ld";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "IT Training Courses in Pune",
@@ -18,6 +19,21 @@ export const metadata: Metadata = buildPageMetadata({
 export default function CoursesPage() {
   return (
     <>
+      {/* P8-04 wave 4 — CollectionPage of categories. The full server-rendered
+          course list lives below the fold inside the existing courses-filter
+          fallback; here we expose the *category* level so AI engines see
+          /courses as a curated index of training tracks. */}
+      <CategoryCollectionJsonLd
+        name="IT Training Courses in Pune"
+        description="40+ classroom and online IT training courses in Pune across Programming, Full Stack, Cloud, Data and AI, Testing, and Database tracks."
+        url="/courses"
+        items={categories.map((cat) => ({
+          name: cat.name,
+          url: `/courses/${cat.slug}`,
+          description: cat.description,
+        }))}
+      />
+
       {/* Hero Section */}
       <section className="gradient-hero text-white py-16">
         <div className="container mx-auto px-4">

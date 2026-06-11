@@ -4,7 +4,7 @@ import Image from "next/image";
 import { ArrowRight, Award, Briefcase, Phone } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { BreadcrumbJsonLd } from "@/components/seo/json-ld";
+import { BreadcrumbJsonLd, CategoryCollectionJsonLd } from "@/components/seo/json-ld";
 import { getTeamMembers } from "@/data/team";
 import { buildPageMetadata } from "@/lib/seo";
 import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
@@ -28,6 +28,20 @@ export default function TrainersPage() {
           { name: "Home", url: "/" },
           { name: "Trainers", url: "/trainers" },
         ]}
+      />
+      {/* P8-04 wave 4 — CollectionPage exposing the 6-person faculty as an
+          ItemList. Each individual trainer page already emits a complete
+          Person schema (sameAs LinkedIn, knowsAbout, image, worksFor @id-ref);
+          this is the hub-level signal that ties them together. */}
+      <CategoryCollectionJsonLd
+        name="Our Trainers — Industry Experts at Archer Infotech, Pune"
+        description="The 6-person faculty behind Archer Infotech's Pune programmes — 54+ combined years of MNC experience across Java, Python, AI/ML, Cloud, .NET, Full Stack, and Generative AI."
+        url="/trainers"
+        items={trainers.map((t) => ({
+          name: t.name,
+          url: `/trainers/${t.id}`,
+          description: t.role,
+        }))}
       />
 
       <section className="gradient-hero text-white py-16 md:py-20">
