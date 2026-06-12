@@ -19,6 +19,16 @@ export interface Course {
   slug: string;
   title: string;
   shortTitle: string;
+  /**
+   * Optional SEO-precise overrides. When set, these win over the shared
+   * "{title} Training in Pune with Placement" template so an individual
+   * course can target the exact high-demand search phrase (e.g. Java's
+   * "...Developer Course in Pune") without renaming `title`, which is
+   * reused in breadcrumbs, schema, and CTAs. Both fall back to the
+   * template when omitted, so all other courses are unaffected.
+   */
+  seoTitle?: string;
+  heroHeading?: string;
   category: string;
   categorySlug: string;
   description: string;
@@ -597,8 +607,13 @@ export const courses: Course[] = [
   {
     id: "java-fullstack",
     slug: "java-full-stack-training-in-pune",
-    title: "Java Full Stack Training in Pune",
+    title: "Java Full Stack Development",
     shortTitle: "Java Full Stack",
+    // SERP-facing strings target the highest-demand query from GSC
+    // ("java full stack developer course in pune"), not the lower-volume
+    // "...development training" phrasing the template produced.
+    seoTitle: "Java Full Stack Developer Course in Pune with Placement",
+    heroHeading: "Java Full Stack Developer Course in Pune with Placement",
     category: "Full Stack Development",
     categorySlug: "full-stack-development",
     description: "Become a job-ready Java Full Stack Developer with practical training in Core Java, Advanced Java, Spring Boot, Hibernate, REST APIs, React or Angular, MySQL, Git, Docker, and live projects.",

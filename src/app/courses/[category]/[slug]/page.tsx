@@ -34,6 +34,7 @@ import { ReviewRibbon } from "@/components/seo/review-ribbon";
 import { getCourseTestimonials } from "@/lib/actions/public-testimonials";
 import { Star, Quote } from "lucide-react";
 import { courses, getCourse, getCategory, getRelatedCourses } from "@/data/courses";
+import { getHiringPartners } from "@/data/companies";
 import { getTrainersForCourse } from "@/data/team";
 import { siteConfig } from "@/data/site-config";
 import { buildPageMetadata } from "@/lib/seo";
@@ -80,7 +81,7 @@ export async function generateMetadata({
   }
 
   return buildPageMetadata({
-    title: `${course.title} Training in Pune with Placement`,
+    title: course.seoTitle ?? `${course.title} Training in Pune with Placement`,
     description: course.description,
     path: `/courses/${categorySlug}/${slug}`,
     lastModified: COURSE_LAST_REVIEWED,
@@ -232,7 +233,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
                 id="course-title"
                 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4"
               >
-                {course.title} Training in Pune with Placement
+                {course.heroHeading ?? `${course.title} Training in Pune with Placement`}
               </h1>
               {/* Variant-rich subheading so every course page naturally
                   carries all four head-keyword variants — "training" (in
@@ -260,7 +261,28 @@ export default async function CoursePage({ params }: CoursePageProps) {
               {/* P7-33 — trust ribbon: 5.0★ from 126+ Google reviews,
                   routes to /testimonials. Visible signal that pairs with
                   the per-course aggregateRating in CourseJsonLd. */}
-              <ReviewRibbon variant="light" className="mb-6" />
+              <ReviewRibbon variant="light" className="mb-4" />
+              {/* Trust-numbers strip — surfaces the same proof competitors
+                  lead with (students trained, placed, placement rate, years)
+                  using the canonical site-config stats. Pairs with the 5.0★
+                  ReviewRibbon above so the hero carries rating + scale, the
+                  two signals every page-1 Pune institute foregrounds. */}
+              <dl className="flex flex-wrap gap-x-6 gap-y-3 mb-6">
+                {[
+                  { value: siteConfig.stats.studentsTrained, label: "Trained" },
+                  { value: siteConfig.stats.studentsPlaced, label: "Placed" },
+                  { value: siteConfig.stats.placementRate, label: "Placement rate" },
+                  { value: `Since ${siteConfig.foundingYear}`, label: "17+ years" },
+                ].map((stat) => (
+                  <div key={stat.label} className="flex flex-col">
+                    <dt className="sr-only">{stat.label}</dt>
+                    <dd className="text-xl md:text-2xl font-bold leading-none">
+                      {stat.value}
+                    </dd>
+                    <span className="text-xs text-white/70 mt-1">{stat.label}</span>
+                  </div>
+                ))}
+              </dl>
               <div className="flex flex-wrap gap-6 text-sm">
                 <div className="flex items-center gap-2">
                   <Clock className="h-5 w-5" />
@@ -325,6 +347,43 @@ export default async function CoursePage({ params }: CoursePageProps) {
           </div>
         </div>
       </header>
+
+      {/* Hiring-partner strip — the recruiter-logo row every page-1
+          competitor (Kiran, Technogeeks, SevenMentor) leads with. We render
+          partner names (logo assets aren't in the repo) in the same text
+          treatment as the homepage CompaniesSection. Reinforces the
+          placement claim with concrete, recognisable employer names right
+          below the hero. Applies to all course pages from one template edit. */}
+      {(() => {
+        const partners = getHiringPartners().slice(0, 12);
+        if (partners.length === 0) return null;
+        return (
+          <section aria-label="Companies that hire our students" className="border-b bg-muted/20 py-8">
+            <div className="container mx-auto px-4">
+              <p className="text-center text-sm font-semibold uppercase tracking-[0.18em] text-muted-foreground mb-6">
+                Our {course.shortTitle} students get placed at
+              </p>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+                {partners.map((company) => (
+                  <div
+                    key={company.id}
+                    className="flex h-14 items-center justify-center rounded-lg border bg-background px-3 text-center text-sm font-semibold text-foreground/75 transition-colors hover:border-primary/30 hover:text-primary"
+                  >
+                    {company.name}
+                  </div>
+                ))}
+              </div>
+              <p className="mt-6 text-center text-sm text-muted-foreground">
+                And many more —{" "}
+                <span className="font-semibold text-primary">
+                  {siteConfig.stats.corporatePartners} corporate partners
+                </span>{" "}
+                hiring across Pune and India.
+              </p>
+            </div>
+          </section>
+        );
+      })()}
 
       {/* Course Content (article body) */}
       <section aria-label="Course details" className="py-12 md:py-16">
