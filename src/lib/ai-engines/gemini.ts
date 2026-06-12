@@ -12,7 +12,10 @@
  * by the calling server action.
  */
 
-const GEMINI_MODEL = "gemini-2.0-flash";
+// gemini-2.5-flash chosen over 2.0-flash because some Google accounts
+// have the 2.0-flash free tier quota zero'd while 2.5-flash still works.
+// 2.5 is also the newest stable model with grounding support.
+const GEMINI_MODEL = "gemini-2.5-flash";
 const GEMINI_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
 
 const TARGET_BRAND_PATTERNS = [
@@ -56,7 +59,25 @@ function detectMention(text: string): boolean {
 function detectCitation(
   chunks: Array<{ uri: string; title?: string }>,
 ): { cited: boolean; citedUrl?: string } {
+  // Gemini's grounding API returns `uri` as a redirect URL through
+  // vertexaisearch.cloud.google.com — the real source host is in the
+  // `title` field instead. Check both: title for the host match (since
+  // we can't follow the redirect synchronously), uri as the canonical
+  // recorded URL for the audit row.
   for (const c of chunks) {
+    const titleLower = (c.title ?? "").toLowerCase();
+    // Title is typically just the hostname (e.g. "archerinfotech.in").
+    // Match it against our target hosts.
+    if (
+      titleLower &&
+      Array.from(TARGET_HOSTS).some(
+        (h) => titleLower === h || titleLower.endsWith(`.${h}`),
+      )
+    ) {
+      return { cited: true, citedUrl: c.uri };
+    }
+    // Fallback: try to extract hostname from URI in case Google ever
+    // returns direct URLs in the future.
     try {
       const u = new URL(c.uri);
       if (TARGET_HOSTS.has(u.hostname.toLowerCase())) {
@@ -77,7 +98,10 @@ function detectCitation(
  * server action can insert directly without re-parsing.
  */
 export async function callGemini(prompt: string): Promise<GeminiAuditResult> {
-  const apiKey = process.env.GOOGLE_API_KEY;
+  // Prefer GEMINI_API_KEY (dedicated Gemini key with free-tier quota) over
+  // GOOGLE_API_KEY (used for PSI/CrUX, may share a project with capped
+  // Gemini quota). Either works if the project has free-tier enabled.
+  const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
   if (!apiKey) {
     return {
       prompt,
@@ -85,7 +109,7 @@ export async function callGemini(prompt: string): Promise<GeminiAuditResult> {
       groundingChunks: [],
       mentioned: false,
       cited: false,
-      error: "GOOGLE_API_KEY not configured",
+      error: "GEMINI_API_KEY (or GOOGLE_API_KEY) not configured",
     };
   }
 

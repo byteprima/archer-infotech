@@ -65,15 +65,15 @@ export interface AutomatedAuditResult {
 export async function runAutomatedGeminiAudit(): Promise<AutomatedAuditResult> {
   await requireAdminAction();
 
-  if (!process.env.GOOGLE_API_KEY) {
+  if (!process.env.GEMINI_API_KEY && !process.env.GOOGLE_API_KEY) {
     return {
       ok: false,
       auditDate: new Date().toISOString().slice(0, 10),
       rows: [],
       summary: { total: 0, inserted: 0, mentioned: 0, cited: 0, failed: 0 },
       error:
-        "GOOGLE_API_KEY env var not set. Add it to Coolify env vars + redeploy, " +
-        "OR set process.env.GOOGLE_API_KEY locally.",
+        "Neither GEMINI_API_KEY nor GOOGLE_API_KEY env var is set. " +
+        "Add GEMINI_API_KEY to Coolify env vars + redeploy.",
     };
   }
 
