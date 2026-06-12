@@ -5,6 +5,7 @@ import {
   getMonthlyCitationRollup,
 } from "../_actions/citations";
 import { CitationForm } from "./citation-form";
+import { RunAutomatedAuditButton } from "./run-automated-audit-button";
 
 const ENGINE_LABEL: Record<string, string> = {
   chatgpt: "ChatGPT",
@@ -151,7 +152,10 @@ export async function CitationsTab() {
         </div>
       )}
 
-      {/* The audit-entry form */}
+      {/* P8-26 / P5-29 — one-button automated Gemini audit. */}
+      <RunAutomatedAuditButton />
+
+      {/* The audit-entry form (manual rows for the other 5 engines). */}
       <CitationForm />
 
       {/* Recent log */}
