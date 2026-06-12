@@ -20,8 +20,12 @@
  * The component stays client-side for now (kept as `"use client"`)
  * because some surfaces hand it dynamic values, but the runtime work
  * is now zero — just format-and-render.
+ *
+ * Now a Server Component — with no hooks/state the `"use client"`
+ * boundary was unnecessary; removing it drops this from every client
+ * bundle that used to pull it in (home, about, placements, category
+ * pages). It still renders fine inside both server and client parents.
  */
-"use client";
 
 interface AnimatedCounterProps {
   value: string;

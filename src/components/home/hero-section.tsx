@@ -1,10 +1,12 @@
-"use client";
-
-import Link from "next/link";
+// Server Component — the hero holds the mobile LCP element (the H1), so
+// keeping it off the client hydration path lets the text paint without
+// waiting on JS. The only interactive bits (the two CTA clicks) are
+// delegated to <TrackedLink>, a small client island that fires the same
+// PostHog event. AnimatedCounter is a pure server component.
 import { ArrowRight, CheckCircle } from "lucide-react";
 import { siteConfig } from "@/data/site-config";
 import { AnimatedCounter } from "@/components/common/animated-counter";
-import { captureAnalyticsEvent } from "@/lib/posthog/client";
+import { TrackedLink } from "@/components/analytics/tracked-link";
 
 export function HeroSection() {
   return (
@@ -57,20 +59,16 @@ export function HeroSection() {
 
             {/* CTA Buttons */}
             <div className="relative z-10 flex flex-wrap gap-2.5">
-              <Link
+              <TrackedLink
                 href="/courses"
                 className="inline-flex items-center justify-center rounded-lg bg-secondary hover:bg-secondary/90 text-secondary-foreground px-6 py-3 text-sm font-semibold transition-all"
-                onClick={() =>
-                  captureAnalyticsEvent("hero_cta_clicked", {
-                    cta: "explore_courses",
-                    location: "homepage_hero",
-                  })
-                }
+                event="hero_cta_clicked"
+                properties={{ cta: "explore_courses", location: "homepage_hero" }}
               >
                 Explore Courses
                 <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-              <Link
+              </TrackedLink>
+              <TrackedLink
                 href="/contact"
                 /* prefetch=false keeps the 215KB Zod+@hookform validation
                  * bundle out of the home-page chunk. /contact's own load
@@ -78,15 +76,11 @@ export function HeroSection() {
                  * tradeoff for a callback CTA most users don't click. */
                 prefetch={false}
                 className="inline-flex items-center justify-center rounded-lg border-2 border-white bg-transparent px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-white hover:text-primary"
-                onClick={() =>
-                  captureAnalyticsEvent("hero_cta_clicked", {
-                    cta: "request_callback",
-                    location: "homepage_hero",
-                  })
-                }
+                event="hero_cta_clicked"
+                properties={{ cta: "request_callback", location: "homepage_hero" }}
               >
                 Request Callback
-              </Link>
+              </TrackedLink>
             </div>
           </div>
 
