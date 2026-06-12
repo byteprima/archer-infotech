@@ -2,7 +2,7 @@ import type { CourseRichContent } from "./types";
 
 export const javaFullStackTrainingInPune: CourseRichContent = {
   intro:
-    "Java Full Stack is the highest-volume backend hiring track in Pune — Indeed alone lists 1,000+ active Java Developer openings and 35+ Full Stack Developer openings, dominated by IT services (TCS, Infosys, Wipro, Cognizant, Capgemini, LTIMindtree), banking technology (Synechron, Citibank, Barclays, Bajaj Finserv), and product engineering (Persistent, BMC Software, Veritas). Archer Infotech's Java Full Stack training in Pune teaches the stack as it is actually used in 2026 — Java 21 LTS or Java 25, Spring Boot 3.5 or 4.0, React 19 (or Angular for IT-services tracks), Postgres or Oracle, deployed on Docker + Kubernetes with GitHub Actions or Jenkins CI/CD. Classroom in Kothrud, online live, and weekend batches available.",
+    "Java Full Stack is the highest-volume backend hiring track in Pune — Indeed alone lists 1,000+ active Java Developer openings and 35+ Full Stack Developer openings, dominated by IT services (TCS, Infosys, Wipro, Cognizant, Capgemini, LTIMindtree), banking technology (Synechron, Citibank, Barclays, Bajaj Finserv), and product engineering (Persistent, BMC Software, Veritas). Archer Infotech's Java Full Stack training in Pune teaches the stack as it is actually used in 2026 — Java 21 LTS or Java 25, Spring Boot 3.5 or 4.0, React 19 (or Angular for IT-services tracks), Postgres or Oracle, deployed on Docker + Kubernetes with GitHub Actions or Jenkins CI/CD. Classroom in Kothrud, online live, and weekend batches available. Students searching for Java Full Stack classes in Pune, Java classes in Pune, or simply \"Java classes near me\" join us from Kothrud, Karve Nagar, Deccan, Shivaji Nagar, Hinjewadi, Wakad, Baner, and Pimpri-Chinchwad. Whether you call it Full Stack Java training or a Java Full Stack developer course in Pune, the curriculum is the same — and we are widely rated among the best Java Full Stack developer course options in Pune for placement support.",
 
   whyLearn: {
     heading: "Why Learn Java Full Stack in 2026",
@@ -540,6 +540,21 @@ export const javaFullStackTrainingInPune: CourseRichContent = {
       question: "Are the named trainers actually teaching, or just on the brochure?",
       answer:
         "Yogesh Patil personally leads core programming and architecture / microservices weeks. Amol Patil leads Spring Boot and the project weeks. Ankita Hartale leads Spring Framework and database modules. The same names you see on this page are the same people you meet on day one of your batch.",
+    },
+    {
+      question: "Do you offer Java Full Stack classes near me in Pune?",
+      answer:
+        "Our classroom is in Kothrud, Pune, and students travel in for Java Full Stack classes from Karve Nagar, Deccan, Shivaji Nagar, Hinjewadi, Wakad, Baner, Aundh, and Pimpri-Chinchwad. If a daily commute is hard, the online live batch is identical in content, trainers, and project reviews — so \"Java classes near me\" effectively means anywhere in Pune or beyond.",
+    },
+    {
+      question: "What is the eligibility for the Java Full Stack course in Pune?",
+      answer:
+        "Anyone with basic computer skills and logical aptitude can join — BE, BTech, BCA, BCS, MCA, BSc-CS students, freshers, and working professionals or career switchers from non-tech backgrounds. No prior programming experience is required; the course starts from Core Java foundations in week one.",
+    },
+    {
+      question: "Is EMI available for the Java Full Stack course fees in Pune?",
+      answer:
+        "Yes — EMI is available. Fees can be split across 2–3 instalments at no extra cost, alongside a single-payment early-bird discount and corporate-sponsorship invoicing with GST. Reach out for the current 2026 fee quote for classroom, online, or weekend batches.",
     },
   ],
 

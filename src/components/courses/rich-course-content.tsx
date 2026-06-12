@@ -276,7 +276,7 @@ export async function RichCourseContentBelowFold({
       <section className="space-y-4">
         <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-3">
           <Calendar className="h-7 w-7 text-secondary" />
-          Course Duration, Batches & Modes
+          Course Duration, Batches & Modes in Pune
         </h2>
         <p className="text-muted-foreground">
           <strong className="text-foreground">Duration:</strong> {rich.modesAndDuration.duration}
@@ -359,7 +359,7 @@ export async function RichCourseContentBelowFold({
       <section className="space-y-4">
         <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-3">
           <IndianRupee className="h-7 w-7 text-secondary" />
-          Course Fees
+          {courseName} Course Fees in Pune
         </h2>
         <Card className="bg-muted/30">
           <CardContent className="pt-6 space-y-3">
@@ -401,7 +401,7 @@ export async function RichCourseContentBelowFold({
       <section className="space-y-4">
         <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-3">
           <Trophy className="h-7 w-7 text-secondary" />
-          Placement Support
+          Placement Support in Pune
         </h2>
         <div className="space-y-4 text-muted-foreground leading-relaxed">
           {rich.placementSupport.paragraphs.map((p, i) => (
