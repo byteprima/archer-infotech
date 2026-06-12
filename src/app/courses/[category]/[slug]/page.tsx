@@ -16,6 +16,8 @@ import {
   Scale,
   ListChecks,
   ArrowRight,
+  TrendingUp,
+  CreditCard,
 } from "lucide-react";
 import { PageEvent } from "@/components/analytics/page-event";
 import { TrackedAnchor } from "@/components/analytics/tracked-anchor";
@@ -272,6 +274,10 @@ export default async function CoursePage({ params }: CoursePageProps) {
                   { value: siteConfig.stats.studentsTrained, label: "Trained" },
                   { value: siteConfig.stats.studentsPlaced, label: "Placed" },
                   { value: siteConfig.stats.placementRate, label: "Placement rate" },
+                  // Course-specific batch count (e.g. Java batches run) when set.
+                  ...(course.batchesCompleted
+                    ? [{ value: course.batchesCompleted, label: "Batches" }]
+                    : []),
                   { value: `Since ${siteConfig.foundingYear}`, label: "17+ years" },
                 ].map((stat) => (
                   <div key={stat.label} className="flex flex-col">
@@ -283,6 +289,33 @@ export default async function CoursePage({ params }: CoursePageProps) {
                   </div>
                 ))}
               </dl>
+              {/* Outcome + financing pills — salary proof and EMI, the two
+                  desire/affordability levers competitors foreground. Each
+                  renders only when the course carries a real, verified value
+                  (see courses.ts); never synthesised. */}
+              {(course.highestPackageLpa ||
+                course.avgPackageThisYearLpa ||
+                course.emiAvailable) && (
+                <div className="flex flex-wrap items-center gap-2 mb-6">
+                  {course.highestPackageLpa && (
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-secondary/20 border border-secondary/40 px-3 py-1.5 text-sm font-medium">
+                      <TrendingUp className="h-4 w-4 text-secondary" />
+                      Highest package ₹{course.highestPackageLpa} LPA
+                    </span>
+                  )}
+                  {course.avgPackageThisYearLpa && (
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1.5 text-sm font-medium">
+                      Avg this year ₹{course.avgPackageThisYearLpa} LPA
+                    </span>
+                  )}
+                  {course.emiAvailable && (
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1.5 text-sm font-medium">
+                      <CreditCard className="h-4 w-4" />
+                      EMI available
+                    </span>
+                  )}
+                </div>
+              )}
               <div className="flex flex-wrap gap-6 text-sm">
                 <div className="flex items-center gap-2">
                   <Clock className="h-5 w-5" />

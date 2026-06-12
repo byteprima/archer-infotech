@@ -29,6 +29,16 @@ export interface Course {
    */
   seoTitle?: string;
   heroHeading?: string;
+  /**
+   * Optional per-course outcome/trust signals shown in the hero. All
+   * optional so only courses with real, verified numbers display them —
+   * never invent these. `batchesCompleted` here is COURSE-SPECIFIC (e.g.
+   * Java batches run), distinct from site-config's all-courses total.
+   */
+  emiAvailable?: boolean;
+  highestPackageLpa?: string;
+  avgPackageThisYearLpa?: string;
+  batchesCompleted?: string;
   category: string;
   categorySlug: string;
   description: string;
@@ -614,6 +624,10 @@ export const courses: Course[] = [
     // "...development training" phrasing the template produced.
     seoTitle: "Java Full Stack Developer Course in Pune with Placement",
     heroHeading: "Java Full Stack Developer Course in Pune with Placement",
+    emiAvailable: true,
+    highestPackageLpa: "16",
+    avgPackageThisYearLpa: "8.3",
+    batchesCompleted: "250+",
     category: "Full Stack Development",
     categorySlug: "full-stack-development",
     description: "Become a job-ready Java Full Stack Developer with practical training in Core Java, Advanced Java, Spring Boot, Hibernate, REST APIs, React or Angular, MySQL, Git, Docker, and live projects.",
