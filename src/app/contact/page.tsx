@@ -61,9 +61,11 @@ export default function ContactPage() {
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Contact Form */}
             <div className="lg:col-span-2">
-              <Card className="relative !overflow-visible">
+              <Card className="relative !overflow-visible border-primary/30 bg-gradient-to-br from-primary/10 via-primary/5 to-background shadow-lg shadow-primary/5">
                 <CardHeader>
-                  <CardTitle>Send us a Message</CardTitle>
+                  <CardTitle className="inline-block rounded-md bg-primary px-3 py-1.5 text-primary-foreground shadow-sm">
+                    Send us a Message / Post Course Enquiry
+                  </CardTitle>
                 </CardHeader>
                 <CardContent className="relative !overflow-visible">
                   <ContactForm />
