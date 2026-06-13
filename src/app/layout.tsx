@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { GoogleAnalyticsLazy } from "@/components/analytics/google-analytics-lazy";
@@ -96,11 +97,24 @@ export default function RootLayout({
             handshake saves 100-300ms on iframe load. */}
         <link rel="preconnect" href="https://www.google.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://static.cloudflareinsights.com" />
+        {/* Ahrefs Web Analytics handshake warm-up (cookieless, no PII). Uses a
+            dns-prefetch rather than a 5th preconnect so it doesn't evict one of
+            the four critical-path preconnect slots above. */}
+        <link rel="dns-prefetch" href="https://analytics.ahrefs.com" />
         <OrganizationJsonLd />
       </head>
       {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
         <GoogleAnalyticsLazy gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
       )}
+      {/* Ahrefs Web Analytics — cookieless, privacy-friendly traffic monitoring.
+          Loaded lazyOnload (after the browser goes idle) so it stays off the
+          critical path and preserves the banked TBT/LCP wins. */}
+      <Script
+        id="ahrefs-analytics"
+        src="https://analytics.ahrefs.com/analytics.js"
+        data-key="3sx73cLbPlYkuRloMtEssg"
+        strategy="lazyOnload"
+      />
       {/* suppressHydrationWarning ignores attributes Grammarly / LanguageTool /
           other browser extensions inject into <body> before React hydrates. */}
       <body className="min-h-screen flex flex-col antialiased" suppressHydrationWarning>
