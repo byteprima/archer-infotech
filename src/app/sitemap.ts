@@ -97,12 +97,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   // Course pages — curriculum last reviewed COURSE_LAST_REVIEWED (Pillar 1 #6).
-  const coursePages: MetadataRoute.Sitemap = courses.map((course) => ({
-    url: `${baseUrl}/courses/${course.categorySlug}/${course.slug}`,
-    lastModified: COURSE,
-    changeFrequency: "weekly",
-    priority: 0.9,
-  }));
+  // Bootcamp-category courses are EXCLUDED: their /courses/bootcamps/<slug>
+  // URLs 301-redirect to the canonical /bootcamps/<slug> page (see
+  // courses/[category]/[slug]/page.tsx). Listing redirecting URLs in the
+  // sitemap wastes crawl budget and erodes sitemap trust — the canonical
+  // versions are already emitted via bootcampPages below.
+  const coursePages: MetadataRoute.Sitemap = courses
+    .filter((course) => course.categorySlug !== "bootcamps")
+    .map((course) => ({
+      url: `${baseUrl}/courses/${course.categorySlug}/${course.slug}`,
+      lastModified: COURSE,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    }));
 
   // Blog post pages — each post's TRUE updatedAt (fallback publishedAt).
   let blogPages: MetadataRoute.Sitemap = [];
