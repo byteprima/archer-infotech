@@ -42,6 +42,13 @@ export interface VideoEmbedProps {
    */
   schemaId?: string;
   /**
+   * Site-relative path of the page this video lives on — e.g.
+   * "/courses/programming/java-training-in-pune". Used to anchor the
+   * VideoObject @id to the actual page rather than the site root. When
+   * omitted, the @id falls back to the bare origin (legacy behaviour).
+   */
+  pagePath?: string;
+  /**
    * Sets aspect-ratio of the embed wrapper. Defaults to 16:9.
    */
   aspect?: "16/9" | "4/3";
@@ -55,6 +62,7 @@ export function VideoEmbed({
   duration,
   thumbnailUrl,
   schemaId,
+  pagePath,
   aspect = "16/9",
 }: VideoEmbedProps) {
   const thumb =
@@ -64,14 +72,27 @@ export function VideoEmbed({
   const embedUrl = `https://www.youtube-nocookie.com/embed/${youtubeId}?rel=0`;
   const id = schemaId ?? `video-${youtubeId}`;
 
+  // Google's VideoObject.uploadDate must be ISO 8601 *with a timezone*.
+  // A date-only value ("2023-11-28") triggers the GSC warnings
+  // "Datetime property uploadDate is missing a timezone" and
+  // "Invalid datetime value for uploadDate". Normalise date-only input to
+  // IST midnight (+05:30 — the business/channel timezone); pass through
+  // values that already carry a time/offset untouched.
+  const uploadDateTime = /^\d{4}-\d{2}-\d{2}$/.test(uploadDate)
+    ? `${uploadDate}T00:00:00+05:30`
+    : uploadDate;
+
   const schema = {
     "@context": "https://schema.org",
     "@type": "VideoObject",
-    "@id": `${baseUrl}#${id}`,
+    // Anchor the @id to the page the video actually lives on, not the
+    // site root. `pagePath` should be the site-relative course path; when
+    // absent we fall back to the bare origin (legacy behaviour).
+    "@id": `${baseUrl}${pagePath ?? ""}#${id}`,
     name: title,
     description,
     thumbnailUrl: thumb.startsWith("http") ? thumb : `${baseUrl}${thumb}`,
-    uploadDate,
+    uploadDate: uploadDateTime,
     duration,
     contentUrl: watchUrl,
     embedUrl,

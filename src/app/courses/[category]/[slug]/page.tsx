@@ -445,6 +445,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
                       uploadDate={courseVideo.uploadDate}
                       duration={courseVideo.duration}
                       schemaId={`course-intro-${slug}`}
+                      pagePath={`/courses/${categorySlug}/${slug}`}
                     />
                   </div>
                 );
