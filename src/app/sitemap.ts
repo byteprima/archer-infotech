@@ -3,6 +3,7 @@ import { courses, categories } from "@/data/courses";
 import { bootcamps } from "@/data/bootcamps";
 import { teamMembers } from "@/data/team";
 import { neighbourhoods } from "@/data/locations";
+import { studentCities } from "@/data/student-cities";
 import { audiences } from "@/data/audiences";
 import { courseLocations } from "@/data/course-locations";
 import { comparisons } from "@/data/comparisons";
@@ -173,6 +174,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     changeFrequency: "monthly",
     priority: 0.7,
   }));
+  const cityFeederPages: MetadataRoute.Sitemap = studentCities.map((c) => ({
+    url: `${baseUrl}/it-training-in-pune-for/${c.slug}`,
+    lastModified: LOCATIONS,
+    changeFrequency: "monthly",
+    priority: 0.6,
+  }));
 
   // Audience-intent landing pages (P4-17, 2026-05-25).
   const audiencePages: MetadataRoute.Sitemap = audiences.map((a) => ({
@@ -248,6 +255,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...trainerPages,
     ...locationListingPage,
     ...locationPages,
+    ...cityFeederPages,
     ...audiencePages,
     ...courseLocationPages,
     ...compareListingPage,
