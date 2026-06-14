@@ -271,6 +271,14 @@ export function Footer() {
                   Pune IT Career FAQs
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/reports/pune-it-hiring-report-2026"
+                  className="text-primary-foreground/80 hover:text-secondary transition-colors text-sm"
+                >
+                  Pune IT Hiring Report 2026
+                </Link>
+              </li>
               {/* P7-26 flagship trust page (2026-06-10) — student reviews +
                   testimonials hub with Review schema. */}
               <li>

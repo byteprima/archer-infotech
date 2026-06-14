@@ -7,6 +7,8 @@ import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { FaqSection } from "@/components/seo/faq-section";
 import { coursesFaqs } from "@/data/faqs";
 import { categories, courses } from "@/data/courses";
+import { audiences } from "@/data/audiences";
+import { courseLocations } from "@/data/course-locations";
 import { CategoryCollectionJsonLd } from "@/components/seo/json-ld";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -133,6 +135,80 @@ export default function CoursesPage() {
                 </div>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* Server-rendered directory of audience-intent landing pages
+          (/courses/for/[audience]). Same discovery-signal rationale as the
+          all-courses index above: these 20+ pages were Discovered/Unknown to
+          Google because nothing on an indexed surface linked to them. The
+          /courses hub is indexed and authoritative, so real <a href> links
+          here pass PageRank and get the cluster crawled. */}
+      <section
+        aria-labelledby="courses-by-audience-heading"
+        className="py-12 border-b"
+      >
+        <div className="container mx-auto px-4 max-w-6xl">
+          <h2
+            id="courses-by-audience-heading"
+            className="text-2xl md:text-3xl font-bold mb-2"
+          >
+            Courses for your background
+          </h2>
+          <p className="text-muted-foreground mb-8 max-w-3xl">
+            Not sure where to start? Pick the path built for your situation —
+            each one maps the right course and batch to where you are now.
+          </p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-4">
+            {audiences.map((a) => (
+              <Link
+                key={a.slug}
+                href={`/courses/for/${a.slug}`}
+                className="group block"
+              >
+                <span className="text-sm font-semibold group-hover:text-primary group-hover:underline">
+                  {a.name}
+                </span>
+                <span className="block text-xs text-muted-foreground">
+                  {a.tagline}
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Server-rendered directory of course × Pune-location landing pages
+          (/courses/in/[slug]). These 40+ combos were the most orphaned
+          cluster — nothing real linked to them. Explicit anchors from the
+          indexed /courses hub make them crawlable. */}
+      <section
+        aria-labelledby="courses-by-location-heading"
+        className="py-12 border-b bg-muted/30"
+      >
+        <div className="container mx-auto px-4 max-w-6xl">
+          <h2
+            id="courses-by-location-heading"
+            className="text-2xl md:text-3xl font-bold mb-2"
+          >
+            IT courses by Pune location
+          </h2>
+          <p className="text-muted-foreground mb-8 max-w-3xl">
+            Targeting a specific Pune IT hub — Hinjewadi, Baner, Kharadi,
+            Kothrud and more? These pages map our flagship tracks to the
+            companies hiring in each area.
+          </p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-3">
+            {courseLocations.map((c) => (
+              <Link
+                key={c.slug}
+                href={`/courses/in/${c.slug}`}
+                className="text-sm text-muted-foreground hover:text-primary hover:underline"
+              >
+                {c.shortLabel}
+              </Link>
+            ))}
           </div>
         </div>
       </section>
