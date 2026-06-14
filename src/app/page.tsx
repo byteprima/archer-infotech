@@ -37,11 +37,12 @@ import { homeFaqs } from "@/data/faqs";
 // leads with brand to disambiguate from Archer Aviation / Archer Daniels
 // Midland on the "archer" SERP (76 impr / 0 clicks at pos 11.4 per GSC
 // 2026-06-04). Front-loads concrete placement partners + the 90% rate to
-// drive SERP CTR. ~152 chars, fits Google's desktop snippet window.
+// drive SERP CTR. ~158 chars, fits Google's desktop snippet window and
+// clears the 150-char floor some SEO auditors flag.
 export const metadata: Metadata = buildPageMetadata({
   title: `Pune's Most Trusted IT Training Institute Since ${siteConfig.foundingYear}`,
   description:
-    "Archer Infotech — Pune's IT training institute since 2009. Java, Python, Full Stack, AWS, DevOps & AI with 90% placement at TCS, Infosys, Persistent.",
+    "Archer Infotech — Pune's IT training institute since 2009. Java, Python, Full Stack, AWS, DevOps & AI courses with 90% placement at TCS, Infosys & Persistent.",
   path: "/",
 });
 
