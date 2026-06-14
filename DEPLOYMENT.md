@@ -85,6 +85,10 @@ ADMIN_SESSION_SECRET=a7f3c9e2b1d8f4a6c0e5b7d3f9a2c4e6
 
 # Google Analytics (GA4)
 NEXT_PUBLIC_GA_MEASUREMENT_ID=G-WYMDWF9DKE
+
+# Meta (Facebook) Pixel — lazy-loaded via MetaPixelLazy. Public ID (safe
+# to expose). Omit/leave blank to disable the Pixel entirely.
+NEXT_PUBLIC_FACEBOOK_PIXEL_ID=1361671492691891
 ```
 
 > **Note**: See `docs/AUTHENTICATION.md` for complete auth setup instructions.
