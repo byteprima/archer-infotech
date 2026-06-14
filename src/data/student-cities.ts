@@ -659,6 +659,722 @@ export const studentCities: StudentCity[] = [
       },
     ],
   },
+  {
+    slug: "nashik",
+    city: "Nashik",
+    region: "North Maharashtra",
+    distanceKm: 210,
+    travelTimeLabel: "~4.5 hours by road",
+    priority: 1,
+    metaTitle:
+      "IT Training for Nashik Students — Live Online + Classroom in Pune | Archer Infotech",
+    metaDescription:
+      "Nashik students: build a tech career with Archer Infotech — live online Java, Python, Full Stack, Data Science & DevOps batches you can attend from Nashik, or classroom training at our Kothrud, Pune campus. 90% placement support since 2009.",
+    tagline:
+      "Pune's proven IT training, now within reach of every Nashik learner — study live online from home or on-campus in Kothrud.",
+    highlights: [
+      {
+        icon: "Laptop",
+        color: "sky",
+        title: "Online classes from Nashik",
+        text: "Attend live Java, Python and Full Stack sessions over video — stay in Nashik, skip the commute.",
+      },
+      {
+        icon: "MapPin",
+        color: "emerald",
+        title: "Study at our Pune campus",
+        text: "Move to Kothrud for hands-on classroom learning, around 210 km from Nashik.",
+      },
+      {
+        icon: "Award",
+        color: "amber",
+        title: "Placement-focused training",
+        text: "Portfolio projects, mock interviews and a 100+ recruiter network behind every learner.",
+      },
+      {
+        icon: "Users",
+        color: "violet",
+        title: "Mentors from the industry",
+        text: "Trainers who've shipped real software, guiding Nashik students since 2009.",
+      },
+    ],
+    trackKeywords: [
+      "Java",
+      "Python",
+      "Full Stack Development",
+      "React JS",
+      "Data Science",
+      "AWS Cloud",
+      "DevOps",
+      "Software Testing",
+    ],
+    optionsIntro:
+      "Nashik's tech scene is growing fast, but Pune still holds Maharashtra's deepest pool of IT training and jobs. Archer Infotech bridges that gap for Nashik learners with two practical routes: tune into our live online batches from home, or shift to our Kothrud, Pune campus for an immersive classroom term. The syllabus, the trainers and the placement backing stay the same across both — so your choice comes down to lifestyle, not learning quality.",
+    whyIntro:
+      "Plenty of Nashik institutes teach the basics, but few plug you straight into Pune's hiring pipeline. Archer Infotech has shaped IT careers from Pune since 2009 — 10,000+ learners trained, 5,000+ placed, and a recruiter network 100+ companies deep. For a Nashik student weighing where to invest a year, that track record is the difference between a certificate and a career.",
+    coursesIntro:
+      "Whether you lean towards coding, data or cloud, Archer's line-up maps to the roles Maharashtra employers are filling right now. These are the tracks Nashik learners gravitate to most, each offered as a live online batch you can join from Nashik or as classroom training in Pune. Unsure where to begin? A free counselling call will point you to the track that fits your degree and ambitions.",
+    intro: [
+      "For ambitious students and professionals in Nashik, an IT career increasingly means looking towards Pune — the state's largest hub for software training and recruitment, roughly 210 km south. Archer Infotech, training developers in Pune since 2009, now opens both its live online batches and its Kothrud classroom to Nashik learners, so distance no longer decides your prospects.",
+      "You can stay rooted in Nashik and learn online in real time, or relocate to Pune for the full campus experience — either way you study the same job-ready curriculum with the same mentors and the same placement team. Below we break down how each route works for someone starting out from Nashik.",
+    ],
+    online: [
+      "Our online batches are genuinely live — you join scheduled video classes alongside Pune students, ask questions as they come up, and revisit every recorded session whenever you need. For a Nashik learner that means a complete Full Stack, Python, Data Science or DevOps journey from your own desk, with zero spend on travel or accommodation.",
+      "The placement engine runs identically for online learners: resume clinics, mock interviews and direct introductions to our 100+ hiring partners. Working professionals in Nashik often pick evening or weekend online slots so they can re-skill while holding down their current role.",
+    ],
+    relocation: {
+      travelParagraphs: [
+        "Some Nashik students prefer the buzz of a physical classroom and the exposure of living in a tech city, and choose to relocate to Pune for their course. The Nashik–Pune route is well served, so settling in and visiting home stays easy.",
+        "At roughly 210 km, most Nashik students opt for a term-long stay in Pune rather than daily commuting, heading back on festivals and long weekends.",
+      ],
+      travelModes: [
+        {
+          mode: "Buses",
+          detail:
+            "Frequent MSRTC and private buses on the Nashik–Pune route via Sinnar and Sangamner (NH-60); about 4.5 hours.",
+        },
+        {
+          mode: "Train",
+          detail:
+            "Rail links run via Nashik Road and Manmad; many students still favour the more direct buses to Pune.",
+        },
+        {
+          mode: "Own vehicle",
+          detail: "~210 km through the Sangamner corridor — a comfortable drive for term-start trips.",
+        },
+      ],
+      stayParagraphs: [
+        "Our campus sits in Kothrud, a green, well-served pocket of west Pune. You'll find budget-friendly PGs and hostels right in Kothrud and the neighbouring Karve Nagar, Warje and Erandwane stretches, most a short hop from class.",
+        "With colleges, mess options and reliable transport all around, Kothrud is an easy first home in Pune for students arriving from Nashik.",
+      ],
+    },
+    whyArcher: [
+      "17+ years training Pune's tech workforce — 10,000+ students trained and 5,000+ placed since 2009.",
+      "90% placement support powered by a 100+ company hiring network, including Amdocs, Capgemini, MindTree and Tech Mahindra.",
+      "Identical curriculum and mentors whether you study live online or at the Pune campus.",
+      "40+ career tracks spanning programming, full stack, data, AI, cloud and DevOps.",
+    ],
+    popularCourseSlugs: [
+      "python-training-in-pune",
+      "java-full-stack-training-in-pune",
+      "data-analytics-training-in-pune",
+      "aws-solutions-architect-training-in-pune",
+    ],
+    localFaqs: [
+      {
+        question: "Can Nashik students learn IT without relocating to Pune?",
+        answer:
+          "Yes. Archer's live online batches let you attend real-time, instructor-led classes from anywhere in Nashik, with recordings, assignments and full placement support. You can finish an entire Python, Full Stack, Data Science or DevOps programme from home — no travel or hostel costs involved.",
+      },
+      {
+        question: "How far is Pune from Nashik, and how do people travel?",
+        answer:
+          "Our Kothrud campus is roughly 210 km from Nashik — about 4.5 hours by road via the Sinnar–Sangamner corridor (NH-60). Frequent MSRTC and private buses run the route, and rail connections go via Nashik Road and Manmad. Most students choose buses for the directness.",
+      },
+      {
+        question: "Where can a Nashik student stay near the Pune campus?",
+        answer:
+          "Affordable PGs and hostels are easy to find in Kothrud and the adjacent Karve Nagar, Warje and Erandwane areas, most within a short walk or bus ride of the campus. It's a green, student-heavy part of west Pune; our team shares verified options when you enrol.",
+      },
+      {
+        question: "Do online learners from Nashik get the same placement help?",
+        answer:
+          "Completely. Resume preparation, mock interviews, aptitude practice and access to our 100+ hiring partners apply equally to online and classroom students. With 5,000+ placed since 2009, a Nashik learner studying online sits in exactly the same placement pipeline as a campus student.",
+      },
+      {
+        question: "Which IT courses are available to Nashik students?",
+        answer:
+          "Every Archer track — Java, Python, Full Stack, React, Data Science, Data Analytics, AWS Cloud, DevOps and Software Testing — is open to Nashik students in both live online and Pune classroom formats. Each is project-driven and built around the skills regional employers hire for.",
+      },
+      {
+        question: "Which companies recruit Archer Infotech graduates?",
+        answer:
+          "Archer's 100+ company hiring network includes Amdocs, Capgemini, MindTree and Tech Mahindra, plus many product firms and startups across Pune and Maharashtra. We've trained 10,000+ students and placed 5,000+, holding a 90% placement-support record since 2009 — and Nashik students get the same access.",
+      },
+      {
+        question: "Are the online sessions live or just recordings?",
+        answer:
+          "They're live. You attend scheduled, instructor-led video classes with real-time interaction — not pre-recorded clips — and additionally receive a recording of each session for revision. Nashik learners get the structure of a live cohort plus the flexibility to replay anything they miss.",
+      },
+      {
+        question: "What batch timings can Nashik students choose?",
+        answer:
+          "We offer weekday and weekend online batches, including evening slots tailored to working people and college students. New batches open regularly. Tell us your preferred days and we'll fit you to a suitable cohort — reach out for the current schedule and upcoming start dates.",
+      },
+      {
+        question: "Can a working professional in Nashik train alongside a job?",
+        answer:
+          "Yes — it's a common path. Many Nashik professionals take evening or weekend online batches to upskill without quitting work. Flexible timings and session recordings make it realistic to learn at your own pace and lean on our placement help when you're ready to switch.",
+      },
+      {
+        question: "Is any coding background required to begin?",
+        answer:
+          "For most tracks, none at all. Courses like Python, Java and Full Stack start from first principles and suit freshers, non-IT graduates and career-changers. A handful of advanced tracks expect some basics, which we'll point out during counselling once we understand your background.",
+      },
+      {
+        question: "Are installment or EMI payments possible?",
+        answer:
+          "Yes. We offer flexible installment and EMI options, and pricing is transparent with no hidden costs. The exact fee depends on the course and mode you pick — contact us and our counsellors will lay out the fee structure and payment plans for Nashik students.",
+      },
+      {
+        question: "Will Nashik students receive a certificate?",
+        answer:
+          "Yes — a course completion certificate from Archer Infotech, backed by a portfolio of real projects and interview preparation that carries real weight with employers. The combination of recognised certification and demonstrable skills is what strengthens your profile in IT hiring.",
+      },
+      {
+        question: "Is a free demo or counselling available before joining?",
+        answer:
+          "Absolutely. Free career counselling and demo classes let Nashik students choose the right course and format with confidence. Counselling maps your goals to a track and explains fees and placements; a demo shows you the teaching style first-hand. Call us to book either.",
+      },
+      {
+        question: "How does a Nashik student enrol from out of town?",
+        answer:
+          "Entirely remotely. Call or submit the enquiry form and our team arranges course selection, batch booking, fees and EMI, plus accommodation pointers near Kothrud if you're relocating — all over phone or online. There's no need to visit Pune just to sign up.",
+      },
+      {
+        question: "How long will my course take to finish?",
+        answer:
+          "Most job-focused tracks span a few months, varying with the course and whether you pick a weekday, weekend or online cohort; intensive formats can be quicker. We'll give you the precise duration and weekly time commitment for your chosen course during counselling.",
+      },
+    ],
+  },
+  {
+    slug: "solapur",
+    city: "Solapur",
+    region: "Western Maharashtra",
+    distanceKm: 250,
+    travelTimeLabel: "~4.5–5 hours by road",
+    priority: 2,
+    metaTitle:
+      "IT Training for Solapur Students — Online + Pune Classroom | Archer Infotech",
+    metaDescription:
+      "Solapur students: switch into IT with Archer Infotech — live online Full Stack, Java, Python, Data & DevOps batches from Solapur, or classroom training in Kothrud, Pune. 90% placement support, established 2009.",
+    tagline:
+      "From Solapur to a software career — train live online from home, or at our Pune campus, with the same placement backing either way.",
+    highlights: [
+      {
+        icon: "Laptop",
+        color: "sky",
+        title: "Train online from Solapur",
+        text: "Live Full Stack, Java and Python batches over video — learn from Solapur, no relocation required.",
+      },
+      {
+        icon: "MapPin",
+        color: "emerald",
+        title: "Or join us in Pune",
+        text: "Relocate to our Kothrud campus, roughly 250 km from Solapur on the NH-65 corridor.",
+      },
+      {
+        icon: "Briefcase",
+        color: "amber",
+        title: "Built for placements",
+        text: "Interview drills, live projects and 100+ recruiting partners across Pune and beyond.",
+      },
+      {
+        icon: "Award",
+        color: "violet",
+        title: "17+ years of results",
+        text: "10,000+ trained and 5,000+ placed — a record Solapur learners can rely on.",
+      },
+    ],
+    trackKeywords: [
+      "Full Stack Development",
+      "Java",
+      "Python",
+      "Data Analytics",
+      "MERN Stack",
+      "Cloud Computing",
+      "DevOps",
+      "Manual & Automation Testing",
+    ],
+    optionsIntro:
+      "Solapur's students have long travelled to Pune for serious IT careers — Archer Infotech now gives you a choice about how. Learn through our live online batches without leaving Solapur, or relocate to our Kothrud campus for full-time classroom study. Both deliver the same industry-aligned curriculum, the same trainers and the same 90% placement support, so a Solapur learner never trades quality for convenience.",
+    whyIntro:
+      "Deciding where to train is a serious step for any Solapur student. Archer Infotech brings 17 years of Pune IT-training experience, 10,000+ learners trained and a hiring network spanning 100+ companies — among them Amdocs, Capgemini, MindTree and Tech Mahindra. Here's why Solapur learners count on Archer to convert effort into a placed IT role.",
+    coursesIntro:
+      "From full stack and core programming to data and cloud, Archer's catalogue targets the jobs Pune and Maharashtra employers are actively hiring for. These tracks are the favourites among Solapur learners, delivered live online for those staying in Solapur or in the Pune classroom. Free counselling helps you settle on the right starting course and schedule.",
+    intro: [
+      "Solapur sends a steady flow of graduates towards Pune each year in search of IT and software roles — and with good reason, as Pune anchors Maharashtra's tech-training and hiring ecosystem some 250 km to the west. Archer Infotech, training developers in Pune since 2009, now makes that path flexible for Solapur students through both live online batches and classroom learning at its Kothrud centre.",
+      "Whether you'd rather keep studying or working in Solapur while you upskill, or commit fully to a Pune classroom, the curriculum, the mentors and the placement support are one and the same. Here's exactly how each option plays out for a Solapur learner.",
+    ],
+    online: [
+      "Archer's online classes are live and instructor-led — you join real-time video sessions, interact directly with trainers, and keep recordings of every class for revision. For Solapur learners this clears the biggest hurdle: you can complete a full Full Stack, Java, Data or DevOps programme without paying for relocation or a Pune address.",
+      "Online students receive the full placement package too — mock interviews, resume support and warm introductions to our 100+ hiring partners. Many Solapur professionals choose weekend or evening online batches so they can train without pausing their current job.",
+    ],
+    relocation: {
+      travelParagraphs: [
+        "For students who want the immersion of campus life and direct sight of Pune's job market, relocating for the course term is a popular call. Conveniently, Solapur is one of the better-connected cities to Pune by both road and rail.",
+        "Given the ~250 km distance, Solapur students typically take up term-based stays in Pune rather than commuting, returning home over longer breaks.",
+      ],
+      travelModes: [
+        {
+          mode: "Train",
+          detail:
+            "Solapur is a major railway junction with frequent express trains to Pune, including convenient daytime and overnight services.",
+        },
+        {
+          mode: "Buses",
+          detail:
+            "Regular MSRTC and private buses run the Solapur–Pune route along NH-65; about 4.5–5 hours.",
+        },
+        {
+          mode: "Own vehicle",
+          detail: "~250 km via the Pune–Solapur highway (NH-65), a straightforward drive.",
+        },
+      ],
+      stayParagraphs: [
+        "Our centre is in Kothrud, one of west Pune's most established student neighbourhoods. Reasonably priced hostels and PGs are plentiful in Kothrud and nearby Karve Nagar, Warje and Erandwane, many within easy reach of class.",
+        "Good transport, plenty of messes and a strong student community make Kothrud a comfortable base for Solapur students settling in for a course.",
+      ],
+    },
+    whyArcher: [
+      "Established 2009 — 17+ years in Pune, with 10,000+ students trained and 5,000+ placed.",
+      "90% placement support and a 100+ company hiring network, including Amdocs, Capgemini, MindTree and Tech Mahindra.",
+      "The same curriculum and trainers across live online and Pune classroom modes.",
+      "40+ job-focused courses across full stack, programming, data, AI, cloud and DevOps.",
+    ],
+    popularCourseSlugs: [
+      "java-full-stack-training-in-pune",
+      "mern-stack-training-in-pune",
+      "data-analytics-training-in-pune",
+      "java-training-in-pune",
+    ],
+    localFaqs: [
+      {
+        question: "Can I train with Archer from Solapur without moving to Pune?",
+        answer:
+          "Yes. Archer runs live, instructor-led online batches you can attend from Solapur, complete with recordings, assignments and full placement support. It lets you finish a Full Stack, Java, Data or DevOps programme from home without spending on relocation or accommodation in Pune.",
+      },
+      {
+        question: "How far is Pune from Solapur, and what are the travel options?",
+        answer:
+          "Our Kothrud centre is about 250 km from Solapur — roughly 4.5–5 hours by road on NH-65. Solapur is also a major railway junction with frequent express trains to Pune, including overnight services, so both rail and bus travel are easy and affordable.",
+      },
+      {
+        question: "Where do Solapur students stay when they relocate to Pune?",
+        answer:
+          "Most settle into PGs or hostels in Kothrud or the nearby Karve Nagar, Warje and Erandwane areas, close to the centre. Kothrud is a well-established student belt with messes and good transport, so it's an easy landing spot; we share accommodation pointers when you enrol.",
+      },
+      {
+        question: "Does the online batch give the same placement outcome?",
+        answer:
+          "Yes. Placement support — resume help, mock interviews, aptitude practice and access to 100+ hiring partners — is identical across modes. With 5,000+ placed since 2009, Solapur students learning online tap exactly the same recruiter pipeline as those on campus.",
+      },
+      {
+        question: "What IT courses can Solapur students take?",
+        answer:
+          "All of Archer's tracks — Full Stack, Java, Python, MERN, Data Analytics, Cloud Computing, DevOps and Software Testing — are open to Solapur students, online or in Pune. Each is hands-on and aligned to current employer demand. Free counselling helps you choose what fits your background.",
+      },
+      {
+        question: "Which employers hire Archer Infotech students?",
+        answer:
+          "Archer's 100+ company hiring network features Amdocs, Capgemini, MindTree and Tech Mahindra, alongside many product companies and startups. We've trained 10,000+ and placed 5,000+, with a 90% placement-support record since 2009. Solapur students share the same access plus interview prep and referrals.",
+      },
+      {
+        question: "Are online classes conducted live?",
+        answer:
+          "Yes, they're fully live — real-time, instructor-led video sessions with direct interaction, not recordings played back. You also get a recording of each class for revision, so Solapur learners get both the accountability of live teaching and the flexibility to review tough topics.",
+      },
+      {
+        question: "What timings are on offer for Solapur learners?",
+        answer:
+          "We run weekday and weekend online batches, plus evening slots for those who work or study during the day. New batches start frequently. Share your availability and we'll place you in a suitable cohort — get in touch for the latest schedule and start dates.",
+      },
+      {
+        question: "Can working professionals from Solapur enrol?",
+        answer:
+          "Definitely. Many Solapur professionals choose evening or weekend online batches to build IT skills without leaving their job. The flexible timings and recordings are designed for busy schedules, so you can transition into tech or grow your role at a manageable pace.",
+      },
+      {
+        question: "Do I need prior programming knowledge?",
+        answer:
+          "No — most courses begin from the fundamentals and are designed for freshers and career-changers. A few specialised tracks assume some basics, which we'll highlight during counselling. Tell us your education and goals and we'll suggest the right entry point for you.",
+      },
+      {
+        question: "Are EMI or installment options available for fees?",
+        answer:
+          "Yes. Flexible installment and EMI plans keep fees manageable, with transparent pricing and no hidden charges. The amount depends on your course and mode — contact us for the current fee structure and the payment options open to Solapur students.",
+      },
+      {
+        question: "Is a certificate provided on completion?",
+        answer:
+          "Yes — you earn a course completion certificate from Archer Infotech, together with real project work and structured interview preparation. In IT hiring it's the blend of recognised certification and demonstrable skills that carries the most weight, and you finish with both.",
+      },
+      {
+        question: "Can I attend a free demo or counselling session first?",
+        answer:
+          "Yes. Free career counselling and demo classes help Solapur students decide before committing. Counselling matches your goals to the right course and explains fees and placements; a demo lets you sample the teaching. Just call to book a session.",
+      },
+      {
+        question: "How do I enrol from Solapur if I'm not in Pune?",
+        answer:
+          "It's handled remotely. Call or fill the enquiry form and our team manages course selection, batch booking, fees and EMI, plus accommodation guidance near Kothrud if you're relocating — all by phone or online, with no need to travel to Pune to enrol.",
+      },
+      {
+        question: "What's the typical course duration?",
+        answer:
+          "Most job-focused tracks run over a few months depending on the course and the pace you choose — weekday, weekend and online options exist, and intensive formats finish sooner. We'll confirm the exact duration and weekly commitment for your specific course during counselling.",
+      },
+    ],
+  },
+  {
+    slug: "pandharpur",
+    city: "Pandharpur",
+    region: "Western Maharashtra",
+    distanceKm: 200,
+    travelTimeLabel: "~4 hours by road",
+    priority: 3,
+    metaTitle:
+      "IT Training for Pandharpur Students — Live Online + Pune Classroom | Archer Infotech",
+    metaDescription:
+      "Pandharpur students: launch an IT career with Archer Infotech — live online Python, Java, Web & Data batches you can join from Pandharpur, or classroom training in Kothrud, Pune. 90% placement support since 2009.",
+    tagline:
+      "A serious IT career no longer means leaving Pandharpur for good — learn live online from home, or study at our Pune campus.",
+    highlights: [
+      {
+        icon: "Laptop",
+        color: "sky",
+        title: "Learn online from Pandharpur",
+        text: "Join live Python, Java and Web Development classes over video — train right from Pandharpur.",
+      },
+      {
+        icon: "MapPin",
+        color: "emerald",
+        title: "Campus option in Pune",
+        text: "Relocate to our Kothrud centre when you want classroom immersion, about 200 km away.",
+      },
+      {
+        icon: "Briefcase",
+        color: "amber",
+        title: "Real placement support",
+        text: "Project work, interview coaching and 100+ hiring partners to open doors for you.",
+      },
+      {
+        icon: "Users",
+        color: "violet",
+        title: "Taught by practitioners",
+        text: "Industry trainers turning small-town ambition into IT careers since 2009.",
+      },
+    ],
+    trackKeywords: [
+      "Python",
+      "Java",
+      "Web Development",
+      "Full Stack Development",
+      "Data Science",
+      "Power BI & Data Analytics",
+      "AWS & DevOps",
+      "Software Testing",
+    ],
+    optionsIntro:
+      "For students in Pandharpur, distance from a big tech city has often been the biggest barrier to an IT career — Archer Infotech removes it. You can take our live online batches from home in Pandharpur, or move to our Kothrud, Pune campus when you want full classroom immersion. Both paths run on the same curriculum, the same mentors and the same 90% placement support, so where you start no longer limits where you finish.",
+    whyIntro:
+      "Choosing the right institute matters even more when you're starting from a smaller town. Archer Infotech offers 17 years of Pune IT-training experience, 10,000+ students trained and a 100+ company hiring network — including names like Amdocs, Capgemini, MindTree and Tech Mahindra. For Pandharpur learners, that's a dependable bridge from ambition to a placed IT job.",
+    coursesIntro:
+      "Whether your interest is coding, web, data or cloud, Archer's courses are tuned to the roles employers across Pune and Maharashtra are hiring for. These are the tracks Pandharpur students choose most, available live online so you can learn from home or in the Pune classroom. A free counselling session helps you pick the right place to begin.",
+    intro: [
+      "Pandharpur is known across Maharashtra as a pilgrimage town, but its students share the same IT ambitions as anyone in the big cities — and historically that meant moving to Pune or Solapur to pursue them. Archer Infotech, training software professionals in Pune since 2009, now brings both live online learning and classroom training within reach of Pandharpur, around 200 km from our Kothrud campus.",
+      "You can stay in Pandharpur and study online in real time, or relocate to Pune for an immersive term — and in both cases you learn the same job-ready skills from the same trainers, backed by the same placement team. Here's how each route works for a Pandharpur student.",
+    ],
+    online: [
+      "Our online batches are live, not recorded playlists — you attend scheduled video classes, ask questions in the moment, and keep every session recording for later revision. For a Pandharpur learner that means completing a full Python, Web Development, Data or Full Stack programme from home, without the cost or upheaval of relocating.",
+      "And online students aren't second-class for placements: resume building, mock interviews and introductions to our 100+ hiring partners all apply. Working people in and around Pandharpur often choose evening or weekend online slots so they can build new skills without giving up their current income.",
+    ],
+    relocation: {
+      travelParagraphs: [
+        "Some Pandharpur students want the focus of a classroom and the exposure of a tech city, and decide to relocate to Pune for the course duration. Travel between the two is manageable, with road the most common choice.",
+        "At about 200 km, students from Pandharpur usually stay in Pune through the course and return home on festivals and longer breaks.",
+      ],
+      travelModes: [
+        {
+          mode: "Buses",
+          detail:
+            "MSRTC and private buses connect Pandharpur to Pune (often via Solapur or Akluj); roughly 4 hours.",
+        },
+        {
+          mode: "Train",
+          detail:
+            "Rail travel is via the Kurduvadi / Solapur junctions, which have regular trains onward to Pune.",
+        },
+        {
+          mode: "Own vehicle",
+          detail: "~200 km by road, an easy drive for moving in at the start of a course.",
+        },
+      ],
+      stayParagraphs: [
+        "Our Kothrud campus is in a calm, student-friendly part of west Pune. Affordable PGs and hostels are widely available in Kothrud and the nearby Karve Nagar, Warje and Erandwane areas, most close to the centre.",
+        "With messes, transport and a large student community on hand, Kothrud is a reassuring first base in Pune for students arriving from Pandharpur.",
+      ],
+    },
+    whyArcher: [
+      "Training Pune's IT talent since 2009 — 17+ years, 10,000+ students trained and 5,000+ placed.",
+      "90% placement support with a 100+ company hiring network, including Amdocs, Capgemini, MindTree and Tech Mahindra.",
+      "Same curriculum and trainers whether you learn online from Pandharpur or at the Pune campus.",
+      "40+ courses across programming, web, full stack, data, AI, cloud and DevOps.",
+    ],
+    popularCourseSlugs: [
+      "python-training-in-pune",
+      "java-training-in-pune",
+      "java-full-stack-training-in-pune",
+      "data-analytics-training-in-pune",
+    ],
+    localFaqs: [
+      {
+        question: "Can a Pandharpur student do IT training without moving to Pune?",
+        answer:
+          "Yes. Archer's live online batches let you attend real-time classes from Pandharpur, with recordings, assignments and full placement support. You can complete a Python, Web, Data or Full Stack course entirely from home — no relocation, travel or hostel expense needed to get qualified.",
+      },
+      {
+        question: "How far is Pune from Pandharpur, and how do students get there?",
+        answer:
+          "Our Kothrud campus is around 200 km from Pandharpur — about 4 hours by road, with MSRTC and private buses running via Solapur or Akluj. Rail travel connects through the Kurduvadi and Solapur junctions onward to Pune. Most students find buses the simplest option.",
+      },
+      {
+        question: "Where would a Pandharpur student stay near the campus?",
+        answer:
+          "Budget PGs and hostels are easy to find in Kothrud and the adjoining Karve Nagar, Warje and Erandwane areas, mostly close to the centre. It's a quiet, student-friendly part of west Pune; our team will share verified accommodation options when you enrol.",
+      },
+      {
+        question: "Will online learners from Pandharpur get full placement help?",
+        answer:
+          "Yes. Resume preparation, mock interviews and access to our 100+ hiring partners apply equally whether you learn online or on campus. With 5,000+ students placed since 2009, a Pandharpur learner studying online enters exactly the same placement process as everyone else.",
+      },
+      {
+        question: "What courses can Pandharpur students enrol in?",
+        answer:
+          "All of Archer's tracks are open to you — Python, Java, Web Development, Full Stack, Data Science, Power BI & Data Analytics, AWS & DevOps and Software Testing — online or in Pune. Each is practical and demand-led, and free counselling helps you pick the right one.",
+      },
+      {
+        question: "Which companies hire students trained at Archer?",
+        answer:
+          "Archer's 100+ company hiring network includes Amdocs, Capgemini, MindTree and Tech Mahindra, plus many product firms and startups. We've trained 10,000+ and placed 5,000+, with a 90% placement-support record since 2009 — and Pandharpur students get the same openings, prep and referrals.",
+      },
+      {
+        question: "Are online classes taught live?",
+        answer:
+          "Yes — real-time, instructor-led video sessions with live interaction, not pre-recorded videos, plus a recording of each class for revision. Pandharpur learners get the discipline of a live cohort along with the freedom to revisit any session whenever they need to.",
+      },
+      {
+        question: "What batch timings suit Pandharpur learners?",
+        answer:
+          "We run weekday and weekend online batches, with evening slots for those who work or study by day. Batches start regularly. Let us know what suits you and we'll match you to a cohort — contact us for the current online schedule and upcoming start dates.",
+      },
+      {
+        question: "Can someone working near Pandharpur train part-time?",
+        answer:
+          "Yes. Evening and weekend online batches are designed so working people in and around Pandharpur can learn without leaving their job. Recordings and flexible timings let you study at a sustainable pace and use our placement support when you're ready to move.",
+      },
+      {
+        question: "Is a programming background necessary to start?",
+        answer:
+          "Not for most courses. Python, Java, Web and Full Stack tracks begin from scratch and suit freshers and career-changers. A few advanced tracks expect some basics, which we'll flag during counselling. Share your background and goals and we'll recommend a suitable starting course.",
+      },
+      {
+        question: "Are installment or EMI payment options available?",
+        answer:
+          "Yes — flexible installment and EMI plans are available, with transparent fees and no hidden charges. The exact amount depends on the course and mode you choose; contact us for the current fee structure and the payment options for Pandharpur students.",
+      },
+      {
+        question: "Do Pandharpur students receive a certificate?",
+        answer:
+          "Yes. You receive a course completion certificate from Archer Infotech, along with a portfolio of real projects and interview preparation that employers value. It's the pairing of recognised certification and demonstrable skills that strengthens your standing during placements.",
+      },
+      {
+        question: "Can I try a free demo or counselling first?",
+        answer:
+          "Yes. Free counselling and demo classes help Pandharpur students decide before paying. Counselling aligns your goals with the right course and explains fees and placements, while a demo lets you experience the teaching. Call us to book a free session or demo.",
+      },
+      {
+        question: "How do I enrol from Pandharpur remotely?",
+        answer:
+          "Easily and entirely from home. Call or fill the enquiry form and our team takes care of course selection, batch booking, fees and EMI, plus accommodation pointers near Kothrud if you relocate — all by phone or online, with no trip to Pune required to enrol.",
+      },
+      {
+        question: "How many months does a course take?",
+        answer:
+          "Most job-focused tracks run a few months, depending on the course and whether you choose a weekday, weekend or online cohort; intensive formats are quicker. We'll share the exact duration and weekly time commitment for your chosen course when you reach out or attend counselling.",
+      },
+    ],
+  },
+  {
+    slug: "ahmednagar",
+    city: "Ahmednagar",
+    region: "Western Maharashtra",
+    distanceKm: 120,
+    travelTimeLabel: "~2.5–3 hours by road",
+    priority: 1,
+    metaTitle:
+      "IT Training for Ahmednagar (Ahilyanagar) Students — Online + Pune Classroom | Archer Infotech",
+    metaDescription:
+      "Ahmednagar / Ahilyanagar students: train in Java, Full Stack, Python, Cloud & DevOps with Archer Infotech — live online from Ahmednagar or classroom in Kothrud, Pune. Just ~120 km away. 90% placement support since 2009.",
+    tagline:
+      "Pune-grade IT training, barely two hours from Ahmednagar — learn live online from home, or commute and study at our Kothrud campus.",
+    highlights: [
+      {
+        icon: "Laptop",
+        color: "sky",
+        title: "Online from Ahmednagar",
+        text: "Live Java, Full Stack and Python classes over video — learn from Ahmednagar, no move needed.",
+      },
+      {
+        icon: "MapPin",
+        color: "emerald",
+        title: "Pune campus close by",
+        text: "Our Kothrud centre is just ~120 km away — among the easiest cities to reach Pune from.",
+      },
+      {
+        icon: "Briefcase",
+        color: "amber",
+        title: "Placement-first approach",
+        text: "Live projects, mock interviews and 100+ hiring partners working for you.",
+      },
+      {
+        icon: "Award",
+        color: "violet",
+        title: "A proven institute",
+        text: "Since 2009 — 10,000+ trained, 5,000+ placed, trusted across Maharashtra.",
+      },
+    ],
+    trackKeywords: [
+      "Java",
+      "Full Stack Development",
+      "Python",
+      "MERN Stack",
+      "Data Science",
+      "Cloud & DevOps",
+      "Angular",
+      "Software Testing",
+    ],
+    optionsIntro:
+      "Ahmednagar — now officially Ahilyanagar — sits barely 120 km from Pune, which makes it one of the most convenient cities to train with Archer Infotech from. Study through our live online batches without leaving home, or relocate (even commute) to our Kothrud campus for classroom learning. The same curriculum, trainers and 90% placement support run through both, so Ahmednagar learners pick purely on preference.",
+    whyIntro:
+      "For Ahmednagar students, Pune is close enough that the real question is which institute, not whether to go. Archer Infotech answers it with 17 years of experience, 10,000+ students trained and a 100+ company hiring network — including Amdocs, Capgemini, MindTree and Tech Mahindra. Here's what makes Archer the dependable choice for turning your skills into a placed IT career.",
+    coursesIntro:
+      "Across coding, full stack, data and cloud, Archer's courses track what Pune and Maharashtra employers are hiring for today. These are the tracks Ahmednagar students choose most, offered live online for home study or in the Pune classroom. Not sure which suits you? A free counselling call will guide you to the right starting point.",
+    intro: [
+      "Of all the Western-Maharashtra cities, Ahmednagar (Ahilyanagar) is among the closest to Pune — roughly 120 km, or about two and a half hours by road — which makes Pune's IT-training and hiring ecosystem genuinely accessible to its students. Archer Infotech, training developers in Pune since 2009, offers Ahmednagar learners both live online batches and classroom study at its Kothrud centre.",
+      "Thanks to that proximity, you have unusual flexibility: learn online from home, relocate for a term, or even commute for some sessions. Whichever you choose, you study the same job-ready curriculum with the same mentors and the same placement support. Here's how each route works for an Ahmednagar student.",
+    ],
+    online: [
+      "Archer's online batches are live, instructor-led sessions — you join over video in real time, interact with trainers directly, and keep recordings of each class for revision. For Ahmednagar learners, online study means completing a full Java, Full Stack, Python or Cloud programme from home, with no relocation costs at all.",
+      "Placement help is identical for online learners — mock interviews, resume guidance and access to our 100+ hiring partners. Working professionals in Ahmednagar frequently choose evening or weekend online slots to upskill without stepping away from their jobs.",
+    ],
+    relocation: {
+      travelParagraphs: [
+        "Because Pune is so close, some Ahmednagar students relocate for the classroom experience while others even commute for weekend or selected weekday sessions. Either way, the short distance keeps travel cheap and frequent.",
+        "At about 120 km, regular buses make day trips and weekend commuting realistic for Ahmednagar students — one of the perks of being a near neighbour to Pune.",
+      ],
+      travelModes: [
+        {
+          mode: "Buses",
+          detail:
+            "Very frequent MSRTC and private buses on the Ahmednagar–Pune route (NH-60); around 2.5–3 hours.",
+        },
+        {
+          mode: "Train",
+          detail:
+            "Ahmednagar is on the Pune–Daund–Manmad line, with daily trains connecting to Pune.",
+        },
+        {
+          mode: "Own vehicle",
+          detail: "~120 km via NH-60 — short enough for comfortable weekend commuting.",
+        },
+      ],
+      stayParagraphs: [
+        "If you prefer to stay in Pune, our Kothrud campus sits in a student-friendly western suburb. Affordable PGs and hostels fill Kothrud and the nearby Karve Nagar, Warje and Erandwane areas, most within a short distance of class.",
+        "Given the easy commute, some Ahmednagar students skip relocating altogether and travel in for sessions; for those who do stay, Kothrud is a comfortable, well-connected base.",
+      ],
+    },
+    whyArcher: [
+      "Since 2009 — 17+ years in Pune, 10,000+ students trained and 5,000+ placed.",
+      "90% placement support with a 100+ company hiring network, including Amdocs, Capgemini, MindTree and Tech Mahindra.",
+      "Same curriculum and trainers across live online and Pune classroom modes.",
+      "40+ job-focused courses spanning programming, full stack, data, AI, cloud and DevOps.",
+    ],
+    popularCourseSlugs: [
+      "java-full-stack-training-in-pune",
+      "java-training-in-pune",
+      "python-training-in-pune",
+      "mern-stack-training-in-pune",
+    ],
+    localFaqs: [
+      {
+        question: "Can Ahmednagar students train online without relocating?",
+        answer:
+          "Yes. Archer's live online batches let you attend real-time classes from Ahmednagar, with recordings, assignments and full placement support. You can complete a Java, Full Stack, Python or Cloud course entirely from home — though, being just ~120 km away, many also commute for some classroom sessions.",
+      },
+      {
+        question: "How close is Pune to Ahmednagar, and how do people travel?",
+        answer:
+          "Our Kothrud campus is around 120 km from Ahmednagar — about 2.5–3 hours by road on NH-60. Buses are very frequent, and Ahmednagar sits on the Pune–Daund–Manmad rail line. The short distance even makes weekend commuting practical for many students.",
+      },
+      {
+        question: "Do Ahmednagar students need to stay in Pune?",
+        answer:
+          "Not necessarily. Some learn fully online from Ahmednagar, some commute for selected sessions, and others relocate for the term. If you do stay, affordable PGs and hostels are easy to find in Kothrud and nearby Karve Nagar, Warje and Erandwane — we'll share options when you enrol.",
+      },
+      {
+        question: "Is placement help the same for online Ahmednagar students?",
+        answer:
+          "Yes — resume preparation, mock interviews and access to our 100+ hiring partners apply equally to online and classroom learners. With 5,000+ placed since 2009, an Ahmednagar student studying online sits in exactly the same placement pipeline as a campus student.",
+      },
+      {
+        question: "Which IT courses are open to Ahmednagar students?",
+        answer:
+          "Every Archer track — Java, Full Stack, Python, MERN, Data Science, Cloud & DevOps, Angular and Software Testing — is available to Ahmednagar students, online or in Pune. Each is project-based and aligned with current hiring. Free counselling helps you choose what fits your goals.",
+      },
+      {
+        question: "Which companies recruit Archer Infotech graduates?",
+        answer:
+          "Archer's 100+ company hiring network includes Amdocs, Capgemini, MindTree and Tech Mahindra, plus many product firms and startups across Pune and Maharashtra. We've trained 10,000+ and placed 5,000+, with a 90% placement-support record since 2009 — Ahmednagar students get the same access.",
+      },
+      {
+        question: "Are the online classes live?",
+        answer:
+          "Yes — live, instructor-led video sessions with real-time interaction, not recordings, plus a recording of each class for revision. Ahmednagar learners get the structure of a live cohort and the convenience of replaying any session they want to revisit.",
+      },
+      {
+        question: "What batch timings can Ahmednagar learners pick?",
+        answer:
+          "We offer weekday and weekend online batches, including evening slots for working people and students. New batches open regularly. Tell us your preferred days and we'll match you to a cohort — contact us for the current schedule and the next start dates.",
+      },
+      {
+        question: "Can a working professional in Ahmednagar join?",
+        answer:
+          "Yes. Evening and weekend online batches let Ahmednagar professionals upskill without leaving their job, and the short distance to Pune also makes occasional in-person sessions feasible. Flexible timings and recordings keep learning manageable alongside work.",
+      },
+      {
+        question: "Do I need prior coding experience?",
+        answer:
+          "For most tracks, no. Java, Full Stack and Python courses start from the basics and suit freshers and career-changers; a few advanced tracks expect some grounding, which we'll mention during counselling. Tell us your background and we'll recommend a suitable starting course.",
+      },
+      {
+        question: "Are EMI or installment options available?",
+        answer:
+          "Yes — flexible installment and EMI plans are available, with transparent fees and no hidden charges. The exact fee depends on the course and mode; contact us for the current fee structure and the payment plans for Ahmednagar students.",
+      },
+      {
+        question: "Will I get a certificate after the course?",
+        answer:
+          "Yes. You receive a course completion certificate from Archer Infotech, plus a portfolio of real projects and interview preparation that employers value. In IT hiring, it's that mix of certification and demonstrable skill that strengthens your profile during placements.",
+      },
+      {
+        question: "Can I attend a free demo or counselling session?",
+        answer:
+          "Yes. Free counselling and demo classes help Ahmednagar students decide with confidence. Counselling maps your goals to the right course and explains fees and placements, while a demo shows the teaching first-hand. Call us to book either — being nearby, you can also visit in person.",
+      },
+      {
+        question: "How do I enrol from Ahmednagar?",
+        answer:
+          "Simply call or fill the enquiry form, and our team handles course selection, batch booking, fees and EMI, plus accommodation guidance if you relocate. Given the short distance, you're also welcome to visit our Kothrud campus to enrol in person — whichever you prefer.",
+      },
+      {
+        question: "How long do courses usually take?",
+        answer:
+          "Most job-focused tracks run over a few months, depending on the course and whether you pick a weekday, weekend or online cohort; intensive formats finish sooner. We'll confirm the exact duration and weekly commitment for your chosen course during counselling.",
+      },
+    ],
+  },
 ];
 
 export function getStudentCity(slug: string): StudentCity | undefined {
