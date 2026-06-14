@@ -12,6 +12,7 @@ import {
   Shield,
   ClipboardList,
   LineChart,
+  GraduationCap,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -20,7 +21,7 @@ import { requireAdminPage } from "@/lib/admin";
 async function getStats() {
   try {
     const { db } = await import("@/db");
-    const { leads, batches, placements, testimonials, blogPosts, user, auditLogs } =
+    const { leads, batches, placements, testimonials, blogPosts, user, auditLogs, alumni } =
       await import("@/db/schema");
     const { count, eq } = await import("drizzle-orm");
 
@@ -36,6 +37,8 @@ async function getStats() {
       totalUsers,
       totalAdmins,
       totalAuditLogs,
+      totalAlumni,
+      newAlumni,
     ] = await Promise.all([
       db.select({ count: count() }).from(leads),
       db.select({ count: count() }).from(leads).where(eq(leads.status, "new")),
@@ -48,6 +51,8 @@ async function getStats() {
       db.select({ count: count() }).from(user),
       db.select({ count: count() }).from(user).where(eq(user.role, "admin")),
       db.select({ count: count() }).from(auditLogs),
+      db.select({ count: count() }).from(alumni),
+      db.select({ count: count() }).from(alumni).where(eq(alumni.status, "new")),
     ]);
 
     return {
@@ -59,6 +64,7 @@ async function getStats() {
       blogPosts: { total: totalBlogPosts[0].count, published: publishedBlogPosts[0].count },
       users: { total: totalUsers[0].count, admins: totalAdmins[0].count },
       auditLogs: { total: totalAuditLogs[0].count },
+      alumni: { total: totalAlumni[0].count, new: newAlumni[0].count },
     };
   } catch (error) {
     console.error("Database error:", error);
@@ -71,6 +77,7 @@ async function getStats() {
       blogPosts: { total: 0, published: 0 },
       users: { total: 0, admins: 0 },
       auditLogs: { total: 0 },
+      alumni: { total: 0, new: 0 },
     };
   }
 }
@@ -108,6 +115,13 @@ export default async function AdminDashboard() {
       href: "/admin/testimonials",
       icon: MessageSquare,
       stats: `${stats.testimonials.total} reviews`,
+    },
+    {
+      title: "Alumni",
+      description: "Review alumni submissions & publish testimonials",
+      href: "/admin/alumni",
+      icon: GraduationCap,
+      stats: `${stats.alumni.total} total, ${stats.alumni.new} new`,
     },
     {
       title: "Blog Posts",

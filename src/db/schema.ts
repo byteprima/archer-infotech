@@ -175,6 +175,53 @@ export const testimonials = sqliteTable("testimonials", {
   updatedAt: integer("updated_at", { mode: "timestamp" }).notNull().$defaultFn(() => new Date()),
 });
 
+// Alumni submissions — self-service form (public /alumni link) where past
+// students share their current career details. Admin reviews each row and,
+// on approval, promotes the public-safe fields into the `testimonials`
+// table (linked via `testimonialId`). Private fields (package band, phone,
+// email, location, hiring/referral offers) stay admin-only for placement
+// outreach and are never copied to the public testimonial.
+export const alumni = sqliteTable("alumni", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  // --- Identity / contact (private) ---
+  name: text("name").notNull(),
+  email: text("email").notNull(),
+  phone: text("phone").notNull(),
+  city: text("city"), // current location
+  linkedinUrl: text("linkedin_url"),
+  githubUrl: text("github_url"),
+  // --- Career now ---
+  courseTaken: text("course_taken"),
+  completionYear: text("completion_year"), // free text: "2021" or batch label
+  currentCompany: text("current_company"),
+  currentRole: text("current_role"),
+  packageBand: text("package_band"), // one of AlumniPackageBand (private)
+  yearsExperience: text("years_experience"),
+  // --- Help place current students (private placement intel) ---
+  openToReferrals: integer("open_to_referrals", { mode: "boolean" }).default(false),
+  companyHiring: integer("company_hiring", { mode: "boolean" }).default(false),
+  hiringRoles: text("hiring_roles"),
+  hrContacts: text("hr_contacts"), // free text: HR name / phone / email the alumnus can refer us to
+  // --- Testimonial (public after approval) ---
+  testimonialContent: text("testimonial_content"),
+  rating: integer("rating").notNull().default(5),
+  photoFilename: text("photo_filename"), // stored on the persistent volume
+  // --- Consent ---
+  consentDisplayPublic: integer("consent_display_public", { mode: "boolean" }).default(false),
+  consentSharePartners: integer("consent_share_partners", { mode: "boolean" }).default(false),
+  lookingForJobChange: integer("looking_for_job_change", { mode: "boolean" }).default(false),
+  // --- Workflow ---
+  status: text("status").notNull().default("new"), // AlumniStatus
+  adminNotes: text("admin_notes"),
+  testimonialId: integer("testimonial_id"), // set once promoted to testimonials
+  source: text("source"),
+  utmSource: text("utm_source"),
+  utmMedium: text("utm_medium"),
+  utmCampaign: text("utm_campaign"),
+  createdAt: integer("created_at", { mode: "timestamp" }).notNull().$defaultFn(() => new Date()),
+  updatedAt: integer("updated_at", { mode: "timestamp" }).notNull().$defaultFn(() => new Date()),
+});
+
 // SEO metrics cache — single table for all SEO API responses (GSC,
 // PSI, CrUX, URL Inspection). The /admin/seo dashboard reads this to
 // render KPI tiles + tables without blowing through API quotas every
@@ -290,6 +337,9 @@ export type NewBlogPost = typeof blogPosts.$inferInsert;
 
 export type Testimonial = typeof testimonials.$inferSelect;
 export type NewTestimonial = typeof testimonials.$inferInsert;
+
+export type Alumni = typeof alumni.$inferSelect;
+export type NewAlumni = typeof alumni.$inferInsert;
 
 export type AuditLog = typeof auditLogs.$inferSelect;
 export type NewAuditLog = typeof auditLogs.$inferInsert;
