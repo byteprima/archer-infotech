@@ -21,6 +21,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { submitLead } from "@/lib/actions/leads";
+import { trackMetaPixelEvent } from "@/lib/meta-pixel/client";
 
 interface ReportDownloadFormProps {
   /** Slug identifying which report — feeds `source` for analytics. */
@@ -55,6 +56,10 @@ export function ReportDownloadForm({
       };
       const result = await submitLead(data);
       if (result.success) {
+        trackMetaPixelEvent("Lead", {
+          content_name: reportTitle,
+          content_category: `report:${reportSlug}`,
+        });
         setSuccess(true);
       } else {
         setErrorMsg(result.message || "Submission failed. Please try again.");

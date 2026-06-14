@@ -29,6 +29,7 @@ import { useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { submitLead } from "@/lib/actions/leads";
+import { trackMetaPixelEvent } from "@/lib/meta-pixel/client";
 
 interface NewsletterSignupFormProps {
   /** Stable placement key for analytics, e.g. "footer" / "blog-inline" / "homepage". */
@@ -71,6 +72,9 @@ export function NewsletterSignupForm({
         source: `newsletter_signup:${placement}`,
       });
       if (result.success) {
+        trackMetaPixelEvent("Subscribe", {
+          content_name: `Newsletter: ${placement}`,
+        });
         setSuccess(true);
       } else {
         setErrorMsg(result.message || "Something went wrong. Please try again.");

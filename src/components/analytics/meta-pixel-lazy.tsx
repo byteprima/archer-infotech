@@ -97,6 +97,10 @@ t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '${pixelId}');
+// Notice + opt-out consent: Pixel is on by default, but if this visitor
+// previously declined the cookie banner, re-apply revoke BEFORE PageView
+// so fbevents withholds the event for the whole session.
+try{if(localStorage.getItem('archer-cookie-consent')==='declined')fbq('consent','revoke');}catch(e){}
 fbq('track', 'PageView');`}
     </Script>
   );

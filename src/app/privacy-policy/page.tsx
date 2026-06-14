@@ -92,10 +92,47 @@ export default function PrivacyPolicyPage() {
             </p>
 
             <h2 className="text-2xl font-bold mb-4">5. Cookies and Tracking</h2>
+            <p className="text-muted-foreground mb-4">
+              Our website uses cookies and similar tracking technologies to enhance your
+              browsing experience, analyse site usage, and measure the effectiveness of our
+              marketing. These include first-party analytics (such as Google Analytics) and
+              the third-party services described below.
+            </p>
+            <h3 className="text-lg font-semibold mb-2">Meta (Facebook) Pixel</h3>
+            <p className="text-muted-foreground mb-4">
+              We use the Meta Pixel, a tool provided by Meta Platforms, Inc. (Facebook,
+              Instagram). It places cookies and collects information about your visit — such as
+              pages viewed and actions taken (for example, submitting an enquiry) — to help us
+              measure our advertising and show relevant ads to people who have visited our site
+              (&quot;retargeting&quot;). This data is shared with Meta and processed in
+              accordance with{" "}
+              <a
+                href="https://www.facebook.com/privacy/policy/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:underline"
+              >
+                Meta&apos;s Data Policy
+              </a>
+              .
+            </p>
+            <h3 className="text-lg font-semibold mb-2">Your Choices</h3>
             <p className="text-muted-foreground mb-6">
-              Our website may use cookies and similar tracking technologies to enhance your
-              browsing experience. You can choose to disable cookies through your browser
-              settings, but this may affect some features of our website.
+              When you first visit our website, a consent banner lets you accept or decline
+              these advertising and analytics cookies. If you decline, we instruct the Meta
+              Pixel to stop tracking your activity, and your preference is remembered on your
+              device. You can also disable cookies through your browser settings, opt out of
+              interest-based ads via your{" "}
+              <a
+                href="https://www.facebook.com/settings?tab=ads"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:underline"
+              >
+                Meta ad preferences
+              </a>
+              , or clear your browser&apos;s stored site data to be shown the consent banner
+              again. Disabling cookies may affect some features of our website.
             </p>
 
             <h2 className="text-2xl font-bold mb-4">6. Your Rights</h2>

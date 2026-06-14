@@ -6,6 +6,7 @@ import { MetaPixelLazy } from "@/components/analytics/meta-pixel-lazy";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { WhatsAppButtonLazy } from "@/components/common/whatsapp-button-lazy";
+import { CookieConsentBanner } from "@/components/common/cookie-consent-banner";
 // P-12 follow-up (2026-06-04): sonner Toaster was 37 KB in the eager shared
 // chunk on every public route. The actual dynamic import + ssr:false lives
 // inside ToasterLazy (a Client Component), because Next 16 App Router only
@@ -125,6 +126,7 @@ export default function RootLayout({
         <main className="flex-grow">{children}</main>
         <Footer />
         <WhatsAppButtonLazy />
+        <CookieConsentBanner />
         <ToasterLazy />
       </body>
     </html>

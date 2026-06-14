@@ -21,6 +21,7 @@ import {
   captureAnalyticsEvent,
   getAnalyticsDistinctId,
 } from "@/lib/posthog/client";
+import { trackMetaPixelEvent } from "@/lib/meta-pixel/client";
 
 type FieldErrors = Partial<
   Record<"name" | "email" | "phone" | "message", string>
@@ -92,6 +93,12 @@ export function ContactForm() {
             utm_source: utmSource,
             utm_medium: utmMedium,
             utm_campaign: utmCampaign,
+          });
+          // Meta Pixel conversion — fires the standard "Lead" event so
+          // Facebook/Instagram ad campaigns can optimise toward enquiries.
+          trackMetaPixelEvent("Lead", {
+            content_name: "Contact Form",
+            content_category: courseInterest || "general",
           });
           toast.success("Thank you for contacting us!", {
             description: result.message,
