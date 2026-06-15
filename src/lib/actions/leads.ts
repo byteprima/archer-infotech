@@ -2,6 +2,7 @@
 
 import { z } from "zod";
 import { captureServerEvent } from "@/lib/posthog/server";
+import { sendMetaConversionEvent } from "@/lib/meta-pixel/server";
 
 // Schema for lead validation
 const leadSchema = z.object({
@@ -21,6 +22,18 @@ const leadSchema = z.object({
   analyticsDistinctId: z.string().optional(),
   currentPath: z.string().optional(),
   referrer: z.string().optional(),
+  // Meta Conversions API dedup payload — when present, the server fires the
+  // matching server-side conversion. eventId/eventName must equal the values
+  // the browser pixel used so Meta counts the conversion once.
+  meta: z
+    .object({
+      eventId: z.string(),
+      eventName: z.string(),
+      contentName: z.string().optional(),
+      contentCategory: z.string().optional(),
+      sourceUrl: z.string().optional(),
+    })
+    .optional(),
 });
 
 export type LeadFormData = z.infer<typeof leadSchema>;
@@ -74,6 +87,28 @@ export async function submitLead(data: LeadFormData): Promise<ActionResult> {
         utm_campaign: validationResult.data.utmCampaign,
       },
     });
+
+    // Meta Conversions API — server-side twin of the browser pixel event,
+    // deduplicated by the shared event id. No-op until META_CAPI_ACCESS_TOKEN
+    // is set; never throws (failures are logged inside the sender).
+    if (validationResult.data.meta) {
+      const [firstName, ...rest] = validationResult.data.name.trim().split(/\s+/);
+      await sendMetaConversionEvent({
+        eventName: validationResult.data.meta.eventName,
+        eventId: validationResult.data.meta.eventId,
+        eventSourceUrl: validationResult.data.meta.sourceUrl,
+        userData: {
+          email: validationResult.data.email || undefined,
+          phone: validationResult.data.phone,
+          firstName,
+          lastName: rest.join(" ") || undefined,
+        },
+        customData: {
+          content_name: validationResult.data.meta.contentName,
+          content_category: validationResult.data.meta.contentCategory,
+        },
+      });
+    }
 
     return {
       success: true,

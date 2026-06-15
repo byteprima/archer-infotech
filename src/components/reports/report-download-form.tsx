@@ -21,7 +21,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { submitLead } from "@/lib/actions/leads";
-import { trackMetaPixelEvent } from "@/lib/meta-pixel/client";
+import { trackMetaPixelEvent, newMetaEventId } from "@/lib/meta-pixel/client";
 
 interface ReportDownloadFormProps {
   /** Slug identifying which report — feeds `source` for analytics. */
@@ -44,6 +44,8 @@ export function ReportDownloadForm({
   function handleSubmit(formData: FormData) {
     setErrorMsg(null);
     startTransition(async () => {
+      // Shared dedup id for the browser pixel + server Conversions API event.
+      const metaEventId = newMetaEventId();
       const data = {
         name: String(formData.get("name") ?? "").trim(),
         email: String(formData.get("email") ?? "").trim(),
@@ -53,13 +55,24 @@ export function ReportDownloadForm({
           : `Requested notification for: ${reportTitle}`,
         course: "",
         source: `report_download:${reportSlug}`,
+        meta: {
+          eventId: metaEventId,
+          eventName: "Lead",
+          contentName: reportTitle,
+          contentCategory: `report:${reportSlug}`,
+          sourceUrl: window.location.href,
+        },
       };
       const result = await submitLead(data);
       if (result.success) {
-        trackMetaPixelEvent("Lead", {
-          content_name: reportTitle,
-          content_category: `report:${reportSlug}`,
-        });
+        trackMetaPixelEvent(
+          "Lead",
+          {
+            content_name: reportTitle,
+            content_category: `report:${reportSlug}`,
+          },
+          metaEventId,
+        );
         setSuccess(true);
       } else {
         setErrorMsg(result.message || "Submission failed. Please try again.");

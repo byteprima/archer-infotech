@@ -28,15 +28,37 @@ function getFbq(): ((...args: unknown[]) => void) | undefined {
 /**
  * Fire a Meta Pixel event (standard, e.g. "Lead"/"Subscribe", or custom).
  * Optional `params` map to Meta's event parameters (content_name, etc.).
+ *
+ * Pass `eventId` to deduplicate against the same event sent server-side via
+ * the Conversions API — it becomes fbq's `{ eventID }`, which Meta matches
+ * to the CAPI event's `event_id` so the conversion is counted once. Use
+ * `crypto.randomUUID()` for the id and send the identical value to the
+ * `submitLead` server action.
  */
 export function trackMetaPixelEvent(
   event: string,
   params?: Record<string, unknown>,
+  eventId?: string,
 ): void {
   const fbq = getFbq();
   if (!fbq) return;
-  if (params) fbq("track", event, params);
+  const options = eventId ? { eventID: eventId } : undefined;
+  if (options) fbq("track", event, params ?? {}, options);
+  else if (params) fbq("track", event, params);
   else fbq("track", event);
+}
+
+/**
+ * Generate a deduplication id shared between the browser pixel and the
+ * server-side Conversions API event. Falls back to a timestamp-random id
+ * on the rare browser without crypto.randomUUID.
+ */
+export function newMetaEventId(): string {
+  try {
+    return crypto.randomUUID();
+  } catch {
+    return `evt-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+  }
 }
 
 /** Read the stored consent decision, or null if the visitor hasn't chosen. */

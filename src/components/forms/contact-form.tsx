@@ -21,7 +21,7 @@ import {
   captureAnalyticsEvent,
   getAnalyticsDistinctId,
 } from "@/lib/posthog/client";
-import { trackMetaPixelEvent } from "@/lib/meta-pixel/client";
+import { trackMetaPixelEvent, newMetaEventId } from "@/lib/meta-pixel/client";
 
 type FieldErrors = Partial<
   Record<"name" | "email" | "phone" | "message", string>
@@ -66,6 +66,10 @@ export function ContactForm() {
     const courseInterest =
       selectedCourses.length > 0 ? selectedCourses.join(", ") : undefined;
 
+    // Shared dedup id for the browser pixel + server Conversions API event.
+    const metaEventId = newMetaEventId();
+    const metaContentCategory = courseInterest || "general";
+
     startTransition(async () => {
       try {
         const result = await submitLead({
@@ -81,6 +85,13 @@ export function ContactForm() {
           analyticsDistinctId,
           currentPath,
           referrer,
+          meta: {
+            eventId: metaEventId,
+            eventName: "Lead",
+            contentName: "Contact Form",
+            contentCategory: metaContentCategory,
+            sourceUrl: window.location.href,
+          },
         });
 
         if (result.success) {
@@ -96,10 +107,14 @@ export function ContactForm() {
           });
           // Meta Pixel conversion — fires the standard "Lead" event so
           // Facebook/Instagram ad campaigns can optimise toward enquiries.
-          trackMetaPixelEvent("Lead", {
-            content_name: "Contact Form",
-            content_category: courseInterest || "general",
-          });
+          trackMetaPixelEvent(
+            "Lead",
+            {
+              content_name: "Contact Form",
+              content_category: metaContentCategory,
+            },
+            metaEventId,
+          );
           toast.success("Thank you for contacting us!", {
             description: result.message,
           });

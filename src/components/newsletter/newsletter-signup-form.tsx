@@ -29,7 +29,7 @@ import { useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { submitLead } from "@/lib/actions/leads";
-import { trackMetaPixelEvent } from "@/lib/meta-pixel/client";
+import { trackMetaPixelEvent, newMetaEventId } from "@/lib/meta-pixel/client";
 
 interface NewsletterSignupFormProps {
   /** Stable placement key for analytics, e.g. "footer" / "blog-inline" / "homepage". */
@@ -60,21 +60,32 @@ export function NewsletterSignupForm({
         setErrorMsg("Please enter a valid email address.");
         return;
       }
+      // Shared dedup id for the browser pixel + server Conversions API event.
+      const metaEventId = newMetaEventId();
       const result = await submitLead({
         name: email.split("@")[0],
         email,
         // submitLead's leadSchema requires 10-digit phone. Newsletter
         // signups intentionally omit phone; pass a stub the admin
         // tooling recognises as "not-applicable for source=newsletter".
+        // (The CAPI sender skips this all-zeros stub when hashing.)
         phone: "0000000000",
         message: `Newsletter signup from ${placement}`,
         course: "",
         source: `newsletter_signup:${placement}`,
+        meta: {
+          eventId: metaEventId,
+          eventName: "Subscribe",
+          contentName: `Newsletter: ${placement}`,
+          sourceUrl: window.location.href,
+        },
       });
       if (result.success) {
-        trackMetaPixelEvent("Subscribe", {
-          content_name: `Newsletter: ${placement}`,
-        });
+        trackMetaPixelEvent(
+          "Subscribe",
+          { content_name: `Newsletter: ${placement}` },
+          metaEventId,
+        );
         setSuccess(true);
       } else {
         setErrorMsg(result.message || "Something went wrong. Please try again.");
