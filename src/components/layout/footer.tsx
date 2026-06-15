@@ -325,7 +325,7 @@ export function Footer() {
                   {siteConfig.contact.address.line2}
                   <br />
                   {siteConfig.contact.address.city},{" "}
-                  {siteConfig.contact.address.state}{" "}
+                  {siteConfig.contact.address.state} -{" "}
                   {siteConfig.contact.address.pincode}
                 </span>
               </li>
