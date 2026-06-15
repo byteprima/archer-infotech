@@ -176,7 +176,7 @@ export default function ContactPage() {
                     Get quick responses to your queries via WhatsApp.
                   </p>
                   <TrackedAnchor
-                    href={`https://wa.me/${siteConfig.contact.whatsapp}?text=Hi,%20I'm%20interested%20in%20your%20IT%20training%20courses.`}
+                    href={`https://wa.me/${siteConfig.contact.whatsapp.replace("+", "")}?text=Hi,%20I'm%20interested%20in%20your%20IT%20training%20courses.`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="block w-full text-center bg-white text-[#25D366] py-2 rounded-lg font-medium hover:bg-white/90 transition-colors"

@@ -15,7 +15,7 @@ export function WhatsAppButton() {
   const message = encodeURIComponent(
     "Hi, I'm interested in your IT training courses. Please provide more information."
   );
-  const whatsappUrl = `https://wa.me/${siteConfig.contact.whatsapp}?text=${message}`;
+  const whatsappUrl = `https://wa.me/${siteConfig.contact.whatsapp.replace("+", "")}?text=${message}`;
 
   return (
     <a

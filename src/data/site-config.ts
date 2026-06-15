@@ -27,7 +27,7 @@ export const siteConfig = {
     facebook: "https://facebook.com/archerinfotech",
     instagram: "https://instagram.com/archerinfotech",
     linkedin: "https://linkedin.com/company/archerinfotech",
-    twitter: "https://twitter.com/archerinfotech",
+    twitter: "https://x.com/archerinfotech",
     youtube: "https://youtube.com/@archerinfotech2022",
     // Wikidata entity — the entity is the canonical machine-readable
     // identifier Google + AI engines map back to our brand. Submitted
