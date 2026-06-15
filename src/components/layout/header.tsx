@@ -25,6 +25,7 @@ import {
   LinkedinIcon,
   TwitterIcon,
   YoutubeIcon,
+  GitHubIcon,
 } from "@/components/common/social-icons";
 import { buttonVariants } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
@@ -160,6 +161,16 @@ export function Header() {
                 onClick={() => trackSocialClick("youtube", "header_top_bar")}
               >
                 <YoutubeIcon />
+              </a>
+              <a
+                href={siteConfig.social.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-secondary transition-colors"
+                aria-label="GitHub"
+                onClick={() => trackSocialClick("github", "header_top_bar")}
+              >
+                <GitHubIcon />
               </a>
             </div>
           </div>
