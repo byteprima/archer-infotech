@@ -1311,9 +1311,9 @@ export const bootcamps: Bootcamp[] = [
           "In 2025, India's IT sector is hiring specialists. Companies are looking for engineers who can contribute from Week 1 — who know their stack, can build real applications, debug production issues, and communicate solutions clearly. TechReady is built around exactly what these companies are hiring for.",
       },
       {
-        title: "20 Years of Placement Track Record",
+        title: "17+ Years of Placement Track Record",
         description:
-          "Archer Infotech has been successfully placing students in top MNCs and tech companies since 2005. We have direct placement relationships with 100+ companies. Our placement assistance is 100% genuine.",
+          "Archer Infotech has been successfully placing students in top MNCs and tech companies since 2009. We have direct placement relationships with 100+ companies. Our placement assistance is 100% genuine.",
       },
       {
         title: "Trainers Who Come From the Industry You Are Entering",
@@ -1557,7 +1557,7 @@ export const bootcamps: Bootcamp[] = [
       {
         question: "What is the placement track record?",
         answer:
-          "Archer Infotech has been successfully placing students in top MNCs and technology companies since 2005. We have active relationships with 100+ companies and a dedicated placement cell. Placement assistance is 100% genuine and continues until you are placed.",
+          "Archer Infotech has been successfully placing students in top MNCs and technology companies since 2009. We have active relationships with 100+ companies and a dedicated placement cell. Placement assistance is 100% genuine and continues until you are placed.",
       },
       {
         question: "How many hours per day is TechReady?",
