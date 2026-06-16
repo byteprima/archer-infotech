@@ -49,6 +49,37 @@ const CHIP_QUERY: Record<string, string> = {
 };
 const LEAD_CHIP = "Talk to a counsellor";
 
+// Minimal, XSS-safe rich text: **bold** and clickable URLs that wrap inside
+// the bubble bounds (overflow-wrap:anywhere). No HTML injection.
+function linkify(text: string, kp: string): React.ReactNode {
+  return text.split(/(https?:\/\/[^\s]+)/g).map((p, j) =>
+    /^https?:\/\//.test(p) ? (
+      <a
+        key={`${kp}-${j}`}
+        href={p}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="font-medium underline underline-offset-2 [overflow-wrap:anywhere]"
+      >
+        {p}
+      </a>
+    ) : (
+      <span key={`${kp}-${j}`}>{p}</span>
+    ),
+  );
+}
+
+function renderRich(text: string): React.ReactNode {
+  return text.split(/(\*\*[^*]+\*\*)/g).map((seg, i) => {
+    const b = /^\*\*([^*]+)\*\*$/.exec(seg);
+    return b ? (
+      <strong key={i}>{linkify(b[1], `b${i}`)}</strong>
+    ) : (
+      <span key={i}>{linkify(seg, `t${i}`)}</span>
+    );
+  });
+}
+
 export function ChatWidget() {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Msg[]>([GREETING]);
@@ -214,13 +245,13 @@ export function ChatWidget() {
             <div className={m.role === "user" ? "flex justify-end" : "flex justify-start"}>
               <div
                 className={
-                  "max-w-[85%] whitespace-pre-wrap rounded-2xl px-3.5 py-2 text-sm leading-relaxed " +
+                  "max-w-[85%] whitespace-pre-wrap break-words [overflow-wrap:anywhere] rounded-2xl px-3.5 py-2 text-sm leading-relaxed " +
                   (m.role === "user"
                     ? "rounded-br-sm bg-primary text-primary-foreground"
                     : "rounded-bl-sm border border-border bg-background text-foreground")
                 }
               >
-                {m.content}
+                {m.role === "assistant" ? renderRich(m.content) : m.content}
               </div>
             </div>
             {/* Suggestions under the latest assistant message */}

@@ -92,14 +92,16 @@ const SYNONYMS: Record<string, string[]> = {
   internships: ["internship"],
   online: ["online"],
   offline: ["offline"],
-  fresher: ["fresher", "placement"],
+  fresher: ["fresher"],
   beginner: ["beginner"],
 };
 
 function tokenize(text: string): string[] {
+  // '.' is a separator so "React.js"→react js, "Node.js"→node js, ".NET"→net,
+  // "Next.js"→next js. '+' and '#' are kept for "c++" / "c#".
   const raw = text
     .toLowerCase()
-    .replace(/[^a-z0-9+#.\s]/g, " ")
+    .replace(/[^a-z0-9+#\s]/g, " ")
     .split(/\s+/)
     .filter((t) => t && !STOPWORDS.has(t));
   const out = new Set<string>();
@@ -149,9 +151,12 @@ function courseAnswer(c: (typeof courses)[number]): string {
   return `Yes — we offer **${c.title}** (${c.duration} · ${c.level} · ${c.mode.join("/")}). ${c.shortDescription} See details: ${siteConfig.url}/courses/${c.categorySlug}/${c.slug}${careers ? `\n\nCareer paths: ${careers}.` : ""}\n\nWant a counsellor to call you about this course?`;
 }
 
+// Name-only tokens (NOT category) so "devops" matches the DevOps Engineering
+// course, not every "Cloud & DevOps" category course; ties resolve to the
+// course whose NAME contains the keyword.
 const COURSE_ENTRIES = courses.map((c) => ({
   course: c,
-  titleTokens: new Set(tokenize(`${c.title} ${c.shortTitle} ${c.category}`)),
+  titleTokens: new Set(tokenize(`${c.title} ${c.shortTitle}`)),
 }));
 
 for (const { course: c, titleTokens } of COURSE_ENTRIES) {
@@ -174,7 +179,11 @@ for (const c of courses) for (const t of tokenize(`${c.title} ${c.shortTitle}`))
 for (const generic of ["programming", "course", "courses", "training", "development", "developer", "fundamentals", "complete"])
   COURSE_KEYWORDS.delete(generic);
 
-const COURSE_LIST_RE = /\b(courses?|programs?|programmes?|offer|offerings?|teach|trainings?|classes|list|catalog|catalogue)\b/i;
+// Deliberately narrow: only an explicit "courses / programs / catalogue" ask
+// triggers the overview. Words like "offer", "training", "classes" are too
+// generic ("do you offer internships", "corporate training") and would steal
+// queries that belong to a specific FAQ.
+const COURSE_LIST_RE = /\b(courses?|programs?|programmes?|catalog|catalogue|syllabus)\b/i;
 
 function coursesOverviewReply(): RetrieveResult {
   const cats = categories.map((c) => c.name).join(", ");
@@ -263,8 +272,17 @@ export function retrieveAnswer(query: string): RetrieveResult {
   const tokens = tokenize(q);
   const tagSet = new Set(tokens);
 
-  // 2. Generic "what courses do you offer" → overview (before specific lookup)
-  if (COURSE_LIST_RE.test(q) && !tokens.some((t) => COURSE_KEYWORDS.has(t)) && !tagSet.has("fee")) {
+  // 2. Generic "what courses do you offer" → overview (before specific lookup).
+  // Skipped when a specific course keyword, fee, or batch/mode word is present
+  // so those route to the right handler instead.
+  if (
+    COURSE_LIST_RE.test(q) &&
+    !tokens.some((t) => COURSE_KEYWORDS.has(t)) &&
+    !tagSet.has("fee") &&
+    !tagSet.has("online") &&
+    !tagSet.has("offline") &&
+    !tagSet.has("batch")
+  ) {
     return coursesOverviewReply();
   }
 
