@@ -93,11 +93,12 @@ const legacyWpRedirects: LegacyRedirect[] = [
   { from: "/best-spring-hibernate-training-classes-in-pune", to: "/courses/programming/spring-boot-microservices-training-in-pune" },
   { from: "/full-stack-dot-net-developer-course-in-pune", to: "/courses/full-stack-development/dotnet-full-stack-training-in-pune" },
   { from: "/best-sql-training-classes-in-pune", to: "/courses/database-technologies/mysql-training-in-pune" },
-  // NOTE: /best-c-c++-data-structures-course-in-kothrud-pune dropped — `++` would
-  // need escaping and earns marginal traffic; the no-`++` variant above covers it.
+  // `++` is a literal Map key here (middleware does exact-string lookup, not
+  // path-to-regexp), so no escaping is needed — safe to redirect directly.
+  { from: "/best-c-c++-data-structures-course-in-kothrud-pune", to: "/courses/programming/cpp-training-in-pune" },
   { from: "/best-react-classes-in-pune", to: "/courses/modern-web/react-training-in-pune" },
-  // Selenium has no equivalent course — send to /courses listing rather than 404.
-  { from: "/best-selenium-training-classes-in-pune", to: "/courses" },
+  // Selenium now has a dedicated course page — send its accrued authority there.
+  { from: "/best-selenium-training-classes-in-pune", to: "/courses/testing-qa/selenium-training-in-pune" },
   // Listing / program pages
   { from: "/all-courses", to: "/courses" },
   { from: "/boot-camps", to: "/bootcamps" },
