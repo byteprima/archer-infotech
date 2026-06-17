@@ -30,6 +30,14 @@ export interface Course {
   seoTitle?: string;
   heroHeading?: string;
   /**
+   * Curated cross-category related-course slugs, surfaced FIRST in the
+   * "Related Courses" block. Use to pass crawl equity to a page that the
+   * default same-category relatedness would never reach — e.g. the indexed,
+   * frequently-crawled /courses/programming/java-training-in-pune linking to
+   * the un-crawled java-full-stack-training-in-pune page.
+   */
+  relatedSlugs?: string[];
+  /**
    * Optional per-course outcome/trust signals shown in the hero. All
    * optional so only courses with real, verified numbers display them —
    * never invent these. `batchesCompleted` here is COURSE-SPECIFIC (e.g.
@@ -166,6 +174,9 @@ export const courses: Course[] = [
     shortTitle: "Java",
     category: "Programming",
     categorySlug: "programming",
+    // Route crawl equity from this indexed, frequently-crawled page to the
+    // un-crawled Java Full Stack page (its natural next step for learners).
+    relatedSlugs: ["java-full-stack-training-in-pune"],
     description: "Master Java from basics to advanced concepts. Learn object-oriented programming, data structures, and build real-world applications with industry best practices.",
     shortDescription: "Complete Java programming from fundamentals to advanced OOP concepts",
     duration: "3 Months",
@@ -2937,6 +2948,11 @@ export function getRelatedCourses(currentSlug: string, limit = 4): Course[] {
   const current = getCourse(currentSlug);
   if (!current) return [];
 
+  // Curated cross-category links first (crawl-equity routing), then the
+  // default same-category siblings, then popular courses elsewhere.
+  const curated = (current.relatedSlugs ?? [])
+    .map((s) => getCourse(s))
+    .filter((c): c is Course => !!c && c.slug !== currentSlug);
   const sameCategory = courses.filter(
     (c) => c.slug !== currentSlug && c.categorySlug === current.categorySlug
   );
@@ -2947,7 +2963,10 @@ export function getRelatedCourses(currentSlug: string, limit = 4): Course[] {
       c.isPopular
   );
 
-  return [...sameCategory, ...popularElsewhere].slice(0, limit);
+  const seen = new Set<string>();
+  return [...curated, ...sameCategory, ...popularElsewhere]
+    .filter((c) => !seen.has(c.slug) && seen.add(c.slug))
+    .slice(0, limit);
 }
 
 export function searchCourses(query: string): Course[] {
