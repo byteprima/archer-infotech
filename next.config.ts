@@ -33,6 +33,23 @@ const nextConfig: NextConfig = {
       "@base-ui/react",
       "posthog-js",
     ],
+    /**
+     * 2026-06-17 mobile-PSI: inline each route's critical CSS into a <style>
+     * tag in the server HTML instead of shipping a render-blocking external
+     * stylesheet. PSI mobile traced the global Tailwind chunk
+     * (0b77_147baxh9.css, ~29KB) blocking render ~600ms on throttled 4G,
+     * which delayed the LCP text element (DefinitiveAnswer block) and made
+     * LCP swing 2.9–4.1s (mobile score bouncing 86↔92). Inlining removes the
+     * blocking round-trip so the LCP text paints near FCP.
+     *
+     * This is the Turbopack-native App Router feature (NOT the webpack-only
+     * `optimizeCss`/critters post-processor, which is a no-op under Next 16's
+     * default Turbopack build). Desktop already loads CSS fast (100/100) and
+     * is unaffected — inlining only removes a request. Trade-off: CSS is no
+     * longer a separately-cached file across navigations, but edge-cached
+     * HTML + the first-paint win make that worthwhile.
+     */
+    inlineCss: true,
   },
   // Disable Next's built-in trailing-slash redirect — it runs BEFORE middleware,
   // so a legacy `/x/` URL would 308 to `/x` and only then to its destination (a
