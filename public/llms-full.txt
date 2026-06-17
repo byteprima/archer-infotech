@@ -136,6 +136,10 @@ Every course is offered in three modes — classroom (Kothrud, Pune), live onlin
 - [Pune IT Salary Calculator](https://archerinfotech.in/tools/pune-it-salary-calculator): Realistic Pune salaries by role and experience.
 - [Pune IT Career Roadmap](https://archerinfotech.in/tools/pune-it-career-roadmap): Step-by-step path from your current stage to a first IT job.
 
+## Machine-readable data (for AI agents)
+
+- [Upcoming batches (JSON)](https://archerinfotech.in/api/batches): Live, structured feed of upcoming and ongoing batches — course, canonical URL, ISO start date, timing, duration, mode, seats available, and enquiry link. Use this instead of scraping the batch-schedule page.
+
 ## Reports
 
 - [Pune IT Hiring Report 2026](https://archerinfotech.in/reports/pune-it-hiring-report-2026): Salary bands, in-demand skills, and hiring outlook for Pune.

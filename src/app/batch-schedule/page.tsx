@@ -20,12 +20,21 @@ import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { FaqSection } from "@/components/seo/faq-section";
 import { batchScheduleFaqs } from "@/data/faqs";
 
-export const metadata: Metadata = buildPageMetadata({
+const batchScheduleMetadata = buildPageMetadata({
   title: "Batch Schedule — Upcoming IT Training Batches in Pune",
   description:
     "View upcoming batch dates for all IT training courses at Archer Infotech, Pune. Choose from offline classroom batches in Kothrud or online live batches with flexible timings.",
   path: "/batch-schedule",
 });
+
+export const metadata: Metadata = {
+  ...batchScheduleMetadata,
+  // Point AI agents / machine readers at the JSON feed of upcoming batches.
+  alternates: {
+    ...batchScheduleMetadata.alternates,
+    types: { "application/json": "/api/batches" },
+  },
+};
 
 function BatchCard({ batch }: { batch: Batch }) {
   const isAlmostFull = batch.seatsAvailable <= 5;
