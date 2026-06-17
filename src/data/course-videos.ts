@@ -70,7 +70,7 @@ export const courseVideos: Record<string, CourseVideo> = {
       "Setup tutorial for the Code::Blocks IDE — a free, lightweight " +
       "development environment that's perfect for Pune students starting " +
       "with C++ before moving to more advanced toolchains.",
-    uploadDate: "2023-11-24",
+    uploadDate: "2023-11-28",
     duration: "PT6M4S",
   },
   "java-full-stack-training-in-pune": {
@@ -80,7 +80,7 @@ export const courseVideos: Record<string, CourseVideo> = {
       "Eclipse setup for Java development — the IDE many Pune product " +
       "captives still use day-to-day. The Java Full Stack track walks " +
       "you through this on day 1.",
-    uploadDate: "2024-05-13",
+    uploadDate: "2024-09-22",
     duration: "PT4M37S",
   },
 };

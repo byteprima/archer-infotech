@@ -115,7 +115,7 @@ export function OrganizationJsonLd() {
     founder: {
       "@type": "Person",
       name: "Yogesh Patil",
-      jobTitle: "Founder & Lead Trainer",
+      jobTitle: "Founder & Director",
       url: `${baseUrl}/trainers/yogesh-patil`,
     },
     address: POSTAL_ADDRESS,
@@ -293,7 +293,7 @@ export function CourseJsonLd({
       instructor: {
         "@type": "Person",
         name: "Yogesh Patil",
-        jobTitle: "Founder & Lead Trainer",
+        jobTitle: "Founder & Director",
       },
       ...(nextBatchStartDate && { startDate: nextBatchStartDate }),
       ...(nextBatchMode !== "online" && {
@@ -726,7 +726,7 @@ export function ReviewListJsonLd({ reviews }: { reviews: ReviewSchemaInput[] }) 
               instructor: {
                 "@type": "Person",
                 name: "Yogesh Patil",
-                jobTitle: "Founder & Lead Trainer",
+                jobTitle: "Founder & Director",
               },
             },
           }

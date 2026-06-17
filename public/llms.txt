@@ -2,6 +2,8 @@
 
 > Pune's trusted IT training institute since 2009. We have trained 10,000+ students and placed 5,000+ at leading IT companies. Classroom and online courses across Java, Python, full stack, data science, AI/ML, cloud, DevOps, and more — every course backed by placement assistance and 17+ years of teaching experience.
 
+For the full course catalogue, trainer profiles, tools, salary bands and canonical facts, see [llms-full.txt](https://archerinfotech.in/llms-full.txt).
+
 ## About
 
 Archer Infotech is an IT training centre based in Kothrud, Pune, Maharashtra, India. We run weekday and weekend batches in classroom-only, online-only, and hybrid formats. Our trainers carry 10–15+ years of MNC experience and we maintain active hiring relationships with 100+ corporate partners.
