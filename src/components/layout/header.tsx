@@ -188,7 +188,7 @@ export function Header() {
               width={44}
               height={44}
               className="h-11 w-auto"
-              priority
+              loading="eager"
             />
             <div className="flex items-center">
               <span className="text-xl font-bold text-primary">Archer</span>

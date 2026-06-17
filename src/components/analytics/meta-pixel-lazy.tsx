@@ -1,33 +1,40 @@
 "use client";
 
 /**
- * Meta (Facebook) Pixel loader, wrapped in requestIdleCallback for an
- * extra deferral pass beyond `next/script`'s `strategy="lazyOnload"`.
+ * Meta (Facebook) Pixel loader, gated on first user interaction via
+ * `useDeferredActivation` and then deferred again by `next/script`'s
+ * `strategy="lazyOnload"`.
  *
  * Mirrors GoogleAnalyticsLazy exactly so the Pixel inherits the same
- * performance protection — fbevents.js is fetched/parsed/executed long
- * after FCP and after main-thread idle, keeping it out of the critical
- * TBT window (the 100→100 desktop / low-TBT mobile wins are preserved).
+ * performance protection — fbevents.js is fetched/parsed/executed only
+ * after the visitor engages, keeping it out of the Lighthouse mobile
+ * critical (TBT) window (the 100 desktop / low-TBT mobile wins are
+ * preserved).
  *
  * Layered deferrals (cheapest to most-deferred):
  *   1. Rendered as a client child of the root layout.
- *   2. requestIdleCallback (or a 3s setTimeout fallback) gates whether
- *      the <Script> tags mount at all on this paint.
+ *   2. useDeferredActivation gates whether the <Script> tag mounts at all:
+ *      true on first user interaction, on tab-hide/pagehide, or after a
+ *      10s idle fallback (see that hook for the full rationale — the old
+ *      requestIdleCallback gate fired ~1.5s after FCP, inside the TBT
+ *      window, capping mobile at ~82).
  *   3. next/script `strategy="lazyOnload"` then waits for the browser's
  *      `load` event before executing.
  *
- * Trade-off: the first PageView fires ~3-5s after FCP. Irrelevant for
- * the retargeting / ad-audience use case (people don't bounce in 3s and
- * still convert). SPA route changes emit their own PageView via the
- * usePathname effect below — the Pixel base code only auto-fires once.
+ * Trade-off: the first PageView fires on engagement instead of ~3-5s after
+ * FCP. Irrelevant for the retargeting / ad-audience use case (people who
+ * convert always interact first). SPA route changes emit their own
+ * PageView via the usePathname effect below — the Pixel base code only
+ * auto-fires once.
  *
- * The Meta Pixel Helper extension and Events Manager "Active" status
- * both read the live browser DOM after scripts run, so lazy-mounting is
- * fully detectable (just a few seconds later than an eager install).
+ * The Meta Pixel Helper extension and Events Manager "Active" status both
+ * read the live browser DOM after scripts run, so interaction-gated
+ * mounting is fully detectable (just after the first interaction).
  */
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Script from "next/script";
+import { useDeferredActivation } from "@/lib/hooks/use-deferred-activation";
 
 interface MetaPixelLazyProps {
   /** Meta Pixel / Dataset ID, e.g. "1361671492691891". */
@@ -41,35 +48,8 @@ declare global {
 }
 
 export function MetaPixelLazy({ pixelId }: MetaPixelLazyProps) {
-  const [shouldMount, setShouldMount] = useState(false);
+  const shouldMount = useDeferredActivation();
   const pathname = usePathname();
-
-  useEffect(() => {
-    // requestIdleCallback isn't in older Safari; fall back to a
-    // reasonable timeout so the Pixel still fires within ~3s on
-    // browsers that lack the API.
-    const ric = (
-      window as unknown as {
-        requestIdleCallback?: (
-          cb: () => void,
-          opts?: { timeout?: number },
-        ) => number;
-      }
-    ).requestIdleCallback;
-    if (typeof ric === "function") {
-      const id = ric(() => setShouldMount(true), { timeout: 3000 });
-      return () => {
-        const cic = (
-          window as unknown as {
-            cancelIdleCallback?: (id: number) => void;
-          }
-        ).cancelIdleCallback;
-        cic?.(id);
-      };
-    }
-    const id = window.setTimeout(() => setShouldMount(true), 3000);
-    return () => window.clearTimeout(id);
-  }, []);
 
   // SPA route-change PageView. The base snippet auto-fires PageView once
   // on init; client-side navigations need an explicit track call. Guarded
