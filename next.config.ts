@@ -116,20 +116,28 @@ const nextConfig: NextConfig = {
     // Hit rate increases proportionally; TTFB falls. The 1-hour staleness
     // window is acceptable because evergreen routes don't carry
     // time-sensitive content — the rare deploy lag is invisible to users.
+    //
+    // NOTE: do NOT add `must-revalidate` here. It forbids serving a stale
+    // response, which forces Cloudflare to revalidate synchronously against
+    // origin the moment s-maxage expires (cf-cache-status: EXPIRED) — the
+    // exact ~1s TTFB hit `stale-while-revalidate` exists to avoid. Confirmed
+    // 2026-06-21: field LCP p75 was 3.15s with cache HIT TTFB ~0.3s but
+    // MISS/EXPIRED TTFB ~1s. Without must-revalidate, post-TTL visitors get
+    // an instant stale response while Cloudflare refreshes in the background.
     const PUBLIC_CACHE_DYNAMIC = {
       key: "Cache-Control",
       value:
-        "public, max-age=0, s-maxage=300, stale-while-revalidate=86400, must-revalidate",
+        "public, max-age=0, s-maxage=300, stale-while-revalidate=86400",
     };
     const PUBLIC_CACHE_STABLE = {
       key: "Cache-Control",
       value:
-        "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400, must-revalidate",
+        "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400",
     };
     const PUBLIC_CACHE_VERY_STABLE = {
       key: "Cache-Control",
       value:
-        "public, max-age=0, s-maxage=21600, stale-while-revalidate=86400, must-revalidate",
+        "public, max-age=0, s-maxage=21600, stale-while-revalidate=86400",
     };
 
     // Security headers — set globally on every response.
