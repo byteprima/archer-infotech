@@ -3,6 +3,16 @@ import type { Batch } from "@/db/schema";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://archerinfotech.in";
 
+// Canonical @id for the Organization node. Uses a #organization fragment
+// rather than the bare baseUrl so it never collides with the homepage
+// WebPage / WebSite IRI (both of which legitimately resolve to baseUrl).
+// Every `provider` / `publisher` / `author` / `worksFor` / `mainEntity`
+// reference below points here so Google + AI engines merge them into one
+// canonical Organization node in the page graph. Audit 2026-06-21.
+const ORG_ID = `${baseUrl}/#organization`;
+// Canonical @id for the WebSite node (Sitelinks Searchbox + entity anchor).
+const WEBSITE_ID = `${baseUrl}/#website`;
+
 // Lat/long extracted from the Google Maps embed in site-config.ts
 const GEO = { latitude: 18.5002215, longitude: 73.810452 };
 
@@ -32,10 +42,18 @@ function durationToISO8601(duration?: string): string {
   return `P${value}${unitChar}`;
 }
 
+// Schema.org PostalAddress maps `addressLocality` to the CITY, not the
+// suburb. siteConfig.contact.address.city is "Kothrud, Pune" (correct for
+// the human-readable NAP shown on the site) — but emitting that as
+// addressLocality is non-standard and weakens matching on city-level
+// queries. So at the schema layer we split it: addressLocality = "Pune",
+// the Kothrud suburb goes in addressSubLocality (and is already present in
+// streetAddress via line2). Audit 2026-06-21. The visible NAP is untouched.
 const POSTAL_ADDRESS = {
   "@type": "PostalAddress" as const,
   streetAddress: `${siteConfig.contact.address.line1}, ${siteConfig.contact.address.line2}`,
-  addressLocality: siteConfig.contact.address.city,
+  addressLocality: "Pune",
+  addressSubLocality: "Kothrud",
   addressRegion: siteConfig.contact.address.state,
   postalCode: siteConfig.contact.address.pincode,
   addressCountry: "IN",
@@ -101,7 +119,7 @@ export function OrganizationJsonLd() {
   const schema = {
     "@context": "https://schema.org",
     "@type": ["EducationalOrganization", "LocalBusiness"],
-    "@id": baseUrl,
+    "@id": ORG_ID,
     name: siteConfig.name,
     alternateName: "Archer Infotech",
     url: baseUrl,
@@ -155,6 +173,42 @@ export function OrganizationJsonLd() {
   );
 }
 
+/**
+ * WebSite schema — the entity anchor Google uses to connect the brand to
+ * its Knowledge Panel and the prerequisite for the Sitelinks Searchbox
+ * rich result. Highest-value previously-missing block (audit 2026-06-21).
+ * Render once, on the homepage only. `publisher` resolves to the canonical
+ * Org node by @id; `potentialAction` points at the course catalogue's
+ * query param so a branded search box can deep-link into the site.
+ */
+export function WebSiteJsonLd() {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": WEBSITE_ID,
+    name: siteConfig.name,
+    alternateName: "Archer Infotech",
+    url: baseUrl,
+    inLanguage: "en-IN",
+    publisher: { "@id": ORG_ID },
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${baseUrl}/courses?q={search_term_string}`,
+      },
+      "query-input": "required name=search_term_string",
+    },
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
+
 // LocalBusiness-specific schema retained for the contact page where the map is shown.
 export function LocalBusinessJsonLd() {
   const schema = {
@@ -162,7 +216,7 @@ export function LocalBusinessJsonLd() {
     "@type": "LocalBusiness",
     name: siteConfig.name,
     image: `${baseUrl}${siteConfig.ogImage}`,
-    "@id": baseUrl,
+    "@id": ORG_ID,
     url: baseUrl,
     telephone: siteConfig.contact.phone,
     address: POSTAL_ADDRESS,
@@ -232,6 +286,17 @@ interface CourseJsonLdProps {
     body: string;
     rating: number;
   }>;
+  /**
+   * Audit 2026-06-21 — optional fee fields for Google's Course price
+   * enhancement. Google requires the structured-data price to MATCH the
+   * price visible on the page, so only pass these once the fee is shown on
+   * the course page. `price` is a single exact figure; `priceRange` (e.g.
+   * "₹20,000–₹45,000") is the safer choice when fees vary by batch/mode.
+   * When neither is supplied the Offer omits price entirely (valid — a
+   * "Paid" Offer without a number is acceptable and never a mismatch).
+   */
+  price?: string;
+  priceRange?: string;
 }
 
 export function CourseJsonLd({
@@ -247,6 +312,8 @@ export function CourseJsonLd({
   dateModified,
   aggregateRating,
   reviews,
+  price,
+  priceRange,
 }: CourseJsonLdProps) {
   const schema = {
     "@context": "https://schema.org",
@@ -260,7 +327,7 @@ export function CourseJsonLd({
     // missing `EducationalOrganization.url` on the Course.provider
     // nested block. Google + AI engines resolve `@id` references
     // back to the canonical block on the same page.
-    provider: { "@id": baseUrl },
+    provider: { "@id": ORG_ID },
     ...(duration && { timeRequired: duration }),
     ...(category && { courseCode: category }),
     url: `${baseUrl}${url}`,
@@ -275,6 +342,16 @@ export function CourseJsonLd({
       "@type": "Offer",
       category: "Paid",
       priceCurrency: "INR",
+      // Only emitted when the page actually shows the fee (audit 2026-06-21).
+      ...(price && { price }),
+      ...(priceRange && { priceSpecification: {
+        "@type": "PriceSpecification",
+        priceCurrency: "INR",
+        // priceRange isn't a valid Offer field; surface the human range
+        // via a PriceSpecification description so it's still machine-read.
+        description: priceRange,
+      } }),
+      url: `${baseUrl}${url}`,
       availability: "https://schema.org/InStock",
     },
     // 2026-06-04: hasCourseInstance is now REQUIRED for valid Course schema
@@ -464,7 +541,7 @@ export function NeighbourhoodJsonLd({
     about: place,
     mainEntity: {
       "@type": ["EducationalOrganization", "LocalBusiness"],
-      "@id": baseUrl,
+      "@id": ORG_ID,
       name: siteConfig.name,
       url: baseUrl,
       address: POSTAL_ADDRESS,
@@ -514,7 +591,7 @@ export function BatchEventsJsonLd({ batches }: { batches: Batch[] }) {
           },
       organizer: {
         "@type": "EducationalOrganization",
-        "@id": baseUrl,
+        "@id": ORG_ID,
         name: siteConfig.name,
         url: baseUrl,
       },
@@ -524,7 +601,7 @@ export function BatchEventsJsonLd({ batches }: { batches: Batch[] }) {
         // P8-04 — provider is an @id-keyed reference to the canonical
         // Org block; avoids the partial-redeclaration that triggers
         // EducationalOrganization.url validator errors.
-        provider: { "@id": baseUrl },
+        provider: { "@id": ORG_ID },
       },
       offers: {
         "@type": "Offer",
@@ -574,6 +651,10 @@ export function PersonJsonLd({
   const schema = {
     "@context": "https://schema.org",
     "@type": "Person",
+    // Stable @id so the person resolves as a distinct Knowledge-Graph node
+    // and can be referenced by @id from BlogPosting.author / Review.author
+    // instead of being inlined. Audit 2026-06-21.
+    "@id": `${baseUrl}${url}#person`,
     name,
     jobTitle,
     description,
@@ -581,7 +662,7 @@ export function PersonJsonLd({
     ...(knowsAbout && knowsAbout.length > 0 && { knowsAbout }),
     ...(linkedin && { sameAs: [linkedin] }),
     // P8-04 — @id reference to the canonical Org block.
-    worksFor: { "@id": baseUrl },
+    worksFor: { "@id": ORG_ID },
     url: `${baseUrl}${url}`,
   };
 
@@ -613,7 +694,7 @@ export function AggregateRatingJsonLd({
   const schema = {
     "@context": "https://schema.org",
     "@type": "EducationalOrganization",
-    "@id": baseUrl,
+    "@id": ORG_ID,
     name: itemName,
     aggregateRating: {
       "@type": "AggregateRating",
@@ -667,7 +748,7 @@ export interface ReviewSchemaInput {
 export function ReviewListJsonLd({ reviews }: { reviews: ReviewSchemaInput[] }) {
   if (reviews.length === 0) return null;
 
-  const orgId = baseUrl;
+  const orgId = ORG_ID;
   const schema = reviews.map((r) => {
     const review: Record<string, unknown> = {
       "@context": "https://schema.org",
@@ -857,8 +938,8 @@ export function ReportJsonLd({
     keywords: keywords.join(", "),
     ...(abstract && { abstract }),
     // P8-04 — author + publisher = @id-ref to canonical Org graph.
-    author: { "@id": baseUrl },
-    publisher: { "@id": baseUrl },
+    author: { "@id": ORG_ID },
+    publisher: { "@id": ORG_ID },
     about: {
       "@type": "Thing",
       name: "Pune IT Hiring Market",

@@ -15,7 +15,7 @@ import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { FaqSection } from "@/components/seo/faq-section";
 import { NewsletterSignupForm } from "@/components/newsletter/newsletter-signup-form";
 import { aboutFaqs } from "@/data/faqs";
-import { PersonJsonLd } from "@/components/seo/json-ld";
+import { PersonJsonLd, BreadcrumbJsonLd } from "@/components/seo/json-ld";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "About Archer Infotech — Pune IT Institute Since 2009",
@@ -31,6 +31,15 @@ export default function AboutPage() {
 
   return (
     <>
+      {/* Breadcrumb trail — SERP URL-path display + graph completeness.
+          Audit 2026-06-21. */}
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", url: "/" },
+          { name: "About", url: "/about" },
+        ]}
+      />
+
       {/* Person schema for the named founder — E-E-A-T signal that AI
           engines and Google's helpful-content system reward. P4-08. */}
       {founder && (

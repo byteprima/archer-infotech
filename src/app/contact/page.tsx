@@ -8,6 +8,7 @@ import { ContactForm } from "@/components/forms/contact-form";
 import { buildPageMetadata } from "@/lib/seo";
 import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { FaqSection } from "@/components/seo/faq-section";
+import { LocalBusinessJsonLd, BreadcrumbJsonLd } from "@/components/seo/json-ld";
 import { contactFaqs } from "@/data/faqs";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -20,6 +21,20 @@ export const metadata: Metadata = buildPageMetadata({
 export default function ContactPage() {
   return (
     <>
+      {/* LocalBusiness schema on the highest local-intent page — confirms the
+          physical Kothrud centre (map is shown here). Merges with the
+          canonical Org node by @id. Component existed but was never rendered;
+          wired in per audit 2026-06-21. */}
+      <LocalBusinessJsonLd />
+
+      {/* Breadcrumb trail — SERP URL-path display. Audit 2026-06-21. */}
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", url: "/" },
+          { name: "Contact", url: "/contact" },
+        ]}
+      />
+
       <PageEvent
         event="contact_page_viewed"
         properties={{ page_type: "contact", page_path: "/contact" }}

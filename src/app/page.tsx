@@ -27,7 +27,7 @@ const TestimonialsSection = nextDynamic(
 import { getHomeTestimonials } from "@/lib/actions/public-testimonials";
 import { siteConfig } from "@/data/site-config";
 import { buildPageMetadata } from "@/lib/seo";
-import { ReviewListJsonLd } from "@/components/seo/json-ld";
+import { ReviewListJsonLd, WebSiteJsonLd } from "@/components/seo/json-ld";
 import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { FaqSection } from "@/components/seo/faq-section";
 import { homeFaqs } from "@/data/faqs";
@@ -53,6 +53,10 @@ export default async function HomePage() {
 
   return (
     <>
+      {/* WebSite schema — Sitelinks Searchbox eligibility + brand entity
+          anchor for the Knowledge Panel. Homepage only. Audit 2026-06-21. */}
+      <WebSiteJsonLd />
+
       {/* Per-testimonial Review schema — each visible testimonial gets a
           structured Review block referencing the EducationalOrganization
           (Pillar 3 P3-13 / Pillar 7 cross-feed). Emit BEFORE the visible
