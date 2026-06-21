@@ -28,6 +28,13 @@ const nextConfig: NextConfig = {
    *   - posthog-js: tree-shakable; helps drop dead capture/replay code paths
    */
   experimental: {
+    // NOTE: experimental.optimizeCss (Beasties critical-CSS inlining) was
+    // tried 2026-06-22 to kill the render-blocking Tailwind sheet but is a
+    // no-op in the App Router — React manages stylesheets via
+    // data-precedence and Beasties (a Pages-Router/static-HTML tool) never
+    // touches the streamed RSC output. Verified: served HTML still carried
+    // both blocking <link rel=stylesheet> and zero inlined <style>. Do not
+    // re-add without confirming it actually inlines in the served response.
     optimizePackageImports: [
       "lucide-react",
       "@base-ui/react",

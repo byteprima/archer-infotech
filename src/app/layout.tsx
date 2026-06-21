@@ -76,28 +76,23 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
       <head>
-        {/* Preconnect to third-party origins the page contacts during /
-            shortly after load. Establishing the DNS + TCP + TLS handshake
-            earlier saves 100-300ms per origin on mobile-4G — PSI's
-            network dependency tree currently shows zero preconnects.
-            Limit to four origins (Chrome ignores additional preconnects
-            beyond ~6, and each one consumes a connection slot).
-              - Google Tag Manager: gtag.js loader (lazy-mounted via
-                GoogleAnalyticsLazy, but the handshake can warm up early)
-              - Google Analytics: gtag config endpoint
-              - fonts.gstatic.com: served by next/font, but the runtime
-                still fetches the WOFF2 from there during paint
-              - static.cloudflareinsights.com: beacon.min.js
-            crossOrigin is required for fonts (anonymous CORS request);
-            for analytics it's harmless and matches the actual fetch. */}
-        <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://www.google-analytics.com" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        {/* 4th (final) preconnect slot: www.google.com — every Google Maps
-            iframe (contact + 12 location pages) goes here, and the /review
-            redirect target (g.page) sits on Google infra too. Warming the
-            handshake saves 100-300ms on iframe load. */}
-        <link rel="preconnect" href="https://www.google.com" crossOrigin="anonymous" />
+        {/* Resource hints for third-party origins. None of these are
+            contacted during the LCP window, so they're dns-prefetch (DNS
+            only, ~free) rather than preconnect (full TCP+TLS handshake held
+            open). PSI flagged the previous four preconnects as "unused" —
+            a preconnect that isn't used within ~10s is dropped by Chrome and
+            wastes a connection slot.
+              - Google Tag Manager / Google Analytics: lazy-mounted via
+                GoogleAnalyticsLazy, fire seconds after paint
+              - www.google.com: below-the-fold Maps iframes (contact + 12
+                location pages) and the /review (g.page) redirect target
+              - static.cloudflareinsights.com: beacon.min.js (post-load RUM)
+            fonts.gstatic.com is intentionally absent: next/font/google
+            downloads the WOFF2 at build time and self-hosts it from
+            /_next/static/media, so the browser never connects to gstatic. */}
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+        <link rel="dns-prefetch" href="https://www.google.com" />
         <link rel="dns-prefetch" href="https://static.cloudflareinsights.com" />
         {/* Ahrefs Web Analytics handshake warm-up (cookieless, no PII). Uses a
             dns-prefetch rather than a 5th preconnect so it doesn't evict one of
