@@ -195,10 +195,8 @@ const nextConfig: NextConfig = {
       },
 
       // DYNAMIC — meaningfully changes weekly+ (5-min edge cache).
-      // / — home leads with current Pune hiring outlook; weekly meta refreshes.
       // /placements — new placements published with each batch close.
       // /batch-schedule — DB-backed upcoming-batch dates change weekly.
-      dynRule("/"),
       dynRule("/placements"),
       dynRule("/batch-schedule"),
 
@@ -206,6 +204,12 @@ const nextConfig: NextConfig = {
       // Course/bootcamp/trainer/audience pages refresh on quarterly content
       // review cadence per P5-27 playbook. /press + /internships + corporate
       // training are stable but occasionally bumped.
+      // / — homepage moved from DYNAMIC→STABLE 2026-06-22: at 5-min s-maxage
+      // most low-traffic visits hit cf-cache-status:EXPIRED and paid an origin
+      // revalidation (the LCP TTFB segment). Content changes weekly and live
+      // admin edits push via revalidateTag, so a 1-hour edge TTL is safe and
+      // makes the vast majority of requests pure HITs (~0.3s TTFB).
+      stableRule("/"),
       stableRule("/about"),
       stableRule("/internships"),
       stableRule("/corporate-training"),

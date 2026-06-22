@@ -29,6 +29,12 @@ const inter = Inter({
   variable: "--font-sans",
   subsets: ["latin"],
   display: "swap",
+  // NOTE: adding an explicit `weight` array here is a no-op — verified
+  // 2026-06-22 it produced byte-identical output. next/font already emits Inter
+  // as unicode-range subsets (latin, latin-ext, …); only the ~48KiB latin
+  // subset is preloaded and downloaded for English content, the rest are lazy.
+  // The latin subset can't be shrunk further via the next/font API, so this is
+  // already optimal — don't re-attempt weight pinning to "reduce" it.
 });
 
 export const metadata: Metadata = {
