@@ -8,11 +8,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { updateLead, type LeadUpdateData } from "@/lib/actions/admin-leads";
+import { createLead, updateLead, type LeadUpdateData } from "@/lib/actions/admin-leads";
 import type { Lead } from "@/db/schema";
 
 interface LeadFormProps {
-  lead: Lead;
+  lead?: Lead;
 }
 
 function formatDateTimeLocal(value: Date | null) {
@@ -32,26 +32,27 @@ function formatDateTimeLocal(value: Date | null) {
 
 export function LeadForm({ lead }: LeadFormProps) {
   const router = useRouter();
+  const isEditing = Boolean(lead);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string[]>>({});
   const [formData, setFormData] = useState<LeadUpdateData>({
-    name: lead.name,
-    email: lead.email,
-    phone: lead.phone,
-    courseInterest: lead.courseInterest || "",
-    message: lead.message || "",
-    source: lead.source || "",
+    name: lead?.name || "",
+    email: lead?.email || "",
+    phone: lead?.phone || "",
+    courseInterest: lead?.courseInterest || "",
+    message: lead?.message || "",
+    source: lead?.source || (isEditing ? "" : "manual"),
     status:
-      lead.status === "contacted" ||
-      lead.status === "qualified" ||
-      lead.status === "converted" ||
-      lead.status === "closed"
+      lead?.status === "contacted" ||
+      lead?.status === "qualified" ||
+      lead?.status === "converted" ||
+      lead?.status === "closed"
         ? lead.status
         : "new",
-    notes: lead.notes || "",
-    assignedTo: lead.assignedTo || "",
-    followUpDate: formatDateTimeLocal(lead.followUpDate),
+    notes: lead?.notes || "",
+    assignedTo: lead?.assignedTo || "",
+    followUpDate: formatDateTimeLocal(lead?.followUpDate ?? null),
   });
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -61,7 +62,7 @@ export function LeadForm({ lead }: LeadFormProps) {
     setFieldErrors({});
 
     try {
-      const result = await updateLead(lead.id, formData);
+      const result = lead ? await updateLead(lead.id, formData) : await createLead(formData);
 
       if (!result.success) {
         setError(result.message);
@@ -69,7 +70,13 @@ export function LeadForm({ lead }: LeadFormProps) {
         return;
       }
 
-      router.refresh();
+      if (lead) {
+        router.refresh();
+      } else if (result.id) {
+        router.push(`/admin/leads/${result.id}`);
+      } else {
+        router.push("/admin/leads");
+      }
     } catch {
       setError("Something went wrong while saving the lead.");
     } finally {
@@ -236,7 +243,7 @@ export function LeadForm({ lead }: LeadFormProps) {
                 ) : (
                   <>
                     <Save className="mr-2 h-4 w-4" />
-                    Save Changes
+                    {isEditing ? "Save Changes" : "Add Lead"}
                   </>
                 )}
               </Button>

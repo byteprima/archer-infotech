@@ -3,6 +3,7 @@ import { and, desc, eq, like, or } from "drizzle-orm";
 import { db } from "@/db";
 import { leads } from "@/db/schema";
 import { isAdmin } from "@/lib/auth";
+import { buildSourceCondition } from "@/lib/leads/source-filter";
 
 function escapeCsv(value: string | null | undefined) {
   if (!value) {
@@ -38,8 +39,9 @@ export async function GET(request: NextRequest) {
     conditions.push(eq(leads.status, status));
   }
 
-  if (source) {
-    conditions.push(eq(leads.source, source));
+  const sourceCondition = buildSourceCondition(source || "");
+  if (sourceCondition) {
+    conditions.push(sourceCondition);
   }
 
   const rows = await db

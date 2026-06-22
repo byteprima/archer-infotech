@@ -22,10 +22,28 @@ const updateLeadSchema = z.object({
 
 export type LeadUpdateData = z.infer<typeof updateLeadSchema>;
 
+// Manual create: name + phone are required (a WhatsApp enquiry often has only a
+// phone), email is optional, and source defaults to "manual".
+const createLeadSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters."),
+  email: z.string().email("Please enter a valid email address.").or(z.literal("")).optional(),
+  phone: z.string().min(8, "Please enter a valid phone number."),
+  courseInterest: z.string().optional(),
+  message: z.string().optional(),
+  source: z.string().optional(),
+  status: z.enum(LEAD_STATUS).optional(),
+  notes: z.string().optional(),
+  assignedTo: z.string().optional(),
+  followUpDate: z.string().optional(),
+});
+
+export type LeadCreateData = z.infer<typeof createLeadSchema>;
+
 export type ActionResult = {
   success: boolean;
   message: string;
   errors?: Record<string, string[]>;
+  id?: number;
 };
 
 export async function getLeadById(id: number) {
@@ -33,6 +51,61 @@ export async function getLeadById(id: number) {
 
   const result = await db.select().from(leads).where(eq(leads.id, id)).limit(1);
   return result[0] || null;
+}
+
+export async function createLead(data: LeadCreateData): Promise<ActionResult> {
+  await requireAdminAction();
+
+  const validation = createLeadSchema.safeParse(data);
+
+  if (!validation.success) {
+    return {
+      success: false,
+      message: "Validation failed.",
+      errors: validation.error.flatten().fieldErrors,
+    };
+  }
+
+  const followUpDate = validation.data.followUpDate
+    ? new Date(validation.data.followUpDate)
+    : null;
+
+  const inserted = await db
+    .insert(leads)
+    .values({
+      name: validation.data.name,
+      email: validation.data.email || "",
+      phone: validation.data.phone,
+      courseInterest: validation.data.courseInterest || null,
+      message: validation.data.message || null,
+      source: validation.data.source || "manual",
+      status: validation.data.status || "new",
+      notes: validation.data.notes || null,
+      assignedTo: validation.data.assignedTo || null,
+      followUpDate,
+    })
+    .returning({ id: leads.id });
+
+  const newId = inserted[0]?.id;
+
+  revalidatePath("/admin/leads");
+
+  await logAdminAction({
+    action: "lead.create",
+    entityType: "lead",
+    entityId: newId,
+    summary: `Added lead "${validation.data.name}"`,
+    metadata: {
+      source: validation.data.source || "manual",
+      status: validation.data.status || "new",
+    },
+  });
+
+  return {
+    success: true,
+    message: "Lead added successfully.",
+    id: newId,
+  };
 }
 
 export async function updateLead(id: number, data: LeadUpdateData): Promise<ActionResult> {

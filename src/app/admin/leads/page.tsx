@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ChevronLeft, Download, Search } from "lucide-react";
+import { ChevronLeft, Download, Plus, Search } from "lucide-react";
 import { and, desc, eq, like, or } from "drizzle-orm";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { requireAdminPage } from "@/lib/admin";
 import { db } from "@/db";
 import { leads as leadsTable } from "@/db/schema";
+import { LEAD_SOURCE_TABS, buildSourceCondition } from "@/lib/leads/source-filter";
 
 const statusColors: Record<string, string> = {
   new: "bg-green-100 text-green-800",
@@ -45,9 +46,20 @@ export default async function AdminLeadsPage({ searchParams }: AdminLeadsPagePro
     conditions.push(eq(leadsTable.status, status));
   }
 
-  if (source) {
-    conditions.push(eq(leadsTable.source, source));
+  const sourceCondition = buildSourceCondition(source);
+  if (sourceCondition) {
+    conditions.push(sourceCondition);
   }
+
+  // Preserve the active search + status when switching source tabs.
+  const tabHref = (sourceKey: string) => {
+    const sp = new URLSearchParams({
+      ...(query ? { q: query } : {}),
+      ...(status ? { status } : {}),
+      ...(sourceKey ? { source: sourceKey } : {}),
+    }).toString();
+    return sp ? `/admin/leads?${sp}` : "/admin/leads";
+  };
 
   const leads = await db
     .select()
@@ -90,6 +102,12 @@ export default async function AdminLeadsPage({ searchParams }: AdminLeadsPagePro
                   Export CSV
                 </Button>
               </a>
+              <Link href="/admin/leads/new">
+                <Button size="sm">
+                  <Plus className="h-4 w-4 mr-2" />
+                  Add Lead
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
@@ -97,10 +115,32 @@ export default async function AdminLeadsPage({ searchParams }: AdminLeadsPagePro
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8">
+        {/* Source tabs */}
+        <div className="mb-6 flex flex-wrap gap-2 border-b">
+          {LEAD_SOURCE_TABS.map((tab) => {
+            const isActive = source === tab.key;
+            return (
+              <Link
+                key={tab.key || "all"}
+                href={tabHref(tab.key)}
+                className={`-mb-px border-b-2 px-4 py-2 text-sm font-medium transition-colors ${
+                  isActive
+                    ? "border-primary text-primary"
+                    : "border-transparent text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {tab.label}
+              </Link>
+            );
+          })}
+        </div>
+
         {/* Filters */}
         <Card className="mb-6">
           <CardContent className="pt-6">
             <form className="flex flex-wrap gap-4">
+              {/* Keep the active source tab when filtering by search/status. */}
+              {source && <input type="hidden" name="source" value={source} />}
               <div className="flex-1 min-w-[200px]">
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -124,16 +164,6 @@ export default async function AdminLeadsPage({ searchParams }: AdminLeadsPagePro
                 <option value="qualified">Qualified</option>
                 <option value="converted">Converted</option>
                 <option value="closed">Closed</option>
-              </select>
-              <select
-                name="source"
-                defaultValue={source}
-                className="px-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-              >
-                <option value="">All Sources</option>
-                <option value="contact_form">Contact Form</option>
-                <option value="whatsapp">WhatsApp</option>
-                <option value="popup">Popup</option>
               </select>
               <Button type="submit" variant="outline">
                 Apply
