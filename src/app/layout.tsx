@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { GoogleAnalyticsLazy } from "@/components/analytics/google-analytics-lazy";
 import { MetaPixelLazy } from "@/components/analytics/meta-pixel-lazy";
@@ -18,14 +18,17 @@ import { ToasterLazy } from "@/components/ui/toaster-lazy";
 import { OrganizationJsonLd } from "@/components/seo/json-ld";
 import { siteConfig } from "@/data/site-config";
 
+// Inter is the only webfont actually rendered: it backs both --font-sans and
+// --font-heading (globals.css remaps --font-heading to var(--font-sans)). It's
+// the LCP element's font (the H1), so it's preloaded with display:swap so the
+// heading paints in a metric-matched fallback immediately, then upgrades.
+// Playfair Display was removed 2026-06-22: it was loaded + preloaded onto the
+// LCP critical path (~47KiB) but never rendered — 0 font-family refs in the
+// built CSS — so it only stole bandwidth from the Inter (LCP) font on mobile.
 const inter = Inter({
   variable: "--font-sans",
   subsets: ["latin"],
-});
-
-const playfair = Playfair_Display({
-  variable: "--font-heading",
-  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -74,7 +77,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
+    <html lang="en" className={inter.variable}>
       <head>
         {/* Resource hints for third-party origins. None of these are
             contacted during the LCP window, so they're dns-prefetch (DNS
