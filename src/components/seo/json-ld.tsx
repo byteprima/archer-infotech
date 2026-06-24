@@ -76,6 +76,7 @@ const SAME_AS = [
   siteConfig.social.twitter,
   siteConfig.social.youtube,
   siteConfig.social.github,
+  siteConfig.social.reddit,
   // Google Business Profile / Maps listing — the canonical GBP page for
   // the Kothrud centre. Anchors the LocalBusiness schema to the actual
   // GBP record Google already indexes.

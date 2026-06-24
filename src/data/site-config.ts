@@ -30,6 +30,7 @@ export const siteConfig = {
     twitter: "https://x.com/archerinfotech",
     youtube: "https://youtube.com/@archerinfotech2022",
     github: "https://github.com/archerinfotech",
+    reddit: "https://www.reddit.com/user/archerinfotech",
     // Wikidata entity — the entity is the canonical machine-readable
     // identifier Google + AI engines map back to our brand. Submitted
     // 2026-06-11 via wikidata_submit.py (P6-06).
