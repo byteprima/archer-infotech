@@ -786,6 +786,55 @@ export default async function CoursePage({ params }: CoursePageProps) {
         </div>
       </section>
 
+      {/* Online-mode + registration strip — full-width CTA placed right
+          after the course content/syllabus. Mirrors the /placements bottom
+          strip styling (gradient-hero). Calls out that the course also runs
+          in live online mode (only when course.mode actually includes
+          "Online" — never a false claim) and drives registration/enquiry.
+          Single insertion here applies to every course detail page. */}
+      <section className="py-16 gradient-hero text-white">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            {course.mode.includes("Online")
+              ? `Learn ${course.shortTitle} Online or at Our Pune Centre`
+              : `Start Your ${course.shortTitle} Journey Today`}
+          </h2>
+          <p className="text-white/80 mb-6 max-w-2xl mx-auto">
+            {course.mode.includes("Online")
+              ? `Good news — ${course.shortTitle} is available in live online mode as well as classroom training at our Kothrud, Pune centre. Learn from anywhere with the same trainers, curriculum and placement assistance. Register now or send us your enquiry.`
+              : `Join Archer Infotech and launch your IT career with expert trainers and placement assistance. Register now or send us your enquiry.`}
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <TrackedLink
+              href="/contact"
+              className="inline-flex items-center gap-2 bg-secondary text-secondary-foreground px-6 py-3 rounded-lg font-medium hover:bg-secondary/90 transition-colors"
+              event="course_enquiry_clicked"
+              properties={{
+                course_slug: slug,
+                course_title: course.title,
+                location: "course_online_strip",
+                cta: "register_now",
+              }}
+            >
+              Register Now
+            </TrackedLink>
+            <TrackedLink
+              href="/contact"
+              className="inline-flex items-center gap-2 border border-white text-white px-6 py-3 rounded-lg font-medium hover:bg-white hover:text-primary transition-colors"
+              event="course_enquiry_clicked"
+              properties={{
+                course_slug: slug,
+                course_title: course.title,
+                location: "course_online_strip",
+                cta: "enquire_now",
+              }}
+            >
+              Enquire Now
+            </TrackedLink>
+          </div>
+        </div>
+      </section>
+
       {/* Taught By — trainer attribution for E-E-A-T (Pillar 1 #18) */}
       {trainers.length > 0 && (
         <section className="py-12 border-t bg-muted/20">
