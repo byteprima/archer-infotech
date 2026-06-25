@@ -1,0 +1,50 @@
+name: Cache Warm
+
+# P0 (2026-06-25 audit): keep the Cloudflare edge + Next.js ISR cache hot.
+# A Screaming Frog crawl flagged ~226 "No Response" URLs — verified to be
+# crawl timeouts caused by cold cache MISSes hitting the single origin in
+# Germany (burst test: slowest 15.6s vs SF's ~20s timeout). The same cold-
+# MISS penalty drives the CrUX mobile TTFB ~1.67s / LCP ~3.15s "needs
+# improvement". Periodically fetching every sitemap URL keeps pages
+# pre-rendered at origin and warm at the edge, so real users + crawlers get
+# fast HITs instead of cold origin round-trips.
+#
+# NOTE: GitHub runners warm the origin ISR cache (shared across all CF PoPs)
+# + the nearest CF colo. It materially cuts the cold-render TTFB component;
+# the durable India-edge fix is origin capacity/location (tracked separately).
+
+on:
+  schedule:
+    - cron: "0 */6 * * *" # every 6 hours
+  workflow_dispatch: {} # allow manual runs
+
+# Don't pile up overlapping warms.
+concurrency:
+  group: cache-warm
+  cancel-in-progress: false
+
+jobs:
+  warm:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Warm edge + origin ISR cache
+        run: |
+          set -uo pipefail
+          UA='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36'
+          export UA
+
+          curl -s -A "$UA" https://archerinfotech.in/sitemap.xml \
+            | grep -oE 'https://archerinfotech\.in[^<]*' > urls.txt
+          COUNT=$(wc -l < urls.txt)
+          echo "Warming ${COUNT} URLs (status time url)…"
+
+          # Low concurrency (-P 4) so we warm quickly without overwhelming the
+          # single origin and re-triggering the very timeouts we're fixing.
+          cat urls.txt | xargs -P 4 -I{} bash -c '
+            out=$(curl -s -o /dev/null -w "%{http_code} %{time_total}s" -A "$UA" --max-time 30 "$1")
+            echo "$out  $1"
+          ' _ {}
+
+          echo "----"
+          echo "Cache warm complete for ${COUNT} URLs."
