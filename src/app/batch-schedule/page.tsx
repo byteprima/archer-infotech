@@ -1,6 +1,6 @@
 import { Metadata } from "next";
-import { Calendar, Clock, Users, MapPin, Monitor, Phone } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { MapPin, Monitor, Phone } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PageEvent } from "@/components/analytics/page-event";
@@ -36,60 +36,90 @@ export const metadata: Metadata = {
   },
 };
 
-function BatchCard({ batch }: { batch: Batch }) {
-  const isAlmostFull = batch.seatsAvailable <= 5;
-
-  return (
-    <Card className="hover:shadow-lg transition-shadow">
-      <CardHeader className="pb-3">
-        <div className="flex items-start justify-between">
-          <CardTitle className="text-lg">{batch.courseName}</CardTitle>
-          {isAlmostFull && (
-            <Badge className="bg-red-100 text-red-700">Almost Full</Badge>
-          )}
-        </div>
-      </CardHeader>
-      <CardContent className="space-y-3">
-        <div className="flex items-center gap-2 text-sm">
-          <Calendar className="h-4 w-4 text-primary" />
-          <span>Starts: {new Date(batch.startDate).toLocaleDateString("en-IN", { year: "numeric", month: "long", day: "numeric" })}</span>
-        </div>
-        <div className="flex items-center gap-2 text-sm">
-          <Clock className="h-4 w-4 text-primary" />
-          <span>{batch.timing}</span>
-        </div>
-        <div className="flex items-center gap-2 text-sm">
-          {batch.mode === "offline" ? (
-            <MapPin className="h-4 w-4 text-primary" />
-          ) : (
-            <Monitor className="h-4 w-4 text-primary" />
-          )}
-          <span>{batch.mode === "offline" ? "Classroom Training" : "Live Online"}</span>
-        </div>
-        <div className="flex items-center gap-2 text-sm">
-          <Users className="h-4 w-4 text-primary" />
-          <span>
-            {batch.seatsAvailable} of {batch.totalSeats} seats available
-          </span>
-        </div>
-        <div className="pt-2">
-          <Badge variant="outline">{batch.duration}</Badge>
-        </div>
+function BatchTable({ batches }: { batches: Batch[] }) {
+  if (batches.length === 0) {
+    return (
+      <div className="rounded-lg border bg-muted/30 p-8 text-center text-sm text-muted-foreground">
+        No upcoming batches scheduled right now.{" "}
         <TrackedLink
           href="/contact"
-          className="inline-flex items-center gap-2 w-full justify-center bg-secondary text-secondary-foreground py-2 rounded-lg text-sm font-medium hover:bg-secondary/90 transition-colors mt-2"
+          className="text-primary font-medium hover:underline"
           event="batch_enroll_clicked"
-          properties={{
-            course_name: batch.courseName,
-            batch_mode: batch.mode,
-            seats_available: batch.seatsAvailable,
-            location: "batch_schedule",
-          }}
+          properties={{ location: "batch_schedule_empty" }}
         >
-          Enroll Now
-        </TrackedLink>
-      </CardContent>
-    </Card>
+          Contact us
+        </TrackedLink>{" "}
+        for the next available dates.
+      </div>
+    );
+  }
+
+  return (
+    <div className="overflow-x-auto rounded-lg border">
+      <table className="w-full border-collapse text-sm">
+        <thead>
+          <tr className="border-b bg-muted/50 text-left">
+            <th scope="col" className="px-4 py-3 font-semibold">Course</th>
+            <th scope="col" className="px-4 py-3 font-semibold whitespace-nowrap">Starts</th>
+            <th scope="col" className="px-4 py-3 font-semibold whitespace-nowrap">Timing</th>
+            <th scope="col" className="px-4 py-3 font-semibold whitespace-nowrap">Duration</th>
+            <th scope="col" className="px-4 py-3 font-semibold whitespace-nowrap">Seats</th>
+            <th scope="col" className="px-4 py-3 font-semibold text-right">Enroll</th>
+          </tr>
+        </thead>
+        <tbody>
+          {batches.map((batch) => {
+            const isAlmostFull = batch.seatsAvailable <= 5;
+            return (
+              <tr
+                key={batch.id}
+                className="border-b last:border-0 hover:bg-muted/30 transition-colors"
+              >
+                <td className="px-4 py-3">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="font-medium">{batch.courseName}</span>
+                    {isAlmostFull && (
+                      <Badge className="bg-red-100 text-red-700">Almost Full</Badge>
+                    )}
+                  </div>
+                </td>
+                <td className="px-4 py-3 whitespace-nowrap text-muted-foreground">
+                  {new Date(batch.startDate).toLocaleDateString("en-IN", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                  })}
+                </td>
+                <td className="px-4 py-3 whitespace-nowrap text-muted-foreground">
+                  {batch.timing}
+                </td>
+                <td className="px-4 py-3 whitespace-nowrap text-muted-foreground">
+                  {batch.duration}
+                </td>
+                <td className="px-4 py-3 whitespace-nowrap text-muted-foreground">
+                  {batch.seatsAvailable} / {batch.totalSeats}
+                </td>
+                <td className="px-4 py-3 text-right">
+                  <TrackedLink
+                    href="/contact"
+                    className="inline-flex items-center justify-center whitespace-nowrap rounded-lg bg-secondary px-4 py-2 text-xs font-medium text-secondary-foreground transition-colors hover:bg-secondary/90"
+                    event="batch_enroll_clicked"
+                    properties={{
+                      course_name: batch.courseName,
+                      batch_mode: batch.mode,
+                      seats_available: batch.seatsAvailable,
+                      location: "batch_schedule",
+                    }}
+                  >
+                    Enroll Now
+                  </TrackedLink>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
   );
 }
 
@@ -191,11 +221,7 @@ export default async function BatchSchedulePage() {
                   personalized attention.
                 </p>
               </div>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {offlineBatches.map((batch) => (
-                  <BatchCard key={batch.id} batch={batch} />
-                ))}
-              </div>
+              <BatchTable batches={offlineBatches} />
             </TabsContent>
 
             <TabsContent value="online">
@@ -209,11 +235,7 @@ export default async function BatchSchedulePage() {
                   anywhere with the same quality training.
                 </p>
               </div>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {onlineBatches.map((batch) => (
-                  <BatchCard key={batch.id} batch={batch} />
-                ))}
-              </div>
+              <BatchTable batches={onlineBatches} />
             </TabsContent>
           </Tabs>
         </div>
