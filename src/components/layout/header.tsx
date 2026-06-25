@@ -26,6 +26,7 @@ import {
   TwitterIcon,
   YoutubeIcon,
   GitHubIcon,
+  RedditIcon,
 } from "@/components/common/social-icons";
 import { buttonVariants } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
@@ -171,6 +172,16 @@ export function Header() {
                 onClick={() => trackSocialClick("github", "header_top_bar")}
               >
                 <GitHubIcon />
+              </a>
+              <a
+                href={siteConfig.social.reddit}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-secondary transition-colors"
+                aria-label="Reddit"
+                onClick={() => trackSocialClick("reddit", "header_top_bar")}
+              >
+                <RedditIcon />
               </a>
             </div>
           </div>

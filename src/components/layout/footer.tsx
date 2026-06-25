@@ -71,6 +71,14 @@ function YouTubeIcon({ className }: { className?: string }) {
   );
 }
 
+function RedditIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M24 11.779c0-1.459-1.192-2.645-2.657-2.645-.715 0-1.363.286-1.84.746-1.81-1.191-4.259-1.949-6.971-2.046l1.483-4.669 4.016.941-.006.058c0 1.193.975 2.163 2.174 2.163 1.198 0 2.172-.97 2.172-2.163s-.975-2.164-2.172-2.164c-.92 0-1.704.574-2.021 1.379l-4.329-1.015c-.189-.046-.381.063-.44.249l-1.654 5.207c-2.838.034-5.409.798-7.3 2.025-.474-.438-1.103-.712-1.799-.712-1.465 0-2.656 1.187-2.656 2.646 0 .97.533 1.811 1.317 2.271-.052.282-.086.567-.086.857 0 3.911 4.808 7.093 10.719 7.093s10.72-3.182 10.72-7.093c0-.288-.029-.571-.082-.845.79-.456 1.331-1.301 1.331-2.275zm-17.224 1.816c0-.836.679-1.517 1.515-1.517.833 0 1.511.677 1.511 1.517 0 .833-.678 1.511-1.511 1.511-.836.002-1.515-.678-1.515-1.511zm9.061 4.669c-.929.928-2.711.999-3.234.999-.522 0-2.305-.072-3.232-.999-.138-.14-.138-.362 0-.501.139-.139.361-.139.5 0 .585.587 1.84.793 2.732.793.893 0 2.148-.206 2.732-.793.139-.139.362-.139.501 0 .137.139.137.361 0 .501zm-.235-3.158c-.834 0-1.512-.678-1.512-1.511 0-.836.678-1.517 1.512-1.517.833 0 1.511.681 1.511 1.517 0 .833-.678 1.511-1.511 1.511z" />
+    </svg>
+  );
+}
+
 const categoryIcons: Record<string, LucideIcon> = {
   Code,
   Layers,
@@ -178,6 +186,17 @@ export function Footer() {
                 properties={{ network: "github", location: "footer" }}
               >
                 <GitHubIcon className="h-5 w-5" />
+              </TrackedAnchor>
+              <TrackedAnchor
+                href={siteConfig.social.reddit}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary-foreground/70 hover:text-secondary transition-colors"
+                aria-label="Reddit"
+                event="social_link_clicked"
+                properties={{ network: "reddit", location: "footer" }}
+              >
+                <RedditIcon className="h-5 w-5" />
               </TrackedAnchor>
             </div>
           </div>
