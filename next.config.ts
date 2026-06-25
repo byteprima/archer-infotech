@@ -147,6 +147,35 @@ const nextConfig: NextConfig = {
         "public, max-age=0, s-maxage=21600, stale-while-revalidate=86400",
     };
 
+    // Content-Security-Policy (P1, 2026-06-25 audit — closes the "Missing CSP"
+    // finding). Pragmatic policy: the high-value directives are strict
+    // (object-src none, base-uri self, frame-ancestors self, form-action self)
+    // for real clickjacking / base-tag / plugin / exfil protection, while
+    // script/style/img/connect/frame allow the known third parties so nothing
+    // breaks. script-src keeps 'unsafe-inline' + 'unsafe-eval' because Next.js
+    // emits inline hydration scripts and GTM injects inline — a nonce-based
+    // strict policy would need app-wide nonce plumbing (separate task).
+    // Allowed origins: Google Tag Manager + GA4, Meta Pixel, PostHog, YouTube
+    // (no-cookie embeds) and Google Maps embeds. Add new origins here when a
+    // new tag/embed is introduced — GTM-injected tags from un-allowlisted
+    // hosts will otherwise be blocked.
+    const CONTENT_SECURITY_POLICY = [
+      "default-src 'self'",
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://connect.facebook.net https://us.i.posthog.com https://us-assets.i.posthog.com https://*.posthog.com https://static.cloudflareinsights.com https://analytics.ahrefs.com",
+      "style-src 'self' 'unsafe-inline'",
+      "img-src 'self' data: blob: https:",
+      "font-src 'self' data:",
+      "connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com https://us.i.posthog.com https://us-assets.i.posthog.com https://*.posthog.com https://connect.facebook.net https://www.facebook.com https://graph.facebook.com https://cloudflareinsights.com https://static.cloudflareinsights.com https://analytics.ahrefs.com",
+      "frame-src 'self' https://www.youtube-nocookie.com https://www.youtube.com https://www.google.com https://td.doubleclick.net",
+      "worker-src 'self' blob:",
+      "manifest-src 'self'",
+      "base-uri 'self'",
+      "form-action 'self'",
+      "frame-ancestors 'self'",
+      "object-src 'none'",
+      "upgrade-insecure-requests",
+    ].join("; ");
+
     // Security headers — set globally on every response.
     const SECURITY_HEADERS = [
       // HSTS: 2 years + includeSubDomains + preload (no www subdomain in use today
@@ -155,6 +184,7 @@ const nextConfig: NextConfig = {
         key: "Strict-Transport-Security",
         value: "max-age=63072000; includeSubDomains; preload",
       },
+      { key: "Content-Security-Policy", value: CONTENT_SECURITY_POLICY },
       { key: "X-Content-Type-Options", value: "nosniff" },
       { key: "X-Frame-Options", value: "SAMEORIGIN" },
       { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
