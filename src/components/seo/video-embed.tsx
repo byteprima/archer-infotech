@@ -65,9 +65,16 @@ export function VideoEmbed({
   pagePath,
   aspect = "16/9",
 }: VideoEmbedProps) {
-  const thumb =
-    thumbnailUrl ??
-    `https://i.ytimg.com/vi/${youtubeId}/hqdefault.jpg`;
+  const ytThumb = (quality: string) =>
+    `https://i.ytimg.com/vi/${youtubeId}/${quality}.jpg`;
+  // The visible fallback image must use a size that exists for EVERY video —
+  // maxresdefault/sddefault 404 for most uploads (verified 2026-06-26: only
+  // 1 of 5 course videos has maxres), so hqdefault is the universal guarantee.
+  const thumbDisplay = thumbnailUrl
+    ? thumbnailUrl.startsWith("http")
+      ? thumbnailUrl
+      : `${baseUrl}${thumbnailUrl}`
+    : ytThumb("hqdefault");
   const watchUrl = `https://www.youtube.com/watch?v=${youtubeId}`;
   const embedUrl = `https://www.youtube-nocookie.com/embed/${youtubeId}?rel=0`;
   const id = schemaId ?? `video-${youtubeId}`;
@@ -91,10 +98,20 @@ export function VideoEmbed({
     "@id": `${baseUrl}${pagePath ?? ""}#${id}`,
     name: title,
     description,
-    thumbnailUrl: thumb.startsWith("http") ? thumb : `${baseUrl}${thumb}`,
+    // Offer multiple resolutions largest-first so Google picks the best
+    // AVAILABLE one per video (it skips past any 404). Meets Google's
+    // "provide high-resolution thumbnails" guidance without forcing a maxres
+    // URL that 404s on most uploads. A caller-supplied thumbnailUrl overrides
+    // with that single image.
+    thumbnailUrl: thumbnailUrl
+      ? thumbDisplay
+      : [ytThumb("maxresdefault"), ytThumb("sddefault"), ytThumb("hqdefault")],
     uploadDate: uploadDateTime,
     duration,
-    contentUrl: watchUrl,
+    // contentUrl intentionally omitted: it must be a direct media-file URL,
+    // which YouTube doesn't expose. Google uses embedUrl for YouTube embeds;
+    // a watch-page contentUrl is non-spec and can trigger "couldn't fetch the
+    // video". embedUrl alone satisfies VideoObject's URL requirement.
     embedUrl,
     // Reference the canonical Organization @id graph instead of
     // redeclaring publisher fields (matches P8-04 wave 1 + 3 patterns).
@@ -133,7 +150,7 @@ export function VideoEmbed({
               eslint @next/next/no-img-element disabled deliberately here. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={thumb}
+            src={thumbDisplay}
             alt={`${title} — watch on YouTube`}
             width={640}
             height={360}
