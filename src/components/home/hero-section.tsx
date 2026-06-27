@@ -7,6 +7,7 @@ import { ArrowRight, CheckCircle } from "lucide-react";
 import { siteConfig } from "@/data/site-config";
 import { AnimatedCounter } from "@/components/common/animated-counter";
 import { TrackedLink } from "@/components/analytics/tracked-link";
+import { CounselorDialog } from "@/components/common/counselor-dialog";
 
 export function HeroSection() {
   return (
@@ -81,6 +82,11 @@ export function HeroSection() {
               >
                 Request Callback
               </TrackedLink>
+              <CounselorDialog
+                location="homepage_hero"
+                triggerLabel="Ask a Counsellor"
+                triggerClassName="inline-flex items-center gap-2 rounded-lg border-2 border-secondary bg-transparent px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-secondary hover:text-secondary-foreground"
+              />
             </div>
           </div>
 

@@ -4,9 +4,8 @@
  * hydration tree. Pillar 1 P3-09 + perf cleanup. */
 import Link from "next/link";
 import { ArrowRight, Phone } from "lucide-react";
-import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import { siteConfig } from "@/data/site-config";
+import { CounselorDialog } from "@/components/common/counselor-dialog";
 
 export function CTASection() {
   return (
@@ -48,6 +47,11 @@ export function CTASection() {
               <Phone className="mr-2 h-5 w-5" />
               Call Us: {siteConfig.contact.phone}
             </a>
+            <CounselorDialog
+              location="homepage_cta"
+              triggerLabel="Ask a Counsellor"
+              triggerClassName="inline-flex items-center gap-2 rounded-lg border-2 border-secondary bg-transparent px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-secondary hover:text-secondary-foreground"
+            />
           </div>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-sm">
             <div className="flex items-center gap-2">

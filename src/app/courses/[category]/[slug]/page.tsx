@@ -57,6 +57,7 @@ import { getCourseVideo } from "@/data/course-videos";
 import { getRelatedBlogPosts } from "@/lib/actions/blog";
 import { deriveCourseKeywords } from "@/lib/seo/course-keywords";
 import { getRelatedAssetsForCourse } from "@/lib/seo/course-related-assets";
+import { CounselorDialog } from "@/components/common/counselor-dialog";
 
 interface CoursePageProps {
   params: Promise<{
@@ -372,6 +373,12 @@ export default async function CoursePage({ params }: CoursePageProps) {
                   <Phone className="h-4 w-4" />
                   {siteConfig.contact.phone}
                 </TrackedAnchor>
+                <CounselorDialog
+                  location="course_hero_card"
+                  defaultCourse={course.title}
+                  triggerLabel="Ask a Counsellor"
+                  triggerClassName="flex items-center justify-center gap-2 w-full border py-3 rounded-lg font-medium hover:bg-muted transition-colors"
+                />
               </div>
               <div className="mt-4 pt-4 border-t text-center text-sm text-muted-foreground">
                 <p>Next batch starting soon!</p>
@@ -1110,6 +1117,12 @@ export default async function CoursePage({ params }: CoursePageProps) {
             >
               View Batch Schedule
             </TrackedLink>
+            <CounselorDialog
+              location="course_bottom_cta"
+              defaultCourse={course.title}
+              triggerLabel="Ask a Counsellor"
+              triggerClassName="inline-flex items-center gap-2 border px-6 py-3 rounded-lg font-medium hover:bg-muted transition-colors"
+            />
           </div>
         </div>
       </section>

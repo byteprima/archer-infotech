@@ -6,6 +6,7 @@ import { MetaPixelLazy } from "@/components/analytics/meta-pixel-lazy";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { WhatsAppButtonLazy } from "@/components/common/whatsapp-button-lazy";
+import { CounselorFabLazy } from "@/components/common/counselor-fab-lazy";
 import { ChatWidgetLazy } from "@/components/chat/chat-widget-lazy";
 import { CookieConsentBanner } from "@/components/common/cookie-consent-banner";
 // P-12 follow-up (2026-06-04): sonner Toaster was 37 KB in the eager shared
@@ -131,6 +132,7 @@ export default function RootLayout({
         <main className="flex-grow">{children}</main>
         <Footer />
         <WhatsAppButtonLazy />
+        <CounselorFabLazy />
         {process.env.NEXT_PUBLIC_CHAT_ENABLED === "true" && <ChatWidgetLazy />}
         <CookieConsentBanner />
         <ToasterLazy />
