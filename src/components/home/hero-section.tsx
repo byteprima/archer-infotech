@@ -3,7 +3,7 @@
 // waiting on JS. The only interactive bits (the two CTA clicks) are
 // delegated to <TrackedLink>, a small client island that fires the same
 // PostHog event. AnimatedCounter is a pure server component.
-import { ArrowRight, CheckCircle } from "lucide-react";
+import { SpriteIcon } from "@/components/ui/icon-sprite";
 import { siteConfig } from "@/data/site-config";
 import { AnimatedCounter } from "@/components/common/animated-counter";
 import { TrackedLink } from "@/components/analytics/tracked-link";
@@ -52,7 +52,7 @@ export function HeroSection() {
                 "Placement Assistance",
               ].map((point) => (
                 <div key={point} className="flex items-center gap-2">
-                  <CheckCircle className="h-5 w-5 text-secondary" />
+                  <SpriteIcon name="check" className="h-5 w-5 text-secondary" />
                   <span className="text-sm">{point}</span>
                 </div>
               ))}
@@ -67,7 +67,7 @@ export function HeroSection() {
                 properties={{ cta: "explore_courses", location: "homepage_hero" }}
               >
                 Explore Courses
-                <ArrowRight className="ml-2 h-5 w-5" />
+                <SpriteIcon name="arrow-right" className="ml-2 h-5 w-5" />
               </TrackedLink>
               <TrackedLink
                 href="/contact"

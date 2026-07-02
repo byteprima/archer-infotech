@@ -3,7 +3,8 @@
  * means zero JS ships for this section, which trims the home-page
  * hydration tree. Pillar 1 P3-09 + perf cleanup. */
 import Link from "next/link";
-import { ArrowRight, Phone } from "lucide-react";
+import { Phone } from "lucide-react";
+import { SpriteIcon } from "@/components/ui/icon-sprite";
 import { siteConfig } from "@/data/site-config";
 import { CounselorDialog } from "@/components/common/counselor-dialog";
 
@@ -38,7 +39,7 @@ export function CTASection() {
               className="inline-flex items-center justify-center rounded-lg bg-secondary hover:bg-secondary/90 text-secondary-foreground px-6 py-3 text-sm font-semibold transition-all"
             >
               Enquire Now
-              <ArrowRight className="ml-2 h-5 w-5" />
+              <SpriteIcon name="arrow-right" className="ml-2 h-5 w-5" />
             </Link>
             <a
               href={`tel:${siteConfig.contact.phone}`}

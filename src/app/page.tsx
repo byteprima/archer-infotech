@@ -28,6 +28,7 @@ import { getHomeTestimonials } from "@/lib/actions/public-testimonials";
 import { siteConfig } from "@/data/site-config";
 import { buildPageMetadata } from "@/lib/seo";
 import { ReviewListJsonLd, WebSiteJsonLd } from "@/components/seo/json-ld";
+import { IconSprite } from "@/components/ui/icon-sprite";
 import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { FaqSection } from "@/components/seo/faq-section";
 import { homeFaqs } from "@/data/faqs";
@@ -53,6 +54,11 @@ export default async function HomePage() {
 
   return (
     <>
+      {/* Icon-sprite defs (star/check/arrow) — defined once here so the home
+          sections below can reference them via <use> instead of re-inlining
+          each lucide path dozens of times. See components/ui/icon-sprite. */}
+      <IconSprite />
+
       {/* WebSite schema — Sitelinks Searchbox eligibility + brand entity
           anchor for the Knowledge Panel. Homepage only. Audit 2026-06-21. */}
       <WebSiteJsonLd />

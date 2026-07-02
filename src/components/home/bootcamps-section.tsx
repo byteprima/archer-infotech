@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Clock, Users, Rocket, CheckCircle } from "lucide-react";
+import { Clock, Users, Rocket } from "lucide-react";
+import { SpriteIcon } from "@/components/ui/icon-sprite";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { buttonVariants } from "@/components/ui/button";
@@ -62,7 +63,7 @@ function BootcampCard({ course }: { course: CourseSummary }) {
         <ul className="space-y-2 mb-4">
           {(BOOTCAMP_HIGHLIGHTS[course.slug] ?? []).map((highlight) => (
             <li key={highlight} className="flex items-start gap-2 text-sm">
-              <CheckCircle className="h-4 w-4 text-primary mt-0.5 shrink-0" />
+              <SpriteIcon name="check" className="h-4 w-4 text-primary mt-0.5 shrink-0" />
               <span className="text-muted-foreground">{highlight}</span>
             </li>
           ))}
@@ -91,7 +92,7 @@ function BootcampCard({ course }: { course: CourseSummary }) {
           }
         >
           View Details
-          <ArrowRight className="ml-2 h-4 w-4" />
+          <SpriteIcon name="arrow-right" className="ml-2 h-4 w-4" />
         </Link>
       </CardFooter>
     </Card>
@@ -128,7 +129,7 @@ export function BootcampsSection() {
             }
           >
             View All Bootcamps
-            <ArrowRight className="ml-2 h-4 w-4" />
+            <SpriteIcon name="arrow-right" className="ml-2 h-4 w-4" />
           </Link>
         </div>
 

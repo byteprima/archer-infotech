@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Clock, BarChart } from "lucide-react";
+import { Clock, BarChart } from "lucide-react";
+import { SpriteIcon } from "@/components/ui/icon-sprite";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { buttonVariants } from "@/components/ui/button";
@@ -65,7 +66,7 @@ function CourseCard({ course }: { course: CourseSummary }) {
           }
         >
           View Details
-          <ArrowRight className="ml-2 h-4 w-4" />
+          <SpriteIcon name="arrow-right" className="ml-2 h-4 w-4" />
         </Link>
       </CardFooter>
     </Card>
@@ -98,7 +99,7 @@ export function CoursesSection() {
             }
           >
             View All Courses
-            <ArrowRight className="ml-2 h-4 w-4" />
+            <SpriteIcon name="arrow-right" className="ml-2 h-4 w-4" />
           </Link>
         </div>
 
