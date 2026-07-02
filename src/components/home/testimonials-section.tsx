@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronLeft, ChevronRight, Quote, Star } from "lucide-react";
+import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
+import { StarSprite, StarRating } from "@/components/ui/star-rating";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -110,14 +111,7 @@ function TestimonialCard({ testimonial }: { testimonial: TestimonialData }) {
             </div>
           )}
         </div>
-        <div className="flex items-center gap-1 mt-4">
-          {Array.from({ length: testimonial.rating ?? 5 }).map((_, i) => (
-            <Star
-              key={i}
-              className="h-4 w-4 fill-secondary text-secondary"
-            />
-          ))}
-        </div>
+        <StarRating count={testimonial.rating ?? 5} />
         {testimonial.courseTaken && (
           <div className="mt-3 text-xs text-muted-foreground">
             Course: {testimonial.courseTaken}
@@ -144,6 +138,8 @@ export function TestimonialsSection({ testimonials }: { testimonials: Testimonia
 
   return (
     <section className="py-16 md:py-24">
+      {/* Star geometry defined once; each rating below references it via <use>. */}
+      <StarSprite />
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12">
           <div>
