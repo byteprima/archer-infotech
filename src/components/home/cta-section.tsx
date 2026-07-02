@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Phone } from "lucide-react";
 import { SpriteIcon } from "@/components/ui/icon-sprite";
 import { siteConfig } from "@/data/site-config";
-import { CounselorDialog } from "@/components/common/counselor-dialog";
+import { CounselorDialogLazy } from "@/components/common/counselor-dialog-lazy";
 
 export function CTASection() {
   return (
@@ -48,7 +48,7 @@ export function CTASection() {
               <Phone className="mr-2 h-5 w-5" />
               Call Us: {siteConfig.contact.phone}
             </a>
-            <CounselorDialog
+            <CounselorDialogLazy
               location="homepage_cta"
               triggerLabel="Ask a Counsellor"
               triggerClassName="inline-flex items-center gap-2 rounded-lg border-2 border-secondary bg-transparent px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-secondary hover:text-secondary-foreground"

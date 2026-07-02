@@ -57,7 +57,7 @@ import { getCourseVideo } from "@/data/course-videos";
 import { getRelatedBlogPosts } from "@/lib/actions/blog";
 import { deriveCourseKeywords } from "@/lib/seo/course-keywords";
 import { getRelatedAssetsForCourse } from "@/lib/seo/course-related-assets";
-import { CounselorDialog } from "@/components/common/counselor-dialog";
+import { CounselorDialogLazy } from "@/components/common/counselor-dialog-lazy";
 
 interface CoursePageProps {
   params: Promise<{
@@ -373,7 +373,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
                   <Phone className="h-4 w-4" />
                   {siteConfig.contact.phone}
                 </TrackedAnchor>
-                <CounselorDialog
+                <CounselorDialogLazy
                   location="course_hero_card"
                   defaultCourse={course.title}
                   triggerLabel="Ask a Counsellor"
@@ -1117,7 +1117,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
             >
               View Batch Schedule
             </TrackedLink>
-            <CounselorDialog
+            <CounselorDialogLazy
               location="course_bottom_cta"
               defaultCourse={course.title}
               triggerLabel="Ask a Counsellor"

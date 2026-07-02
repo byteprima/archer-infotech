@@ -18,7 +18,7 @@
  * counsellor sees which course the visitor is asking about.
  */
 
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { Loader2, MessageCircleQuestion } from "lucide-react";
 import {
   Dialog,
@@ -52,6 +52,12 @@ interface CounselorDialogProps {
   triggerIcon?: React.ReactNode;
   /** Pre-fills the course field (course pages pass the course title). */
   defaultCourse?: string;
+  /**
+   * Start opened on mount. Used by the lazy wrapper (counselor-dialog-lazy)
+   * so a cold click that both loads the chunk and opens the dialog doesn't
+   * require a second click. Fires the same "opened" analytics event.
+   */
+  defaultOpen?: boolean;
 }
 
 type FieldErrors = Partial<Record<"name" | "phone" | "message", string>>;
@@ -62,10 +68,24 @@ export function CounselorDialog({
   triggerClassName,
   triggerIcon,
   defaultCourse,
+  defaultOpen = false,
 }: CounselorDialogProps) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(defaultOpen);
   const [isPending, startTransition] = useTransition();
   const [errors, setErrors] = useState<FieldErrors>({});
+
+  // When mounted already-open (lazy auto-open path), the open goes through
+  // useState init rather than handleOpenChange, so fire the analytics here.
+  useEffect(() => {
+    if (defaultOpen) {
+      captureAnalyticsEvent("counselor_dialog_opened", {
+        source: "counselor_modal",
+        location,
+        course_interest: defaultCourse,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleOpenChange = (next: boolean) => {
     setOpen(next);
