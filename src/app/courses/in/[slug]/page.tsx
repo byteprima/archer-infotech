@@ -63,6 +63,16 @@ export default async function CourseLocationPage({
   const course = getCourse(combo.courseSlug);
   const location = getNeighbourhood(combo.locationSlug);
 
+  // Sibling cross-links so each combo sits inside a crawlable graph rather
+  // than being reachable only from the /courses tail. Two axes: the same
+  // course in other Pune areas, and other courses in this same area.
+  const sameCourseElsewhere = courseLocations
+    .filter((c) => c.courseSlug === combo.courseSlug && c.slug !== combo.slug)
+    .slice(0, 4);
+  const otherCoursesHere = courseLocations
+    .filter((c) => c.locationSlug === combo.locationSlug && c.slug !== combo.slug)
+    .slice(0, 4);
+
   return (
     <>
       <PageEvent
@@ -258,6 +268,57 @@ export default async function CourseLocationPage({
           )}
         </div>
       </article>
+
+      {/* Sibling cross-links — same course in other areas + other courses here */}
+      {(sameCourseElsewhere.length > 0 || otherCoursesHere.length > 0) && (
+        <section className="border-t bg-muted/20 py-12">
+          <div className="container mx-auto px-4 max-w-4xl space-y-10">
+            {sameCourseElsewhere.length > 0 && (
+              <div>
+                <h2 className="text-xl md:text-2xl font-bold mb-4">
+                  {course?.shortTitle ?? combo.shortLabel} in other Pune areas
+                </h2>
+                <div className="flex flex-wrap gap-2.5">
+                  {sameCourseElsewhere.map((c) => (
+                    <Link
+                      key={c.slug}
+                      href={`/courses/in/${c.slug}`}
+                      className="rounded-full border bg-card px-4 py-1.5 text-sm hover:border-primary hover:text-primary transition-colors"
+                    >
+                      {c.shortLabel}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+            {otherCoursesHere.length > 0 && (
+              <div>
+                <h2 className="text-xl md:text-2xl font-bold mb-4">
+                  Other courses in {location?.name ?? "this area"}
+                </h2>
+                <div className="flex flex-wrap gap-2.5">
+                  {otherCoursesHere.map((c) => (
+                    <Link
+                      key={c.slug}
+                      href={`/courses/in/${c.slug}`}
+                      className="rounded-full border bg-card px-4 py-1.5 text-sm hover:border-primary hover:text-primary transition-colors"
+                    >
+                      {c.shortLabel}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+            <p className="text-sm text-muted-foreground">
+              Browse all{" "}
+              <Link href="/courses/in" className="text-primary hover:underline font-medium">
+                IT courses by Pune area
+              </Link>
+              .
+            </p>
+          </div>
+        </section>
+      )}
 
       {/* FAQs */}
       <FaqSection

@@ -1116,10 +1116,10 @@ You should build:
 
 Good examples:
 
-- Dockerized Node.js app
+- Dockerized Node.js app — follow our [Docker best practices for Pune DevOps engineers](/guides/docker-best-practices-pune-devops-engineers-2026)
 - Jenkins pipeline for build and deploy
 - Terraform-based infrastructure setup
-- Kubernetes deployment practice project
+- Kubernetes deployment practice project — prep with [Kubernetes interview questions for Pune DevOps freshers](/guides/kubernetes-interview-questions-pune-devops-freshers-2026)
 
 ## How Many Projects Should You Have?
 
@@ -1179,6 +1179,14 @@ The project itself is important, but the clarity of your explanation is equally 
 At Archer Infotech, students work on guided practical projects that help them move beyond theory. The focus is on building portfolio-ready work that supports resumes, interviews, and placement opportunities.
 
 Before applying for IT jobs, build projects that are complete, relevant, and genuinely yours. That is what creates confidence and credibility.
+
+## Related at Archer Infotech
+
+- [Java Full Stack Training in Pune](/courses/full-stack-development/java-full-stack-training-in-pune) and [MERN Stack Training in Pune](/courses/full-stack-development/mern-stack-training-in-pune) — for full stack portfolio projects
+- [Python Training in Pune](/courses/programming/python-training-in-pune) and [Data Science Training in Pune](/courses/data-ai/data-science-training-in-pune) — for backend and data projects
+- [DevOps Training in Pune](/courses/cloud-devops/devops-training-in-pune) — for CI/CD, Docker, and Kubernetes projects
+- [Python interview questions for Pune freshers](/guides/python-interview-questions-pune-freshers-2026)
+- [Plan your route with the Pune IT Career Roadmap](/tools/pune-it-career-roadmap)
     `.trim(),
     featuredImage: "/images/blog/1516321497487-e288fb19713f.jpg",
     category: "Career Guide",
@@ -2758,11 +2766,11 @@ Generative AI is creating new opportunities for graduates, but the best entry pa
 
 Focus first on:
 
-- Python basics
+- Python basics — our [Python Training in Pune](/courses/programming/python-training-in-pune) covers exactly these fundamentals
 - SQL and data handling
-- machine learning concepts
+- machine learning concepts — see [Machine Learning Training in Pune](/courses/data-ai/machine-learning-training-in-pune)
 - API usage
-- prompt design and output review
+- prompt design and output review — read our [prompt engineering guide for beginners](/blog/prompt-engineering-for-beginners-practical-guide)
 
 ## Build Resume-Worthy Projects
 
@@ -2790,6 +2798,15 @@ Spend the first month on foundations, the second on projects, and the third on r
 ## Conclusion
 
 Generative AI is a good career path for graduates who combine curiosity with practical work. Archer Infotech can help you move from basics to guided projects and job-ready presentation.
+
+## Related at Archer Infotech
+
+- [Generative AI Training in Pune](/courses/generative-ai/genai-training-in-pune) — the guided, placement-backed path from fundamentals to portfolio projects
+- [Python Training in Pune](/courses/programming/python-training-in-pune) — the foundation for every AI role
+- [Generative AI for beginners: what it is and why it matters](/blog/generative-ai-for-beginners-what-it-is-and-why-it-matters)
+- [Real-world applications of Generative AI in business](/blog/real-world-applications-of-generative-ai-in-business)
+- [Projects to build before applying for IT jobs](/blog/projects-to-build-before-applying-for-it-jobs)
+- [Plan your route with the Pune IT Career Roadmap](/tools/pune-it-career-roadmap)
     `.trim(),
     featuredImage: "/images/blog/1485827404703-89b55fcc595e.jpg",
     category: "Career Guide",
@@ -3807,6 +3824,14 @@ Even strong use cases usually need:
 ## Conclusion
 
 Generative AI is most valuable when it supports business workflows responsibly rather than replacing judgment.
+
+## Related at Archer Infotech
+
+- [Generative AI Training in Pune](/courses/generative-ai/genai-training-in-pune) — build these reviewable, production-ready GenAI workflows hands-on
+- [Agentic AI Training in Pune](/courses/generative-ai/agentic-ai-training-in-pune) — for teams moving toward multi-step AI agents
+- [Generative AI for beginners: what it is and why it matters](/blog/generative-ai-for-beginners-what-it-is-and-why-it-matters)
+- [How to start a career in Generative AI after graduation](/blog/how-to-start-career-in-generative-ai-after-graduation)
+- [Prompt engineering for beginners: a practical guide](/blog/prompt-engineering-for-beginners-practical-guide)
     `.trim(),
     featuredImage: "/images/blog/1451187580459-43490279c0fa.jpg",
     category: "AI & GenAI",

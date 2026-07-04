@@ -44,6 +44,27 @@ export default async function GuidePage({ params }: GuidePageProps) {
   const guide = getListicle(slug);
   if (!guide) notFound();
 
+  // Related guides — sibling cross-links so each guide sits in a topic graph
+  // instead of being reachable only from the /guides hub. Score by shared
+  // meaningful slug tokens (topic words like "python", "devops", "interview").
+  const STOP = new Set([
+    "for", "pune", "2026", "the", "and", "in", "a", "an", "of", "to", "best",
+    "top", "freshers", "engineers", "developers", "make",
+  ]);
+  const tokensOf = (s: string) =>
+    new Set(s.split("-").filter((t) => t.length > 1 && !STOP.has(t)));
+  const myTokens = tokensOf(guide.slug);
+  const relatedGuides = listicles
+    .filter((l) => l.slug !== guide.slug)
+    .map((l) => {
+      const shared = [...tokensOf(l.slug)].filter((t) => myTokens.has(t)).length;
+      return { l, shared };
+    })
+    .filter((x) => x.shared > 0)
+    .sort((a, b) => b.shared - a.shared)
+    .slice(0, 4)
+    .map((x) => x.l);
+
   // ItemList schema — listicles are extracted cleanly by AI engines.
   const itemListSchema = {
     "@context": "https://schema.org",
@@ -146,6 +167,34 @@ export default async function GuidePage({ params }: GuidePageProps) {
             </h2>
             <p className="text-sm text-muted-foreground leading-relaxed">{guide.methodology}</p>
           </section>
+
+          {/* Related guides — sibling cross-links */}
+          {relatedGuides.length > 0 && (
+            <section className="space-y-4">
+              <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-3">
+                <ListChecks className="h-7 w-7 text-secondary" />
+                Related guides
+              </h2>
+              <div className="flex flex-wrap gap-2">
+                {relatedGuides.map((l) => (
+                  <Link
+                    key={l.slug}
+                    href={`/guides/${l.slug}`}
+                    className="inline-flex items-center gap-1 rounded-full border px-4 py-2 text-sm hover:border-primary hover:text-primary transition-colors"
+                  >
+                    {l.shortLabel} →
+                  </Link>
+                ))}
+              </div>
+              <p className="text-sm text-muted-foreground">
+                Browse all{" "}
+                <Link href="/guides" className="text-primary hover:underline font-medium">
+                  Pune IT career guides
+                </Link>
+                .
+              </p>
+            </section>
+          )}
 
           {/* FAQ */}
           <FaqSection

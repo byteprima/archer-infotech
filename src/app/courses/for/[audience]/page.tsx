@@ -57,6 +57,24 @@ export default async function AudiencePage({ params }: AudiencePageProps) {
     .map((s) => getCourse(s))
     .filter((c): c is NonNullable<typeof c> => Boolean(c));
 
+  // Sibling cross-links to other backgrounds, so each audience page sits in a
+  // crawlable graph rather than being reachable only from the /courses tail.
+  // General (qualification/experience) backgrounds are surfaced ahead of the
+  // college-specific ones.
+  const GENERAL_FIRST = [
+    "students-after-12th", "engineering-students", "bca-students",
+    "bsc-cs-students", "graduates", "mca-students", "working-professionals",
+    "career-changers",
+  ];
+  const relatedAudiences = [...audiences]
+    .filter((a) => a.slug !== slug)
+    .sort((a, b) => {
+      const ai = GENERAL_FIRST.indexOf(a.slug);
+      const bi = GENERAL_FIRST.indexOf(b.slug);
+      return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
+    })
+    .slice(0, 6);
+
   return (
     <>
       <PageEvent
@@ -222,6 +240,33 @@ export default async function AudiencePage({ params }: AudiencePageProps) {
                   </Link>
                 ))}
               </div>
+            </section>
+          )}
+
+          {/* Related backgrounds — sibling cross-links */}
+          {relatedAudiences.length > 0 && (
+            <section className="space-y-4">
+              <h2 className="text-2xl md:text-3xl font-bold">
+                Courses for other backgrounds
+              </h2>
+              <div className="flex flex-wrap gap-2">
+                {relatedAudiences.map((a) => (
+                  <Link
+                    key={a.slug}
+                    href={`/courses/for/${a.slug}`}
+                    className="inline-flex items-center gap-1 rounded-full border px-4 py-2 text-sm hover:border-primary hover:text-primary transition-colors"
+                  >
+                    {a.name} →
+                  </Link>
+                ))}
+              </div>
+              <p className="text-sm text-muted-foreground">
+                See all{" "}
+                <Link href="/courses/for" className="text-primary hover:underline font-medium">
+                  courses by background
+                </Link>
+                .
+              </p>
             </section>
           )}
 

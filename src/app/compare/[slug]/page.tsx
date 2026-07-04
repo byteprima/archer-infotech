@@ -47,6 +47,27 @@ export default async function ComparePage({ params }: ComparePageProps) {
     .map((s) => getCourse(s))
     .filter((c): c is NonNullable<typeof c> => Boolean(c));
 
+  // Related comparisons — sibling cross-links so each compare page sits in a
+  // topic graph instead of being reachable only from the 30-item hub. Score
+  // by shared meaningful slug tokens (topic words like "python", "devops").
+  const STOP = new Set([
+    "vs", "for", "pune", "2026", "the", "and", "in", "a", "an", "of", "to",
+    "career", "developers", "engineers", "developer", "engineer",
+  ]);
+  const tokensOf = (s: string) =>
+    new Set(s.split("-").filter((t) => t.length > 1 && !STOP.has(t)));
+  const myTokens = tokensOf(cmp.slug);
+  const relatedComparisons = comparisons
+    .filter((c) => c.slug !== cmp.slug)
+    .map((c) => {
+      const shared = [...tokensOf(c.slug)].filter((t) => myTokens.has(t)).length;
+      return { c, shared };
+    })
+    .filter((x) => x.shared > 0)
+    .sort((a, b) => b.shared - a.shared)
+    .slice(0, 4)
+    .map((x) => x.c);
+
   return (
     <>
       <PageEvent event="comparison_page_viewed" properties={{ comparison_slug: slug }} />
@@ -157,6 +178,34 @@ export default async function ComparePage({ params }: ComparePageProps) {
                   </Link>
                 ))}
               </div>
+            </section>
+          )}
+
+          {/* Related comparisons — sibling cross-links */}
+          {relatedComparisons.length > 0 && (
+            <section className="space-y-4">
+              <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-3">
+                <Scale className="h-7 w-7 text-secondary" />
+                Related comparisons
+              </h2>
+              <div className="flex flex-wrap gap-2">
+                {relatedComparisons.map((c) => (
+                  <Link
+                    key={c.slug}
+                    href={`/compare/${c.slug}`}
+                    className="inline-flex items-center gap-1 rounded-full border px-4 py-2 text-sm hover:border-primary hover:text-primary transition-colors"
+                  >
+                    {c.optionA} vs {c.optionB} →
+                  </Link>
+                ))}
+              </div>
+              <p className="text-sm text-muted-foreground">
+                See all{" "}
+                <Link href="/compare" className="text-primary hover:underline font-medium">
+                  IT course &amp; career comparisons
+                </Link>
+                .
+              </p>
             </section>
           )}
 

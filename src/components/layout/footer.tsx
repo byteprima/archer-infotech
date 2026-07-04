@@ -349,6 +349,36 @@ export function Footer() {
                 );
               })}
             </ul>
+
+            {/* Hub entry points for the audience / area / home-city clusters.
+                Added 2026-07-03 to de-orphan those page families. */}
+            <h3 className="text-sm font-semibold mt-6 mb-3 text-white/90">Find your fit</h3>
+            <ul className="space-y-2">
+              <li>
+                <Link
+                  href="/courses/for"
+                  className="text-primary-foreground/80 hover:text-secondary transition-colors text-sm"
+                >
+                  Courses for Your Background
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/courses/in"
+                  className="text-primary-foreground/80 hover:text-secondary transition-colors text-sm"
+                >
+                  IT Courses by Pune Area
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/it-training-in-pune-for"
+                  className="text-primary-foreground/80 hover:text-secondary transition-colors text-sm"
+                >
+                  IT Training by Home City
+                </Link>
+              </li>
+            </ul>
           </div>
 
           {/* Contact Info */}

@@ -174,6 +174,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     changeFrequency: "monthly",
     priority: 0.7,
   }));
+  // Hub index pages for the city / audience / course-location clusters,
+  // added 2026-07-03 to de-orphan those families (they previously had no hub
+  // and stalled at "discovered / not indexed" in GSC).
+  const cityFeederHub: MetadataRoute.Sitemap = [
+    { url: `${baseUrl}/it-training-in-pune-for`, lastModified: LOCATIONS, changeFrequency: "monthly", priority: 0.7 },
+  ];
   const cityFeederPages: MetadataRoute.Sitemap = studentCities.map((c) => ({
     url: `${baseUrl}/it-training-in-pune-for/${c.slug}`,
     lastModified: LOCATIONS,
@@ -182,6 +188,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   // Audience-intent landing pages (P4-17, 2026-05-25).
+  const audienceHub: MetadataRoute.Sitemap = [
+    { url: `${baseUrl}/courses/for`, lastModified: NEW_ASSETS, changeFrequency: "monthly", priority: 0.7 },
+  ];
   const audiencePages: MetadataRoute.Sitemap = audiences.map((a) => ({
     url: `${baseUrl}/courses/for/${a.slug}`,
     lastModified: NEW_ASSETS,
@@ -190,6 +199,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   // P4-16 course × location combo landing pages (2026-06-10).
+  const courseLocationHub: MetadataRoute.Sitemap = [
+    { url: `${baseUrl}/courses/in`, lastModified: EVERGREEN, changeFrequency: "monthly", priority: 0.7 },
+  ];
   const courseLocationPages: MetadataRoute.Sitemap = courseLocations.map(
     (c) => ({
       url: `${baseUrl}/courses/in/${c.slug}`,
@@ -255,8 +267,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...trainerPages,
     ...locationListingPage,
     ...locationPages,
+    ...cityFeederHub,
     ...cityFeederPages,
+    ...audienceHub,
     ...audiencePages,
+    ...courseLocationHub,
     ...courseLocationPages,
     ...compareListingPage,
     ...comparePages,
