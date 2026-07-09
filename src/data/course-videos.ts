@@ -83,6 +83,16 @@ export const courseVideos: Record<string, CourseVideo> = {
     uploadDate: "2024-09-22",
     duration: "PT4M37S",
   },
+  "python-full-stack-training-in-pune": {
+    youtubeId: "despQcozTs4",
+    title: "Functions in Python — Python Tutorial for Beginners #7.1",
+    description:
+      "Functions are the backbone of clean Python code — the foundation the " +
+      "Python Full Stack track builds on before moving to Django/Flask, " +
+      "REST APIs and the frontend. From our Python tutorial series.",
+    uploadDate: "2020-09-02",
+    duration: "PT14M32S",
+  },
 };
 
 export function getCourseVideo(slug: string): CourseVideo | null {
