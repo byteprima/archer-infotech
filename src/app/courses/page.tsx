@@ -9,13 +9,19 @@ import { coursesFaqs } from "@/data/faqs";
 import { categories, courses } from "@/data/courses";
 import { audiences } from "@/data/audiences";
 import { courseLocations } from "@/data/course-locations";
-import { CategoryCollectionJsonLd } from "@/components/seo/json-ld";
+import { CategoryCollectionJsonLd, BreadcrumbJsonLd } from "@/components/seo/json-ld";
+import { Breadcrumbs } from "@/components/seo/breadcrumbs";
+import { COURSE_LAST_REVIEWED } from "@/lib/seo/content-dates";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "IT Training Courses in Pune",
+  // Hub owns the high-intent commercial head term "IT courses in Pune"
+  // with the modifiers users actually search (placement, fees). Individual
+  // course pages target the long-tail; this page is the category-level net.
+  title: "IT Training Courses in Pune with Placement & Fees",
   description:
-    "Explore 40+ classroom and online IT training courses in Pune — Java, Python, AWS, DevOps, Full Stack, Data Science, AI/ML, Cloud and more, with placement assistance.",
+    "Explore 40+ IT training courses in Pune with placement — Java, Python, AWS, DevOps, Full Stack, Data Science & AI/ML. Fees from ₹15,000; 4–6 month weekday, weekend & online batches.",
   path: "/courses",
+  lastModified: COURSE_LAST_REVIEWED,
 });
 
 export default function CoursesPage() {
@@ -36,10 +42,25 @@ export default function CoursesPage() {
         }))}
       />
 
+      {/* BreadcrumbList — site convention is a breadcrumb on every non-home
+          page; the /courses hub was the one indexed surface still missing it.
+          Gives Google a Home › Courses trail (eligible for breadcrumb rich
+          results) and reinforces this page as the category root. */}
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", url: "/" },
+          { name: "Courses", url: "/courses" },
+        ]}
+      />
+
       {/* Hero Section */}
       <section className="gradient-hero text-white py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl">
+            <Breadcrumbs
+              variant="light"
+              items={[{ name: "Courses" }]}
+            />
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
               IT Training Courses in Pune | 40+ Programs with Placement Assistance
             </h1>
