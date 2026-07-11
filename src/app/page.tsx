@@ -5,6 +5,7 @@
 export const revalidate = 600;
 
 import type { Metadata } from "next";
+import Link from "next/link";
 import nextDynamic from "next/dynamic";
 import { HeroSection } from "@/components/home/hero-section";
 import { USPSection } from "@/components/home/usp-section";
@@ -115,6 +116,47 @@ export default async function HomePage() {
         intro={`The most common questions about Pune’s ${siteConfig.foundingYear}-founded IT training institute, its courses, fees, trainers and placement support.`}
         items={homeFaqs}
       />
+
+      {/* Internal-link surface for high-value hub pages that are otherwise
+          reachable only from the footer. The homepage is the most-crawled
+          page, so linking here gives Googlebot a strong discovery path.
+          Added 2026-07-11 after GSC showed /questions and the Python
+          interview guide as "unknown to Google" despite existing footer/
+          hub links. Placed after the FAQ block since it is topically the
+          same "questions & guides" surface. */}
+      <section aria-labelledby="resources-heading" className="pb-12 md:pb-16">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 id="resources-heading" className="text-xl font-semibold mb-3">
+              More free resources for Pune IT learners
+            </h2>
+            <p className="text-muted-foreground">
+              Browse our{" "}
+              <Link
+                href="/questions"
+                className="text-primary underline underline-offset-4 hover:no-underline"
+              >
+                IT career questions &amp; answers
+              </Link>{" "}
+              and{" "}
+              <Link
+                href="/guides"
+                className="text-primary underline underline-offset-4 hover:no-underline"
+              >
+                free career guides
+              </Link>
+              , including{" "}
+              <Link
+                href="/guides/python-interview-questions-pune-freshers-2026"
+                className="text-primary underline underline-offset-4 hover:no-underline"
+              >
+                Python interview questions for Pune freshers
+              </Link>
+              .
+            </p>
+          </div>
+        </div>
+      </section>
 
       <CTASection />
     </>
