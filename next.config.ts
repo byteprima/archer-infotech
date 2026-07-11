@@ -254,6 +254,14 @@ const nextConfig: NextConfig = {
       stableRule("/courses/for/:audience"),
       stableRule("/locations"),
       stableRule("/locations/:slug"),
+      // /testimonials — same pattern as the homepage: the page ISR-regenerates
+      // every 10 min (revalidate=600) and admin edits push via
+      // revalidateTag("testimonials"), but without an edge-TTL override
+      // Cloudflare only held it 5 min, so low-traffic hours paid an origin
+      // revalidation (cf-cache-status: EXPIRED, ~1s TTFB from India). A 1-hour
+      // edge TTL makes the vast majority of hits pure HITs while keeping the
+      // same freshness guarantees. TTFB fix, 2026-07-11.
+      stableRule("/testimonials"),
 
       // VERY_STABLE — changes annually+ (6-hour edge cache).
       // Compare + guide pages are deeply evergreen (e.g. Java vs Python).
