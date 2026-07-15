@@ -145,6 +145,51 @@ const NEARBY_NEIGHBOURHOODS_MAP: Record<string, string[]> = {
     "it-training-in-viman-nagar",
     "it-training-in-pimpri-chinchwad",
   ],
+  // South Pune belt
+  "it-training-in-katraj": [
+    "it-training-in-sinhagad-road",
+    "it-training-in-kondhwa",
+    "it-training-in-camp",
+  ],
+  "it-training-in-sinhagad-road": [
+    "it-training-in-katraj",
+    "it-training-in-warje",
+    "it-training-in-kothrud",
+  ],
+  // East / far-east belt
+  "it-training-in-wagholi": [
+    "it-training-in-kharadi",
+    "it-training-in-hadapsar-magarpatta",
+    "it-training-in-viman-nagar",
+  ],
+  "it-training-in-koregaon-park": [
+    "it-training-in-viman-nagar",
+    "it-training-in-kharadi",
+    "it-training-in-camp",
+  ],
+  // North-west belt
+  "it-training-in-balewadi": [
+    "it-training-in-baner",
+    "it-training-in-hinjewadi",
+    "it-training-in-aundh",
+  ],
+  "it-training-in-nigdi": [
+    "it-training-in-pimpri-chinchwad",
+    "it-training-in-wakad",
+    "it-training-in-hinjewadi",
+  ],
+  // South-east belt
+  "it-training-in-kondhwa": [
+    "it-training-in-hadapsar-magarpatta",
+    "it-training-in-katraj",
+    "it-training-in-camp",
+  ],
+  // Central
+  "it-training-in-camp": [
+    "it-training-in-deccan",
+    "it-training-in-kondhwa",
+    "it-training-in-katraj",
+  ],
 };
 
 // Destination is the verified Kothrud centre; origin varies per page so the
@@ -1114,6 +1159,518 @@ export const neighbourhoods: NeighbourhoodLocation[] = [
         question: "Can I train while working in a Magarpatta IT job?",
         answer:
           "Yes — live-online evening and weekend batches are designed for working professionals, with the same projects, mock interviews and placement support as classroom.",
+      },
+    ],
+  },
+
+  // ─── 16. Katraj & Dhankawadi ─────────────────────────────────────────────
+  {
+    slug: "it-training-in-katraj",
+    name: "Katraj & Dhankawadi",
+    fullName: "Katraj & Dhankawadi, Pune",
+    pincode: "411041",
+    priority: 16,
+    tagline: "South Pune's student belt — Sinhgad, Bharati Vidyapeeth & PICT nearby.",
+    metaTitle: "IT Training in Katraj & Dhankawadi, Pune — Archer Infotech",
+    metaDescription:
+      "Katraj and Dhankawadi students train with Archer Infotech in Java Full Stack, Python Full Stack, Data Science and more — classroom in Kothrud plus online batches, with placement support. South Pune's college belt.",
+    intro: [
+      "Katraj and Dhankawadi form one of Pune's densest student belts — Bharati Vidyapeeth, PICT, Sinhgad institutes and several other engineering and degree colleges sit in and around this south-Pune corridor. That means a steady flow of students looking to add job-ready IT skills to their degrees, and Archer Infotech's Java Full Stack, Python Full Stack and Data Science tracks are the most common starting points.",
+      "Katraj–Dhankawadi is about 10–12 km from our Kothrud centre via the NH-48 / Katraj bypass, so students split between classroom batches in Kothrud and live-online sessions from home. Both use the same trainers, projects and placement support.",
+    ],
+    commute: {
+      distanceLabel: "~10–12 km · 25–35 min via NH-48 / Katraj bypass",
+      paragraphs: [
+        "Katraj and Dhankawadi connect to Kothrud via the Katraj bypass and NH-48 / Satara Road corridor — typically 25–35 minutes by two-wheeler depending on traffic.",
+        "Many students from the college belt attend weekday classroom batches, while those who prefer to skip the commute join live-online sessions with the same trainers and curriculum.",
+      ],
+      modes: [
+        { mode: "Two-wheeler", detail: "25–35 minutes via Katraj bypass / NH-48." },
+        { mode: "PMPML bus", detail: "Frequent Katraj–Swargate–Kothrud services." },
+        { mode: "Online live", detail: "Popular for students avoiding peak-hour traffic." },
+      ],
+    },
+    landmarks: [
+      "Bharati Vidyapeeth (Dhankawadi)",
+      "PICT (Dhankawadi)",
+      "Sinhgad Institutes (Ambegaon/Vadgaon)",
+      "Rajiv Gandhi Zoo / Katraj Snake Park",
+      "Katraj Dairy & Katraj Chowk",
+    ],
+    whyConvenient: [
+      "Katraj–Dhankawadi's huge college population gets the most value from our job-ready tracks — Java Full Stack, Python Full Stack and Data Science pair well with placement support that a degree alone may not offer.",
+      "Students choose weekday classroom batches in Kothrud for the in-person experience, or live-online to skip the bypass commute — both with the same trainers, projects and 90% placement support.",
+    ],
+    popularCourseSlugs: [
+      "java-full-stack-training-in-pune",
+      "python-full-stack-training-in-pune",
+      "data-science-training-in-pune",
+      "java-training-in-pune",
+      "software-testing-training-in-pune",
+    ],
+    localFaqs: [
+      {
+        question: "How far is Katraj / Dhankawadi from Archer's centre?",
+        answer:
+          "About 10–12 km via the Katraj bypass / NH-48 — typically 25–35 minutes. Many students attend classroom batches in Kothrud; others train online to skip the commute.",
+      },
+      {
+        question: "I study at a Katraj-belt college — will training help my placements?",
+        answer:
+          "Yes. Our Java Full Stack, Python Full Stack and Data Science tracks include resume prep, mock interviews and placement support designed to complement a college degree.",
+      },
+      {
+        question: "Which batch format do most Katraj students choose?",
+        answer:
+          "A mix — weekday classroom for in-person learning, or live-online for convenience. Both use the same trainers and curriculum.",
+      },
+    ],
+  },
+
+  // ─── 17. Sinhagad Road & Dhayari ─────────────────────────────────────────
+  {
+    slug: "it-training-in-sinhagad-road",
+    name: "Sinhagad Road & Dhayari",
+    fullName: "Sinhagad Road & Dhayari, Pune",
+    pincode: "411041",
+    priority: 17,
+    tagline: "SW Pune's residential-student corridor — Nanded City to Vadgaon.",
+    metaTitle: "IT Training on Sinhagad Road & Dhayari, Pune — Archer Infotech",
+    metaDescription:
+      "Sinhagad Road, Dhayari and Nanded City students train with Archer Infotech in Java Full Stack, Python Full Stack, Data Science and more — classroom in Kothrud plus online batches, with placement support.",
+    intro: [
+      "The Sinhagad Road corridor — running through Dhayari, Vadgaon Budruk, Nanded City and Wadgaon — is one of south-west Pune's fastest-growing residential and student zones, with Sinhgad's colleges anchoring a large young population. Archer Infotech's Java Full Stack, Python Full Stack and Data Science tracks are popular choices for students and early-career professionals here.",
+      "Sinhagad Road is roughly 7–10 km from our Kothrud centre, so students conveniently mix classroom batches with live-online — the same curriculum, trainers and placement support in both.",
+    ],
+    commute: {
+      distanceLabel: "~7–10 km · 20–30 min via Sinhagad Road / Vitthalwadi",
+      paragraphs: [
+        "Sinhagad Road connects to Kothrud via the Vitthalwadi / Hingne corridor — typically 20–30 minutes by two-wheeler, one of the shorter commutes among south-west Pune areas.",
+        "Because the distance is manageable, many Sinhagad Road and Dhayari students attend classroom batches in Kothrud, with live-online available for those who prefer to study from home.",
+      ],
+      modes: [
+        { mode: "Two-wheeler", detail: "20–30 minutes via Sinhagad Road / Vitthalwadi." },
+        { mode: "PMPML bus", detail: "Frequent Sinhagad Road–Kothrud / Swargate services." },
+        { mode: "Online live", detail: "Convenient for weekday learners in Dhayari / Nanded City." },
+      ],
+    },
+    landmarks: [
+      "Nanded City township",
+      "Sinhgad Colleges (Vadgaon)",
+      "Dhayari Phata",
+      "Vitthalwadi / Hingne",
+      "Sinhagad Road (PMC) corridor",
+    ],
+    whyConvenient: [
+      "Sinhagad Road's dense student and young-professional population is a natural fit for our Java Full Stack, Python Full Stack and Data Science tracks, with placement support that turns a degree into a job.",
+      "At 7–10 km, the corridor is close enough that classroom batches in Kothrud are convenient, while live-online remains an easy option for those who prefer home study.",
+    ],
+    popularCourseSlugs: [
+      "java-full-stack-training-in-pune",
+      "python-full-stack-training-in-pune",
+      "data-science-training-in-pune",
+      "java-training-in-pune",
+      "mern-stack-training-in-pune",
+    ],
+    localFaqs: [
+      {
+        question: "How far is Sinhagad Road / Dhayari from Archer's centre?",
+        answer:
+          "About 7–10 km via the Vitthalwadi / Hingne corridor — typically 20–30 minutes, one of the shorter south-west Pune commutes. Classroom and online batches are both convenient.",
+      },
+      {
+        question: "Which batch format suits Sinhagad Road students?",
+        answer:
+          "Given the short distance, many attend classroom batches in Kothrud; others prefer live-online. Both use the same trainers, projects and placement support.",
+      },
+      {
+        question: "I live in Nanded City — can I train with Archer?",
+        answer:
+          "Yes — Nanded City is on the Sinhagad Road corridor, close to our Kothrud centre. Choose classroom or live-online; both include full placement support.",
+      },
+    ],
+  },
+
+  // ─── 18. Wagholi ─────────────────────────────────────────────────────────
+  {
+    slug: "it-training-in-wagholi",
+    name: "Wagholi",
+    fullName: "Wagholi, Pune",
+    pincode: "412207",
+    priority: 18,
+    tagline: "Fast-growing east-Pune belt feeding Kharadi's EON/WTC IT jobs.",
+    metaTitle: "IT Training in Wagholi, Pune — Archer Infotech",
+    metaDescription:
+      "Wagholi and Manjari students and IT professionals train with Archer Infotech via live-online and weekend batches — Java Full Stack, Python Full Stack, Data Science, DevOps and AWS with placement support. Classroom in Kothrud.",
+    intro: [
+      "Wagholi, on Nagar Road just east of Kharadi, is one of Pune's fastest-growing residential belts — affordable housing has drawn thousands of young IT professionals who work in the EON Free Zone and WTC Kharadi corridor. Colleges like JSPM and GH Raisoni add a strong student base. Java Full Stack, Python Full Stack, Data Science, DevOps and AWS are the most-requested tracks here.",
+      "Wagholi is around 22–25 km from our Kothrud centre on the far east side, so most learners join live-online batches, with weekend classroom in Kothrud as an option — same curriculum, projects and placement support.",
+    ],
+    commute: {
+      distanceLabel: "~22–25 km · 55–75 min cross-city via Nagar Road",
+      paragraphs: [
+        "Wagholi sits east of Kharadi on Nagar Road, roughly 22–25 km from Kothrud — typically 55–75 minutes given east-Pune traffic. Live-online is by far the most popular format for Wagholi's IT professionals.",
+        "For in-person time on the harder modules, weekend classroom batches in Kothrud are the easiest window; the rest of the week runs online with the same trainers and curriculum.",
+      ],
+      modes: [
+        { mode: "Online live", detail: "Default for Wagholi's weekday IT workforce — no cross-city commute." },
+        { mode: "Weekend classroom", detail: "Saturday batches in Kothrud for in-person time." },
+        { mode: "Car / two-wheeler", detail: "55–75 min via Nagar Road / Kharadi bypass." },
+      ],
+    },
+    landmarks: [
+      "Wagholi–Nagar Road corridor",
+      "JSPM & GH Raisoni colleges (Wagholi)",
+      "Kharadi EON IT Park (adjacent)",
+      "Manjari & Lohegaon",
+      "Bakori Phata",
+    ],
+    whyConvenient: [
+      "Wagholi's proximity to the Kharadi EON/WTC IT belt means our Java Full Stack, Python Full Stack, Data Science, DevOps and AWS tracks map directly to jobs a few minutes from home.",
+      "Live-online batches let Wagholi professionals upskill without the long cross-city commute, while weekend classroom in Kothrud is there when in-person lab time helps.",
+    ],
+    popularCourseSlugs: [
+      "java-full-stack-training-in-pune",
+      "python-full-stack-training-in-pune",
+      "data-science-training-in-pune",
+      "devops-training-in-pune",
+      "aws-training-in-pune",
+    ],
+    localFaqs: [
+      {
+        question: "Is Wagholi too far for training in Kothrud?",
+        answer:
+          "It's about 22–25 km cross-city (55–75 min with traffic), so most Wagholi students train via live-online, using weekend classroom in Kothrud when they want in-person time. Both are identical in content.",
+      },
+      {
+        question: "I work in Kharadi and live in Wagholi — can I upskill around my job?",
+        answer:
+          "Yes — live-online evening and weekend batches are built for working professionals, with the same projects, mock interviews and placement support as classroom.",
+      },
+      {
+        question: "Which courses are most popular in Wagholi?",
+        answer:
+          "Java Full Stack, Python Full Stack, Data Science, DevOps and AWS — matching the hiring at the adjacent Kharadi EON/WTC IT belt.",
+      },
+    ],
+  },
+
+  // ─── 19. Balewadi & Pashan ───────────────────────────────────────────────
+  {
+    slug: "it-training-in-balewadi",
+    name: "Balewadi & Pashan",
+    fullName: "Balewadi & Pashan, Pune",
+    pincode: "411045",
+    priority: 19,
+    tagline: "NW research-&-IT belt — between Baner and Hinjewadi.",
+    metaTitle: "IT Training in Balewadi & Pashan, Pune — Archer Infotech",
+    metaDescription:
+      "Balewadi and Pashan students and professionals train with Archer Infotech in Java Full Stack, Python Full Stack, Data Science, MERN and DevOps — weekend classroom plus live-online, with placement support. Near Baner & Hinjewadi.",
+    intro: [
+      "Balewadi and Pashan sit in Pune's north-west belt between Baner and Hinjewadi — Balewadi with its sports complex and fast-growing IT-residential scene, Pashan home to research institutes like NCL, IISER Pune and NCRA. Between the young professionals and the research-and-college population, there's strong demand for Java Full Stack, Python Full Stack, Data Science, MERN and DevOps.",
+      "Balewadi–Pashan is roughly 10–13 km from our Kothrud centre, so learners mix weekend classroom with weekday live-online — the same trainers, projects and placement support in both.",
+    ],
+    commute: {
+      distanceLabel: "~10–13 km · 30–40 min via Pashan / University Road",
+      paragraphs: [
+        "Balewadi and Pashan connect to Kothrud via Pashan Road and the University Circle corridor — typically 30–40 minutes with traffic.",
+        "Many Balewadi–Pashan learners mix Saturday classroom batches with weekday live-online, balancing in-person collaboration with flexibility for labs done from home or office.",
+      ],
+      modes: [
+        { mode: "Car / two-wheeler", detail: "30–40 minutes via Pashan Road / University Circle." },
+        { mode: "Weekend classroom", detail: "Popular Saturday in-person option in Kothrud." },
+        { mode: "Online live", detail: "Convenient for weekday learners and professionals." },
+      ],
+    },
+    landmarks: [
+      "Shree Shiv Chhatrapati Sports Complex (Balewadi)",
+      "Balewadi High Street",
+      "NCL & NCRA (Pashan)",
+      "IISER Pune (Pashan)",
+      "Baner–Pashan Link Road",
+    ],
+    whyConvenient: [
+      "Balewadi–Pashan's mix of IT professionals and research/college population is a natural fit for our Java Full Stack, Python Full Stack, Data Science, MERN and DevOps tracks with placement support.",
+      "Weekend classroom plus weekday live-online gives Balewadi–Pashan learners in-person collaboration on harder modules with the flexibility to do labs from home.",
+    ],
+    popularCourseSlugs: [
+      "java-full-stack-training-in-pune",
+      "python-full-stack-training-in-pune",
+      "data-science-training-in-pune",
+      "mern-stack-training-in-pune",
+      "devops-training-in-pune",
+    ],
+    localFaqs: [
+      {
+        question: "How far is Balewadi / Pashan from Archer's centre?",
+        answer:
+          "About 10–13 km via Pashan Road / University Circle — typically 30–40 minutes. Many learners mix weekend classroom with weekday live-online.",
+      },
+      {
+        question: "Which batch format suits Balewadi–Pashan learners?",
+        answer:
+          "Weekend classroom for in-person time plus weekday live-online for flexibility. Both use the same trainers, projects and placement support.",
+      },
+      {
+        question: "Which courses are popular in Balewadi and Pashan?",
+        answer:
+          "Java Full Stack, Python Full Stack, Data Science, MERN and DevOps — matching the nearby Baner–Hinjewadi IT and research employers.",
+      },
+    ],
+  },
+
+  // ─── 20. Nigdi & Akurdi ──────────────────────────────────────────────────
+  {
+    slug: "it-training-in-nigdi",
+    name: "Nigdi & Akurdi",
+    fullName: "Nigdi & Akurdi, Pune",
+    pincode: "411044",
+    priority: 20,
+    tagline: "PCMC's engineering-college cluster — DY Patil & PCCOE.",
+    metaTitle: "IT Training in Nigdi & Akurdi, Pune — Archer Infotech",
+    metaDescription:
+      "Nigdi and Akurdi students train with Archer Infotech in Java Full Stack, Python Full Stack, Data Science, Java and Software Testing — live-online plus weekend classroom, with placement support. PCMC's college belt.",
+    intro: [
+      "Nigdi and Akurdi, in the Pradhikaran area of PCMC, anchor one of Pune's biggest engineering-college clusters — DY Patil, PCCOE and other campuses send thousands of graduates into the job market each year. Java Full Stack, Python Full Stack, Data Science, core Java and Software Testing are the tracks Nigdi–Akurdi students choose most.",
+      "Nigdi–Akurdi is about 22–25 km from our Kothrud centre on the far north-west side, so most students join live-online batches, with weekend classroom in Kothrud as an option — same curriculum, trainers and placement support.",
+    ],
+    commute: {
+      distanceLabel: "~22–25 km · 55–70 min via old Mumbai-Pune highway",
+      paragraphs: [
+        "Nigdi and Akurdi sit at PCMC's north-west edge, roughly 22–25 km from Kothrud via the old Mumbai-Pune highway — typically 55–70 minutes with traffic. Live-online is the most practical format for most students here.",
+        "For in-person time, weekend classroom batches in Kothrud are the easiest window; the rest of the week runs online with the same trainers and curriculum.",
+      ],
+      modes: [
+        { mode: "Online live", detail: "Most practical for Nigdi–Akurdi's college students and professionals." },
+        { mode: "Weekend classroom", detail: "Saturday batches in Kothrud for in-person time." },
+        { mode: "PMPML / Metro", detail: "PCMC bus network and the Nigdi metro corridor toward central Pune." },
+      ],
+    },
+    landmarks: [
+      "DY Patil College (Akurdi)",
+      "PCCOE (Akurdi)",
+      "Nigdi Pradhikaran",
+      "Akurdi Railway Station",
+      "Bhakti-Shakti Chowk",
+    ],
+    whyConvenient: [
+      "Nigdi–Akurdi's engineering students gain a job-ready edge from our Java Full Stack, Python Full Stack, Data Science, Java and Software Testing tracks, with placement support on top of their degree.",
+      "Live-online removes the long north-west commute, while weekend classroom in Kothrud offers in-person lab time — same trainers and curriculum in both.",
+    ],
+    popularCourseSlugs: [
+      "java-full-stack-training-in-pune",
+      "python-full-stack-training-in-pune",
+      "data-science-training-in-pune",
+      "java-training-in-pune",
+      "software-testing-training-in-pune",
+    ],
+    localFaqs: [
+      {
+        question: "Is Nigdi / Akurdi too far for classroom training?",
+        answer:
+          "It's about 22–25 km via the old Mumbai-Pune highway (55–70 min with traffic), so most Nigdi–Akurdi students train live-online and use weekend classroom in Kothrud for in-person time.",
+      },
+      {
+        question: "I study at DY Patil or PCCOE — will training help placements?",
+        answer:
+          "Yes. Our Java Full Stack, Python Full Stack, Data Science and Software Testing tracks include resume prep, mock interviews and placement support to complement your degree.",
+      },
+      {
+        question: "Which batch format do most Nigdi–Akurdi students choose?",
+        answer:
+          "Live-online for weekday convenience given the distance, with weekend classroom in Kothrud as an option. Both are identical in content.",
+      },
+    ],
+  },
+
+  // ─── 21. Koregaon Park & Kalyani Nagar ───────────────────────────────────
+  {
+    slug: "it-training-in-koregaon-park",
+    name: "Koregaon Park & Kalyani Nagar",
+    fullName: "Koregaon Park & Kalyani Nagar, Pune",
+    pincode: "411001",
+    priority: 21,
+    tagline: "Central-east startup & agency belt — near Kharadi and Viman Nagar.",
+    metaTitle: "IT Training in Koregaon Park & Kalyani Nagar, Pune — Archer Infotech",
+    metaDescription:
+      "Koregaon Park and Kalyani Nagar professionals and students train with Archer Infotech in Java Full Stack, Python Full Stack, Data Science, MERN and DevOps — live-online plus weekend classroom, with placement support.",
+    intro: [
+      "Koregaon Park and Kalyani Nagar form central-east Pune's upscale startup, agency and offices belt, close to the Kharadi and Viman Nagar IT corridors. The area's product startups and young professionals drive demand for Java Full Stack, Python Full Stack, Data Science, MERN and DevOps.",
+      "Koregaon Park–Kalyani Nagar is roughly 10–12 km from our Kothrud centre, so most learners choose live-online with weekend classroom as an option — the same trainers, projects and placement support in both.",
+    ],
+    commute: {
+      distanceLabel: "~10–12 km · 30–45 min via Bund Garden / Sangamwadi",
+      paragraphs: [
+        "Koregaon Park and Kalyani Nagar connect to Kothrud via the Bund Garden / Sangamwadi corridor — typically 30–45 minutes with central-Pune traffic.",
+        "Given the cross-city route, most learners here choose live-online, with weekend classroom in Kothrud for those who want occasional in-person time.",
+      ],
+      modes: [
+        { mode: "Online live", detail: "Most popular for KP / Kalyani Nagar's professionals and startup teams." },
+        { mode: "Weekend classroom", detail: "Saturday in-person batches in Kothrud." },
+        { mode: "Car / two-wheeler", detail: "30–45 min via Bund Garden / Sangamwadi." },
+      ],
+    },
+    landmarks: [
+      "Koregaon Park (North & South Main Road)",
+      "Kalyani Nagar (offices & malls)",
+      "Osho International Meditation Resort",
+      "Bund Garden / Sangamwadi",
+      "Adjacent Kharadi & Viman Nagar IT belts",
+    ],
+    whyConvenient: [
+      "KP and Kalyani Nagar's startup and agency scene is a strong fit for our Java Full Stack, Python Full Stack, Data Science, MERN and DevOps tracks with placement support.",
+      "Live-online delivery removes the cross-city commute, while weekend classroom in Kothrud gives hands-on lab time when needed — same trainers and curriculum in both.",
+    ],
+    popularCourseSlugs: [
+      "java-full-stack-training-in-pune",
+      "python-full-stack-training-in-pune",
+      "data-science-training-in-pune",
+      "mern-stack-training-in-pune",
+      "devops-training-in-pune",
+    ],
+    localFaqs: [
+      {
+        question: "How far is Koregaon Park / Kalyani Nagar from Archer's centre?",
+        answer:
+          "About 10–12 km via Bund Garden / Sangamwadi — typically 30–45 minutes. Most learners choose live-online, with weekend classroom in Kothrud as an option.",
+      },
+      {
+        question: "Which batch format suits KP / Kalyani Nagar professionals?",
+        answer:
+          "Live-online for weekday convenience, with weekend classroom in Kothrud when in-person time helps. Both use the same trainers, projects and placement support.",
+      },
+      {
+        question: "Which courses are popular in this area?",
+        answer:
+          "Java Full Stack, Python Full Stack, Data Science, MERN and DevOps — matching the startup and adjacent Kharadi/Viman Nagar IT hiring.",
+      },
+    ],
+  },
+
+  // ─── 22. Kondhwa & NIBM ──────────────────────────────────────────────────
+  {
+    slug: "it-training-in-kondhwa",
+    name: "Kondhwa & NIBM",
+    fullName: "Kondhwa & NIBM Road, Pune",
+    pincode: "411048",
+    priority: 22,
+    tagline: "SE residential belt near Hadapsar — Kondhwa, NIBM & Wanowrie.",
+    metaTitle: "IT Training in Kondhwa & NIBM Road, Pune — Archer Infotech",
+    metaDescription:
+      "Kondhwa, NIBM and Wanowrie students and professionals train with Archer Infotech in Java Full Stack, Python Full Stack, Data Science, Java and MERN — live-online plus weekend classroom, with placement support.",
+    intro: [
+      "Kondhwa, NIBM Road and Wanowrie form a growing south-east Pune residential belt, close to the Hadapsar–Magarpatta IT corridor. With a large young-professional and student population, Java Full Stack, Python Full Stack, Data Science, core Java and MERN are the most-requested tracks here.",
+      "Kondhwa–NIBM is about 12–14 km from our Kothrud centre, so learners split between live-online and weekend classroom — the same trainers, projects and placement support in both.",
+    ],
+    commute: {
+      distanceLabel: "~12–14 km · 35–50 min via Bibwewadi / Salunke Vihar",
+      paragraphs: [
+        "Kondhwa and NIBM Road connect to Kothrud via the Bibwewadi and Salunke Vihar corridors — typically 35–50 minutes with traffic.",
+        "Given the distance, many learners here choose live-online, with weekend classroom in Kothrud for those who want in-person time on the harder modules.",
+      ],
+      modes: [
+        { mode: "Online live", detail: "Popular for Kondhwa / NIBM's weekday professionals." },
+        { mode: "Weekend classroom", detail: "Saturday in-person batches in Kothrud." },
+        { mode: "Car / two-wheeler", detail: "35–50 min via Bibwewadi / Salunke Vihar." },
+      ],
+    },
+    landmarks: [
+      "NIBM (National Institute of Bank Management)",
+      "Kondhwa (Kausar Baugh / Salunke Vihar)",
+      "Wanowrie & Fatima Nagar",
+      "Adjacent Hadapsar–Magarpatta IT belt",
+      "Bibwewadi corridor",
+    ],
+    whyConvenient: [
+      "Kondhwa–NIBM's proximity to the Hadapsar–Magarpatta IT belt makes our Java Full Stack, Python Full Stack, Data Science, Java and MERN tracks a strong fit, with placement support attached.",
+      "Live-online removes the cross-city commute, while weekend classroom in Kothrud provides hands-on lab time — same trainers and curriculum in both.",
+    ],
+    popularCourseSlugs: [
+      "java-full-stack-training-in-pune",
+      "python-full-stack-training-in-pune",
+      "data-science-training-in-pune",
+      "java-training-in-pune",
+      "mern-stack-training-in-pune",
+    ],
+    localFaqs: [
+      {
+        question: "How far is Kondhwa / NIBM from Archer's centre?",
+        answer:
+          "About 12–14 km via Bibwewadi / Salunke Vihar — typically 35–50 minutes. Most learners choose live-online, with weekend classroom in Kothrud as an option.",
+      },
+      {
+        question: "I work in Hadapsar/Magarpatta and live in Kondhwa — can I upskill?",
+        answer:
+          "Yes — live-online evening and weekend batches are built for working professionals, with the same projects, mock interviews and placement support as classroom.",
+      },
+      {
+        question: "Which courses are popular in Kondhwa and NIBM?",
+        answer:
+          "Java Full Stack, Python Full Stack, Data Science, Java and MERN — matching the nearby Hadapsar–Magarpatta employers.",
+      },
+    ],
+  },
+
+  // ─── 23. Pune Camp & Swargate ────────────────────────────────────────────
+  {
+    slug: "it-training-in-camp",
+    name: "Pune Camp & Swargate",
+    fullName: "Pune Camp & Swargate, Pune",
+    pincode: "411001",
+    priority: 23,
+    tagline: "Central Pune — Camp's commercial core & Swargate transit hub.",
+    metaTitle: "IT Training in Pune Camp & Swargate — Archer Infotech",
+    metaDescription:
+      "Pune Camp and Swargate students and professionals train with Archer Infotech in Java Full Stack, Python Full Stack, Data Science, Java and MERN — classroom in Kothrud plus online batches, with placement support.",
+    intro: [
+      "Pune Camp (with the MG Road commercial belt and cantonment area) and Swargate (a central transit and PMPML/metro hub) sit in the heart of the city, well connected to our Kothrud centre. Central Pune's students and young professionals choose Java Full Stack, Python Full Stack, Data Science, core Java and MERN most often.",
+      "Camp–Swargate is roughly 5–7 km from Kothrud, so classroom batches are convenient — with live-online available for those who prefer to study from home.",
+    ],
+    commute: {
+      distanceLabel: "~5–7 km · 15–25 min via Swargate / Deccan",
+      paragraphs: [
+        "Camp and Swargate connect to Kothrud via the Swargate and Deccan corridors — typically 15–25 minutes, one of the more convenient central-Pune commutes.",
+        "Because the distance is short, many Camp–Swargate learners attend classroom batches in Kothrud, with live-online available for added flexibility.",
+      ],
+      modes: [
+        { mode: "Pune Metro", detail: "Swargate is a metro hub with connections toward the Kothrud / Vanaz corridor." },
+        { mode: "PMPML bus", detail: "Frequent Swargate–Kothrud services." },
+        { mode: "Two-wheeler", detail: "15–25 minutes via Swargate / Deccan." },
+      ],
+    },
+    landmarks: [
+      "MG Road (Camp) commercial belt",
+      "Pune Cantonment",
+      "Swargate transit hub & Metro",
+      "Seven Loves Chowk",
+      "Sarasbaug / Peshwe Park (nearby)",
+    ],
+    whyConvenient: [
+      "Camp and Swargate's central location and short 5–7 km commute make classroom Java Full Stack, Python Full Stack and Data Science training genuinely convenient, with full in-person project time.",
+      "For those who prefer flexibility, live-online batches deliver the same trainers, curriculum and placement support from home.",
+    ],
+    popularCourseSlugs: [
+      "java-full-stack-training-in-pune",
+      "python-full-stack-training-in-pune",
+      "data-science-training-in-pune",
+      "java-training-in-pune",
+      "mern-stack-training-in-pune",
+    ],
+    localFaqs: [
+      {
+        question: "How far is Camp / Swargate from Archer's centre?",
+        answer:
+          "About 5–7 km via Swargate / Deccan — typically 15–25 minutes. Classroom batches are convenient, and live-online is available too.",
+      },
+      {
+        question: "Can I reach the centre by Pune Metro from Swargate?",
+        answer:
+          "Yes — Swargate is a metro hub connecting toward the Kothrud / Vanaz corridor, and frequent buses also serve the route.",
+      },
+      {
+        question: "Which batch format suits Camp / Swargate learners?",
+        answer:
+          "Classroom is convenient given the short commute, with live-online available for flexibility. Both use the same trainers, projects and placement support.",
       },
     ],
   },

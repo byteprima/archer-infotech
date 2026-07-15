@@ -4240,6 +4240,1707 @@ export const courseLocations: CourseLocationCombo[] = [
       },
     ],
   },
+
+  // ══════════════════════════════════════════════════════════════════════════
+  // BATCH 2 — 8 more areas (Katraj, Sinhagad Road, Wagholi, Balewadi, Nigdi,
+  // Koregaon Park, Kondhwa, Camp). JFS/PFS/DS everywhere + local extras.
+  // ══════════════════════════════════════════════════════════════════════════
+
+  // ─── Katraj & Dhankawadi ──────────────────────────────────────────────────
+  {
+    slug: "java-full-stack-in-katraj",
+    courseSlug: "java-full-stack-training-in-pune",
+    locationSlug: "it-training-in-katraj",
+    shortLabel: "Java Full Stack in Katraj",
+    metaTitle: "Java Full Stack Training in Katraj & Dhankawadi, Pune (2026)",
+    metaDescription:
+      "Java Full Stack Training for Katraj & Dhankawadi — Archer Infotech. Spring Boot + microservices + React + placement support for South Pune's college belt. Classroom in Kothrud + online.",
+    h1: "Java Full Stack Training in Katraj & Dhankawadi, Pune",
+    intro: [
+      "Katraj and Dhankawadi anchor South Pune's biggest student belt — Bharati Vidyapeeth, PICT and Sinhgad institutes send thousands of graduates into the job market each year. Java Full Stack (core Java + Spring Boot + microservices + React) is Pune's most-hired stack, and Archer Infotech's flagship track builds exactly that depth.",
+      "Katraj–Dhankawadi is about 10–12 km from our Kothrud centre via the Katraj bypass, so students split between weekday classroom batches and live-online — same curriculum, projects and placement support.",
+    ],
+    whyHere: [
+      "Java Full Stack is Pune's most-hired fresher pattern — ideal for Katraj-belt college students",
+      "Only 10–12 km from Kothrud, so weekday classroom batches are convenient",
+      "Trainers map interview prep to the MNC and GCC panels South Pune students target",
+      "100+ hiring-partner network with a ₹4-6 LPA fresher band, higher for top performers",
+    ],
+    faqs: [
+      {
+        question: "How far is Katraj / Dhankawadi from Archer's centre?",
+        answer:
+          "About 10–12 km via the Katraj bypass / NH-48 — typically 25–35 minutes. Many students attend classroom batches in Kothrud; others train online.",
+      },
+      {
+        question: "I study at a Katraj-belt college — will this help placements?",
+        answer:
+          "Yes — the Java Full Stack track adds production Spring Boot + React skills plus resume prep, mock interviews and placement support.",
+      },
+      {
+        question: "How long does the Java Full Stack course take?",
+        answer:
+          "4-6 months with 8-10 projects, GitHub workflow, mock interviews and placement assistance.",
+      },
+      {
+        question: "What does Java Full Stack training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+  {
+    slug: "python-full-stack-in-katraj",
+    courseSlug: "python-full-stack-training-in-pune",
+    locationSlug: "it-training-in-katraj",
+    shortLabel: "Python Full Stack in Katraj",
+    metaTitle: "Python Full Stack Training in Katraj & Dhankawadi, Pune (2026)",
+    metaDescription:
+      "Python Full Stack Training for Katraj & Dhankawadi — Archer Infotech. Django/Flask + REST + React + placement support for South Pune's college belt. Classroom in Kothrud + online.",
+    h1: "Python Full Stack Training in Katraj & Dhankawadi, Pune",
+    intro: [
+      "For Katraj–Dhankawadi's large student population, Python Full Stack (Python + Django/Flask + REST + React) is an ideal first professional stack — it opens web, data and automation roles. Archer Infotech's track builds that flexible, production-ready depth.",
+      "At 10–12 km from Kothrud, students conveniently mix weekday classroom with live-online — same trainers, projects and placement support.",
+    ],
+    whyHere: [
+      "Python Full Stack opens web, data and automation paths — ideal for Katraj-belt students",
+      "Only 10–12 km from Kothrud for convenient classroom time",
+      "Beginner-friendly path with a strong project portfolio",
+      "Placement support taps our 100+ hiring-partner network",
+    ],
+    faqs: [
+      {
+        question: "Do I need prior coding experience?",
+        answer:
+          "No — the track starts from Python fundamentals and builds to full-stack projects.",
+      },
+      {
+        question: "Classroom or online for Katraj students?",
+        answer:
+          "Given the ~10–12 km distance, many attend classroom in Kothrud; others prefer live-online. Both are identical.",
+      },
+      {
+        question: "How long is the Python Full Stack course?",
+        answer:
+          "About 4-5 months covering Django/Flask, REST APIs, a front-end framework, projects and placement preparation.",
+      },
+      {
+        question: "What does the course cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+  {
+    slug: "data-science-in-katraj",
+    courseSlug: "data-science-training-in-pune",
+    locationSlug: "it-training-in-katraj",
+    shortLabel: "Data Science in Katraj",
+    metaTitle: "Data Science Training in Katraj & Dhankawadi, Pune (2026)",
+    metaDescription:
+      "Data Science Training for Katraj & Dhankawadi — Archer Infotech. Python, ML, statistics, SQL + portfolio + placement support for South Pune's college belt. Classroom in Kothrud + online.",
+    h1: "Data Science Training in Katraj & Dhankawadi, Pune",
+    intro: [
+      "Data science is a popular way for Katraj–Dhankawadi's college students to stand out. Archer Infotech's Data Science track (Python, statistics, machine learning, SQL, visualization) builds a hiring-ready portfolio around real datasets.",
+      "At 10–12 km from Kothrud, students mix weekday classroom with live-online — identical trainers, projects and placement support.",
+    ],
+    whyHere: [
+      "Katraj-belt students gain a job-ready edge on top of their degree",
+      "Portfolio-first curriculum is what analytics hiring panels screen on",
+      "Only 10–12 km from Kothrud for convenient classroom time",
+      "Placement support with resume prep, mock interviews and 100+ hiring partners",
+    ],
+    faqs: [
+      {
+        question: "Do I need a maths or coding background?",
+        answer:
+          "Helpful but not mandatory — the track builds Python and statistics from fundamentals before machine learning and projects.",
+      },
+      {
+        question: "Classroom or online for Katraj students?",
+        answer:
+          "Given the ~10–12 km distance, many attend classroom in Kothrud; others prefer live-online. Both cover the same material.",
+      },
+      {
+        question: "How long is the Data Science course?",
+        answer:
+          "About 5-6 months covering Python, statistics, ML, SQL, visualization and a capstone portfolio, plus placement support.",
+      },
+      {
+        question: "What does Data Science training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+  {
+    slug: "java-in-katraj",
+    courseSlug: "java-training-in-pune",
+    locationSlug: "it-training-in-katraj",
+    shortLabel: "Java in Katraj",
+    metaTitle: "Java Training in Katraj & Dhankawadi, Pune (2026)",
+    metaDescription:
+      "Java Training for Katraj & Dhankawadi — Archer Infotech. Core Java, OOP, JDBC + placement support for South Pune's college belt. Classroom in Kothrud + online.",
+    h1: "Java Training in Katraj & Dhankawadi, Pune",
+    intro: [
+      "Core Java is the foundation for most of Pune's biggest hiring stacks, which makes it a smart first course for Katraj–Dhankawadi's engineering students. Archer Infotech's Java track builds strong fundamentals (core Java, OOP, collections, JDBC, exception handling) as a launchpad toward full-stack roles.",
+      "At 10–12 km from Kothrud, students mix weekday classroom with live-online — same trainers and curriculum.",
+    ],
+    whyHere: [
+      "Core Java underpins Pune's most-hired stacks — a strong first step for Katraj-belt students",
+      "Only 10–12 km from Kothrud for convenient classroom time",
+      "Clean path from core Java into the flagship Java Full Stack track",
+      "Placement support taps our 100+ hiring-partner network",
+    ],
+    faqs: [
+      {
+        question: "Is core Java a good first course?",
+        answer:
+          "Yes — it builds the fundamentals behind Java Full Stack and many Pune MNC drives, so it's a strong starting point.",
+      },
+      {
+        question: "Can I progress to Java Full Stack after this?",
+        answer:
+          "Absolutely — core Java is the foundation for our flagship Java Full Stack track (Spring Boot, microservices, React).",
+      },
+      {
+        question: "Classroom or online for Katraj students?",
+        answer:
+          "Given the ~10–12 km distance, many attend classroom in Kothrud; others prefer live-online. Both are identical.",
+      },
+      {
+        question: "What does Java training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+  {
+    slug: "software-testing-in-katraj",
+    courseSlug: "software-testing-training-in-pune",
+    locationSlug: "it-training-in-katraj",
+    shortLabel: "Software Testing in Katraj",
+    metaTitle: "Software Testing Training in Katraj & Dhankawadi, Pune (2026)",
+    metaDescription:
+      "Software Testing Training for Katraj & Dhankawadi — Archer Infotech. Manual + Selenium automation + API testing + placement support for South Pune's college belt. Classroom in Kothrud + online.",
+    h1: "Software Testing Training in Katraj & Dhankawadi, Pune",
+    intro: [
+      "Software testing has the softest entry barrier of the tech tracks, which makes it popular with Katraj–Dhankawadi students from non-CS backgrounds. Archer Infotech's Software Testing track covers manual testing, Selenium automation and API testing.",
+      "At 10–12 km from Kothrud, students mix weekday classroom with live-online — same curriculum and placement support.",
+    ],
+    whyHere: [
+      "Lowest coding barrier of the tech tracks — accessible to non-CS Katraj-belt graduates",
+      "Manual + Selenium automation + API testing gives an employable skill mix",
+      "Only 10–12 km from Kothrud for convenient classroom time",
+      "Placement support taps our 100+ hiring-partner network",
+    ],
+    faqs: [
+      {
+        question: "Do I need a development background for testing?",
+        answer:
+          "No deep coding needed for manual testing; basic programming literacy helps for Selenium automation. The track starts from fundamentals.",
+      },
+      {
+        question: "Classroom or online for Katraj students?",
+        answer:
+          "Given the ~10–12 km distance, many attend classroom in Kothrud; others prefer live-online. Both are identical.",
+      },
+      {
+        question: "How long is the Software Testing course?",
+        answer:
+          "About 2-3 months covering manual testing, Selenium automation, API testing and Postman, plus placement support.",
+      },
+      {
+        question: "What does Software Testing training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+
+  // ─── Sinhagad Road & Dhayari ──────────────────────────────────────────────
+  {
+    slug: "java-full-stack-in-sinhagad-road",
+    courseSlug: "java-full-stack-training-in-pune",
+    locationSlug: "it-training-in-sinhagad-road",
+    shortLabel: "Java Full Stack on Sinhagad Road",
+    metaTitle: "Java Full Stack Training on Sinhagad Road & Dhayari, Pune (2026)",
+    metaDescription:
+      "Java Full Stack Training for Sinhagad Road & Dhayari — Archer Infotech. Spring Boot + microservices + React + placement support for SW Pune's student corridor. Classroom in Kothrud + online.",
+    h1: "Java Full Stack Training on Sinhagad Road & Dhayari, Pune",
+    intro: [
+      "The Sinhagad Road corridor — Dhayari, Vadgaon, Nanded City — is a fast-growing residential and student zone anchored by Sinhgad's colleges. Java Full Stack (core Java + Spring Boot + microservices + React) is Pune's most-hired stack, and Archer Infotech's flagship track builds it.",
+      "Sinhagad Road is only about 7–10 km from our Kothrud centre, so classroom batches are convenient — with live-online available for home study.",
+    ],
+    whyHere: [
+      "Java Full Stack is Pune's most-hired fresher pattern — ideal for the Sinhgad college corridor",
+      "Only 7–10 km from Kothrud, one of the shorter SW Pune commutes",
+      "Trainers map interview prep to Pune MNC and GCC panels",
+      "100+ hiring-partner network with a ₹4-6 LPA fresher band",
+    ],
+    faqs: [
+      {
+        question: "How far is Sinhagad Road / Dhayari from Archer's centre?",
+        answer:
+          "About 7–10 km via Vitthalwadi / Hingne — typically 20–30 minutes, so classroom batches are convenient. Live-online is also available.",
+      },
+      {
+        question: "I study at a Sinhgad college — will this help placements?",
+        answer:
+          "Yes — the Java Full Stack track adds production Spring Boot + React skills plus resume prep, mock interviews and placement support.",
+      },
+      {
+        question: "How long does the Java Full Stack course take?",
+        answer:
+          "4-6 months with 8-10 projects, GitHub workflow, mock interviews and placement assistance.",
+      },
+      {
+        question: "What does Java Full Stack training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+  {
+    slug: "python-full-stack-in-sinhagad-road",
+    courseSlug: "python-full-stack-training-in-pune",
+    locationSlug: "it-training-in-sinhagad-road",
+    shortLabel: "Python Full Stack on Sinhagad Road",
+    metaTitle: "Python Full Stack Training on Sinhagad Road & Dhayari, Pune (2026)",
+    metaDescription:
+      "Python Full Stack Training for Sinhagad Road & Dhayari — Archer Infotech. Django/Flask + REST + React + placement support for SW Pune's student corridor. Classroom in Kothrud + online.",
+    h1: "Python Full Stack Training on Sinhagad Road & Dhayari, Pune",
+    intro: [
+      "For the Sinhagad Road corridor's large student population, Python Full Stack (Python + Django/Flask + REST + React) is an ideal first professional stack that also opens data and automation roles. Archer Infotech's track builds that flexible depth.",
+      "At 7–10 km from Kothrud, classroom batches are convenient, with live-online for home study — same trainers, projects and placement support.",
+    ],
+    whyHere: [
+      "Python Full Stack opens web, data and automation paths — ideal for the Sinhgad corridor",
+      "Only 7–10 km from Kothrud for convenient classroom time",
+      "Beginner-friendly path with a strong project portfolio",
+      "Placement support taps our 100+ hiring-partner network",
+    ],
+    faqs: [
+      {
+        question: "Do I need prior coding experience?",
+        answer:
+          "No — the track starts from Python fundamentals and builds to full-stack projects.",
+      },
+      {
+        question: "Classroom or online for Sinhagad Road students?",
+        answer:
+          "Given the short 7–10 km distance, many attend classroom in Kothrud; others prefer live-online. Both are identical.",
+      },
+      {
+        question: "How long is the Python Full Stack course?",
+        answer:
+          "About 4-5 months covering Django/Flask, REST APIs, a front-end framework, projects and placement preparation.",
+      },
+      {
+        question: "What does the course cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+  {
+    slug: "data-science-in-sinhagad-road",
+    courseSlug: "data-science-training-in-pune",
+    locationSlug: "it-training-in-sinhagad-road",
+    shortLabel: "Data Science on Sinhagad Road",
+    metaTitle: "Data Science Training on Sinhagad Road & Dhayari, Pune (2026)",
+    metaDescription:
+      "Data Science Training for Sinhagad Road & Dhayari — Archer Infotech. Python, ML, statistics, SQL + portfolio + placement support for SW Pune's student corridor. Classroom in Kothrud + online.",
+    h1: "Data Science Training on Sinhagad Road & Dhayari, Pune",
+    intro: [
+      "Data science is a popular way for the Sinhagad Road corridor's students to stand out. Archer Infotech's Data Science track (Python, statistics, machine learning, SQL, visualization) builds a hiring-ready portfolio.",
+      "At 7–10 km from Kothrud, classroom batches are convenient, with live-online for home study — identical trainers, projects and placement support.",
+    ],
+    whyHere: [
+      "Sinhgad-corridor students gain a job-ready edge on top of their degree",
+      "Portfolio-first curriculum is what analytics hiring panels screen on",
+      "Only 7–10 km from Kothrud for convenient classroom time",
+      "Placement support with resume prep, mock interviews and 100+ hiring partners",
+    ],
+    faqs: [
+      {
+        question: "Do I need a maths or coding background?",
+        answer:
+          "Helpful but not mandatory — the track builds Python and statistics from fundamentals before machine learning and projects.",
+      },
+      {
+        question: "Classroom or online for Sinhagad Road students?",
+        answer:
+          "Given the short distance, many attend classroom in Kothrud; others prefer live-online. Both cover the same material.",
+      },
+      {
+        question: "How long is the Data Science course?",
+        answer:
+          "About 5-6 months covering Python, statistics, ML, SQL, visualization and a capstone portfolio, plus placement support.",
+      },
+      {
+        question: "What does Data Science training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+  {
+    slug: "java-in-sinhagad-road",
+    courseSlug: "java-training-in-pune",
+    locationSlug: "it-training-in-sinhagad-road",
+    shortLabel: "Java on Sinhagad Road",
+    metaTitle: "Java Training on Sinhagad Road & Dhayari, Pune (2026)",
+    metaDescription:
+      "Java Training for Sinhagad Road & Dhayari — Archer Infotech. Core Java, OOP, JDBC + placement support for SW Pune's student corridor. Classroom in Kothrud + online.",
+    h1: "Java Training on Sinhagad Road & Dhayari, Pune",
+    intro: [
+      "Core Java is the foundation for most of Pune's biggest hiring stacks, making it a smart first course for the Sinhagad Road corridor's engineering students. Archer Infotech's Java track builds strong fundamentals as a launchpad toward full-stack roles.",
+      "At 7–10 km from Kothrud, classroom batches are convenient, with live-online available — same trainers and curriculum.",
+    ],
+    whyHere: [
+      "Core Java underpins Pune's most-hired stacks — a strong first step for Sinhgad students",
+      "Only 7–10 km from Kothrud for convenient classroom time",
+      "Clean path from core Java into the flagship Java Full Stack track",
+      "Placement support taps our 100+ hiring-partner network",
+    ],
+    faqs: [
+      {
+        question: "Is core Java a good first course?",
+        answer:
+          "Yes — it builds the fundamentals behind Java Full Stack and many Pune MNC drives.",
+      },
+      {
+        question: "Can I progress to Java Full Stack after this?",
+        answer:
+          "Absolutely — core Java is the foundation for our flagship Java Full Stack track.",
+      },
+      {
+        question: "Classroom or online for Sinhagad Road students?",
+        answer:
+          "Given the short distance, many attend classroom in Kothrud; others prefer live-online. Both are identical.",
+      },
+      {
+        question: "What does Java training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+  {
+    slug: "mern-stack-in-sinhagad-road",
+    courseSlug: "mern-stack-training-in-pune",
+    locationSlug: "it-training-in-sinhagad-road",
+    shortLabel: "MERN Stack on Sinhagad Road",
+    metaTitle: "MERN Stack Training on Sinhagad Road & Dhayari, Pune (2026)",
+    metaDescription:
+      "MERN Stack Training for Sinhagad Road & Dhayari — Archer Infotech. MongoDB, Express, React, Node + placement support for SW Pune's student corridor. Classroom in Kothrud + online.",
+    h1: "MERN Stack Training on Sinhagad Road & Dhayari, Pune",
+    intro: [
+      "MERN Stack (MongoDB, Express, React, Node) is a favourite for Sinhagad Road corridor students who want to build full JavaScript products end-to-end. Archer Infotech's MERN track builds that depth with real projects.",
+      "At 7–10 km from Kothrud, classroom batches are convenient, with live-online available — same trainers, projects and placement support.",
+    ],
+    whyHere: [
+      "MERN is a go-to stack for product startups the Sinhgad corridor feeds",
+      "Single-language (JavaScript) front-to-back keeps learning efficient",
+      "Only 7–10 km from Kothrud for convenient classroom time",
+      "Placement support taps our 100+ hiring-partner network",
+    ],
+    faqs: [
+      {
+        question: "Do I need JavaScript experience first?",
+        answer:
+          "The track covers JavaScript fundamentals before MongoDB, Express, React and Node, so motivated beginners can join.",
+      },
+      {
+        question: "Classroom or online for Sinhagad Road students?",
+        answer:
+          "Given the short distance, many attend classroom in Kothrud; others prefer live-online. Both are identical.",
+      },
+      {
+        question: "How long is the MERN course?",
+        answer:
+          "About 3-4 months covering MongoDB, Express, React, Node, REST APIs and real projects, plus placement support.",
+      },
+      {
+        question: "What does MERN training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+
+  // ─── Wagholi ──────────────────────────────────────────────────────────────
+  {
+    slug: "java-full-stack-in-wagholi",
+    courseSlug: "java-full-stack-training-in-pune",
+    locationSlug: "it-training-in-wagholi",
+    shortLabel: "Java Full Stack in Wagholi",
+    metaTitle: "Java Full Stack Training in Wagholi, Pune (2026)",
+    metaDescription:
+      "Java Full Stack Training for Wagholi — Archer Infotech. Spring Boot + microservices + React + placement support for Wagholi & Kharadi-belt professionals. Live-online + weekend classroom.",
+    h1: "Java Full Stack Training in Wagholi, Pune",
+    intro: [
+      "Wagholi's fast-growing population works largely in the adjacent Kharadi EON/WTC IT belt, where Java + Spring Boot + microservices + React — Pune's most-hired stack — is screened heavily. Archer Infotech's flagship Java Full Stack track builds that depth.",
+      "Wagholi is ~22–25 km from our Kothrud centre on the far east side, so most learners join live-online batches with weekend classroom as an option — same curriculum, projects and placement support.",
+    ],
+    whyHere: [
+      "Wagholi feeds the Kharadi EON/WTC belt where Java Full Stack is the most-hired stack",
+      "Live-online format removes the long cross-city commute",
+      "Trainers map interview prep to Kharadi GCC and services panels",
+      "100+ hiring-partner network with a ₹4-6 LPA fresher band, higher at GCC captives",
+    ],
+    faqs: [
+      {
+        question: "Is Wagholi too far for training in Kothrud?",
+        answer:
+          "It's about 22–25 km cross-city (55–75 min with traffic), so most Wagholi students train live-online, using weekend classroom in Kothrud for in-person time.",
+      },
+      {
+        question: "I work in Kharadi and live in Wagholi — can I upskill?",
+        answer:
+          "Yes — live-online evening and weekend batches are built for working professionals, with the same projects, mock interviews and placement support as classroom.",
+      },
+      {
+        question: "How long does the Java Full Stack course take?",
+        answer:
+          "4-6 months with 8-10 projects, GitHub workflow, mock interviews and placement assistance.",
+      },
+      {
+        question: "What does Java Full Stack training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+  {
+    slug: "python-full-stack-in-wagholi",
+    courseSlug: "python-full-stack-training-in-pune",
+    locationSlug: "it-training-in-wagholi",
+    shortLabel: "Python Full Stack in Wagholi",
+    metaTitle: "Python Full Stack Training in Wagholi, Pune (2026)",
+    metaDescription:
+      "Python Full Stack Training for Wagholi — Archer Infotech. Django/Flask + REST + React + placement support for Wagholi & Kharadi-belt professionals. Live-online + weekend classroom.",
+    h1: "Python Full Stack Training in Wagholi, Pune",
+    intro: [
+      "Python Full Stack (Python + Django/Flask + REST + React) is a flexible, in-demand choice for Wagholi's young workforce, opening web, data and automation roles across the nearby Kharadi belt. Archer Infotech's track builds that depth.",
+      "Wagholi is ~22–25 km from Kothrud, so most learners choose live-online with weekend classroom as an option — same trainers, projects and placement support.",
+    ],
+    whyHere: [
+      "Python Full Stack opens web, data and automation roles across the Kharadi belt",
+      "Live-online removes the long Wagholi-Kothrud commute",
+      "Django/Flask + REST + React portfolio maps to local hiring",
+      "Placement support taps our 100+ hiring-partner network",
+    ],
+    faqs: [
+      {
+        question: "Classroom or online from Wagholi?",
+        answer:
+          "Most Wagholi learners choose live-online given the ~22–25 km distance, with weekend classroom in Kothrud for in-person time.",
+      },
+      {
+        question: "Do I need prior coding experience?",
+        answer:
+          "No — the track starts from Python fundamentals and builds to full-stack projects.",
+      },
+      {
+        question: "How long is the Python Full Stack course?",
+        answer:
+          "About 4-5 months covering Django/Flask, REST APIs, a front-end framework, projects and placement preparation.",
+      },
+      {
+        question: "What does the course cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+  {
+    slug: "data-science-in-wagholi",
+    courseSlug: "data-science-training-in-pune",
+    locationSlug: "it-training-in-wagholi",
+    shortLabel: "Data Science in Wagholi",
+    metaTitle: "Data Science Training in Wagholi, Pune (2026)",
+    metaDescription:
+      "Data Science Training for Wagholi — Archer Infotech. Python, ML, statistics, SQL + portfolio + placement support for Wagholi & Kharadi-belt professionals. Live-online + weekend classroom.",
+    h1: "Data Science Training in Wagholi, Pune",
+    intro: [
+      "The Kharadi belt Wagholi feeds runs large analytics and data-science teams, especially in its finance GCC captives. Archer Infotech's Data Science track (Python, statistics, machine learning, SQL, visualization) builds a hiring-ready portfolio.",
+      "Wagholi is ~22–25 km from Kothrud, so most learners train live-online with weekend classroom as an option — identical trainers, projects and placement support.",
+    ],
+    whyHere: [
+      "Kharadi's finance GCCs (a short hop from Wagholi) hire analytics and data-science talent",
+      "Portfolio-first curriculum is what hiring panels screen on",
+      "Live-online removes the long commute for working professionals",
+      "Placement support with resume prep, mock interviews and 100+ hiring partners",
+    ],
+    faqs: [
+      {
+        question: "Do I need a maths or coding background?",
+        answer:
+          "Helpful but not mandatory — the track builds Python and statistics from fundamentals before machine learning and projects.",
+      },
+      {
+        question: "Classroom or online from Wagholi?",
+        answer:
+          "Most learners choose live-online given the distance, with weekend classroom in Kothrud for in-person sessions.",
+      },
+      {
+        question: "How long is the Data Science course?",
+        answer:
+          "About 5-6 months covering Python, statistics, ML, SQL, visualization and a capstone portfolio, plus placement support.",
+      },
+      {
+        question: "What does Data Science training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+  {
+    slug: "devops-in-wagholi",
+    courseSlug: "devops-training-in-pune",
+    locationSlug: "it-training-in-wagholi",
+    shortLabel: "DevOps in Wagholi",
+    metaTitle: "DevOps Training in Wagholi, Pune (2026)",
+    metaDescription:
+      "DevOps Training for Wagholi — Archer Infotech. Docker, Kubernetes, Jenkins, Terraform, AWS + placement support for Wagholi & Kharadi-belt professionals. Live-online + weekend classroom.",
+    h1: "DevOps Training in Wagholi, Pune",
+    intro: [
+      "The Kharadi services and GCC teams Wagholi feeds run continuous DevOps and cloud-platform hiring around Docker, Kubernetes, Jenkins, Terraform and AWS. Archer Infotech's DevOps track builds those skills with hands-on labs.",
+      "Wagholi is ~22–25 km from Kothrud, so most learners take live-online with weekend classroom as an option — same labs, projects and placement support.",
+    ],
+    whyHere: [
+      "Kharadi services MNCs and GCCs near Wagholi hire DevOps engineers at volume",
+      "Hands-on labs (Docker, Kubernetes, Jenkins, Terraform, AWS) mirror real pipelines",
+      "Live-online removes the long cross-city commute",
+      "Placement support taps our 100+ hiring-partner network",
+    ],
+    faqs: [
+      {
+        question: "Do I need coding experience for DevOps?",
+        answer:
+          "Basic Linux and scripting literacy helps; the track builds the rest from fundamentals through hands-on labs.",
+      },
+      {
+        question: "Classroom or online from Wagholi?",
+        answer:
+          "Most learners choose live-online given the distance, with weekend classroom in Kothrud for the harder Kubernetes / Terraform modules.",
+      },
+      {
+        question: "How long is the DevOps course?",
+        answer:
+          "About 3-4 months covering Docker, Kubernetes, Jenkins, Terraform, AWS and CI/CD pipelines with real projects.",
+      },
+      {
+        question: "What does DevOps training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+  {
+    slug: "aws-in-wagholi",
+    courseSlug: "aws-training-in-pune",
+    locationSlug: "it-training-in-wagholi",
+    shortLabel: "AWS in Wagholi",
+    metaTitle: "AWS Training in Wagholi, Pune (2026)",
+    metaDescription:
+      "AWS Training for Wagholi — Archer Infotech. Solutions Architect cert prep + hands-on labs + placement support for Wagholi & Kharadi-belt professionals. Live-online + weekend classroom.",
+    h1: "AWS Training in Wagholi, Pune",
+    intro: [
+      "Cloud skills are in constant demand across the Kharadi belt Wagholi feeds, and AWS Solutions Architect Associate (SAA) is the most-screened cloud certification at fresher and 0-3 year panels. Archer Infotech's AWS track pairs SAA prep with hands-on labs.",
+      "Wagholi is ~22–25 km from Kothrud, so most learners train live-online with weekend classroom as an option — identical labs, projects and placement support.",
+    ],
+    whyHere: [
+      "AWS SAA is the most-screened cloud cert at the Kharadi belt near Wagholi",
+      "Hands-on labs (EC2, S3, VPC, IAM, RDS, Lambda) build real cloud depth",
+      "Live-online removes the long Wagholi-Kothrud commute",
+      "Cloud roles carry strong Pune salary premiums; placement support included",
+    ],
+    faqs: [
+      {
+        question: "Will the course prepare me for AWS certification?",
+        answer:
+          "Yes — it maps to the AWS Solutions Architect Associate (SAA) exam alongside hands-on labs.",
+      },
+      {
+        question: "Classroom or online from Wagholi?",
+        answer:
+          "Most Wagholi learners choose live-online given the distance, with weekend classroom in Kothrud for in-person lab time.",
+      },
+      {
+        question: "How long is the AWS course?",
+        answer:
+          "About 2-3 months covering core AWS services, architecture patterns, SAA cert prep and hands-on labs.",
+      },
+      {
+        question: "What does AWS training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+
+  // ─── Balewadi & Pashan ────────────────────────────────────────────────────
+  {
+    slug: "java-full-stack-in-balewadi",
+    courseSlug: "java-full-stack-training-in-pune",
+    locationSlug: "it-training-in-balewadi",
+    shortLabel: "Java Full Stack in Balewadi",
+    metaTitle: "Java Full Stack Training in Balewadi & Pashan, Pune (2026)",
+    metaDescription:
+      "Java Full Stack Training for Balewadi & Pashan — Archer Infotech. Spring Boot + microservices + React + placement support near Baner & Hinjewadi. Weekend classroom + live-online.",
+    h1: "Java Full Stack Training in Balewadi & Pashan, Pune",
+    intro: [
+      "Balewadi and Pashan sit between the Baner and Hinjewadi IT corridors, where Java + Spring Boot + microservices + React — Pune's most-hired stack — is screened heavily. Archer Infotech's flagship Java Full Stack track builds that depth for the area's professionals and students.",
+      "Balewadi–Pashan is ~10–13 km from our Kothrud centre, so learners mix weekend classroom with weekday live-online — same curriculum, projects and placement support.",
+    ],
+    whyHere: [
+      "Java Full Stack is Pune's most-hired stack across the nearby Baner–Hinjewadi belt",
+      "Weekend classroom + weekday online fits Balewadi–Pashan professionals",
+      "Trainers map interview prep to Baner / Hinjewadi employer panels",
+      "100+ hiring-partner network with a ₹4-6 LPA fresher band",
+    ],
+    faqs: [
+      {
+        question: "How far is Balewadi / Pashan from Archer's centre?",
+        answer:
+          "About 10–13 km via Pashan Road / University Circle — typically 30–40 minutes. Many learners mix weekend classroom with weekday live-online.",
+      },
+      {
+        question: "Which Baner–Hinjewadi companies hire Java Full Stack freshers?",
+        answer:
+          "The Baner and Hinjewadi IT corridors near Balewadi–Pashan hire heavily on Java + Spring Boot + microservices across MNCs, GCCs and product teams.",
+      },
+      {
+        question: "How long does the Java Full Stack course take?",
+        answer:
+          "4-6 months with 8-10 projects, GitHub workflow, mock interviews and placement assistance.",
+      },
+      {
+        question: "What does Java Full Stack training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+  {
+    slug: "python-full-stack-in-balewadi",
+    courseSlug: "python-full-stack-training-in-pune",
+    locationSlug: "it-training-in-balewadi",
+    shortLabel: "Python Full Stack in Balewadi",
+    metaTitle: "Python Full Stack Training in Balewadi & Pashan, Pune (2026)",
+    metaDescription:
+      "Python Full Stack Training for Balewadi & Pashan — Archer Infotech. Django/Flask + REST + React + placement support near Baner & Hinjewadi. Weekend classroom + live-online.",
+    h1: "Python Full Stack Training in Balewadi & Pashan, Pune",
+    intro: [
+      "Python Full Stack (Python + Django/Flask + REST + React) is popular across Balewadi–Pashan's IT and research population, opening web, data and automation roles. Archer Infotech's track builds that flexible depth.",
+      "At ~10–13 km from Kothrud, learners mix weekend classroom with weekday live-online — same trainers, projects and placement support.",
+    ],
+    whyHere: [
+      "Python Full Stack opens web, data and automation roles across the Baner–Hinjewadi belt",
+      "Pashan's research/college population values Python's versatility",
+      "Weekend classroom + weekday online fits Balewadi–Pashan learners",
+      "Placement support taps our 100+ hiring-partner network",
+    ],
+    faqs: [
+      {
+        question: "Do I need prior coding experience?",
+        answer:
+          "No — the track starts from Python fundamentals and builds to full-stack projects.",
+      },
+      {
+        question: "Which batch format suits Balewadi–Pashan learners?",
+        answer:
+          "Weekend classroom for in-person time plus weekday live-online for flexibility. Both are identical in content.",
+      },
+      {
+        question: "How long is the Python Full Stack course?",
+        answer:
+          "About 4-5 months covering Django/Flask, REST APIs, a front-end framework, projects and placement preparation.",
+      },
+      {
+        question: "What does the course cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+  {
+    slug: "data-science-in-balewadi",
+    courseSlug: "data-science-training-in-pune",
+    locationSlug: "it-training-in-balewadi",
+    shortLabel: "Data Science in Balewadi",
+    metaTitle: "Data Science Training in Balewadi & Pashan, Pune (2026)",
+    metaDescription:
+      "Data Science Training for Balewadi & Pashan — Archer Infotech. Python, ML, statistics, SQL + portfolio + placement support near Baner & Hinjewadi and Pashan research hubs. Weekend + online.",
+    h1: "Data Science Training in Balewadi & Pashan, Pune",
+    intro: [
+      "With Pashan's research institutes (NCL, IISER, NCRA) and the Baner–Hinjewadi IT belt nearby, Balewadi–Pashan has strong demand for data-science skills. Archer Infotech's Data Science track (Python, statistics, ML, SQL, visualization) builds a hiring-ready portfolio.",
+      "At ~10–13 km from Kothrud, learners mix weekend classroom with weekday live-online — identical trainers, projects and placement support.",
+    ],
+    whyHere: [
+      "Pashan's research hubs and Baner–Hinjewadi IT teams drive data-science demand",
+      "Portfolio-first curriculum is what analytics hiring panels screen on",
+      "Weekend classroom + weekday online fits Balewadi–Pashan learners",
+      "Placement support with resume prep, mock interviews and 100+ hiring partners",
+    ],
+    faqs: [
+      {
+        question: "Do I need a maths or coding background?",
+        answer:
+          "Helpful but not mandatory — the track builds Python and statistics from fundamentals before machine learning and projects.",
+      },
+      {
+        question: "Which batch format suits Balewadi–Pashan learners?",
+        answer:
+          "Weekend classroom plus weekday live-online. Both cover the same material.",
+      },
+      {
+        question: "How long is the Data Science course?",
+        answer:
+          "About 5-6 months covering Python, statistics, ML, SQL, visualization and a capstone portfolio, plus placement support.",
+      },
+      {
+        question: "What does Data Science training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+  {
+    slug: "mern-stack-in-balewadi",
+    courseSlug: "mern-stack-training-in-pune",
+    locationSlug: "it-training-in-balewadi",
+    shortLabel: "MERN Stack in Balewadi",
+    metaTitle: "MERN Stack Training in Balewadi & Pashan, Pune (2026)",
+    metaDescription:
+      "MERN Stack Training for Balewadi & Pashan — Archer Infotech. MongoDB, Express, React, Node + placement support near Baner & Hinjewadi. Weekend classroom + live-online.",
+    h1: "MERN Stack Training in Balewadi & Pashan, Pune",
+    intro: [
+      "MERN Stack (MongoDB, Express, React, Node) is popular with Balewadi–Pashan's product startups and young developers who build full JavaScript apps. Archer Infotech's MERN track builds that end-to-end depth with real projects.",
+      "At ~10–13 km from Kothrud, learners mix weekend classroom with weekday live-online — same trainers, projects and placement support.",
+    ],
+    whyHere: [
+      "MERN suits the product startups around Balewadi and the Baner belt",
+      "Single-language (JavaScript) front-to-back keeps learning efficient",
+      "Weekend classroom + weekday online fits Balewadi–Pashan learners",
+      "Placement support taps our 100+ hiring-partner network",
+    ],
+    faqs: [
+      {
+        question: "Do I need JavaScript experience first?",
+        answer:
+          "The track covers JavaScript fundamentals before MongoDB, Express, React and Node, so motivated beginners can join.",
+      },
+      {
+        question: "Which batch format suits Balewadi–Pashan learners?",
+        answer:
+          "Weekend classroom plus weekday live-online. Both are identical in content.",
+      },
+      {
+        question: "How long is the MERN course?",
+        answer:
+          "About 3-4 months covering MongoDB, Express, React, Node, REST APIs and real projects, plus placement support.",
+      },
+      {
+        question: "What does MERN training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+  {
+    slug: "devops-in-balewadi",
+    courseSlug: "devops-training-in-pune",
+    locationSlug: "it-training-in-balewadi",
+    shortLabel: "DevOps in Balewadi",
+    metaTitle: "DevOps Training in Balewadi & Pashan, Pune (2026)",
+    metaDescription:
+      "DevOps Training for Balewadi & Pashan — Archer Infotech. Docker, Kubernetes, Jenkins, Terraform, AWS + placement support near Baner & Hinjewadi. Weekend classroom + live-online.",
+    h1: "DevOps Training in Balewadi & Pashan, Pune",
+    intro: [
+      "The Baner–Hinjewadi services and GCC teams near Balewadi–Pashan run continuous DevOps and cloud-platform hiring around Docker, Kubernetes, Jenkins, Terraform and AWS. Archer Infotech's DevOps track builds those skills with hands-on labs.",
+      "At ~10–13 km from Kothrud, learners mix weekend classroom with weekday live-online — same labs, projects and placement support.",
+    ],
+    whyHere: [
+      "Baner–Hinjewadi employers near Balewadi hire DevOps and platform engineers at volume",
+      "Hands-on labs (Docker, Kubernetes, Jenkins, Terraform, AWS) mirror real pipelines",
+      "Weekend classroom + weekday online fits Balewadi–Pashan learners",
+      "Placement support taps our 100+ hiring-partner network",
+    ],
+    faqs: [
+      {
+        question: "Do I need coding experience for DevOps?",
+        answer:
+          "Basic Linux and scripting literacy helps; the track builds the rest from fundamentals through hands-on labs.",
+      },
+      {
+        question: "Which batch format suits Balewadi–Pashan learners?",
+        answer:
+          "Weekend classroom plus weekday live-online for the harder Kubernetes / Terraform modules. Both are identical.",
+      },
+      {
+        question: "How long is the DevOps course?",
+        answer:
+          "About 3-4 months covering Docker, Kubernetes, Jenkins, Terraform, AWS and CI/CD pipelines with real projects.",
+      },
+      {
+        question: "What does DevOps training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+
+  // ─── Nigdi & Akurdi ───────────────────────────────────────────────────────
+  {
+    slug: "java-full-stack-in-nigdi",
+    courseSlug: "java-full-stack-training-in-pune",
+    locationSlug: "it-training-in-nigdi",
+    shortLabel: "Java Full Stack in Nigdi",
+    metaTitle: "Java Full Stack Training in Nigdi & Akurdi, Pune (2026)",
+    metaDescription:
+      "Java Full Stack Training for Nigdi & Akurdi — Archer Infotech. Spring Boot + microservices + React + placement support for PCMC's college belt (DY Patil, PCCOE). Live-online + weekend classroom.",
+    h1: "Java Full Stack Training in Nigdi & Akurdi, Pune",
+    intro: [
+      "Nigdi and Akurdi anchor PCMC's biggest engineering-college cluster — DY Patil and PCCOE send thousands of graduates into the market each year. Java Full Stack (core Java + Spring Boot + microservices + React) is Pune's most-hired stack, and Archer Infotech's flagship track builds it.",
+      "Nigdi–Akurdi is ~22–25 km from our Kothrud centre, so most students join live-online with weekend classroom as an option — same curriculum, projects and placement support.",
+    ],
+    whyHere: [
+      "Java Full Stack is Pune's most-hired fresher pattern — ideal for DY Patil / PCCOE students",
+      "Live-online removes the long north-west commute",
+      "Trainers map interview prep to Pune MNC and GCC panels",
+      "100+ hiring-partner network with a ₹4-6 LPA fresher band",
+    ],
+    faqs: [
+      {
+        question: "Is Nigdi / Akurdi too far for classroom training?",
+        answer:
+          "It's about 22–25 km via the old Mumbai-Pune highway (55–70 min), so most students train live-online and use weekend classroom in Kothrud for in-person time.",
+      },
+      {
+        question: "I study at DY Patil or PCCOE — will this help placements?",
+        answer:
+          "Yes — the Java Full Stack track adds production Spring Boot + React skills plus resume prep, mock interviews and placement support.",
+      },
+      {
+        question: "How long does the Java Full Stack course take?",
+        answer:
+          "4-6 months with 8-10 projects, GitHub workflow, mock interviews and placement assistance.",
+      },
+      {
+        question: "What does Java Full Stack training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+  {
+    slug: "python-full-stack-in-nigdi",
+    courseSlug: "python-full-stack-training-in-pune",
+    locationSlug: "it-training-in-nigdi",
+    shortLabel: "Python Full Stack in Nigdi",
+    metaTitle: "Python Full Stack Training in Nigdi & Akurdi, Pune (2026)",
+    metaDescription:
+      "Python Full Stack Training for Nigdi & Akurdi — Archer Infotech. Django/Flask + REST + React + placement support for PCMC's college belt. Live-online + weekend classroom.",
+    h1: "Python Full Stack Training in Nigdi & Akurdi, Pune",
+    intro: [
+      "For Nigdi–Akurdi's large engineering-student population, Python Full Stack (Python + Django/Flask + REST + React) is an ideal first professional stack that also opens data and automation roles. Archer Infotech's track builds that flexible depth.",
+      "At ~22–25 km from Kothrud, most students choose live-online with weekend classroom as an option — same trainers, projects and placement support.",
+    ],
+    whyHere: [
+      "Python Full Stack opens web, data and automation paths — ideal for PCMC-belt students",
+      "Live-online removes the long north-west commute",
+      "Beginner-friendly path with a strong project portfolio",
+      "Placement support taps our 100+ hiring-partner network",
+    ],
+    faqs: [
+      {
+        question: "Do I need prior coding experience?",
+        answer:
+          "No — the track starts from Python fundamentals and builds to full-stack projects.",
+      },
+      {
+        question: "Classroom or online from Nigdi / Akurdi?",
+        answer:
+          "Most students choose live-online given the ~22–25 km distance, with weekend classroom in Kothrud for in-person time.",
+      },
+      {
+        question: "How long is the Python Full Stack course?",
+        answer:
+          "About 4-5 months covering Django/Flask, REST APIs, a front-end framework, projects and placement preparation.",
+      },
+      {
+        question: "What does the course cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+  {
+    slug: "data-science-in-nigdi",
+    courseSlug: "data-science-training-in-pune",
+    locationSlug: "it-training-in-nigdi",
+    shortLabel: "Data Science in Nigdi",
+    metaTitle: "Data Science Training in Nigdi & Akurdi, Pune (2026)",
+    metaDescription:
+      "Data Science Training for Nigdi & Akurdi — Archer Infotech. Python, ML, statistics, SQL + portfolio + placement support for PCMC's college belt. Live-online + weekend classroom.",
+    h1: "Data Science Training in Nigdi & Akurdi, Pune",
+    intro: [
+      "Data science is a popular way for Nigdi–Akurdi's engineering students to stand out. Archer Infotech's Data Science track (Python, statistics, machine learning, SQL, visualization) builds a hiring-ready portfolio.",
+      "At ~22–25 km from Kothrud, most students train live-online with weekend classroom as an option — identical trainers, projects and placement support.",
+    ],
+    whyHere: [
+      "PCMC-belt engineering students gain a job-ready edge on top of their degree",
+      "Portfolio-first curriculum is what analytics hiring panels screen on",
+      "Live-online removes the long north-west commute",
+      "Placement support with resume prep, mock interviews and 100+ hiring partners",
+    ],
+    faqs: [
+      {
+        question: "Do I need a maths or coding background?",
+        answer:
+          "Helpful but not mandatory — the track builds Python and statistics from fundamentals before machine learning and projects.",
+      },
+      {
+        question: "Classroom or online from Nigdi / Akurdi?",
+        answer:
+          "Most students choose live-online given the distance, with weekend classroom in Kothrud for in-person sessions.",
+      },
+      {
+        question: "How long is the Data Science course?",
+        answer:
+          "About 5-6 months covering Python, statistics, ML, SQL, visualization and a capstone portfolio, plus placement support.",
+      },
+      {
+        question: "What does Data Science training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+  {
+    slug: "java-in-nigdi",
+    courseSlug: "java-training-in-pune",
+    locationSlug: "it-training-in-nigdi",
+    shortLabel: "Java in Nigdi",
+    metaTitle: "Java Training in Nigdi & Akurdi, Pune (2026)",
+    metaDescription:
+      "Java Training for Nigdi & Akurdi — Archer Infotech. Core Java, OOP, JDBC + placement support for PCMC's college belt. Live-online + weekend classroom.",
+    h1: "Java Training in Nigdi & Akurdi, Pune",
+    intro: [
+      "Core Java is the foundation for most of Pune's biggest hiring stacks, making it a smart first course for Nigdi–Akurdi's engineering students. Archer Infotech's Java track builds strong fundamentals as a launchpad toward full-stack roles.",
+      "At ~22–25 km from Kothrud, most students choose live-online with weekend classroom as an option — same trainers and curriculum.",
+    ],
+    whyHere: [
+      "Core Java underpins Pune's most-hired stacks — a strong first step for PCMC-belt students",
+      "Live-online removes the long north-west commute",
+      "Clean path from core Java into the flagship Java Full Stack track",
+      "Placement support taps our 100+ hiring-partner network",
+    ],
+    faqs: [
+      {
+        question: "Is core Java a good first course?",
+        answer:
+          "Yes — it builds the fundamentals behind Java Full Stack and many Pune MNC drives.",
+      },
+      {
+        question: "Can I progress to Java Full Stack after this?",
+        answer:
+          "Absolutely — core Java is the foundation for our flagship Java Full Stack track.",
+      },
+      {
+        question: "Classroom or online from Nigdi / Akurdi?",
+        answer:
+          "Most students choose live-online given the distance, with weekend classroom in Kothrud for in-person time.",
+      },
+      {
+        question: "What does Java training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+  {
+    slug: "software-testing-in-nigdi",
+    courseSlug: "software-testing-training-in-pune",
+    locationSlug: "it-training-in-nigdi",
+    shortLabel: "Software Testing in Nigdi",
+    metaTitle: "Software Testing Training in Nigdi & Akurdi, Pune (2026)",
+    metaDescription:
+      "Software Testing Training for Nigdi & Akurdi — Archer Infotech. Manual + Selenium automation + API testing + placement support for PCMC's college belt. Live-online + weekend classroom.",
+    h1: "Software Testing Training in Nigdi & Akurdi, Pune",
+    intro: [
+      "Software testing has the softest entry barrier of the tech tracks, making it popular with Nigdi–Akurdi students from non-CS backgrounds. Archer Infotech's Software Testing track covers manual testing, Selenium automation and API testing.",
+      "At ~22–25 km from Kothrud, most students choose live-online with weekend classroom as an option — same curriculum and placement support.",
+    ],
+    whyHere: [
+      "Lowest coding barrier of the tech tracks — accessible to non-CS PCMC-belt graduates",
+      "Manual + Selenium automation + API testing gives an employable skill mix",
+      "Live-online removes the long north-west commute",
+      "Placement support taps our 100+ hiring-partner network",
+    ],
+    faqs: [
+      {
+        question: "Do I need a development background for testing?",
+        answer:
+          "No deep coding needed for manual testing; basic programming literacy helps for Selenium automation. The track starts from fundamentals.",
+      },
+      {
+        question: "Classroom or online from Nigdi / Akurdi?",
+        answer:
+          "Most students choose live-online given the distance, with weekend classroom in Kothrud for in-person time.",
+      },
+      {
+        question: "How long is the Software Testing course?",
+        answer:
+          "About 2-3 months covering manual testing, Selenium automation, API testing and Postman, plus placement support.",
+      },
+      {
+        question: "What does Software Testing training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+
+  // ─── Koregaon Park & Kalyani Nagar ────────────────────────────────────────
+  {
+    slug: "java-full-stack-in-koregaon-park",
+    courseSlug: "java-full-stack-training-in-pune",
+    locationSlug: "it-training-in-koregaon-park",
+    shortLabel: "Java Full Stack in Koregaon Park",
+    metaTitle: "Java Full Stack Training in Koregaon Park & Kalyani Nagar, Pune (2026)",
+    metaDescription:
+      "Java Full Stack Training for Koregaon Park & Kalyani Nagar — Archer Infotech. Spring Boot + microservices + React + placement support for central-east startups. Live-online + weekend classroom.",
+    h1: "Java Full Stack Training in Koregaon Park & Kalyani Nagar, Pune",
+    intro: [
+      "Koregaon Park and Kalyani Nagar's startups and offices — and the adjacent Kharadi / Viman Nagar corridors — hire heavily for Java + Spring Boot + microservices + React, Pune's most-hired stack. Archer Infotech's flagship Java Full Stack track builds that depth.",
+      "The area is ~10–12 km from our Kothrud centre, so most learners choose live-online with weekend classroom as an option — same curriculum, projects and placement support.",
+    ],
+    whyHere: [
+      "Java Full Stack is Pune's most-hired stack across KP's startups and the nearby Kharadi belt",
+      "Live-online removes the cross-city commute",
+      "Trainers map interview prep to startup and GCC panels",
+      "100+ hiring-partner network with a ₹4-6 LPA fresher band",
+    ],
+    faqs: [
+      {
+        question: "How far is Koregaon Park / Kalyani Nagar from Archer's centre?",
+        answer:
+          "About 10–12 km via Bund Garden / Sangamwadi — typically 30–45 minutes. Most learners choose live-online, with weekend classroom in Kothrud as an option.",
+      },
+      {
+        question: "Which employers near KP hire Java Full Stack?",
+        answer:
+          "KP / Kalyani Nagar startups plus the adjacent Kharadi and Viman Nagar IT belts hire heavily on Java + Spring Boot + microservices.",
+      },
+      {
+        question: "How long does the Java Full Stack course take?",
+        answer:
+          "4-6 months with 8-10 projects, GitHub workflow, mock interviews and placement assistance.",
+      },
+      {
+        question: "What does Java Full Stack training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+  {
+    slug: "python-full-stack-in-koregaon-park",
+    courseSlug: "python-full-stack-training-in-pune",
+    locationSlug: "it-training-in-koregaon-park",
+    shortLabel: "Python Full Stack in Koregaon Park",
+    metaTitle: "Python Full Stack Training in Koregaon Park & Kalyani Nagar, Pune (2026)",
+    metaDescription:
+      "Python Full Stack Training for Koregaon Park & Kalyani Nagar — Archer Infotech. Django/Flask + REST + React + placement support for central-east startups. Live-online + weekend classroom.",
+    h1: "Python Full Stack Training in Koregaon Park & Kalyani Nagar, Pune",
+    intro: [
+      "Python Full Stack (Python + Django/Flask + REST + React) is a favourite among KP and Kalyani Nagar's startups, where Python also powers data and automation work. Archer Infotech's track builds that flexible depth.",
+      "The area is ~10–12 km from Kothrud, so most learners choose live-online with weekend classroom as an option — same trainers, projects and placement support.",
+    ],
+    whyHere: [
+      "Python Full Stack opens web, data and automation roles across KP's startup scene",
+      "Live-online removes the cross-city commute",
+      "Django/Flask + REST + React portfolio maps to startup hiring",
+      "Placement support taps our 100+ hiring-partner network",
+    ],
+    faqs: [
+      {
+        question: "Do I need prior coding experience?",
+        answer:
+          "No — the track starts from Python fundamentals and builds to full-stack projects.",
+      },
+      {
+        question: "Classroom or online from KP / Kalyani Nagar?",
+        answer:
+          "Most learners choose live-online given the ~10–12 km distance, with weekend classroom in Kothrud as an option.",
+      },
+      {
+        question: "How long is the Python Full Stack course?",
+        answer:
+          "About 4-5 months covering Django/Flask, REST APIs, a front-end framework, projects and placement preparation.",
+      },
+      {
+        question: "What does the course cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+  {
+    slug: "data-science-in-koregaon-park",
+    courseSlug: "data-science-training-in-pune",
+    locationSlug: "it-training-in-koregaon-park",
+    shortLabel: "Data Science in Koregaon Park",
+    metaTitle: "Data Science Training in Koregaon Park & Kalyani Nagar, Pune (2026)",
+    metaDescription:
+      "Data Science Training for Koregaon Park & Kalyani Nagar — Archer Infotech. Python, ML, statistics, SQL + portfolio + placement support for central-east startups. Live-online + weekend classroom.",
+    h1: "Data Science Training in Koregaon Park & Kalyani Nagar, Pune",
+    intro: [
+      "KP and Kalyani Nagar's startups and the nearby Kharadi finance GCCs drive demand for data-science and analytics talent. Archer Infotech's Data Science track (Python, statistics, ML, SQL, visualization) builds a hiring-ready portfolio.",
+      "The area is ~10–12 km from Kothrud, so most learners train live-online with weekend classroom as an option — identical trainers, projects and placement support.",
+    ],
+    whyHere: [
+      "KP startups and adjacent Kharadi GCCs hire analytics and data-science talent",
+      "Portfolio-first curriculum is what hiring panels screen on",
+      "Live-online removes the cross-city commute",
+      "Placement support with resume prep, mock interviews and 100+ hiring partners",
+    ],
+    faqs: [
+      {
+        question: "Do I need a maths or coding background?",
+        answer:
+          "Helpful but not mandatory — the track builds Python and statistics from fundamentals before machine learning and projects.",
+      },
+      {
+        question: "Classroom or online from KP / Kalyani Nagar?",
+        answer:
+          "Most learners choose live-online given the distance, with weekend classroom in Kothrud for in-person sessions.",
+      },
+      {
+        question: "How long is the Data Science course?",
+        answer:
+          "About 5-6 months covering Python, statistics, ML, SQL, visualization and a capstone portfolio, plus placement support.",
+      },
+      {
+        question: "What does Data Science training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+  {
+    slug: "mern-stack-in-koregaon-park",
+    courseSlug: "mern-stack-training-in-pune",
+    locationSlug: "it-training-in-koregaon-park",
+    shortLabel: "MERN Stack in Koregaon Park",
+    metaTitle: "MERN Stack Training in Koregaon Park & Kalyani Nagar, Pune (2026)",
+    metaDescription:
+      "MERN Stack Training for Koregaon Park & Kalyani Nagar — Archer Infotech. MongoDB, Express, React, Node + placement support for central-east startups. Live-online + weekend classroom.",
+    h1: "MERN Stack Training in Koregaon Park & Kalyani Nagar, Pune",
+    intro: [
+      "KP and Kalyani Nagar's product startups and agencies frequently hire MERN Stack (MongoDB, Express, React, Node) developers for fast-moving JavaScript products. Archer Infotech's MERN track builds that end-to-end depth.",
+      "The area is ~10–12 km from Kothrud, so most learners choose live-online with weekend classroom as an option — same trainers, projects and placement support.",
+    ],
+    whyHere: [
+      "MERN is a go-to stack for KP / Kalyani Nagar's startups and agencies",
+      "Single-language (JavaScript) front-to-back keeps learning efficient",
+      "Live-online removes the cross-city commute",
+      "Placement support taps our 100+ hiring-partner network",
+    ],
+    faqs: [
+      {
+        question: "Do I need JavaScript experience first?",
+        answer:
+          "The track covers JavaScript fundamentals before MongoDB, Express, React and Node, so motivated beginners can join.",
+      },
+      {
+        question: "Classroom or online from KP / Kalyani Nagar?",
+        answer:
+          "Most learners choose live-online given the distance, with weekend classroom in Kothrud as an option.",
+      },
+      {
+        question: "How long is the MERN course?",
+        answer:
+          "About 3-4 months covering MongoDB, Express, React, Node, REST APIs and real projects, plus placement support.",
+      },
+      {
+        question: "What does MERN training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+  {
+    slug: "devops-in-koregaon-park",
+    courseSlug: "devops-training-in-pune",
+    locationSlug: "it-training-in-koregaon-park",
+    shortLabel: "DevOps in Koregaon Park",
+    metaTitle: "DevOps Training in Koregaon Park & Kalyani Nagar, Pune (2026)",
+    metaDescription:
+      "DevOps Training for Koregaon Park & Kalyani Nagar — Archer Infotech. Docker, Kubernetes, Jenkins, Terraform, AWS + placement support for central-east teams. Live-online + weekend classroom.",
+    h1: "DevOps Training in Koregaon Park & Kalyani Nagar, Pune",
+    intro: [
+      "KP and Kalyani Nagar's product teams and the adjacent Kharadi services/GCC belt run continuous DevOps and cloud-platform hiring around Docker, Kubernetes, Jenkins, Terraform and AWS. Archer Infotech's DevOps track builds those skills with hands-on labs.",
+      "The area is ~10–12 km from Kothrud, so most learners take live-online with weekend classroom as an option — same labs, projects and placement support.",
+    ],
+    whyHere: [
+      "KP teams and the adjacent Kharadi belt hire DevOps and platform engineers",
+      "Hands-on labs (Docker, Kubernetes, Jenkins, Terraform, AWS) mirror real pipelines",
+      "Live-online removes the cross-city commute",
+      "Placement support taps our 100+ hiring-partner network",
+    ],
+    faqs: [
+      {
+        question: "Do I need coding experience for DevOps?",
+        answer:
+          "Basic Linux and scripting literacy helps; the track builds the rest from fundamentals through hands-on labs.",
+      },
+      {
+        question: "Classroom or online from KP / Kalyani Nagar?",
+        answer:
+          "Most learners choose live-online given the distance, with weekend classroom in Kothrud for the harder Kubernetes / Terraform modules.",
+      },
+      {
+        question: "How long is the DevOps course?",
+        answer:
+          "About 3-4 months covering Docker, Kubernetes, Jenkins, Terraform, AWS and CI/CD pipelines with real projects.",
+      },
+      {
+        question: "What does DevOps training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+
+  // ─── Kondhwa & NIBM ───────────────────────────────────────────────────────
+  {
+    slug: "java-full-stack-in-kondhwa",
+    courseSlug: "java-full-stack-training-in-pune",
+    locationSlug: "it-training-in-kondhwa",
+    shortLabel: "Java Full Stack in Kondhwa",
+    metaTitle: "Java Full Stack Training in Kondhwa & NIBM, Pune (2026)",
+    metaDescription:
+      "Java Full Stack Training for Kondhwa & NIBM — Archer Infotech. Spring Boot + microservices + React + placement support near the Hadapsar-Magarpatta IT belt. Live-online + weekend classroom.",
+    h1: "Java Full Stack Training in Kondhwa & NIBM, Pune",
+    intro: [
+      "Kondhwa and NIBM Road's young-professional population works largely in the nearby Hadapsar–Magarpatta IT belt, where Java + Spring Boot + microservices + React — Pune's most-hired stack — is screened heavily. Archer Infotech's flagship Java Full Stack track builds that depth.",
+      "Kondhwa–NIBM is ~12–14 km from our Kothrud centre, so learners split between live-online and weekend classroom — same curriculum, projects and placement support.",
+    ],
+    whyHere: [
+      "Java Full Stack is Pune's most-hired stack across the nearby Hadapsar–Magarpatta belt",
+      "Live-online removes the cross-city commute",
+      "Trainers map interview prep to Magarpatta services and GCC panels",
+      "100+ hiring-partner network with a ₹4-6 LPA fresher band",
+    ],
+    faqs: [
+      {
+        question: "How far is Kondhwa / NIBM from Archer's centre?",
+        answer:
+          "About 12–14 km via Bibwewadi / Salunke Vihar — typically 35–50 minutes. Most learners choose live-online, with weekend classroom in Kothrud as an option.",
+      },
+      {
+        question: "Which employers near Kondhwa hire Java Full Stack?",
+        answer:
+          "The Hadapsar–Magarpatta belt near Kondhwa–NIBM — Amdocs, Accenture, Mphasis and others — hire heavily on Java + Spring Boot + microservices.",
+      },
+      {
+        question: "How long does the Java Full Stack course take?",
+        answer:
+          "4-6 months with 8-10 projects, GitHub workflow, mock interviews and placement assistance.",
+      },
+      {
+        question: "What does Java Full Stack training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+  {
+    slug: "python-full-stack-in-kondhwa",
+    courseSlug: "python-full-stack-training-in-pune",
+    locationSlug: "it-training-in-kondhwa",
+    shortLabel: "Python Full Stack in Kondhwa",
+    metaTitle: "Python Full Stack Training in Kondhwa & NIBM, Pune (2026)",
+    metaDescription:
+      "Python Full Stack Training for Kondhwa & NIBM — Archer Infotech. Django/Flask + REST + React + placement support near the Hadapsar-Magarpatta IT belt. Live-online + weekend classroom.",
+    h1: "Python Full Stack Training in Kondhwa & NIBM, Pune",
+    intro: [
+      "Python Full Stack (Python + Django/Flask + REST + React) is a flexible, in-demand choice for Kondhwa–NIBM's young workforce, opening web, data and automation roles across the nearby Hadapsar–Magarpatta belt. Archer Infotech's track builds that depth.",
+      "Kondhwa–NIBM is ~12–14 km from Kothrud, so learners split between live-online and weekend classroom — same trainers, projects and placement support.",
+    ],
+    whyHere: [
+      "Python Full Stack opens web, data and automation roles across the Magarpatta belt",
+      "Live-online removes the cross-city commute",
+      "Django/Flask + REST + React portfolio maps to local hiring",
+      "Placement support taps our 100+ hiring-partner network",
+    ],
+    faqs: [
+      {
+        question: "Do I need prior coding experience?",
+        answer:
+          "No — the track starts from Python fundamentals and builds to full-stack projects.",
+      },
+      {
+        question: "Classroom or online from Kondhwa / NIBM?",
+        answer:
+          "Learners split between live-online and weekend classroom in Kothrud, given the ~12–14 km distance. Both are identical.",
+      },
+      {
+        question: "How long is the Python Full Stack course?",
+        answer:
+          "About 4-5 months covering Django/Flask, REST APIs, a front-end framework, projects and placement preparation.",
+      },
+      {
+        question: "What does the course cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+  {
+    slug: "data-science-in-kondhwa",
+    courseSlug: "data-science-training-in-pune",
+    locationSlug: "it-training-in-kondhwa",
+    shortLabel: "Data Science in Kondhwa",
+    metaTitle: "Data Science Training in Kondhwa & NIBM, Pune (2026)",
+    metaDescription:
+      "Data Science Training for Kondhwa & NIBM — Archer Infotech. Python, ML, statistics, SQL + portfolio + placement support near the Hadapsar-Magarpatta IT belt. Live-online + weekend classroom.",
+    h1: "Data Science Training in Kondhwa & NIBM, Pune",
+    intro: [
+      "The Hadapsar–Magarpatta employers near Kondhwa–NIBM run analytics, data-engineering and data-science teams. Archer Infotech's Data Science track (Python, statistics, ML, SQL, visualization) builds a hiring-ready portfolio.",
+      "Kondhwa–NIBM is ~12–14 km from Kothrud, so learners split between live-online and weekend classroom — identical trainers, projects and placement support.",
+    ],
+    whyHere: [
+      "Magarpatta employers near Kondhwa run analytics and data-science teams",
+      "Portfolio-first curriculum is what hiring panels screen on",
+      "Live-online removes the cross-city commute",
+      "Placement support with resume prep, mock interviews and 100+ hiring partners",
+    ],
+    faqs: [
+      {
+        question: "Do I need a maths or coding background?",
+        answer:
+          "Helpful but not mandatory — the track builds Python and statistics from fundamentals before machine learning and projects.",
+      },
+      {
+        question: "Classroom or online from Kondhwa / NIBM?",
+        answer:
+          "Learners split between live-online and weekend classroom in Kothrud. Both cover the same material.",
+      },
+      {
+        question: "How long is the Data Science course?",
+        answer:
+          "About 5-6 months covering Python, statistics, ML, SQL, visualization and a capstone portfolio, plus placement support.",
+      },
+      {
+        question: "What does Data Science training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+  {
+    slug: "java-in-kondhwa",
+    courseSlug: "java-training-in-pune",
+    locationSlug: "it-training-in-kondhwa",
+    shortLabel: "Java in Kondhwa",
+    metaTitle: "Java Training in Kondhwa & NIBM, Pune (2026)",
+    metaDescription:
+      "Java Training for Kondhwa & NIBM — Archer Infotech. Core Java, OOP, JDBC + placement support near the Hadapsar-Magarpatta IT belt. Live-online + weekend classroom.",
+    h1: "Java Training in Kondhwa & NIBM, Pune",
+    intro: [
+      "Core Java is the foundation for most of Pune's biggest hiring stacks, making it a smart first course for Kondhwa–NIBM's early-career learners. Archer Infotech's Java track builds strong fundamentals as a launchpad toward full-stack roles.",
+      "Kondhwa–NIBM is ~12–14 km from Kothrud, so learners split between live-online and weekend classroom — same trainers and curriculum.",
+    ],
+    whyHere: [
+      "Core Java underpins Pune's most-hired stacks — a strong first step near the Magarpatta belt",
+      "Live-online removes the cross-city commute",
+      "Clean path from core Java into the flagship Java Full Stack track",
+      "Placement support taps our 100+ hiring-partner network",
+    ],
+    faqs: [
+      {
+        question: "Is core Java a good first course?",
+        answer:
+          "Yes — it builds the fundamentals behind Java Full Stack and many Pune MNC drives.",
+      },
+      {
+        question: "Can I progress to Java Full Stack after this?",
+        answer:
+          "Absolutely — core Java is the foundation for our flagship Java Full Stack track.",
+      },
+      {
+        question: "Classroom or online from Kondhwa / NIBM?",
+        answer:
+          "Learners split between live-online and weekend classroom in Kothrud. Both are identical.",
+      },
+      {
+        question: "What does Java training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+  {
+    slug: "mern-stack-in-kondhwa",
+    courseSlug: "mern-stack-training-in-pune",
+    locationSlug: "it-training-in-kondhwa",
+    shortLabel: "MERN Stack in Kondhwa",
+    metaTitle: "MERN Stack Training in Kondhwa & NIBM, Pune (2026)",
+    metaDescription:
+      "MERN Stack Training for Kondhwa & NIBM — Archer Infotech. MongoDB, Express, React, Node + placement support near the Hadapsar-Magarpatta IT belt. Live-online + weekend classroom.",
+    h1: "MERN Stack Training in Kondhwa & NIBM, Pune",
+    intro: [
+      "MERN Stack (MongoDB, Express, React, Node) is popular with Kondhwa–NIBM's young developers and the product teams around the Hadapsar–Magarpatta belt. Archer Infotech's MERN track builds that end-to-end JavaScript depth.",
+      "Kondhwa–NIBM is ~12–14 km from Kothrud, so learners split between live-online and weekend classroom — same trainers, projects and placement support.",
+    ],
+    whyHere: [
+      "MERN suits product teams around the Kondhwa / Magarpatta belt",
+      "Single-language (JavaScript) front-to-back keeps learning efficient",
+      "Live-online removes the cross-city commute",
+      "Placement support taps our 100+ hiring-partner network",
+    ],
+    faqs: [
+      {
+        question: "Do I need JavaScript experience first?",
+        answer:
+          "The track covers JavaScript fundamentals before MongoDB, Express, React and Node, so motivated beginners can join.",
+      },
+      {
+        question: "Classroom or online from Kondhwa / NIBM?",
+        answer:
+          "Learners split between live-online and weekend classroom in Kothrud. Both are identical.",
+      },
+      {
+        question: "How long is the MERN course?",
+        answer:
+          "About 3-4 months covering MongoDB, Express, React, Node, REST APIs and real projects, plus placement support.",
+      },
+      {
+        question: "What does MERN training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+
+  // ─── Pune Camp & Swargate ─────────────────────────────────────────────────
+  {
+    slug: "java-full-stack-in-camp",
+    courseSlug: "java-full-stack-training-in-pune",
+    locationSlug: "it-training-in-camp",
+    shortLabel: "Java Full Stack in Camp",
+    metaTitle: "Java Full Stack Training in Pune Camp & Swargate (2026)",
+    metaDescription:
+      "Java Full Stack Training for Pune Camp & Swargate — Archer Infotech. Spring Boot + microservices + React + placement support, classroom a short hop from central Pune. Online also available.",
+    h1: "Java Full Stack Training in Pune Camp & Swargate",
+    intro: [
+      "Central Pune's Camp and Swargate areas are well connected to our Kothrud centre, making classroom Java Full Stack training convenient. Java + Spring Boot + microservices + React is Pune's most-hired stack, and Archer Infotech's flagship track builds it with full in-person project time.",
+      "Camp–Swargate is only ~5–7 km from Kothrud, so classroom batches are easy — with live-online available for flexibility.",
+    ],
+    whyHere: [
+      "Java Full Stack is Pune's most-hired fresher pattern",
+      "Only 5–7 km from Kothrud — one of the shorter central-Pune commutes",
+      "Full in-person time on Spring Boot, microservices and React projects",
+      "100+ hiring-partner network with a ₹4-6 LPA fresher band",
+    ],
+    faqs: [
+      {
+        question: "How far is Camp / Swargate from Archer's centre?",
+        answer:
+          "About 5–7 km via Swargate / Deccan — typically 15–25 minutes, so classroom batches are convenient. Live-online is also available.",
+      },
+      {
+        question: "Can I reach the centre by Pune Metro from Swargate?",
+        answer:
+          "Yes — Swargate is a metro hub connecting toward the Kothrud / Vanaz corridor, and frequent buses also serve the route.",
+      },
+      {
+        question: "How long does the Java Full Stack course take?",
+        answer:
+          "4-6 months with 8-10 projects, GitHub workflow, mock interviews and placement assistance.",
+      },
+      {
+        question: "What does Java Full Stack training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+  {
+    slug: "python-full-stack-in-camp",
+    courseSlug: "python-full-stack-training-in-pune",
+    locationSlug: "it-training-in-camp",
+    shortLabel: "Python Full Stack in Camp",
+    metaTitle: "Python Full Stack Training in Pune Camp & Swargate (2026)",
+    metaDescription:
+      "Python Full Stack Training for Pune Camp & Swargate — Archer Infotech. Django/Flask + REST + React + placement support, classroom a short hop from central Pune. Online also available.",
+    h1: "Python Full Stack Training in Pune Camp & Swargate",
+    intro: [
+      "Central Pune's Camp and Swargate connect easily to our Kothrud centre, making classroom Python Full Stack training convenient. Python + Django/Flask + REST + React is a flexible stack that also opens data and automation roles.",
+      "Camp–Swargate is only ~5–7 km from Kothrud, so classroom batches are easy — with live-online available for flexibility.",
+    ],
+    whyHere: [
+      "Python Full Stack opens web, data and automation paths",
+      "Only 5–7 km from Kothrud for convenient classroom time",
+      "Full in-person time on Django/Flask + React project work",
+      "Placement support taps our 100+ hiring-partner network",
+    ],
+    faqs: [
+      {
+        question: "How far is Camp / Swargate from the centre?",
+        answer:
+          "About 5–7 km via Swargate / Deccan — typically 15–25 minutes, so classroom batches are convenient. Live-online is also available.",
+      },
+      {
+        question: "Do I need prior coding experience?",
+        answer:
+          "No — the track starts from Python fundamentals and builds to full-stack projects.",
+      },
+      {
+        question: "How long is the Python Full Stack course?",
+        answer:
+          "About 4-5 months covering Django/Flask, REST APIs, a front-end framework, projects and placement preparation.",
+      },
+      {
+        question: "What does the course cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+  {
+    slug: "data-science-in-camp",
+    courseSlug: "data-science-training-in-pune",
+    locationSlug: "it-training-in-camp",
+    shortLabel: "Data Science in Camp",
+    metaTitle: "Data Science Training in Pune Camp & Swargate (2026)",
+    metaDescription:
+      "Data Science Training for Pune Camp & Swargate — Archer Infotech. Python, ML, statistics, SQL + portfolio + placement support, classroom a short hop from central Pune. Online also available.",
+    h1: "Data Science Training in Pune Camp & Swargate",
+    intro: [
+      "Central Pune's short commute to Kothrud makes classroom Data Science training convenient for Camp and Swargate learners — full in-person time on portfolio work. Archer Infotech's Data Science track covers Python, statistics, machine learning, SQL and visualization.",
+      "Camp–Swargate is only ~5–7 km from Kothrud, so classroom batches are easy, with live-online available too.",
+    ],
+    whyHere: [
+      "Only 5–7 km from Kothrud for convenient classroom time",
+      "Portfolio-first curriculum is what analytics hiring panels screen on",
+      "Full in-person mentor time on ML models and projects",
+      "Placement support with resume prep, mock interviews and 100+ hiring partners",
+    ],
+    faqs: [
+      {
+        question: "Do I need a maths or coding background?",
+        answer:
+          "Helpful but not mandatory — the track builds Python and statistics from fundamentals before machine learning and projects.",
+      },
+      {
+        question: "Classroom or online for Camp / Swargate learners?",
+        answer:
+          "Classroom is convenient given the short commute, with live-online available for flexibility. Both cover the same material.",
+      },
+      {
+        question: "How long is the Data Science course?",
+        answer:
+          "About 5-6 months covering Python, statistics, ML, SQL, visualization and a capstone portfolio, plus placement support.",
+      },
+      {
+        question: "What does Data Science training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+  {
+    slug: "java-in-camp",
+    courseSlug: "java-training-in-pune",
+    locationSlug: "it-training-in-camp",
+    shortLabel: "Java in Camp",
+    metaTitle: "Java Training in Pune Camp & Swargate (2026)",
+    metaDescription:
+      "Java Training for Pune Camp & Swargate — Archer Infotech. Core Java, OOP, JDBC + placement support, classroom a short hop from central Pune. Online also available.",
+    h1: "Java Training in Pune Camp & Swargate",
+    intro: [
+      "Core Java is the foundation for most of Pune's biggest hiring stacks, making it a smart first course for central-Pune learners. Archer Infotech's Java track builds strong fundamentals as a launchpad toward full-stack roles.",
+      "Camp–Swargate is only ~5–7 km from Kothrud, so classroom batches are easy, with live-online available too.",
+    ],
+    whyHere: [
+      "Core Java underpins Pune's most-hired stacks — a strong first step",
+      "Only 5–7 km from Kothrud for convenient classroom time",
+      "Clean path from core Java into the flagship Java Full Stack track",
+      "Placement support taps our 100+ hiring-partner network",
+    ],
+    faqs: [
+      {
+        question: "Is core Java a good first course?",
+        answer:
+          "Yes — it builds the fundamentals behind Java Full Stack and many Pune MNC drives.",
+      },
+      {
+        question: "Can I progress to Java Full Stack after this?",
+        answer:
+          "Absolutely — core Java is the foundation for our flagship Java Full Stack track.",
+      },
+      {
+        question: "Classroom or online for Camp / Swargate learners?",
+        answer:
+          "Classroom is convenient given the short commute, with live-online available for flexibility.",
+      },
+      {
+        question: "What does Java training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
+  {
+    slug: "mern-stack-in-camp",
+    courseSlug: "mern-stack-training-in-pune",
+    locationSlug: "it-training-in-camp",
+    shortLabel: "MERN Stack in Camp",
+    metaTitle: "MERN Stack Training in Pune Camp & Swargate (2026)",
+    metaDescription:
+      "MERN Stack Training for Pune Camp & Swargate — Archer Infotech. MongoDB, Express, React, Node + placement support, classroom a short hop from central Pune. Online also available.",
+    h1: "MERN Stack Training in Pune Camp & Swargate",
+    intro: [
+      "MERN Stack (MongoDB, Express, React, Node) is a favourite for central-Pune students who want to build full JavaScript products end-to-end. With our centre a short hop away, classroom MERN training is an easy option.",
+      "Camp–Swargate is only ~5–7 km from Kothrud, so classroom batches are easy, with live-online available too.",
+    ],
+    whyHere: [
+      "MERN is a go-to stack for product startups across Pune",
+      "Single-language (JavaScript) front-to-back keeps learning efficient",
+      "Only 5–7 km from Kothrud for convenient classroom time",
+      "Placement support taps our 100+ hiring-partner network",
+    ],
+    faqs: [
+      {
+        question: "Do I need JavaScript experience first?",
+        answer:
+          "The track covers JavaScript fundamentals before MongoDB, Express, React and Node, so motivated beginners can join.",
+      },
+      {
+        question: "Classroom or online for Camp / Swargate learners?",
+        answer:
+          "Classroom is convenient given the short commute, with live-online available for flexibility.",
+      },
+      {
+        question: "How long is the MERN course?",
+        answer:
+          "About 3-4 months covering MongoDB, Express, React, Node, REST APIs and real projects, plus placement support.",
+      },
+      {
+        question: "What does MERN training cost?",
+        answer:
+          "Competitive Pune market rates with EMI options. Ask admissions during your free demo for current fee + EMI partners + seasonal offers.",
+      },
+    ],
+  },
 ];
 
 /** Look up a course×location combo by slug. */
