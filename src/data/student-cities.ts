@@ -1375,6 +1375,372 @@ export const studentCities: StudentCity[] = [
       },
     ],
   },
+  {
+    slug: "baramati",
+    city: "Baramati",
+    region: "Pune District",
+    distanceKm: 100,
+    travelTimeLabel: "~2–2.5 hours by road",
+    priority: 2,
+    metaTitle:
+      "IT Training for Baramati Students — Online + Pune Classroom | Archer Infotech",
+    metaDescription:
+      "Baramati students: train in Java Full Stack, Python Full Stack, Data Science, Cloud & DevOps with Archer Infotech — live online from Baramati or classroom in Kothrud, Pune. Just ~100 km away. 90% placement support since 2009.",
+    tagline:
+      "Pune-grade IT training, ~100 km from Baramati — learn live online from home, or commute and study at our Kothrud campus.",
+    highlights: [
+      {
+        icon: "Laptop",
+        color: "sky",
+        title: "Online from Baramati",
+        text: "Live Java Full Stack, Python Full Stack and Data Science classes over video — learn from Baramati, no move needed.",
+      },
+      {
+        icon: "MapPin",
+        color: "emerald",
+        title: "Pune campus close by",
+        text: "Our Kothrud centre is just ~100 km away — within the same district, easy to reach from Baramati.",
+      },
+      {
+        icon: "Briefcase",
+        color: "amber",
+        title: "Placement-first approach",
+        text: "Live projects, mock interviews and 100+ hiring partners working for you.",
+      },
+      {
+        icon: "Award",
+        color: "violet",
+        title: "A proven institute",
+        text: "Since 2009 — 10,000+ trained, 5,000+ placed, trusted across Maharashtra.",
+      },
+    ],
+    trackKeywords: [
+      "Java Full Stack",
+      "Python Full Stack",
+      "Data Science",
+      "MERN Stack",
+      "Cloud & DevOps",
+      "Software Testing",
+    ],
+    optionsIntro:
+      "Baramati sits about 100 km from Pune — within Pune district itself — which makes it one of the most convenient towns to train with Archer Infotech from. Study through live online batches without leaving home, or relocate (even commute) to our Kothrud campus for classroom learning. The same curriculum, trainers and 90% placement support run through both modes, so Baramati learners choose purely on preference.",
+    whyIntro:
+      "Baramati has a strong education culture — Vidya Pratishthan and Tuljaram Chaturchand College send plenty of graduates looking for job-ready IT skills. Archer Infotech turns those degrees into placements with 17+ years of Pune experience, 10,000+ students trained and a 100+ company hiring network including Amdocs, Capgemini, MindTree and Tech Mahindra.",
+    coursesIntro:
+      "Across coding, full stack, data and cloud, Archer's courses track what Pune employers are hiring for today. These are the tracks Baramati students choose most, offered live online for home study or in the Pune classroom. Not sure which suits you? A free counselling call will guide you to the right starting point.",
+    intro: [
+      "Baramati, in southern Pune district, is only about 100 km from the city — roughly two to two-and-a-half hours by road — so Pune's IT-training and hiring ecosystem is genuinely within reach for its students. Archer Infotech, training developers in Pune since 2009, offers Baramati learners both live online batches and classroom study at its Kothrud centre.",
+      "Being in the same district, you have real flexibility: learn online from home, relocate for a term, or commute for weekend sessions. Whichever route you pick, you study the same job-ready curriculum with the same mentors and the same placement support. Here's how each option works for a Baramati student.",
+    ],
+    online: [
+      "Archer's online batches are live, instructor-led sessions — you join over video in real time, interact with trainers directly, and keep recordings of each class for revision. For Baramati learners, online study means completing a full Java Full Stack, Python Full Stack, Data Science or Cloud programme from home, with no relocation costs at all.",
+      "Placement help is identical for online learners — mock interviews, resume guidance and access to our 100+ hiring partners. Working professionals in Baramati often choose evening or weekend online slots to upskill without leaving their jobs.",
+    ],
+    relocation: {
+      travelParagraphs: [
+        "Because Baramati is within Pune district, some students relocate for the classroom experience while others commute for weekend or selected weekday sessions. The short distance keeps travel cheap and frequent.",
+        "At about 100 km, regular buses make day trips and weekend commuting realistic for Baramati students — one of the perks of being close to Pune.",
+      ],
+      travelModes: [
+        {
+          mode: "Buses",
+          detail:
+            "Frequent MSRTC and private buses on the Baramati–Pune route; around 2–2.5 hours.",
+        },
+        {
+          mode: "Train",
+          detail:
+            "Baramati is on a branch line to Daund, connecting onward to Pune by rail.",
+        },
+        {
+          mode: "Own vehicle",
+          detail: "~100 km via Baramati–Pune road — short enough for comfortable weekend commuting.",
+        },
+      ],
+      stayParagraphs: [
+        "If you prefer to stay in Pune, our Kothrud campus sits in a student-friendly western suburb. Affordable PGs and hostels fill Kothrud and the nearby Karve Nagar, Warje and Erandwane areas, most within a short distance of class.",
+        "Given the easy commute, some Baramati students skip relocating and travel in for sessions; for those who do stay, Kothrud is a comfortable, well-connected base.",
+      ],
+    },
+    whyArcher: [
+      "Since 2009 — 17+ years in Pune, 10,000+ students trained and 5,000+ placed.",
+      "90% placement support with a 100+ company hiring network, including Amdocs, Capgemini, MindTree and Tech Mahindra.",
+      "Same curriculum and trainers across live online and Pune classroom modes.",
+      "40+ job-focused courses spanning programming, full stack, data, AI, cloud and DevOps.",
+    ],
+    popularCourseSlugs: [
+      "java-full-stack-training-in-pune",
+      "python-full-stack-training-in-pune",
+      "data-science-training-in-pune",
+      "mern-stack-training-in-pune",
+    ],
+    localFaqs: [
+      {
+        question: "How far is Baramati from Archer's Pune campus?",
+        answer:
+          "About 100 km — roughly two to two-and-a-half hours by road, within Pune district. Frequent buses make weekend commuting or day visits realistic, and you can also study fully online from Baramati.",
+      },
+      {
+        question: "Can I complete the whole course online from Baramati?",
+        answer:
+          "Yes. Our live online batches cover the full Java Full Stack, Python Full Stack, Data Science and Cloud programmes with the same trainers, projects and placement support as classroom — no relocation needed.",
+      },
+      {
+        question: "Do online students from Baramati get placement support?",
+        answer:
+          "Absolutely. Mock interviews, resume guidance and access to our 100+ hiring partners are identical for online and classroom learners. Placement support does not depend on your mode of study.",
+      },
+      {
+        question: "How long do courses usually take?",
+        answer:
+          "Most job-focused tracks run over a few months, depending on the course and whether you pick a weekday, weekend or online cohort. We'll confirm the exact duration and weekly commitment for your chosen course during counselling.",
+      },
+    ],
+  },
+  {
+    slug: "chhatrapati-sambhajinagar",
+    city: "Chhatrapati Sambhajinagar",
+    region: "Marathwada",
+    distanceKm: 230,
+    travelTimeLabel: "~4.5–5 hours by road",
+    priority: 6,
+    metaTitle:
+      "IT Training for Chhatrapati Sambhajinagar (Aurangabad) Students — Online + Pune Classroom | Archer Infotech",
+    metaDescription:
+      "Chhatrapati Sambhajinagar / Aurangabad students: train in Java Full Stack, Python Full Stack, Data Science, Cloud & DevOps with Archer Infotech — live online from home or classroom in Kothrud, Pune. 90% placement support since 2009.",
+    tagline:
+      "Pune-grade IT training for Chhatrapati Sambhajinagar — learn live online from home, or relocate to our Kothrud campus.",
+    highlights: [
+      {
+        icon: "Laptop",
+        color: "sky",
+        title: "Online from Sambhajinagar",
+        text: "Live Java Full Stack, Python Full Stack and Data Science classes over video — learn from home, no move needed.",
+      },
+      {
+        icon: "MapPin",
+        color: "emerald",
+        title: "Pune campus option",
+        text: "Relocate to our student-friendly Kothrud centre for the full classroom experience.",
+      },
+      {
+        icon: "Briefcase",
+        color: "amber",
+        title: "Placement-first approach",
+        text: "Live projects, mock interviews and 100+ hiring partners working for you.",
+      },
+      {
+        icon: "Award",
+        color: "violet",
+        title: "A proven institute",
+        text: "Since 2009 — 10,000+ trained, 5,000+ placed, trusted across Maharashtra.",
+      },
+    ],
+    trackKeywords: [
+      "Java Full Stack",
+      "Python Full Stack",
+      "Data Science",
+      "MERN Stack",
+      "Cloud & DevOps",
+      "Software Testing",
+    ],
+    optionsIntro:
+      "Chhatrapati Sambhajinagar (formerly Aurangabad), Marathwada's largest city, is about 230 km from Pune. For its students, Archer Infotech offers two clear routes: study through live online batches without leaving home, or relocate to our Kothrud campus for classroom learning. The same curriculum, trainers and 90% placement support run through both, so you choose on preference and circumstances.",
+    whyIntro:
+      "Chhatrapati Sambhajinagar has a large student base — Dr. Babasaheb Ambedkar Marathwada University, Government College of Engineering and MGM feed thousands of graduates each year, but local IT-placement pathways are limited. Archer Infotech bridges that gap with 17+ years of Pune experience, 10,000+ students trained and a 100+ company hiring network including Amdocs, Capgemini, MindTree and Tech Mahindra.",
+    coursesIntro:
+      "Across coding, full stack, data and cloud, Archer's courses track what Pune and Maharashtra employers are hiring for today. These are the tracks Chhatrapati Sambhajinagar students choose most, offered live online for home study or in the Pune classroom. A free counselling call will guide you to the right starting point.",
+    intro: [
+      "Chhatrapati Sambhajinagar (Aurangabad) is the commercial and educational hub of Marathwada, with a strong engineering-college pipeline but relatively few local IT-training and placement options at Pune's scale. At about 230 km — four-and-a-half to five hours by road — Pune's ecosystem is well within reach. Archer Infotech, training developers in Pune since 2009, offers its students both live online batches and classroom study at the Kothrud centre.",
+      "That gives you a genuine choice: learn online from home with no relocation cost, or move to Pune for a term of classroom study. Either way you follow the same job-ready curriculum with the same mentors and the same placement support. Here's how each route works for a Chhatrapati Sambhajinagar student.",
+    ],
+    online: [
+      "Archer's online batches are live, instructor-led sessions — you join over video in real time, interact with trainers directly, and keep recordings of each class for revision. For Chhatrapati Sambhajinagar learners, online study means completing a full Java Full Stack, Python Full Stack, Data Science or Cloud programme from home, avoiding relocation costs entirely.",
+      "Placement help is identical for online learners — mock interviews, resume guidance and access to our 100+ hiring partners. Many Sambhajinagar students and working professionals choose online precisely to access Pune-grade training and hiring networks without leaving Marathwada.",
+    ],
+    relocation: {
+      travelParagraphs: [
+        "For students who want the classroom experience, relocating to Pune for the course duration is a common choice. The Sambhajinagar–Pune corridor is well served, so periodic trips home are straightforward.",
+        "At about 230 km, most students who relocate stay in Pune for the term rather than commuting, though buses and trains make visits home easy on weekends.",
+      ],
+      travelModes: [
+        {
+          mode: "Buses",
+          detail:
+            "Frequent MSRTC Shivshahi and private buses on the Sambhajinagar–Pune route (via Ahmednagar); around 4.5–5 hours.",
+        },
+        {
+          mode: "Train",
+          detail:
+            "Chhatrapati Sambhajinagar is on the Manmad–Secunderabad line, with rail connections to Pune via Daund.",
+        },
+        {
+          mode: "Air",
+          detail: "Chhatrapati Sambhajinagar Airport has short flights to Pune for occasional fast trips.",
+        },
+      ],
+      stayParagraphs: [
+        "Our Kothrud campus sits in a student-friendly western suburb of Pune. Affordable PGs and hostels fill Kothrud and the nearby Karve Nagar, Warje and Erandwane areas, most within a short distance of class.",
+        "For Chhatrapati Sambhajinagar students relocating for a term, Kothrud is a safe, well-connected and economical base with everything a student needs within reach.",
+      ],
+    },
+    whyArcher: [
+      "Since 2009 — 17+ years in Pune, 10,000+ students trained and 5,000+ placed.",
+      "90% placement support with a 100+ company hiring network, including Amdocs, Capgemini, MindTree and Tech Mahindra.",
+      "Same curriculum and trainers across live online and Pune classroom modes.",
+      "40+ job-focused courses spanning programming, full stack, data, AI, cloud and DevOps.",
+    ],
+    popularCourseSlugs: [
+      "java-full-stack-training-in-pune",
+      "python-full-stack-training-in-pune",
+      "data-science-training-in-pune",
+      "mern-stack-training-in-pune",
+    ],
+    localFaqs: [
+      {
+        question: "Can I train with Archer without moving from Chhatrapati Sambhajinagar?",
+        answer:
+          "Yes. Our live online batches cover the full Java Full Stack, Python Full Stack, Data Science and Cloud programmes with the same trainers, projects and placement support as classroom — so you can study entirely from Sambhajinagar.",
+      },
+      {
+        question: "If I relocate to Pune, where would I stay?",
+        answer:
+          "Our Kothrud campus is in a student-friendly suburb with affordable PGs and hostels nearby in Kothrud, Karve Nagar, Warje and Erandwane. Our team helps with accommodation guidance when you enrol.",
+      },
+      {
+        question: "Do online students from Sambhajinagar get placement support?",
+        answer:
+          "Yes — mock interviews, resume guidance and access to our 100+ hiring partners are identical for online and classroom learners. Placement support does not depend on your mode of study.",
+      },
+      {
+        question: "How do I get from Chhatrapati Sambhajinagar to Pune for classes?",
+        answer:
+          "Frequent buses (via Ahmednagar) take about 4.5–5 hours, trains connect via Daund, and there are short flights for occasional fast trips. Most classroom students relocate for the term and visit home on weekends.",
+      },
+    ],
+  },
+  {
+    slug: "latur",
+    city: "Latur",
+    region: "Marathwada",
+    distanceKm: 330,
+    travelTimeLabel: "~6–7 hours by road",
+    priority: 8,
+    metaTitle:
+      "IT Training for Latur Students — Online + Pune Classroom | Archer Infotech",
+    metaDescription:
+      "Latur students: train in Java Full Stack, Python Full Stack, Data Science, Cloud & DevOps with Archer Infotech — live online from Latur or classroom in Kothrud, Pune. 90% placement support since 2009.",
+    tagline:
+      "Pune-grade IT training for Latur — learn live online from home, or relocate to our Kothrud campus.",
+    highlights: [
+      {
+        icon: "Laptop",
+        color: "sky",
+        title: "Online from Latur",
+        text: "Live Java Full Stack, Python Full Stack and Data Science classes over video — learn from Latur, no move needed.",
+      },
+      {
+        icon: "MapPin",
+        color: "emerald",
+        title: "Pune campus option",
+        text: "Relocate to our student-friendly Kothrud centre for the full classroom experience.",
+      },
+      {
+        icon: "Briefcase",
+        color: "amber",
+        title: "Placement-first approach",
+        text: "Live projects, mock interviews and 100+ hiring partners working for you.",
+      },
+      {
+        icon: "Award",
+        color: "violet",
+        title: "A proven institute",
+        text: "Since 2009 — 10,000+ trained, 5,000+ placed, trusted across Maharashtra.",
+      },
+    ],
+    trackKeywords: [
+      "Java Full Stack",
+      "Python Full Stack",
+      "Data Science",
+      "MERN Stack",
+      "Cloud & DevOps",
+      "Software Testing",
+    ],
+    optionsIntro:
+      "Latur, known across Maharashtra for its education culture, sits about 330 km from Pune. For its many students, Archer Infotech offers two routes: study through live online batches without leaving home, or relocate to our Kothrud campus for classroom learning. The same curriculum, trainers and 90% placement support run through both, so you choose on preference.",
+    whyIntro:
+      "Latur produces a huge, exam-strong student base each year, but local IT-placement pathways are limited compared with Pune. Archer Infotech closes that gap with 17+ years of Pune experience, 10,000+ students trained and a 100+ company hiring network including Amdocs, Capgemini, MindTree and Tech Mahindra — turning Latur's academic strength into placed IT careers.",
+    coursesIntro:
+      "Across coding, full stack, data and cloud, Archer's courses track what Pune and Maharashtra employers are hiring for today. These are the tracks Latur students choose most, offered live online for home study or in the Pune classroom. A free counselling call will guide you to the right starting point.",
+    intro: [
+      "Latur is one of Marathwada's strongest education towns — famous for the 'Latur pattern' of academic results — but its students often look beyond the district for IT training and placements at Pune's scale. At about 330 km, roughly six to seven hours by road, Pune remains a realistic destination. Archer Infotech, training developers in Pune since 2009, offers Latur learners both live online batches and classroom study at its Kothrud centre.",
+      "That means a clear choice: learn online from home with no relocation cost, or move to Pune for a term of classroom study. Either way you follow the same job-ready curriculum with the same mentors and the same placement support. Here's how each route works for a Latur student.",
+    ],
+    online: [
+      "Archer's online batches are live, instructor-led sessions — you join over video in real time, interact with trainers directly, and keep recordings of each class for revision. For Latur learners, given the distance, online study is often the most practical route: complete a full Java Full Stack, Python Full Stack, Data Science or Cloud programme from home with no relocation cost.",
+      "Placement help is identical for online learners — mock interviews, resume guidance and access to our 100+ hiring partners. This lets Latur students tap Pune-grade training and hiring networks without leaving Marathwada.",
+    ],
+    relocation: {
+      travelParagraphs: [
+        "Students who want the classroom experience typically relocate to Pune for the course duration rather than commuting, given the distance. The Latur–Pune route is well served by buses and trains for periodic trips home.",
+        "At about 330 km, relocating for the term is the usual choice for classroom learners, with weekend visits home over buses or rail when needed.",
+      ],
+      travelModes: [
+        {
+          mode: "Buses",
+          detail:
+            "MSRTC and private buses run the Latur–Pune route; around 6–7 hours, including overnight services.",
+        },
+        {
+          mode: "Train",
+          detail:
+            "Latur has rail links towards Pune (via Latur Road / Kurduvadi junction), with connecting services.",
+        },
+        {
+          mode: "Own vehicle",
+          detail: "~330 km via the Latur–Solapur–Pune corridor — most students prefer bus or train.",
+        },
+      ],
+      stayParagraphs: [
+        "Our Kothrud campus is in a student-friendly western suburb of Pune. Affordable PGs and hostels fill Kothrud and the nearby Karve Nagar, Warje and Erandwane areas, most within a short distance of class.",
+        "For Latur students relocating for a term, Kothrud is a safe, economical and well-connected base with everything a student needs close by.",
+      ],
+    },
+    whyArcher: [
+      "Since 2009 — 17+ years in Pune, 10,000+ students trained and 5,000+ placed.",
+      "90% placement support with a 100+ company hiring network, including Amdocs, Capgemini, MindTree and Tech Mahindra.",
+      "Same curriculum and trainers across live online and Pune classroom modes.",
+      "40+ job-focused courses spanning programming, full stack, data, AI, cloud and DevOps.",
+    ],
+    popularCourseSlugs: [
+      "java-full-stack-training-in-pune",
+      "python-full-stack-training-in-pune",
+      "data-science-training-in-pune",
+      "mern-stack-training-in-pune",
+    ],
+    localFaqs: [
+      {
+        question: "Can I train with Archer without moving from Latur?",
+        answer:
+          "Yes — and given the distance, many Latur students do exactly that. Our live online batches cover the full Java Full Stack, Python Full Stack, Data Science and Cloud programmes with the same trainers, projects and placement support as classroom.",
+      },
+      {
+        question: "Do online students from Latur get placement support?",
+        answer:
+          "Yes. Mock interviews, resume guidance and access to our 100+ hiring partners are identical for online and classroom learners — placement support does not depend on your mode of study.",
+      },
+      {
+        question: "If I relocate to Pune, where would I stay?",
+        answer:
+          "Our Kothrud campus is in a student-friendly suburb with affordable PGs and hostels nearby in Kothrud, Karve Nagar, Warje and Erandwane. Our team helps with accommodation guidance when you enrol.",
+      },
+      {
+        question: "How do I get from Latur to Pune?",
+        answer:
+          "MSRTC and private buses run the route in about 6–7 hours (including overnight services), and trains connect via Latur Road / Kurduvadi. Most classroom students relocate for the term and visit home on weekends.",
+      },
+    ],
+  },
 ];
 
 export function getStudentCity(slug: string): StudentCity | undefined {

@@ -129,6 +129,22 @@ const NEARBY_NEIGHBOURHOODS_MAP: Record<string, string[]> = {
     "it-training-in-hinjewadi",
     "it-training-in-aundh",
   ],
+  // East Pune belt (Kharadi / Viman Nagar / Hadapsar-Magarpatta triad)
+  "it-training-in-kharadi": [
+    "it-training-in-viman-nagar",
+    "it-training-in-hadapsar-magarpatta",
+    "it-training-in-hinjewadi",
+  ],
+  "it-training-in-viman-nagar": [
+    "it-training-in-kharadi",
+    "it-training-in-hadapsar-magarpatta",
+    "it-training-in-aundh",
+  ],
+  "it-training-in-hadapsar-magarpatta": [
+    "it-training-in-kharadi",
+    "it-training-in-viman-nagar",
+    "it-training-in-pimpri-chinchwad",
+  ],
 };
 
 // Destination is the verified Kothrud centre; origin varies per page so the
@@ -906,6 +922,198 @@ export const neighbourhoods: NeighbourhoodLocation[] = [
         question: "Is classroom training the best option from Karve Road?",
         answer:
           "Given how short the commute is, yes — most Karve Road students attend classroom batches and get full in-person time with trainers. Online and weekend batches are also available.",
+      },
+    ],
+  },
+
+  // ─── 13. Kharadi ─────────────────────────────────────────────────────────
+  {
+    slug: "it-training-in-kharadi",
+    name: "Kharadi",
+    fullName: "Kharadi, Pune",
+    pincode: "411014",
+    priority: 13,
+    tagline: "East Pune's biggest IT hub — EON, WTC and the GCC belt.",
+    metaTitle: "IT Training in Kharadi, Pune — Archer Infotech",
+    metaDescription:
+      "Kharadi IT professionals and students train with Archer Infotech via live-online and weekend batches — Java full stack, Python full stack, data science, AWS and DevOps with placement support. Classroom in Kothrud.",
+    intro: [
+      "Kharadi is East Pune's largest IT destination — home to EON Free Zone (EON IT Park), the World Trade Center (WTC) Pune, Zensar Technologies' campus and Gera Commerze, with employers like Barclays, Credit Suisse (UBS), Honeywell, Vodafone, Allstate, eClerx, WNS and Synechron running large delivery and GCC captive teams here. That concentration of hiring makes Kharadi one of the strongest areas in Pune for job-ready upskilling.",
+      "Kharadi sits on the eastern edge of the city, so it's not adjacent to our Kothrud centre — which is exactly why most Kharadi learners choose our live-online batches to upskill around demanding IT jobs, with weekend classroom as an option for those who want occasional in-person time. Java full stack, Python full stack and data science are the most-requested tracks from Kharadi's workforce, with cloud (AWS) and DevOps close behind.",
+    ],
+    commute: {
+      distanceLabel: "~18–20 km · 45–60 min cross-city",
+      paragraphs: [
+        "Kharadi is on the opposite side of the city from Kothrud — roughly 18–20 km via the Airport Road / Koregaon Park corridor or the river route, typically 45–60 minutes depending on traffic. Because of that distance, live-online is by far the most popular format for Kharadi's IT professionals.",
+        "For those who want in-person time on the harder modules, weekend classroom batches in Kothrud are the easiest window; the rest of the week runs online with the same trainers and curriculum.",
+      ],
+      modes: [
+        { mode: "Online live", detail: "The default for Kharadi's weekday IT workforce — no cross-city commute." },
+        { mode: "Weekend classroom", detail: "Easiest in-person option; Saturday batches in Kothrud." },
+        { mode: "Car / cab", detail: "45–60 min via Airport Road / Koregaon Park corridor." },
+      ],
+    },
+    landmarks: [
+      "EON Free Zone / EON IT Park",
+      "World Trade Center (WTC) Pune",
+      "Zensar Technologies campus",
+      "Gera Commerze / Reliable Plaza",
+      "Kharadi Bypass & Chandan Nagar",
+    ],
+    whyConvenient: [
+      "Kharadi's dense GCC and IT-services hiring — Barclays, Credit Suisse, Honeywell, Zensar and others — is exactly the placement path our Java full stack, Python full stack and data-science tracks target, so the skills you build map directly to employers a few minutes from your desk.",
+      "Live-online batches let Kharadi professionals upskill without the long cross-city commute, while weekend classroom in Kothrud is there when you want hands-on lab time — same trainers, same projects, same placement support either way.",
+    ],
+    popularCourseSlugs: [
+      "java-full-stack-training-in-pune",
+      "python-full-stack-training-in-pune",
+      "data-science-training-in-pune",
+      "aws-training-in-pune",
+      "devops-training-in-pune",
+    ],
+    localFaqs: [
+      {
+        question: "Is Kharadi too far for training in Kothrud?",
+        answer:
+          "It's about 18–20 km cross-city (45–60 min with traffic), so most Kharadi students train via live-online batches and use weekend classroom in Kothrud only when they want in-person lab time. Both use the same trainers and curriculum.",
+      },
+      {
+        question: "Which Kharadi companies hire from these courses?",
+        answer:
+          "EON IT Park and WTC employers — Barclays, Credit Suisse (UBS), Honeywell, Zensar, Vodafone, Allstate, eClerx, WNS, Synechron and other GCC captives — regularly hire Java full stack, Python full stack, data-science, cloud and DevOps talent.",
+      },
+      {
+        question: "Can I do the course while working in a Kharadi IT job?",
+        answer:
+          "Yes — that's the common case. Live-online evening and weekend batches are built for working professionals, with the same projects, mock interviews and placement support as classroom.",
+      },
+    ],
+  },
+
+  // ─── 14. Viman Nagar ─────────────────────────────────────────────────────
+  {
+    slug: "it-training-in-viman-nagar",
+    name: "Viman Nagar",
+    fullName: "Viman Nagar, Pune",
+    pincode: "411014",
+    priority: 14,
+    tagline: "Airport-belt IT & campus hub — Symbiosis, WeWork, Weikfield.",
+    metaTitle: "IT Training in Viman Nagar, Pune — Archer Infotech",
+    metaDescription:
+      "Viman Nagar students and professionals train with Archer Infotech via live-online and weekend batches — Java full stack, Python full stack, data science, MERN stack and Python with placement support. Classroom in Kothrud.",
+    intro: [
+      "Viman Nagar is one of East Pune's busiest cosmopolitan hubs, next to Pune Airport and anchored by Weikfield IT Park, WeWork Futura, Phoenix Marketcity and the cluster of Symbiosis International University institutes. Between the Symbiosis student population and the startups, GCC teams and co-working tenants in the area, there's strong, steady demand for job-ready IT skills right here.",
+      "Viman Nagar sits on the eastern side of the city, so most learners here train through our live-online batches, with weekend classroom in Kothrud as an option. Symbiosis and other college students most often start with Python, MERN stack or data science, while working professionals lean toward Java full stack and Python full stack — all with the same placement support.",
+    ],
+    commute: {
+      distanceLabel: "~15–17 km · 40–55 min via Airport Road",
+      paragraphs: [
+        "Viman Nagar is roughly 15–17 km from our Kothrud centre via the Airport Road corridor, typically 40–55 minutes with traffic. Given the distance, live-online is the format most Viman Nagar learners choose.",
+        "Students who want occasional in-person time take weekend classroom batches in Kothrud; the rest of the week runs online with identical trainers, projects and Q&A.",
+      ],
+      modes: [
+        { mode: "Online live", detail: "Most popular for Viman Nagar's weekday learners and professionals." },
+        { mode: "Weekend classroom", detail: "Saturday in-person batches in Kothrud." },
+        { mode: "Car / two-wheeler", detail: "40–55 min via Airport Road / Nagar Road." },
+      ],
+    },
+    landmarks: [
+      "Symbiosis International University campuses",
+      "Weikfield IT Park",
+      "WeWork Futura",
+      "Phoenix Marketcity",
+      "Pune Airport & Nagar Road",
+    ],
+    whyConvenient: [
+      "Viman Nagar's mix of Symbiosis students and airport-belt startups/GCC teams makes it a natural fit for our beginner-friendly Python, MERN and data-science tracks alongside the professional Java full stack and Python full stack paths — all with placement support attached.",
+      "Live-online delivery removes the airport-corridor commute, while weekend classroom in Kothrud gives hands-on lab time when you want it — same trainers and curriculum in both formats.",
+    ],
+    popularCourseSlugs: [
+      "java-full-stack-training-in-pune",
+      "python-full-stack-training-in-pune",
+      "data-science-training-in-pune",
+      "mern-stack-training-in-pune",
+      "python-training-in-pune",
+    ],
+    localFaqs: [
+      {
+        question: "I study at Symbiosis in Viman Nagar — can training help my placements?",
+        answer:
+          "Yes. Our Python, MERN, data-science and full-stack tracks include resume prep, mock interviews and placement support designed to add job-ready skills on top of a Symbiosis degree.",
+      },
+      {
+        question: "Is Viman Nagar too far for classroom batches?",
+        answer:
+          "It's about 15–17 km via Airport Road (40–55 min with traffic), so most Viman Nagar students train live-online and use weekend classroom in Kothrud when they want in-person time. Both formats are identical in content.",
+      },
+      {
+        question: "Which batch format do most Viman Nagar learners choose?",
+        answer:
+          "Live-online for weekday convenience, with weekend classroom as an option. The trainers, projects and placement support are the same in either format.",
+      },
+    ],
+  },
+
+  // ─── 15. Hadapsar & Magarpatta ───────────────────────────────────────────
+  {
+    slug: "it-training-in-hadapsar-magarpatta",
+    name: "Hadapsar & Magarpatta",
+    fullName: "Hadapsar & Magarpatta City, Pune",
+    pincode: "411028",
+    priority: 15,
+    tagline: "Magarpatta Cyber City & SP Infocity — Amdocs, Accenture, John Deere.",
+    metaTitle: "IT Training in Hadapsar & Magarpatta, Pune — Archer Infotech",
+    metaDescription:
+      "Hadapsar and Magarpatta IT professionals and students train with Archer Infotech via live-online and weekend batches — Java full stack, Python full stack, data science, DevOps and software testing with placement support. Classroom in Kothrud.",
+    intro: [
+      "Hadapsar and the adjacent Magarpatta City form one of East Pune's most concentrated IT zones — Magarpatta Cyber City and SP Infocity host Amdocs, Accenture, Mphasis, John Deere, Fujitsu and Zensar, among others. With that many delivery centres and GCC captives in a small radius, Hadapsar–Magarpatta is a prime area for placement-focused upskilling.",
+      "The zone is on the eastern side of Pune, well away from our Kothrud centre, so most Hadapsar–Magarpatta learners train through live-online batches around their work schedules, with weekend classroom as an option. Java full stack, Python full stack and data science are the most-requested tracks here, with DevOps and software testing strong given the large services and QA teams in Magarpatta.",
+    ],
+    commute: {
+      distanceLabel: "~14–16 km · 40–55 min via Solapur Road",
+      paragraphs: [
+        "Hadapsar–Magarpatta is about 14–16 km from Kothrud via the Solapur Road / Ghorpadi corridor, typically 40–55 minutes with traffic. Because of the distance and East-Pune congestion, live-online is the format most learners here choose.",
+        "For in-person time on harder modules, weekend classroom batches in Kothrud are the easiest window, with the rest of the week online — same trainers, labs and projects throughout.",
+      ],
+      modes: [
+        { mode: "Online live", detail: "Default for Magarpatta Cyber City's weekday IT workforce." },
+        { mode: "Weekend classroom", detail: "Saturday in-person batches in Kothrud." },
+        { mode: "Car / cab", detail: "40–55 min via Solapur Road / Ghorpadi." },
+      ],
+    },
+    landmarks: [
+      "Magarpatta City Cyber City",
+      "SP Infocity",
+      "Amanora Mall / Seasons Mall",
+      "Hadapsar Gadital",
+      "Solapur Road corridor",
+    ],
+    whyConvenient: [
+      "Magarpatta and SP Infocity employers — Amdocs, Accenture, Mphasis, John Deere, Fujitsu, Zensar — hire heavily for Java full stack, Python full stack, data science, DevOps and QA/testing, which is precisely what our tracks build and place for.",
+      "Live-online delivery means Hadapsar–Magarpatta professionals can upskill without the East-Pune commute, while weekend classroom in Kothrud provides hands-on lab time — identical trainers, curriculum and placement support in both.",
+    ],
+    popularCourseSlugs: [
+      "java-full-stack-training-in-pune",
+      "python-full-stack-training-in-pune",
+      "data-science-training-in-pune",
+      "devops-training-in-pune",
+      "software-testing-training-in-pune",
+    ],
+    localFaqs: [
+      {
+        question: "Which Magarpatta / Hadapsar companies hire from these courses?",
+        answer:
+          "Magarpatta Cyber City and SP Infocity employers — Amdocs, Accenture, Mphasis, John Deere, Fujitsu and Zensar — regularly hire Java full stack, Python full stack, data-science, DevOps and software-testing talent.",
+      },
+      {
+        question: "Is Hadapsar too far for classroom training in Kothrud?",
+        answer:
+          "It's about 14–16 km via Solapur Road (40–55 min with traffic), so most Hadapsar–Magarpatta students train live-online and use weekend classroom in Kothrud when they want in-person time. Both formats are identical in content.",
+      },
+      {
+        question: "Can I train while working in a Magarpatta IT job?",
+        answer:
+          "Yes — live-online evening and weekend batches are designed for working professionals, with the same projects, mock interviews and placement support as classroom.",
       },
     ],
   },
