@@ -133,17 +133,31 @@ export async function RichCourseContentBelowFold({
   return (
     <div className="space-y-12">
       {/* Section 4 — Curriculum */}
-      <section className="space-y-4">
+      <section className="space-y-4 pt-8">
+        <hr className="border-t border-border" />
         <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-3">
           <GraduationCap className="h-7 w-7 text-secondary" />
           Detailed Curriculum
         </h2>
         <div className="space-y-5">
           {rich.curriculum.map((module, i) => (
-            <Card key={i}>
+            <Card
+              key={i}
+              className={
+                module.highlight
+                  ? "border-emerald-200 bg-emerald-50/40 dark:border-emerald-500/40 dark:bg-emerald-500/10"
+                  : undefined
+              }
+            >
               <CardHeader>
                 <div className="flex items-start gap-3">
-                  <span className="flex items-center justify-center w-9 h-9 rounded-full bg-primary text-primary-foreground text-sm font-semibold shrink-0">
+                  <span
+                    className={`flex items-center justify-center w-9 h-9 rounded-full text-sm font-semibold shrink-0 ${
+                      module.highlight
+                        ? "bg-emerald-600 text-white"
+                        : "bg-primary text-primary-foreground"
+                    }`}
+                  >
                     {i + 1}
                   </span>
                   <div className="flex-grow">
@@ -161,11 +175,23 @@ export async function RichCourseContentBelowFold({
                   {module.description}
                 </p>
                 <div className="flex flex-wrap gap-2 pt-2">
-                  {module.topics.map((topic) => (
-                    <Badge key={topic} variant="outline" className="text-xs">
-                      {topic}
-                    </Badge>
-                  ))}
+                  {module.topics.map((topic, ti) => {
+                    const highlightTopic =
+                      module.highlight && ti === module.topics.length - 1;
+                    return (
+                      <Badge
+                        key={topic}
+                        variant="outline"
+                        className={
+                          highlightTopic
+                            ? "text-xs border-emerald-600 bg-emerald-600 text-white dark:bg-emerald-500 dark:border-emerald-500"
+                            : "text-xs"
+                        }
+                      >
+                        {topic}
+                      </Badge>
+                    );
+                  })}
                 </div>
               </CardContent>
             </Card>

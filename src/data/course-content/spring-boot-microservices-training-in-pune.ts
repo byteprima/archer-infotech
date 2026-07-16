@@ -188,6 +188,25 @@ export const springBootMicroservicesTrainingInPune: CourseRichContent = {
         "HR mock interview and salary negotiation",
       ],
     },
+    {
+      title: "AI-Assisted Development Workflow",
+      weekRange: "Week 13",
+      highlight: true,
+      description:
+        "The skill every Pune 2026 backend hiring panel now probes for — building Spring Boot services with AI in the loop, responsibly. Learn to drive AI coding assistants (GitHub Copilot, Claude Code, Cursor, JetBrains AI Assistant) to scaffold controllers, services, DTOs, and JPA entities, generate JUnit 5 + Mockito + Testcontainers tests, and modernise legacy Spring code — while keeping the engineer firmly in control. Heavy focus on guardrails: reviewing every AI suggestion, spotting hallucinated APIs, and handling licensing and data-privacy concerns. Close with a mini-project that takes a Spring Boot microservice end-to-end using an AI-assisted workflow, then integrate the same tooling into pull requests and CI/CD.",
+      topics: [
+        "AI coding assistants for Java/Spring — Copilot, Claude Code, Cursor, JetBrains AI",
+        "Effective prompting for backend code — controllers, services, DTOs, JPA entities",
+        "AI-assisted test generation — JUnit 5, Mockito, Testcontainers",
+        "Explaining, refactoring, and modernising legacy Spring code with AI",
+        "AI-driven code review, bug detection, and security scanning",
+        "Generating docs — Javadoc, OpenAPI specs, README files",
+        "AI debugging — interpreting stack traces, logs, and failing tests",
+        "Guardrails — reviewing output, avoiding hallucinated APIs, licensing & data privacy",
+        "Team workflow — AI in the IDE, in pull requests, and in CI/CD",
+        "Mini-project — a Spring Boot microservice built end-to-end with an AI-assisted workflow",
+      ],
+    },
   ],
 
   projects: [

@@ -33,6 +33,8 @@ export interface CourseRichContent {
     weekRange?: string;
     description: string;
     topics: string[];
+    /** When true, the module card is visually highlighted with a distinct background. */
+    highlight?: boolean;
   }>;
 
   /** Capstone projects with technologies + brief architecture. */

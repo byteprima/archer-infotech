@@ -8,6 +8,9 @@ import { requireAdminPage } from "@/lib/admin";
 import { db } from "@/db";
 import { leads as leadsTable } from "@/db/schema";
 import { LEAD_SOURCE_TABS, buildSourceCondition } from "@/lib/leads/source-filter";
+import { DeleteLeadButton } from "@/components/admin/delete-lead-button";
+
+type LeadRow = typeof leadsTable.$inferSelect;
 
 const statusColors: Record<string, string> = {
   new: "bg-green-100 text-green-800",
@@ -17,8 +20,73 @@ const statusColors: Record<string, string> = {
   closed: "bg-gray-100 text-gray-800",
 };
 
+function LeadsTable({ leads, showCourse = true }: { leads: LeadRow[]; showCourse?: boolean }) {
+  return (
+    <div className="overflow-x-auto">
+      <table className="w-full">
+        <thead>
+          <tr className="border-b text-left">
+            <th className="pb-3 font-medium">Name</th>
+            <th className="pb-3 font-medium">Contact</th>
+            {showCourse && <th className="pb-3 font-medium">Course</th>}
+            <th className="pb-3 font-medium">Source</th>
+            <th className="pb-3 font-medium">Status</th>
+            <th className="pb-3 font-medium">Date</th>
+            <th className="pb-3 font-medium">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {leads.map((lead) => (
+            <tr key={lead.id} className="border-b last:border-0">
+              <td className="py-4">
+                <div className="font-medium">{lead.name}</div>
+              </td>
+              <td className="py-4">
+                <div className="text-sm">{lead.email}</div>
+                <div className="text-sm text-muted-foreground">{lead.phone}</div>
+              </td>
+              {showCourse && (
+                <td className="py-4">
+                  <div className="text-sm">{lead.courseInterest || "-"}</div>
+                </td>
+              )}
+              <td className="py-4">
+                <div className="text-sm capitalize">
+                  {lead.source?.replace("_", " ") || "-"}
+                </div>
+              </td>
+              <td className="py-4">
+                <Badge className={statusColors[lead.status] || ""}>{lead.status}</Badge>
+              </td>
+              <td className="py-4">
+                <div className="text-sm text-muted-foreground">
+                  {lead.createdAt ? new Date(lead.createdAt).toLocaleDateString() : "-"}
+                </div>
+              </td>
+              <td className="py-4">
+                <div className="flex items-center gap-2">
+                  <Link href={`/admin/leads/${lead.id}`}>
+                    <Button variant="outline" size="sm">
+                      View
+                    </Button>
+                  </Link>
+                  <DeleteLeadButton
+                    id={lead.id}
+                    name={lead.name}
+                    courseInterest={lead.courseInterest}
+                  />
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 interface AdminLeadsPageProps {
-  searchParams: Promise<{ q?: string; status?: string; source?: string }>;
+  searchParams: Promise<{ q?: string; status?: string; source?: string; view?: string }>;
 }
 
 export default async function AdminLeadsPage({ searchParams }: AdminLeadsPageProps) {
@@ -28,6 +96,7 @@ export default async function AdminLeadsPage({ searchParams }: AdminLeadsPagePro
   const query = params.q?.trim() || "";
   const status = params.status?.trim() || "";
   const source = params.source?.trim() || "";
+  const view = params.view === "course" ? "course" : "list";
 
   const conditions = [];
 
@@ -51,12 +120,24 @@ export default async function AdminLeadsPage({ searchParams }: AdminLeadsPagePro
     conditions.push(sourceCondition);
   }
 
-  // Preserve the active search + status when switching source tabs.
+  // Preserve the active search + status + view when switching source tabs.
   const tabHref = (sourceKey: string) => {
     const sp = new URLSearchParams({
       ...(query ? { q: query } : {}),
       ...(status ? { status } : {}),
       ...(sourceKey ? { source: sourceKey } : {}),
+      ...(view === "course" ? { view } : {}),
+    }).toString();
+    return sp ? `/admin/leads?${sp}` : "/admin/leads";
+  };
+
+  // Preserve all active filters when switching between list / by-course view.
+  const viewHref = (viewKey: "list" | "course") => {
+    const sp = new URLSearchParams({
+      ...(query ? { q: query } : {}),
+      ...(status ? { status } : {}),
+      ...(source ? { source } : {}),
+      ...(viewKey === "course" ? { view: "course" } : {}),
     }).toString();
     return sp ? `/admin/leads?${sp}` : "/admin/leads";
   };
@@ -66,6 +147,21 @@ export default async function AdminLeadsPage({ searchParams }: AdminLeadsPagePro
     .from(leadsTable)
     .where(conditions.length > 0 ? and(...conditions) : undefined)
     .orderBy(desc(leadsTable.createdAt));
+
+  // Group enquiries by course for the "By Course" view. Uncategorised
+  // enquiries fall under a shared "Not specified" bucket, and groups are
+  // ordered by volume (largest first) so busy courses — and any duplicate
+  // clusters within them — surface at the top.
+  const courseGroups = (() => {
+    const map = new Map<string, LeadRow[]>();
+    for (const lead of leads) {
+      const key = lead.courseInterest?.trim() || "Not specified";
+      const bucket = map.get(key);
+      if (bucket) bucket.push(lead);
+      else map.set(key, [lead]);
+    }
+    return Array.from(map.entries()).sort((a, b) => b[1].length - a[1].length);
+  })();
 
   const exportQuery = new URLSearchParams({
     ...(query ? { q: query } : {}),
@@ -115,6 +211,30 @@ export default async function AdminLeadsPage({ searchParams }: AdminLeadsPagePro
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8">
+        {/* View toggle — flat list vs grouped by course */}
+        <div className="mb-4 inline-flex rounded-lg border p-1">
+          <Link
+            href={viewHref("list")}
+            className={`rounded-md px-4 py-1.5 text-sm font-medium transition-colors ${
+              view === "list"
+                ? "bg-primary text-primary-foreground"
+                : "text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            All Leads
+          </Link>
+          <Link
+            href={viewHref("course")}
+            className={`rounded-md px-4 py-1.5 text-sm font-medium transition-colors ${
+              view === "course"
+                ? "bg-primary text-primary-foreground"
+                : "text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            By Course
+          </Link>
+        </div>
+
         {/* Source tabs */}
         <div className="mb-6 flex flex-wrap gap-2 border-b">
           {LEAD_SOURCE_TABS.map((tab) => {
@@ -179,78 +299,47 @@ export default async function AdminLeadsPage({ searchParams }: AdminLeadsPagePro
           </CardContent>
         </Card>
 
-        {/* Leads Table */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Recent Leads</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {leads.length === 0 ? (
+        {/* Leads — flat list or grouped by course */}
+        {leads.length === 0 ? (
+          <Card>
+            <CardContent>
               <div className="text-center py-12">
                 <p className="text-muted-foreground">No leads found</p>
                 <p className="text-sm text-muted-foreground mt-1">
                   Leads will appear here when visitors submit the contact form
                 </p>
               </div>
-            ) : (
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead>
-                    <tr className="border-b text-left">
-                      <th className="pb-3 font-medium">Name</th>
-                      <th className="pb-3 font-medium">Contact</th>
-                      <th className="pb-3 font-medium">Course</th>
-                      <th className="pb-3 font-medium">Source</th>
-                      <th className="pb-3 font-medium">Status</th>
-                      <th className="pb-3 font-medium">Date</th>
-                      <th className="pb-3 font-medium">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {leads.map((lead) => (
-                      <tr key={lead.id} className="border-b last:border-0">
-                        <td className="py-4">
-                          <div className="font-medium">{lead.name}</div>
-                        </td>
-                        <td className="py-4">
-                          <div className="text-sm">{lead.email}</div>
-                          <div className="text-sm text-muted-foreground">
-                            {lead.phone}
-                          </div>
-                        </td>
-                        <td className="py-4">
-                          <div className="text-sm">{lead.courseInterest || "-"}</div>
-                        </td>
-                        <td className="py-4">
-                          <div className="text-sm capitalize">
-                            {lead.source?.replace("_", " ") || "-"}
-                          </div>
-                        </td>
-                        <td className="py-4">
-                          <Badge className={statusColors[lead.status] || ""}>
-                            {lead.status}
-                          </Badge>
-                        </td>
-                        <td className="py-4">
-                          <div className="text-sm text-muted-foreground">
-                            {lead.createdAt ? new Date(lead.createdAt).toLocaleDateString() : "-"}
-                          </div>
-                        </td>
-                        <td className="py-4">
-                          <Link href={`/admin/leads/${lead.id}`}>
-                            <Button variant="outline" size="sm">
-                              View
-                            </Button>
-                          </Link>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        ) : view === "course" ? (
+          <div className="space-y-6">
+            {courseGroups.map(([course, groupLeads]) => (
+              <Card key={course}>
+                <CardHeader>
+                  <CardTitle className="flex items-center justify-between">
+                    <span>{course}</span>
+                    <Badge variant="secondary">
+                      {groupLeads.length}{" "}
+                      {groupLeads.length === 1 ? "enquiry" : "enquiries"}
+                    </Badge>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <LeadsTable leads={groupLeads} showCourse={false} />
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        ) : (
+          <Card>
+            <CardHeader>
+              <CardTitle>Recent Leads</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <LeadsTable leads={leads} />
+            </CardContent>
+          </Card>
+        )}
 
       </main>
     </div>

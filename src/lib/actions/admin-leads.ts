@@ -171,3 +171,39 @@ export async function updateLead(id: number, data: LeadUpdateData): Promise<Acti
     message: "Lead updated successfully.",
   };
 }
+
+// Permanently delete a lead — used from the admin leads table to remove
+// duplicate / spam enquiries. Guarded by admin auth and audit-logged.
+export async function deleteLead(id: number): Promise<ActionResult> {
+  await requireAdminAction();
+
+  const existing = await db.select().from(leads).where(eq(leads.id, id)).limit(1);
+
+  if (!existing[0]) {
+    return {
+      success: false,
+      message: "Lead not found.",
+    };
+  }
+
+  await db.delete(leads).where(eq(leads.id, id));
+
+  revalidatePath("/admin/leads");
+
+  await logAdminAction({
+    action: "lead.delete",
+    entityType: "lead",
+    entityId: id,
+    summary: `Deleted lead "${existing[0].name}"`,
+    metadata: {
+      email: existing[0].email || null,
+      phone: existing[0].phone || null,
+      courseInterest: existing[0].courseInterest || null,
+    },
+  });
+
+  return {
+    success: true,
+    message: "Lead deleted successfully.",
+  };
+}

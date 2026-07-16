@@ -133,6 +133,25 @@ export const mysqlTrainingInPune: CourseRichContent = {
         "GitHub portfolio polish",
       ],
     },
+    {
+      title: "AI-Assisted Development Workflow",
+      weekRange: "Final Week",
+      highlight: true,
+      description:
+        "The skill every 2026 hiring panel now probes for — building real work with AI in the loop, responsibly. Learn to drive AI assistants (GitHub Copilot, Claude, Cursor, and IDE-native AI) to scaffold and accelerate the tools and stack this course covers, generate tests, explain and refactor unfamiliar code, and cut the boilerplate — while keeping you firmly in control of every decision. Heavy focus on guardrails: reviewing each AI suggestion, spotting hallucinated APIs or wrong answers, and handling licensing and data-privacy concerns. Close with a mini-project that takes a deliverable end-to-end using an AI-assisted workflow, then fold the same tooling into version control and everyday team practice.",
+      topics: [
+        "AI assistants — GitHub Copilot, Claude, Cursor, IDE-native AI",
+        "Effective prompting for this course's stack — scaffolding, boilerplate, config",
+        "AI-assisted test generation and coverage",
+        "Explaining, refactoring, and modernising unfamiliar code with AI",
+        "AI-driven review, error detection, and quality checks",
+        "Generating and maintaining documentation with AI",
+        "AI debugging — interpreting errors, logs, and failing output",
+        "Guardrails — reviewing output, avoiding hallucinations, licensing & data privacy",
+        "Team workflow — AI in the editor, in reviews, and in delivery pipelines",
+        "Mini-project — a deliverable built end-to-end with an AI-assisted workflow",
+      ],
+    },
   ],
 
   projects: [
