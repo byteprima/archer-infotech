@@ -17,9 +17,12 @@ const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://archerinfotech.in";
  * crawlers, and are not in Cloudflare's block list. Explicit Allow makes
  * intent unambiguous for AEO/GEO citation pickup.
  *
- * Plus explicit Disallow for known scraper-spam crawlers (AhrefsBot,
- * SemrushBot, MJ12bot, DotBot) that bring no SEO value and waste server
- * resources on a small site.
+ * Note (2026-07-19): AhrefsBot/SemrushBot/MJ12bot/DotBot are intentionally NOT
+ * blocked. Blocking them did not hide our inbound-link data (backlinks are
+ * discovered by crawling the *linking* pages elsewhere), but it DID keep these
+ * tools' DA/DR metrics for this domain stale — including the free Moz metrics
+ * this account itself uses. There's no competitive upside to blocking them, so
+ * they fall under the default "*" allow policy.
  */
 export default function robots(): MetadataRoute.Robots {
   /* Each AI-allowlist group MUST repeat /admin/ + /api/ disallows.
@@ -38,12 +41,8 @@ export default function robots(): MetadataRoute.Robots {
       { userAgent: "Perplexity-User", disallow: protectedPaths },
       { userAgent: "ChatGPT-User", disallow: protectedPaths },
       { userAgent: "OAI-SearchBot", disallow: protectedPaths },
-      // Known scraper-spam crawlers — block to save bandwidth
-      { userAgent: "AhrefsBot", disallow: "/" },
-      { userAgent: "SemrushBot", disallow: "/" },
-      { userAgent: "MJ12bot", disallow: "/" },
-      { userAgent: "DotBot", disallow: "/" },
       // Default policy — everything else allowed except admin/API
+      // (SEO crawlers AhrefsBot/SemrushBot/MJ12bot/DotBot fall under this — see note above)
       {
         userAgent: "*",
         allow: "/",

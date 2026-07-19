@@ -66,6 +66,15 @@ const courseSlugRedirects: LegacyRedirect[] = [
   { from: "/courses/database-technologies/mongodb", to: "/courses/database-technologies/mongodb-training-in-pune" },
   { from: "/courses/database-technologies/oracle-database", to: "/courses/database-technologies/oracle-database-training-in-pune" },
   { from: "/courses/database-technologies/firebase", to: "/courses/database-technologies/firebase-training-in-pune" },
+  // Missing/wrong course-path slugs surfaced by the 2026-07-19 404 reconstruction
+  // (crawl of all 439 live pages + candidate testing). These 404'd — no prior redirect.
+  { from: "/courses/programming/spring-boot", to: "/courses/programming/spring-boot-microservices-training-in-pune" },
+  { from: "/courses/generative-ai/agentic-ai", to: "/courses/generative-ai/agentic-ai-training-in-pune" },
+  { from: "/courses/testing-qa/selenium-with-java-training-in-pune", to: "/courses/testing-qa/selenium-training-in-pune" },
+  // Wrong category "data-analytics" (the real category is "data-ai") — these slugs are
+  // linked from blog posts (7 references) and were returning 404.
+  { from: "/courses/data-analytics/data-science-classes-in-pune", to: "/courses/data-ai/data-science-training-in-pune" },
+  { from: "/courses/data-analytics/data-analytics-in-pune", to: "/courses/data-ai/data-analytics-training-in-pune" },
 ];
 
 // Legacy WordPress URLs still in Google's index. Each maps to the closest
@@ -110,6 +119,13 @@ const legacyWpRedirects: LegacyRedirect[] = [
   { from: "/best-software-training-institute-in-pune", to: "/" },
   { from: "/full-stack-development-course-with-placement-assistance", to: "/courses/full-stack-development" },
   { from: "/about-us", to: "/about" },
+  // Top-level legacy slugs surfaced by the 2026-07-19 404 reconstruction
+  { from: "/courses/java", to: "/courses/programming/java-training-in-pune" },
+  { from: "/courses/python", to: "/courses/programming/python-training-in-pune" },
+  { from: "/java-training-in-pune", to: "/courses/programming/java-training-in-pune" },
+  { from: "/blog/page/1", to: "/blog" },
+  { from: "/contact-us", to: "/contact" },
+  { from: "/course", to: "/courses" },
 ];
 
 export const legacyRedirects: LegacyRedirect[] = [
