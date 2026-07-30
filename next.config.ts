@@ -101,8 +101,14 @@ const nextConfig: NextConfig = {
     // and Next/Cloudflare would otherwise send `private, no-cache, no-store`
     // — overriding here lets Cloudflare cache the rendered HTML and serve
     // stale-while-revalidate up to 1 day. Big LCP/TTFB win for repeat
-    // visitors and crawl efficiency. Excluded by listing:
-    // /admin, /api, /contact (form), /blog (DB-backed), /review (308).
+    // visitors and crawl efficiency.
+    //
+    // WARNING: leaving a route out of this list does NOT exclude it from
+    // caching. Prerendered (SSG) routes with no rule fall through to the
+    // Next.js default of `s-maxage=31536000` — a one-year edge TTL. To
+    // genuinely keep a route off the edge, give it an explicit
+    // noCacheRule(). Routes that reach origin every time do so because
+    // they are dynamic (`no-store`), not because they were omitted here.
     //
     // P8-24 — three-tier cache TTL aligned to actual content update cadence.
     // Each tier keeps the same stale-while-revalidate budget (1 day) but
@@ -145,6 +151,13 @@ const nextConfig: NextConfig = {
       key: "Cache-Control",
       value:
         "public, max-age=0, s-maxage=21600, stale-while-revalidate=86400",
+    };
+    // Never edge-cache. For routes that must always hit origin (forms whose
+    // markup embeds per-deploy server-action ids, personalised or
+    // interactive pages).
+    const NO_EDGE_CACHE = {
+      key: "Cache-Control",
+      value: "private, no-cache, no-store, max-age=0, must-revalidate",
     };
 
     // Content-Security-Policy (P1, 2026-06-25 audit — closes the "Missing CSP"
@@ -207,6 +220,10 @@ const nextConfig: NextConfig = {
     const veryStableRule = (source: string) => ({
       source,
       headers: [PUBLIC_CACHE_VERY_STABLE],
+    });
+    const noCacheRule = (source: string) => ({
+      source,
+      headers: [NO_EDGE_CACHE],
     });
 
     return [
@@ -298,6 +315,46 @@ const nextConfig: NextConfig = {
       veryStableRule("/career-paths/:slug"),
       veryStableRule("/reports"),
       veryStableRule("/reports/:slug"),
+
+      // ---------------------------------------------------------------
+      // Routes previously left OUT of this list entirely. Omission is NOT
+      // the same as "not cached": with no rule, a prerendered (SSG) route
+      // falls through to the Next.js default of a bare
+      // `cache-control: s-maxage=31536000` — a ONE YEAR edge TTL. The
+      // comment above claiming /contact and /blog were "excluded by
+      // listing" was therefore backwards: they were opted into the
+      // longest possible cache, not out of it.
+      //
+      // Measured on prod 2026-07-30 before this fix — every one of these
+      // sent s-maxage=31536000, and where the Cloudflare cache rule
+      // matched them they were already frozen:
+      //   /questions        cf-cache-status HIT, age 2413982 (28 days)
+      //   /privacy-policy   cf-cache-status HIT, age 1824405 (21 days)
+      // Content edits to those pages could not reach users for a year.
+      // ---------------------------------------------------------------
+
+      // VERY_STABLE — legal/reference copy, changes annually at most.
+      veryStableRule("/privacy-policy"),
+      veryStableRule("/terms-of-service"),
+      veryStableRule("/glossary"),
+      veryStableRule("/about/facts"),
+
+      // STABLE — content hubs edited on the quarterly review cadence.
+      stableRule("/questions"),
+      stableRule("/questions/:slug"),
+      stableRule("/alumni"),
+      stableRule("/interview-questions/:path*"),
+      stableRule("/it-training-in-pune-for"),
+      stableRule("/it-training-in-pune-for/:city"),
+
+      // /contact — a lead-capture form. Its markup embeds per-deploy
+      // server-action ids, so a stale copy can post to an action id that
+      // no longer exists. Cloudflare currently returns DYNAMIC here so it
+      // is not actually being cached today, but that is a property of the
+      // CF cache rule rather than anything this app asserts — make the
+      // intent explicit at the origin so a future rule change cannot
+      // silently start caching the form.
+      noCacheRule("/contact"),
 
       // Security headers — apply to every route.
       { source: "/:path*", headers: SECURITY_HEADERS },
