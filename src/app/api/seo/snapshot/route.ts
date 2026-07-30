@@ -9,6 +9,9 @@
  * Auth: Bearer token in the Authorization header matching
  * SEO_SNAPSHOT_SECRET. Returns 401 otherwise.
  *
+ * Returns 502 (and persists nothing) when the GSC pull fails or comes
+ * back empty — a zero rollup is worse than a missing one.
+ *
  * Example cron command (Coolify scheduled task):
  *   curl -s -X POST https://archerinfotech.in/api/seo/snapshot \
  *        -H "Authorization: Bearer $SEO_SNAPSHOT_SECRET"
@@ -37,6 +40,33 @@ export async function POST(request: NextRequest) {
 
   try {
     const snapshot = await loadDashboardSnapshot({ force: true, skipPsi: true });
+
+    // Guard against banking a worthless rollup. `captureDaily` writes a
+    // row whatever it's handed, so a failed (or empty) GSC pull persists
+    // all-zero totals and parks every tracked keyword at position 0 —
+    // indistinguishable in the Trends tab from genuinely ranking
+    // nowhere. Refuse the write and fail the request so the Coolify
+    // scheduled task shows red instead of a green "success".
+    const gscError =
+      snapshot.gsc28d.error ??
+      snapshot.gscQueries28d.error ??
+      snapshot.gscPages28d.error;
+    if (gscError) {
+      return NextResponse.json(
+        { error: `GSC pull failed — snapshot not persisted: ${gscError}` },
+        { status: 502 },
+      );
+    }
+    if (!snapshot.gscQueries28d.result?.rows.length) {
+      return NextResponse.json(
+        {
+          error:
+            "GSC returned zero query rows — snapshot not persisted (treated as a failure; the site always has impressions over 28 days)",
+        },
+        { status: 502 },
+      );
+    }
+
     const result = await captureDaily(snapshot, { force: true });
     return NextResponse.json({
       success: true,
