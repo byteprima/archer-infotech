@@ -229,6 +229,27 @@ const nextConfig: NextConfig = {
       // /batch-schedule — DB-backed upcoming-batch dates change weekly.
       dynRule("/placements"),
       dynRule("/batch-schedule"),
+      // /blog/:slug — MUST have an explicit rule. This route is statically
+      // prerendered via generateStaticParams, so without an override Next.js
+      // emits a bare `cache-control: s-maxage=31536000` (one YEAR) that
+      // Cloudflare happily caches. Two ways that bit us:
+      //
+      //   1. A 404 fetched before a post is published gets cached for a year
+      //      at that PoP. Confirmed 2026-07-30 on
+      //      /blog/future-of-java-with-ai — `cf-cache-status: HIT` on a 404
+      //      with `age: 5629` while origin was already serving 200. Every
+      //      publish is exposed to this if anything requests the URL first.
+      //   2. Edits to an already-published post never propagate — the edge
+      //      holds the old HTML for up to a year. The non-cached
+      //      `getPublishedPostBySlug` fix addressed the Next data cache but
+      //      not the CDN layer above it.
+      //
+      // 5-min tier (not STABLE/VERY_STABLE) because posts are published and
+      // corrected in place from /admin and need to go live promptly.
+      // NOTE: /blog and /blog/category/:slug are NOT listed here — they are
+      // dynamic and already send `no-store` (cf-cache-status: BYPASS), so new
+      // posts surface on the listing immediately.
+      dynRule("/blog/:slug"),
 
       // STABLE — changes quarterly (1-hour edge cache).
       // Course/bootcamp/trainer/audience pages refresh on quarterly content
