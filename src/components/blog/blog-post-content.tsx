@@ -6,8 +6,22 @@ interface BlogPostContentProps {
   content: string;
 }
 
+// Posts written in the admin TipTap editor are stored as HTML; posts inserted
+// via the DB helpers are stored as markdown. Detect the former narrowly: it
+// either opens with an HTML block element or closes one somewhere.
+//
+// The previous heuristic (/<[a-z][\s\S]*>/i) matched any `<` followed by a
+// lowercase letter, so a single generic type in a code sample — `List<string>`,
+// `Task<int>`, `VectorStoreCollection<string, SupportDoc>` — classified a whole
+// markdown post as HTML and skipped `marked.parse()` entirely, emitting the raw
+// markdown source. Caught on the .NET post, whose C# sample uses generics.
+const HTML_BLOCK_TAGS = "p|div|h[1-6]|ul|ol|table|section|article|figure|blockquote|pre";
+
 function isHtml(str: string): boolean {
-  return /<[a-z][\s\S]*>/i.test(str);
+  return (
+    new RegExp(`^\\s*<(?:${HTML_BLOCK_TAGS}|img|hr|br)\\b`, "i").test(str) ||
+    new RegExp(`</(?:${HTML_BLOCK_TAGS}|li)>`, "i").test(str)
+  );
 }
 
 function decodeHtmlEntities(str: string): string {
@@ -33,6 +47,7 @@ function getHighlighter() {
         "jsx",
         "python",
         "java",
+        "csharp",
         "sql",
         "bash",
         "dockerfile",
