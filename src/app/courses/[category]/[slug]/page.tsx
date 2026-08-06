@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { notFound, redirect } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import {
   ChevronLeft,
   Clock,
@@ -67,10 +67,18 @@ interface CoursePageProps {
 }
 
 export async function generateStaticParams() {
-  return courses.map((course) => ({
-    category: course.categorySlug,
-    slug: course.slug,
-  }));
+  // Bootcamp-category courses are excluded: this route only redirects them to
+  // /bootcamps/<slug>, so prerendering them produced build artefacts (title,
+  // canonical, robots) for pages that are never served. Those artefacts were
+  // misleading enough to read as duplicate indexable content during the
+  // 2026-08-06 audit. The redirect still works for anyone hitting the URL —
+  // it is just resolved at request time now.
+  return courses
+    .filter((course) => course.categorySlug !== "bootcamps")
+    .map((course) => ({
+      category: course.categorySlug,
+      slug: course.slug,
+    }));
 }
 
 export async function generateMetadata({
@@ -100,10 +108,18 @@ export default async function CoursePage({ params }: CoursePageProps) {
     notFound();
   }
 
-  // Redirect bootcamp courses to their dedicated pages
+  // Bootcamp-category courses live at /bootcamps/<slug>; this route is the
+  // legacy path and only redirects.
+  //
+  // permanentRedirect (308), not redirect (307). `redirect()` issues a
+  // TEMPORARY 307, which tells Google to keep the old URL indexed and NOT to
+  // consolidate signals onto the destination — so both URLs stayed eligible
+  // to rank against each other. sitemap.ts has described these as "301" since
+  // they were added, so permanent was always the intent; the helper simply
+  // did not match it. Fixed 2026-08-06.
   if (course.categorySlug === "bootcamps") {
     const bootcampSlug = course.slug.replace("-bootcamp", "");
-    redirect(`/bootcamps/${bootcampSlug}`);
+    permanentRedirect(`/bootcamps/${bootcampSlug}`);
   }
 
   const nextBatch = await getNextBatchForCourse(slug);

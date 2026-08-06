@@ -2477,7 +2477,6 @@ export const courses: Course[] = [
   {
     id: "codeleap-bootcamp",
     slug: "codeleap-bootcamp",
-    seoTitle: "CodeLeap Coding Bootcamp in Pune for 12th Passouts",
     title: "CodeLeap: Vacation Coding Bootcamp for HSC (12th) Passout",
     shortTitle: "CodeLeap",
     category: "Bootcamps",
@@ -2532,7 +2531,6 @@ export const courses: Course[] = [
   {
     id: "careercode-bootcamp",
     slug: "careercode-bootcamp",
-    seoTitle: "CareerCode Semester-Wise Coding Bootcamp in Pune",
     title: "CareerCode: Semester-Wise Programming Training",
     shortTitle: "CareerCode",
     category: "Bootcamps",
@@ -2589,7 +2587,6 @@ export const courses: Course[] = [
   {
     id: "techready-bootcamp",
     slug: "techready-bootcamp",
-    seoTitle: "TechReady Intensive Placement Bootcamp in Pune",
     title: "TechReady: Placement-Assisted Intensive Program",
     shortTitle: "TechReady",
     category: "Bootcamps",
