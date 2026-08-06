@@ -9,15 +9,29 @@
  * Strategy:
  *   1. If the input is already under `maxLen`, return as-is.
  *   2. Try to cut at the last sentence-ending punctuation (`.`, `!`, `?`)
- *      before `maxLen`.
+ *      before `maxLen` — but only if that cut actually uses most of the
+ *      budget (see MIN_BUDGET_USE below).
  *   3. Failing that, cut at the last word boundary before `maxLen` and
  *      append a single `…` so the truncation is visible to a human
  *      reader (helps QA spot the rare case where the input is one
  *      run-on sentence).
+ *
+ * The budget-use floor is the important part. The original threshold was a
+ * flat `> 60` chars, which meant a description opening with a short first
+ * sentence got cut there and the rest discarded — e.g. the Angular course's
+ * 197-char description rendered as its 71-char first sentence, throwing away
+ * 100+ chars of keyword-bearing copy that fit inside the budget. That was
+ * the single cause of 48 pages sitting under 110 chars in the 2026-08-06
+ * crawl. Scaling the floor to the budget means an early sentence break now
+ * falls through to word-boundary truncation, which fills the snippet.
  */
 export function summariseToMeta(text: string, maxLen = 160): string {
   const cleaned = text.replace(/\s+/g, " ").trim();
   if (cleaned.length <= maxLen) return cleaned;
+
+  // A sentence cut has to use at least this share of the budget to be worth
+  // taking; below it, a fuller word-boundary cut carries more search signal.
+  const MIN_BUDGET_USE = 0.75;
 
   // Try sentence boundary first
   const punct = /[.!?]\s/g;
@@ -30,9 +44,7 @@ export function summariseToMeta(text: string, maxLen = 160): string {
       break;
     }
   }
-  if (lastSentenceEnd > 60) {
-    // Only accept a sentence cut if it leaves at least a meaningful chunk —
-    // a too-short cut (e.g., "Yes.") loses too much signal for search.
+  if (lastSentenceEnd >= Math.floor(maxLen * MIN_BUDGET_USE)) {
     return cleaned.slice(0, lastSentenceEnd).trim();
   }
 

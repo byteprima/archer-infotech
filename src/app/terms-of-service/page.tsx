@@ -5,7 +5,7 @@ import { buildPageMetadata } from "@/lib/seo";
 export const metadata: Metadata = buildPageMetadata({
   title: "Terms of Service",
   description:
-    "Terms of Service for Archer Infotech. Read our terms and conditions for using our training services.",
+    "Terms of Service for Archer Infotech, Pune. The terms and conditions covering enrolment, fees, batch scheduling and use of our IT training services and website.",
   path: "/terms-of-service",
 });
 

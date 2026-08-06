@@ -5,7 +5,7 @@ import { buildPageMetadata } from "@/lib/seo";
 export const metadata: Metadata = buildPageMetadata({
   title: "Privacy Policy",
   description:
-    "Privacy Policy for Archer Infotech. Learn how we collect, use, and protect your personal information.",
+    "Privacy Policy for Archer Infotech, Pune. How we collect, use, store and protect the personal information you share when enquiring about or enrolling on a course.",
   path: "/privacy-policy",
 });
 

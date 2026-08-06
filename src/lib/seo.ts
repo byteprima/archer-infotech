@@ -79,12 +79,18 @@ export function buildPageMetadata({
     ? cleanTitle
     : `${cleanTitle} | ${siteConfig.name}`;
 
-  // P3-22 — universal safety net for long descriptions. Pages whose
-  // input description fits Google's mobile snippet band (≤180 chars)
-  // pass through unchanged; longer ones get clipped at the last full
-  // sentence boundary within `175` chars so the SERP shows a clean
-  // editorial cut instead of Google's mid-sentence truncation.
-  const safeDescription = summariseToMeta(description, 175);
+  // P3-22 — universal safety net for long descriptions, clipped at the last
+  // full sentence boundary (or word boundary) inside the budget so the SERP
+  // shows a clean editorial cut rather than Google's mid-sentence one.
+  //
+  // Budget lowered 175 -> 160 on 2026-08-06. The stated goal was always to
+  // pre-empt Google's truncation, but Google cuts desktop snippets at roughly
+  // 155-160 characters, so a 175-char description was still being truncated
+  // by Google — the clamp was not achieving what its comment claimed. 160
+  // makes the editorial cut the one that actually ships. The 2026-08-06 crawl
+  // found 142 pages sitting in the 166-175 band because of this.
+  const META_DESCRIPTION_BUDGET = 160;
+  const safeDescription = summariseToMeta(description, META_DESCRIPTION_BUDGET);
 
   return {
     // root template adds " | Archer Infotech" UNLESS we bypass via absolute.
