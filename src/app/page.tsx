@@ -32,7 +32,53 @@ import { ReviewListJsonLd, WebSiteJsonLd } from "@/components/seo/json-ld";
 import { IconSprite } from "@/components/ui/icon-sprite";
 import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { FaqSection } from "@/components/seo/faq-section";
+import { LastUpdated } from "@/components/seo/last-updated";
+import { HOME_LAST_REVIEWED } from "@/lib/seo/content-dates";
+import {
+  SourceCitations,
+  type SourceCitation,
+} from "@/components/seo/source-citations";
 import { homeFaqs } from "@/data/faqs";
+
+/* Outbound citations for the factual claims this page makes. Each entry
+ * has to back something actually stated above it — the Google listing
+ * carries the public rating and review count, and the vendor references
+ * are the official syllabi/documentation behind the named course tracks.
+ * NASSCOM and similar industry bodies were deliberately left out: the
+ * homepage makes no national hiring-market claim for them to support, and
+ * a citation that backs nothing is noise. Audit 2026-08-06. */
+const homeSources: SourceCitation[] = [
+  {
+    label: "Archer Infotech on Google Maps",
+    href: siteConfig.googleMaps.url,
+    supports:
+      "the public Google rating and student review count quoted on this page.",
+  },
+  {
+    label: "Oracle Java SE documentation",
+    href: "https://docs.oracle.com/en/java/javase/",
+    supports:
+      "the official Java language reference underpinning the Java and Java Full Stack tracks.",
+  },
+  {
+    label: "Python Software Foundation documentation",
+    href: "https://docs.python.org/3/",
+    supports:
+      "the official Python reference underpinning the Python, Data Science and AI/ML tracks.",
+  },
+  {
+    label: "AWS Certification",
+    href: "https://aws.amazon.com/certification/",
+    supports:
+      "the official AWS certification paths the Cloud and DevOps tracks prepare for.",
+  },
+  {
+    label: "Microsoft Credentials",
+    href: "https://learn.microsoft.com/en-us/credentials/",
+    supports:
+      "the official Azure certification paths the Cloud track prepares for.",
+  },
+];
 
 // Match <title>, og:title and visible <h1> exactly — Pillar 1 #11.
 // Home-specific description (overrides siteConfig.description fallback) —
@@ -102,6 +148,18 @@ export default async function HomePage() {
         access, certification and placement assistance.
       </DefinitiveAnswer>
 
+      {/* Visible freshness stamp. The homepage previously carried no
+          human-readable date at all — the only date in the HTML was
+          `datePublished` buried inside the Review payload. Freshness is a
+          real retrieval signal for AI engines on a topic ("IT training in
+          Pune") where currency matters. Sits directly under the definitive
+          answer so the claim and its as-of date are read together. */}
+      <div className="container mx-auto px-4 pt-4">
+        <div className="max-w-4xl mx-auto">
+          <LastUpdated iso={HOME_LAST_REVIEWED} label="Last reviewed" />
+        </div>
+      </div>
+
       <USPSection />
       <BootcampsSection />
       <CoursesSection />
@@ -157,6 +215,11 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      <SourceCitations
+        intro="Third-party references for the ratings and certification paths cited above."
+        items={homeSources}
+      />
 
       <CTASection />
     </>

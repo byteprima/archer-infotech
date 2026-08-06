@@ -49,6 +49,22 @@ export const BOOTCAMP_LAST_REVIEWED = "2026-05-08";
 export const EVERGREEN_LAST_REVIEWED = "2026-06-11";
 
 /**
+ * Homepage (`/`).
+ * Last meaningful refresh: 2026-08-06 — AEO/GEO pass off the PPCBlogPro
+ * audit (SEO 88 / AEO 65 / GEO 57). FAQ answers restructured so the lead
+ * sentence renders outside the collapsed <details> and directly after its
+ * <h3>; the DefinitiveAnswer eyebrow promoted from <p> to <h2>; outbound
+ * source citations added for the rating and curriculum claims.
+ *
+ * Tracked separately from EVERGREEN_LAST_REVIEWED because only the
+ * homepage received the citation block — bumping the shared evergreen
+ * constant would have stamped a fresh date on About / Placements /
+ * Contact and the rest, which did not change. That is exactly the "fake
+ * freshness" this file warns against.
+ */
+export const HOME_LAST_REVIEWED = "2026-08-06";
+
+/**
  * Pages built or substantially advanced in the 2026-05-25 SEO push —
  * audience landing pages (/courses/for/*), /press, /tools/* (salary
  * calculator + career roadmap), /compare/*, /guides/*, and the new
