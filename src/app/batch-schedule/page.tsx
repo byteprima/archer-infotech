@@ -14,7 +14,7 @@ import { eq, asc } from "drizzle-orm";
 export const dynamic = "force-dynamic";
 
 import { buildPageMetadata } from "@/lib/seo";
-import { BatchEventsJsonLd } from "@/components/seo/json-ld";
+import { BreadcrumbJsonLd, BatchEventsJsonLd } from "@/components/seo/json-ld";
 import { filterUpcomingBatches } from "@/lib/actions/public-batches";
 import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { FaqSection } from "@/components/seo/faq-section";
@@ -129,6 +129,17 @@ export default async function BatchSchedulePage() {
 
   return (
     <>
+      {/* Two-level BreadcrumbList — these are top-level pages, so the
+          trail is Home > page. Added 2026-08-06; the crawl found the
+          six top-level marketing/legal pages were the only public
+          routes emitting no BreadcrumbList at all. */}
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", url: "/" },
+          { name: "Batch Schedule", url: "/batch-schedule" },
+        ]}
+      />
+
       <PageEvent
         event="batch_schedule_page_viewed"
         properties={{ page_type: "batch_schedule", page_path: "/batch-schedule" }}

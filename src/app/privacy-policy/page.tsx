@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { siteConfig } from "@/data/site-config";
 import { buildPageMetadata } from "@/lib/seo";
+import { BreadcrumbJsonLd } from "@/components/seo/json-ld";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Privacy Policy",
@@ -20,6 +21,17 @@ export default function PrivacyPolicyPage() {
 
   return (
     <>
+      {/* Two-level BreadcrumbList — these are top-level pages, so the
+          trail is Home > page. Added 2026-08-06; the crawl found the
+          six top-level marketing/legal pages were the only public
+          routes emitting no BreadcrumbList at all. */}
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", url: "/" },
+          { name: "Privacy Policy", url: "/privacy-policy" },
+        ]}
+      />
+
       {/* Hero Section */}
       <section className="gradient-hero text-white py-12 md:py-16">
         <div className="container mx-auto px-4">

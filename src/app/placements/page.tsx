@@ -19,6 +19,7 @@ import { FaqSection } from "@/components/seo/faq-section";
 import { NewsletterSignupForm } from "@/components/newsletter/newsletter-signup-form";
 import { placementsFaqs } from "@/data/faqs";
 import { ReviewRibbon } from "@/components/seo/review-ribbon";
+import { BreadcrumbJsonLd } from "@/components/seo/json-ld";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Placements at Archer Infotech — 5,000+ Students Placed Since 2009",
@@ -33,6 +34,17 @@ export default async function PlacementsPage() {
 
   return (
     <>
+      {/* Two-level BreadcrumbList — these are top-level pages, so the
+          trail is Home > page. Added 2026-08-06; the crawl found the
+          six top-level marketing/legal pages were the only public
+          routes emitting no BreadcrumbList at all. */}
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", url: "/" },
+          { name: "Placements", url: "/placements" },
+        ]}
+      />
+
       {/* Hero Section */}
       <section className="gradient-hero text-white py-16 md:py-24">
         <div className="container mx-auto px-4">

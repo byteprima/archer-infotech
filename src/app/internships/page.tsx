@@ -25,6 +25,7 @@ import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { FaqSection } from "@/components/seo/faq-section";
 import { NewsletterSignupForm } from "@/components/newsletter/newsletter-signup-form";
 import { internshipsFaqs } from "@/data/faqs";
+import { BreadcrumbJsonLd } from "@/components/seo/json-ld";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Internship Programs in Pune — 3-Month & 6-Month Tracks",
@@ -269,6 +270,17 @@ function ProgramCard({ program }: { program: InternshipProgram }) {
 export default function InternshipsPage() {
   return (
     <>
+      {/* Two-level BreadcrumbList — these are top-level pages, so the
+          trail is Home > page. Added 2026-08-06; the crawl found the
+          six top-level marketing/legal pages were the only public
+          routes emitting no BreadcrumbList at all. */}
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", url: "/" },
+          { name: "Internships", url: "/internships" },
+        ]}
+      />
+
       <PageEvent
         event="internships_page_viewed"
         properties={{ page_type: "internships", page_path: "/internships" }}

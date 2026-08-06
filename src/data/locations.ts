@@ -1491,7 +1491,7 @@ export const neighbourhoods: NeighbourhoodLocation[] = [
     pincode: "411001",
     priority: 21,
     tagline: "Central-east startup & agency belt — near Kharadi and Viman Nagar.",
-    metaTitle: "IT Training in Koregaon Park & Kalyani Nagar, Pune — Archer Infotech",
+    metaTitle: "IT Training in Koregaon Park & Kalyani Nagar, Pune",
     metaDescription:
       "Koregaon Park and Kalyani Nagar professionals and students train with Archer Infotech in Java Full Stack, Python Full Stack, Data Science, MERN and DevOps — live-online plus weekend classroom, with placement support.",
     intro: [

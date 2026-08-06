@@ -296,8 +296,7 @@ export const studentCities: StudentCity[] = [
     distanceKm: 230,
     travelTimeLabel: "~4–4.5 hours by road",
     priority: 1,
-    metaTitle:
-      "IT Training for Kolhapur Students — Live Online + Classroom in Pune | Archer Infotech",
+    metaTitle: "IT Training for Kolhapur Students — Live Online + Pune",
     metaDescription:
       "Kolhapur students: train in Java, Python, Full Stack, Data & DevOps with Archer Infotech — join live online batches from Kolhapur or relocate to our Kothrud, Pune centre. 90% placement support, est. 2009.",
     tagline:
@@ -476,8 +475,7 @@ export const studentCities: StudentCity[] = [
     distanceKm: 230,
     travelTimeLabel: "~5 hours by road",
     priority: 1,
-    metaTitle:
-      "IT Training in Sangli-Miraj — Weekend Batches at Vishrambag + Live Online | Archer Infotech",
+    metaTitle: "IT Training in Sangli-Miraj (Vishrambag) — Live Online",
     metaDescription:
       "Archer Infotech now runs weekend IT training batches at our Vishrambag, Sangli office — plus live online batches and our Pune campus. Java, Python, Full Stack, Data & DevOps with 90% placement support. Est. 2009.",
     tagline:
@@ -1024,8 +1022,7 @@ export const studentCities: StudentCity[] = [
     distanceKm: 200,
     travelTimeLabel: "~4 hours by road",
     priority: 3,
-    metaTitle:
-      "IT Training for Pandharpur Students — Live Online + Pune Classroom | Archer Infotech",
+    metaTitle: "IT Training for Pandharpur Students — Live Online + Pune",
     metaDescription:
       "Pandharpur students: launch an IT career with Archer Infotech — live online Python, Java, Web & Data batches you can join from Pandharpur, or classroom training in Kothrud, Pune. 90% placement support since 2009.",
     tagline:
@@ -1203,8 +1200,7 @@ export const studentCities: StudentCity[] = [
     distanceKm: 120,
     travelTimeLabel: "~2.5–3 hours by road",
     priority: 1,
-    metaTitle:
-      "IT Training for Ahmednagar (Ahilyanagar) Students — Online + Pune Classroom | Archer Infotech",
+    metaTitle: "IT Training for Ahmednagar (Ahilyanagar) Students — Online",
     metaDescription:
       "Ahmednagar / Ahilyanagar students: train in Java, Full Stack, Python, Cloud & DevOps with Archer Infotech — live online from Ahmednagar or classroom in Kothrud, Pune. Just ~120 km away. 90% placement support since 2009.",
     tagline:
@@ -1504,8 +1500,7 @@ export const studentCities: StudentCity[] = [
     distanceKm: 230,
     travelTimeLabel: "~4.5–5 hours by road",
     priority: 6,
-    metaTitle:
-      "IT Training for Chhatrapati Sambhajinagar (Aurangabad) Students — Online + Pune Classroom | Archer Infotech",
+    metaTitle: "IT Training for Chhatrapati Sambhajinagar (Aurangabad) Students",
     metaDescription:
       "Chhatrapati Sambhajinagar / Aurangabad students: train in Java Full Stack, Python Full Stack, Data Science, Cloud & DevOps with Archer Infotech — live online from home or classroom in Kothrud, Pune. 90% placement support since 2009.",
     tagline:
@@ -1992,8 +1987,7 @@ export const studentCities: StudentCity[] = [
     distanceKm: 335,
     travelTimeLabel: "~5.5–6.5 hours by road",
     priority: 8,
-    metaTitle:
-      "IT Training for Belagavi (Belgaum) Students — Online + Pune Classroom | Archer Infotech",
+    metaTitle: "IT Training for Belagavi (Belgaum) Students — Online",
     metaDescription:
       "Belagavi / Belgaum students: train in Java Full Stack, Python Full Stack, Data Science, Cloud & DevOps with Archer Infotech — live online from Belagavi or classroom in Kothrud, Pune. 90% placement support since 2009.",
     tagline:

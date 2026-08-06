@@ -4506,7 +4506,7 @@ export const courseLocations: CourseLocationCombo[] = [
     courseSlug: "python-full-stack-training-in-pune",
     locationSlug: "it-training-in-sinhagad-road",
     shortLabel: "Python Full Stack on Sinhagad Road",
-    metaTitle: "Python Full Stack Training on Sinhagad Road & Dhayari, Pune (2026)",
+    metaTitle: "Python Full Stack Training on Sinhagad Road, Pune (2026)",
     metaDescription:
       "Python Full Stack Training for Sinhagad Road & Dhayari — Archer Infotech. Django/Flask + REST + React + placement support for SW Pune's student corridor. Classroom in Kothrud + online.",
     h1: "Python Full Stack Training on Sinhagad Road & Dhayari, Pune",
@@ -5312,7 +5312,7 @@ export const courseLocations: CourseLocationCombo[] = [
     courseSlug: "java-full-stack-training-in-pune",
     locationSlug: "it-training-in-koregaon-park",
     shortLabel: "Java Full Stack in Koregaon Park",
-    metaTitle: "Java Full Stack Training in Koregaon Park & Kalyani Nagar, Pune (2026)",
+    metaTitle: "Java Full Stack Training in Koregaon Park, Pune (2026)",
     metaDescription:
       "Java Full Stack Training for Koregaon Park & Kalyani Nagar — Archer Infotech. Spring Boot + microservices + React + placement support for central-east startups. Live-online + weekend classroom.",
     h1: "Java Full Stack Training in Koregaon Park & Kalyani Nagar, Pune",
@@ -5354,7 +5354,7 @@ export const courseLocations: CourseLocationCombo[] = [
     courseSlug: "python-full-stack-training-in-pune",
     locationSlug: "it-training-in-koregaon-park",
     shortLabel: "Python Full Stack in Koregaon Park",
-    metaTitle: "Python Full Stack Training in Koregaon Park & Kalyani Nagar, Pune (2026)",
+    metaTitle: "Python Full Stack Training in Koregaon Park, Pune (2026)",
     metaDescription:
       "Python Full Stack Training for Koregaon Park & Kalyani Nagar — Archer Infotech. Django/Flask + REST + React + placement support for central-east startups. Live-online + weekend classroom.",
     h1: "Python Full Stack Training in Koregaon Park & Kalyani Nagar, Pune",
@@ -5396,7 +5396,7 @@ export const courseLocations: CourseLocationCombo[] = [
     courseSlug: "data-science-training-in-pune",
     locationSlug: "it-training-in-koregaon-park",
     shortLabel: "Data Science in Koregaon Park",
-    metaTitle: "Data Science Training in Koregaon Park & Kalyani Nagar, Pune (2026)",
+    metaTitle: "Data Science Training in Koregaon Park, Pune (2026)",
     metaDescription:
       "Data Science Training for Koregaon Park & Kalyani Nagar — Archer Infotech. Python, ML, statistics, SQL + portfolio + placement support for central-east startups. Live-online + weekend classroom.",
     h1: "Data Science Training in Koregaon Park & Kalyani Nagar, Pune",

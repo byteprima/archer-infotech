@@ -25,6 +25,7 @@ import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { FaqSection } from "@/components/seo/faq-section";
 import { NewsletterSignupForm } from "@/components/newsletter/newsletter-signup-form";
 import { corporateTrainingFaqs } from "@/data/faqs";
+import { BreadcrumbJsonLd } from "@/components/seo/json-ld";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Corporate IT Training in Pune",
@@ -111,6 +112,17 @@ const industries = [
 export default function CorporateTrainingPage() {
   return (
     <>
+      {/* Two-level BreadcrumbList — these are top-level pages, so the
+          trail is Home > page. Added 2026-08-06; the crawl found the
+          six top-level marketing/legal pages were the only public
+          routes emitting no BreadcrumbList at all. */}
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", url: "/" },
+          { name: "Corporate Training", url: "/corporate-training" },
+        ]}
+      />
+
       {/* Hero Section */}
       <section className="gradient-hero text-white py-16 md:py-24">
         <div className="container mx-auto px-4">
