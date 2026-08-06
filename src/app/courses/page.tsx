@@ -12,6 +12,8 @@ import { courseLocations } from "@/data/course-locations";
 import { CategoryCollectionJsonLd, BreadcrumbJsonLd } from "@/components/seo/json-ld";
 import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 import { COURSE_LAST_REVIEWED } from "@/lib/seo/content-dates";
+import { SourceCitations } from "@/components/seo/source-citations";
+import { sourcesForTopics } from "@/data/authoritative-sources";
 
 export const metadata: Metadata = buildPageMetadata({
   // Hub owns the high-intent commercial head term "IT courses in Pune"
@@ -258,6 +260,14 @@ export default function CoursesPage() {
         heading="IT Courses in Pune — FAQs"
         intro="Choosing the right course, fees, duration, online vs offline, certificates and placement support — answered."
         items={coursesFaqs}
+      />
+
+      {/* Aggregated across the full catalogue — derived, not hand-curated,
+          so it cannot drift from the courses actually offered. */}
+      <SourceCitations
+        heading="Curriculum references"
+        intro="Official documentation and certification bodies behind the technologies we teach."
+        items={sourcesForTopics(courses.map((c) => c.slug))}
       />
     </>
   );

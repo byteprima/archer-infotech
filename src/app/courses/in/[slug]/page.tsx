@@ -26,6 +26,8 @@ import { getNeighbourhood } from "@/data/locations";
 import { siteConfig } from "@/data/site-config";
 import { buildPageMetadata } from "@/lib/seo";
 import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
+import { SourceCitations } from "@/components/seo/source-citations";
+import { sourcesForTopic } from "@/data/authoritative-sources";
 
 interface CourseLocationPageProps {
   params: Promise<{ slug: string }>;
@@ -326,6 +328,17 @@ export default async function CourseLocationPage({
         intro={`The most-asked questions about ${combo.shortLabel.toLowerCase()} — commute, format, employers, certification, cost.`}
         items={combo.faqs}
         anchorId="combo-faqs"
+      />
+
+      {/* Outbound citations for the technology this combo teaches. Resolved
+          from the parent course slug, not from the course's rich-content
+          salary sources — this page renders intro/whyHere/FAQs and makes no
+          salary claim, so a salary citation would back nothing on it.
+          Audit 2026-08-06. */}
+      <SourceCitations
+        heading="Curriculum references"
+        intro={`Official documentation for the technologies covered in ${combo.shortLabel}.`}
+        items={sourcesForTopic(combo.courseSlug)}
       />
 
       {/* P5-17 — newsletter banner. */}

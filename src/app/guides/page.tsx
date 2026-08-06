@@ -6,6 +6,8 @@ import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 import { BreadcrumbJsonLd, CategoryCollectionJsonLd } from "@/components/seo/json-ld";
 import { listicles } from "@/data/listicles";
 import { buildPageMetadata } from "@/lib/seo";
+import { SourceCitations } from "@/components/seo/source-citations";
+import { topGuideSources } from "@/data/guide-sources";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "IT Career & Learning Guides",
@@ -71,6 +73,11 @@ export default function GuidesIndexPage() {
           ))}
         </div>
       </section>
+      <SourceCitations
+        heading="Sources"
+        intro="The primary references cited most often across these guides."
+        items={topGuideSources()}
+      />
     </>
   );
 }

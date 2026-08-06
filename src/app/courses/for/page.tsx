@@ -8,6 +8,8 @@ import { LastUpdated } from "@/components/seo/last-updated";
 import { audiences } from "@/data/audiences";
 import { buildPageMetadata } from "@/lib/seo";
 import { NEW_ASSETS_LAST_REVIEWED } from "@/lib/seo/content-dates";
+import { SourceCitations } from "@/components/seo/source-citations";
+import { sourcesForTopics } from "@/data/authoritative-sources";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "IT Courses in Pune for Your Background",
@@ -85,6 +87,13 @@ export default function AudienceHubPage() {
           <LastUpdated iso={NEW_ASSETS_LAST_REVIEWED} />
         </div>
       </section>
+      <SourceCitations
+        heading="Curriculum references"
+        intro="Official documentation for the technologies taught on the tracks these pages recommend."
+        items={sourcesForTopics(
+          audiences.flatMap((a) => a.alsoConsiderCourseSlugs),
+        )}
+      />
     </>
   );
 }

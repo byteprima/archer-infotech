@@ -9,6 +9,8 @@ import { courseLocations } from "@/data/course-locations";
 import { getNeighbourhood } from "@/data/locations";
 import { buildPageMetadata } from "@/lib/seo";
 import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
+import { SourceCitations } from "@/components/seo/source-citations";
+import { sourcesForTopics } from "@/data/authoritative-sources";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "IT Courses in Pune by Area — Hinjewadi, Baner, Kothrud & More",
@@ -103,6 +105,11 @@ export default function CourseLocationHubPage() {
           <LastUpdated iso={EVERGREEN_LAST_REVIEWED} />
         </div>
       </section>
+      <SourceCitations
+        heading="Curriculum references"
+        intro="Official documentation for the technologies taught across these course and location combinations."
+        items={sourcesForTopics(courseLocations.map((c) => c.courseSlug))}
+      />
     </>
   );
 }

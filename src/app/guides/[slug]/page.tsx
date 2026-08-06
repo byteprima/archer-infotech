@@ -9,6 +9,8 @@ import { BreadcrumbJsonLd } from "@/components/seo/json-ld";
 import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { FaqSection } from "@/components/seo/faq-section";
 import { NewsletterSignupForm } from "@/components/newsletter/newsletter-signup-form";
+import { SourceCitations } from "@/components/seo/source-citations";
+import { sourcesForGuide } from "@/data/guide-sources";
 import { listicles, getListicle } from "@/data/listicles";
 import { buildPageMetadata } from "@/lib/seo";
 import { summariseToMeta } from "@/lib/seo/meta-trim";
@@ -201,6 +203,16 @@ export default async function GuidePage({ params }: GuidePageProps) {
             heading="FAQs"
             intro={`Common questions about ${guide.shortLabel.toLowerCase()}.`}
             items={guide.faqs}
+          />
+
+          {/* Outbound citations, curated per guide. Renders nothing when the
+              guide has no honest primary source (see guide-sources.ts).
+              Audit 2026-08-06. */}
+          <SourceCitations
+            heading="Sources"
+            intro="Primary references for the tools and data discussed above."
+            items={sourcesForGuide(slug)}
+            anchorId={`sources-${slug}`}
           />
 
           {/* P5-17 — newsletter banner. */}

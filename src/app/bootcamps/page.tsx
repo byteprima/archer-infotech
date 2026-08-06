@@ -23,6 +23,8 @@ import { buildPageMetadata } from "@/lib/seo";
 import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { FaqSection } from "@/components/seo/faq-section";
 import { bootcampsFaqs } from "@/data/faqs";
+import { SourceCitations } from "@/components/seo/source-citations";
+import { sourcesForTopics } from "@/data/authoritative-sources";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Coding Bootcamps in Pune — CodeLeap, CareerCode, TechReady",
@@ -237,6 +239,15 @@ export default function BootcampsPage() {
         heading="Bootcamp FAQs"
         intro="Picking the right bootcamp for your stage, prerequisites, online vs offline format, and how the three programs fit together as a career path."
         items={bootcampsFaqs}
+      />
+
+      {/* Keys match the tracks the bootcamps actually advertise — CodeLeap
+          lists "Web Dev, Python, AI/Data Science". Do not add Java here
+          unless a bootcamp track actually teaches it. */}
+      <SourceCitations
+        heading="Curriculum references"
+        intro="Official documentation for the technologies our bootcamp tracks cover."
+        items={sourcesForTopics(["python", "javascript", "data-science"])}
       />
 
       {/* CTA */}

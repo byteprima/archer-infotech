@@ -13,6 +13,8 @@ import { FaqSection } from "@/components/seo/faq-section";
 import { NewsletterSignupForm } from "@/components/newsletter/newsletter-signup-form";
 import { getRelatedAssetsForCategory } from "@/lib/seo/course-related-assets";
 import { Calculator, Scale, ListChecks } from "lucide-react";
+import { SourceCitations } from "@/components/seo/source-citations";
+import { sourcesForTopics } from "@/data/authoritative-sources";
 
 interface CategoryPageProps {
   params: Promise<{ category: string }>;
@@ -313,6 +315,15 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       )}
 
       {/* P5-17 — newsletter banner. */}
+      {/* Outbound citations aggregated across every course in this category,
+          deduped by href and capped so the block stays a citation list and
+          not a link farm. Audit 2026-08-06. */}
+      <SourceCitations
+        heading="Curriculum references"
+        intro={`Official documentation for the technologies taught across our ${category.name} courses.`}
+        items={sourcesForTopics(categoryCourses.map((c) => c.slug))}
+      />
+
       <section className="py-8 bg-background border-t">
         <div className="container mx-auto px-4 max-w-3xl">
           <NewsletterSignupForm
