@@ -8,6 +8,7 @@ import { LastUpdated } from "@/components/seo/last-updated";
 import { studentCities } from "@/data/student-cities";
 import { buildPageMetadata } from "@/lib/seo";
 import { LOCATIONS_LAST_REVIEWED } from "@/lib/seo/content-dates";
+import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "IT Training in Pune for Students from Across Maharashtra",
@@ -58,6 +59,12 @@ export default function CityFeederHubPage() {
           </p>
         </div>
       </header>
+
+      {/* Opening summary — factual, derived from the collection itself,
+          so it cannot drift out of sync with what the hub lists. P-05. */}
+      <DefinitiveAnswer eyebrow="For students outside Pune, in short">
+        {`Archer Infotech trains students from ${studentCities.length} Maharashtra and neighbouring cities — Satara, Kolhapur, Nashik, Solapur, Sangli-Miraj, Chhatrapati Sambhajinagar and more. Each city page covers live-online batches you can join from home, classroom options in Kothrud, travel time, and the Pune employers hiring from that region.`}
+      </DefinitiveAnswer>
 
       <section className="container mx-auto px-4 py-12 md:py-16">
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">

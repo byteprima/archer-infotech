@@ -28,6 +28,7 @@ import { buildPageMetadata } from "@/lib/seo";
 import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
 import { SourceCitations } from "@/components/seo/source-citations";
 import { sourcesForTopic } from "@/data/authoritative-sources";
+import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 
 interface CourseLocationPageProps {
   params: Promise<{ slug: string }>;
@@ -64,6 +65,19 @@ export default async function CourseLocationPage({
   // duplicating data.
   const course = getCourse(combo.courseSlug);
   const location = getNeighbourhood(combo.locationSlug);
+
+  // Build the opening summary from as many intro paragraphs as it takes to
+  // carry a real answer (~40 words). Some combos open with a single short
+  // sentence, which is too thin to work as the page's highest-weighted
+  // chunk. Whatever is consumed here is not repeated below. P-05.
+  const summaryParas: string[] = [];
+  let summaryWords = 0;
+  for (const para of combo.intro) {
+    if (summaryWords >= 40) break;
+    summaryParas.push(para);
+    summaryWords += para.split(/\s+/).length;
+  }
+  const restParas = combo.intro.slice(summaryParas.length);
 
   // Sibling cross-links so each combo sits inside a crawlable graph rather
   // than being reachable only from the /courses tail. Two axes: the same
@@ -147,12 +161,22 @@ export default async function CourseLocationPage({
 
         {/* Intro */}
         <div className="container mx-auto px-4 py-12 md:py-16 max-w-4xl space-y-14">
+          {summaryParas.length > 0 && (
+            <DefinitiveAnswer eyebrow={`${combo.shortLabel} — in short`}>
+              {summaryParas.join(" ")}
+            </DefinitiveAnswer>
+          )}
+
           <section className="prose prose-slate max-w-none space-y-4">
             <LastUpdated
               iso={EVERGREEN_LAST_REVIEWED}
               className="text-xs md:text-sm text-muted-foreground !mt-0 !mb-2"
             />
-            {combo.intro.map((p, i) => (
+            {/* First intro paragraph is promoted to the definitive-answer
+                block so this page opens with a self-contained summary in its
+                highest-weighted chunk, instead of leading with narrative.
+                P-05. Audit 2026-08-07. */}
+            {restParas.map((p, i) => (
               <p
                 key={i}
                 className="text-lg leading-relaxed text-foreground"

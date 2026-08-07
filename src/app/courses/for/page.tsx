@@ -10,6 +10,7 @@ import { buildPageMetadata } from "@/lib/seo";
 import { NEW_ASSETS_LAST_REVIEWED } from "@/lib/seo/content-dates";
 import { SourceCitations } from "@/components/seo/source-citations";
 import { sourcesForTopics } from "@/data/authoritative-sources";
+import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "IT Courses in Pune for Your Background",
@@ -59,6 +60,12 @@ export default function AudienceHubPage() {
           </p>
         </div>
       </header>
+
+      {/* Opening summary — factual, derived from the collection itself,
+          so it cannot drift out of sync with what the hub lists. P-05. */}
+      <DefinitiveAnswer eyebrow="Courses by background, in short">
+        {`Archer Infotech maps its catalogue to ${audiences.length} learner backgrounds — 12th passouts, engineering and BCA/BSc-CS students, graduates, MCA students, working professionals and career changers, plus specific Pune colleges. Each page recommends a starting track for that background, explains why it fits, and sets out the realistic first-job outcome.`}
+      </DefinitiveAnswer>
 
       <section className="container mx-auto px-4 py-12 md:py-16">
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">

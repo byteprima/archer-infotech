@@ -8,6 +8,7 @@ import { comparisons } from "@/data/comparisons";
 import { buildPageMetadata } from "@/lib/seo";
 import { LastUpdated } from "@/components/seo/last-updated";
 import { NEW_ASSETS_LAST_REVIEWED } from "@/lib/seo/content-dates";
+import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Compare IT Courses & Career Paths",
@@ -51,6 +52,12 @@ export default function CompareIndexPage() {
           </p>
         </div>
       </header>
+
+      {/* Opening summary — factual, derived from the collection itself,
+          so it cannot drift out of sync with what the hub lists. P-05. */}
+      <DefinitiveAnswer eyebrow="Comparisons at Archer Infotech, in short">
+        {`Archer Infotech publishes ${comparisons.length} side-by-side comparisons for Pune learners choosing between technologies and career paths — Java vs Python, MERN vs Java Full Stack, AWS vs Azure, data analyst vs data scientist and more. Each gives a factor-by-factor table, guidance on when each option fits, and a plain bottom line rather than a verdict that favours whichever course we sell.`}
+      </DefinitiveAnswer>
 
       <section className="container mx-auto px-4 py-12 md:py-16">
         <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">

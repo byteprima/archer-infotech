@@ -10,6 +10,7 @@ import { SourceCitations } from "@/components/seo/source-citations";
 import { topGuideSources } from "@/data/guide-sources";
 import { LastUpdated } from "@/components/seo/last-updated";
 import { NEW_ASSETS_LAST_REVIEWED } from "@/lib/seo/content-dates";
+import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "IT Career & Learning Guides",
@@ -52,6 +53,12 @@ export default function GuidesIndexPage() {
           </p>
         </div>
       </header>
+
+      {/* Opening summary — factual, derived from the collection itself,
+          so it cannot drift out of sync with what the hub lists. P-05. */}
+      <DefinitiveAnswer eyebrow="Free guides, in short">
+        {`Archer Infotech publishes ${listicles.length} free guides for Pune IT learners — project ideas for your resume, interview question sets by stack, library and tooling round-ups, and career-skill explainers. Each guide is a ranked list with a stated selection method, a concrete data point per entry, and a recommendation for who it suits.`}
+      </DefinitiveAnswer>
 
       <section className="container mx-auto px-4 py-12 md:py-16">
         <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">

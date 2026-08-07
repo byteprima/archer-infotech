@@ -17,6 +17,7 @@ import { SourceCitations } from "@/components/seo/source-citations";
 import { sourcesForTopics } from "@/data/authoritative-sources";
 import { LastUpdated } from "@/components/seo/last-updated";
 import { COURSE_LAST_REVIEWED } from "@/lib/seo/content-dates";
+import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 
 interface CategoryPageProps {
   params: Promise<{ category: string }>;
@@ -103,6 +104,20 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         </div>
       </section>
 
+      {/* Opening summary — the category's first overview paragraph, lifted
+          into the definitive-answer block so the page leads with a
+          self-contained answer. P-05. Audit 2026-08-07. */}
+      {(rich?.paragraphs?.[0] || categoryCourses.length > 0) && (
+        <DefinitiveAnswer eyebrow={`${category.name} at Archer Infotech, in short`}>
+          {rich?.paragraphs?.[0] ??
+            `Archer Infotech runs ${categoryCourses.length} ${category.name} ${
+              categoryCourses.length === 1 ? "course" : "courses"
+            } from its Kothrud centre in Pune — ${categoryCourses
+              .map((c) => c.shortTitle || c.title)
+              .join(", ")}. ${category.description ?? ""} Every track runs in weekday, weekend and live-online batches, and includes certification and placement assistance.`}
+        </DefinitiveAnswer>
+      )}
+
       {/* Long-form category overview — only renders when rich content
           is configured for this slug. Pushes category page word count
           past the 800-word spec floor. P4-11. */}
@@ -123,7 +138,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                 {category.name} at Archer Infotech, Pune
               </h2>
               <div className="space-y-5 text-muted-foreground leading-relaxed text-base md:text-lg">
-                {rich.paragraphs.map((p, i) => (
+                {rich.paragraphs.slice(1).map((p, i) => (
                   <p key={i}>{p}</p>
                 ))}
               </div>

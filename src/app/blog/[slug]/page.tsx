@@ -40,6 +40,7 @@ import {
 } from "@/lib/actions/blog";
 import { siteConfig } from "@/data/site-config";
 import { summariseToMeta } from "@/lib/seo/meta-trim";
+import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
@@ -378,6 +379,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             />
           </div>
         </div>
+      )}
+
+      {/* Lead summary — the post's own excerpt, surfaced as the first body
+          block. It was previously used only inside JSON-LD, so the visible
+          page opened straight into narrative and the highest-weighted chunk
+          carried no self-contained answer. P-05. Audit 2026-08-07. */}
+      {post.excerpt && (
+        <DefinitiveAnswer eyebrow="In short">{post.excerpt}</DefinitiveAnswer>
       )}
 
       {/* Main Content */}

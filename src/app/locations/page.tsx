@@ -9,6 +9,7 @@ import { buildPageMetadata } from "@/lib/seo";
 import { siteConfig } from "@/data/site-config";
 import { LastUpdated } from "@/components/seo/last-updated";
 import { LOCATIONS_LAST_REVIEWED } from "@/lib/seo/content-dates";
+import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "IT Training Across Pune — Locations We Serve",
@@ -55,6 +56,12 @@ export default function LocationsIndexPage() {
           </p>
         </div>
       </header>
+
+      {/* Opening summary — factual, derived from the collection itself,
+          so it cannot drift out of sync with what the hub lists. P-05. */}
+      <DefinitiveAnswer eyebrow="IT training across Pune, in short">
+        {`Archer Infotech teaches from its Kothrud centre and serves ${areas.length} Pune neighbourhoods — Hinjewadi, Baner, Wakad, Kharadi, Viman Nagar, Koregaon Park and more. Every course runs in weekday, weekend and live-online batches, so learners across the city can train without relocating, and each area page covers commute options and the employers hiring nearby.`}
+      </DefinitiveAnswer>
 
       <section className="container mx-auto px-4 py-12 md:py-16">
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
