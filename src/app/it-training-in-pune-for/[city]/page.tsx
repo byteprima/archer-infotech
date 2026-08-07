@@ -32,6 +32,8 @@ import { siteConfig } from "@/data/site-config";
 import { buildPageMetadata } from "@/lib/seo";
 import { LOCATIONS_LAST_REVIEWED } from "@/lib/seo/content-dates";
 import { cn } from "@/lib/utils";
+import { SourceCitations } from "@/components/seo/source-citations";
+import { sourcesForTopics } from "@/data/authoritative-sources";
 
 interface CityPageProps {
   params: Promise<{ city: string }>;
@@ -536,6 +538,18 @@ export default async function CityFeederPage({ params }: CityPageProps) {
         heading={`${data.city} students — frequently asked`}
         items={data.localFaqs}
         anchorId="city-faqs"
+      />
+
+      {/* Outbound citations resolved from the page's OWN popularCourseSlugs
+          rather than a hardcoded track list, so the references stay correct
+          if a city's featured courses change. The page's claim is "these
+          tracks are taught here", which is exactly what the vendor
+          documentation backs. Audit 2026-08-06. */}
+      <SourceCitations
+        heading="Curriculum references"
+        intro={`Official documentation for the tracks ${data.city} students train on.`}
+        items={sourcesForTopics(data.popularCourseSlugs)}
+        anchorId="city-sources"
       />
 
       {/* ── CTA ──────────────────────────────────────────────── */}

@@ -14,6 +14,8 @@ import { getCourse } from "@/data/courses";
 import { buildPageMetadata } from "@/lib/seo";
 import { summariseToMeta } from "@/lib/seo/meta-trim";
 import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
+import { SourceCitations } from "@/components/seo/source-citations";
+import { sourcesForComparison } from "@/data/comparison-sources";
 
 interface ComparePageProps {
   params: Promise<{ slug: string }>;
@@ -214,6 +216,19 @@ export default async function ComparePage({ params }: ComparePageProps) {
             heading={`${cmp.shortLabel} — FAQs`}
             intro={`Common questions comparing ${cmp.optionA} and ${cmp.optionB}.`}
             items={cmp.faqs}
+          />
+
+          {/* Outbound citations for BOTH options being compared, curated per
+              comparison. Renders nothing on the career-judgement pages where
+              no honest primary source exists (see comparison-sources.ts).
+              Comparison content is the most-cited format on ChatGPT and every
+              one of these pages previously carried zero external links.
+              Audit 2026-08-06. */}
+          <SourceCitations
+            heading="Sources"
+            intro={`Official references for ${cmp.optionA} and ${cmp.optionB}.`}
+            items={sourcesForComparison(slug)}
+            anchorId={`sources-${slug}`}
           />
 
           {/* P5-17 — newsletter banner. */}
