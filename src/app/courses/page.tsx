@@ -14,6 +14,7 @@ import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 import { COURSE_LAST_REVIEWED } from "@/lib/seo/content-dates";
 import { SourceCitations } from "@/components/seo/source-citations";
 import { sourcesForTopics } from "@/data/authoritative-sources";
+import { LastUpdated } from "@/components/seo/last-updated";
 
 export const metadata: Metadata = buildPageMetadata({
   // Hub owns the high-intent commercial head term "IT courses in Pune"
@@ -66,6 +67,7 @@ export default function CoursesPage() {
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
               IT Training Courses in Pune | 40+ Programs with Placement Assistance
             </h1>
+            <LastUpdated iso={COURSE_LAST_REVIEWED} className="mt-3 text-xs md:text-sm text-white/70" />
             <p className="text-lg text-white/80">
               Explore our comprehensive range of industry-relevant IT courses.
               Learn from expert trainers and get placement assistance.

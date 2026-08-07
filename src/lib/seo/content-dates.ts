@@ -65,6 +65,26 @@ export const EVERGREEN_LAST_REVIEWED = "2026-06-11";
 export const HOME_LAST_REVIEWED = "2026-08-06";
 
 /**
+ * Legal pages. These are dated SEPARATELY from every other constant and
+ * must only move when the policy TEXT changes — not when the page is
+ * touched for SEO, styling or metadata. A reader seeing "last updated" on
+ * a privacy policy reasonably infers the policy changed.
+ *
+ * Both pages previously rendered `new Date()` at request time, so they
+ * claimed to have been updated in whatever month you happened to load
+ * them. That is fake freshness in its purest form: the claim was never
+ * true except by accident, and Google's helpful-content system
+ * specifically targets date changes with no body change.
+ *
+ * Dates below are the last commit that actually altered the policy body:
+ *   privacy — 2026-06-14, cookie-consent banner work (6d655cd)
+ *   terms   — 2026-03-29, original publication (c0c3550); the 2026-05-08
+ *             commit touched canonical tags only, not the terms.
+ */
+export const PRIVACY_POLICY_LAST_UPDATED = "2026-06-14";
+export const TERMS_LAST_UPDATED = "2026-03-29";
+
+/**
  * Pages built or substantially advanced in the 2026-05-25 SEO push —
  * audience landing pages (/courses/for/*), /press, /tools/* (salary
  * calculator + career roadmap), /compare/*, /guides/*, and the new

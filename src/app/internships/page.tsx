@@ -26,6 +26,8 @@ import { FaqSection } from "@/components/seo/faq-section";
 import { NewsletterSignupForm } from "@/components/newsletter/newsletter-signup-form";
 import { internshipsFaqs } from "@/data/faqs";
 import { BreadcrumbJsonLd } from "@/components/seo/json-ld";
+import { LastUpdated } from "@/components/seo/last-updated";
+import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Internship Programs in Pune — 3-Month & 6-Month Tracks",
@@ -297,6 +299,7 @@ export default function InternshipsPage() {
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
               Internship Programs
             </h1>
+            <LastUpdated iso={EVERGREEN_LAST_REVIEWED} className="mt-3 text-xs md:text-sm text-white/70" />
             <p className="text-lg text-white/80 mb-6">
               Gain real-world experience and kickstart your IT career with our
               industry-focused internship programs. Choose between our 3-month

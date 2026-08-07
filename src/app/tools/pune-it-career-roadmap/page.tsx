@@ -19,7 +19,8 @@ import { careerPaths } from "@/data/career-roadmap";
 import { getCourse } from "@/data/courses";
 import { getSalaryRole, formatRange, formatLpa } from "@/data/salary-data";
 import { buildPageMetadata } from "@/lib/seo";
-import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
+import { EVERGREEN_LAST_REVIEWED, NEW_ASSETS_LAST_REVIEWED } from "@/lib/seo/content-dates";
+import { LastUpdated } from "@/components/seo/last-updated";
 
 const PAGE_PATH = "/tools/pune-it-career-roadmap";
 
@@ -75,6 +76,7 @@ export default function CareerRoadmapPage() {
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 max-w-4xl">
             Pune IT Career Roadmap 2026
           </h1>
+          <LastUpdated iso={NEW_ASSETS_LAST_REVIEWED} className="mt-3 text-xs md:text-sm text-white/70" />
           <p className="text-lg text-white/85 max-w-3xl">
             Whatever stage you&apos;re at, here&apos;s the step-by-step path into a
             Pune IT career — the right programme, the courses, the roles you can

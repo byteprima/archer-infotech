@@ -27,6 +27,8 @@ import { siteConfig } from "@/data/site-config";
 import { buildPageMetadata } from "@/lib/seo";
 import { SourceCitations } from "@/components/seo/source-citations";
 import { sourcesForTopics } from "@/data/authoritative-sources";
+import { LastUpdated } from "@/components/seo/last-updated";
+import { NEW_ASSETS_LAST_REVIEWED } from "@/lib/seo/content-dates";
 
 interface AudiencePageProps {
   params: Promise<{ audience: string }>;
@@ -123,6 +125,7 @@ export default async function AudiencePage({ params }: AudiencePageProps) {
             <p className="text-lg text-white/85 max-w-3xl mb-6">
               {audience.tagline}
             </p>
+            <LastUpdated iso={NEW_ASSETS_LAST_REVIEWED} className="mb-6 text-xs md:text-sm text-white/70" />
             <div className="flex flex-wrap gap-3">
               <TrackedLink
                 href="/contact"

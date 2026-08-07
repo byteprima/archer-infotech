@@ -16,6 +16,8 @@ import { FaqSection } from "@/components/seo/faq-section";
 import { NewsletterSignupForm } from "@/components/newsletter/newsletter-signup-form";
 import { aboutFaqs } from "@/data/faqs";
 import { PersonJsonLd, BreadcrumbJsonLd } from "@/components/seo/json-ld";
+import { LastUpdated } from "@/components/seo/last-updated";
+import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "About Archer Infotech — Pune IT Institute Since 2009",
@@ -61,6 +63,7 @@ export default function AboutPage() {
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
               About Archer Infotech — Pune&apos;s Trusted IT Training Institute Since 2009
             </h1>
+            <LastUpdated iso={EVERGREEN_LAST_REVIEWED} className="mt-3 text-xs md:text-sm text-white/70" />
             <p className="text-lg text-white/80">
               Archer Infotech is a leading IT and Language training centre providing
               full-suite of training and placement services for freshers seeking a

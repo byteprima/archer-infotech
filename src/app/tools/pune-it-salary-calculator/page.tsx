@@ -10,9 +10,10 @@ import { FaqSection } from "@/components/seo/faq-section";
 import { NewsletterSignupForm } from "@/components/newsletter/newsletter-signup-form";
 import { SalaryCalculator } from "@/components/tools/salary-calculator";
 import { buildPageMetadata } from "@/lib/seo";
-import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
+import { EVERGREEN_LAST_REVIEWED, NEW_ASSETS_LAST_REVIEWED } from "@/lib/seo/content-dates";
 import { getCourse } from "@/data/courses";
 import { siteConfig } from "@/data/site-config";
+import { LastUpdated } from "@/components/seo/last-updated";
 import {
   salaryRoles,
   SALARY_DATA_YEAR,
@@ -117,6 +118,7 @@ export default function SalaryCalculatorPage() {
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 max-w-4xl">
             Pune IT Salary Calculator {SALARY_DATA_YEAR}
           </h1>
+          <LastUpdated iso={NEW_ASSETS_LAST_REVIEWED} className="mt-3 text-xs md:text-sm text-white/70" />
           <p className="text-lg text-white/85 max-w-3xl">
             Pick a role and experience level to see realistic Pune salary ranges
             for {SALARY_DATA_YEAR} — and the training path that gets you there.

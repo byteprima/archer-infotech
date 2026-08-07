@@ -8,6 +8,8 @@ import { listicles } from "@/data/listicles";
 import { buildPageMetadata } from "@/lib/seo";
 import { SourceCitations } from "@/components/seo/source-citations";
 import { topGuideSources } from "@/data/guide-sources";
+import { LastUpdated } from "@/components/seo/last-updated";
+import { NEW_ASSETS_LAST_REVIEWED } from "@/lib/seo/content-dates";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "IT Career & Learning Guides",
@@ -43,6 +45,7 @@ export default function GuidesIndexPage() {
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 max-w-4xl">
             IT Career &amp; Learning Guides
           </h1>
+          <LastUpdated iso={NEW_ASSETS_LAST_REVIEWED} className="mt-3 text-xs md:text-sm text-white/70" />
           <p className="text-lg text-white/85 max-w-3xl">
             Practical, Pune-context guides to help you learn the right skills,
             build the right projects, and target the right roles.

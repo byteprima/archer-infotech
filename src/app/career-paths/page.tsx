@@ -5,7 +5,8 @@ import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 import { BreadcrumbJsonLd, CategoryCollectionJsonLd } from "@/components/seo/json-ld";
 import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { buildPageMetadata } from "@/lib/seo";
-import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
+import { EVERGREEN_LAST_REVIEWED, NEW_ASSETS_LAST_REVIEWED } from "@/lib/seo/content-dates";
+import { LastUpdated } from "@/components/seo/last-updated";
 
 /**
  * P5-18 — Career Paths hub.
@@ -113,6 +114,7 @@ export default function CareerPathsHub() {
             >
               Pune IT Career Paths
             </h1>
+            <LastUpdated iso={NEW_ASSETS_LAST_REVIEWED} className="mt-3 text-xs md:text-sm text-white/70" />
             <p className="text-lg md:text-xl text-white/80 max-w-3xl">
               Deep-dive roadmaps for the four most common Pune IT career
               tracks — each pillar covers the 12-month plan, specialisations,

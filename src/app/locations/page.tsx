@@ -7,6 +7,8 @@ import { BreadcrumbJsonLd, CategoryCollectionJsonLd } from "@/components/seo/jso
 import { getNeighbourhoodsByPriority } from "@/data/locations";
 import { buildPageMetadata } from "@/lib/seo";
 import { siteConfig } from "@/data/site-config";
+import { LastUpdated } from "@/components/seo/last-updated";
+import { LOCATIONS_LAST_REVIEWED } from "@/lib/seo/content-dates";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "IT Training Across Pune — Locations We Serve",
@@ -44,6 +46,7 @@ export default function LocationsIndexPage() {
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 max-w-4xl">
             IT Training Across Pune — Locations We Serve
           </h1>
+          <LastUpdated iso={LOCATIONS_LAST_REVIEWED} className="mt-3 text-xs md:text-sm text-white/70" />
           <p className="text-lg text-white/85 max-w-3xl">
             Our centre is in Kothrud, but our students come from right across
             Pune and the PCMC belt. Find your neighbourhood below for commute

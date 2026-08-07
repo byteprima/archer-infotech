@@ -26,6 +26,8 @@ import { FaqSection } from "@/components/seo/faq-section";
 import { NewsletterSignupForm } from "@/components/newsletter/newsletter-signup-form";
 import { corporateTrainingFaqs } from "@/data/faqs";
 import { BreadcrumbJsonLd } from "@/components/seo/json-ld";
+import { LastUpdated } from "@/components/seo/last-updated";
+import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Corporate IT Training in Pune",
@@ -130,6 +132,7 @@ export default function CorporateTrainingPage() {
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
               Corporate Training Solutions
             </h1>
+            <LastUpdated iso={EVERGREEN_LAST_REVIEWED} className="mt-3 text-xs md:text-sm text-white/70" />
             <p className="text-lg text-white/80 mb-8">
               Archer Infotech offers comprehensive corporate training programs to
               help your organization stay ahead in the rapidly evolving technology

@@ -19,7 +19,8 @@ import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 import { siteConfig } from "@/data/site-config";
 import { teamMembers } from "@/data/team";
 import { buildPageMetadata } from "@/lib/seo";
-import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
+import { EVERGREEN_LAST_REVIEWED, NEW_ASSETS_LAST_REVIEWED } from "@/lib/seo/content-dates";
+import { LastUpdated } from "@/components/seo/last-updated";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Press & Media Kit",
@@ -87,6 +88,7 @@ export default function PressPage() {
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 max-w-4xl">
             Press &amp; Media Kit
           </h1>
+          <LastUpdated iso={NEW_ASSETS_LAST_REVIEWED} className="mt-3 text-xs md:text-sm text-white/70" />
           <p className="text-lg text-white/85 max-w-3xl">
             Resources for journalists, editors and partners writing about
             Archer Infotech — a Pune IT training institute operating since 2009.

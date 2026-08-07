@@ -16,6 +16,8 @@ import {
 import { getCourse } from "@/data/courses";
 import { buildPageMetadata } from "@/lib/seo";
 import { summariseToMeta } from "@/lib/seo/meta-trim";
+import { LastUpdated } from "@/components/seo/last-updated";
+import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
 
 interface TrainerPageProps {
   params: Promise<{ slug: string }>;
@@ -116,6 +118,7 @@ export default async function TrainerProfilePage({ params }: TrainerPageProps) {
                     {trainer.name}
                   </h1>
                   <p className="text-lg text-white/80 mb-2">{trainer.role}</p>
+                  <LastUpdated iso={EVERGREEN_LAST_REVIEWED} className="mb-2 text-xs text-white/70" />
                   <p className="text-sm text-secondary font-medium mb-4">
                     {trainer.experience} experience
                   </p>

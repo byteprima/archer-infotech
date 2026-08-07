@@ -10,6 +10,8 @@ import { buildPageMetadata } from "@/lib/seo";
 import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { FaqSection } from "@/components/seo/faq-section";
 import { trainersFaqs } from "@/data/faqs";
+import { LastUpdated } from "@/components/seo/last-updated";
+import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Our Trainers — Industry Experts at Archer Infotech, Pune",
@@ -54,6 +56,7 @@ export default function TrainersPage() {
             <h1 className="text-3xl md:text-5xl font-bold mb-4">
               Meet the Trainers Behind Archer Infotech
             </h1>
+            <LastUpdated iso={EVERGREEN_LAST_REVIEWED} className="mt-3 text-xs md:text-sm text-white/70" />
             <p className="text-lg text-white/80">
               Every course at Archer Infotech is led by a working professional with deep
               MNC experience. Get to know the people teaching you, the projects they

@@ -2,6 +2,8 @@ import { Metadata } from "next";
 import { siteConfig } from "@/data/site-config";
 import { buildPageMetadata } from "@/lib/seo";
 import { BreadcrumbJsonLd } from "@/components/seo/json-ld";
+import { LastUpdated } from "@/components/seo/last-updated";
+import { TERMS_LAST_UPDATED } from "@/lib/seo/content-dates";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Terms of Service",
@@ -10,14 +12,7 @@ export const metadata: Metadata = buildPageMetadata({
   path: "/terms-of-service",
 });
 
-function getCurrentDate() {
-  const date = new Date();
-  const options: Intl.DateTimeFormatOptions = { year: "numeric", month: "long" };
-  return date.toLocaleDateString("en-IN", options);
-}
-
 export default function TermsOfServicePage() {
-  const lastUpdated = getCurrentDate();
 
   return (
     <>
@@ -38,7 +33,7 @@ export default function TermsOfServicePage() {
           <div className="max-w-3xl">
             <h1 className="text-3xl md:text-4xl font-bold mb-4">Terms of Service</h1>
             <p className="text-white/80">
-              Last updated: {lastUpdated}
+              <LastUpdated iso={TERMS_LAST_UPDATED} />
             </p>
           </div>
         </div>

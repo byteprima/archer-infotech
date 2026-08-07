@@ -2,6 +2,8 @@ import { Metadata } from "next";
 import { siteConfig } from "@/data/site-config";
 import { buildPageMetadata } from "@/lib/seo";
 import { BreadcrumbJsonLd } from "@/components/seo/json-ld";
+import { LastUpdated } from "@/components/seo/last-updated";
+import { PRIVACY_POLICY_LAST_UPDATED } from "@/lib/seo/content-dates";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Privacy Policy",
@@ -10,14 +12,7 @@ export const metadata: Metadata = buildPageMetadata({
   path: "/privacy-policy",
 });
 
-function getCurrentDate() {
-  const date = new Date();
-  const options: Intl.DateTimeFormatOptions = { year: "numeric", month: "long" };
-  return date.toLocaleDateString("en-IN", options);
-}
-
 export default function PrivacyPolicyPage() {
-  const lastUpdated = getCurrentDate();
 
   return (
     <>
@@ -38,7 +33,7 @@ export default function PrivacyPolicyPage() {
           <div className="max-w-3xl">
             <h1 className="text-3xl md:text-4xl font-bold mb-4">Privacy Policy</h1>
             <p className="text-white/80">
-              Last updated: {lastUpdated}
+              <LastUpdated iso={PRIVACY_POLICY_LAST_UPDATED} />
             </p>
           </div>
         </div>

@@ -17,6 +17,7 @@ import { summariseToMeta } from "@/lib/seo/meta-trim";
 import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
 import { getRecommendedCourseForGuide } from "@/lib/seo/guide-to-course";
 import { GraduationCap } from "lucide-react";
+import { LastUpdated } from "@/components/seo/last-updated";
 
 interface GuidePageProps {
   params: Promise<{ slug: string }>;
@@ -110,6 +111,7 @@ export default async function GuidePage({ params }: GuidePageProps) {
             >
               {guide.h1}
             </h1>
+            <LastUpdated iso={EVERGREEN_LAST_REVIEWED} className="mt-4 text-xs md:text-sm text-white/70" />
           </div>
         </header>
 

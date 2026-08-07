@@ -20,6 +20,8 @@ import { NewsletterSignupForm } from "@/components/newsletter/newsletter-signup-
 import { placementsFaqs } from "@/data/faqs";
 import { ReviewRibbon } from "@/components/seo/review-ribbon";
 import { BreadcrumbJsonLd } from "@/components/seo/json-ld";
+import { LastUpdated } from "@/components/seo/last-updated";
+import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Placements at Archer Infotech — 5,000+ Students Placed Since 2009",
@@ -52,6 +54,7 @@ export default async function PlacementsPage() {
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
               5,000+ Students Placed Since 2009 at Top IT Companies in Pune
             </h1>
+            <LastUpdated iso={EVERGREEN_LAST_REVIEWED} className="mt-3 text-xs md:text-sm text-white/70" />
             <p className="text-lg text-white/80 mb-5">
               As a leading IT solutions provider, Archer Infotech helps both
               businesses and students. We provide &apos;Mission Ready&apos; IT

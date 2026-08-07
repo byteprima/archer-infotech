@@ -25,6 +25,8 @@ import { FaqSection } from "@/components/seo/faq-section";
 import { bootcampsFaqs } from "@/data/faqs";
 import { SourceCitations } from "@/components/seo/source-citations";
 import { sourcesForTopics } from "@/data/authoritative-sources";
+import { LastUpdated } from "@/components/seo/last-updated";
+import { BOOTCAMP_LAST_REVIEWED } from "@/lib/seo/content-dates";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Coding Bootcamps in Pune — CodeLeap, CareerCode, TechReady",
@@ -99,6 +101,7 @@ export default function BootcampsPage() {
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
             Intensive Bootcamp Programs
           </h1>
+          <LastUpdated iso={BOOTCAMP_LAST_REVIEWED} className="mt-3 text-xs md:text-sm text-white/70" />
           <p className="text-white/80 text-lg max-w-2xl mx-auto">
             Three programs designed for three stages of your career — from 12th
             passout to engineering student to job-ready graduate. Hands-on

@@ -8,7 +8,8 @@ import {
 } from "@/components/seo/json-ld";
 import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { buildPageMetadata } from "@/lib/seo";
-import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
+import { EVERGREEN_LAST_REVIEWED, NEW_ASSETS_LAST_REVIEWED } from "@/lib/seo/content-dates";
+import { LastUpdated } from "@/components/seo/last-updated";
 
 /**
  * P6-13 — Reports hub.
@@ -68,6 +69,7 @@ export default function ReportsHub() {
             >
               Pune IT Market Reports
             </h1>
+            <LastUpdated iso={NEW_ASSETS_LAST_REVIEWED} className="mt-3 text-xs md:text-sm text-white/70" />
             <p className="text-lg md:text-xl text-white/85 max-w-3xl">
               Free annual data reports on Pune&apos;s IT hiring market —
               built from primary listings analysis and 17+ years of

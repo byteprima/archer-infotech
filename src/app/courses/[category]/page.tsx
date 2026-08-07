@@ -15,6 +15,8 @@ import { getRelatedAssetsForCategory } from "@/lib/seo/course-related-assets";
 import { Calculator, Scale, ListChecks } from "lucide-react";
 import { SourceCitations } from "@/components/seo/source-citations";
 import { sourcesForTopics } from "@/data/authoritative-sources";
+import { LastUpdated } from "@/components/seo/last-updated";
+import { COURSE_LAST_REVIEWED } from "@/lib/seo/content-dates";
 
 interface CategoryPageProps {
   params: Promise<{ category: string }>;
@@ -85,6 +87,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             <h1 className="text-3xl md:text-5xl font-bold mb-4">
               {rich?.h1 ?? `${category.name} Training in Pune`}
             </h1>
+            <LastUpdated iso={COURSE_LAST_REVIEWED} className="mt-3 text-xs md:text-sm text-white/70" />
             {/* Variant-rich subhead — naturally weaves the four
                 head-keyword variants (training in H1; courses, classes,
                 institute here) so every category page picks up keyword

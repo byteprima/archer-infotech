@@ -16,6 +16,7 @@ import { summariseToMeta } from "@/lib/seo/meta-trim";
 import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
 import { SourceCitations } from "@/components/seo/source-citations";
 import { sourcesForComparison } from "@/data/comparison-sources";
+import { LastUpdated } from "@/components/seo/last-updated";
 
 interface ComparePageProps {
   params: Promise<{ slug: string }>;
@@ -98,6 +99,7 @@ export default async function ComparePage({ params }: ComparePageProps) {
             <p className="text-lg text-white/85">
               {cmp.optionA} vs {cmp.optionB} — an honest comparison for Pune learners.
             </p>
+            <LastUpdated iso={EVERGREEN_LAST_REVIEWED} className="mt-3 text-xs md:text-sm text-white/70" />
           </div>
         </header>
 

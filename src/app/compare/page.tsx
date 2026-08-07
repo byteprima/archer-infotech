@@ -6,6 +6,8 @@ import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 import { BreadcrumbJsonLd, CategoryCollectionJsonLd } from "@/components/seo/json-ld";
 import { comparisons } from "@/data/comparisons";
 import { buildPageMetadata } from "@/lib/seo";
+import { LastUpdated } from "@/components/seo/last-updated";
+import { NEW_ASSETS_LAST_REVIEWED } from "@/lib/seo/content-dates";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Compare IT Courses & Career Paths",
@@ -41,6 +43,7 @@ export default function CompareIndexPage() {
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 max-w-4xl">
             Compare IT Courses &amp; Career Paths
           </h1>
+          <LastUpdated iso={NEW_ASSETS_LAST_REVIEWED} className="mt-3 text-xs md:text-sm text-white/70" />
           <p className="text-lg text-white/85 max-w-3xl">
             &ldquo;Which is better?&rdquo; — answered honestly. Side-by-side
             comparisons to help Pune learners choose the right language, stack,

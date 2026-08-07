@@ -10,6 +10,8 @@ import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { FaqSection } from "@/components/seo/faq-section";
 import { LocalBusinessJsonLd, BreadcrumbJsonLd } from "@/components/seo/json-ld";
 import { contactFaqs } from "@/data/faqs";
+import { LastUpdated } from "@/components/seo/last-updated";
+import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Contact Archer Infotech — IT Training Institute in Kothrud, Pune",
@@ -47,6 +49,7 @@ export default function ContactPage() {
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
               Contact Archer Infotech — IT Training in Kothrud, Pune
             </h1>
+            <LastUpdated iso={EVERGREEN_LAST_REVIEWED} className="mt-3 text-xs md:text-sm text-white/70" />
             <p className="text-lg text-white/80">
               Have questions about our courses? Want to know about batch schedules
               or fees? Get in touch with us and our team will get back to you shortly.
