@@ -1,6 +1,7 @@
 import { marked } from "marked";
 import { createHighlighter } from "shiki";
 import { injectTocAnchors } from "@/lib/blog/toc";
+import { addImageDimensions } from "@/lib/blog/image-dimensions";
 
 interface BlogPostContentProps {
   content: string;
@@ -182,7 +183,9 @@ export async function BlogPostContent({ content }: BlogPostContentProps) {
   // links resolve. Slug logic is shared with extractToc() in
   // src/lib/blog/toc.ts so the IDs match one-to-one. P5-10.
   const withAnchors = injectTocAnchors(cleaned);
-  const htmlContent = await highlightCodeBlocks(withAnchors);
+  // Inline <img> tags come straight from the stored post body, so they
+  // carry no dimensions and shift the layout as each diagram loads.
+  const htmlContent = addImageDimensions(await highlightCodeBlocks(withAnchors));
 
   return (
     <div
