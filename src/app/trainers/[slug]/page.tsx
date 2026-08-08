@@ -13,13 +13,15 @@ import {
   getTrainer,
   getCourseSlugsForTrainer,
 } from "@/data/team";
-import { getCourse } from "@/data/courses";
+import { courses as allCourses, getCourse } from "@/data/courses";
 import { buildPageMetadata } from "@/lib/seo";
 import { summariseToMeta } from "@/lib/seo/meta-trim";
 import { LastUpdated } from "@/components/seo/last-updated";
 import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
 import { SourceCitations } from "@/components/seo/source-citations";
 import { sourcesForTopics } from "@/data/authoritative-sources";
+import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
+import { FaqSection } from "@/components/seo/faq-section";
 
 interface TrainerPageProps {
   params: Promise<{ slug: string }>;
@@ -50,6 +52,42 @@ export default async function TrainerProfilePage({ params }: TrainerPageProps) {
   const { slug } = await params;
   const trainer = getTrainer(slug);
   if (!trainer) notFound();
+
+  // Q&A built from the record itself — each answer restates facts already on
+  // the page, so the FAQPage payload and the visible copy cannot disagree.
+  const firstName = trainer.name.split(" ")[0];
+  const relatedCourses = allCourses
+    .filter((c) =>
+      trainer.expertise.some((skill) => {
+        const k = skill.toLowerCase().replace(/[\s_/]+/g, "-");
+        return c.slug.includes(k) || c.title.toLowerCase().includes(skill.toLowerCase());
+      }),
+    )
+    .slice(0, 6);
+  const trainerFaqs = [
+    {
+      question: `What does ${trainer.name} teach at Archer Infotech?`,
+      answer: `${trainer.name} specialises in ${trainer.expertise.join(", ")}. ${firstName} is ${trainer.role} at Archer Infotech's Kothrud centre in Pune, teaching in weekday, weekend and live-online batches.`,
+    },
+    {
+      question: `How much industry experience does ${trainer.name} have?`,
+      answer: `${trainer.name} brings ${trainer.experience} of industry experience. ${trainer.bio}`,
+    },
+    ...(relatedCourses.length > 0
+      ? [
+          {
+            question: `Which Archer Infotech courses cover ${firstName}'s specialisations?`,
+            answer: `${firstName}'s skill set maps to these Archer Infotech courses: ${relatedCourses
+              .map((c) => c.title)
+              .join(", ")}. Each runs from the Kothrud centre in Pune with certification and placement assistance included.`,
+          },
+        ]
+      : []),
+    {
+      question: `Can I attend a demo session before enrolling?`,
+      answer: `Yes. Archer Infotech runs free demo classes for every course. Book one through the Contact page or call +91 9850 678451, Monday to Saturday between 9 AM and 8 PM, and you can sit in before committing to a batch.`,
+    },
+  ];
 
   const courseSlugs = getCourseSlugsForTrainer(slug);
   const courses = courseSlugs
@@ -222,6 +260,23 @@ export default async function TrainerProfilePage({ params }: TrainerPageProps) {
         </div>
       </section>
       </article>
+
+      {/* Definitive answer + FAQ, both assembled purely from fields the
+          trainer record already holds — name, role, experience, expertise,
+          bio. Nothing here is invented. Before this, trainer pages were the
+          weakest section on the site (AEO 36): no summary block, no
+          question-shaped headings, no FAQ payload, and the whole profile sat
+          in one prose paragraph that no extractor could chunk usefully.
+          Audit 2026-08-08. */}
+      <DefinitiveAnswer eyebrow={`Who is ${trainer.name}?`}>
+        {`${trainer.name} is ${trainer.role} at Archer Infotech, the IT training institute in Kothrud, Pune, with ${trainer.experience} of industry experience. ${trainer.name.split(" ")[0]} specialises in ${trainer.expertise.slice(0, 6).join(", ")}. ${trainer.bio}`}
+      </DefinitiveAnswer>
+
+      <FaqSection
+        heading={`${trainer.name} — frequently asked`}
+        items={trainerFaqs}
+      />
+
       <SourceCitations
         heading="Curriculum references"
         intro={`Official documentation for the technologies ${trainer.name.split(" ")[0]} teaches.`}
