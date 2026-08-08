@@ -164,7 +164,7 @@ const tracks = [
     ],
     huntFor: "Persistent product, Druva, BFSI tech teams modernising legacy systems, Pune product startups",
     salaryBand: "₹6–10 LPA fresher → ₹14–22 LPA at 3–5 yrs",
-    coursePath: "/courses/full-stack-development/spring-boot-microservices-training-in-pune",
+    coursePath: "/courses/programming/spring-boot-microservices-training-in-pune",
     courseName: "Spring Boot Microservices Training in Pune",
   },
   {

@@ -114,7 +114,7 @@ export const glossaryEntries: GlossaryEntry[] = [
       "An architectural pattern where an application is split into independently-deployable services that communicate via APIs (REST or messaging), each owning its data.",
     puneContext:
       "Pune product companies and modern services-major engagements increasingly default to microservices over monolithic apps. Adding Spring Cloud + Docker + Kafka exposure to a Java portfolio bumps Pune fresher offers ₹1-3 LPA above standard backend band.",
-    href: "/courses/full-stack-development/spring-boot-microservices-training-in-pune",
+    href: "/courses/programming/spring-boot-microservices-training-in-pune",
     hrefLabel: "Spring Boot Microservices Training",
   },
   {

@@ -84,17 +84,19 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: CoursePageProps): Promise<Metadata> {
-  const { category: categorySlug, slug } = await params;
+  const { slug } = await params;
   const course = getCourse(slug);
 
   if (!course) {
     return { title: "Course Not Found" };
   }
 
+  // Canonical is built from the course's OWN category, never the requested one.
+  // A course has exactly one home; see the category-mismatch redirect below.
   return buildPageMetadata({
     title: course.seoTitle ?? `${course.title} Training in Pune with Placement`,
     description: course.description,
-    path: `/courses/${categorySlug}/${slug}`,
+    path: `/courses/${course.categorySlug}/${slug}`,
     lastModified: COURSE_LAST_REVIEWED,
   });
 }
@@ -120,6 +122,25 @@ export default async function CoursePage({ params }: CoursePageProps) {
   if (course.categorySlug === "bootcamps") {
     const bootcampSlug = course.slug.replace("-bootcamp", "");
     permanentRedirect(`/bootcamps/${bootcampSlug}`);
+  }
+
+  // Category-mismatch guard. `getCourse()` resolves by slug alone and
+  // `getCategory()` only checks that the category exists, so ANY valid
+  // category paired with ANY valid course rendered a full 200 page — 12
+  // categories x 51 courses = 612 crawlable URLs for 51 real pages, each
+  // self-canonicalising to whatever category the crawler happened to request.
+  // GSC flagged the first casualty on 2026-08-05:
+  //   /courses/cloud-devops/aws-solutions-architect-training-in-pune
+  // as "Duplicate, Google chose different canonical than user" against the
+  // real page under /courses/cloud-certifications/. No internal link or
+  // sitemap entry ever produced the bad URL (every link builds from
+  // `course.categorySlug`), so these are externally discovered or guessed —
+  // which means the shape has to be closed at the route, not at the links.
+  //
+  // 308, matching the bootcamp redirect above: permanent, so Google drops the
+  // duplicate and consolidates its signals onto the real page.
+  if (categorySlug !== course.categorySlug) {
+    permanentRedirect(`/courses/${course.categorySlug}/${slug}`);
   }
 
   const nextBatch = await getNextBatchForCourse(slug);
