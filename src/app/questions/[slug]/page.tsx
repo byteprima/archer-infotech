@@ -8,6 +8,8 @@ import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { LastUpdated } from "@/components/seo/last-updated";
 import { buildPageMetadata } from "@/lib/seo";
 import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
+import { SourceCitations } from "@/components/seo/source-citations";
+import { siteConfig } from "@/data/site-config";
 import {
   questionCategories,
   getQuestionCategory,
@@ -220,6 +222,29 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           </div>
         </div>
       </section>
+      {/* Outbound references for the institute-level and market-level
+          claims these answers make. Curated once for the whole cluster —
+          every category answers questions about the same institute and the
+          same Pune job market. Audit 2026-08-07. */}
+      <SourceCitations
+        heading="Sources"
+        intro="References for the institute and market claims in these answers."
+        items={[
+          {
+            label: "Archer Infotech on Google Maps",
+            href: siteConfig.googleMaps.url,
+            supports:
+              "the public Google rating and review count quoted in these answers.",
+          },
+          {
+            label: "Stack Overflow Developer Survey",
+            href: "https://survey.stackoverflow.co/",
+            supports:
+              "industry-wide technology adoption and pay data referenced here.",
+          },
+        ]}
+      />
+
     </>
   );
 }

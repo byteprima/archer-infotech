@@ -11,6 +11,8 @@ import {
   questionCategories,
   totalQuestionsAcrossCategories,
 } from "@/data/questions";
+import { SourceCitations } from "@/components/seo/source-citations";
+import { siteConfig } from "@/data/site-config";
 
 /**
  * P5-24 — PAA / Q&A hub at /questions.
@@ -215,6 +217,23 @@ export default function QuestionsHub() {
           </div>
         </div>
       </section>
+      <SourceCitations
+        heading="Sources"
+        intro="References for the claims made on this page."
+        items={[
+          {
+            label: "Archer Infotech on Google Maps",
+            href: siteConfig.googleMaps.url,
+            supports: "the public Google rating and student review count quoted on this page.",
+          },
+          {
+            label: "Stack Overflow Developer Survey",
+            href: "https://survey.stackoverflow.co/",
+            supports: "industry-wide technology adoption and pay data referenced here.",
+          },
+        ]}
+      />
+
     </>
   );
 }

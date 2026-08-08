@@ -514,7 +514,8 @@ const REGISTRY: Array<{ match: RegExp; sources: SourceCitation[] }> = [
     ],
   },
   {
-    match: /dotnet|csharp/,
+    // Also matches human labels: ".NET Core", ".NET MVC", "C#".
+    match: /dotnet|csharp|\.net|c#/,
     sources: [
       {
         label: "Microsoft C# documentation",
@@ -571,6 +572,36 @@ const REGISTRY: Array<{ match: RegExp; sources: SourceCitation[] }> = [
     ],
   },
   {
+    match: /sql-server/,
+    sources: [
+      {
+        label: "Microsoft SQL Server documentation",
+        href: "https://learn.microsoft.com/en-us/sql/",
+        supports: "the official SQL Server reference for the database topics taught here.",
+      },
+    ],
+  },
+  {
+    match: /bootstrap/,
+    sources: [
+      {
+        label: "Bootstrap documentation",
+        href: "https://getbootstrap.com/docs/",
+        supports: "the official Bootstrap reference for the UI framework taught here.",
+      },
+    ],
+  },
+  {
+    match: /rest-api|rest/,
+    sources: [
+      {
+        label: "MDN — HTTP and REST semantics",
+        href: "https://developer.mozilla.org/en-US/docs/Web/HTTP",
+        supports: "the standards reference for the REST/HTTP concepts covered.",
+      },
+    ],
+  },
+  {
     match: /python/,
     sources: [
       {
@@ -614,7 +645,10 @@ const REGISTRY: Array<{ match: RegExp; sources: SourceCitation[] }> = [
  * source, since a citation that backs no claim is worse than none.
  */
 export function sourcesForTopic(key: string, limit = 3): SourceCitation[] {
-  const k = key.toLowerCase();
+  // Normalise so human-written labels resolve as well as slugs do — callers
+  // pass things like "Spring Boot" (trainer expertise) alongside
+  // "spring-boot-microservices-training-in-pune" (course slug).
+  const k = key.toLowerCase().replace(/[\s_/]+/g, "-");
   for (const entry of REGISTRY) {
     if (entry.match.test(k)) return entry.sources.slice(0, limit);
   }

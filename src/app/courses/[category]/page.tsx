@@ -339,7 +339,13 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       <SourceCitations
         heading="Curriculum references"
         intro={`Official documentation for the technologies taught across our ${category.name} courses.`}
-        items={sourcesForTopics(categoryCourses.map((c) => c.slug))}
+        items={sourcesForTopics(
+          categorySlug === "bootcamps"
+            ? // Bootcamp slugs carry no technology token; cite the tracks the
+              // bootcamps actually advertise (Web Dev, Python, AI/Data Science).
+              ["python", "javascript", "data-science"]
+            : categoryCourses.map((c) => c.slug),
+        )}
       />
 
       <section className="py-8 bg-background border-t">

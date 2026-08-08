@@ -22,6 +22,7 @@ import { ReviewRibbon } from "@/components/seo/review-ribbon";
 import { BreadcrumbJsonLd } from "@/components/seo/json-ld";
 import { LastUpdated } from "@/components/seo/last-updated";
 import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
+import { SourceCitations } from "@/components/seo/source-citations";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Placements at Archer Infotech — 5,000+ Students Placed Since 2009",
@@ -618,6 +619,23 @@ export default async function PlacementsPage() {
           </div>
         </div>
       </section>
+      <SourceCitations
+        heading="Sources"
+        intro="References for the claims made on this page."
+        items={[
+          {
+            label: "Archer Infotech on Google Maps",
+            href: siteConfig.googleMaps.url,
+            supports: "the public Google rating and student review count quoted on this page.",
+          },
+          {
+            label: "Stack Overflow Developer Survey",
+            href: "https://survey.stackoverflow.co/",
+            supports: "industry-wide technology adoption and pay data referenced here.",
+          },
+        ]}
+      />
+
     </>
   );
 }

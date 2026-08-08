@@ -28,6 +28,7 @@ import { internshipsFaqs } from "@/data/faqs";
 import { BreadcrumbJsonLd } from "@/components/seo/json-ld";
 import { LastUpdated } from "@/components/seo/last-updated";
 import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
+import { SourceCitations } from "@/components/seo/source-citations";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Internship Programs in Pune — 3-Month & 6-Month Tracks",
@@ -639,6 +640,18 @@ export default function InternshipsPage() {
           </div>
         </div>
       </section>
+      <SourceCitations
+        heading="Sources"
+        intro="References for the claims made on this page."
+        items={[
+          {
+            label: "Stack Overflow Developer Survey",
+            href: "https://survey.stackoverflow.co/",
+            supports: "industry-wide technology adoption and pay data referenced here.",
+          },
+        ]}
+      />
+
     </>
   );
 }

@@ -12,6 +12,8 @@ import {
   glossaryCategoryLabels,
   type GlossaryEntry,
 } from "@/data/glossary";
+import { SourceCitations } from "@/components/seo/source-citations";
+import { sourcesForTopics } from "@/data/authoritative-sources";
 
 /**
  * Pune IT Glossary — single-page reference.
@@ -235,6 +237,12 @@ export default function GlossaryPage() {
           </section>
         </div>
       </article>
+      <SourceCitations
+        heading="Curriculum references"
+        intro="Official documentation for the technologies referenced on this page."
+        items={sourcesForTopics(["javascript", "python", "kubernetes", "aws"])}
+      />
+
     </>
   );
 }

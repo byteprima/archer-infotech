@@ -28,6 +28,8 @@ import { corporateTrainingFaqs } from "@/data/faqs";
 import { BreadcrumbJsonLd } from "@/components/seo/json-ld";
 import { LastUpdated } from "@/components/seo/last-updated";
 import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
+import { SourceCitations } from "@/components/seo/source-citations";
+import { sourcesForTopics } from "@/data/authoritative-sources";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Corporate IT Training in Pune",
@@ -374,6 +376,12 @@ export default function CorporateTrainingPage() {
           </div>
         </div>
       </section>
+      <SourceCitations
+        heading="Curriculum references"
+        intro="Official documentation for the technologies referenced on this page."
+        items={sourcesForTopics(["java-full-stack", "python", "aws", "data-science"])}
+      />
+
     </>
   );
 }

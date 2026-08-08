@@ -22,6 +22,8 @@ import { NewsletterSignupForm } from "@/components/newsletter/newsletter-signup-
 import { LastUpdated } from "@/components/seo/last-updated";
 import { buildPageMetadata } from "@/lib/seo";
 import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
+import { SourceCitations } from "@/components/seo/source-citations";
+import { sourcesForTopics } from "@/data/authoritative-sources";
 
 /**
  * P5-18+ — Cluster 5: Become a Java Developer (Pune, 2026).
@@ -811,6 +813,11 @@ export default function JavaDeveloperCareerPath() {
           </div>
         </div>
       </section>
+      <SourceCitations
+        heading="Curriculum references"
+        intro="Official documentation for the technologies on this path."
+        items={sourcesForTopics(["java-full-stack", "spring-boot", "java"])}
+      />
     </>
   );
 }

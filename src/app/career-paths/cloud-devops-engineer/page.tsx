@@ -22,6 +22,8 @@ import { NewsletterSignupForm } from "@/components/newsletter/newsletter-signup-
 import { LastUpdated } from "@/components/seo/last-updated";
 import { buildPageMetadata } from "@/lib/seo";
 import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
+import { SourceCitations } from "@/components/seo/source-citations";
+import { sourcesForTopics } from "@/data/authoritative-sources";
 
 /**
  * P5-19+ — Cluster 6: Cloud / DevOps Engineer career path (Pune, 2026).
@@ -808,6 +810,11 @@ export default function CloudDevOpsCareerPath() {
           </div>
         </div>
       </section>
+      <SourceCitations
+        heading="Curriculum references"
+        intro="Official documentation for the technologies on this path."
+        items={sourcesForTopics(["aws", "kubernetes", "docker"])}
+      />
     </>
   );
 }

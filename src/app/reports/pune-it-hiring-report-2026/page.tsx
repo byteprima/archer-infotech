@@ -23,6 +23,8 @@ import { buildPageMetadata } from "@/lib/seo";
 import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
 import { salaryRoles, SALARY_DATA_YEAR } from "@/data/salary-data";
 import { siteConfig } from "@/data/site-config";
+import { SourceCitations } from "@/components/seo/source-citations";
+import { sourcesForTopics } from "@/data/authoritative-sources";
 
 /**
  * P6-13 — Pune IT Hiring Report 2026 landing page.
@@ -439,6 +441,12 @@ export default function PuneItHiringReportPage() {
           </section>
         </div>
       </article>
+      <SourceCitations
+        heading="Curriculum references"
+        intro="Official documentation for the technologies referenced on this page."
+        items={sourcesForTopics(["java-full-stack", "python", "data-science", "aws"])}
+      />
+
     </>
   );
 }

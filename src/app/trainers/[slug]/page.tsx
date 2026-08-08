@@ -18,6 +18,8 @@ import { buildPageMetadata } from "@/lib/seo";
 import { summariseToMeta } from "@/lib/seo/meta-trim";
 import { LastUpdated } from "@/components/seo/last-updated";
 import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
+import { SourceCitations } from "@/components/seo/source-citations";
+import { sourcesForTopics } from "@/data/authoritative-sources";
 
 interface TrainerPageProps {
   params: Promise<{ slug: string }>;
@@ -220,6 +222,11 @@ export default async function TrainerProfilePage({ params }: TrainerPageProps) {
         </div>
       </section>
       </article>
+      <SourceCitations
+        heading="Curriculum references"
+        intro={`Official documentation for the technologies ${trainer.name.split(" ")[0]} teaches.`}
+        items={sourcesForTopics(trainer.expertise)}
+      />
     </>
   );
 }

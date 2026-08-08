@@ -10,6 +10,8 @@ import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { buildPageMetadata } from "@/lib/seo";
 import { EVERGREEN_LAST_REVIEWED, NEW_ASSETS_LAST_REVIEWED } from "@/lib/seo/content-dates";
 import { LastUpdated } from "@/components/seo/last-updated";
+import { SourceCitations } from "@/components/seo/source-citations";
+import { sourcesForTopics } from "@/data/authoritative-sources";
 
 /**
  * P6-13 — Reports hub.
@@ -111,6 +113,12 @@ export default function ReportsHub() {
           </section>
         </div>
       </article>
+      <SourceCitations
+        heading="Curriculum references"
+        intro="Official documentation for the technologies referenced on this page."
+        items={sourcesForTopics(["java-full-stack", "python", "data-science", "aws"])}
+      />
+
     </>
   );
 }

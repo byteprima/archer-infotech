@@ -10,6 +10,8 @@ import { siteConfig } from "@/data/site-config";
 import { LastUpdated } from "@/components/seo/last-updated";
 import { LOCATIONS_LAST_REVIEWED } from "@/lib/seo/content-dates";
 import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
+import { SourceCitations } from "@/components/seo/source-citations";
+import { sourcesForTopics } from "@/data/authoritative-sources";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "IT Training Across Pune — Locations We Serve",
@@ -106,6 +108,12 @@ export default function LocationsIndexPage() {
           </p>
         </div>
       </section>
+      <SourceCitations
+        heading="Curriculum references"
+        intro="Official documentation for the technologies referenced on this page."
+        items={sourcesForTopics(["java-full-stack", "python", "data-science", "aws"])}
+      />
+
     </>
   );
 }

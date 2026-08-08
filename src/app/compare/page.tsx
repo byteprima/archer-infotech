@@ -9,6 +9,8 @@ import { buildPageMetadata } from "@/lib/seo";
 import { LastUpdated } from "@/components/seo/last-updated";
 import { NEW_ASSETS_LAST_REVIEWED } from "@/lib/seo/content-dates";
 import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
+import { SourceCitations } from "@/components/seo/source-citations";
+import { sourcesForTopics } from "@/data/authoritative-sources";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Compare IT Courses & Career Paths",
@@ -82,6 +84,12 @@ export default function CompareIndexPage() {
           ))}
         </div>
       </section>
+      <SourceCitations
+        heading="Curriculum references"
+        intro="Official documentation for the technologies referenced on this page."
+        items={sourcesForTopics(["java", "python", "react", "aws"])}
+      />
+
     </>
   );
 }

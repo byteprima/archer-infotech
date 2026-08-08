@@ -12,6 +12,8 @@ import { FaqSection } from "@/components/seo/faq-section";
 import { trainersFaqs } from "@/data/faqs";
 import { LastUpdated } from "@/components/seo/last-updated";
 import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
+import { SourceCitations } from "@/components/seo/source-citations";
+import { sourcesForTopics } from "@/data/authoritative-sources";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Our Trainers — Industry Experts at Archer Infotech, Pune",
@@ -373,6 +375,12 @@ export default function TrainersPage() {
           </div>
         </div>
       </section>
+      <SourceCitations
+        heading="Curriculum references"
+        intro="Official documentation for the technologies referenced on this page."
+        items={sourcesForTopics(["java", "python", "aws", "data-science"])}
+      />
+
     </>
   );
 }

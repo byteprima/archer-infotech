@@ -14,6 +14,7 @@ import { EVERGREEN_LAST_REVIEWED, NEW_ASSETS_LAST_REVIEWED } from "@/lib/seo/con
 import { getCourse } from "@/data/courses";
 import { siteConfig } from "@/data/site-config";
 import { LastUpdated } from "@/components/seo/last-updated";
+import { SourceCitations } from "@/components/seo/source-citations";
 import {
   salaryRoles,
   SALARY_DATA_YEAR,
@@ -249,6 +250,23 @@ export default function SalaryCalculatorPage() {
           </div>
         </section>
       </div>
+      <SourceCitations
+        heading="Sources"
+        intro="References for the salary bands and role definitions used by this calculator."
+        items={[
+          {
+            label: "Stack Overflow Developer Survey",
+            href: "https://survey.stackoverflow.co/",
+            supports: "industry-wide compensation benchmarks the Pune bands are sanity-checked against.",
+          },
+          {
+            label: "AmbitionBox salary data",
+            href: "https://www.ambitionbox.com/salaries",
+            supports: "the India-specific market bands referenced in these figures.",
+          },
+        ]}
+      />
+
     </>
   );
 }

@@ -21,6 +21,8 @@ import { getSalaryRole, formatRange, formatLpa } from "@/data/salary-data";
 import { buildPageMetadata } from "@/lib/seo";
 import { EVERGREEN_LAST_REVIEWED, NEW_ASSETS_LAST_REVIEWED } from "@/lib/seo/content-dates";
 import { LastUpdated } from "@/components/seo/last-updated";
+import { SourceCitations } from "@/components/seo/source-citations";
+import { sourcesForTopics } from "@/data/authoritative-sources";
 
 const PAGE_PATH = "/tools/pune-it-career-roadmap";
 
@@ -291,6 +293,12 @@ export default function CareerRoadmapPage() {
           </div>
         </section>
       </div>
+      <SourceCitations
+        heading="Curriculum references"
+        intro="Official documentation for the technologies on these roadmaps."
+        items={sourcesForTopics(["java-full-stack", "python", "data-science", "aws"])}
+      />
+
     </>
   );
 }

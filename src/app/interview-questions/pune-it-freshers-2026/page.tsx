@@ -12,6 +12,8 @@ import {
   totalQuestionCount,
   allQuestions,
 } from "@/data/interview-questions";
+import { SourceCitations } from "@/components/seo/source-citations";
+import { sourcesForTopics } from "@/data/authoritative-sources";
 
 /**
  * Pune IT Freshers Interview Questions Bank — server-rendered.
@@ -230,6 +232,12 @@ export default function InterviewQuestionsPage() {
           </div>
         </div>
       </section>
+      <SourceCitations
+        heading="Curriculum references"
+        intro="Official documentation for the technologies referenced on this page."
+        items={sourcesForTopics(["java", "python", "javascript", "data-science"])}
+      />
+
     </>
   );
 }
