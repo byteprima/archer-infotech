@@ -37,6 +37,7 @@ import { cn } from "@/lib/utils";
 import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 import { LastUpdated } from "@/components/seo/last-updated";
 import { BOOTCAMP_LAST_REVIEWED } from "@/lib/seo/content-dates";
+import { FaqSection } from "@/components/seo/faq-section";
 
 /* C1 perf: heavy interactive sub-trees (TrackTabs / FoundationCurriculum
  * Accordion / ProgramTabs) live in their own client chunk and lazy-hydrate
@@ -1118,18 +1119,20 @@ export function BootcampDetailPage({
           <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px]">
             <Card className="rounded-[2rem] border-0 bg-background shadow-md ring-1 ring-foreground/10">
               <CardContent className="px-6 py-4 md:px-8 md:py-6">
-                <Accordion className="w-full">
-                  {bootcamp.faqs.map((faq, index) => (
-                    <AccordionItem key={faq.question} value={`faq-${index}`}>
-                      <AccordionTrigger className="py-5 text-left text-base font-semibold hover:no-underline">
-                        {faq.question}
-                      </AccordionTrigger>
-                      <AccordionContent className="pb-5 text-sm leading-7 text-muted-foreground">
-                        {faq.answer}
-                      </AccordionContent>
-                    </AccordionItem>
-                  ))}
-                </Accordion>
+                {/* Native <details> via the shared FaqSection instead of a
+                    Radix Accordion. Radix unmounts closed content, so the
+                    server-rendered HTML contained exactly one question and
+                    zero answers — while the page emitted FAQPage schema for
+                    all of them. That is a schema/content mismatch and it made
+                    every answer invisible to crawlers that do not run JS.
+                    withSchema is off; the route already emits FAQJsonLd.
+                    Audit 2026-08-08. */}
+                <FaqSection
+                  heading=""
+                  items={bootcamp.faqs}
+                  anchorId="bootcamp-faqs"
+                  withSchema={false}
+                />
               </CardContent>
             </Card>
 

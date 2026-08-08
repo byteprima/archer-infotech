@@ -35,6 +35,7 @@ import { buildPageMetadata } from "@/lib/seo";
 import {
   LOCATIONS_LAST_REVIEWED,
 } from "@/lib/seo/content-dates";
+import { FaqSection } from "@/components/seo/faq-section";
 
 interface LocationPageProps {
   params: Promise<{ slug: string }>;
@@ -287,33 +288,20 @@ export default async function LocationPage({ params }: LocationPageProps) {
             </section>
           )}
 
-          {/* Local FAQs */}
-          {area.localFaqs.length > 0 && (
-            <section id="local-faqs" className="space-y-4 scroll-mt-24">
-              <h2 className="text-2xl md:text-3xl font-bold">
-                {area.name} — Frequently Asked Questions
-              </h2>
-              <div className="space-y-4">
-                {area.localFaqs.map((faq, i) => (
-                  <details
-                    key={i}
-                    className="group border rounded-lg bg-background"
-                    open={i < 2}
-                  >
-                    <summary className="cursor-pointer list-none p-5 font-medium flex items-start justify-between gap-4 hover:bg-muted/30 transition-colors">
-                      <span>{faq.question}</span>
-                      <span className="shrink-0 text-muted-foreground transition-transform group-open:rotate-45 text-xl leading-none">
-                        +
-                      </span>
-                    </summary>
-                    <div className="px-5 pb-5 text-sm text-muted-foreground leading-relaxed">
-                      {faq.answer}
-                    </div>
-                  </details>
-                ))}
-              </div>
-            </section>
-          )}
+          {/* Local FAQs — rendered through the shared FaqSection so each
+              question is a real <h3> with its answer as the immediate next
+              sibling. The bespoke <details> markup this replaces put every
+              question inside a <span> in a <summary>, so the page had no
+              question-shaped headings at all and its answers were siblings
+              of <summary> rather than of a heading. withSchema is off
+              because this page already emits FAQJsonLd above. P-01/P-04.
+              Audit 2026-08-08. */}
+          <FaqSection
+            heading={`${area.name} — Frequently Asked Questions`}
+            items={area.localFaqs}
+            anchorId="local-faqs"
+            withSchema={false}
+          />
 
           {/* Nearby areas — P4-21 cross-neighbourhood link graph */}
           {nearbyAreas.length > 0 && (
