@@ -142,3 +142,35 @@ export const siteConfig = {
 };
 
 export type SiteConfig = typeof siteConfig;
+
+/**
+ * Google Business Profile rating, as last VERIFIED by a human looking at the
+ * profile — not a number anyone typed from memory.
+ *
+ * Why this is a constant with a date attached rather than a literal buried in
+ * json-ld.tsx: it was hardcoded as `ratingCount: 126` with the source noted
+ * only in a comment, and by 2026-08-09 that observation was two months old
+ * with no way to tell from the code that it had gone stale. A third-party
+ * assessment then reported the live profile showing a very different number,
+ * and nothing in the repo could confirm or refute it.
+ *
+ * HOW TO RE-VERIFY (30 seconds, and it must be a human — the Places API is
+ * not enabled on this project and Google blocks the scraper in
+ * review_velocity.py):
+ *   1. Open siteConfig.googleMaps.url in a normal browser window
+ *   2. Read the rating and the review count next to it
+ *   3. Update both fields below AND `verifiedOn`
+ *   4. Record it in the tracker so velocity keeps working:
+ *        python3 ~/.config/claude-seo/review_velocity.py --update 'google:<count>,<rating>'
+ *
+ * NEVER raise these numbers without looking. An AggregateRating that
+ * overstates the real count is a structured-data policy violation, and the
+ * downside is a manual action against the whole domain rather than the loss
+ * of one snippet.
+ */
+export const googleReviews = {
+  ratingValue: 5.0,
+  ratingCount: 126,
+  /** Date a human last read these off the live profile. */
+  verifiedOn: "2026-06-10",
+} as const;

@@ -1,4 +1,4 @@
-import { siteConfig } from "@/data/site-config";
+import { siteConfig, googleReviews } from "@/data/site-config";
 import type { Batch } from "@/db/schema";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://archerinfotech.in";
@@ -146,15 +146,23 @@ export function OrganizationJsonLd() {
     areaServed: AREA_SERVED_FULL,
     priceRange: "₹₹",
     openingHoursSpecification: OPENING_HOURS,
-    // P8-04 — aggregateRating sourced from the 126+ verified Google
-    // Business Profile reviews (5.0★ as of 2026-06-10). Same figure
-    // already in /testimonials' AggregateRatingJsonLd — this puts it
-    // on the canonical site-wide Org block so every page's Org schema
-    // benefits, not just /testimonials.
+    // aggregateRating from the Google Business Profile. The figures live in
+    // site-config's `googleReviews`, which carries the date a human last read
+    // them off the live profile — see the note there before changing them.
+    //
+    // OPEN RISK, flagged 2026-08-09 and NOT yet resolved: this is a
+    // self-serving aggregate. It sits on the Organization block, is emitted on
+    // every page, and summarises reviews that are not displayed on the page it
+    // appears on. Google withdrew rich-result support for self-serving
+    // LocalBusiness/Organization review snippets, so this is unlikely to be
+    // earning the stars it looks like it earns, and carries policy risk if the
+    // count is ever wrong. Removing it is an editorial decision with SERP
+    // consequences, so it is left in place pending that call rather than
+    // silently deleted.
     aggregateRating: {
       "@type": "AggregateRating",
-      ratingValue: 5.0,
-      ratingCount: 126,
+      ratingValue: googleReviews.ratingValue,
+      ratingCount: googleReviews.ratingCount,
       bestRating: 5,
       worstRating: 1,
     },
