@@ -44,6 +44,11 @@ import {
 } from "@/data/site-config";
 import { getDisplayRating } from "@/lib/reviews/rating";
 import { resolveCourseMetaDescription } from "@/lib/seo/course-seo-description";
+import {
+  buildCourseDefinitiveAnswer,
+  buildCourseDefinitiveAnswerEyebrow,
+} from "@/lib/seo/course-definitive-answer";
+import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { buildPageMetadata } from "@/lib/seo";
 import { getNextBatchForCourse } from "@/lib/actions/public-batches";
 import { getCourseRichContent } from "@/data/course-content";
@@ -393,7 +398,12 @@ export default async function CoursePage({ params }: CoursePageProps) {
             </div>
             {/* Enquiry Card */}
             <div className="bg-white rounded-xl p-6 text-foreground shadow-lg">
-              <h3 className="font-semibold text-lg mb-2">Interested in this course?</h3>
+              {/* Not a heading: this is a CTA widget, not a section of the
+                  document. As an <h3> directly under the page <h1> it created
+                  the only heading-level skip on the page (h1 -> h3). Rendered
+                  as a styled <p> so the visual is unchanged and the outline
+                  goes h1 -> h2. */}
+              <p className="font-semibold text-lg mb-2">Interested in this course?</p>
               <p className="text-muted-foreground text-sm mb-4">
                 Get in touch with us to learn more about the curriculum, batch
                 timings, and fees.
@@ -439,6 +449,18 @@ export default async function CoursePage({ params }: CoursePageProps) {
           </div>
         </div>
       </header>
+
+      {/* Definitive answer — the quotable factual summary AI engines lift.
+          Sits directly below the hero so the first body content a crawler
+          reads is a self-contained answer, not marketing copy. This template
+          was the only major one on the site missing the block (39 other
+          routes had it); a third-party AEO/GEO audit flagged the omission
+          four separate ways on 2026-08-09. Composed from the course's own
+          duration/level/mode/module/role fields — see
+          lib/seo/course-definitive-answer.ts. */}
+      <DefinitiveAnswer eyebrow={buildCourseDefinitiveAnswerEyebrow(course)}>
+        {buildCourseDefinitiveAnswer(course)}
+      </DefinitiveAnswer>
 
       {/* Hiring-partner strip — the recruiter-logo row every page-1
           competitor (Kiran, Technogeeks, SevenMentor) leads with. We render
