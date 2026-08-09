@@ -23,6 +23,13 @@ import { BreadcrumbJsonLd } from "@/components/seo/json-ld";
 import { LastUpdated } from "@/components/seo/last-updated";
 import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
 import { SourceCitations } from "@/components/seo/source-citations";
+import { PlacementDashboard } from "@/components/placements/placement-dashboard";
+import {
+  getPublicPlacements,
+  computePlacementStats,
+  MIN_PUBLIC_PLACEMENTS,
+  isPlacementRecordEnabled,
+} from "@/lib/actions/public-placements";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Placements at Archer Infotech — 5,000+ Students Placed Since 2009",
@@ -34,6 +41,20 @@ export const metadata: Metadata = buildPageMetadata({
 export default async function PlacementsPage() {
   const companies = getHiringPartners();
   const testimonials = await getAllPublishedTestimonials();
+
+  // Public placement record. The admin CRUD has always written to this table
+  // but nothing rendered it, so every recorded placement was invisible. Only
+  // published rows are read (see public-placements.ts — the admin fetcher
+  // deliberately returns drafts too).
+  const placementRows = await getPublicPlacements();
+  const placementStats = computePlacementStats(placementRows);
+  // Below the threshold the section does not render at all: a three-row
+  // placement table is weaker than the claim it is meant to support.
+  // Two conditions, both required: enough rows to be credible AND an
+  // explicit opt-in. See public-placements.ts for why the count alone is
+  // not safe while demo rows remain in the database.
+  const showPlacementRecord =
+    isPlacementRecordEnabled() && placementRows.length >= MIN_PUBLIC_PLACEMENTS;
 
   return (
     <>
@@ -131,6 +152,40 @@ export default async function PlacementsPage() {
       </section>
 
       {/* Our Promise */}
+      {showPlacementRecord && (
+        <>
+          <PlacementDashboard placements={placementRows} stats={placementStats} />
+          {/* ItemList so the record is machine-readable. Emitted only when the
+              table is actually on the page — schema for content a reader
+              cannot see is the mismatch this codebase has hit twice. */}
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "ItemList",
+                name: "Archer Infotech placement record",
+                numberOfItems: placementRows.length,
+                itemListElement: placementRows.map((p, i) => ({
+                  "@type": "ListItem",
+                  position: i + 1,
+                  item: {
+                    "@type": "Person",
+                    name: p.displayName ?? "Archer Infotech student",
+                    jobTitle: p.designation,
+                    worksFor: { "@type": "Organization", name: p.company },
+                    alumniOf: {
+                      "@type": "EducationalOrganization",
+                      name: "Archer Infotech",
+                    },
+                  },
+                })),
+              }),
+            }}
+          />
+        </>
+      )}
+
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center mb-12">
