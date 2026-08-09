@@ -139,10 +139,15 @@ export default async function HomePage() {
           ~95 words, factual, every sentence stands alone, AI-citation
           ready. P8-07. */}
       <DefinitiveAnswer eyebrow="What is Archer Infotech?">
-        Archer Infotech is an IT training institute in Kothrud, Pune, founded
-        in 2009. Over 17+ years, more than 10,000 students have been trained
-        in Java, Python, Full Stack Development, Data Science, AI/ML,
-        AWS, DevOps and Cloud, with 5,000+ placed at MNCs including TCS,
+        Archer Infotech is an AI-first IT training institute in Kothrud, Pune,
+        founded in 2009. It teaches modern full stack development — Java,
+        Python, MERN and .NET — alongside Generative AI, Agentic AI, Data
+        Science, AWS, DevOps and Cloud, with AI-assisted development built
+        into the full stack curriculum rather than taught only as a separate
+        subject: the Java, Python and MERN tracks each carry an AI-assisted
+        development workflow module covering GitHub Copilot, Claude and
+        Cursor. Over 17+ years, more than 10,000 students have been trained
+        in these tracks, with 5,000+ placed at MNCs including TCS,
         Infosys, Wipro, Tech Mahindra, Persistent Systems and 100+ other
         hiring partners. The institute maintains a 90% placement rate and a{" "}
         {rating.ratingValue.toFixed(1)}-star Google rating across{" "}

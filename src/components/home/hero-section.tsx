@@ -41,7 +41,9 @@ export function HeroSection() {
 
             <p className="text-base md:text-lg lg:text-[1.05rem] xl:text-[1.15rem] text-white/80 max-w-xl">
               {siteConfig.stats.studentsTrained} students trained, {siteConfig.stats.studentsPlaced} placed.
-              Learn from industry experts, work on real projects, and join our placement assistance programme.
+              AI-first full stack training — build with Java, Python, React and cloud
+              using the AI tools working developers actually use. Real projects,
+              industry trainers, placement assistance.
             </p>
 
             {/* Key Points */}
