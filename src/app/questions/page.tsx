@@ -13,6 +13,8 @@ import {
 } from "@/data/questions";
 import { SourceCitations } from "@/components/seo/source-citations";
 import { siteConfig } from "@/data/site-config";
+import { FaqSection } from "@/components/seo/faq-section";
+import { questionsHubFaqs } from "@/data/hub-faqs";
 
 /**
  * P5-24 — PAA / Q&A hub at /questions.
@@ -233,6 +235,12 @@ export default function QuestionsHub() {
           },
         ]}
       />
+
+      {/* Hub-level FAQ — gives this page question-shaped headings,
+          adjacent answers and a FAQPage payload it previously had none
+          of. Content is specific to this hub, not shared boilerplate.
+          Audit 2026-08-09. */}
+      <FaqSection heading="About these answers — FAQs" items={questionsHubFaqs} />
 
     </>
   );

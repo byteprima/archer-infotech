@@ -11,6 +11,8 @@ import { LOCATIONS_LAST_REVIEWED } from "@/lib/seo/content-dates";
 import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { SourceCitations } from "@/components/seo/source-citations";
 import { sourcesForTopics } from "@/data/authoritative-sources";
+import { FaqSection } from "@/components/seo/faq-section";
+import { studentCitiesHubFaqs } from "@/data/hub-faqs";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "IT Training in Pune for Students from Across Maharashtra",
@@ -107,6 +109,12 @@ export default function CityFeederHubPage() {
         intro="Official documentation for the technologies referenced on this page."
         items={sourcesForTopics(["java-full-stack", "python", "data-science", "aws"])}
       />
+
+      {/* Hub-level FAQ — gives this page question-shaped headings,
+          adjacent answers and a FAQPage payload it previously had none
+          of. Content is specific to this hub, not shared boilerplate.
+          Audit 2026-08-09. */}
+      <FaqSection heading="Studying from outside Pune — FAQs" items={studentCitiesHubFaqs} />
 
     </>
   );

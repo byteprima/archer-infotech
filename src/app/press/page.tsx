@@ -21,6 +21,8 @@ import { teamMembers } from "@/data/team";
 import { buildPageMetadata } from "@/lib/seo";
 import { EVERGREEN_LAST_REVIEWED, NEW_ASSETS_LAST_REVIEWED } from "@/lib/seo/content-dates";
 import { LastUpdated } from "@/components/seo/last-updated";
+import { FaqSection } from "@/components/seo/faq-section";
+import { pressHubFaqs } from "@/data/hub-faqs";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Press & Media Kit",
@@ -282,6 +284,12 @@ export default function PressPage() {
           </div>
         </section>
       </div>
+      {/* Hub-level FAQ — gives this page question-shaped headings,
+          adjacent answers and a FAQPage payload it previously had none
+          of. Content is specific to this hub, not shared boilerplate.
+          Audit 2026-08-09. */}
+      <FaqSection heading="Press enquiries — FAQs" items={pressHubFaqs} />
+
     </>
   );
 }

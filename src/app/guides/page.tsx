@@ -11,6 +11,8 @@ import { topGuideSources } from "@/data/guide-sources";
 import { LastUpdated } from "@/components/seo/last-updated";
 import { NEW_ASSETS_LAST_REVIEWED } from "@/lib/seo/content-dates";
 import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
+import { FaqSection } from "@/components/seo/faq-section";
+import { guidesHubFaqs } from "@/data/hub-faqs";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "IT Career & Learning Guides",
@@ -88,6 +90,12 @@ export default function GuidesIndexPage() {
         intro="The primary references cited most often across these guides."
         items={topGuideSources()}
       />
+      {/* Hub-level FAQ — gives this page question-shaped headings,
+          adjacent answers and a FAQPage payload it previously had none
+          of. Content is specific to this hub, not shared boilerplate.
+          Audit 2026-08-09. */}
+      <FaqSection heading="About these guides — FAQs" items={guidesHubFaqs} />
+
     </>
   );
 }

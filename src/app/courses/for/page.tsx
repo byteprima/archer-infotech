@@ -11,6 +11,8 @@ import { NEW_ASSETS_LAST_REVIEWED } from "@/lib/seo/content-dates";
 import { SourceCitations } from "@/components/seo/source-citations";
 import { sourcesForTopics } from "@/data/authoritative-sources";
 import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
+import { FaqSection } from "@/components/seo/faq-section";
+import { audienceHubFaqs } from "@/data/hub-faqs";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "IT Courses in Pune for Your Background",
@@ -101,6 +103,12 @@ export default function AudienceHubPage() {
           audiences.flatMap((a) => a.alsoConsiderCourseSlugs),
         )}
       />
+      {/* Hub-level FAQ — gives this page question-shaped headings,
+          adjacent answers and a FAQPage payload it previously had none
+          of. Content is specific to this hub, not shared boilerplate.
+          Audit 2026-08-09. */}
+      <FaqSection heading="Choosing by background — FAQs" items={audienceHubFaqs} />
+
     </>
   );
 }

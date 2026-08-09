@@ -49,6 +49,39 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   if (!category) notFound();
 
   const categoryCourses = courses.filter((c) => c.categorySlug === categorySlug);
+
+  // Built from the catalogue, not written per category — see the comment at
+  // the render site below.
+  const courseNames = categoryCourses.map((c) => c.shortTitle || c.title);
+  const derivedCategoryFaqs = [
+    {
+      question: `Which ${category.name} courses does Archer Infotech offer in Pune?`,
+      answer: `Archer Infotech runs ${categoryCourses.length} ${category.name.toLowerCase()} ${
+        categoryCourses.length === 1 ? "course" : "courses"
+      }: ${courseNames.join(", ")}. All are taught from the Kothrud centre in Pune and are also available as live online batches.`,
+    },
+    {
+      question: `How long do the ${category.name} courses take?`,
+      answer: `Durations run from ${
+        categoryCourses
+          .map((c) => c.duration)
+          .filter(Boolean)
+          .join(" to ") || "a few months"
+      }, depending on the track and the batch pace you choose. Weekday, weekend and live-online schedules run in parallel, so the same course can be completed faster or spread across evenings and weekends.`,
+    },
+    {
+      question: `What do ${category.name} courses cost at Archer Infotech?`,
+      answer: `Course fees across the catalogue run from ₹15,000 to ₹90,000 depending on duration and curriculum depth, and every course supports EMI plans. Lifetime LMS access, certification and placement assistance are included with no separate charge — call +91 9850 678451 for the exact fee for a specific track.`,
+    },
+    {
+      question: `Is placement assistance included with ${category.name} courses?`,
+      answer: `Yes, at no separate fee. Placement assistance covers resume building, mock interviews, soft-skills training and direct referrals to 100+ corporate hiring partners. Archer Infotech has trained 10,000+ students and placed 5,000+ since 2009.`,
+    },
+    {
+      question: `Can I attend a free demo before enrolling?`,
+      answer: `Yes. Free demo classes run for every course. Book one through the contact page or call +91 9850 678451, Monday to Saturday between 9 AM and 8 PM, and sit in before committing to a batch.`,
+    },
+  ];
   // Rich category content (overview paragraphs, career outcomes, FAQs)
   // — present for the 9 main categories; falls back to the legacy
   // minimal layout when not configured (e.g. bootcamps category).
@@ -324,6 +357,26 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       {/* Category-level FAQs — paired with FAQPage JSON-LD via the
           existing FaqSection component. AI engines lift these
           verbatim. P4-11 + P8-08. */}
+      {/* Falls back to a data-derived FAQ when a category has no rich content
+          authored yet. Three hubs (salesforce, testing-qa, bootcamps) had no
+          FAQ, no question headings and no FAQPage payload at all, and were the
+          site's only remaining thin pages. Every answer below is built from
+          the catalogue itself — course names, counts, the canonical fee band
+          and the standard batch modes — so it cannot drift from what is
+          actually offered. Audit 2026-08-09. */}
+      {rich && rich.faqs.length === 0 && categoryCourses.length > 0 && (
+        <FaqSection
+          heading={`${category.name} courses — Frequently Asked Questions`}
+          items={derivedCategoryFaqs}
+        />
+      )}
+      {!rich && categoryCourses.length > 0 && (
+        <FaqSection
+          heading={`${category.name} courses — Frequently Asked Questions`}
+          items={derivedCategoryFaqs}
+        />
+      )}
+
       {rich && rich.faqs.length > 0 && (
         <FaqSection
           heading={`${category.name} courses — Frequently Asked Questions`}

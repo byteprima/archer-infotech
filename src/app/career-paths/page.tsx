@@ -9,6 +9,8 @@ import { EVERGREEN_LAST_REVIEWED, NEW_ASSETS_LAST_REVIEWED } from "@/lib/seo/con
 import { LastUpdated } from "@/components/seo/last-updated";
 import { SourceCitations } from "@/components/seo/source-citations";
 import { sourcesForTopics } from "@/data/authoritative-sources";
+import { FaqSection } from "@/components/seo/faq-section";
+import { careerPathsHubFaqs } from "@/data/hub-faqs";
 
 /**
  * P5-18 — Career Paths hub.
@@ -203,6 +205,12 @@ export default function CareerPathsHub() {
         intro="Official documentation for the technologies referenced on this page."
         items={sourcesForTopics(["java-full-stack", "python", "data-science", "aws"])}
       />
+
+      {/* Hub-level FAQ — gives this page question-shaped headings,
+          adjacent answers and a FAQPage payload it previously had none
+          of. Content is specific to this hub, not shared boilerplate.
+          Audit 2026-08-09. */}
+      <FaqSection heading="Career paths — FAQs" items={careerPathsHubFaqs} />
 
     </>
   );

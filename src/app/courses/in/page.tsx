@@ -11,6 +11,8 @@ import { buildPageMetadata } from "@/lib/seo";
 import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
 import { SourceCitations } from "@/components/seo/source-citations";
 import { sourcesForTopics } from "@/data/authoritative-sources";
+import { FaqSection } from "@/components/seo/faq-section";
+import { courseLocationsHubFaqs } from "@/data/hub-faqs";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "IT Courses in Pune by Area — Hinjewadi, Baner, Kothrud & More",
@@ -110,6 +112,12 @@ export default function CourseLocationHubPage() {
         intro="Official documentation for the technologies taught across these course and location combinations."
         items={sourcesForTopics(courseLocations.map((c) => c.courseSlug))}
       />
+      {/* Hub-level FAQ — gives this page question-shaped headings,
+          adjacent answers and a FAQPage payload it previously had none
+          of. Content is specific to this hub, not shared boilerplate.
+          Audit 2026-08-09. */}
+      <FaqSection heading="Course and area combinations — FAQs" items={courseLocationsHubFaqs} />
+
     </>
   );
 }
