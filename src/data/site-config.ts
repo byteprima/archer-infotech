@@ -163,6 +163,17 @@ export type SiteConfig = typeof siteConfig;
  *   4. Record it in the tracker so velocity keeps working:
  *        python3 ~/.config/claude-seo/review_velocity.py --update 'google:<count>,<rating>'
  *
+ * 2026-08-09 — CORRECTED. Read directly off the live profile via its CID
+ * (maps.google.com/?cid=6025358486108162616): 4.9 stars, 24 reviews. The
+ * published figures were 5.0 / 126 — a rating count 5.25x the real one,
+ * emitted site-wide in Organization schema for roughly two months. The 126
+ * appears to have been a manual entry that was never checked against the
+ * profile.
+ *
+ * Note the name-search trap: the plain Maps place URL in siteConfig
+ * redirects to a bare coordinate with no business attached. Always audit
+ * against the CID.
+ *
  * NEVER raise these numbers without looking. An AggregateRating that
  * overstates the real count is a structured-data policy violation, and the
  * downside is a manual action against the whole domain rather than the loss
