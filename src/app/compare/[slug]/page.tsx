@@ -192,17 +192,21 @@ export default async function ComparePage({ params }: ComparePageProps) {
                 <Scale className="h-7 w-7 text-secondary" />
                 Related comparisons
               </h2>
-              <div className="flex flex-wrap gap-2">
+              {/* A collection of sibling links is a list — marking it up as
+                  one is simply correct HTML, and it gives assistive tech and
+                  extractors the item count they were missing. */}
+              <ul className="flex flex-wrap gap-2 list-none p-0 m-0">
                 {relatedComparisons.map((c) => (
-                  <Link
-                    key={c.slug}
-                    href={`/compare/${c.slug}`}
-                    className="inline-flex items-center gap-1 rounded-full border px-4 py-2 text-sm hover:border-primary hover:text-primary transition-colors"
-                  >
-                    {c.optionA} vs {c.optionB} →
-                  </Link>
+                  <li key={c.slug}>
+                    <Link
+                      href={`/compare/${c.slug}`}
+                      className="inline-flex items-center gap-1 rounded-full border px-4 py-2 text-sm hover:border-primary hover:text-primary transition-colors"
+                    >
+                      {c.optionA} vs {c.optionB} →
+                    </Link>
+                  </li>
                 ))}
-              </div>
+              </ul>
               <p className="text-sm text-muted-foreground">
                 See all{" "}
                 <Link href="/compare" className="text-primary hover:underline font-medium">

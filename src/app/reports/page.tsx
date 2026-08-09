@@ -113,6 +113,59 @@ export default function ReportsHub() {
               </Link>
             ))}
           </section>
+
+          {/* Methodology + editorial policy. This hub was the site's last thin
+              page at 315 words, and the gap was real rather than cosmetic:
+              a reader deciding whether to trust a data report needs to know
+              where the numbers come from before downloading it. Facts match
+              the methodology section of the report itself. Audit 2026-08-09. */}
+          <section className="space-y-4">
+            <h2 className="text-2xl md:text-3xl font-bold">
+              How these reports are put together
+            </h2>
+            <p className="text-muted-foreground leading-relaxed">
+              Every figure comes from one of four sources, and each is named in
+              the report against the number it supports. Job-listing volumes and
+              employer activity are compiled from Pune-filtered listings on
+              Naukri and LinkedIn. College pipeline data comes from official
+              placement reports published by the institutions themselves. Salary
+              bands are cross-checked against multiple market sources rather
+              than taken from a single aggregator. Batch and outcome data comes
+              from Archer Infotech&apos;s own records, which run to 2009.
+            </p>
+            <p className="text-muted-foreground leading-relaxed">
+              Where a number cannot be verified, we publish an estimate range
+              with the underlying assumption stated, rather than a false
+              precision. Sample sizes and date ranges are documented per
+              section, so a figure can be checked rather than taken on trust.
+            </p>
+            <h2 className="text-2xl md:text-3xl font-bold pt-2">
+              What we will not publish
+            </h2>
+            <ul className="space-y-2 text-muted-foreground">
+              <li>
+                Invented hiring counts, salary bands or placement statistics.
+              </li>
+              <li>
+                A &quot;100% placement&quot; claim, or any figure that cannot be
+                traced back to a named record.
+              </li>
+              <li>
+                A single blended &quot;average salary&quot;, because the
+                distribution across roles and experience tiers makes one number
+                misleading.
+              </li>
+              <li>
+                Employer names presented as hiring partners where the
+                relationship is only a past placement.
+              </li>
+            </ul>
+            <p className="text-muted-foreground leading-relaxed">
+              Reports are free, and the download form asks only for an email so
+              the file and the monthly Pune hiring briefing can be sent. You can
+              cite any report with attribution and a link back to its page.
+            </p>
+          </section>
         </div>
       </article>
       <SourceCitations
