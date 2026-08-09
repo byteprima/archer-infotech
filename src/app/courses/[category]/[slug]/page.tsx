@@ -52,7 +52,6 @@ import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { buildPageMetadata } from "@/lib/seo";
 import { getNextBatchForCourse } from "@/lib/actions/public-batches";
 import { getCourseRichContent } from "@/data/course-content";
-import { Suspense } from "react";
 import {
   RichCourseContentAboveFold,
   RichCourseContentBelowFold,
@@ -533,16 +532,15 @@ export default async function CoursePage({ params }: CoursePageProps) {
               })()}
 
               <RichCourseContentAboveFold rich={rich} />
-              <Suspense
-                fallback={
-                  <div
-                    aria-busy="true"
-                    className="min-h-[600px] flex items-center justify-center text-sm text-muted-foreground"
-                  >
-                    Loading course details…
-                  </div>
-                }
-              >
+              {/* No <Suspense> here. The boundary existed only because
+                  RichCourseContentBelowFold was artificially async; these
+                  pages are SSG, so it bought no streaming benefit and put
+                  the entire course body — curriculum, fees, placement,
+                  FAQ — after the footer in the raw HTML, behind a "Loading
+                  course details…" placeholder. JS-executing crawlers coped;
+                  the AI crawlers this site targets read raw HTML and did
+                  not. See the note on RichCourseContentBelowFold. */}
+              <>
                 <RichCourseContentBelowFold
                   rich={rich}
                   courseName={course.shortTitle}
@@ -572,7 +570,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
                     </div>
                   </section>
                 )}
-              </Suspense>
+              </>
             </>
           ) : (
           <div className="grid lg:grid-cols-3 gap-8">

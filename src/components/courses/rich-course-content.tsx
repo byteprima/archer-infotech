@@ -119,17 +119,34 @@ export function RichCourseContentAboveFold({
  * Curriculum, Capstone Projects, Career Outcomes, Modes & Duration,
  * Fees, Placement Support, Comparison, Versus Alternative, Prerequisites.
  *
- * Async to force a streaming boundary: the `await Promise.resolve()` yields
- * one microtask, which lets Next/React flush the hero + AboveFold in the
- * initial response chunk and stream this heavy ~350-line tree afterwards.
- * Cuts the first chunk from ~494 KB → ~30–40 KB on heavy course pages,
- * materially improving Lab LCP on simulated mobile 4G.
+ * Renders synchronously, in document order.
+ *
+ * This used to be `async` with a bare `await Promise.resolve()` purely to
+ * force a Suspense streaming boundary, on the reasoning that it cut the
+ * first response chunk from ~494 KB to ~30–40 KB and improved lab LCP.
+ * That reasoning applies to dynamically server-rendered pages. These pages
+ * are **SSG** (`● /courses/[category]/[slug]` in the build output) —
+ * prerendered to a static HTML file at build time and served whole, so
+ * there is no request-time streaming to optimise. The hero is already the
+ * first bytes of that file either way, so it paints just as early without
+ * the boundary.
+ *
+ * What the boundary did cost was document order. Measured on the built
+ * Java Full Stack page: the Suspense fallback ("Loading course details…")
+ * sat at 11.4% of the file, `<footer>` at 16.2%, and the actual curriculum
+ * only at 20.3% — inside `<template>` chunks that require JavaScript to be
+ * moved into place. Googlebot executes JS and handles that fine, but the
+ * AI crawlers this site is explicitly optimising for (GPTBot, ClaudeBot,
+ * PerplexityBot, CCBot) largely do not. To them the course body read as a
+ * loading placeholder followed by a footer.
+ *
+ * If lab LCP regresses after this change, fix it by trimming the payload
+ * rather than by hiding the body behind a boundary again.
  */
-export async function RichCourseContentBelowFold({
+export function RichCourseContentBelowFold({
   rich,
   courseName,
 }: RichCourseContentProps) {
-  await Promise.resolve();
   return (
     <div className="space-y-12">
       {/* Section 4 — Curriculum */}
