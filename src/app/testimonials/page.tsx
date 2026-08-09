@@ -31,21 +31,29 @@ import {
   type ReviewSchemaInput,
 } from "@/components/seo/json-ld";
 import { getAllPublishedTestimonials } from "@/lib/actions/public-testimonials";
-import { siteConfig, googleReviews } from "@/data/site-config";
+import { siteConfig } from "@/data/site-config";
+import { getDisplayRating, getPublicReviews } from "@/lib/reviews/rating";
+import { GoogleReviewsWall } from "@/components/seo/google-reviews-wall";
 import { testimonialsFaqs } from "@/data/testimonial-faqs";
 import { buildPageMetadata } from "@/lib/seo";
 import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
 
-export const metadata: Metadata = buildPageMetadata({
-  // P3-22 — original 85-char title was over the 60-char Google
-  // snippet budget. Brand stays in the title since the page IS the
-  // brand's review hub; the buildPageMetadata auto-skip suffix logic
-  // detects "Archer Infotech" and won't double it.
-  title: `Archer Infotech Reviews — ${googleReviews.ratingValue.toFixed(1)}★ from ${googleReviews.ratingCount} Google Reviews`,
-  description: `Read ${googleReviews.ratingValue.toFixed(1)}-star Google-verified reviews + placement testimonials from Archer Infotech students. Names, courses, hiring companies and LinkedIn profiles — all verifiable, none fabricated. Rating verified ${googleReviews.verifiedOn}.`,
-  path: "/testimonials",
-  lastModified: EVERGREEN_LAST_REVIEWED,
-});
+// generateMetadata rather than a static `metadata` const: the title and
+// description quote the live rating, which is resolved asynchronously and
+// cannot be read at module scope.
+export async function generateMetadata(): Promise<Metadata> {
+  const rating = await getDisplayRating();
+  return buildPageMetadata({
+    // P3-22 — original 85-char title was over the 60-char Google
+    // snippet budget. Brand stays in the title since the page IS the
+    // brand's review hub; the buildPageMetadata auto-skip suffix logic
+    // detects "Archer Infotech" and won't double it.
+    title: `Archer Infotech Reviews — ${rating.ratingValue.toFixed(1)}★ from ${rating.ratingCount} Google Reviews`,
+    description: `Read ${rating.ratingValue.toFixed(1)}-star Google-verified reviews + placement testimonials from Archer Infotech students. Names, courses, hiring companies and LinkedIn profiles — all verifiable, none fabricated. Rating verified ${rating.verifiedOn}.`,
+    path: "/testimonials",
+    lastModified: EVERGREEN_LAST_REVIEWED,
+  });
+}
 
 /**
  * Course → track-grouping map. Reduces 40+ course names to ~8 buckets so
@@ -115,13 +123,16 @@ export default async function TestimonialsPage() {
     (t) => classifyTrack(t.courseTaken) === "other",
   );
 
-  // Headline aggregate — read from the single verified GBP constant. These
-  // were previously literals here (126 / 5.0) that drifted out of step with
-  // the live profile and with the AggregateRating in the JSON-LD. Anything
-  // rendering the rating now derives it, so one verification updates every
-  // surface at once.
-  const googleReviewCount = googleReviews.ratingCount;
-  const googleRatingValue = googleReviews.ratingValue;
+  // Headline aggregate — resolved from the GBP mirror, falling back to the
+  // hand-verified constant. These were literals here (126 / 5.0) that drifted
+  // out of step with both the live profile and the AggregateRating in the
+  // JSON-LD. Everything that renders the rating now derives it from one
+  // resolver, so no two surfaces can disagree.
+  const rating = await getDisplayRating();
+  const googleReviewCount = rating.ratingCount;
+  const googleRatingValue = rating.ratingValue;
+  // Mirrored GBP reviews for the wall further down the page.
+  const googleReviewRows = await getPublicReviews();
   const onSiteTestimonialCount = dbTestimonials.length;
   const uniqueCompanies = new Set(
     dbTestimonials
@@ -221,7 +232,7 @@ export default async function TestimonialsPage() {
         Archer Infotech holds a {googleRatingValue.toFixed(1)}-star average
         across {googleReviewCount} verified Google reviews on its Kothrud
         Business Profile (read from the live profile on{" "}
-        {googleReviews.verifiedOn}). The institute was founded in 2009 by
+        {rating.verifiedOn}). The institute was founded in 2009 by
         Yogesh Patil. Reviews are unmoderated on Google — the institute does
         not run paid-review schemes, incentivise feedback, or pre-screen
         submissions, which is why the review count is smaller than at
@@ -561,6 +572,19 @@ export default async function TestimonialsPage() {
           </div>
         </div>
       </section>
+
+      {/* Mirrored Google reviews — the actual review text, which is what
+          AI engines can cite and what a sceptical reader came to read.
+          Renders nothing until the mirror has rows, so the page degrades
+          to its curated testimonials rather than showing an empty shelf. */}
+      {googleReviewRows.length > 0 && (
+        <section className="container mx-auto px-4 py-12 md:py-16 max-w-5xl">
+          <GoogleReviewsWall
+            reviews={googleReviewRows}
+            totalReviewCount={googleReviewCount}
+          />
+        </section>
+      )}
 
       {/* FAQs about reviews + credibility — own the trust queries */}
       <FaqSection

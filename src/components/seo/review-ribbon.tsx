@@ -1,7 +1,7 @@
 import { Star, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 
-import { googleReviews } from "@/data/site-config";
+import { resolveRating } from "@/lib/reviews/rating";
 
 interface ReviewRibbonProps {
   /**
@@ -10,19 +10,16 @@ interface ReviewRibbonProps {
    */
   variant?: "light" | "dark";
   /**
-   * Optional override for the rating value displayed. Defaults to the
-   * canonical verified GBP aggregate in site-config. Always rendered to
-   * one decimal.
+   * Optional override for the rating value. Omit in normal use — the
+   * ribbon resolves the verified figure itself. Rendered to one decimal.
    */
   ratingValue?: number;
   /**
-   * Optional override for the review count. Defaults to the canonical
-   * verified GBP count in site-config.
+   * Optional override for the review count. Omit in normal use.
    *
-   * Rendered as an exact figure, not `N+`. The count here is what a human
-   * read off the live profile on a known date; "+" implies a floor we have
-   * not established and inflates a number that must match the
-   * AggregateRating in the JSON-LD.
+   * Rendered as an exact figure, never `N+`. The "+" implies a floor that
+   * has not been established, and this number must match the
+   * AggregateRating in the JSON-LD exactly.
    */
   reviewCount?: number;
   /** Layout — `compact` is a single line; `block` is a card. */
@@ -40,13 +37,23 @@ interface ReviewRibbonProps {
  * to Google. AI engines reading the page see both the visible signal
  * AND the structured AggregateRating in the parent surface's JSON-LD.
  */
-export function ReviewRibbon({
+export async function ReviewRibbon({
   variant = "dark",
-  ratingValue = googleReviews.ratingValue,
-  reviewCount = googleReviews.ratingCount,
+  ratingValue,
+  reviewCount,
   layout = "compact",
   className,
 }: ReviewRibbonProps) {
+  // Resolved from the same source as the AggregateRating in the page's
+  // JSON-LD, so the visible claim and the machine-readable one cannot
+  // disagree. When no source is fresh enough to publish, the ribbon
+  // renders nothing rather than a stale number — a missing trust badge is
+  // recoverable, a wrong one that contradicts the profile is not.
+  const { rating } = await resolveRating();
+  const value = ratingValue ?? rating?.ratingValue;
+  const count = reviewCount ?? rating?.ratingCount;
+  if (value === undefined || count === undefined) return null;
+
   const lightText = variant === "light";
 
   if (layout === "compact") {
@@ -64,7 +71,7 @@ export function ReviewRibbon({
             <Star
               key={i}
               className={`h-3.5 w-3.5 ${
-                i < Math.round(ratingValue)
+                i < Math.round(value)
                   ? "fill-secondary text-secondary"
                   : "text-muted-foreground/40"
               }`}
@@ -72,7 +79,7 @@ export function ReviewRibbon({
           ))}
         </span>
         <span>
-          <strong>{ratingValue.toFixed(1)}</strong> from {reviewCount} Google
+          <strong>{value.toFixed(1)}</strong> from {count} Google
           reviews
         </span>
       </Link>
@@ -95,13 +102,13 @@ export function ReviewRibbon({
       />
       <div>
         <div className="flex items-center gap-2">
-          <span className="text-xl font-bold">{ratingValue.toFixed(1)}</span>
+          <span className="text-xl font-bold">{value.toFixed(1)}</span>
           <span className="flex items-center gap-0.5">
             {Array.from({ length: 5 }).map((_, i) => (
               <Star
                 key={i}
                 className={`h-4 w-4 ${
-                  i < Math.round(ratingValue)
+                  i < Math.round(value)
                     ? "fill-secondary text-secondary"
                     : "text-muted-foreground/40"
                 }`}
@@ -111,7 +118,7 @@ export function ReviewRibbon({
           <span className="text-sm font-medium">/ 5</span>
         </div>
         <div className={`text-xs ${lightText ? "text-white/80" : "text-muted-foreground"}`}>
-          From {reviewCount} verified Google reviews — read on /testimonials
+          From {count} verified Google reviews — read on /testimonials
         </div>
       </div>
     </Link>

@@ -12,7 +12,8 @@ import {
   totalQuestionsAcrossCategories,
 } from "@/data/questions";
 import { SourceCitations } from "@/components/seo/source-citations";
-import { siteConfig, googleReviews } from "@/data/site-config";
+import { siteConfig } from "@/data/site-config";
+import { getDisplayRating } from "@/lib/reviews/rating";
 import { FaqSection } from "@/components/seo/faq-section";
 import { questionsHubFaqs } from "@/data/hub-faqs";
 
@@ -34,7 +35,8 @@ export const metadata: Metadata = buildPageMetadata({
   lastModified: EVERGREEN_LAST_REVIEWED,
 });
 
-export default function QuestionsHub() {
+export default async function QuestionsHub() {
+  const rating = await getDisplayRating();
   return (
     <>
       <BreadcrumbJsonLd
@@ -184,7 +186,7 @@ export default function QuestionsHub() {
                   → Archer Infotech Fact Sheet
                 </Link>{" "}
                 — Verified institute facts (founded 2009, 10K+ trained, 90%
-                placement rate, {googleReviews.ratingCount} Google reviews).
+                placement rate, {rating.ratingCount} Google reviews).
               </li>
             </ul>
           </section>

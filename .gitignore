@@ -45,3 +45,7 @@ next-env.d.ts
 *.db-journal
 *.db-shm
 *.db-wal
+
+# Hand-transcribed GBP reviews — real reviewer names; kept out of git and
+# copied to the server for the one-time import. See scripts/import-google-reviews.mjs
+scripts/data/google-reviews.json

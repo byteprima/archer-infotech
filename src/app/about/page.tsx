@@ -3,7 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { CheckCircle, Award, Target, Eye, Calendar, Star, Building2, GraduationCap, BookMarked } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { siteConfig, googleReviews } from "@/data/site-config";
+import { siteConfig } from "@/data/site-config";
+import { getDisplayRating } from "@/lib/reviews/rating";
 import { getTeamMembers, getTrainer } from "@/data/team";
 import { getHiringPartners } from "@/data/companies";
 import { AnimatedCounter } from "@/components/common/animated-counter";
@@ -26,8 +27,9 @@ export const metadata: Metadata = buildPageMetadata({
   path: "/about",
 });
 
-export default function AboutPage() {
+export default async function AboutPage() {
   const teamMembers = getTeamMembers();
+  const rating = await getDisplayRating();
   const hiringPartners = getHiringPartners();
   const founder = getTrainer("yogesh-patil");
 
@@ -84,8 +86,8 @@ export default function AboutPage() {
         and Wipro. Over 17+ years it has trained 10,000+ students and placed
         5,000+ at companies like TCS, Infosys, Wipro, Tech Mahindra and
         Persistent Systems, holding a 90% placement rate and a{" "}
-        {googleReviews.ratingValue.toFixed(1)}-star Google rating across{" "}
-        {googleReviews.ratingCount} reviews. The institute teaches Java,
+        {rating.ratingValue.toFixed(1)}-star Google rating across{" "}
+        {rating.ratingCount} reviews. The institute teaches Java,
         Python, Full Stack, Data
         Science, AI/ML, AWS, DevOps and Cloud across weekday, weekend and
         online batches, with placement assistance bundled into every
@@ -295,8 +297,8 @@ export default function AboutPage() {
                 (CodeLeap for 12th passouts, CareerCode for engineering students, TechReady for graduates);
                 and corporate training engagements with Amdocs, Capgemini, MindTree and Tech Mahindra.
                 The numbers behind the work — 10,000+ trained, 5,000+ placed, 1,000+ batches completed,
-                100+ hiring partners, a {googleReviews.ratingValue.toFixed(1)}-star Google rating
-                across {googleReviews.ratingCount} verified reviews — are the
+                100+ hiring partners, a {rating.ratingValue.toFixed(1)}-star Google rating
+                across {rating.ratingCount} verified reviews — are the
                 output of one editorial choice repeated batch after batch: hire trainers who still ship
                 production code, and refuse to scale faster than the trainer team can sustain.
               </p>
@@ -389,7 +391,7 @@ export default function AboutPage() {
                 {
                   year: "2026",
                   title: "10,000+ trained, 5,000+ placed, 100+ hiring partners",
-                  body: `17 years of operating history; 90% placement rate across cohorts who complete training; ${googleReviews.ratingValue.toFixed(1)}-star Google rating across ${googleReviews.ratingCount} verified reviews; active corporate-training engagements with Amdocs, Capgemini, MindTree, Tech Mahindra.`,
+                  body: `17 years of operating history; 90% placement rate across cohorts who complete training; ${rating.ratingValue.toFixed(1)}-star Google rating across ${rating.ratingCount} verified reviews; active corporate-training engagements with Amdocs, Capgemini, MindTree, Tech Mahindra.`,
                 },
               ].map((m) => (
                 <li key={m.year} className="ml-6">
@@ -589,12 +591,12 @@ export default function AboutPage() {
                       <Star className="h-5 w-5 text-secondary fill-secondary" />
                     </div>
                     <h3 className="font-bold text-lg">
-                      {googleReviews.ratingValue.toFixed(1)}-star Google rating
+                      {rating.ratingValue.toFixed(1)}-star Google rating
                     </h3>
                   </div>
                   <p className="text-muted-foreground text-sm leading-relaxed">
-                    Across {googleReviews.ratingCount} verified Google reviews
-                    (verified {googleReviews.verifiedOn})
+                    Across {rating.ratingCount} verified Google reviews
+                    (verified {rating.verifiedOn})
                     from former students. The rating reflects placement
                     outcomes and trainer depth — the two things students
                     and parents consistently call out in review text.

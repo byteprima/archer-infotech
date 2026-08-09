@@ -40,9 +40,9 @@ import { getHiringPartners } from "@/data/companies";
 import { getTrainersForCourse } from "@/data/team";
 import {
   siteConfig,
-  googleReviews,
   MIN_COURSE_RATINGS_FOR_SCHEMA,
 } from "@/data/site-config";
+import { getDisplayRating } from "@/lib/reviews/rating";
 import { buildPageMetadata } from "@/lib/seo";
 import { getNextBatchForCourse } from "@/lib/actions/public-batches";
 import { getCourseRichContent } from "@/data/course-content";
@@ -179,6 +179,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
   // penalty lands on the domain, not the snippet. The visible testimonial
   // panel still renders from one card; only the machine-readable claim
   // waits for a real distribution.
+  const orgRating = await getDisplayRating();
   const courseTestimonials = await getCourseTestimonials(course.title);
   const courseAggregateRating =
     courseTestimonials.length >= MIN_COURSE_RATINGS_FOR_SCHEMA
@@ -1014,8 +1015,8 @@ export default async function CoursePage({ params }: CoursePageProps) {
                 published testimonial
                 {courseTestimonials.length !== 1 && "s"} from{" "}
                 {course.shortTitle} students, alongside our overall{" "}
-                {googleReviews.ratingValue.toFixed(1)}★ rating from{" "}
-                {googleReviews.ratingCount} Google reviews.{" "}
+                {orgRating.ratingValue.toFixed(1)}★ rating from{" "}
+                {orgRating.ratingCount} Google reviews.{" "}
                 <Link
                   href="/testimonials"
                   className="text-primary hover:underline font-medium"

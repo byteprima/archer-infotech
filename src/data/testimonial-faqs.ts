@@ -1,5 +1,4 @@
 import type { FaqItem } from "@/components/seo/faq-section";
-import { googleReviews } from "@/data/site-config";
 
 /**
  * FAQ items for the flagship /testimonials trust page (P7-26).
@@ -21,12 +20,12 @@ export const testimonialsFaqs: FaqItem[] = [
   {
     question: "How can I verify Archer Infotech's reviews independently?",
     answer:
-      `Search 'Archer Infotech Kothrud' on Google Maps — the Business Profile shows ${googleReviews.ratingCount} reviews with a ${googleReviews.ratingValue.toFixed(1)}-star aggregate, verified ${googleReviews.verifiedOn}. The Google review feed is the canonical source: we don't moderate, edit or hide anything there. JustDial and Sulekha listings carry independent rating histories going back several years. All three are linked from this page.`,
+      "Search 'Archer Infotech Kothrud' on Google Maps — the Business Profile carries the canonical star average and review count, and the current figures are also shown at the top of this page. The Google review feed is the source of record: we don't moderate, edit or hide anything there. JustDial and Sulekha listings carry independent rating histories going back several years. All three are linked from this page.",
   },
   {
     question: "What's Archer Infotech's overall rating across review platforms?",
     answer:
-      `${googleReviews.ratingValue.toFixed(1)} / 5 across ${googleReviews.ratingCount} verified Google reviews (Google Business Profile, Archer Infotech Kothrud, verified ${googleReviews.verifiedOn}). Independent listings on JustDial and Sulekha carry their own rating histories. We don't run review-incentive schemes, paid review campaigns, or third-party reputation buying — every review is from a real student of their own accord, which keeps the count lower than at institutes that solicit reviews at scale.`,
+      "The Google Business Profile for Archer Infotech Kothrud is the canonical rating; the live star average and review count are shown at the top of this page and update from the profile itself. Independent listings on JustDial and Sulekha carry their own rating histories. We don't run review-incentive schemes, paid review campaigns, or third-party reputation buying — every review is from a real student of their own accord, which keeps the count lower than at institutes that solicit reviews at scale.",
   },
   {
     question: "Do you publish every testimonial, or only positive ones?",

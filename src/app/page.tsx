@@ -26,7 +26,8 @@ const TestimonialsSection = nextDynamic(
   () => import("@/components/home/testimonials-section").then((m) => m.TestimonialsSection),
 );
 import { getHomeTestimonials } from "@/lib/actions/public-testimonials";
-import { siteConfig, googleReviews } from "@/data/site-config";
+import { siteConfig } from "@/data/site-config";
+import { getDisplayRating } from "@/lib/reviews/rating";
 import { buildPageMetadata } from "@/lib/seo";
 import { ReviewListJsonLd, WebSiteJsonLd } from "@/components/seo/json-ld";
 import { IconSprite } from "@/components/ui/icon-sprite";
@@ -98,6 +99,7 @@ export const metadata: Metadata = buildPageMetadata({
 
 export default async function HomePage() {
   const testimonials = await getHomeTestimonials();
+  const rating = await getDisplayRating();
 
   return (
     <>
@@ -143,8 +145,8 @@ export default async function HomePage() {
         AWS, DevOps and Cloud, with 5,000+ placed at MNCs including TCS,
         Infosys, Wipro, Tech Mahindra, Persistent Systems and 100+ other
         hiring partners. The institute maintains a 90% placement rate and a{" "}
-        {googleReviews.ratingValue.toFixed(1)}-star Google rating across{" "}
-        {googleReviews.ratingCount} reviews, and is led by trainers with 15+
+        {rating.ratingValue.toFixed(1)}-star Google rating across{" "}
+        {rating.ratingCount} reviews, and is led by trainers with 15+
         years of MNC
         experience. Courses run weekday, weekend and online with lifetime LMS
         access, certification and placement assistance.

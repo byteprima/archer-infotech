@@ -307,6 +307,61 @@ export const seoKeywordRanks = sqliteTable("seo_keyword_ranks", {
   position: real("position").notNull().default(0),
 });
 
+// Google Business Profile reviews — mirror of the reviews on the GBP
+// (CID 6025358486108162616), pulled by the nightly sync in
+// /api/reviews/sync from GBP API v4 accounts.locations.reviews.list.
+//
+// Why a mirror rather than a live call on render: GBP API is rate-limited
+// and the profile changes slowly. Unlike Places API content, GBP review
+// data is the business's own and carries no caching prohibition, so it is
+// safe to persist.
+//
+// `reviewId` is Google's opaque ID and the upsert key — review text can be
+// edited by its author, so rows are updated in place rather than appended.
+export const gbpReviews = sqliteTable("gbp_reviews", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  // Google's review name/ID — stable across edits. Upsert key.
+  reviewId: text("review_id").notNull().unique(),
+  reviewerName: text("reviewer_name"),
+  reviewerPhotoUrl: text("reviewer_photo_url"),
+  // 1-5. Google's API returns a STAR_RATING enum; the client maps it to int.
+  starRating: integer("star_rating").notNull(),
+  comment: text("comment"),
+  // The business's public reply, if any — a visible responsiveness signal.
+  replyComment: text("reply_comment"),
+  replyUpdatedAt: integer("reply_updated_at", { mode: "timestamp_ms" }),
+  createTime: integer("create_time", { mode: "timestamp_ms" }),
+  updateTime: integer("update_time", { mode: "timestamp_ms" }),
+  // Admin can suppress a row from the public wall without deleting it, so
+  // the aggregate still counts what Google counts. Hiding a review changes
+  // only what the page displays, never the reported total.
+  isHidden: integer("is_hidden", { mode: "boolean" }).notNull().default(false),
+  syncedAt: integer("synced_at", { mode: "timestamp_ms" })
+    .notNull()
+    .$defaultFn(() => new Date()),
+});
+
+// Single-row state for the GBP review sync. Keyed on `id = 1`.
+//
+// The staleness fields are the point of this table. The site previously
+// published a hand-typed review count for two months with nothing able to
+// signal that it had gone stale. `lastSuccessAt` lets the rating resolver
+// withhold AggregateRating entirely once the mirror ages out, which fails
+// closed instead of publishing a confident wrong number.
+export const gbpSyncState = sqliteTable("gbp_sync_state", {
+  id: integer("id").primaryKey(),
+  // Totals as reported by Google, not recomputed from the mirrored rows —
+  // Google's own total is the figure that must match the AggregateRating.
+  totalReviewCount: integer("total_review_count"),
+  averageRating: real("average_rating"),
+  // Last run that completed without error. Drives the staleness guard.
+  lastSuccessAt: integer("last_success_at", { mode: "timestamp_ms" }),
+  lastAttemptAt: integer("last_attempt_at", { mode: "timestamp_ms" }),
+  lastError: text("last_error"),
+  // Rows written by the most recent successful run — cheap sanity check.
+  lastSyncedCount: integer("last_synced_count"),
+});
+
 // Audit logs table - for tracking admin actions
 export const auditLogs = sqliteTable("audit_logs", {
   id: integer("id").primaryKey({ autoIncrement: true }),
@@ -343,6 +398,12 @@ export type NewAlumni = typeof alumni.$inferInsert;
 
 export type AuditLog = typeof auditLogs.$inferSelect;
 export type NewAuditLog = typeof auditLogs.$inferInsert;
+
+export type GbpReview = typeof gbpReviews.$inferSelect;
+export type NewGbpReview = typeof gbpReviews.$inferInsert;
+
+export type GbpSyncState = typeof gbpSyncState.$inferSelect;
+export type NewGbpSyncState = typeof gbpSyncState.$inferInsert;
 
 export type SeoMetricsCache = typeof seoMetricsCache.$inferSelect;
 export type NewSeoMetricsCache = typeof seoMetricsCache.$inferInsert;

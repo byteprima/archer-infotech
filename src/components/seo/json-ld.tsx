@@ -1,4 +1,5 @@
-import { siteConfig, googleReviews } from "@/data/site-config";
+import { siteConfig } from "@/data/site-config";
+import { resolveRating } from "@/lib/reviews/rating";
 import type { Batch } from "@/db/schema";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://archerinfotech.in";
@@ -116,7 +117,14 @@ const AREA_SERVED_FULL = [
 ];
 
 // Combined EducationalOrganization + LocalBusiness — single source of truth, used site-wide.
-export function OrganizationJsonLd() {
+//
+// Async because the aggregateRating is resolved at render from the GBP
+// mirror (falling back to the hand-verified constant, and to omitting the
+// rating entirely when neither is fresh). All importers are server
+// components, so this is a plain RSC await.
+export async function OrganizationJsonLd() {
+  const { rating } = await resolveRating();
+
   const schema = {
     "@context": "https://schema.org",
     "@type": ["EducationalOrganization", "LocalBusiness"],
@@ -146,26 +154,30 @@ export function OrganizationJsonLd() {
     areaServed: AREA_SERVED_FULL,
     priceRange: "₹₹",
     openingHoursSpecification: OPENING_HOURS,
-    // aggregateRating from the Google Business Profile. The figures live in
-    // site-config's `googleReviews`, which carries the date a human last read
-    // them off the live profile — see the note there before changing them.
+    // aggregateRating resolved from the GBP mirror, then the hand-verified
+    // constant, then omitted. `resolveRating()` returns null when neither
+    // source is fresh, and the spread below emits nothing in that case —
+    // withholding the rating is the designed outcome, not a degraded one.
     //
-    // OPEN RISK, flagged 2026-08-09 and NOT yet resolved: this is a
-    // self-serving aggregate. It sits on the Organization block, is emitted on
-    // every page, and summarises reviews that are not displayed on the page it
-    // appears on. Google withdrew rich-result support for self-serving
-    // LocalBusiness/Organization review snippets, so this is unlikely to be
-    // earning the stars it looks like it earns, and carries policy risk if the
-    // count is ever wrong. Removing it is an editorial decision with SERP
-    // consequences, so it is left in place pending that call rather than
-    // silently deleted.
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: googleReviews.ratingValue,
-      ratingCount: googleReviews.ratingCount,
-      bestRating: 5,
-      worstRating: 1,
-    },
+    // KNOWN, and the reason this is not chased any harder: a self-serving
+    // aggregate on LocalBusiness/Organization is ineligible for Google star
+    // rich results regardless of the numbers. Google's review-snippet
+    // guidance is explicit — "if the entity that's being reviewed controls
+    // the reviews about itself, their pages that use LocalBusiness or any
+    // other type of Organization structured data are ineligible for star
+    // review feature". It is kept because AI engines read JSON-LD without
+    // applying Google's rich-result eligibility rules, so an accurate
+    // aggregate still carries GEO value. It must therefore be accurate or
+    // absent — never merely plausible.
+    ...(rating && {
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: rating.ratingValue,
+        ratingCount: rating.ratingCount,
+        bestRating: 5,
+        worstRating: 1,
+      },
+    }),
     knowsAbout: [
       "Java", "Python", "JavaScript", "React", "Angular", "Node.js",
       "AWS", "Azure", "Google Cloud", "DevOps", "Kubernetes", "Docker",
