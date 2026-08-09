@@ -15,6 +15,7 @@
  *   - Brand name is always "Archer Infotech" (never "Archer Info Tech")
  */
 import type { FaqItem } from "@/components/seo/faq-section";
+import { googleReviews } from "@/data/site-config";
 
 /**
  * Home page FAQs — top funnel, broad institute-level questions.
@@ -80,7 +81,7 @@ export const aboutFaqs: FaqItem[] = [
   {
     question: "Why is Archer Infotech considered a trusted IT training institute in Pune?",
     answer:
-      "Archer Infotech holds 17+ years of training history (founded 2009), a 90% placement rate (institute internal records), a 5.0-star Google rating across 126+ verified Google reviews (as of May 2026), and 100+ active corporate hiring partners. Reviews consistently cite trainer depth, project-based learning and structured placement support as the reasons for its standing among Pune IT institutes.",
+      `Archer Infotech holds 17+ years of training history (founded 2009), a 90% placement rate (institute internal records), a ${googleReviews.ratingValue.toFixed(1)}-star Google rating across ${googleReviews.ratingCount} verified Google reviews (verified ${googleReviews.verifiedOn}), and 100+ active corporate hiring partners. Reviews consistently cite trainer depth, project-based learning and structured placement support as the reasons for its standing among Pune IT institutes.`,
   },
   {
     question: "How many students has Archer Infotech trained?",

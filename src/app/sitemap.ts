@@ -56,7 +56,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${baseUrl}/placements`, lastModified: EVERGREEN, changeFrequency: "monthly", priority: 0.8 },
     // P7-26 flagship trust page (2026-06-10) — student reviews +
     // testimonials hub with Review schema + AggregateRating from the
-    // 126+ Google review feed. Priority 0.8 to match /placements: both
+    // Google review feed. Priority 0.8 to match /placements: both
     // are top-of-funnel proof surfaces.
     { url: `${baseUrl}/testimonials`, lastModified: EVERGREEN, changeFrequency: "monthly", priority: 0.8 },
     { url: `${baseUrl}/corporate-training`, lastModified: EVERGREEN, changeFrequency: "monthly", priority: 0.7 },

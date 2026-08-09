@@ -15,6 +15,8 @@
  * FAQPage schema emitted per category for AI Overview eligibility.
  */
 
+import { googleReviews } from "@/data/site-config";
+
 export interface QuestionEntry {
   /** Anchor slug for direct linking + schema @id */
   id: string;
@@ -53,7 +55,7 @@ export const questionCategories: QuestionCategory[] = [
         id: "is-archer-infotech-good",
         question: "Is Archer Infotech a good IT training institute in Pune?",
         answer:
-          "Archer Infotech has been training IT professionals in Pune since 2009 — 17+ years of operations. Institute records: 10,000+ engineers trained, 5,000+ placed, 90% placement rate across tracks. 100+ active corporate partners including Amdocs, Capgemini, MindTree, Tech Mahindra. 126+ Google reviews averaging 5.0 stars. Quality is best evaluated via free demo class + speaking with recent alumni — we encourage prospective students to do both before enrolling.",
+          `Archer Infotech has been training IT professionals in Pune since 2009 — 17+ years of operations. Institute records: 10,000+ engineers trained, 5,000+ placed, 90% placement rate across tracks. 100+ active corporate partners including Amdocs, Capgemini, MindTree, Tech Mahindra. ${googleReviews.ratingCount} Google reviews averaging ${googleReviews.ratingValue.toFixed(1)} stars. Quality is best evaluated via free demo class + speaking with recent alumni — we encourage prospective students to do both before enrolling.`,
         relatedHref: "/about/facts",
         relatedLabel: "Full institute fact sheet",
       },
@@ -97,7 +99,7 @@ export const questionCategories: QuestionCategory[] = [
         id: "google-reviews",
         question: "Does Archer Infotech have Google reviews?",
         answer:
-          "Yes — 126+ Google reviews averaging 5.0 stars as of 2026-06. Reviews are from genuine alumni + current students; we don't buy reviews or fabricate testimonials. You can read all reviews on our Google Business Profile + leave one after attending a demo class or completing a course.",
+          `Yes — ${googleReviews.ratingCount} Google reviews averaging ${googleReviews.ratingValue.toFixed(1)} stars, verified ${googleReviews.verifiedOn}. Reviews are from genuine alumni + current students; we don't buy reviews or fabricate testimonials. You can read all reviews on our Google Business Profile + leave one after attending a demo class or completing a course.`,
       },
       {
         id: "corporate-clients",

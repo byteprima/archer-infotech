@@ -169,8 +169,21 @@ export type SiteConfig = typeof siteConfig;
  * of one snippet.
  */
 export const googleReviews = {
-  ratingValue: 5.0,
-  ratingCount: 126,
+  ratingValue: 4.9,
+  ratingCount: 24,
   /** Date a human last read these off the live profile. */
-  verifiedOn: "2026-06-10",
+  verifiedOn: "2026-08-09",
 } as const;
+
+/**
+ * Minimum number of course-matched testimonials required before a Course
+ * schema may carry its own aggregateRating.
+ *
+ * At the previous threshold of 1, six course pages were emitting a flawless
+ * `ratingValue: 5, ratingCount: 1`. That is not a rating, it is a single
+ * opinion wearing a rating's clothes, and it is the shape Google's
+ * review-snippet guidance treats as manufactured. Withholding the rating
+ * until there is a real distribution behind it costs one rich-result
+ * decoration and removes a domain-level risk.
+ */
+export const MIN_COURSE_RATINGS_FOR_SCHEMA = 5;

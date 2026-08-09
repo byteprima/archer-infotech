@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { CheckCircle, Award, Target, Eye, Calendar, Star, Building2, GraduationCap, BookMarked } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { siteConfig } from "@/data/site-config";
+import { siteConfig, googleReviews } from "@/data/site-config";
 import { getTeamMembers, getTrainer } from "@/data/team";
 import { getHiringPartners } from "@/data/companies";
 import { AnimatedCounter } from "@/components/common/animated-counter";
@@ -83,8 +83,10 @@ export default function AboutPage() {
         Boot trainer with 15+ years of MNC experience at Persistent Systems
         and Wipro. Over 17+ years it has trained 10,000+ students and placed
         5,000+ at companies like TCS, Infosys, Wipro, Tech Mahindra and
-        Persistent Systems, holding a 90% placement rate and a 5.0-star
-        Google rating. The institute teaches Java, Python, Full Stack, Data
+        Persistent Systems, holding a 90% placement rate and a{" "}
+        {googleReviews.ratingValue.toFixed(1)}-star Google rating across{" "}
+        {googleReviews.ratingCount} reviews. The institute teaches Java,
+        Python, Full Stack, Data
         Science, AI/ML, AWS, DevOps and Cloud across weekday, weekend and
         online batches, with placement assistance bundled into every
         flagship program.
@@ -293,7 +295,8 @@ export default function AboutPage() {
                 (CodeLeap for 12th passouts, CareerCode for engineering students, TechReady for graduates);
                 and corporate training engagements with Amdocs, Capgemini, MindTree and Tech Mahindra.
                 The numbers behind the work — 10,000+ trained, 5,000+ placed, 1,000+ batches completed,
-                100+ hiring partners, a 5.0-star Google rating across 126+ verified reviews — are the
+                100+ hiring partners, a {googleReviews.ratingValue.toFixed(1)}-star Google rating
+                across {googleReviews.ratingCount} verified reviews — are the
                 output of one editorial choice repeated batch after batch: hire trainers who still ship
                 production code, and refuse to scale faster than the trainer team can sustain.
               </p>
@@ -386,7 +389,7 @@ export default function AboutPage() {
                 {
                   year: "2026",
                   title: "10,000+ trained, 5,000+ placed, 100+ hiring partners",
-                  body: "17 years of operating history; 90% placement rate across cohorts who complete training; 5.0-star Google rating across 126+ verified reviews; active corporate-training engagements with Amdocs, Capgemini, MindTree, Tech Mahindra.",
+                  body: `17 years of operating history; 90% placement rate across cohorts who complete training; ${googleReviews.ratingValue.toFixed(1)}-star Google rating across ${googleReviews.ratingCount} verified reviews; active corporate-training engagements with Amdocs, Capgemini, MindTree, Tech Mahindra.`,
                 },
               ].map((m) => (
                 <li key={m.year} className="ml-6">
@@ -585,10 +588,13 @@ export default function AboutPage() {
                     <div className="w-10 h-10 bg-secondary/10 rounded-lg flex items-center justify-center shrink-0">
                       <Star className="h-5 w-5 text-secondary fill-secondary" />
                     </div>
-                    <h3 className="font-bold text-lg">5.0-star Google rating</h3>
+                    <h3 className="font-bold text-lg">
+                      {googleReviews.ratingValue.toFixed(1)}-star Google rating
+                    </h3>
                   </div>
                   <p className="text-muted-foreground text-sm leading-relaxed">
-                    Across 126+ verified Google reviews (as of May 2026)
+                    Across {googleReviews.ratingCount} verified Google reviews
+                    (verified {googleReviews.verifiedOn})
                     from former students. The rating reflects placement
                     outcomes and trainer depth — the two things students
                     and parents consistently call out in review text.

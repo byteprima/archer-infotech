@@ -1,6 +1,8 @@
 import { Star, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 
+import { googleReviews } from "@/data/site-config";
+
 interface ReviewRibbonProps {
   /**
    * Visual variant. `light` = white text on a dark hero. `dark` =
@@ -8,14 +10,19 @@ interface ReviewRibbonProps {
    */
   variant?: "light" | "dark";
   /**
-   * Optional override for the rating value displayed (defaults to 5.0,
-   * the canonical Google Business Profile aggregate). Always rendered
-   * to one decimal.
+   * Optional override for the rating value displayed. Defaults to the
+   * canonical verified GBP aggregate in site-config. Always rendered to
+   * one decimal.
    */
   ratingValue?: number;
   /**
-   * Optional override for the review count (defaults to 126, the GBP
-   * count as of 2026-06-10). Suffixed with `+` automatically.
+   * Optional override for the review count. Defaults to the canonical
+   * verified GBP count in site-config.
+   *
+   * Rendered as an exact figure, not `N+`. The count here is what a human
+   * read off the live profile on a known date; "+" implies a floor we have
+   * not established and inflates a number that must match the
+   * AggregateRating in the JSON-LD.
    */
   reviewCount?: number;
   /** Layout — `compact` is a single line; `block` is a card. */
@@ -25,7 +32,7 @@ interface ReviewRibbonProps {
 }
 
 /**
- * P7-33 — visible "5.0★ from 126+ Google reviews" trust ribbon used on
+ * P7-33 — visible "4.9★ from 24 Google reviews" trust ribbon used on
  * course detail page heroes, /placements, and any other surface that
  * benefits from a same-context credibility nudge. Routes to /testimonials
  * so the click goes to our own flagship trust page first (where the full
@@ -35,8 +42,8 @@ interface ReviewRibbonProps {
  */
 export function ReviewRibbon({
   variant = "dark",
-  ratingValue = 5.0,
-  reviewCount = 126,
+  ratingValue = googleReviews.ratingValue,
+  reviewCount = googleReviews.ratingCount,
   layout = "compact",
   className,
 }: ReviewRibbonProps) {
@@ -65,7 +72,7 @@ export function ReviewRibbon({
           ))}
         </span>
         <span>
-          <strong>{ratingValue.toFixed(1)}</strong> from {reviewCount}+ Google
+          <strong>{ratingValue.toFixed(1)}</strong> from {reviewCount} Google
           reviews
         </span>
       </Link>
@@ -104,7 +111,7 @@ export function ReviewRibbon({
           <span className="text-sm font-medium">/ 5</span>
         </div>
         <div className={`text-xs ${lightText ? "text-white/80" : "text-muted-foreground"}`}>
-          From {reviewCount}+ verified Google reviews — read on /testimonials
+          From {reviewCount} verified Google reviews — read on /testimonials
         </div>
       </div>
     </Link>

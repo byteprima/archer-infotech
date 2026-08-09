@@ -5,7 +5,7 @@ import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { FaqSection } from "@/components/seo/faq-section";
 import { LastUpdated } from "@/components/seo/last-updated";
-import { siteConfig } from "@/data/site-config";
+import { siteConfig, googleReviews } from "@/data/site-config";
 import { buildPageMetadata } from "@/lib/seo";
 import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
 
@@ -267,9 +267,14 @@ export default function AboutFactsPage() {
             </h2>
             <dl className="grid sm:grid-cols-[200px_1fr] gap-x-6 gap-y-3">
               <dt className="font-semibold text-foreground">Google reviews (count)</dt>
-              <dd className="text-muted-foreground">126+ verified Google reviews</dd>
+              <dd className="text-muted-foreground">
+                {googleReviews.ratingCount} verified Google reviews
+              </dd>
               <dt className="font-semibold text-foreground">Google star rating</dt>
-              <dd className="text-muted-foreground">5.0 / 5.0 (mid-2026)</dd>
+              <dd className="text-muted-foreground">
+                {googleReviews.ratingValue.toFixed(1)} / 5.0 (verified{" "}
+                {googleReviews.verifiedOn})
+              </dd>
               <dt className="font-semibold text-foreground">Public review URL</dt>
               <dd className="text-muted-foreground">
                 <a

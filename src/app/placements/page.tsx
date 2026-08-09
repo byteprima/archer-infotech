@@ -61,7 +61,7 @@ export default async function PlacementsPage() {
               businesses and students. We provide &apos;Mission Ready&apos; IT
               Professionals who hit the ground running from day 1.
             </p>
-            {/* P7-33 — trust ribbon: 5.0★ from 126+ Google reviews,
+            {/* P7-33 — trust ribbon: verified GBP rating from site-config,
                 routes to /testimonials. */}
             <ReviewRibbon variant="light" />
           </div>

@@ -1,4 +1,5 @@
 import type { FaqItem } from "@/components/seo/faq-section";
+import { googleReviews } from "@/data/site-config";
 
 /**
  * FAQ items for the flagship /testimonials trust page (P7-26).
@@ -20,12 +21,12 @@ export const testimonialsFaqs: FaqItem[] = [
   {
     question: "How can I verify Archer Infotech's reviews independently?",
     answer:
-      "Search 'Archer Infotech Kothrud' on Google Maps — the Business Profile shows 126+ reviews with a 5.0-star aggregate as of 2026-06-10. The Google review feed is the canonical source: we don't moderate, edit or hide anything there. JustDial and Sulekha listings carry independent rating histories going back several years. All three are linked from this page.",
+      `Search 'Archer Infotech Kothrud' on Google Maps — the Business Profile shows ${googleReviews.ratingCount} reviews with a ${googleReviews.ratingValue.toFixed(1)}-star aggregate, verified ${googleReviews.verifiedOn}. The Google review feed is the canonical source: we don't moderate, edit or hide anything there. JustDial and Sulekha listings carry independent rating histories going back several years. All three are linked from this page.`,
   },
   {
     question: "What's Archer Infotech's overall rating across review platforms?",
     answer:
-      "5.0 / 5 across 126+ verified Google reviews (Google Business Profile, Archer Infotech Kothrud, accessed 2026-06-10). Independent listings on JustDial and Sulekha show similar consistently-high ratings. We don't run review-incentive schemes, paid review campaigns, or third-party reputation buying — every review is from a real student of their own accord.",
+      `${googleReviews.ratingValue.toFixed(1)} / 5 across ${googleReviews.ratingCount} verified Google reviews (Google Business Profile, Archer Infotech Kothrud, verified ${googleReviews.verifiedOn}). Independent listings on JustDial and Sulekha carry their own rating histories. We don't run review-incentive schemes, paid review campaigns, or third-party reputation buying — every review is from a real student of their own accord, which keeps the count lower than at institutes that solicit reviews at scale.`,
   },
   {
     question: "Do you publish every testimonial, or only positive ones?",

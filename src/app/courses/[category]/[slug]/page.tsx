@@ -38,7 +38,11 @@ import { Star, Quote } from "lucide-react";
 import { courses, getCourse, getCategory, getRelatedCourses } from "@/data/courses";
 import { getHiringPartners } from "@/data/companies";
 import { getTrainersForCourse } from "@/data/team";
-import { siteConfig } from "@/data/site-config";
+import {
+  siteConfig,
+  googleReviews,
+  MIN_COURSE_RATINGS_FOR_SCHEMA,
+} from "@/data/site-config";
 import { buildPageMetadata } from "@/lib/seo";
 import { getNextBatchForCourse } from "@/lib/actions/public-batches";
 import { getCourseRichContent } from "@/data/course-content";
@@ -165,13 +169,19 @@ export default async function CoursePage({ params }: CoursePageProps) {
 
   // P7-33 — course-matched testimonials feed both the visible
   // "Student feedback" panel below and the per-course aggregateRating +
-  // review[] block inside CourseJsonLd above. When fewer than 1
-  // testimonial matches, we emit neither the schema rating nor the
-  // visible section — synthetic ratings are a structured-data spam
-  // violation, and a one-card "Student feedback" panel looks thin.
+  // review[] block inside CourseJsonLd above.
+  //
+  // The schema rating is withheld below MIN_COURSE_RATINGS_FOR_SCHEMA. The
+  // old threshold was 1, which put a spotless `ratingValue: 5,
+  // ratingCount: 1` on six course pages — Java, Python, JavaScript, MERN,
+  // .NET Full Stack and React. A perfect score off a single review is the
+  // exact pattern review-snippet guidance treats as manufactured, and the
+  // penalty lands on the domain, not the snippet. The visible testimonial
+  // panel still renders from one card; only the machine-readable claim
+  // waits for a real distribution.
   const courseTestimonials = await getCourseTestimonials(course.title);
   const courseAggregateRating =
-    courseTestimonials.length > 0
+    courseTestimonials.length >= MIN_COURSE_RATINGS_FOR_SCHEMA
       ? {
           ratingValue:
             Math.round(
@@ -298,13 +308,13 @@ export default async function CoursePage({ params }: CoursePageProps) {
                 </div>
               )}
               <p className="text-lg text-white/80 mb-4">{course.description}</p>
-              {/* P7-33 — trust ribbon: 5.0★ from 126+ Google reviews,
+              {/* P7-33 — trust ribbon: verified GBP rating from site-config,
                   routes to /testimonials. Visible signal that pairs with
                   the per-course aggregateRating in CourseJsonLd. */}
               <ReviewRibbon variant="light" className="mb-4" />
               {/* Trust-numbers strip — surfaces the same proof competitors
                   lead with (students trained, placed, placement rate, years)
-                  using the canonical site-config stats. Pairs with the 5.0★
+                  using the canonical site-config stats. Pairs with the
                   ReviewRibbon above so the hero carries rating + scale, the
                   two signals every page-1 Pune institute foregrounds. */}
               <dl className="flex flex-wrap gap-x-6 gap-y-3 mb-6">
@@ -1003,8 +1013,9 @@ export default async function CoursePage({ params }: CoursePageProps) {
                 {courseTestimonials.length}{" "}
                 published testimonial
                 {courseTestimonials.length !== 1 && "s"} from{" "}
-                {course.shortTitle} students, alongside our overall 5.0★
-                rating from 126+ Google reviews.{" "}
+                {course.shortTitle} students, alongside our overall{" "}
+                {googleReviews.ratingValue.toFixed(1)}★ rating from{" "}
+                {googleReviews.ratingCount} Google reviews.{" "}
                 <Link
                   href="/testimonials"
                   className="text-primary hover:underline font-medium"

@@ -12,7 +12,7 @@ import {
   totalQuestionsAcrossCategories,
 } from "@/data/questions";
 import { SourceCitations } from "@/components/seo/source-citations";
-import { siteConfig } from "@/data/site-config";
+import { siteConfig, googleReviews } from "@/data/site-config";
 import { FaqSection } from "@/components/seo/faq-section";
 import { questionsHubFaqs } from "@/data/hub-faqs";
 
@@ -184,7 +184,7 @@ export default function QuestionsHub() {
                   → Archer Infotech Fact Sheet
                 </Link>{" "}
                 — Verified institute facts (founded 2009, 10K+ trained, 90%
-                placement rate, 126+ Google reviews).
+                placement rate, {googleReviews.ratingCount} Google reviews).
               </li>
             </ul>
           </section>

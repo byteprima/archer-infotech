@@ -31,7 +31,7 @@ import {
   type ReviewSchemaInput,
 } from "@/components/seo/json-ld";
 import { getAllPublishedTestimonials } from "@/lib/actions/public-testimonials";
-import { siteConfig } from "@/data/site-config";
+import { siteConfig, googleReviews } from "@/data/site-config";
 import { testimonialsFaqs } from "@/data/testimonial-faqs";
 import { buildPageMetadata } from "@/lib/seo";
 import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
@@ -41,9 +41,8 @@ export const metadata: Metadata = buildPageMetadata({
   // snippet budget. Brand stays in the title since the page IS the
   // brand's review hub; the buildPageMetadata auto-skip suffix logic
   // detects "Archer Infotech" and won't double it.
-  title: "Archer Infotech Reviews — 5.0★ from 126+ Google Reviews",
-  description:
-    "Read 5.0-star Google-verified reviews + placement testimonials from Archer Infotech students. Names, courses, hiring companies and LinkedIn profiles — all verifiable, none fabricated. Updated 2026-06-10.",
+  title: `Archer Infotech Reviews — ${googleReviews.ratingValue.toFixed(1)}★ from ${googleReviews.ratingCount} Google Reviews`,
+  description: `Read ${googleReviews.ratingValue.toFixed(1)}-star Google-verified reviews + placement testimonials from Archer Infotech students. Names, courses, hiring companies and LinkedIn profiles — all verifiable, none fabricated. Rating verified ${googleReviews.verifiedOn}.`,
   path: "/testimonials",
   lastModified: EVERGREEN_LAST_REVIEWED,
 });
@@ -116,12 +115,13 @@ export default async function TestimonialsPage() {
     (t) => classifyTrack(t.courseTaken) === "other",
   );
 
-  // Headline aggregate — 126+ Google reviews is the canonical figure
-  // from GBP (memory: project_archerinfotech_business_facts.md). The
-  // count of on-site testimonials supplements it but is not the source
-  // of truth for the AggregateRating schema (which is keyed to Google).
-  const googleReviewCount = 126;
-  const googleRatingValue = 5.0;
+  // Headline aggregate — read from the single verified GBP constant. These
+  // were previously literals here (126 / 5.0) that drifted out of step with
+  // the live profile and with the AggregateRating in the JSON-LD. Anything
+  // rendering the rating now derives it, so one verification updates every
+  // surface at once.
+  const googleReviewCount = googleReviews.ratingCount;
+  const googleRatingValue = googleReviews.ratingValue;
   const onSiteTestimonialCount = dbTestimonials.length;
   const uniqueCompanies = new Set(
     dbTestimonials
@@ -158,7 +158,7 @@ export default async function TestimonialsPage() {
       />
       {/* P8-04 — AggregateRatingJsonLd intentionally NOT emitted here:
           the canonical OrganizationJsonLd block (in the root layout) now
-          carries the same 5.0 / 126 rating site-wide via the @id-linked
+          carries the same verified GBP rating site-wide via the @id-linked
           EducationalOrganization. A second top-level Org block here
           would orphan the rating to a partial Org missing url/address/
           telephone — caught by the P8-04 validator. The full Review[]
@@ -183,10 +183,11 @@ export default async function TestimonialsPage() {
               Archer Infotech Reviews &amp; Student Testimonials
             </h1>
             <p className="text-lg text-white/85 mb-6">
-              5.0-star average across 126+ verified Google reviews from
-              students placed at TCS, Infosys, Tech Mahindra, Capgemini,
-              Persistent and 100+ other hiring partners since 2009. Every
-              name, course and placement on this page is verifiable.
+              {googleRatingValue.toFixed(1)}-star average across{" "}
+              {googleReviewCount} verified Google reviews, from students placed
+              at TCS, Infosys, Tech Mahindra, Capgemini, Persistent and 100+
+              other hiring partners since 2009. Every name, course and
+              placement on this page is verifiable.
             </p>
             <div className="flex flex-wrap gap-3">
               <TrackedLink
@@ -217,13 +218,15 @@ export default async function TestimonialsPage() {
 
       {/* Definitive answer — proof-first opening AI engines lift verbatim */}
       <DefinitiveAnswer eyebrow="Archer Infotech Review Summary">
-        Archer Infotech maintains a 5.0-star average across 126+ verified
-        Google reviews on its Kothrud Business Profile (accessed
-        2026-06-10), with consistent five-star ratings going back to its
-        founding year of 2009 by Yogesh Patil. Reviews are unmoderated on
-        Google — the institute does not run paid-review schemes, incentivise
-        feedback, or pre-screen submissions. Independent listings on
-        JustDial and Sulekha mirror the same high-rating pattern.
+        Archer Infotech holds a {googleRatingValue.toFixed(1)}-star average
+        across {googleReviewCount} verified Google reviews on its Kothrud
+        Business Profile (read from the live profile on{" "}
+        {googleReviews.verifiedOn}). The institute was founded in 2009 by
+        Yogesh Patil. Reviews are unmoderated on Google — the institute does
+        not run paid-review schemes, incentivise feedback, or pre-screen
+        submissions, which is why the review count is smaller than at
+        institutes that solicit at scale. Independent listings on JustDial
+        and Sulekha carry separate multi-year rating histories.
         Testimonials surfaced on this page are a curated cross-section from
         students who completed flagship tracks (Java Full Stack, MERN,
         Python, Data Science / ML, AWS / DevOps) and were placed at TCS,
@@ -326,8 +329,8 @@ export default async function TestimonialsPage() {
               {
                 name: "Google Business Profile",
                 href: siteConfig.googleMaps.url,
-                rating: "5.0 ★",
-                count: "126+ reviews",
+                rating: `${googleRatingValue.toFixed(1)} ★`,
+                count: `${googleReviewCount} reviews`,
                 detail:
                   "Canonical source. Unmoderated. Verifiable by anyone with a Google account.",
                 cta: "View on Google Maps",
@@ -335,7 +338,11 @@ export default async function TestimonialsPage() {
               {
                 name: "JustDial",
                 href: "https://www.justdial.com/Pune/Archer-Infotech-Kothrud/020PXX20-XX20-200101100200-D2J1_BZDET",
-                rating: "5.0 ★",
+                // No rating asserted: the JustDial figure has not been read
+                // off the live listing on a recorded date, and quoting an
+                // unverified star value here is the same failure that put a
+                // stale count into the Google AggregateRating.
+                rating: "Independent listing",
                 count: "Verified profile",
                 detail:
                   "Independent Indian local-business listing platform with multi-year review history.",
