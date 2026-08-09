@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { GoogleAnalyticsLazy } from "@/components/analytics/google-analytics-lazy";
 import { MetaPixelLazy } from "@/components/analytics/meta-pixel-lazy";
+import { ClarityLazy } from "@/components/analytics/clarity-lazy";
+import { GtmLazy } from "@/components/analytics/gtm-lazy";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { WhatsAppButtonLazy } from "@/components/common/whatsapp-button-lazy";
@@ -124,6 +126,18 @@ export default function RootLayout({
       )}
       {process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID && (
         <MetaPixelLazy pixelId={process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID} />
+      )}
+      {/* Microsoft Clarity — heatmaps + session recordings. Free, and the
+          only tool here that shows behaviour rather than counts. */}
+      {process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID && (
+        <ClarityLazy projectId={process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID} />
+      )}
+      {/* GTM container — OFF unless NEXT_PUBLIC_GTM_ID is set. GA4 and the
+          Meta Pixel already load from their own components above, so adding
+          either as a tag inside the container double-counts. Read the header
+          of gtm-lazy.tsx before enabling. */}
+      {process.env.NEXT_PUBLIC_GTM_ID && (
+        <GtmLazy gtmId={process.env.NEXT_PUBLIC_GTM_ID} />
       )}
       {/* suppressHydrationWarning ignores attributes Grammarly / LanguageTool /
           other browser extensions inject into <body> before React hydrates. */}
