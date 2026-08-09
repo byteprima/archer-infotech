@@ -43,6 +43,7 @@ import {
   MIN_COURSE_RATINGS_FOR_SCHEMA,
 } from "@/data/site-config";
 import { getDisplayRating } from "@/lib/reviews/rating";
+import { resolveCourseMetaDescription } from "@/lib/seo/course-seo-description";
 import { buildPageMetadata } from "@/lib/seo";
 import { getNextBatchForCourse } from "@/lib/actions/public-batches";
 import { getCourseRichContent } from "@/data/course-content";
@@ -99,7 +100,10 @@ export async function generateMetadata({
   // A course has exactly one home; see the category-mismatch redirect below.
   return buildPageMetadata({
     title: course.seoTitle ?? `${course.title} Training in Pune with Placement`,
-    description: course.description,
+    // Composed from the course's real duration/mode/EMI fields rather than
+    // `course.description`, which is hero marketing copy — see
+    // lib/seo/course-seo-description.ts for why.
+    description: resolveCourseMetaDescription(course),
     path: `/courses/${course.categorySlug}/${slug}`,
     lastModified: COURSE_LAST_REVIEWED,
   });

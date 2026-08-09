@@ -328,8 +328,23 @@ export default async function LocationPage({ params }: LocationPageProps) {
                       </h3>
                       <ArrowRight className="h-4 w-4 text-muted-foreground shrink-0 mt-1 group-hover:text-primary transition-colors" />
                     </div>
+                    {/* Tagline, not commute.distanceLabel.
+                        Each of the 12 location pages links 3 neighbours, and
+                        printing a bare "~5 km · 15-20 min" string on every
+                        card put a distance/time phrase next to a pair of Pune
+                        area names 36 times across the section. Google matched
+                        that against travel queries: the Camp page was ranking
+                        for "swargate to camp distance", "kothrud to camp
+                        distance" and "camp to swargate distance" — 181
+                        impressions, zero clicks, from people wanting
+                        directions rather than training. The real commute
+                        section above (singular, about reaching Kothrud for
+                        class) is genuinely useful and is left intact; it is
+                        the cross-product in these cards that generated the
+                        junk. Tagline also tells a reader more about why they
+                        would click. */}
                     <p className="text-sm text-muted-foreground">
-                      {n.commute.distanceLabel}
+                      {n.tagline}
                     </p>
                   </Link>
                 ))}

@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { MapPin, ArrowRight, Bus } from "lucide-react";
+import { MapPin, ArrowRight } from "lucide-react";
 import { PageEvent } from "@/components/analytics/page-event";
 import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 import { BreadcrumbJsonLd, CategoryCollectionJsonLd } from "@/components/seo/json-ld";
@@ -88,10 +88,15 @@ export default function CityFeederHubPage() {
                 {c.region}
               </p>
               <p className="text-sm text-muted-foreground">{c.tagline}</p>
-              <p className="mt-3 flex items-center gap-1.5 text-xs text-muted-foreground">
-                <Bus className="h-3.5 w-3.5" />
-                {c.distanceKm} km · {c.travelTimeLabel} to our Kothrud centre
-              </p>
+              {/* The "N km · M min to our Kothrud centre" line that used to
+                  sit here was removed for the same reason as the neighbour
+                  cards on /locations/[slug]: repeating a distance/time phrase
+                  beside a city name on every card in a long list reads to
+                  Google as travel-directions content, and the location pages
+                  were ranking for "<area> to <area> distance" queries that
+                  bring people wanting directions, not training. The per-city
+                  page still states the commute once, in context. The tagline
+                  above already gives the card its reason to be clicked. */}
               <span className="mt-4 inline-flex items-center gap-1 text-sm text-primary font-medium">
                 See options for {c.city}
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

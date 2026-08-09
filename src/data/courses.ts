@@ -30,6 +30,17 @@ export interface Course {
   seoTitle?: string;
   heroHeading?: string;
   /**
+   * Optional hand-written meta description for this course. When unset,
+   * `resolveCourseMetaDescription()` composes one from the course's real
+   * duration/mode/EMI fields — see lib/seo/course-seo-description.ts.
+   *
+   * Set this only when a page is worth targeting by hand. `description`
+   * is NOT used for meta any more: it renders as the visible hero
+   * paragraph, and as marketing copy it produced snippets that answered
+   * none of what searchers actually ask (fee, duration, placement, Pune).
+   */
+  seoDescription?: string;
+  /**
    * Curated cross-category related-course slugs, surfaced FIRST in the
    * "Related Courses" block. Use to pass crawl equity to a page that the
    * default same-category relatedness would never reach — e.g. the indexed,
