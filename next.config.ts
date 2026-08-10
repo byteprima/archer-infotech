@@ -174,11 +174,11 @@ const nextConfig: NextConfig = {
     // hosts will otherwise be blocked.
     const CONTENT_SECURITY_POLICY = [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://connect.facebook.net https://us.i.posthog.com https://us-assets.i.posthog.com https://*.posthog.com https://static.cloudflareinsights.com https://analytics.ahrefs.com",
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://connect.facebook.net https://us.i.posthog.com https://us-assets.i.posthog.com https://*.posthog.com https://static.cloudflareinsights.com",
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: blob: https:",
       "font-src 'self' data:",
-      "connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com https://us.i.posthog.com https://us-assets.i.posthog.com https://*.posthog.com https://connect.facebook.net https://www.facebook.com https://graph.facebook.com https://cloudflareinsights.com https://static.cloudflareinsights.com https://analytics.ahrefs.com",
+      "connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com https://us.i.posthog.com https://us-assets.i.posthog.com https://*.posthog.com https://connect.facebook.net https://www.facebook.com https://graph.facebook.com https://cloudflareinsights.com https://static.cloudflareinsights.com",
       "frame-src 'self' https://www.youtube-nocookie.com https://www.youtube.com https://www.google.com https://td.doubleclick.net",
       "worker-src 'self' blob:",
       "manifest-src 'self'",

@@ -106,19 +106,6 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
         <link rel="dns-prefetch" href="https://www.google.com" />
         <link rel="dns-prefetch" href="https://static.cloudflareinsights.com" />
-        {/* Ahrefs Web Analytics handshake warm-up (cookieless, no PII). Uses a
-            dns-prefetch rather than a 5th preconnect so it doesn't evict one of
-            the four critical-path preconnect slots above. */}
-        <link rel="dns-prefetch" href="https://analytics.ahrefs.com" />
-        {/* Ahrefs Web Analytics — rendered into the server HTML <head> (not via
-            next/script, which injects client-side post-hydration and is invisible
-            to Ahrefs' HTML-fetch "Recheck installation"). `async` keeps it off the
-            critical render path, so the banked LCP/TBT wins are preserved. */}
-        <script
-          src="https://analytics.ahrefs.com/analytics.js"
-          data-key="3sx73cLbPlYkuRloMtEssg"
-          async
-        />
         <OrganizationJsonLd />
       </head>
       {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
