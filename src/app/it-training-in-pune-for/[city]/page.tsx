@@ -242,12 +242,12 @@ export default async function CityFeederPage({ params }: CityPageProps) {
       </section>
 
       {/* ── Definitive answer (intro) — matches home DAP band ── */}
+      {/* Joined into one paragraph because DefinitiveAnswer renders a <p> and
+          nesting <p> inside <p> is invalid. No content is lost — data.intro is
+          rendered nowhere else — and the joined text runs ~110 words, which is
+          the length this block is meant to be anyway. */}
       <DefinitiveAnswer eyebrow={`IT training for ${data.city} students`}>
-        {data.intro.map((p, i) => (
-          <p key={i} className={i > 0 ? "mt-3" : ""}>
-            {p}
-          </p>
-        ))}
+        {data.intro.join(" ")}
       </DefinitiveAnswer>
 
       {/* ── Colourful highlight blocks ───────────────────────── */}

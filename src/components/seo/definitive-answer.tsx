@@ -12,6 +12,10 @@ interface DefinitiveAnswerProps {
    * The factual, citation-friendly paragraph. ~60–120 words, every sentence
    * stands alone, no marketing puffery. AI engines lift this verbatim into
    * responses; Featured Snippets pull from it. P8-07.
+   *
+   * Must be INLINE content — it renders inside a <p>, so block elements
+   * (<p>, <div>, <ul>) produce invalid nesting that browsers silently
+   * auto-close, breaking the layout.
    */
   children: ReactNode;
 }
@@ -48,9 +52,17 @@ export function DefinitiveAnswer({ eyebrow, children }: DefinitiveAnswerProps) {
               {eyebrow}
             </h2>
           )}
-          <div className="text-base md:text-lg leading-relaxed text-foreground">
+          {/* A <p>, not a <div>. This block is the page's most-quoted passage
+              and it was previously wrapped in a div, which made it invisible to
+              every tool that looks for "the opening paragraph" or counts
+              "paragraphs containing statistics" — including an external AEO
+              checker that scored the homepage 2/15 on direct answer and 3/12 on
+              answer density while reading neither. A paragraph of prose is a
+              <p>; there was never a reason for it to be anything else.
+              Callers must therefore pass text, not block elements. */}
+          <p className="text-base md:text-lg leading-relaxed text-foreground">
             {children}
-          </div>
+          </p>
         </div>
       </div>
     </section>
