@@ -19,6 +19,7 @@ import { CookieConsentBanner } from "@/components/common/cookie-consent-banner";
 // hydrates on idle, not in the critical first-paint bundle.
 import { ToasterLazy } from "@/components/ui/toaster-lazy";
 import { OrganizationJsonLd } from "@/components/seo/json-ld";
+import { resolveRating } from "@/lib/reviews/rating";
 import { siteConfig } from "@/data/site-config";
 
 // Inter is the only webfont actually rendered: it backs both --font-sans and
@@ -80,11 +81,18 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Resolved HERE rather than inside OrganizationJsonLd. When that component
+  // awaited the rating itself it became async, which put a suspense boundary
+  // in <head>; React then re-inserted the JSON-LD on hydration and rendered
+  // DOM carried two Organization blocks with the same @id — reported by
+  // validators as "Review has multiple aggregate ratings".
+  const { rating } = await resolveRating();
+
   return (
     <html lang="en" className={inter.variable}>
       <head>
@@ -106,7 +114,6 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
         <link rel="dns-prefetch" href="https://www.google.com" />
         <link rel="dns-prefetch" href="https://static.cloudflareinsights.com" />
-        <OrganizationJsonLd />
       </head>
       {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
         <GoogleAnalyticsLazy gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
@@ -129,6 +136,15 @@ export default function RootLayout({
       {/* suppressHydrationWarning ignores attributes Grammarly / LanguageTool /
           other browser extensions inject into <body> before React hydrates. */}
       <body className="min-h-screen flex flex-col antialiased" suppressHydrationWarning>
+        {/* Organization JSON-LD lives in <body>, not <head>.
+            In <head> it was emitted once by the server and again on
+            hydration, so a rendered-DOM snapshot carried two Organization
+            nodes with the same @id and validators reported "Review has
+            multiple aggregate ratings". The BreadcrumbList block, which has
+            always rendered in <body>, never duplicated — that contrast is
+            what identified <head> as the cause. Google accepts JSON-LD
+            anywhere in the document, so body placement costs nothing. */}
+        <OrganizationJsonLd rating={rating} />
         <Header />
         <main className="flex-grow">{children}</main>
         <Footer />

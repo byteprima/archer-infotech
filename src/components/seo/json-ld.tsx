@@ -1,5 +1,5 @@
 import { siteConfig } from "@/data/site-config";
-import { resolveRating } from "@/lib/reviews/rating";
+import type { VerifiedRating } from "@/lib/reviews/rating";
 import type { Batch } from "@/db/schema";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://archerinfotech.in";
@@ -118,13 +118,26 @@ const AREA_SERVED_FULL = [
 
 // Combined EducationalOrganization + LocalBusiness — single source of truth, used site-wide.
 //
-// Async because the aggregateRating is resolved at render from the GBP
-// mirror (falling back to the hand-verified constant, and to omitting the
-// rating entirely when neither is fresh). All importers are server
-// components, so this is a plain RSC await.
-export async function OrganizationJsonLd() {
-  const { rating } = await resolveRating();
-
+// SYNCHRONOUS, and it must stay that way. This was briefly `async` (it
+// awaited resolveRating() itself) so that it could read the verified GBP
+// rating. That put an async boundary inside <head>, and React could not
+// hydrate-match the server-rendered <script> against it — the block was
+// re-inserted on hydration, so a rendered-DOM snapshot showed the
+// Organization schema, and its aggregateRating, TWICE with the same @id.
+// Rich-results validators read that as "Review has multiple aggregate
+// ratings". Raw HTML looked fine, which is why curl-based checks missed it.
+//
+// The rating is now resolved in the root layout (an async server component)
+// and passed in, so there is no suspense boundary in <head> at all.
+export function OrganizationJsonLd({
+  rating,
+}: {
+  /**
+   * Verified GBP rating, or null to omit aggregateRating entirely.
+   * Resolved by the caller via resolveRating() — see lib/reviews/rating.ts.
+   */
+  rating: VerifiedRating | null;
+}) {
   const schema = {
     "@context": "https://schema.org",
     "@type": ["EducationalOrganization", "LocalBusiness"],
