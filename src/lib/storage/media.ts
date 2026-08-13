@@ -41,12 +41,32 @@ export const MEDIA_COLLECTIONS = [
   "blog",
   "testimonials",
   "general",
+  // Evidence attached to a public placement submission. PRIVATE — see
+  // PRIVATE_MEDIA_COLLECTIONS below.
+  "offer-letters",
 ] as const;
 
 export type MediaCollection = (typeof MEDIA_COLLECTIONS)[number];
 
 export function isMediaCollection(value: string): value is MediaCollection {
   return (MEDIA_COLLECTIONS as readonly string[]).includes(value);
+}
+
+/**
+ * Collections the public /media route must never serve.
+ *
+ * Offer letters carry an employer, a salary and a person's name. Filenames
+ * are random UUIDs, so an unlisted URL is hard to guess — but "hard to
+ * guess" is not access control, and these are documents someone handed over
+ * as evidence, not content they asked us to publish. They are reachable
+ * only through the admin-authenticated route.
+ */
+export const PRIVATE_MEDIA_COLLECTIONS: ReadonlySet<string> = new Set([
+  "offer-letters",
+]);
+
+export function isPrivateMediaCollection(value: string): boolean {
+  return PRIVATE_MEDIA_COLLECTIONS.has(value);
 }
 
 /** Accepted upload types + size cap, enforced server-side. */
@@ -58,11 +78,23 @@ export const MEDIA_ALLOWED_TYPES: Record<string, string> = {
   "image/avif": "avif",
 };
 
+/**
+ * Offer letters arrive as PDFs at least as often as photos, so this
+ * collection accepts PDF on top of the image types. Kept separate rather
+ * than widening MEDIA_ALLOWED_TYPES, because a PDF has no business being
+ * uploaded as a trainer headshot or a blog image.
+ */
+export const OFFER_LETTER_ALLOWED_TYPES: Record<string, string> = {
+  ...MEDIA_ALLOWED_TYPES,
+  "application/pdf": "pdf",
+};
+
 const EXT_CONTENT_TYPE: Record<string, string> = {
   jpg: "image/jpeg",
   png: "image/png",
   webp: "image/webp",
   avif: "image/avif",
+  pdf: "application/pdf",
 };
 
 /** <volume>/uploads/<collection> — sibling of the SQLite file. */
@@ -84,12 +116,24 @@ export async function saveMedia(
   file: File,
   collection: MediaCollection,
 ): Promise<SaveResult> {
-  const ext = MEDIA_ALLOWED_TYPES[file.type];
+  // Offer letters accept PDF as well as images; every other collection is
+  // images only, so a PDF cannot be uploaded as a trainer headshot.
+  const allowed =
+    collection === "offer-letters"
+      ? OFFER_LETTER_ALLOWED_TYPES
+      : MEDIA_ALLOWED_TYPES;
+  const ext = allowed[file.type];
   if (!ext) {
-    return { ok: false, error: "Image must be a JPG, PNG, WebP or AVIF file." };
+    return {
+      ok: false,
+      error:
+        collection === "offer-letters"
+          ? "Upload a PDF, JPG, PNG, WebP or AVIF file."
+          : "Image must be a JPG, PNG, WebP or AVIF file.",
+    };
   }
   if (file.size > MEDIA_MAX_BYTES) {
-    return { ok: false, error: "Image must be 5 MB or smaller." };
+    return { ok: false, error: "File must be 5 MB or smaller." };
   }
   if (file.size === 0) {
     return { ok: false, error: "That file is empty." };

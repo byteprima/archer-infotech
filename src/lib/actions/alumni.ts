@@ -16,6 +16,8 @@ import {
   deleteAlumniPhoto,
   alumniPhotoUrl,
 } from "@/lib/storage/alumni-photos";
+import { headers } from "next/headers";
+import { rateLimit, clientKey } from "@/lib/rate-limit";
 
 export type ActionResult = {
   success: boolean;
@@ -105,6 +107,28 @@ function str(formData: FormData, key: string): string {
  * publicly here — that only happens when an admin approves.
  */
 export async function submitAlumni(formData: FormData): Promise<ActionResult> {
+  // Honeypot — a field CSS hides from humans. Bots that fill every input
+  // trip it. Reporting success is deliberate: telling a bot it was caught
+  // only tells its author what to change.
+  if (str(formData, "website")) {
+    return { success: true, message: "Thank you for sharing your details." };
+  }
+
+  // This form writes to a review queue a person then has to clear, so an
+  // unthrottled POST is somebody's afternoon. Five per hour per client is
+  // far above any genuine use — nobody submits their own career twice.
+  const h = await headers();
+  const limit = rateLimit(`alumni-submit:${clientKey(h)}`, {
+    limit: 5,
+    windowMs: 60 * 60 * 1000,
+  });
+  if (!limit.ok) {
+    return {
+      success: false,
+      message: `Too many submissions from this connection. Try again in ${Math.ceil(limit.retryAfter / 60)} minutes.`,
+    };
+  }
+
   const parsed = submitSchema.safeParse({
     name: str(formData, "name"),
     email: str(formData, "email"),

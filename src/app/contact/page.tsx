@@ -1,5 +1,15 @@
 import { Metadata } from "next";
-import { MapPin, Phone, Mail, Clock, MessageCircle } from "lucide-react";
+import Link from "next/link";
+import {
+  MapPin,
+  Phone,
+  Mail,
+  Clock,
+  MessageCircle,
+  Trophy,
+  GraduationCap,
+  ArrowRight,
+} from "lucide-react";
 import { PageEvent } from "@/components/analytics/page-event";
 import { TrackedAnchor } from "@/components/analytics/tracked-anchor";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -205,6 +215,65 @@ export default function ContactPage() {
                   </TrackedAnchor>
                 </CardContent>
               </Card>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Already-a-student routes. The contact form above is for people
+          deciding whether to enrol; these two are for people who already did
+          and have something to tell us. Both were previously unreachable —
+          /alumni existed but was linked from nowhere, and placements could
+          only be entered by an admin. */}
+      <section className="py-12">
+        <div className="container mx-auto px-4">
+          <div className="mx-auto max-w-4xl">
+            <h2 className="mb-2 text-center text-2xl font-bold">
+              Already studied with us?
+            </h2>
+            <p className="mb-8 text-center text-muted-foreground">
+              Two quick forms — no login needed.
+            </p>
+            <div className="grid gap-5 md:grid-cols-2">
+              <Link
+                href="/placements/submit"
+                className="group rounded-xl border p-6 transition-all hover:border-primary hover:shadow-md"
+              >
+                <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-lg bg-secondary/10 text-secondary">
+                  <Trophy className="h-5 w-5" />
+                </div>
+                <h3 className="mb-1 font-semibold group-hover:text-primary">
+                  Recently placed? Tell us about it
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  Share your offer and attach the letter. We verify every
+                  placement before it appears anywhere.
+                </p>
+                <span className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-primary">
+                  Submit your placement
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </span>
+              </Link>
+
+              <Link
+                href="/alumni"
+                className="group rounded-xl border p-6 transition-all hover:border-primary hover:shadow-md"
+              >
+                <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                  <GraduationCap className="h-5 w-5" />
+                </div>
+                <h3 className="mb-1 font-semibold group-hover:text-primary">
+                  Archer alumnus? Share where you are now
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  Update your role and company — and tell us if your team is
+                  hiring, so we can refer current students.
+                </p>
+                <span className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-primary">
+                  Update your details
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </span>
+              </Link>
             </div>
           </div>
         </div>

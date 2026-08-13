@@ -362,6 +362,49 @@ export const gbpSyncState = sqliteTable("gbp_sync_state", {
   lastSyncedCount: integer("last_synced_count"),
 });
 
+// Public placement submissions — students reporting their own offer via
+// /placements/submit, rather than an admin typing it in.
+//
+// DELIBERATELY NOT THE `placements` TABLE. That one renders straight onto
+// the public /placements page, so letting anonymous input write to it would
+// publish unverified salary and employer claims — the same failure mode as
+// the hand-typed review count that ran for two months. Submissions land
+// here, an admin reviews the attached offer letter, and approval copies the
+// row into `placements`. Nothing here is public.
+//
+// `offerLetterFilename` points into the PRIVATE `offer-letters` collection,
+// readable only through the admin-authenticated media route.
+export const placementSubmissions = sqliteTable("placement_submissions", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  // --- Identity (private) ---
+  studentName: text("student_name").notNull(),
+  email: text("email").notNull(),
+  phone: text("phone").notNull(),
+  linkedinUrl: text("linkedin_url"),
+  // --- The offer ---
+  company: text("company").notNull(),
+  designation: text("designation").notNull(),
+  package: text("package"),
+  offerDate: text("offer_date"), // YYYY-MM-DD, free-form enough to accept "joined last month"
+  courseTaken: text("course_taken"),
+  batchYear: integer("batch_year"),
+  // --- Evidence (private) ---
+  offerLetterFilename: text("offer_letter_filename"),
+  // --- Optional public-facing extras ---
+  testimonial: text("testimonial"),
+  photoFilename: text("photo_filename"),
+  consentDisplayPublic: integer("consent_display_public", { mode: "boolean" }).default(false),
+  // --- Workflow ---
+  // Mirrors ALUMNI_STATUSES so both review queues behave the same way.
+  status: text("status").notNull().default("new"),
+  adminNotes: text("admin_notes"),
+  /** Set once approved and copied into `placements`. */
+  placementId: integer("placement_id"),
+  source: text("source"),
+  createdAt: integer("created_at", { mode: "timestamp" }).notNull().$defaultFn(() => new Date()),
+  updatedAt: integer("updated_at", { mode: "timestamp" }).notNull().$defaultFn(() => new Date()),
+});
+
 // Audit logs table - for tracking admin actions
 export const auditLogs = sqliteTable("audit_logs", {
   id: integer("id").primaryKey({ autoIncrement: true }),
@@ -395,6 +438,9 @@ export type NewTestimonial = typeof testimonials.$inferInsert;
 
 export type Alumni = typeof alumni.$inferSelect;
 export type NewAlumni = typeof alumni.$inferInsert;
+
+export type PlacementSubmission = typeof placementSubmissions.$inferSelect;
+export type NewPlacementSubmission = typeof placementSubmissions.$inferInsert;
 
 export type AuditLog = typeof auditLogs.$inferSelect;
 export type NewAuditLog = typeof auditLogs.$inferInsert;

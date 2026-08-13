@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
-import { readMedia } from "@/lib/storage/media";
+import { readMedia, isPrivateMediaCollection } from "@/lib/storage/media";
 
 /**
  * Serves uploaded media from the persistent volume (outside /public).
@@ -18,6 +18,15 @@ export async function GET(
   { params }: { params: Promise<{ collection: string; file: string }> },
 ) {
   const { collection, file } = await params;
+
+  // Private collections are never served here, whatever the filename.
+  // Offer letters carry an employer, a salary and a person's name; they are
+  // evidence handed to us, not content anyone asked us to publish. The 404
+  // is deliberate — a 403 would confirm the collection exists.
+  if (isPrivateMediaCollection(collection)) {
+    return new Response("Not found", { status: 404 });
+  }
+
   const media = await readMedia(collection, file);
 
   if (!media) {

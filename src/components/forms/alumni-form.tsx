@@ -234,6 +234,20 @@ export function AlumniForm() {
 
   return (
     <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
+      {/* Honeypot. Hidden from people, not from bots that fill every input.
+          aria-hidden + tabIndex keep it out of the accessibility tree and
+          the tab order, so a screen-reader user never meets it. autoComplete
+          off stops a browser helpfully filling it in. */}
+      <div aria-hidden="true" className="hidden">
+        <label htmlFor="website">Leave this field empty</label>
+        <input
+          id="website"
+          name="website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+        />
+      </div>
       {/* Section 1 — About you (private) */}
       <Section step={1} title="About you" hint="Kept private — for our placement team only" icon={User}>
         <div className="grid gap-6 md:grid-cols-2">
