@@ -1,5 +1,4 @@
 import { siteConfig } from "@/data/site-config";
-import type { VerifiedRating } from "@/lib/reviews/rating";
 import type { Batch } from "@/db/schema";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://archerinfotech.in";
@@ -129,15 +128,7 @@ const AREA_SERVED_FULL = [
 //
 // The rating is now resolved in the root layout (an async server component)
 // and passed in, so there is no suspense boundary in <head> at all.
-export function OrganizationJsonLd({
-  rating,
-}: {
-  /**
-   * Verified GBP rating, or null to omit aggregateRating entirely.
-   * Resolved by the caller via resolveRating() — see lib/reviews/rating.ts.
-   */
-  rating: VerifiedRating | null;
-}) {
+export function OrganizationJsonLd() {
   const schema = {
     "@context": "https://schema.org",
     "@type": ["EducationalOrganization", "LocalBusiness"],
@@ -167,30 +158,36 @@ export function OrganizationJsonLd({
     areaServed: AREA_SERVED_FULL,
     priceRange: "₹₹",
     openingHoursSpecification: OPENING_HOURS,
-    // aggregateRating resolved from the GBP mirror, then the hand-verified
-    // constant, then omitted. `resolveRating()` returns null when neither
-    // source is fresh, and the spread below emits nothing in that case —
-    // withholding the rating is the designed outcome, not a degraded one.
+    // NO aggregateRating HERE, DELIBERATELY. Removed 2026-08-13 after Rich
+    // Results reported "Review has multiple aggregate ratings" on every page.
     //
-    // KNOWN, and the reason this is not chased any harder: a self-serving
-    // aggregate on LocalBusiness/Organization is ineligible for Google star
-    // rich results regardless of the numbers. Google's review-snippet
-    // guidance is explicit — "if the entity that's being reviewed controls
-    // the reviews about itself, their pages that use LocalBusiness or any
-    // other type of Organization structured data are ineligible for star
-    // review feature". It is kept because AI engines read JSON-LD without
-    // applying Google's rich-result eligibility rules, so an accurate
-    // aggregate still carries GEO value. It must therefore be accurate or
-    // absent — never merely plausible.
-    ...(rating && {
-      aggregateRating: {
-        "@type": "AggregateRating",
-        ratingValue: rating.ratingValue,
-        ratingCount: rating.ratingCount,
-        bestRating: 5,
-        worstRating: 1,
-      },
-    }),
+    // Cause, confirmed with a headless render rather than inferred: the
+    // served HTML carries ONE Organization node, but React re-inserts the
+    // <script> during hydration, so the rendered DOM Google reads carries
+    // TWO with the same @id. Google merges them and sees two ratings.
+    // Four fixes were tried and measured — moving the block to <head>, to
+    // <body>, adding a stable id + key, and next/script. The first three
+    // still produced two nodes in the DOM; next/script produced one but
+    // dropped the block from the server HTML entirely, which defeats the
+    // purpose since this schema exists for crawlers that do not run JS.
+    //
+    // Removing the field rather than the duplication is the right trade
+    // because the field could never pay for itself: a self-serving rating on
+    // LocalBusiness/Organization — where the reviewed entity controls the
+    // reviews — is INELIGIBLE for star rich results under Google's
+    // review-snippet guidance. It has never produced stars on any page here
+    // and never could. Two duplicate Organization nodes carrying no rating
+    // merge cleanly and raise no error.
+    //
+    // The rating is still published where it is legitimate and where AI
+    // engines can read it: in prose on /, /about, /about/facts and
+    // /testimonials, as Review objects on /testimonials, and as
+    // Course.aggregateRating on course pages (Course is NOT an Organization
+    // subtype, so it IS eligible — see MIN_COURSE_RATINGS_FOR_SCHEMA).
+    //
+    // If this is ever reinstated, verify with a RENDERED DOM check, not a
+    // curl of the HTML. That distinction is exactly what made the previous
+    // fix look correct when it was not.
     knowsAbout: [
       "Java", "Python", "JavaScript", "React", "Angular", "Node.js",
       "AWS", "Azure", "Google Cloud", "DevOps", "Kubernetes", "Docker",
