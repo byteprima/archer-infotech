@@ -32,6 +32,7 @@ import { submitAlumni } from "@/lib/actions/alumni";
 import { ALUMNI_PACKAGE_BANDS } from "@/lib/alumni/constants";
 import { courses } from "@/data/courses";
 import { getAnalyticsDistinctId } from "@/lib/posthog/client";
+import { parseGithubUsername } from "@/lib/github-username";
 
 type FieldErrors = Record<string, string>;
 
@@ -95,6 +96,12 @@ export function AlumniForm() {
   const photoInputRef = useRef<HTMLInputElement>(null);
   const [photoName, setPhotoName] = useState<string | null>(null);
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
+  // githubUrl is mirrored into state only so the checkbox can enable itself
+  // and preview the avatar as the URL is typed. The input stays the form
+  // field of record — the server reads it from FormData like every other.
+  const [githubUrl, setGithubUrl] = useState("");
+  const [useGithubAvatar, setUseGithubAvatar] = useState(false);
+  const githubUser = parseGithubUsername(githubUrl);
   const inputClassName = "h-12 px-4";
 
   const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -267,9 +274,118 @@ export function AlumniForm() {
           </div>
           <div className="space-y-2">
             <Label htmlFor="githubUrl">GitHub URL</Label>
-            <Input id="githubUrl" name="githubUrl" type="url" placeholder="https://github.com/..." className={inputClassName} />
+            <Input
+              id="githubUrl"
+              name="githubUrl"
+              type="url"
+              placeholder="https://github.com/..."
+              className={inputClassName}
+              value={githubUrl}
+              onChange={(e) => setGithubUrl(e.target.value)}
+            />
             {err("githubUrl")}
           </div>
+        </div>
+
+        {/* Photo belongs here, with the other identity fields, rather than in
+            the testimonial section where it used to sit. It identifies the
+            person; it is not part of what they wrote about the course. */}
+        <div className="mt-6 space-y-3">
+          <Label htmlFor="photo">Photo (optional)</Label>
+
+          {/* GitHub avatar opt-in. Offered for GitHub only — it publishes
+              avatars at an unauthenticated URL, so this needs no API key and
+              no scraping. LinkedIn has no equivalent; see
+              lib/storage/github-avatar.ts for why. */}
+          <label
+            className={`flex items-start gap-3 rounded-lg border p-3 ${
+              githubUser ? "cursor-pointer hover:bg-muted/40" : "opacity-60"
+            }`}
+          >
+            <input
+              type="checkbox"
+              name="useGithubAvatar"
+              className="mt-0.5 h-4 w-4 shrink-0"
+              disabled={!githubUser}
+              checked={useGithubAvatar}
+              onChange={(e) => {
+                setUseGithubAvatar(e.target.checked);
+                // Ticking the box discards any file already chosen, so the
+                // form only ever offers one photo to the server.
+                if (e.target.checked) clearPhoto();
+              }}
+            />
+            <span className="text-sm">
+              <span className="font-medium">Use my GitHub profile photo</span>
+              <span className="block text-xs text-muted-foreground">
+                {githubUser
+                  ? `We'll copy the avatar from github.com/${githubUser} and store it with your entry.`
+                  : "Add your GitHub URL above to enable this."}
+              </span>
+            </span>
+            {githubUser && useGithubAvatar && (
+              /* eslint-disable-next-line @next/next/no-img-element */
+              <img
+                src={`https://github.com/${githubUser}.png?size=96`}
+                alt=""
+                aria-hidden="true"
+                width={48}
+                height={48}
+                className="ml-auto h-12 w-12 shrink-0 rounded-full border object-cover"
+              />
+            )}
+          </label>
+
+          {!useGithubAvatar && (
+            <>
+              <input
+                ref={photoInputRef}
+                id="photo"
+                name="photo"
+                type="file"
+                accept="image/jpeg,image/png,image/webp,image/avif"
+                className="sr-only"
+                onChange={handlePhotoChange}
+              />
+              <div className="flex items-center gap-3">
+                {photoPreview ? (
+                  /* eslint-disable-next-line @next/next/no-img-element */
+                  <img
+                    src={photoPreview}
+                    alt="Selected photo preview"
+                    className="h-12 w-12 rounded-full border object-cover"
+                  />
+                ) : (
+                  <span className="flex h-12 w-12 items-center justify-center rounded-full border bg-muted text-muted-foreground">
+                    <ImageIcon className="h-5 w-5" />
+                  </span>
+                )}
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="h-12 gap-2"
+                  onClick={() => photoInputRef.current?.click()}
+                >
+                  <Upload className="h-4 w-4" />
+                  {photoName ? "Change photo" : "Browse…"}
+                </Button>
+                {photoName && (
+                  <button
+                    type="button"
+                    onClick={clearPhoto}
+                    title="Remove photo"
+                    className="text-muted-foreground transition-colors hover:text-destructive"
+                  >
+                    <X className="h-5 w-5" />
+                  </button>
+                )}
+              </div>
+              <p className="truncate text-xs text-muted-foreground">
+                {photoName ?? "JPG, PNG, WebP or AVIF — up to 5 MB."}
+              </p>
+            </>
+          )}
+          {err("photo")}
         </div>
       </Section>
 
@@ -393,55 +509,6 @@ export function AlumniForm() {
               ))}
             </select>
             {err("rating")}
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="photo">Photo (optional)</Label>
-            <input
-              ref={photoInputRef}
-              id="photo"
-              name="photo"
-              type="file"
-              accept="image/jpeg,image/png,image/webp"
-              className="sr-only"
-              onChange={handlePhotoChange}
-            />
-            <div className="flex items-center gap-3">
-              {photoPreview ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={photoPreview}
-                  alt="Selected photo preview"
-                  className="h-12 w-12 rounded-full border object-cover"
-                />
-              ) : (
-                <span className="flex h-12 w-12 items-center justify-center rounded-full border bg-muted text-muted-foreground">
-                  <ImageIcon className="h-5 w-5" />
-                </span>
-              )}
-              <Button
-                type="button"
-                variant="outline"
-                className="h-12 gap-2"
-                onClick={() => photoInputRef.current?.click()}
-              >
-                <Upload className="h-4 w-4" />
-                {photoName ? "Change photo" : "Browse…"}
-              </Button>
-              {photoName && (
-                <button
-                  type="button"
-                  onClick={clearPhoto}
-                  title="Remove photo"
-                  className="text-muted-foreground transition-colors hover:text-destructive"
-                >
-                  <X className="h-5 w-5" />
-                </button>
-              )}
-            </div>
-            <p className="truncate text-xs text-muted-foreground">
-              {photoName ?? "JPG, PNG, or WebP — up to 5 MB."}
-            </p>
-            {err("photo")}
           </div>
         </div>
         <div className="mt-6 space-y-2">

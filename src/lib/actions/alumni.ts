@@ -153,9 +153,13 @@ export async function submitAlumni(formData: FormData): Promise<ActionResult> {
       };
     }
 
-    // Optional photo upload.
+    // Optional photo — either an uploaded file or a copy of the alumnus's
+    // GitHub avatar. A manual upload always wins: if someone both ticks the
+    // GitHub box and picks a file, the file is the more deliberate choice.
     let photoFilename: string | null = null;
     const photo = formData.get("photo");
+    const useGithubAvatar = str(formData, "useGithubAvatar") === "on";
+
     if (photo instanceof File && photo.size > 0) {
       const saved = await saveAlumniPhoto(photo);
       if (!saved.ok) {
@@ -166,6 +170,20 @@ export async function submitAlumni(formData: FormData): Promise<ActionResult> {
         };
       }
       photoFilename = saved.filename;
+    } else if (useGithubAvatar && d.githubUrl) {
+      const { fetchGithubAvatar } = await import("@/lib/storage/github-avatar");
+      const avatar = await fetchGithubAvatar(d.githubUrl);
+      if (!avatar.ok) {
+        // A failed avatar fetch must not lose the whole submission — the
+        // rest of the form is the valuable part. Surface it against the
+        // photo field and let the person choose to upload one instead.
+        return {
+          success: false,
+          message: avatar.error,
+          errors: { photo: [avatar.error] },
+        };
+      }
+      photoFilename = avatar.filename;
     }
 
     const { db, alumni } = await import("@/db");
