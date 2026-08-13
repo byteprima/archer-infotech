@@ -4,7 +4,8 @@
  * Drop-in component for embedding YouTube (or Vimeo) videos with proper
  * VideoObject Schema.org markup. Designed so a single `<VideoEmbed>`
  * placement gives you:
- *   - Lazy-loaded YouTube iframe (no JS shipped until in-viewport)
+ *   - Click-to-load facade: a thumbnail until pressed, then the real
+ *     player. No YouTube JavaScript on page load at all.
  *   - Visible title + description for screen readers
  *   - VideoObject JSON-LD with @id, contentUrl, thumbnailUrl, uploadDate,
  *     duration (ISO 8601), publisher @id-ref to canonical Org
@@ -15,6 +16,8 @@
  *
  * Until then, this is dormant infrastructure — no calls site-wide.
  */
+import { VideoFacade } from "@/components/seo/video-facade";
+
 const baseUrl =
   process.env.NEXT_PUBLIC_SITE_URL || "https://archerinfotech.in";
 
@@ -124,21 +127,18 @@ export function VideoEmbed({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
-      <div
-        className="relative w-full overflow-hidden rounded-xl border bg-black"
-        style={{ aspectRatio: aspect.replace("/", " / ") }}
-      >
-        {/* Native lazy-loaded iframe — no JS shipped, no IntersectionObserver
-            needed. Modern browsers honour loading="lazy" for iframes. */}
-        <iframe
-          src={embedUrl}
-          title={title}
-          loading="lazy"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowFullScreen
-          className="absolute inset-0 h-full w-full"
-        />
-      </div>
+      {/* Click-to-load facade, NOT a bare `loading="lazy"` iframe.
+          The attribute defers the load until the frame is near the
+          viewport, not until it is watched — and this video sits high
+          enough in the course body to be inside that threshold, so the
+          whole player loaded on every view: ~850 KiB of a 1,794 KiB page.
+          See video-facade.tsx for the measurements. */}
+      <VideoFacade
+        youtubeId={youtubeId}
+        title={title}
+        thumbnailUrl={thumbDisplay}
+        aspectRatio={aspect.replace("/", " / ")}
+      />
       <figcaption className="mt-2 text-sm text-muted-foreground">
         <strong className="text-foreground">{title}</strong> — {description}
       </figcaption>
