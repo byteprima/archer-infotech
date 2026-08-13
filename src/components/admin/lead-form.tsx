@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { CoursePickerField } from "@/components/admin/course-picker-field";
 import { createLead, updateLead, type LeadUpdateData } from "@/lib/actions/admin-leads";
 import type { Lead } from "@/db/schema";
 
@@ -134,16 +135,14 @@ export function LeadForm({ lead }: LeadFormProps) {
                 {fieldErrors.phone && <p className="text-sm text-red-500">{fieldErrors.phone[0]}</p>}
               </div>
               <div className="space-y-2">
-                <Label htmlFor="courseInterest">Course Interest</Label>
-                <Input
+                <CoursePickerField
                   id="courseInterest"
+                  label="Course Interest"
                   value={formData.courseInterest || ""}
-                  onChange={(event) =>
-                    setFormData((current) => ({
-                      ...current,
-                      courseInterest: event.target.value,
-                    }))
+                  onChange={(courseInterest) =>
+                    setFormData((current) => ({ ...current, courseInterest }))
                   }
+                  customHint="Anything the caller asked about that isn't in the catalogue."
                 />
               </div>
               <div className="space-y-2 md:col-span-2">

@@ -16,6 +16,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { CoursePickerField } from "@/components/admin/course-picker-field";
 import {
   createPlacement,
   updatePlacement,
@@ -212,14 +213,14 @@ export function PlacementForm({ placement }: PlacementFormProps) {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="courseTaken">Course Taken</Label>
-                <Input
+                <CoursePickerField
                   id="courseTaken"
+                  label="Course Taken"
                   value={formData.courseTaken}
-                  onChange={(e) =>
-                    setFormData((prev) => ({ ...prev, courseTaken: e.target.value }))
+                  onChange={(courseTaken) =>
+                    setFormData((prev) => ({ ...prev, courseTaken }))
                   }
-                  placeholder="e.g. Full Stack Development"
+                  customHint="Historical or one-off course names that aren't in the catalogue."
                 />
               </div>
 
