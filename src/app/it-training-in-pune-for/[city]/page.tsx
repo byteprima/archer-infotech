@@ -21,7 +21,10 @@ import {
 import { PageEvent } from "@/components/analytics/page-event";
 import { TrackedAnchor } from "@/components/analytics/tracked-anchor";
 import { AnimatedCounter } from "@/components/common/animated-counter";
-import { BreadcrumbJsonLd } from "@/components/seo/json-ld";
+import {
+  BreadcrumbJsonLd,
+  BranchLocalBusinessJsonLd,
+} from "@/components/seo/json-ld";
 import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 import { FaqSection } from "@/components/seo/faq-section";
 import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
@@ -131,6 +134,15 @@ export default async function CityFeederPage({ params }: CityPageProps) {
           },
         ]}
       />
+
+      {/* Per-branch LocalBusiness node — only for cities with a real,
+          address-confirmed Archer office. Without this, a physical branch is
+          invisible as a *place* to Google: the page reads as Pune content
+          that merely mentions the city, which is exactly how Sangli was
+          being resolved before 2026-08-13. */}
+      {data.localOffice?.branchId && (
+        <BranchLocalBusinessJsonLd branchId={data.localOffice.branchId} />
+      )}
 
       {/* ── Hero (home-page two-column layout) ───────────────── */}
       <section className="relative overflow-hidden gradient-hero text-white">
@@ -335,7 +347,7 @@ export default async function CityFeederPage({ params }: CityPageProps) {
                 accent="amber"
                 icon={CalendarDays}
                 eyebrow="Option 1 · Local"
-                title={`Weekend batches in ${data.localOffice.area}`}
+                title={`Classroom batches in ${data.localOffice.area}`}
                 body={`Real classroom, ${data.localOffice.scheduleLabel.toLowerCase()}. No travel to Pune.`}
               />
             )}
@@ -357,7 +369,7 @@ export default async function CityFeederPage({ params }: CityPageProps) {
         </div>
       </section>
 
-      {/* ── Local weekend office ─────────────────────────────── */}
+      {/* ── Local branch office ──────────────────────────────── */}
       {data.localOffice && (
         <section className="bg-muted/30 py-16 md:py-24">
           <div className="container mx-auto px-4">
@@ -367,7 +379,7 @@ export default async function CityFeederPage({ params }: CityPageProps) {
                 eyebrow={data.localOffice.scheduleLabel}
                 title={
                   <>
-                    Weekend batches at our{" "}
+                    {data.localOffice.headingLabel ?? "Weekend batches"} at our{" "}
                     <span className="text-primary">{data.localOffice.area}</span> office
                   </>
                 }

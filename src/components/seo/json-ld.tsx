@@ -272,6 +272,81 @@ export function LocalBusinessJsonLd() {
   );
 }
 
+/**
+ * Per-branch LocalBusiness node for a physical location that is NOT the
+ * Kothrud HQ (currently just Vishrambag, Sangli).
+ *
+ * Why a separate node rather than extra fields on the Organization: a
+ * schema.org Organization takes exactly one `address`. A second branch
+ * modelled by widening the Org node would either overwrite Pune's address
+ * or emit an ambiguous one, and Google resolves a multi-location business
+ * by reading distinct LocalBusiness nodes anyway — one per physical place,
+ * each with its own address, hours and page.
+ *
+ * The link back to the parent is `parentOrganization → ORG_ID`, so the two
+ * locations merge into one brand in the entity graph instead of reading as
+ * two unrelated businesses. This is the on-site half of the fix for the
+ * 2026-08-13 finding that every external mention of Archer resolves to
+ * Sangli under a variant name; the off-site half is claiming the listings.
+ *
+ * Deliberately omits `geo` — Sangli's coordinates have not been verified,
+ * and a guessed lat/long on a LocalBusiness is worse than none: it places a
+ * real pin somewhere wrong. Add it once the Sangli GBP is verified and can
+ * be read from the GBP record.
+ */
+export function BranchLocalBusinessJsonLd({ branchId }: { branchId: string }) {
+  const branch = siteConfig.branches.find((b) => b.id === branchId);
+  if (!branch) return null;
+
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": ["EducationalOrganization", "LocalBusiness"],
+    "@id": `${baseUrl}${branch.path}#branch-${branch.id}`,
+    name: branch.name,
+    // The brand name as it should be cited everywhere. Present because the
+    // directories currently list this branch as "Archer InfoTech And
+    // Technologies"; this states the canonical form for reconciliation.
+    alternateName: siteConfig.name,
+    url: `${baseUrl}${branch.path}`,
+    parentOrganization: { "@id": ORG_ID },
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: `${branch.address.line1}, ${branch.address.line2}`,
+      addressLocality: branch.address.city,
+      addressSubLocality: branch.subLocality,
+      addressRegion: branch.address.state,
+      postalCode: branch.address.pincode,
+      addressCountry: "IN",
+    },
+    telephone: branch.phone,
+    email: siteConfig.contact.email,
+    openingHoursSpecification: branch.openingHours.map((slot) => ({
+      "@type": "OpeningHoursSpecification" as const,
+      dayOfWeek: slot.days,
+      opens: slot.opens,
+      closes: slot.closes,
+    })),
+    areaServed: branch.areaServed.map((name) => ({
+      "@type": "Place" as const,
+      name: `${name}, Maharashtra`,
+    })),
+    priceRange: "₹₹",
+    foundingDate: String(siteConfig.foundingYear),
+    knowsAbout: branch.courses,
+    // No aggregateRating here. The 5.0/126+ figure is the Kothrud GBP's and
+    // belongs to that location only — attaching it to the Sangli node would
+    // be a fabricated rating for a branch whose own reviews live on an
+    // unclaimed Justdial listing.
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
+
 // Course schema
 interface CourseJsonLdProps {
   name: string;

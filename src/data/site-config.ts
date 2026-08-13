@@ -22,6 +22,66 @@ export const siteConfig = {
     },
   },
 
+  /**
+   * Additional physical branches beyond the Kothrud HQ.
+   *
+   * The Pune centre deliberately does NOT appear in this array — it lives in
+   * `contact.address` above, which every component, the visible NAP, and the
+   * Organization schema already read. Duplicating it here would create a
+   * second source of truth for the one address that must never drift.
+   *
+   * Sangli was confirmed as a genuine second Archer location (not a
+   * namesake) on 2026-08-09, and its NAP confirmed by the owner on
+   * 2026-08-13. Note the PIN: **416415**. Justdial has this right; the
+   * Sulekha listing's 416416 is wrong and needs correcting at source.
+   */
+  branches: [
+    {
+      id: "sangli",
+      name: "Archer Infotech — Vishrambag, Sangli",
+      city: "Sangli",
+      subLocality: "Vishrambag",
+      address: {
+        line1: "Vishwaleela Complex, Office No. G-3, Ground Floor",
+        line2: "MSEB Road, opposite Walchand College side gate, Vishrambag",
+        city: "Sangli",
+        state: "Maharashtra",
+        pincode: "416415",
+        country: "India",
+      },
+      // Shares the Pune number — deliberate, and good for NAP consistency:
+      // one phone across both branches means every citation reinforces the
+      // same number rather than splitting the signal.
+      phone: "+91 9850 678451",
+      /**
+       * Open all seven days, 08:00–20:00 (owner-confirmed 2026-08-13).
+       * Weekday sessions run with the resident Sangli faculty member;
+       * weekend batches are taught by senior trainers from the Pune centre.
+       * Note this differs from Pune's 09:00 open — a real difference to
+       * preserve across citations, not a typo to normalise.
+       */
+      openingHours: [
+        {
+          days: [
+            "Monday", "Tuesday", "Wednesday", "Thursday",
+            "Friday", "Saturday", "Sunday",
+          ],
+          opens: "08:00",
+          closes: "20:00",
+        },
+      ],
+      /** Canonical landing page — where this branch's citations must point. */
+      path: "/it-training-in-pune-for/sangli-miraj",
+      /** Taught at this branch specifically — narrower than the Pune catalogue. */
+      courses: [
+        "C", "C++", "Java", "Python", "Tally",
+        "Java Full Stack", "Python Full Stack",
+        "Data Science", "AI Engineering", "Data Analytics",
+      ],
+      areaServed: ["Sangli", "Miraj", "Kupwad", "Vishrambag"],
+    },
+  ],
+
   // Social Links + canonical knowledge-graph URLs (P6-06 — Wikidata 2026-06-11).
   social: {
     facebook: "https://facebook.com/archerinfotech",

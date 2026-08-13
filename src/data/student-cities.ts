@@ -77,12 +77,22 @@ export interface StudentCity {
   localOffice?: {
     /** Area + city, e.g. "Vishrambag, Sangli". */
     area: string;
-    /** Short schedule label, e.g. "Weekend batches · Sat & Sun". */
+    /** Short schedule label, e.g. "Open all week · Mon–Sun, 8 AM–8 PM". */
     scheduleLabel: string;
-    /** 2 paragraphs about the local weekend batches — city-specific. */
+    /** 2 paragraphs about the local batches — city-specific. */
     paragraphs: string[];
-    /** Address/contact note shown to students (confirm exact address before publish). */
+    /** Address/contact note shown to students. */
     note: string;
+    /**
+     * Matching `siteConfig.branches[].id`. Set this once the branch has a
+     * real NAP record in site-config — the page then emits a per-branch
+     * LocalBusiness node and renders the published address instead of a
+     * "call us for the address" placeholder. Leave unset for a city where
+     * the office is real but the address isn't confirmed for publication.
+     */
+    branchId?: string;
+    /** Section heading noun, e.g. "Weekday & weekend batches". */
+    headingLabel?: string;
   };
 
   /** 2 paragraphs, ~180–220 words, city-specific opening. */
@@ -477,17 +487,17 @@ export const studentCities: StudentCity[] = [
     priority: 1,
     metaTitle: "IT Training in Sangli-Miraj (Vishrambag) — Live Online",
     metaDescription:
-      "Archer Infotech now runs weekend IT training batches at our Vishrambag, Sangli office — plus live online batches and our Pune campus. Java, Python, Full Stack, Data & DevOps with 90% placement support. Est. 2009.",
+      "Archer Infotech's Vishrambag, Sangli office is open Mon–Sun, 8 AM–8 PM — plus live online batches and our Pune campus. C, C++, Java, Python, Tally, Full Stack, Data Science & AI with 90% placement support. Est. 2009.",
     tagline:
-      "Now in Sangli — weekend classroom batches at Vishrambag, live online classes, and our Pune campus. Three ways to build an IT career without putting it on hold.",
-    heroHeading: "IT Training in Sangli-Miraj — Weekend Batches at Vishrambag",
+      "Now in Sangli — classroom batches at Vishrambag all week, live online classes, and our Pune campus. Three ways to build an IT career without putting it on hold.",
+    heroHeading: "IT Training in Sangli-Miraj — Classroom Batches at Vishrambag",
     heroHeadingHighlights: ["Sangli-Miraj", "Vishrambag"],
     highlights: [
       {
         icon: "CalendarDays",
         color: "amber",
-        title: "Weekend classes in Vishrambag",
-        text: "In-person IT training in Sangli every Saturday & Sunday — no weekday clash.",
+        title: "Vishrambag classes, all week",
+        text: "In-person IT training in Sangli, Mon–Sun 8 AM–8 PM. Weekend batches taught by senior Pune trainers.",
       },
       {
         icon: "Laptop",
@@ -508,34 +518,45 @@ export const studentCities: StudentCity[] = [
         text: "Learn from working professionals — Sangli's bridge to Pune's IT industry since 2009.",
       },
     ],
+    // Ordered to match what the Vishrambag branch actually teaches (see
+    // siteConfig.branches.sangli.courses). C/C++/Tally lead because they are
+    // the branch's real entry-level demand and were missing from this page
+    // entirely — while the Justdial listing categorises Sangli as a C/C++
+    // institute. Pune-only tracks (AWS/DevOps, Testing, MERN) are not listed
+    // here: this section describes the branch, not the Pune catalogue.
     trackKeywords: [
+      "C",
+      "C++",
       "Java",
       "Python",
-      "Full Stack Development",
-      "MERN Stack",
+      "Tally",
+      "Java Full Stack",
+      "Python Full Stack",
       "Data Science",
+      "AI Engineering",
       "Data Analytics",
-      "AWS & DevOps",
-      "Software Testing",
     ],
     optionsIntro:
-      "Sangli-Miraj students now have three genuine ways to train with Archer Infotech, not just one. Attend in-person weekend batches at our Vishrambag, Sangli office; join live online classes from anywhere in Sangli or Miraj; or move to our Kothrud, Pune campus for the full experience. Each option carries the same job-focused curriculum, the same trainers, and the same 90% placement support — so you choose by convenience, not compromise.",
+      "Sangli-Miraj students now have three genuine ways to train with Archer Infotech, not just one. Attend in-person batches at our Vishrambag, Sangli office, open Monday to Sunday; join live online classes from anywhere in Sangli or Miraj; or move to our Kothrud, Pune campus for the full experience. Each option carries the same job-focused curriculum, the same trainers, and the same 90% placement support — so you choose by convenience, not compromise.",
     whyIntro:
       "With a new Vishrambag office plus online and Pune options, Archer Infotech is now the most accessible serious IT-training choice for Sangli-Miraj. Backed by 17+ years in Pune, 10,000+ students trained, and a 100+ company hiring network, here's what Sangli-Miraj students gain — local convenience without giving up Pune-grade training and placements.",
     coursesIntro:
-      "Sangli-Miraj students can learn Java, Python, Full Stack, Data Science, AWS, DevOps, and more — through the Vishrambag weekend batches, live online, or the Pune campus. These are the tracks students choose most for placement-ready skills. Book free counselling and we'll recommend the right course and the batch mode that fits your week.",
+      "At the Vishrambag branch you can learn C, C++, Java, Python and Tally, plus full-stack tracks in Java and Python, and Data Science, AI Engineering and Data Analytics — in person all week, live online, or at the Pune campus, where the wider catalogue adds AWS, DevOps and Software Testing. These are the tracks students choose most for placement-ready skills. Book free counselling and we'll recommend the right course and the batch mode that fits your week.",
     localOffice: {
       area: "Vishrambag, Sangli",
-      scheduleLabel: "Weekend batches · Saturday & Sunday",
+      branchId: "sangli",
+      headingLabel: "Weekday & weekend batches",
+      scheduleLabel: "Open all week · Mon–Sun, 8 AM–8 PM",
       paragraphs: [
-        "You no longer have to leave Sangli to train with a Pune institute. Archer Infotech runs weekend IT batches at our Vishrambag, Sangli office — so students in college and working professionals can learn in a real classroom on Saturdays and Sundays while keeping the rest of their week free. Vishrambag is Sangli's education and coaching hub, easy to reach from across Sangli, Miraj, and Kupwad.",
-        "The weekend batches follow the same job-focused curriculum and standards as our Pune programmes, with the same placement support behind them. It's the most convenient option if you want in-person teaching without relocating or commuting to Pune.",
+        "You no longer have to leave Sangli to train with a Pune institute. Archer Infotech's Vishrambag office is open all week — Monday to Sunday, 8 AM to 8 PM — so you can pick classroom timings that fit college or a job instead of the other way round. Vishrambag is Sangli's education and coaching hub, easy to reach from across Sangli, Miraj, and Kupwad.",
+        "Weekday sessions run with our resident Sangli faculty, so there's someone in the room who knows your batch and can give you time outside class. Weekend batches are taught by senior trainers who come down from the Kothrud, Pune centre — the same people who teach our Pune programmes. That's the part worth knowing: you get Pune-grade teaching in Sangli without relocating, and the same 90% placement support behind it either way.",
+        "Courses taught at Vishrambag: C, C++, Java, Python and Tally, plus full-stack tracks in Java and Python, and Data Science, AI Engineering and Data Analytics.",
       ],
-      note: "Vishrambag, Sangli. Call us for the exact address, current weekend batch schedule, and seat availability.",
+      note: "Vishwaleela Complex, Office No. G-3, Ground Floor, MSEB Road, opposite Walchand College side gate, Vishrambag, Sangli, Maharashtra 416415. Open Mon–Sun, 8 AM–8 PM · Call +91 9850 678451 for the current batch schedule and seat availability.",
     },
     intro: [
-      "Sangli and Miraj have a strong, ambitious student base — but until now, serious IT training often meant a long trip to Pune. Archer Infotech has changed that: alongside our established Pune campus (training software aspirants since 2009) and live online batches, we now run weekend classroom batches right here in Sangli, at our Vishrambag office.",
-      "That gives Sangli-Miraj learners three real choices: weekend classes in Vishrambag, live online classes from home on any schedule, or the full immersive experience at our Kothrud, Pune centre. Whichever you pick, the curriculum, trainers, and 90% placement support are the same. Here's how each option works.",
+      "Sangli and Miraj have a strong, ambitious student base — but until now, serious IT training often meant a long trip to Pune. Archer Infotech has changed that: alongside our established Pune campus (training software aspirants since 2009) and live online batches, we now run classroom batches right here in Sangli, at our Vishrambag office — open Monday to Sunday, 8 AM to 8 PM.",
+      "That gives Sangli-Miraj learners three real choices: classroom batches in Vishrambag on your own timing, live online classes from home on any schedule, or the full immersive experience at our Kothrud, Pune centre. Whichever you pick, the curriculum, trainers, and 90% placement support are the same. Here's how each option works.",
     ],
     online: [
       "Prefer to learn from home on your own schedule? Our live online batches are real-time, instructor-led classes — you join over video, ask questions live, and get recordings of every session. For Sangli and Miraj students, this is ideal if weekday or weekend timings at the Vishrambag office don't fit, or if you want the widest choice of batch slots.",
@@ -568,10 +589,10 @@ export const studentCities: StudentCity[] = [
       ],
     },
     whyArcher: [
-      "Now local — weekend classroom batches at our Vishrambag, Sangli office, plus live online and the Pune campus.",
+      "Now local — classroom batches all week at our Vishrambag, Sangli office, plus live online and the Pune campus.",
       "Established 2009 — 17+ years, 10,000+ students trained and 5,000+ placed.",
       "90% placement support with a 100+ company hiring-partner network (active recruiters include Amdocs, Capgemini, MindTree, and Tech Mahindra).",
-      "Same job-focused curriculum and trainers across weekend, online, and Pune classroom batches.",
+      "Same job-focused curriculum and trainers across Sangli, online, and Pune classroom batches — weekend batches at Vishrambag are taught by senior trainers from the Pune centre.",
     ],
     popularCourseSlugs: [
       "java-full-stack-training-in-pune",
