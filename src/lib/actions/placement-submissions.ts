@@ -31,6 +31,7 @@ const schema = z.object({
     .trim()
     .regex(/^\d{10}$/, "Enter a valid 10-digit phone number."),
   linkedinUrl: optional,
+  githubUrl: optional,
   company: z.string().trim().min(2, "Which company made the offer?"),
   designation: z.string().trim().min(2, "What is the role called?"),
   package: optional,
@@ -76,6 +77,7 @@ export async function submitPlacement(
     email: str(formData, "email"),
     phone: str(formData, "phone"),
     linkedinUrl: str(formData, "linkedinUrl"),
+    githubUrl: str(formData, "githubUrl"),
     company: str(formData, "company"),
     designation: str(formData, "designation"),
     package: str(formData, "package"),
@@ -114,8 +116,13 @@ export async function submitPlacement(
   // Optional photo, public-facing if the submission is approved AND consent
   // was given. Stored in the ordinary `placements` collection, not the
   // private one — it is meant to be seen.
+  // An uploaded file always wins over the profile-photo option: picking a
+  // file is the more deliberate act, and the checkbox clears any selection
+  // when ticked, so both arriving at once means something odd happened.
   let photoFilename: string | null = null;
   const photo = formData.get("photo");
+  const useProfilePhoto = str(formData, "useProfilePhoto") === "on";
+
   if (photo instanceof File && photo.size > 0) {
     const savedPhoto = await saveMedia(photo, "placements");
     if (!savedPhoto.ok) {
@@ -126,6 +133,24 @@ export async function submitPlacement(
       };
     }
     photoFilename = savedPhoto.filename;
+  } else if (useProfilePhoto) {
+    const { resolveProfileAvatar } = await import("@/lib/storage/profile-avatar");
+    const avatar = await resolveProfileAvatar({
+      linkedinUrl: d.linkedinUrl,
+      githubUrl: str(formData, "githubUrl"),
+      collection: "placements",
+    });
+    if (!avatar.ok) {
+      // The photo is optional; a failed lookup must not lose a submission
+      // that already carries a verified offer letter. Surface it against the
+      // photo field so they can browse for one instead.
+      return {
+        success: false,
+        message: avatar.error,
+        errors: { photo: [avatar.error] },
+      };
+    }
+    photoFilename = avatar.filename;
   }
 
   try {

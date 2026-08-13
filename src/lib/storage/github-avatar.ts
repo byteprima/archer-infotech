@@ -33,6 +33,8 @@ const AVATAR_MAX_BYTES = 2 * 1024 * 1024;
  */
 export async function fetchGithubAvatar(
   profileUrl: string | null | undefined,
+  /** Where to store it. Defaults to `alumni` so existing callers are unchanged. */
+  collection: "alumni" | "placements" = "alumni",
 ): Promise<GithubAvatarResult> {
   const username = parseGithubUsername(profileUrl);
   if (!username) {
@@ -81,7 +83,7 @@ export async function fetchGithubAvatar(
   const file = new File([buf], `${username}.${type === "image/png" ? "png" : "jpg"}`, {
     type: type === "image/png" ? "image/png" : "image/jpeg",
   });
-  const saved: SaveResult = await saveMedia(file, "alumni");
+  const saved: SaveResult = await saveMedia(file, collection);
   if (!saved.ok) return { ok: false, error: saved.error };
 
   return { ok: true, filename: saved.filename, username };

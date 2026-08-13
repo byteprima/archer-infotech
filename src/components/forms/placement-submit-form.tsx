@@ -19,6 +19,7 @@ import {
   X,
   FileText,
   ShieldCheck,
+  ImageIcon,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -27,6 +28,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { submitPlacement } from "@/lib/actions/placement-submissions";
+import { parseGithubUsername } from "@/lib/github-username";
+import { isLinkedInProfileUrl } from "@/lib/linkedin-url";
 
 type FieldErrors = Record<string, string>;
 
@@ -38,6 +41,24 @@ export function PlacementSubmitForm() {
 
   const letterRef = useRef<HTMLInputElement>(null);
   const [letterName, setLetterName] = useState<string | null>(null);
+
+  const photoRef = useRef<HTMLInputElement>(null);
+  const [photoName, setPhotoName] = useState<string | null>(null);
+  const [photoPreview, setPhotoPreview] = useState<string | null>(null);
+  // Mirrored so the "use my profile photo" option can enable itself and
+  // explain which source it would use, as the URLs are typed.
+  const [linkedinUrl, setLinkedinUrl] = useState("");
+  const [githubUrl, setGithubUrl] = useState("");
+  const [useProfilePhoto, setUseProfilePhoto] = useState(false);
+  const githubUser = parseGithubUsername(githubUrl);
+  const hasLinkedIn = isLinkedInProfileUrl(linkedinUrl);
+
+  const clearPhoto = () => {
+    if (photoPreview) URL.revokeObjectURL(photoPreview);
+    if (photoRef.current) photoRef.current.value = "";
+    setPhotoName(null);
+    setPhotoPreview(null);
+  };
 
   const inputClass = "h-12 px-4";
   const err = (k: string) =>
@@ -55,6 +76,7 @@ export function PlacementSubmitForm() {
           toast.success("Received", { description: result.message });
           formRef.current?.reset();
           setLetterName(null);
+          clearPhoto();
           setSubmitted(true);
         } else {
           if (result.errors) {
@@ -133,8 +155,23 @@ export function PlacementSubmitForm() {
               type="url"
               placeholder="https://linkedin.com/in/..."
               className={inputClass}
+              value={linkedinUrl}
+              onChange={(e) => setLinkedinUrl(e.target.value)}
             />
             {err("linkedinUrl")}
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="githubUrl">GitHub URL</Label>
+            <Input
+              id="githubUrl"
+              name="githubUrl"
+              type="url"
+              placeholder="https://github.com/..."
+              className={inputClass}
+              value={githubUrl}
+              onChange={(e) => setGithubUrl(e.target.value)}
+            />
+            {err("githubUrl")}
           </div>
         </div>
       </fieldset>
@@ -223,6 +260,15 @@ export function PlacementSubmitForm() {
           <p className="truncate text-xs text-muted-foreground">
             {letterName ?? "PDF or image, up to 5 MB."}
           </p>
+          {/* Says what actually counts as evidence. Without this people send
+              a photo of a joining-day selfie or a screenshot of a job board
+              listing, and the reviewer has to ask again. */}
+          <p className="rounded-lg border border-dashed p-3 text-xs text-muted-foreground">
+            <span className="font-medium text-foreground">What to attach:</span>{" "}
+            the offer letter PDF the company sent you, or a screenshot of the
+            offer email you received from them. It should show the company
+            name, your name and the role.
+          </p>
           {/* Said plainly, next to the field that asks for it. Someone
               uploading a salary document is entitled to know where it goes. */}
           <p className="flex items-start gap-2 rounded-lg border bg-muted/40 p-3 text-xs text-muted-foreground">
@@ -245,15 +291,107 @@ export function PlacementSubmitForm() {
             <Textarea id="testimonial" name="testimonial" rows={4} />
             {err("testimonial")}
           </div>
-          <div className="space-y-2">
+          <div className="space-y-3">
             <Label htmlFor="photo">Photo</Label>
-            <Input
-              id="photo"
-              name="photo"
-              type="file"
-              accept="image/jpeg,image/png,image/webp,image/avif"
-              className="h-12"
-            />
+
+            {/* Pull from a profile instead of uploading. LinkedIn is tried
+                first when both are given — see lib/storage/profile-avatar.ts
+                for why it currently always falls through to GitHub. */}
+            <label
+              className={`flex items-start gap-3 rounded-lg border p-3 ${
+                githubUser ? "cursor-pointer hover:bg-muted/40" : "opacity-60"
+              }`}
+            >
+              <input
+                type="checkbox"
+                name="useProfilePhoto"
+                className="mt-0.5 h-4 w-4 shrink-0"
+                disabled={!githubUser}
+                checked={useProfilePhoto}
+                onChange={(e) => {
+                  setUseProfilePhoto(e.target.checked);
+                  if (e.target.checked) clearPhoto();
+                }}
+              />
+              <span className="text-sm">
+                <span className="font-medium">Use my profile photo</span>
+                <span className="block text-xs text-muted-foreground">
+                  {githubUser
+                    ? hasLinkedIn
+                      ? `LinkedIn doesn't allow photos to be fetched from a profile URL, so we'll use github.com/${githubUser}.`
+                      : `We'll copy the photo from github.com/${githubUser}.`
+                    : hasLinkedIn
+                      ? "LinkedIn doesn't allow photos to be fetched from a profile URL. Add a GitHub URL above, or browse for a photo below."
+                      : "Add a GitHub URL above to use your profile photo."}
+                </span>
+              </span>
+              {githubUser && useProfilePhoto && (
+                /* eslint-disable-next-line @next/next/no-img-element */
+                <img
+                  src={`https://github.com/${githubUser}.png?size=96`}
+                  alt=""
+                  aria-hidden="true"
+                  width={48}
+                  height={48}
+                  className="ml-auto h-12 w-12 shrink-0 rounded-full border object-cover"
+                />
+              )}
+            </label>
+
+            {!useProfilePhoto && (
+              <>
+                <input
+                  ref={photoRef}
+                  id="photo"
+                  name="photo"
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp,image/avif"
+                  className="sr-only"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (photoPreview) URL.revokeObjectURL(photoPreview);
+                    setPhotoName(file?.name ?? null);
+                    setPhotoPreview(file ? URL.createObjectURL(file) : null);
+                  }}
+                />
+                <div className="flex items-center gap-3">
+                  {photoPreview ? (
+                    /* eslint-disable-next-line @next/next/no-img-element */
+                    <img
+                      src={photoPreview}
+                      alt="Selected photo preview"
+                      className="h-12 w-12 rounded-full border object-cover"
+                    />
+                  ) : (
+                    <span className="flex h-12 w-12 items-center justify-center rounded-full border bg-muted text-muted-foreground">
+                      <ImageIcon className="h-5 w-5" />
+                    </span>
+                  )}
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="h-12 gap-2"
+                    onClick={() => photoRef.current?.click()}
+                  >
+                    <Upload className="h-4 w-4" />
+                    {photoName ? "Change photo" : "Browse\u2026"}
+                  </Button>
+                  {photoName && (
+                    <button
+                      type="button"
+                      onClick={clearPhoto}
+                      title="Remove photo"
+                      className="text-muted-foreground transition-colors hover:text-destructive"
+                    >
+                      <X className="h-5 w-5" />
+                    </button>
+                  )}
+                </div>
+                <p className="truncate text-xs text-muted-foreground">
+                  {photoName ?? "JPG, PNG, WebP or AVIF \u2014 up to 5 MB."}
+                </p>
+              </>
+            )}
             {err("photo")}
           </div>
           <label className="flex items-start gap-3 rounded-lg border p-3">
