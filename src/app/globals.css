@@ -207,25 +207,3 @@
     box-shadow: 0 0 15px oklch(0.67 0.17 70 / 0.4);
   }
 }
-
-/*
- * Cookie consent banner visibility.
- *
- * The banner is server-rendered so it is part of first paint (see
- * cookie-consent-banner.tsx — mounting it late made it the mobile LCP
- * element at 3.9 s). It must not be VISIBLE for people who already chose,
- * so an inline script in <head> stamps <html data-cookie-consent="..."> from
- * localStorage before paint, and these rules do the rest.
- *
- * Default is hidden. It shows only on an explicit "pending". That ordering
- * matters: if the script fails, or JavaScript is off entirely, the banner
- * stays hidden — and with no JS there is no Pixel to consent to, so there is
- * nothing to ask about.
- */
-#cookie-consent {
-  display: none;
-}
-
-html[data-cookie-consent="pending"] #cookie-consent {
-  display: block;
-}

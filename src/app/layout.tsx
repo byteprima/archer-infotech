@@ -106,22 +106,6 @@ export default async function RootLayout({
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
         <link rel="dns-prefetch" href="https://www.google.com" />
         <link rel="dns-prefetch" href="https://static.cloudflareinsights.com" />
-        {/* Cookie-consent visibility, decided before first paint.
-            Blocking and inline on purpose — ~200 bytes, no network — because
-            it has to run before the banner would paint. The banner is now
-            server-rendered (it was mounting 1200 ms after hydration and
-            becoming the mobile LCP element at 3.9 s), so this is what stops
-            it appearing for people who already chose.
-            Sets "pending" on any failure: a private-mode browser that throws
-            on localStorage should still be offered the choice. */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html:
-              `(function(){try{var v=localStorage.getItem("archer-cookie-consent");` +
-              `document.documentElement.setAttribute("data-cookie-consent",v?"decided":"pending")}` +
-              `catch(e){document.documentElement.setAttribute("data-cookie-consent","pending")}})()`,
-          }}
-        />
       </head>
       {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
         <GoogleAnalyticsLazy gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
