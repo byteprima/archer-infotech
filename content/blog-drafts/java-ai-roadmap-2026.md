@@ -2,7 +2,7 @@
 title: "Java Roadmap 2026: From Scratch to AI-Ready Developer"
 slug: java-ai-roadmap-2026
 category: Programming
-tags: java, java full stack, jpa, hibernate, rest api, java roadmap, spring ai, learning path
+tags: java, java full stack, jpa, hibernate, rest api, java roadmap, learning path
 author: Archer Infotech
 featuredImage: /images/blog/java-ai-roadmap-2026.jpg
 metaTitle: "Java Roadmap 2026: From Scratch to AI-Ready Developer"
