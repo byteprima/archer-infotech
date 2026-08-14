@@ -14,19 +14,25 @@
  *
  * 2. Mobile LCP is the hero <H1> and was just brought to ~772ms by inlining
  *    CSS (see next.config.ts). The artwork is 1672x941; if it rendered at
- *    first paint it would become the LCP element and undo that. So it mounts
- *    only after SHOW_AFTER_MS, well past LCP, and next/image serves a
- *    modern format at a fraction of the 1.4MB source.
+ *    first paint it would become the LCP element and undo that. It therefore
+ *    mounts on the visitor's first interaction rather than on a timer — see
+ *    TRIGGERS below for the measurements behind that — and next/image serves
+ *    a modern format at a fraction of the 1.4MB source.
  *
- * After END_DATE this renders nothing on every route, with no deploy needed.
+ * It shows once per browsing session while the offer runs, and stops for good
+ * once the visitor submits the form (OfferLeadForm feeds the same lead
+ * pipeline as /contact).
+ *
+ * After endDate this renders nothing on every route, with no deploy needed.
  * To reuse it for the next campaign, change the OFFER constant.
  */
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { XIcon } from "lucide-react";
+
+import { OfferLeadForm } from "@/components/marketing/offer-lead-form";
 
 import {
   Dialog,
@@ -54,8 +60,6 @@ const OFFER = {
     "Python Full Stack batches for final-year engineering students. " +
     "Enrol 15 August for Rs 15,000, 16 August for Rs 16,000, or " +
     "17 August for Rs 17,000. Limited period offer.",
-  href:
-    "/contact?utm_source=site&utm_medium=popup&utm_campaign=independence-day-2026",
 } as const;
 
 /**
@@ -80,6 +84,11 @@ const TRIGGERS = ["pointerdown", "keydown", "scroll", "touchstart"] as const;
 /** Small pause after the trigger so it doesn't snap open mid-scroll. */
 const SHOW_AFTER_MS = 400;
 
+/** Cleared when the tab closes, so the next visit shows the popup again. */
+const SEEN_KEY = `archer-offer:${OFFER.id}:session`;
+/** Permanent: once they've given their details there is nothing left to ask. */
+const CONVERTED_KEY = `archer-offer:${OFFER.id}:converted`;
+
 /** Today's date in IST as YYYY-MM-DD, whatever timezone the visitor is in. */
 function todayInIST(): string {
   // en-CA formats as YYYY-MM-DD, which sorts correctly as a plain string.
@@ -102,11 +111,13 @@ export function OfferPopup() {
     const today = todayInIST();
     if (today < OFFER.startDate || today > OFFER.endDate) return;
 
-    // Once per day per visitor: the key carries the date, so it shows again
-    // tomorrow without needing anything cleaned up.
-    const seenKey = `archer-offer:${OFFER.id}:${today}`;
+    // Shows on every visit. "Visit" means a browsing session, not every page
+    // click: sessionStorage clears when the tab closes, so a returning
+    // visitor sees it again, while someone browsing five pages in one sitting
+    // sees it once. Re-prompting on every navigation would read as broken.
     try {
-      if (localStorage.getItem(seenKey)) return;
+      if (localStorage.getItem(CONVERTED_KEY)) return;
+      if (sessionStorage.getItem(SEEN_KEY)) return;
     } catch {
       // Private mode / storage disabled — show it rather than suppress it.
     }
@@ -118,7 +129,7 @@ export function OfferPopup() {
       timer = window.setTimeout(() => {
         setOpen(true);
         try {
-          localStorage.setItem(seenKey, "1");
+          sessionStorage.setItem(SEEN_KEY, "1");
         } catch {
           // Non-fatal: worst case they see it again on the next page load.
         }
@@ -158,7 +169,9 @@ export function OfferPopup() {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent
         showCloseButton={false}
-        className="z-[95] max-w-[calc(100%-1.5rem)] overflow-hidden p-0 sm:max-w-3xl"
+        // Image + three fields is taller than a short mobile viewport, so the
+        // dialog itself scrolls rather than overflowing off-screen.
+        className="z-[95] max-h-[92vh] max-w-[calc(100%-1.5rem)] overflow-y-auto p-0 sm:max-w-xl"
       >
         {/* Present to assistive tech and required by the dialog primitive;
             the artwork carries the same words visually. */}
@@ -174,37 +187,28 @@ export function OfferPopup() {
           <XIcon className="size-5" />
         </DialogClose>
 
-        <Link
-          href={OFFER.href}
-          onClick={() => setOpen(false)}
-          className="block focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
-        >
-          {/* width/height are the intrinsic dimensions, so the box is
-              reserved before the bytes land — no layout shift. Deliberately
-              not `priority`: preloading it would put a 1.4MB image on the
-              critical path and cost the LCP win it was designed around. */}
-          <Image
-            src={OFFER.image}
-            alt={OFFER.alt}
-            width={OFFER.width}
-            height={OFFER.height}
-            sizes="(max-width: 768px) 100vw, 768px"
-            className="h-auto w-full"
-          />
-        </Link>
+        {/* width/height are the intrinsic dimensions, so the box is reserved
+            before the bytes land — no layout shift. Deliberately not
+            `priority`: preloading it would put a 1.4MB image on the critical
+            path and cost the LCP win it was designed around. */}
+        <Image
+          src={OFFER.image}
+          alt={OFFER.alt}
+          width={OFFER.width}
+          height={OFFER.height}
+          sizes="(max-width: 640px) 100vw, 560px"
+          className="h-auto w-full"
+        />
 
-        <div className="flex flex-col gap-2 p-4 sm:flex-row sm:justify-end">
-          <DialogClose className="inline-flex h-10 items-center justify-center rounded-md px-4 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none">
-            Maybe later
-          </DialogClose>
-          <Link
-            href={OFFER.href}
-            onClick={() => setOpen(false)}
-            className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-6 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
-          >
-            Enrol now
-          </Link>
-        </div>
+        <OfferLeadForm
+          onSuccess={() => {
+            try {
+              localStorage.setItem(CONVERTED_KEY, "1");
+            } catch {
+              // Non-fatal: they'd just be asked again on a later visit.
+            }
+          }}
+        />
       </DialogContent>
     </Dialog>
   );

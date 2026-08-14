@@ -15,6 +15,12 @@ const leadSchema = z.object({
     .regex(/^\d+$/, "Phone number must contain only digits"),
   course: z.string().optional(),
   message: z.string().min(10, "Message must be at least 10 characters"),
+  // Honeypot. Hidden from humans by CSS and left empty by them; bots that
+  // fill every input trip it. Optional so existing callers that don't send
+  // it (the /contact form) are unaffected — only forms that opt in are
+  // checked. Added when the offer popup put a lead form on every page,
+  // which is a much larger spam surface than a single /contact route.
+  honeypot: z.string().optional(),
   source: z.string().optional(),
   utmSource: z.string().optional(),
   utmMedium: z.string().optional(),
@@ -45,6 +51,13 @@ export type ActionResult = {
 };
 
 export async function submitLead(data: LeadFormData): Promise<ActionResult> {
+  // Trip the honeypot before anything else — no DB write, no analytics, no
+  // conversion event. Report success: telling a bot it was detected only
+  // tells whoever wrote it what to change.
+  if (data.honeypot) {
+    return { success: true, message: "Thank you! We'll be in touch shortly." };
+  }
+
   // Validate the data
   const validationResult = leadSchema.safeParse(data);
 
