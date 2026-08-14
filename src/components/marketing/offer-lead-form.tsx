@@ -1,50 +1,62 @@
 "use client";
 
 /**
- * Lead capture inside the campaign popup: name, mobile, course.
+ * Lead capture strip beneath the campaign artwork: name, mobile, course.
+ *
+ * Laid out as a single compact bar so the image stays the hero — on desktop
+ * the three fields and the button sit on one row; on mobile they stack,
+ * because four controls across a 360px screen is not a form anyone fills in.
  *
  * Feeds the SAME pipeline as /contact (submitLead -> leads table), tagged
- * source="independence_day_popup" plus utm_campaign, so these leads sit
- * alongside every other lead in /admin and are filterable rather than
- * landing somewhere separate.
+ * source="popup:<campaign subject>" so every lead is traceable to the exact
+ * campaign that produced it rather than to "a popup".
  *
- * submitLead requires an email and a message; this form deliberately asks
+ * submitLead requires an email and a 10-character message; this form asks
  * for neither (three fields convert, five do not), so email is sent empty —
- * which its schema explicitly permits — and the message is synthesised from
- * the chosen course.
+ * which its schema explicitly permits — and the message is synthesised.
  *
- * The course list is read from the same canonical data as the /contact
- * picker (courses-minimal), so the two can never drift apart. It renders as
- * a native <select> rather than the portalled multi-select used on /contact:
- * inside a modal a native control gets the OS picker on mobile, avoids
- * fighting the dialog's focus trap, and keeps the popup to one decision.
+ * The course list reads from the same canonical data as the /contact picker
+ * (courses-minimal) so the two cannot drift. It renders as a native <select>
+ * rather than the portalled multi-select used on /contact: inside a modal a
+ * native control gets the OS picker on mobile, avoids fighting the dialog's
+ * focus trap, and keeps the popup to one decision.
  */
 
 import { useState } from "react";
 import { categories, coursesSummary } from "@/data/courses-minimal";
 import { submitLead } from "@/lib/actions/leads";
 
-/** Featured first — these are the three batches the artwork advertises. */
-const OFFER_COURSE_SLUGS = [
+/** Featured first — the batches most campaigns advertise. */
+const FEATURED_SLUGS = [
   "java-full-stack-training-in-pune",
   "dotnet-full-stack-training-in-pune",
   "python-full-stack-training-in-pune",
 ];
 
-const CAMPAIGN = "independence-day-2026";
+/** "Independence Day Offer" -> "popup:independence-day-offer" */
+export function popupLeadSource(subject: string): string {
+  const slug = subject
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 60);
+  return `popup:${slug || "campaign"}`;
+}
 
 interface Props {
-  /** Called after a lead is stored, so the popup can stop reappearing. */
+  /** Campaign name — tags the lead and appears in the enquiry message. */
+  subject: string;
+  /** Called once a lead is stored, so the popup can stop reappearing. */
   onSuccess: () => void;
 }
 
-export function OfferLeadForm({ onSuccess }: Props) {
+export function OfferLeadForm({ subject, onSuccess }: Props) {
   const [pending, setPending] = useState(false);
   const [done, setDone] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const offerCourses = OFFER_COURSE_SLUGS.map((slug) =>
+  const featured = FEATURED_SLUGS.map((slug) =>
     coursesSummary.find((c) => c.slug === slug),
   ).filter((c) => c !== undefined);
 
@@ -52,8 +64,7 @@ export function OfferLeadForm({ onSuccess }: Props) {
     .map((cat) => ({
       name: cat.name,
       courses: coursesSummary.filter(
-        (c) =>
-          c.categorySlug === cat.slug && !OFFER_COURSE_SLUGS.includes(c.slug),
+        (c) => c.categorySlug === cat.slug && !FEATURED_SLUGS.includes(c.slug),
       ),
     }))
     .filter((g) => g.courses.length > 0);
@@ -66,10 +77,9 @@ export function OfferLeadForm({ onSuccess }: Props) {
     const course = String(fd.get("course") || "").trim();
 
     const next: Record<string, string> = {};
-    if (name.length < 2) next.name = "Please enter your name.";
-    if (!/^\d{10}$/.test(phone))
-      next.phone = "Enter a 10-digit mobile number, digits only.";
-    if (!course) next.course = "Please choose a course.";
+    if (name.length < 2) next.name = "Enter your name.";
+    if (!/^\d{10}$/.test(phone)) next.phone = "Enter a 10-digit mobile number.";
+    if (!course) next.course = "Choose a course.";
     setErrors(next);
     if (Object.keys(next).length > 0) return;
 
@@ -81,17 +91,16 @@ export function OfferLeadForm({ onSuccess }: Props) {
         email: "",
         phone,
         course,
-        // The popup has no message field, so label the lead for the admin list.
-        message: `Independence Day offer enquiry from the website popup. Interested in: ${course}.`,
+        // submitLead enforces a 10-character minimum here.
+        message: `${subject} — enquiry from the website popup. Interested in: ${course}.`,
         honeypot: String(fd.get("website") || ""),
-        source: "independence_day_popup",
+        source: popupLeadSource(subject),
         utmSource: "site",
         utmMedium: "popup",
-        utmCampaign: CAMPAIGN,
+        utmCampaign: popupLeadSource(subject).replace(/^popup:/, ""),
         currentPath:
           typeof window !== "undefined" ? window.location.pathname : undefined,
-        referrer:
-          typeof document !== "undefined" ? document.referrer : undefined,
+        referrer: typeof document !== "undefined" ? document.referrer : undefined,
       });
 
       if (!result.success) {
@@ -109,9 +118,7 @@ export function OfferLeadForm({ onSuccess }: Props) {
       setDone(true);
       onSuccess();
     } catch {
-      setFormError(
-        "We couldn't reach the server. Please call +91 9850 678451 instead.",
-      );
+      setFormError("We couldn't reach the server. Please call +91 9850 678451.");
     } finally {
       setPending(false);
     }
@@ -119,13 +126,12 @@ export function OfferLeadForm({ onSuccess }: Props) {
 
   if (done) {
     return (
-      <div className="p-5 text-center" role="status">
-        <p className="font-heading text-base font-medium text-foreground">
+      <div className="bg-muted/40 px-4 py-4 text-center sm:px-5" role="status">
+        <p className="font-heading text-sm font-medium text-foreground">
           Thank you — we&apos;ve got your details.
         </p>
-        <p className="mt-1 text-sm text-muted-foreground">
-          Our counsellor will call you shortly to confirm your seat. For
-          anything urgent, call{" "}
+        <p className="mt-1 text-xs text-muted-foreground">
+          Our counsellor will call you shortly. For anything urgent, call{" "}
           <a href="tel:+919850678451" className="font-medium text-primary">
             +91 9850 678451
           </a>
@@ -135,16 +141,21 @@ export function OfferLeadForm({ onSuccess }: Props) {
     );
   }
 
-  const fieldClass =
-    "h-11 w-full rounded-md border border-input bg-background px-3 text-base " +
+  const field =
+    "h-10 w-full rounded-md border border-input bg-background px-3 text-sm " +
     "outline-none focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-ring/40";
 
-  return (
-    <form onSubmit={handleSubmit} noValidate className="grid gap-3 p-4 sm:p-5">
-      <p className="text-sm font-medium text-foreground">
-        Book your seat — we&apos;ll call you back.
-      </p>
+  // Errors live under the strip rather than under each field: inside a
+  // three-across bar, per-field messages reflow the row and push the button
+  // out from under the cursor.
+  const messages = Object.values(errors);
 
+  return (
+    <form
+      onSubmit={handleSubmit}
+      noValidate
+      className="border-t bg-muted/40 px-3 py-3 sm:px-4"
+    >
       {/* Honeypot: hidden from people, checked on the server. */}
       <input
         type="text"
@@ -155,68 +166,38 @@ export function OfferLeadForm({ onSuccess }: Props) {
         className="absolute h-0 w-0 overflow-hidden opacity-0"
       />
 
-      <div className="grid gap-1">
-        <label htmlFor="offer-name" className="text-sm text-muted-foreground">
-          Full name
-        </label>
+      <div className="grid gap-2 sm:grid-cols-[1fr_1fr_1fr_auto] sm:items-center">
         <input
-          id="offer-name"
           name="name"
           autoComplete="name"
-          required
-          className={fieldClass}
+          placeholder="Your name"
+          aria-label="Your name"
           aria-invalid={!!errors.name}
-          aria-describedby={errors.name ? "offer-name-err" : undefined}
+          className={field}
         />
-        {errors.name && (
-          <p id="offer-name-err" className="text-xs text-destructive">
-            {errors.name}
-          </p>
-        )}
-      </div>
-
-      <div className="grid gap-1">
-        <label htmlFor="offer-phone" className="text-sm text-muted-foreground">
-          Mobile number
-        </label>
         <input
-          id="offer-phone"
           name="phone"
           type="tel"
           inputMode="numeric"
           autoComplete="tel-national"
           maxLength={10}
-          placeholder="10-digit mobile number"
-          required
-          className={fieldClass}
+          placeholder="Mobile number"
+          aria-label="Mobile number"
           aria-invalid={!!errors.phone}
-          aria-describedby={errors.phone ? "offer-phone-err" : undefined}
+          className={field}
         />
-        {errors.phone && (
-          <p id="offer-phone-err" className="text-xs text-destructive">
-            {errors.phone}
-          </p>
-        )}
-      </div>
-
-      <div className="grid gap-1">
-        <label htmlFor="offer-course" className="text-sm text-muted-foreground">
-          Course interested in
-        </label>
         <select
-          id="offer-course"
           name="course"
-          required
           defaultValue=""
-          className={fieldClass}
+          aria-label="Course interested in"
           aria-invalid={!!errors.course}
-          aria-describedby={errors.course ? "offer-course-err" : undefined}
+          className={field}
         >
           <option value="" disabled>
-            Select a course
+            Course interested in
           </option>
-          <optgroup label="Independence Day offer">
-            {offerCourses.map((c) => (
+          <optgroup label="Featured">
+            {featured.map((c) => (
               <option key={c.slug} value={c.title}>
                 {c.title}
               </option>
@@ -232,30 +213,20 @@ export function OfferLeadForm({ onSuccess }: Props) {
             </optgroup>
           ))}
         </select>
-        {errors.course && (
-          <p id="offer-course-err" className="text-xs text-destructive">
-            {errors.course}
-          </p>
-        )}
+        <button
+          type="submit"
+          disabled={pending}
+          className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none disabled:opacity-60"
+        >
+          {pending ? "Sending…" : "Enrol now"}
+        </button>
       </div>
 
-      {formError && (
-        <p role="alert" className="text-sm text-destructive">
-          {formError}
+      {(messages.length > 0 || formError) && (
+        <p role="alert" className="mt-2 text-xs text-destructive">
+          {formError ?? messages[0]}
         </p>
       )}
-
-      <button
-        type="submit"
-        disabled={pending}
-        className="inline-flex h-11 items-center justify-center rounded-md bg-primary px-6 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none disabled:opacity-60"
-      >
-        {pending ? "Sending…" : "Enrol now"}
-      </button>
-
-      <p className="text-center text-xs text-muted-foreground">
-        We&apos;ll only use this to contact you about the offer.
-      </p>
     </form>
   );
 }

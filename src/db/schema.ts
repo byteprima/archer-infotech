@@ -475,3 +475,38 @@ export type NewAccount = typeof account.$inferInsert;
 
 export type Verification = typeof verification.$inferSelect;
 export type NewVerification = typeof verification.$inferInsert;
+
+/**
+ * Promotional popup campaigns, managed from /admin/popups.
+ *
+ * Config lives in the DB rather than in code so a campaign can be switched
+ * off, or its artwork swapped, without a 45-minute rebuild and deploy. The
+ * public site reads it through /api/popup, which is uncached — the site's
+ * HTML is edge-cached for up to 6 hours, so anything baked into a page would
+ * take that long to react to an admin toggle.
+ */
+export const popupCampaigns = sqliteTable("popup_campaigns", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  /** Human name for the campaign; also what tags the leads it generates. */
+  subject: text("subject").notNull(),
+  /** Filename inside the "offers" media collection. */
+  imageFilename: text("image_filename").notNull(),
+  /** Read off the uploaded file so the popup can reserve space (no CLS). */
+  imageWidth: integer("image_width").notNull(),
+  imageHeight: integer("image_height").notNull(),
+  /** The offer in words — the artwork's text is pixels, invisible to search. */
+  imageAlt: text("image_alt").notNull(),
+  /** "image_only" | "image_and_form" */
+  mode: text("mode").notNull().default("image_and_form"),
+  /** Where the artwork links in image_only mode. Ignored when collecting data. */
+  linkUrl: text("link_url"),
+  enabled: integer("enabled", { mode: "boolean" }).notNull().default(false),
+  /** Inclusive YYYY-MM-DD in IST. NULL on either side means open-ended. */
+  startDate: text("start_date"),
+  endDate: text("end_date"),
+  createdAt: integer("created_at", { mode: "timestamp" }).notNull().$defaultFn(() => new Date()),
+  updatedAt: integer("updated_at", { mode: "timestamp" }).notNull().$defaultFn(() => new Date()),
+});
+
+export type PopupCampaign = typeof popupCampaigns.$inferSelect;
+export type NewPopupCampaign = typeof popupCampaigns.$inferInsert;

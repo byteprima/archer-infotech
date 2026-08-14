@@ -52,6 +52,21 @@ const nextConfig: NextConfig = {
      * edge-cached at Cloudflare where it ships brotli-compressed.
      */
     inlineCss: true,
+    /**
+     * Server Actions default to a 1 MB request body, but this codebase
+     * declares MEDIA_MAX_BYTES = 5 MB and validates uploads against it — so
+     * every upload between 1 MB and 5 MB was rejected by the framework with
+     * a 413 before saveMedia's own limit was ever consulted. That silently
+     * affected the existing alumni photo and placement offer-letter forms,
+     * not just the popup artwork that surfaced it (a 1.4 MB PNG, 2026-08-15).
+     *
+     * 6 MB = the declared media limit plus room for the rest of the form.
+     * If MEDIA_MAX_BYTES ever rises, raise this with it or uploads will fail
+     * with a framework error instead of a readable validation message.
+     */
+    serverActions: {
+      bodySizeLimit: "6mb",
+    },
     // NOTE: experimental.optimizeCss (Beasties critical-CSS inlining) was
     // tried 2026-06-22 to kill the render-blocking Tailwind sheet but is a
     // no-op in the App Router — React manages stylesheets via

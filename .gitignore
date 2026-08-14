@@ -49,3 +49,7 @@ next-env.d.ts
 # Hand-transcribed GBP reviews — real reviewer names; kept out of git and
 # copied to the server for the one-time import. See scripts/import-google-reviews.mjs
 scripts/data/google-reviews.json
+
+# Locally, media uploads land in ./uploads (in production this is the
+# mounted data volume). User-uploaded content is never source.
+uploads/

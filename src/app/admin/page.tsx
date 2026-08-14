@@ -13,6 +13,7 @@ import {
   ClipboardList,
   LineChart,
   GraduationCap,
+  MonitorPlay,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -122,6 +123,13 @@ export default async function AdminDashboard() {
       href: "/admin/alumni",
       icon: GraduationCap,
       stats: `${stats.alumni.total} total, ${stats.alumni.new} new`,
+    },
+    {
+      title: "Website Popup",
+      description: "Switch the offer popup on or off, change the artwork",
+      href: "/admin/popups",
+      icon: MonitorPlay,
+      stats: "Live changes, no deploy",
     },
     {
       title: "Blog Posts",

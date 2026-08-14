@@ -44,6 +44,9 @@ export const MEDIA_COLLECTIONS = [
   // Evidence attached to a public placement submission. PRIVATE — see
   // PRIVATE_MEDIA_COLLECTIONS below.
   "offer-letters",
+  // Campaign popup artwork uploaded from /admin/popups. Public by design:
+  // it is an advertisement, shown to every visitor.
+  "offers",
 ] as const;
 
 export type MediaCollection = (typeof MEDIA_COLLECTIONS)[number];
