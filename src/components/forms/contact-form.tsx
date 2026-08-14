@@ -226,15 +226,13 @@ export function ContactForm() {
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="message">Message *</Label>
+        <Label htmlFor="message">Message</Label>
         <Textarea
           id="message"
           name="message"
-          placeholder="Tell us about your requirements..."
+          placeholder="Tell us about your requirements... (optional)"
           rows={5}
           className="px-4 py-3"
-          required
-          minLength={10}
           aria-invalid={errors.message ? "true" : "false"}
         />
         {errors.message && (

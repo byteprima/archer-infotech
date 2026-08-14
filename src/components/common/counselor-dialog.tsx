@@ -109,9 +109,10 @@ export function CounselorDialog({
     const course = String(fd.get("course") || "").trim();
     const typedMessage = String(fd.get("message") || "").trim();
 
-    // The lead schema requires a 10+ char message. Counsellor enquiries are
-    // often just a callback request, so when the visitor leaves the box empty
-    // we synthesise a descriptive default rather than block the submission.
+    // The lead schema no longer requires a message, but an empty one tells the
+    // counsellor nothing. Counsellor enquiries are often just a callback
+    // request, so when the visitor leaves the box empty we still synthesise a
+    // descriptive default for the admin lead list.
     const message =
       typedMessage ||
       `Counsellor callback request via website${course ? ` about ${course}` : ""}.`;

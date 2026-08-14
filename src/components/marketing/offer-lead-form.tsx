@@ -81,7 +81,7 @@ export function OfferLeadForm({ onSuccess }: Props) {
         email: "",
         phone,
         course,
-        // submitLead enforces a 10-character minimum here.
+        // The popup has no message field, so label the lead for the admin list.
         message: `Independence Day offer enquiry from the website popup. Interested in: ${course}.`,
         honeypot: String(fd.get("website") || ""),
         source: "independence_day_popup",

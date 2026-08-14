@@ -14,7 +14,11 @@ const leadSchema = z.object({
     .max(10, "Please enter a valid 10-digit phone number")
     .regex(/^\d+$/, "Phone number must contain only digits"),
   course: z.string().optional(),
-  message: z.string().min(10, "Message must be at least 10 characters"),
+  // Optional: the contact form's textarea is not mandatory — a name, phone
+  // and course pick is a complete enquiry, and forcing 10 characters of prose
+  // was costing submissions. Other callers (chat widget, offer popup) still
+  // pass a generated message, so nothing downstream needs to change.
+  message: z.string().optional(),
   // Honeypot. Hidden from humans by CSS and left empty by them; bots that
   // fill every input trip it. Optional so existing callers that don't send
   // it (the /contact form) are unaffected — only forms that opt in are
@@ -78,7 +82,9 @@ export async function submitLead(data: LeadFormData): Promise<ActionResult> {
       email: validationResult.data.email,
       phone: validationResult.data.phone,
       courseInterest: validationResult.data.course,
-      message: validationResult.data.message,
+      // Empty textarea → null rather than "", so the admin lead list shows a
+      // blank cell instead of an empty-looking message body.
+      message: validationResult.data.message?.trim() || null,
       source: validationResult.data.source || "contact_form",
       utmSource: validationResult.data.utmSource,
       utmMedium: validationResult.data.utmMedium,
