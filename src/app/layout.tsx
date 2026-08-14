@@ -11,6 +11,9 @@ import { WhatsAppButtonLazy } from "@/components/common/whatsapp-button-lazy";
 import { CounselorFabLazy } from "@/components/common/counselor-fab-lazy";
 import { ChatWidgetLazy } from "@/components/chat/chat-widget-lazy";
 import { CookieConsentBanner } from "@/components/common/cookie-consent-banner";
+// Time-boxed campaign popup. Self-disables after its end date (client-side,
+// because HTML is edge-cached) and excludes /admin itself.
+import { OfferPopup } from "@/components/marketing/offer-popup";
 // P-12 follow-up (2026-06-04): sonner Toaster was 37 KB in the eager shared
 // chunk on every public route. The actual dynamic import + ssr:false lives
 // inside ToasterLazy (a Client Component), because Next 16 App Router only
@@ -149,6 +152,7 @@ export default async function RootLayout({
         <CounselorFabLazy />
         {process.env.NEXT_PUBLIC_CHAT_ENABLED === "true" && <ChatWidgetLazy />}
         <CookieConsentBanner />
+        <OfferPopup />
         <ToasterLazy />
       </body>
     </html>

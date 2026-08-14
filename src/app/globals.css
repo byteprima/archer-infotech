@@ -207,3 +207,14 @@
     box-shadow: 0 0 15px oklch(0.67 0.17 70 / 0.4);
   }
 }
+
+/* Campaign popup (see components/marketing/offer-popup.tsx).
+   The dialog primitive's backdrop sits at z-50, below the cookie banner
+   (z-60) and the floating action buttons (z-50), so both would poke through
+   the dim layer while the popup is open. Lifting the backdrop here keeps
+   those components untouched — the popup sets data-offer-open on <html>
+   only while it is actually open. */
+html[data-offer-open="true"] [data-slot="dialog-overlay"] {
+  z-index: 90;
+  background-color: rgb(0 0 0 / 0.6);
+}
