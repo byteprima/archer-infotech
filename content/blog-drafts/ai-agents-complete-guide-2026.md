@@ -53,7 +53,7 @@ Goal Achieved?
 
 That cycle — **Observe → Think → Act → Observe → Think → Act** — is the single most important concept in agent development. Everything else is an elaboration of it.
 
-![Archer Infotech AI Workflow infographic — the six-stage agent loop (Observe, Think/Reason, Plan, Act, Evaluate, Improve) running continuously until the goal is achieved; a typical AI agent architecture showing user input, agent runtime and core components (LLM, memory, tools, knowledge) with an evaluation step and feedback loop; the twelve types of AI agents; and popular frameworks including LangChain, LangGraph, CrewAI, AutoGen, LlamaIndex, Semantic Kernel, OpenAI Agents SDK, Google ADK, n8n, Dify and Flowise.](/images/blog/ai-agent-workflow-architecture.png)
+![AI agent workflow infographic — the six-stage agent loop (Observe, Think/Reason, Plan, Act, Evaluate, Improve) running continuously until the goal is achieved; a typical AI agent architecture showing user input, agent runtime and core components (LLM, memory, tools, knowledge) with an evaluation step and feedback loop; and popular agent frameworks including LangChain, LangGraph, CrewAI, AutoGen, LlamaIndex, Semantic Kernel, OpenAI Agents SDK, Google ADK, n8n, Dify and Flowise.](/images/blog/ai-agent-workflow-architecture.png)
 
 ### A worked example
 
