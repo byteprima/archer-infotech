@@ -28,6 +28,30 @@ const nextConfig: NextConfig = {
    *   - posthog-js: tree-shakable; helps drop dead capture/replay code paths
    */
   experimental: {
+    /**
+     * Inline the route's CSS into <style> tags instead of emitting
+     * render-blocking <link rel=stylesheet>. Turbopack-native, unlike
+     * optimizeCss below.
+     *
+     * WHY: the mobile LCP element is the hero <H1> — server-rendered text
+     * that waits on nothing but CSS. Measured 2026-08-14 (Pixel 5, 4x CPU,
+     * slow 4G): stylesheet finishes at 986ms, first paint at 1120ms, and
+     * LCP === FCP exactly. Paint is gated on the stylesheet and nothing
+     * else, so removing the request removes the delay.
+     *
+     * This was first shipped as 171c7db (2026-06-17) — mobile PSI 88-95,
+     * LCP 4.05s -> ~2.9s, 0 render-blocking items — then reverted 3.5h
+     * later by 25fcd88 with an empty revert message and no recorded reason.
+     * Re-applied after re-measuring from scratch rather than trusting that
+     * history. If you are about to revert this again, WRITE DOWN WHY.
+     *
+     * Trade-off accepted (see Next's inlineCss docs): inlined CSS can't be
+     * cached separately, so repeat visitors re-download ~29KB of Tailwind
+     * per page. Right call here — traffic is organic-search-led and
+     * first-visit dominated, the CSS is small and atomic, and HTML is
+     * edge-cached at Cloudflare where it ships brotli-compressed.
+     */
+    inlineCss: true,
     // NOTE: experimental.optimizeCss (Beasties critical-CSS inlining) was
     // tried 2026-06-22 to kill the render-blocking Tailwind sheet but is a
     // no-op in the App Router — React manages stylesheets via
