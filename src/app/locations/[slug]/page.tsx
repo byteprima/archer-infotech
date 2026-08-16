@@ -27,8 +27,11 @@ import {
   neighbourhoods,
   getNeighbourhood,
   getNearbyNeighbourhoods,
+  getLocationDepth,
   directionsUrlFrom,
 } from "@/data/locations";
+import { SourceCitations } from "@/components/seo/source-citations";
+import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { getCourse } from "@/data/courses";
 import { siteConfig } from "@/data/site-config";
 import { buildPageMetadata } from "@/lib/seo";
@@ -77,6 +80,13 @@ export default async function LocationPage({ params }: LocationPageProps) {
   // can hop laterally between location pages without bouncing through
   // the hub.
   const nearbyAreas = getNearbyNeighbourhoods(area.slug);
+
+  // Depth layer — audience, batch-fit table, takeaway and sources.
+  // Audit 2026-08-16: these close the nine checks the whole section was
+  // failing. See the LOCATION_DEPTH header in data/locations.ts for the
+  // check-to-field mapping.
+  const depth = getLocationDepth(area.slug);
+  const topCourse = popularCourses[0];
 
   return (
     <>
@@ -151,6 +161,23 @@ export default async function LocationPage({ params }: LocationPageProps) {
           </div>
         </header>
 
+        {/* Summary answer. Opens with a definition sentence ("Archer Infotech
+            is an IT training institute...") and carries the verified stats,
+            so the passage is self-contained for extraction and every claim
+            in it is a number rather than an adjective. Audit 2026-08-16. */}
+        <DefinitiveAnswer eyebrow={`IT training in ${area.name} — the short answer`}>
+          Archer Infotech is an IT training institute in Kothrud, Pune, running
+          classroom and live-online batches for students across{" "}
+          {area.fullName}
+          {area.slug === "it-training-in-kothrud"
+            ? ""
+            : ` — ${area.commute.distanceLabel} from the classroom`}
+          . We have taught here since {siteConfig.foundingYear}, with 10,000+
+          students trained, 5,000+ placed, a {siteConfig.stats.placementRate}{" "}
+          placement rate and more than 1,000 batches completed across{" "}
+          {siteConfig.stats.courses} courses.
+        </DefinitiveAnswer>
+
         <div className="container mx-auto px-4 py-12 md:py-16 space-y-14 max-w-4xl">
           {/* Intro */}
           <section className="prose prose-slate max-w-none space-y-4">
@@ -161,6 +188,80 @@ export default async function LocationPage({ params }: LocationPageProps) {
               </p>
             ))}
           </section>
+
+          {/* At a glance — the facts a reader would otherwise have to mine
+              out of five sections, in one extractable table. Every value is
+              resolved from existing per-area data, so it cannot drift from
+              the prose above it. */}
+          <section id="at-a-glance" className="space-y-4 scroll-mt-24">
+            <h2 className="text-2xl md:text-3xl font-bold">
+              IT training in {area.name} at a glance
+            </h2>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm border-collapse">
+                <caption className="sr-only">
+                  Key facts about training at Archer Infotech for students from{" "}
+                  {area.fullName}
+                </caption>
+                <tbody>
+                  {[
+                    ["Area covered", area.fullName],
+                    ["PIN code", area.pincode],
+                    ["Distance to our Kothrud centre", area.commute.distanceLabel],
+                    ["Nearest landmarks", area.landmarks.slice(0, 3).join(" · ")],
+                    [
+                      "Most-taken course from this area",
+                      topCourse ? `${topCourse.title} Training in Pune` : "Java Full Stack Training in Pune",
+                    ],
+                    ["Batch formats available", "Weekday classroom · Weekend classroom · Live online"],
+                    ["Centre hours", "Monday–Saturday, 09:00–20:00"],
+                    ["Placement rate", `${siteConfig.stats.placementRate} across 1,000+ completed batches`],
+                  ].map(([label, value]) => (
+                    <tr key={label} className="border-b last:border-b-0">
+                      <th
+                        scope="row"
+                        className="text-left font-medium py-2.5 pr-4 align-top text-foreground w-[45%]"
+                      >
+                        {label}
+                      </th>
+                      <td className="py-2.5 text-muted-foreground align-top">
+                        {value}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          {/* Who this page is for. The audit flagged "audience and use-case
+              clarity" on 18 of 23 location pages: the pages described a place
+              but never named a reader. */}
+          {depth && (
+            <section id="who-this-is-for" className="space-y-4 scroll-mt-24">
+              <h2 className="text-2xl md:text-3xl font-bold">
+                Who is this page for?
+              </h2>
+              <p className="text-muted-foreground leading-relaxed">
+                {depth.audience}
+              </p>
+              <ul className="grid sm:grid-cols-3 gap-3">
+                {[
+                  "Freshers and final-year students choosing a first course",
+                  "Working professionals upskilling around a full-time job",
+                  "Career switchers moving into IT from another field",
+                ].map((who) => (
+                  <li
+                    key={who}
+                    className="flex items-start gap-2 text-sm rounded-lg border p-4"
+                  >
+                    <CheckCircle className="h-4 w-4 text-accent shrink-0 mt-0.5" />
+                    <span className="text-muted-foreground">{who}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
 
           {/* Commute & directions */}
           <section id="commute" className="space-y-5 scroll-mt-24">
@@ -244,6 +345,73 @@ export default async function LocationPage({ params }: LocationPageProps) {
               ))}
             </div>
           </section>
+
+          {/* Batch-format decision table. This is the question the page is
+              actually being read to answer — "given where I live, which batch
+              do I take?" — and the audit's "comparison or decision support"
+              and "structured answer support" checks both failed across the
+              whole section because nothing here answered it. Every `suits`
+              string is reasoned for this specific commute; see the DISCIPLINE
+              note in data/locations.ts. */}
+          {depth && (
+            <section id="which-batch" className="space-y-5 scroll-mt-24">
+              <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-3">
+                <Clock className="h-7 w-7 text-secondary" />
+                Which batch format suits a {area.name} commute?
+              </h2>
+              <p className="text-muted-foreground leading-relaxed">
+                All four formats teach the same syllabus with the same
+                trainers. The only thing that differs is what your journey from{" "}
+                {area.name} does to your attendance over a three-to-six month
+                course — which is the part most people get wrong when they
+                enrol. Here is the honest comparison.
+              </p>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm border-collapse">
+                  <caption className="sr-only">
+                    Comparison of batch formats for students commuting from{" "}
+                    {area.fullName}
+                  </caption>
+                  <thead>
+                    <tr className="border-b-2 border-foreground/20">
+                      <th scope="col" className="text-left font-semibold py-2.5 pr-4 w-[38%]">
+                        Batch format
+                      </th>
+                      <th scope="col" className="text-left font-semibold py-2.5">
+                        How it works from {area.name}
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {depth.batchFit.map((row) => (
+                      <tr key={row.format} className="border-b last:border-b-0">
+                        <th
+                          scope="row"
+                          className="text-left font-medium py-3 pr-4 align-top text-foreground"
+                        >
+                          {row.format}
+                        </th>
+                        <td className="py-3 text-muted-foreground align-top leading-relaxed">
+                          {row.suits}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                Not sure which fits? Check live timings on the{" "}
+                <Link href="/batch-schedule" className="text-primary hover:underline">
+                  batch schedule
+                </Link>{" "}
+                or{" "}
+                <Link href="/contact" className="text-primary hover:underline">
+                  book a free demo
+                </Link>{" "}
+                and decide after sitting in one session.
+              </p>
+            </section>
+          )}
 
           {/* Popular courses */}
           {popularCourses.length > 0 && (
@@ -358,7 +526,42 @@ export default async function LocationPage({ params }: LocationPageProps) {
               </p>
             </section>
           )}
+
+          {/* Closing takeaway — the one paragraph worth extracting if an AI
+              engine reads nothing else on the page. Deliberately states a
+              recommendation rather than restating the sections above. */}
+          {depth && (
+            <section
+              id="key-takeaway"
+              className="scroll-mt-24 rounded-xl border-l-4 border-secondary bg-muted/30 p-6 md:p-7"
+            >
+              <h2 className="text-lg md:text-xl font-semibold mb-2">
+                Key takeaway for {area.name} students
+              </h2>
+              <p className="text-muted-foreground leading-relaxed">
+                {depth.takeaway}
+              </p>
+            </section>
+          )}
         </div>
+
+        {/* Outbound citations. Transport and civic claims point at the
+            operator or the corporation rather than at our own restatement of
+            them — the audit's "credible citations" check failed on all 23
+            location pages because the only external link was the Maps
+            directions button. */}
+        {depth && (
+          <SourceCitations
+            heading={`Sources for ${area.name} travel and area details`}
+            intro="Timings and routes change. These are the authorities we point students to rather than restating a timetable that may be out of date."
+            items={depth.sources.map((s) => ({
+              label: s.label,
+              href: s.href,
+              supports: s.supports,
+            }))}
+            anchorId="sources"
+          />
+        )}
       </article>
 
       {/* P5-17 — newsletter banner. */}

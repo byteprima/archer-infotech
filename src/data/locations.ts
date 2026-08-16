@@ -1700,3 +1700,466 @@ export function getNearbyNeighbourhoods(
     .map((s) => getNeighbourhood(s))
     .filter((n): n is NeighbourhoodLocation => Boolean(n));
 }
+
+/* -------------------------------------------------------------------------
+ * Location depth layer — audit 2026-08-16.
+ *
+ * The 23 neighbourhood pages scored a mean of 81 (SEO 95 / AEO 73 / GEO 74)
+ * against the check set in PAGE-WISE-AUDIT-2026-08-06. Nine checks failed
+ * across the section, and every one of them failed for the same structural
+ * reason: the pages described a commute well but never answered the decision
+ * the reader actually arrived with — "given where I live, which batch do I
+ * take, and is this place any good?"
+ *
+ * The failing checks and what closes each:
+ *
+ *   Structured answer support ......  a real <table>            -> batchFit
+ *   Comparison / decision support ..  decide-between framing    -> batchFit
+ *   Audience and use-case clarity ..  who this page is for      -> audience
+ *   Key takeaway or summary ........  an explicit short version -> takeaway
+ *   Credible citations .............  authoritative outbound    -> sources
+ *   Proof and examples .............  real numbers, not adverbs -> at-a-glance
+ *   Depth / enough content depth ...  ~1,000+ words             -> all of it
+ *   Definition support .............  "X is a ..." sentence     -> route intro
+ *
+ * Kept as an external map rather than fields on the 23 entries, for the same
+ * reason NEARBY_NEIGHBOURHOODS_MAP is: the entries are already long, and this
+ * is cross-cutting data with a single shape.
+ *
+ * DISCIPLINE — the reason this file exists at all. Google's helpful-content
+ * system penalises location pages that are one template with the area name
+ * swapped in. Every `suits` string below names a real road, chokepoint,
+ * campus or IT park for THAT area and gives reasoning that would be wrong if
+ * pasted onto a different one. If you add an area, write the reasoning; do
+ * not copy the nearest entry.
+ *
+ * Sources are verified-resolving as at 2026-08-16 and are cited only where
+ * they genuinely back a claim the page makes. Transport claims point at the
+ * operator, not at our own restatement of a timetable.
+ * ---------------------------------------------------------------------- */
+
+export interface LocationDepth {
+  /** One sentence naming who, specifically, this page is written for. */
+  audience: string;
+  /** Per-format fit, reasoned for a commute from THIS area. Renders as a table. */
+  batchFit: { format: string; suits: string }[];
+  /** The short version, area-specific. Rendered as the closing summary. */
+  takeaway: string;
+  /** Verified third-party sources backing this page's local claims. */
+  sources: { label: string; href: string; supports: string }[];
+}
+
+const METRO = {
+  label: "Pune Metro — official route map",
+  href: "https://punemetrorail.org/route-map/",
+};
+const PMC_WARDS = {
+  label: "Pune Municipal Corporation — ward offices",
+  href: "https://www.pmc.gov.in/en/ward-offices",
+};
+const PCMC = {
+  label: "Pimpri Chinchwad Municipal Corporation",
+  href: "https://www.pcmcindia.gov.in/",
+};
+const PMPML = {
+  label: "PMPML — Pune Mahanagar Parivahan Mahamandal",
+  href: "https://pmpml.org/",
+};
+
+const LOCATION_DEPTH: Record<string, LocationDepth> = {
+  "it-training-in-kothrud": {
+    audience:
+      "Written for Kothrud residents and MIT-WPU students who can reach the classroom on foot or in a five-minute ride, and who therefore have every batch format genuinely open to them.",
+    batchFit: [
+      { format: "Weekday classroom — morning", suits: "The default for Kothrud. No commute to plan around, so the 09:00 start costs you nothing and you get the trainer's full attention before the room fills." },
+      { format: "Weekday classroom — evening", suits: "Works if you are interning or in final-year lectures during the day. Paud Road is busy at 19:00, but you are inside it rather than crossing it." },
+      { format: "Weekend classroom", suits: "Chosen mostly by Kothrud residents already working. Being local means you can also drop in midweek for doubt-clearing, which weekend students from further out cannot." },
+      { format: "Live online", suits: "Rarely the right pick here — you lose the lab and the trainer's desk-side corrections for a commute you do not have." },
+    ],
+    takeaway:
+      "Kothrud is our home ground: the classroom is in the neighbourhood, so pick the weekday morning batch unless work or college makes it impossible. Nothing about the commute should shape your decision.",
+    sources: [
+      { ...METRO, supports: "Vanaz, the western terminus of the Aqua Line, is in Kothrud — check the map for current stations and timings." },
+      { label: "MIT World Peace University", href: "https://mitwpu.edu.in/", supports: "MIT-WPU's Kothrud campus, the landmark most students navigate by." },
+    ],
+  },
+
+  "it-training-in-karve-nagar": {
+    audience:
+      "Written for Karve Nagar residents and Cummins College students for whom the centre is a 5–10 minute ride, close enough that the commute never decides the batch.",
+    batchFit: [
+      { format: "Weekday classroom — morning", suits: "Comfortable from Karve Nagar — you are ahead of the Karve Road build-up if you leave by 08:40." },
+      { format: "Weekday classroom — evening", suits: "The usual pick for Cummins students finishing lectures. Hingne Khurd to Kothrud stays quick even at 18:30." },
+      { format: "Weekend classroom", suits: "Good for working residents; the 2–3 km hop is unaffected by weekend traffic patterns." },
+      { format: "Live online", suits: "Only worth it if you are travelling or unwell — the ride is short enough that online costs more than it saves." },
+    ],
+    takeaway:
+      "At 2–3 km, Karve Nagar has the same practical access as Kothrud. Choose on your timetable, not on the road — and use the Rajaram Bridge side roads if Karve Road is backed up.",
+    sources: [
+      { ...PMC_WARDS, supports: "Karve Nagar falls under PMC; ward office listings confirm the civic boundary used on this page." },
+      { ...PMPML, supports: "Bus routes serving the Karve Nagar–Kothrud stretch." },
+    ],
+  },
+
+  "it-training-in-erandwane": {
+    audience:
+      "Written for Erandwane and Law College Road residents — including ILS students and professionals near Nal Stop — who are a straight run down Karve Road from the classroom.",
+    batchFit: [
+      { format: "Weekday classroom — morning", suits: "Easy from Erandwane. Mehendale Garage to Kothrud runs against the morning flow into the city, so you gain time rather than lose it." },
+      { format: "Weekday classroom — evening", suits: "Reliable, though Nal Stop junction adds a few minutes at 18:30. Budget 15 minutes rather than 10." },
+      { format: "Weekend classroom", suits: "Popular with Law College Road professionals — Karve Road is markedly clearer on Saturdays." },
+      { format: "Live online", suits: "A fallback for monsoon weeks when Mhatre Bridge slows down, not a default." },
+    ],
+    takeaway:
+      "Erandwane is 3 km of one arterial road from us. Weekday morning is the least congested option; keep live online in reserve for bad-weather weeks rather than choosing it upfront.",
+    sources: [
+      { ...METRO, supports: "Nal Stop and Garware College stations serve Erandwane on the Aqua Line." },
+      { ...PMC_WARDS, supports: "Erandwane's PMC ward, which defines the area boundary described here." },
+    ],
+  },
+
+  "it-training-in-warje": {
+    audience:
+      "Written for Warje-Malwadi residents and people working along the NH-48 corridor who want classroom training without a cross-city commute.",
+    batchFit: [
+      { format: "Weekday classroom — morning", suits: "Workable at 15–20 minutes, but the Warje flyover merge is slowest between 09:00 and 10:00. Leave by 08:30." },
+      { format: "Weekday classroom — evening", suits: "Often the better weekday choice from Warje — you travel before the highway-bound evening peak rather than into it." },
+      { format: "Weekend classroom", suits: "The strongest option here. The flyover and Jakat Naka bottlenecks essentially disappear on Saturdays." },
+      { format: "Live online", suits: "Sensible if you work in the highway-side offices and finish unpredictably — you keep the batch without gambling on the flyover." },
+    ],
+    takeaway:
+      "Warje's only real variable is the NH-48 flyover. Weekend classroom avoids it entirely; if you need weekdays, take the evening batch rather than the morning one.",
+    sources: [
+      { ...PMC_WARDS, supports: "Warje-Malwadi's PMC ward classification." },
+      { ...PMPML, supports: "Bus services along the Warje–Kothrud corridor." },
+    ],
+  },
+
+  "it-training-in-bavdhan": {
+    audience:
+      "Written for Bavdhan's IT-employee residential belt — people living in the gated societies near Chandni Chowk who already work in tech and are upskilling.",
+    batchFit: [
+      { format: "Weekday classroom — morning", suits: "Possible, but Chandni Chowk is the single worst morning chokepoint on this route. Only pick this if your work starts late." },
+      { format: "Weekday classroom — evening", suits: "Better than mornings from Bavdhan, though the NDA Road link can still back up around 19:00." },
+      { format: "Weekend classroom", suits: "The pragmatic choice. Chandni Chowk clears substantially at weekends and the run drops well under 15 minutes." },
+      { format: "Live online", suits: "Strong fit for Bavdhan's working-professional profile — most residents here are upskilling around a full-time job, not studying full-time." },
+    ],
+    takeaway:
+      "Everything from Bavdhan turns on Chandni Chowk. Weekend classroom or live online sidesteps it; if you must come midweek, come in the evening.",
+    sources: [
+      { ...PMC_WARDS, supports: "Bavdhan's inclusion in PMC limits." },
+      { ...PMPML, supports: "Bus routes across the Chandni Chowk junction." },
+    ],
+  },
+
+  "it-training-in-aundh": {
+    audience:
+      "Written for Aundh residents and Savitribai Phule Pune University students — an established IT-and-campus belt where a 30–40 minute cross-town run makes format choice matter.",
+    batchFit: [
+      { format: "Weekday classroom — morning", suits: "Hard from Aundh. The University Road and Bremen Chowk approaches are at their worst exactly when the batch starts." },
+      { format: "Weekday classroom — evening", suits: "Manageable if you can leave by 17:30; later than that and the Aundh–Baner link road adds 15 minutes." },
+      { format: "Weekend classroom", suits: "The main classroom option for Aundh. A 30-minute Saturday run is a fair trade for a full day of lab time." },
+      { format: "Live online", suits: "The default for most Aundh students, and the reason we run it. You keep the same trainer and syllabus without a 70-minute daily round trip." },
+    ],
+    takeaway:
+      "At 9–10 km through two of Pune's slower junctions, Aundh is where live online starts to beat classroom on merit. Pair it with a weekend classroom batch if you want lab access.",
+    sources: [
+      { label: "Savitribai Phule Pune University", href: "https://unipune.ac.in/", supports: "SPPU's campus, the landmark bounding the Aundh catchment described here." },
+      { ...PMPML, supports: "Bus routes on the Aundh–Kothrud corridor." },
+    ],
+  },
+
+  "it-training-in-baner": {
+    audience:
+      "Written for Baner's IT-corridor professionals — people working in the Baner Road and Balewadi High Street offices who need training that fits around a full working day.",
+    batchFit: [
+      { format: "Weekday classroom — morning", suits: "Not realistic from Baner on a working day. A 30–45 minute run into Kothrud before 09:00 competes with the entire Hinjewadi-bound flow." },
+      { format: "Weekday classroom — evening", suits: "Only if your office is on the Kothrud side of Baner. From Baner–Sus, the evening run is the same jam in reverse." },
+      { format: "Weekend classroom", suits: "The right classroom choice. Baner Road is a different road on a Saturday morning, and you get the full practical session." },
+      { format: "Live online", suits: "What most Baner students actually take. It is the format this corridor exists for — same syllabus, no 90-minute daily round trip." },
+    ],
+    takeaway:
+      "Baner is an 11 km commute through Pune's busiest IT corridor. Take live online for the weekday syllabus and a weekend classroom batch for the project work — the hybrid is why both formats exist.",
+    sources: [
+      { ...PMC_WARDS, supports: "Baner's PMC ward, defining the area covered here." },
+      { ...PMPML, supports: "Bus services on the Baner–Kothrud route." },
+    ],
+  },
+
+  "it-training-in-hinjewadi": {
+    audience:
+      "Written for working professionals inside Rajiv Gandhi Infotech Park — Infosys, Wipro, TCS, Cognizant, Accenture and Tech Mahindra staff upskilling while employed full time.",
+    batchFit: [
+      { format: "Weekday classroom — morning", suits: "Not viable. A morning run from Hinjewadi to Kothrud collides with the single heaviest commuter flow in the city." },
+      { format: "Weekday classroom — evening", suits: "Only for people who work the Kothrud side or have flexible hours. From Phase 2 or 3, plan on 75 minutes at 18:30." },
+      { format: "Weekend classroom", suits: "Genuinely good. The Hinjewadi–Wakad road is clear on Saturdays and the run drops to around 40 minutes." },
+      { format: "Live online", suits: "The format built for this catchment. You attend from the Phase 1–3 campuses or from home, keep the same trainer, and lose nothing but the drive." },
+    ],
+    takeaway:
+      "Hinjewadi is 18–20 km and the hardest commute we serve. Take live online on weekdays without hesitation, and add a weekend classroom batch when you reach the project stage.",
+    sources: [
+      { label: "MIDC — Maharashtra Industrial Development Corporation", href: "https://www.midcindia.org/", supports: "Rajiv Gandhi Infotech Park, Hinjewadi is an MIDC-developed industrial area." },
+      { ...PMPML, supports: "Bus services on the Hinjewadi–Wakad–Pune corridor." },
+    ],
+  },
+
+  "it-training-in-wakad": {
+    audience:
+      "Written for Wakad residents — largely IT staff living beside Hinjewadi rather than inside it, plus families near Datta Mandir Chowk and Kaspate Wasti.",
+    batchFit: [
+      { format: "Weekday classroom — morning", suits: "Impractical. Wakad bridge and Datta Mandir Chowk are both at capacity during the morning Hinjewadi flow." },
+      { format: "Weekday classroom — evening", suits: "Possible but unreliable — you are travelling against the returning Hinjewadi traffic, which helps, but the Mula river bridge does not." },
+      { format: "Weekend classroom", suits: "A reasonable 40-minute Saturday run, and the option most Wakad students combine with online weekdays." },
+      { format: "Live online", suits: "The sensible default. Wakad's proximity to Hinjewadi means most students here are working full time on IT-park schedules." },
+    ],
+    takeaway:
+      "Wakad behaves like Hinjewadi for commuting purposes: online on weekdays, classroom on Saturday. Do not plan a weekday morning batch around the Wakad bridge.",
+    sources: [
+      { ...PCMC, supports: "Wakad falls under PCMC, not PMC — the civic boundary this page uses." },
+      { ...PMPML, supports: "Bus routes linking Wakad to central Pune." },
+    ],
+  },
+
+  "it-training-in-pimpri-chinchwad": {
+    audience:
+      "Written for the PCMC belt — Pimpri, Chinchwad, Akurdi and Nigdi residents, including engineering students and staff at Bajaj Auto, Tata Motors and Force Motors.",
+    batchFit: [
+      { format: "Weekday classroom — morning", suits: "Not advisable at 18–22 km. The old Mumbai–Pune highway approach is slow throughout the morning." },
+      { format: "Weekday classroom — evening", suits: "Only for students already travelling into central Pune for work or college; do not plan a dedicated evening trip from PCMC." },
+      { format: "Weekend classroom", suits: "Workable and worth it for project sessions — around 45 minutes on a Saturday against 70 on a weekday." },
+      { format: "Live online", suits: "The primary format for this catchment, and the reason PCMC students can train with us at all." },
+    ],
+    takeaway:
+      "PCMC is an online-first catchment. Use live online for the syllabus and reserve the weekend classroom for the parts that genuinely need a lab.",
+    sources: [
+      { ...PCMC, supports: "The municipal corporation covering Pimpri, Chinchwad, Akurdi and Nigdi." },
+      { ...METRO, supports: "The Purple Line runs through the PCMC corridor — check the map for current stations." },
+    ],
+  },
+
+  "it-training-in-deccan": {
+    audience:
+      "Written for Pune's college belt — Fergusson, BMCC, Garware and Symbiosis students in Deccan and Shivaji Nagar who are within a 15-minute ride of the classroom.",
+    batchFit: [
+      { format: "Weekday classroom — morning", suits: "Good if your lectures are afternoon-heavy. The Karve Road run out of Deccan is quick before 09:00." },
+      { format: "Weekday classroom — evening", suits: "The most-taken batch from this belt — it slots straight after college hours with no gap to fill." },
+      { format: "Weekend classroom", suits: "Best for students juggling exams; you keep weekdays free for coursework without losing the classroom." },
+      { format: "Live online", suits: "Useful during exam season, when attendance at a fixed hour is the thing that breaks first." },
+    ],
+    takeaway:
+      "Deccan is the college catchment, so the evening classroom batch is usually right — it fits after lectures and keeps you in the room. Switch to online only around exams.",
+    sources: [
+      { ...METRO, supports: "Deccan Gymkhana station serves this area on the Aqua Line." },
+      { ...PMC_WARDS, supports: "The PMC ward covering Deccan and Shivaji Nagar." },
+    ],
+  },
+
+  "it-training-in-karve-road": {
+    audience:
+      "Written for anyone living or working along Karve Road itself — Nal Stop to Garware — for whom our classroom is a few minutes straight down the same road.",
+    batchFit: [
+      { format: "Weekday classroom — morning", suits: "The easiest commute in this catchment. You are on the arterial road that ends at our door." },
+      { format: "Weekday classroom — evening", suits: "Equally practical; Karve Road at 18:30 is busy but moving, and you are travelling outward." },
+      { format: "Weekend classroom", suits: "Fine, but rarely necessary — most students on this stretch can make a weekday batch work." },
+      { format: "Live online", suits: "Hard to justify at 2–4 km. You would be trading the lab for a journey measured in minutes." },
+    ],
+    takeaway:
+      "Karve Road is the shortest commute we serve after Kothrud itself. Pick a weekday classroom batch — morning or evening — and treat online as a contingency only.",
+    sources: [
+      { ...METRO, supports: "Nal Stop and Garware College stations sit on this stretch of the Aqua Line." },
+      { ...PMPML, supports: "Bus frequency along the Karve Road corridor." },
+    ],
+  },
+
+  "it-training-in-kharadi": {
+    audience:
+      "Written for East Pune's IT workforce — EON Free Zone, World Trade Center and Zensar staff, and the GCC hiring belt around Kharadi bypass.",
+    batchFit: [
+      { format: "Weekday classroom — morning", suits: "Not viable at 18–20 km cross-city. You would cross the whole of Pune during peak flow." },
+      { format: "Weekday classroom — evening", suits: "Realistically only for people already working in central or west Pune." },
+      { format: "Weekend classroom", suits: "A fair 45-minute Saturday run, and the format Kharadi students use for project and interview-prep sessions." },
+      { format: "Live online", suits: "The default here. Kharadi's GCC schedules and the cross-city distance make a fixed weekday classroom unrealistic." },
+    ],
+    takeaway:
+      "Kharadi is a cross-city commute, so the honest answer is live online midweek plus a weekend classroom batch. The distance is real — we would rather you plan around it than drop out of a batch you cannot reach.",
+    sources: [
+      { ...PMC_WARDS, supports: "Kharadi's PMC ward, covering the EON and WTC belt." },
+      { ...PMPML, supports: "Bus routes on the Kharadi–central Pune corridor." },
+    ],
+  },
+
+  "it-training-in-viman-nagar": {
+    audience:
+      "Written for the airport-belt catchment — Symbiosis students and professionals at Weikfield IT Park, WeWork Futura and the Nagar Road offices.",
+    batchFit: [
+      { format: "Weekday classroom — morning", suits: "Difficult. Airport Road and the Nagar Road approach are both slow before 10:00." },
+      { format: "Weekday classroom — evening", suits: "Possible for Symbiosis students whose lectures end early, less so for working professionals." },
+      { format: "Weekend classroom", suits: "The practical classroom option at around 40 minutes on a Saturday." },
+      { format: "Live online", suits: "What most Viman Nagar students take, particularly the working cohort around Weikfield and WeWork." },
+    ],
+    takeaway:
+      "Viman Nagar is 15–17 km across the city. Students take the weekend classroom batch; working professionals take live online. Both reach the same syllabus.",
+    sources: [
+      { ...METRO, supports: "Ramwadi, the Aqua Line's eastern terminus, adjoins Viman Nagar." },
+      { ...PMC_WARDS, supports: "The PMC ward covering Viman Nagar and the Nagar Road corridor." },
+    ],
+  },
+
+  "it-training-in-hadapsar-magarpatta": {
+    audience:
+      "Written for Magarpatta Cyber City and SP Infocity staff — Amdocs, Accenture and John Deere employees among them — plus Hadapsar residents along the Solapur Road corridor.",
+    batchFit: [
+      { format: "Weekday classroom — morning", suits: "Not workable. Solapur Road inbound is one of the slower morning approaches into the city." },
+      { format: "Weekday classroom — evening", suits: "Only for staff whose offices sit west of Hadapsar Gadital." },
+      { format: "Weekend classroom", suits: "Around 40 minutes on a Saturday — the option most Magarpatta students choose for lab-heavy sessions." },
+      { format: "Live online", suits: "The default for this catchment. Amdocs and Accenture shift patterns rarely align with a fixed weekday classroom hour." },
+    ],
+    takeaway:
+      "Hadapsar and Magarpatta are corporate catchments, not student ones. Live online fits the shift patterns; use the weekend classroom when you reach project work.",
+    sources: [
+      { ...PMC_WARDS, supports: "The PMC ward covering Hadapsar and the Magarpatta belt." },
+      { ...PMPML, supports: "Bus services on the Solapur Road corridor." },
+    ],
+  },
+
+  "it-training-in-katraj": {
+    audience:
+      "Written for South Pune's student belt — Bharati Vidyapeeth, PICT and Sinhgad Institute students in Katraj, Dhankawadi and Ambegaon.",
+    batchFit: [
+      { format: "Weekday classroom — morning", suits: "Feasible at 25–35 minutes if you leave before 08:30, though the Katraj bypass merge is unpredictable." },
+      { format: "Weekday classroom — evening", suits: "The usual pick for Dhankawadi students — it follows the college day without a long wait." },
+      { format: "Weekend classroom", suits: "Strong option. The NH-48 stretch is much quicker on Saturdays and suits a full practical day." },
+      { format: "Live online", suits: "A reasonable fallback during exams or monsoon, when the bypass slows badly." },
+    ],
+    takeaway:
+      "Katraj is a student catchment at moderate distance, so classroom training is genuinely available to you — evening on weekdays, or a full Saturday batch. Online is the exception, not the plan.",
+    sources: [
+      { label: "Bharati Vidyapeeth (Deemed to be University)", href: "https://www.bvuniversity.edu.in/", supports: "The Dhankawadi campus, the principal landmark in this catchment." },
+      { ...PMC_WARDS, supports: "The PMC ward covering Katraj and Dhankawadi." },
+    ],
+  },
+
+  "it-training-in-sinhagad-road": {
+    audience:
+      "Written for the Sinhagad Road and Dhayari corridor — Sinhgad college students in Vadgaon and residents of Nanded City and Vitthalwadi.",
+    batchFit: [
+      { format: "Weekday classroom — morning", suits: "Workable at 20–30 minutes, though the Vitthalwadi and Hingne stretch tightens after 08:45." },
+      { format: "Weekday classroom — evening", suits: "The most common choice from this corridor — Sinhgad college hours end in time for it." },
+      { format: "Weekend classroom", suits: "Good for Nanded City residents working full time; Saturday drops the run to around 20 minutes." },
+      { format: "Live online", suits: "Useful from Dhayari's outer stretches, where the effective distance is closer to 10 km than 7." },
+    ],
+    takeaway:
+      "Sinhagad Road is close enough that classroom training is the norm here. Take the weekday evening batch if you are at a Sinhgad campus; take the weekend batch if you are working out of Nanded City.",
+    sources: [
+      { label: "Sinhgad Technical Education Society", href: "https://www.sinhgad.edu/", supports: "The Vadgaon campuses that anchor this catchment." },
+      { ...PMC_WARDS, supports: "The PMC ward covering the Sinhagad Road corridor." },
+    ],
+  },
+
+  "it-training-in-wagholi": {
+    audience:
+      "Written for Wagholi's fast-growing east-Pune belt — JSPM and GH Raisoni students, and residents commuting into Kharadi's EON and WTC offices.",
+    batchFit: [
+      { format: "Weekday classroom — morning", suits: "Not realistic at 22–25 km. This is the longest commute in the catchment and crosses the whole city." },
+      { format: "Weekday classroom — evening", suits: "We would not recommend planning around it. A 75-minute evening return from Kothrud to Wagholi is a batch you will eventually stop attending." },
+      { format: "Weekend classroom", suits: "Viable on a Saturday at around 50 minutes, and worth it for project sessions." },
+      { format: "Live online", suits: "The format that makes training possible from Wagholi at all — same trainer, same syllabus, no Nagar Road." },
+    ],
+    takeaway:
+      "Wagholi is the furthest catchment we serve. Live online is not a compromise here, it is the correct choice; add weekend classroom sessions only when the project stage makes the trip worth it.",
+    sources: [
+      { ...PMC_WARDS, supports: "Wagholi's civic administration and the Nagar Road corridor boundary." },
+      { ...PMPML, supports: "Bus services on the Wagholi–Kharadi–Pune route." },
+    ],
+  },
+
+  "it-training-in-balewadi": {
+    audience:
+      "Written for the Balewadi and Pashan research-and-IT belt — IISER, NCL and NCRA staff and students, and residents near Balewadi High Street.",
+    batchFit: [
+      { format: "Weekday classroom — morning", suits: "Hard. The Pashan and University Road approach carries the full morning campus and IT flow." },
+      { format: "Weekday classroom — evening", suits: "Possible from Pashan via the Baner link, less so from Balewadi itself." },
+      { format: "Weekend classroom", suits: "The main classroom option at around 30 minutes on a Saturday." },
+      { format: "Live online", suits: "Well suited to the research-institute cohort here, whose lab hours rarely fit a fixed evening classroom slot." },
+    ],
+    takeaway:
+      "Balewadi and Pashan sit 10–13 km out through slow campus roads. Weekend classroom plus live online midweek is the combination that actually gets completed.",
+    sources: [
+      { ...PMC_WARDS, supports: "The PMC ward covering Balewadi and Pashan." },
+      { ...PMPML, supports: "Bus routes on the Pashan–University Road corridor." },
+    ],
+  },
+
+  "it-training-in-nigdi": {
+    audience:
+      "Written for PCMC's engineering-college cluster — DY Patil and PCCOE students in Akurdi, and Nigdi Pradhikaran residents.",
+    batchFit: [
+      { format: "Weekday classroom — morning", suits: "Not viable at 22–25 km via the old Mumbai–Pune highway." },
+      { format: "Weekday classroom — evening", suits: "Only for students already in central Pune during the day; a dedicated evening trip is too long to sustain." },
+      { format: "Weekend classroom", suits: "Around 50 minutes on a Saturday — used by Akurdi students for practical and project sessions." },
+      { format: "Live online", suits: "The primary format. It is what lets DY Patil and PCCOE students take the same course as a Kothrud resident." },
+    ],
+    takeaway:
+      "Nigdi and Akurdi are online-first. Take live online for the taught syllabus, and travel in on Saturdays only for the sessions that genuinely need the lab.",
+    sources: [
+      { label: "D Y Patil group, Pune", href: "https://www.dypatilpune.com/", supports: "The Akurdi campus, the principal landmark in this catchment." },
+      { ...PCMC, supports: "Nigdi and Akurdi fall under PCMC, not PMC." },
+    ],
+  },
+
+  "it-training-in-koregaon-park": {
+    audience:
+      "Written for the Koregaon Park and Kalyani Nagar startup and agency belt — people at small product teams and design studios rather than large IT parks.",
+    batchFit: [
+      { format: "Weekday classroom — morning", suits: "Difficult. The Bund Garden and Sangamwadi approach is slow through the morning." },
+      { format: "Weekday classroom — evening", suits: "Workable for the startup cohort here, whose hours tend to be more flexible than an IT-park schedule." },
+      { format: "Weekend classroom", suits: "Around 30 minutes on a Saturday and the most-used classroom option from this belt." },
+      { format: "Live online", suits: "Fits the small-team working pattern, where a fixed 09:00 or 18:30 commitment is hard to guarantee." },
+    ],
+    takeaway:
+      "Koregaon Park is 10–12 km through central Pune. The weekend classroom batch is the practical choice; live online covers the weeks when a client deadline moves.",
+    sources: [
+      { ...METRO, supports: "Bund Garden and Ruby Hall Clinic stations adjoin this area on the Aqua Line." },
+      { ...PMC_WARDS, supports: "The PMC ward covering Koregaon Park and Kalyani Nagar." },
+    ],
+  },
+
+  "it-training-in-kondhwa": {
+    audience:
+      "Written for the Kondhwa, NIBM and Wanowrie residential belt in south-east Pune, including students commuting towards the Hadapsar IT corridor.",
+    batchFit: [
+      { format: "Weekday classroom — morning", suits: "Not advisable. The Bibwewadi and Salunke Vihar approach is congested throughout the morning." },
+      { format: "Weekday classroom — evening", suits: "Possible but long at 35–50 minutes each way; workable only if your day ends early." },
+      { format: "Weekend classroom", suits: "The realistic classroom choice, at around 35 minutes on a Saturday." },
+      { format: "Live online", suits: "The default for most Kondhwa students, especially those already commuting to Hadapsar for work." },
+    ],
+    takeaway:
+      "Kondhwa is 12–14 km through slow south-east arterials. Live online midweek with a weekend classroom batch is the pattern that works here.",
+    sources: [
+      { ...PMC_WARDS, supports: "The PMC ward covering Kondhwa, NIBM and Wanowrie." },
+      { ...PMPML, supports: "Bus routes on the Kondhwa–Bibwewadi corridor." },
+    ],
+  },
+
+  "it-training-in-camp": {
+    audience:
+      "Written for central Pune — MG Road and Cantonment residents, and anyone whose journey starts at the Swargate transit hub.",
+    batchFit: [
+      { format: "Weekday classroom — morning", suits: "Workable at 15–25 minutes if you travel via Deccan rather than through the Peth roads." },
+      { format: "Weekday classroom — evening", suits: "A common choice from Camp; Swargate to Kothrud moves reasonably well outbound at 18:30." },
+      { format: "Weekend classroom", suits: "Comfortable, and the MG Road stretch is far quicker on a Saturday morning." },
+      { format: "Live online", suits: "Available, but at 5–7 km you would be giving up the lab for a short and predictable journey." },
+    ],
+    takeaway:
+      "Camp and Swargate are close enough for classroom training to be the default. Take a weekday batch, route via Deccan rather than the Peths, and keep online as a contingency.",
+    sources: [
+      { ...METRO, supports: "Swargate and Civil Court are Metro interchange points serving central Pune." },
+      { ...PMC_WARDS, supports: "The PMC ward covering the Camp and Swargate area." },
+    ],
+  },
+};
+
+/** Depth layer (audience, batch-fit table, takeaway, sources) for an area. */
+export function getLocationDepth(slug: string): LocationDepth | undefined {
+  return LOCATION_DEPTH[slug];
+}
