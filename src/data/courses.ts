@@ -670,61 +670,108 @@ export const courses: Course[] = [
       "Resume-ready projects with code, API documentation, and database design",
       "Placement assistance with resume guidance and mock interviews",
     ],
+    // Restructured 2026-08-17 to mirror the Java + AI Roadmap 2026 (Levels
+    // 1-12), with frontend inserted after REST APIs — the roadmap is a
+    // backend-and-AI roadmap and carries no frontend, but this is a Full
+    // Stack course. Per roadmap §4, JSP/Servlets and legacy Java EE patterns
+    // are no longer taught as core. Kept in step with the week-by-week
+    // curriculum in course-content/java-full-stack-training-in-pune.ts.
     modules: [
       {
-        title: "Programming Foundations",
-        topics: ["Logic building", "C programming basics", "Problem solving", "Command line basics", "Git and GitHub fundamentals"],
+        title: "Programming Fundamentals",
+        topics: ["Algorithms and flowcharts", "Variables and memory", "Data types and operators", "Conditions and loops", "Functions and methods", "Debugging as a method", "Basic algorithms", "Time and space complexity"],
       },
       {
-        title: "Core Java",
-        topics: ["OOP principles", "Classes and objects", "Inheritance and polymorphism", "Interfaces and abstraction", "Collections framework", "Exception handling", "File handling", "Java 8+ features"],
+        title: "Java Platform and Fundamentals",
+        topics: ["JDK, JRE and JVM", "Source, bytecode and execution", "Classpath and packages", "Primitive vs reference types", "Type casting and operators", "Methods, overloading, varargs", "Recursion and static", "JDK 21+, IntelliJ IDEA, Maven"],
       },
       {
-        title: "Advanced Java",
-        topics: ["JDBC", "Servlets", "JSP basics", "MVC architecture", "Application server concepts", "Maven project structure"],
+        title: "OOP and Modern Java",
+        topics: ["Classes, objects, constructors", "Encapsulation, inheritance, polymorphism, abstraction", "Interfaces and abstract classes", "Composition vs inheritance", "equals(), hashCode(), toString()", "Records, enums, sealed classes", "Lambdas and functional interfaces", "Stream API and Optional", "Pattern matching and switch expressions"],
       },
       {
-        title: "Database and SQL",
-        topics: ["DBMS and RDBMS concepts", "MySQL", "Table design", "Normalization", "Joins and subqueries", "Transactions", "Indexes", "SQL practice"],
+        title: "Exceptions and Collections",
+        topics: ["Checked vs unchecked exceptions", "try-with-resources and custom exceptions", "List, Set, Map, Queue, Deque", "HashMap, TreeMap, LinkedHashMap", "Iterators, Comparable, Comparator", "Generics and wildcards"],
       },
       {
-        title: "Hibernate and JPA",
-        topics: ["ORM concepts", "Entity mapping", "One-to-one and one-to-many relationships", "CRUD operations", "JPQL", "Spring Data JPA repositories"],
+        title: "JVM, Memory and Concurrency",
+        topics: ["JVM architecture — stack, heap, metaspace", "Garbage collection and GC generations", "Class loading, JIT, memory leaks", "Threads, synchronization, locks", "Race conditions and deadlocks", "ExecutorService and thread pools", "CompletableFuture and concurrent collections", "Virtual threads (Java 21+)"],
       },
       {
-        title: "Spring Framework and Spring Boot",
-        topics: ["Dependency injection", "Spring Core", "Spring MVC", "Spring Boot setup", "Controllers and services", "REST endpoints", "Validation", "Global exception handling"],
+        title: "I/O, Tools and Database Foundations",
+        topics: ["File handling, NIO, Paths and Files", "JSON, Date/Time API, regex", "SQL — joins, subqueries, CTEs, window functions", "Indexes, normalization, query optimization", "Transactions, ACID, isolation levels", "JDBC and PreparedStatement", "Connection pooling with HikariCP", "Maven or Gradle, Git and GitHub"],
+      },
+      {
+        title: "Spring and Spring Boot",
+        topics: ["Inversion of control and dependency injection", "Beans, ApplicationContext, component scanning", "Configuration and profiles", "Spring Boot starters and auto-configuration", "Externalised configuration", "Actuator and production endpoints", "Structured logging with SLF4J and Logback"],
+      },
+      {
+        title: "REST APIs and Persistence",
+        topics: ["HTTP methods, status codes, headers", "REST principles, DTOs, validation", "Pagination, sorting, filtering", "Global exception handling", "JPA and Hibernate entity mapping", "Spring Data JPA repositories", "Relationships, lazy loading, cascading", "JPQL, native queries, the N+1 problem", "OpenAPI / Swagger"],
       },
       {
         title: "Frontend Development",
-        topics: ["HTML5", "CSS3", "Bootstrap", "JavaScript", "Responsive UI", "React.js or Angular fundamentals", "API integration from frontend"],
+        topics: ["HTML5, CSS3, JavaScript, TypeScript", "React 19 — Hooks, Server Components", "Next.js 15 App Router", "Angular 18+ as an opt-in alternative", "State management and routing", "REST integration with the Spring Boot API", "JWT auth flow front-to-back", "Tailwind CSS and responsive UI"],
       },
       {
-        title: "Security, Tools and Deployment",
-        topics: ["Spring Security basics", "JWT authentication", "Postman API testing", "Git workflow", "Docker basics", "Environment configuration", "Deployment workflow"],
+        title: "Security and Testing",
+        topics: ["Authentication vs authorization", "Password hashing, roles, permissions", "JWT, OAuth 2.0, OpenID Connect", "CORS, CSRF, Spring Security filters", "JUnit and Mockito", "Integration testing with Testcontainers", "REST Assured and Postman", "JaCoCo code coverage"],
+      },
+      {
+        title: "Production Engineering",
+        topics: ["Docker, images, volumes, networks", "Docker Compose", "Redis and the cache-aside pattern", "TTL and distributed caching", "Kafka — producers, consumers, topics", "Partitions, consumer groups, event ordering", "Idempotency and safe retries"],
+      },
+      {
+        title: "Microservices, Cloud and DevOps",
+        topics: ["Service boundaries and API Gateway", "Service discovery and OpenFeign", "Circuit breakers and resilience", "Saga pattern and event-driven architecture", "AWS or Azure — containers, managed DBs, IAM", "GitHub Actions CI/CD and secrets management", "Kubernetes basics", "Observability — OpenTelemetry, Prometheus, Grafana"],
+      },
+      {
+        title: "AI for Java Developers",
+        topics: ["LLM concepts — prompts, tokens, context windows", "Structured output, streaming, tool calling", "Spring AI — chat models and prompt templates", "Embeddings and vector stores", "RAG — chunking, retrieval, grounded generation", "PostgreSQL + pgvector", "AI agents, memory, human approval", "AI security — prompt injection, tool authorization", "AI evaluation — groundedness, hallucination, cost"],
+      },
+      {
+        title: "AI-Assisted Development Workflow",
+        topics: ["GitHub Copilot, Claude, Cursor, IDE-native AI", "Prompting for scaffolding and boilerplate", "AI-assisted test generation", "Refactoring and explaining unfamiliar code", "AI debugging from errors and logs", "Guardrails — hallucinated APIs, licensing, privacy", "Reviewing and owning AI-generated code"],
       },
       {
         title: "Capstone Project",
-        topics: ["Requirement analysis", "Database schema design", "Backend API development", "Frontend integration", "Authentication", "Testing and debugging", "GitHub portfolio preparation"],
+        topics: ["Requirement analysis", "Database schema design", "Backend API development", "Frontend integration", "Authentication and authorization", "Testing and debugging", "An AI-backed feature end to end", "GitHub portfolio preparation"],
       },
     ],
+    // Matches the "Recommended 2026 Stack" in the Java + AI Roadmap 2026,
+    // plus the frontend this course adds. Updated 2026-08-17.
     tools: [
       "Java",
       "Spring Boot",
-      "Spring MVC",
+      "Spring Security",
       "Hibernate",
       "JPA",
+      "PostgreSQL",
       "MySQL",
       "REST APIs",
+      "JUnit",
+      "Mockito",
+      "Testcontainers",
       "Postman",
       "React.js",
       "Angular",
+      "TypeScript",
       "JavaScript",
-      "Bootstrap",
+      "Tailwind CSS",
       "Git",
       "GitHub",
+      "GitHub Actions",
       "Maven",
+      "Gradle",
       "Docker",
+      "Kubernetes",
+      "Redis",
+      "Kafka",
+      "AWS",
+      "Azure",
+      "OpenTelemetry",
+      "Spring AI",
+      "pgvector",
     ],
     projects: [
       {

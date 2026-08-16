@@ -25,7 +25,7 @@ export const javaFullStackTrainingInPune: CourseRichContent = {
     forYou: [
       "Engineering, BCS, MCA, or BSc-CS student targeting Pune IT-services or BFSI campus hiring",
       "Working professional already in a Java backend role wanting to add frontend depth",
-      "Career switcher with non-tech degree willing to commit 4–5 months to a serious curriculum",
+      "Career switcher with a non-tech degree willing to commit 6 months to a serious curriculum",
       "Mid-career engineer in PHP, .NET, or older Java wanting to move to Spring Boot 3 + cloud-native",
       "Out-of-state candidate planning to settle in Pune for a stable IT-services or banking role",
     ],
@@ -33,99 +33,192 @@ export const javaFullStackTrainingInPune: CourseRichContent = {
       "If you hate static typing or verbose syntax — MERN Stack will feel kinder",
       "If your goal is AI/ML jobs — Python is the right path",
       "If you want to ship a SaaS in 2 months — MERN ships faster",
-      "If you don't have 4–5 months of runway — Java Full Stack genuinely needs that time, honestly delivered",
+      "If you don't have 6 months of runway — Java Full Stack genuinely needs that time, honestly delivered",
       "If you refuse to learn DSA — Cognizant, Synechron, and Bajaj Finserv Pune interviews still gate on it",
     ],
   },
 
+  /**
+   * Curriculum restructured 2026-08-17 to follow the Java + AI Roadmap 2026
+   * progression (Levels 1–12), with two deliberate deviations:
+   *
+   *   1. FRONTEND IS ADDED. The roadmap is a backend-and-AI roadmap and
+   *      carries no frontend at all. This is a Full Stack course, so React
+   *      (with the Angular alternative) sits after REST APIs — the point at
+   *      which there is an API worth building a UI against.
+   *
+   *   2. AI-ASSISTED DEVELOPMENT IS WOVEN, NOT TERMINAL. The roadmap's core
+   *      principle is that AI accelerates Java work rather than replacing it,
+   *      which makes it a working practice rather than a final-week topic.
+   *
+   * The roadmap's Level 12 ("AI for Java Developers") is a genuinely new
+   * module. It is about BUILDING AI features in Java — Spring AI, RAG,
+   * vector search, tool calling, agents — which is a different skill from
+   * using an AI assistant to write code. Both are now taught.
+   *
+   * Per roadmap §4, JSP/Servlets and legacy Java EE patterns are no longer
+   * taught as core. They were removed from the Advanced Java module.
+   *
+   * 26 weeks total: 22 taught + 4 capstone. Duration is unchanged at 6 months.
+   */
   curriculum: [
     {
-      title: "Core Java Foundations",
-      weekRange: "Weeks 1–3",
+      title: "Programming Fundamentals",
+      weekRange: "Week 1",
       description:
-        "Set up JDK 21 (with a path to upgrade to Java 25), then move through the language properly — primitive vs reference types, control flow, methods, arrays, exception handling, OOP fundamentals (inheritance, polymorphism, encapsulation, abstraction), generics, collections, and streams. We use IntelliJ IDEA as the IDE and Maven for builds, mirroring real Pune codebases. By the end of week 3, you can read any Spring Boot project's domain code without hesitation.",
+        "Before any Java syntax, the thinking. What a program actually is, how to decompose a problem, how memory holds a value, and how to read your own code back when it misbehaves. We work through algorithms and flowcharts, then the vocabulary you will use for the next six months — variables, data types, operators, conditions, loops, functions, input/output. Closes with debugging as a taught skill rather than something you pick up by accident, and a first look at time and space complexity so 'is this fast enough?' has a real answer.",
       topics: [
-        "JDK 21+ installation, IntelliJ IDEA, Maven",
-        "Primitive types, references, control flow",
-        "OOP — inheritance, polymorphism, encapsulation, abstraction",
-        "Records and sealed classes (Java 17+)",
-        "Generics, bounded wildcards, type erasure",
-        "Collections — List, Set, Map, Queue",
-        "Stream API — filter, map, reduce, collect",
-        "Exception hierarchy and try-with-resources",
+        "What a program is — algorithms and flowcharts",
+        "Variables and how memory holds them",
+        "Data types, operators, expressions",
+        "Conditions, loops, and control flow",
+        "Functions and methods, input/output",
+        "Debugging as a method, not a reflex",
+        "Basic algorithms — search and sort",
+        "Time and space complexity — Big-O in practice",
       ],
     },
     {
-      title: "Advanced Java — Concurrency, JDBC, JPA",
-      weekRange: "Weeks 4–5",
+      title: "Java Platform and Fundamentals",
+      weekRange: "Week 2",
       description:
-        "Threads, ExecutorService, virtual threads (Java 21), structured concurrency (Java 25), JDBC for direct SQL access, then JPA / Hibernate for the modern enterprise pattern. Build a small repository pattern from scratch before introducing Spring Data, so you appreciate what Spring Data is doing under the hood. Cover the N+1 query problem and HikariCP connection pooling — both routinely tested in Pune mid-level interviews.",
+        "What actually happens between the .java file you write and the program that runs. JDK, JRE and JVM as three distinct things, source to bytecode to execution, and why classpath problems are the single most common thing that breaks a new developer's first build. Then the language surface — primitives against references, casting, methods, overloading, varargs, recursion and static. We set up JDK 21 with a path to Java 25, IntelliJ IDEA, and Maven, matching the toolchain in real Pune codebases.",
       topics: [
-        "Thread, Runnable, ExecutorService, ForkJoinPool",
+        "JDK, JRE, JVM — what each one is and does",
+        "Source files, bytecode, compilation and execution",
+        "Classpath and packages",
+        "Primitive vs reference types, type casting",
+        "Operators, conditions and loops in Java",
+        "Methods, method overloading, varargs",
+        "Recursion and the static keyword",
+        "JDK 21+ setup, IntelliJ IDEA, Maven",
+      ],
+    },
+    {
+      title: "OOP and Modern Java",
+      weekRange: "Weeks 3–4",
+      description:
+        "Object orientation done properly, then everything Java has added since 8. Classes, constructors, encapsulation, inheritance, polymorphism and abstraction — followed by the parts most courses skip: composition against inheritance, association and aggregation, and the equals/hashCode contract that quietly breaks HashMap lookups when you get it wrong. The modern half covers records, enums, sealed classes, lambdas, functional interfaces, method references, the Stream API, Optional, pattern matching, switch expressions and text blocks. This is the module that lets you read any Spring Boot codebase without hesitating.",
+      topics: [
+        "Classes, objects, constructors, this",
+        "Encapsulation, inheritance, polymorphism, abstraction",
+        "Abstract classes and interfaces",
+        "Composition vs inheritance, association, aggregation",
+        "Object, equals(), hashCode(), toString()",
+        "final, immutability, records, enums, nested classes",
+        "Lambdas, functional interfaces, method references",
+        "Stream API and Optional",
+        "Pattern matching, switch expressions, sealed classes, text blocks",
+      ],
+    },
+    {
+      title: "Exceptions and Collections",
+      weekRange: "Week 5",
+      description:
+        "The two APIs you will touch every single working day. Exceptions first — checked against unchecked, try/catch/finally, throw against throws, custom exception types, propagation, and the handling practices that separate a readable stack trace from a swallowed failure nobody can diagnose. Then the collections framework in full: List, Set, Map, Queue and Deque with their concrete implementations, and — the part interviews actually probe — when to reach for each. Closes with iterators, Comparable and Comparator, generics and wildcards.",
+      topics: [
+        "Checked vs unchecked exceptions, exception hierarchy",
+        "try, catch, finally, try-with-resources",
+        "throw, throws, custom exceptions, propagation",
+        "Exception-handling practices that survive code review",
+        "List — ArrayList, LinkedList",
+        "Set — HashSet, LinkedHashSet, TreeSet",
+        "Map — HashMap, LinkedHashMap, TreeMap",
+        "Queue, Deque, PriorityQueue",
+        "Iterators, Comparable, Comparator",
+        "Generics, bounded types and wildcards",
+      ],
+    },
+    {
+      title: "JVM, Memory and Concurrency",
+      weekRange: "Week 6",
+      description:
+        "Why your service slowed down at 3am, and how to answer that in an interview. JVM architecture — stack, heap, metaspace, code cache — object references, garbage collection and its generations, class loading, JIT compilation, and how memory leaks happen in a language with a garbage collector. Then concurrency: threads and their lifecycle, synchronization, locks, race conditions, deadlocks, volatile, atomics, ExecutorService and thread pools, Callable and Future, CompletableFuture, concurrent collections, and virtual threads from Java 21.",
+      topics: [
+        "JVM architecture — stack, heap, metaspace, code cache",
+        "Garbage collection, GC generations, JVM tuning basics",
+        "Class loading, JIT compilation, memory leaks",
+        "Process vs thread, thread lifecycle",
+        "Synchronization, locks, race conditions, deadlocks",
+        "volatile and atomic classes",
+        "ExecutorService, thread pools, Callable, Future",
+        "CompletableFuture and concurrent collections",
         "Virtual threads (Java 21+) and structured concurrency",
-        "JDBC API and PreparedStatement",
+      ],
+    },
+    {
+      title: "I/O, Tools and Database Foundations",
+      weekRange: "Weeks 7–8",
+      description:
+        "Java I/O and the SQL depth that most full-stack courses shortchange. File handling, NIO, Paths and Files, readers and writers, JSON, the Date/Time API and regular expressions. Then databases taken seriously: the full SELECT vocabulary through GROUP BY, HAVING, JOINs, subqueries, CTEs and window functions; then indexes, transactions, ACID, isolation levels, locking, query optimisation and normalisation. Finish with JDBC — Connection, Statement, PreparedStatement, ResultSet, transactions and connection pooling — plus Maven or Gradle and a real Git and GitHub workflow.",
+      topics: [
+        "File handling, NIO, Paths, Files, readers and writers",
+        "JSON, Date/Time API, regular expressions",
+        "SELECT, WHERE, GROUP BY, HAVING, ORDER BY",
+        "JOINs, subqueries, CTEs, window functions, views",
+        "Indexes, query optimisation, normalisation, keys",
+        "Transactions, ACID, isolation levels, locking",
+        "JDBC — Connection, PreparedStatement, ResultSet",
         "Connection pooling with HikariCP",
-        "JPA — entities, relationships, EntityManager",
-        "Hibernate — first-level and second-level cache",
-        "N+1 queries and how to fix them",
+        "Maven or Gradle, Git and GitHub workflow",
       ],
     },
     {
-      title: "Spring Boot 3.5 / 4.0 — REST APIs",
-      weekRange: "Weeks 6–7",
+      title: "Spring and Spring Boot",
+      weekRange: "Weeks 9–10",
       description:
-        "The framework powering 70%+ of Pune backend hiring. Build a Spring Boot 3.5 / 4.0 REST API from project init to production-ready: controllers, services, repositories, validation, exception handling, OpenAPI spec via springdoc, JWT-based authentication with Spring Security 6, and full CRUD against PostgreSQL via Spring Data JPA. Includes profile-based configuration, externalised secrets, and switching the application to virtual threads with the one-line `spring.threads.virtual.enabled=true` property.",
+        "The framework behind the majority of Pune backend hiring. Spring Core first so the magic is explicable — inversion of control, dependency injection, beans, ApplicationContext, component scanning, configuration and profiles. Then Spring Boot: starters, auto-configuration, externalised configuration, profiles, Actuator, logging and environment variables. We build with constructor injection throughout, because that is what passes code review, and cover what auto-configuration is actually doing so you can debug it when it does the wrong thing.",
       topics: [
-        "Spring Boot 3.5 / 4.0 project setup with Spring Initializr",
-        "Constructor-injection dependency injection style",
-        "REST controllers, request mapping, content negotiation",
+        "Inversion of control and dependency injection",
+        "Beans, ApplicationContext, component scanning",
+        "Configuration classes and profiles",
+        "Spring Boot starters and auto-configuration",
+        "Externalised configuration and environment variables",
+        "Actuator and production endpoints",
+        "Logging — structured JSON via SLF4J and Logback",
+        "Constructor-injection style and why it wins reviews",
+      ],
+    },
+    {
+      title: "REST APIs and Persistence",
+      weekRange: "Weeks 11–12",
+      description:
+        "Build the API the rest of the course consumes. HTTP properly — methods, status codes, headers, JSON — then REST principles, DTOs, validation, pagination, sorting, filtering and centralised exception handling. Persistence in the same breath: JPA and Hibernate, entities, persistence context, EntityManager, Spring Data repositories, all four relationship cardinalities, lazy against eager loading, cascading, transactions, JPQL and native queries. Closes on the N+1 problem — how to spot it in logs and how to fix it — which is asked in Pune mid-level interviews more reliably than almost anything else.",
+      topics: [
+        "HTTP — GET, POST, PUT, PATCH, DELETE, status codes, headers",
+        "REST principles, DTOs, content negotiation",
         "Validation with Jakarta Bean Validation",
+        "Pagination, sorting, filtering",
         "Exception handling with @ControllerAdvice",
-        "Spring Data JPA — derived queries, JPQL",
-        "Spring Security 6 with JWT",
+        "JPA and Hibernate — entities, persistence context, EntityManager",
+        "Spring Data repositories and derived queries",
+        "One-to-one, one-to-many, many-to-one, many-to-many",
+        "Lazy vs eager loading, cascading, transactions",
+        "JPQL, native queries, and the N+1 problem",
         "OpenAPI / Swagger via springdoc",
-        "Profiles and externalised configuration",
-        "Virtual threads in Spring Boot 3+",
-      ],
-    },
-    {
-      title: "Microservices & Cloud Deployment",
-      weekRange: "Week 8",
-      description:
-        "Split a monolith into microservices the way Pune banking and product teams actually do it — Spring Cloud Gateway for routing, Eureka or Kubernetes for service discovery, Resilience4j for circuit-breaking, RabbitMQ or Kafka for async messaging, Micrometer + OpenTelemetry (`spring-boot-starter-opentelemetry` in Spring Boot 4) for distributed tracing. Containerise each service with Docker, run via Docker Compose locally, deploy to AWS EC2 + RDS plus a Minikube cluster.",
-      topics: [
-        "Microservice decomposition strategy",
-        "Spring Cloud Gateway, Eureka",
-        "Resilience4j circuit breaker, retry, bulkhead",
-        "RabbitMQ for async messaging, Kafka basics",
-        "Distributed tracing — Micrometer + OpenTelemetry",
-        "Docker, Docker Compose",
-        "Kubernetes basics — pods, services, deployments",
-        "AWS EC2 + RDS deployment walkthrough",
       ],
     },
     {
       title: "Frontend — React 19 + Next.js 15",
-      weekRange: "Weeks 9–11",
+      weekRange: "Weeks 13–15",
       description:
-        "The dominant frontend in Pune product / fintech hiring. Cover modern React (function components, Hooks including `use()`, Server Components, Actions, Suspense), TypeScript, state management with Redux Toolkit or Zustand, routing with Next.js App Router, REST and tRPC integration with the Spring Boot backend, JWT auth flow front-to-back, real-time updates via WebSocket, and styling with Tailwind CSS. Build the frontend half of your capstone project here.",
+        "The full-stack half, placed here deliberately: you now have a real API to build against rather than a mock. Modern React — function components, Hooks including use(), Server Components, Actions and Suspense — with TypeScript, state management via Redux Toolkit or Zustand, routing with the Next.js App Router, REST integration against your own Spring Boot service, the JWT auth flow wired front-to-back, real-time updates over WebSocket, and Tailwind CSS. You build the frontend half of your capstone in this module.",
       topics: [
         "React 19 — function components, Hooks, use(), Server Components",
         "TypeScript essentials for React",
         "Next.js 15 App Router — server vs client components",
         "State management — Redux Toolkit or Zustand",
         "REST integration with Axios / fetch",
-        "JWT auth flow front-to-back",
+        "JWT auth flow front-to-back against your Spring Boot API",
         "WebSocket real-time updates",
-        "Tailwind CSS",
-        "Form handling and validation",
+        "Tailwind CSS, form handling and validation",
       ],
     },
     {
       title: "Angular Track (opt-in alternative to React)",
-      weekRange: "Weeks 9–11 alternate",
+      weekRange: "Weeks 13–15 alternate",
       description:
-        "For students targeting IT-services hiring (Cognizant, Infosys, TCS) where Angular is the preferred frontend, we offer an opt-in Angular 18+ track in place of React. Cover Angular components, services, RxJS, dependency injection, routing, forms (template + reactive), HTTP client, and integration with the same Spring Boot backend. Same project deliverables, different framework — choose based on your target employers.",
+        "For students targeting IT-services hiring — Cognizant, Infosys, TCS — where Angular remains the preferred frontend, we run an opt-in Angular 18+ track in place of React. Components, services, RxJS, dependency injection, routing, template-driven and reactive forms, HTTP client and interceptors, integrated against the same Spring Boot backend. Identical project deliverables, different framework. Choose on your target employers, not on preference.",
       topics: [
         "Angular 18+ — components, services, modules",
         "TypeScript with Angular",
@@ -134,57 +227,110 @@ export const javaFullStackTrainingInPune: CourseRichContent = {
         "Routing and lazy loading",
         "Forms — template-driven and reactive",
         "HTTP client and interceptors",
-        "REST integration with Spring Boot backend",
+        "REST integration with the Spring Boot backend",
       ],
     },
     {
-      title: "DevOps, CI/CD & Production Practices",
-      weekRange: "Week 12",
+      title: "Security and Testing",
+      weekRange: "Weeks 16–17",
       description:
-        "Make your project look like real Pune enterprise code. GitHub Actions or Jenkins for CI/CD, SonarQube for code-quality gates, OWASP dependency-check for security scanning, JaCoCo for code coverage, Docker images pushed to ECR or Docker Hub, Kubernetes deployment manifests. Cover environment promotion (dev → staging → prod) and the one round of production troubleshooting every Pune mid-level interview asks about.",
+        "Two things juniors are expected to already know and usually do not. Security: authentication against authorisation, password hashing, roles and permissions, JWT, OAuth 2.0 and OpenID Connect, CORS, CSRF, and the Spring Security 6 filter chain — understood rather than copy-pasted. Testing: JUnit and Mockito for unit tests, integration testing against a real database with Testcontainers, API testing with REST Assured and Postman, and where end-to-end testing fits. By the end your capstone has a test suite you can point an interviewer at.",
       topics: [
-        "GitHub Actions / Jenkins pipeline basics",
-        "SonarQube quality gates",
-        "OWASP dependency-check",
-        "JaCoCo code coverage",
-        "Docker image build and push",
-        "Kubernetes deployment YAML",
-        "Environment promotion strategy",
-        "Logging — structured JSON via SLF4J + Logback",
+        "Authentication vs authorisation, password hashing",
+        "Roles, permissions, and method-level security",
+        "JWT, OAuth 2.0, OpenID Connect",
+        "CORS, CSRF, and the Spring Security 6 filter chain",
+        "JUnit — unit testing structure and assertions",
+        "Mockito — mocking collaborators",
+        "Integration testing with Testcontainers",
+        "REST Assured and Postman for API testing",
+        "JaCoCo coverage and what a useful number looks like",
       ],
     },
     {
-      title: "Capstone Project & Interview Preparation",
-      weekRange: "Weeks 13–16 (4 weeks total)",
+      title: "Production Engineering",
+      weekRange: "Weeks 18–19",
       description:
-        "Two weeks of full-time capstone project work plus two weeks of placement preparation. Mock technical interviews using question banks from Pune companies — TCS, Infosys, Persistent, Synechron, Bajaj Finserv, BMC. DSA refresher targeting the 30–40 patterns that screen out at IT-services and BFSI. Resume + LinkedIn polish, GitHub portfolio cleanup, HR mock interviews including salary negotiation.",
+        "The layer between 'it works on my machine' and a system that survives real traffic. Docker properly — Dockerfiles, images, containers, volumes, networks, Compose and environment variables. Redis and caching: the cache-aside pattern, TTLs, and what distributed caching changes about correctness. Then Kafka as more than a buzzword — producers and consumers, topics, partitions, consumer groups, event ordering and idempotency, which is the concept that decides whether your retry logic corrupts data or not.",
       topics: [
-        "Capstone — full Java + React/Angular implementation, deployed",
+        "Docker — Dockerfile, images, containers, volumes, networks",
+        "Docker Compose and environment variables",
+        "Redis and the cache-aside pattern",
+        "TTL strategy and distributed caching",
+        "Kafka — producers, consumers, topics",
+        "Partitions, consumer groups, event ordering",
+        "Idempotency and safe retries",
+        "Messaging patterns and when not to use them",
+      ],
+    },
+    {
+      title: "Microservices, Cloud and DevOps",
+      weekRange: "Weeks 20–21",
+      description:
+        "Split the monolith the way Pune banking and product teams actually do. Service boundaries, API Gateway, service discovery, inter-service communication with OpenFeign, resilience and circuit breakers, distributed transactions and the Saga pattern, event-driven architecture. Then cloud and delivery: AWS or Azure with containers, managed databases, storage, IAM and monitoring; GitHub Actions for CI/CD with automated builds, tests, deployment and secrets management. Observability closes it out — logging, metrics, tracing, health checks, OpenTelemetry, and the Prometheus and Grafana concepts you will be asked about.",
+      topics: [
+        "Service boundaries and decomposition strategy",
+        "API Gateway, service discovery, OpenFeign",
+        "Resilience4j — circuit breaker, retry, bulkhead",
+        "Distributed transactions and the Saga pattern",
+        "Event-driven architecture",
+        "AWS or Azure — containers, managed DBs, storage, IAM",
+        "GitHub Actions — CI/CD, automated tests, secrets management",
+        "Kubernetes basics — pods, services, deployments",
+        "Observability — logging, metrics, tracing, health checks",
+        "OpenTelemetry, Prometheus and Grafana concepts",
+      ],
+    },
+    {
+      title: "AI for Java Developers",
+      weekRange: "Weeks 22–23",
+      highlight: true,
+      description:
+        "Building AI features in Java — a different skill from using an AI assistant to write code, and the one that is starting to separate candidates. Deliberately placed last, because the roadmap this follows is explicit that AI comes after solid backend foundations. Start with LLM mechanics — prompts, system instructions, tokens, context windows, structured output, streaming, tool calling, model parameters and selection. Then Spring AI: chat models, prompt templates, structured outputs, embeddings, vector stores. Build a full RAG pipeline — ingestion, chunking, embeddings, vector storage in PostgreSQL with pgvector, similarity search, context retrieval, grounded generation. Then agents: tool selection, multi-step workflows, memory, state, human approval, and exposing your own APIs and database as tools. Closes on the two things production teams get wrong — AI security (prompt injection, data leakage, excessive permissions, tool authorisation, rate limiting, audit logging) and AI evaluation (groundedness, hallucination, retrieval quality, latency, token usage and cost).",
+      topics: [
+        "LLM mechanics — prompts, system instructions, tokens, context windows",
+        "Structured output, streaming, function/tool calling",
+        "Model parameters and choosing a model",
+        "Spring AI — chat models, prompt templates, structured outputs",
+        "Embeddings and vector stores",
+        "RAG — ingestion, chunking, similarity search, grounded generation",
+        "PostgreSQL + pgvector for vector search",
+        "Agents — tool selection, multi-step workflows, memory, state",
+        "Human approval and internal API/database tools",
+        "AI security — prompt injection, data leakage, tool authorisation",
+        "AI evaluation — groundedness, hallucination, retrieval quality, cost",
+      ],
+    },
+    {
+      title: "Capstone Project and Interview Preparation",
+      weekRange: "Weeks 24–26 (plus placement prep from Week 12)",
+      description:
+        "Full-time capstone work plus placement preparation. Mock technical interviews against question banks from Pune companies — TCS, Infosys, Persistent, Synechron, Bajaj Finserv, BMC. A DSA refresher targeting the 30–40 patterns that screen candidates out at IT-services and BFSI. Resume and LinkedIn rewrite, GitHub portfolio cleanup, and HR mock interviews including salary negotiation. Your capstone ships as a deployed Java + React or Angular application with a test suite and at least one AI-backed feature.",
+      topics: [
+        "Capstone — deployed full-stack build with an AI feature",
         "Code review with the lead trainer",
         "Technical mock interviews — 3 rounds",
-        "DSA quick refresher — patterns that screen out",
-        "Resume + LinkedIn rewrite",
+        "DSA refresher — the patterns that screen out",
+        "Resume and LinkedIn rewrite",
         "GitHub portfolio polish",
         "HR mock interview and salary negotiation",
       ],
     },
     {
       title: "AI-Assisted Development Workflow",
-      weekRange: "Final Week",
-      highlight: true,
+      weekRange: "Woven throughout — dedicated sessions in Weeks 5, 12 and 21",
       description:
-        "The skill every 2026 hiring panel now probes for — building real work with AI in the loop, responsibly. Learn to drive AI assistants (GitHub Copilot, Claude, Cursor, and IDE-native AI) to scaffold and accelerate the tools and stack this course covers, generate tests, explain and refactor unfamiliar code, and cut the boilerplate — while keeping you firmly in control of every decision. Heavy focus on guardrails: reviewing each AI suggestion, spotting hallucinated APIs or wrong answers, and handling licensing and data-privacy concerns. Close with a mini-project that takes a deliverable end-to-end using an AI-assisted workflow, then fold the same tooling into version control and everyday team practice.",
+        "Using AI to build faster without losing control of what you ship. This runs alongside the curriculum rather than at the end, because it is a working practice, not a topic — the guiding principle of the roadmap this course follows is that AI should accelerate Java development, never replace Java knowledge. You drive GitHub Copilot, Claude, Cursor and IDE-native assistants to scaffold, generate tests, explain unfamiliar code and cut boilerplate, with heavy emphasis on guardrails: reviewing every suggestion, spotting hallucinated APIs, and handling licensing and data privacy. The standard you are held to is the professional one — you must be able to explain, test, debug, secure, optimise and modify anything AI writes for you.",
       topics: [
         "AI assistants — GitHub Copilot, Claude, Cursor, IDE-native AI",
-        "Effective prompting for this course's stack — scaffolding, boilerplate, config",
+        "Effective prompting for this stack — scaffolding, boilerplate, config",
         "AI-assisted test generation and coverage",
-        "Explaining, refactoring, and modernising unfamiliar code with AI",
-        "AI-driven review, error detection, and quality checks",
-        "Generating and maintaining documentation with AI",
-        "AI debugging — interpreting errors, logs, and failing output",
-        "Guardrails — reviewing output, avoiding hallucinations, licensing & data privacy",
-        "Team workflow — AI in the editor, in reviews, and in delivery pipelines",
-        "Mini-project — a deliverable built end-to-end with an AI-assisted workflow",
+        "Explaining, refactoring and modernising unfamiliar code",
+        "AI-driven review, error detection and quality checks",
+        "AI debugging — interpreting errors, logs and failing output",
+        "Guardrails — hallucinated APIs, licensing, data privacy",
+        "Team workflow — AI in the editor, in reviews, in delivery pipelines",
+        "The standard — explain, test, debug, secure, optimise, modify",
       ],
     },
   ],
@@ -220,6 +366,20 @@ export const javaFullStackTrainingInPune: CourseRichContent = {
         "Micrometer + OpenTelemetry",
         "Docker, Docker Compose",
         "Kubernetes (Minikube / EKS)",
+      ],
+    },
+    {
+      title: "RAG-Powered Document Assistant in Java",
+      description:
+        "The capstone of the AI module — a Spring AI service that ingests your own documents, chunks and embeds them, stores the vectors in PostgreSQL via pgvector, and answers questions grounded in that corpus rather than in whatever the model happens to remember. Adds tool calling so the assistant can query your existing REST APIs and database, memory so a conversation holds context, and a human-approval step before any write action. Ships with the guardrails that matter in production: prompt-injection handling, tool authorisation, rate limiting, audit logging, and an evaluation harness measuring groundedness, retrieval quality, latency and token cost. The part of the stack most 2026 Java candidates cannot yet demonstrate.",
+      technologies: [
+        "Spring AI",
+        "LLM APIs — chat, embeddings, structured output",
+        "PostgreSQL + pgvector",
+        "RAG — chunking, similarity search, grounded generation",
+        "Tool calling and agent workflows",
+        "Prompt-injection and tool-authorisation guardrails",
+        "Evaluation — groundedness, retrieval quality, token cost",
       ],
     },
     {
@@ -329,7 +489,7 @@ export const javaFullStackTrainingInPune: CourseRichContent = {
 
   modesAndDuration: {
     duration:
-      "5 months of structured curriculum (16 weeks Core Java through DevOps + 4 weeks capstone and interview prep)",
+      "6 months of structured curriculum (22 weeks, Programming Fundamentals through AI for Java Developers, plus 4 weeks of capstone and interview preparation)",
     classroom: {
       location: "Archer Infotech, Kothrud, Pune",
       timing: [
@@ -349,7 +509,7 @@ export const javaFullStackTrainingInPune: CourseRichContent = {
     weekend: {
       timing: ["Saturday + Sunday, 09:00 to 13:00"],
       durationNote:
-        "Stretches over 7–8 months instead of 5 to accommodate working professionals. Same content, lower weekly load.",
+        "Stretches over 8–9 months instead of 6 to accommodate working professionals. Same content, lower weekly load.",
     },
     batchPolicy:
       "Maximum 15 students per batch. Classroom batches start every 5 weeks; weekend batches every 7–8 weeks.",
@@ -493,7 +653,7 @@ export const javaFullStackTrainingInPune: CourseRichContent = {
     {
       question: "How long does the Java Full Stack course take?",
       answer:
-        "Five months — 16 weeks of structured curriculum (Core Java through DevOps and frontend) plus 4 weeks of capstone and interview preparation. Weekend batches stretch over 7–8 months at the same content depth, designed for working professionals.",
+        "Six months — 22 weeks of structured curriculum (Programming Fundamentals through AI for Java Developers, including React or Angular) plus 4 weeks of capstone and interview preparation. Weekend batches stretch over 8–9 months at the same content depth, designed for working professionals.",
     },
     {
       question: "Java Full Stack vs MERN Stack — which has more jobs in Pune?",
@@ -543,7 +703,7 @@ export const javaFullStackTrainingInPune: CourseRichContent = {
     {
       question: "Are weekend Java Full Stack classes available in Pune?",
       answer:
-        "Yes — Saturday and Sunday, 09:00–13:00, stretched over 7–8 months instead of 5. Same content, same trainers, same projects. Designed for working professionals who cannot attend weekday batches.",
+        "Yes — Saturday and Sunday, 09:00–13:00, stretched over 8–9 months instead of 6. Same content, same trainers, same projects. Designed for working professionals who cannot attend weekday batches.",
     },
     {
       question: "What support do I get after course completion?",
