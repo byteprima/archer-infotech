@@ -335,6 +335,25 @@ export const javaFullStackTrainingInPune: CourseRichContent = {
     },
   ],
 
+  roadmapImage: {
+    src: "/images/courses/java-ai-roadmap-2026-v1.webp",
+    width: 864,
+    height: 1821,
+    alt:
+      "Java + AI Roadmap 2026 — a 30-step visual learning path from programming fundamentals through core Java, JVM and concurrency, SQL and JDBC, Spring Boot and REST APIs, security, testing, Docker, Redis, Kafka, microservices, cloud and CI/CD, ending in LLM APIs, Spring AI, embeddings and vector databases, RAG and AI agents.",
+    caption:
+      "The full progression at a glance. Every step is covered in the module list below —",
+    fullSizeHref: "/images/courses/java-ai-roadmap-2026-v1.png",
+  },
+
+  syllabusDownload: {
+    pdfUrl: "/downloads/java-ai-roadmap-2026-v1.pdf",
+    title: "Java + AI Roadmap 2026 — Complete Syllabus",
+    slug: "java-full-stack-syllabus",
+    blurb:
+      "The complete 12-level learning sequence this course follows, as a 12-page PDF you can keep or share — every topic from programming fundamentals through Spring AI, RAG and AI agents, plus the project progression and the 2026 stack. Everything in it is already on this page; the PDF is just the portable version.",
+  },
+
   projects: [
     {
       title: "Spring Boot + React Full-Stack SaaS Application",

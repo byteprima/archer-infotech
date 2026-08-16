@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ReportDownloadForm } from "@/components/reports/report-download-form";
 import type { CourseRichContent } from "@/data/course-content/types";
 
 interface RichCourseContentProps {
@@ -156,6 +157,53 @@ export function RichCourseContentBelowFold({
           <GraduationCap className="h-7 w-7 text-secondary" />
           Detailed Curriculum
         </h2>
+
+        {/* Optional visual roadmap. Lazy-loaded with explicit intrinsic
+            dimensions: this sits below the fold and must never become the
+            LCP element, and CLS on these pages is 0.00 in field data.
+            Plain <img> with <picture> rather than next/image — the source is
+            a static, already-optimised asset in /public, so the optimiser
+            would add a round trip for no gain. */}
+        {rich.roadmapImage && (
+          <figure className="my-6">
+            <picture>
+              <source
+                srcSet={rich.roadmapImage.src.replace(/\.webp$/, ".avif")}
+                type="image/avif"
+              />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={rich.roadmapImage.src}
+                alt={rich.roadmapImage.alt}
+                width={rich.roadmapImage.width}
+                height={rich.roadmapImage.height}
+                loading="lazy"
+                decoding="async"
+                className="w-full h-auto rounded-xl border bg-muted/20"
+              />
+            </picture>
+            {(rich.roadmapImage.caption || rich.roadmapImage.fullSizeHref) && (
+              <figcaption className="mt-2 text-sm text-muted-foreground">
+                {rich.roadmapImage.caption}
+                {rich.roadmapImage.fullSizeHref && (
+                  <>
+                    {" "}
+                    <a
+                      href={rich.roadmapImage.fullSizeHref}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-primary hover:underline"
+                    >
+                      Open the full-size version
+                    </a>{" "}
+                    to read it comfortably on a phone.
+                  </>
+                )}
+              </figcaption>
+            )}
+          </figure>
+        )}
+
         <div className="space-y-5">
           {rich.curriculum.map((module, i) => (
             <Card
@@ -214,6 +262,27 @@ export function RichCourseContentBelowFold({
             </Card>
           ))}
         </div>
+
+        {/* Optional gated syllabus PDF. Reuses the report lead-capture flow
+            with its own source tag so admin can segment these leads.
+            The PDF is noindex (next.config.ts) — it duplicates this page by
+            design, and this page is the canonical, indexable copy. */}
+        {rich.syllabusDownload && (
+          <div className="mt-8 rounded-xl border bg-muted/30 p-6 md:p-7">
+            <h3 className="text-lg md:text-xl font-semibold mb-2">
+              Download the full syllabus as a PDF
+            </h3>
+            <p className="text-sm text-muted-foreground mb-5 max-w-2xl">
+              {rich.syllabusDownload.blurb}
+            </p>
+            <ReportDownloadForm
+              reportSlug={rich.syllabusDownload.slug}
+              pdfUrl={rich.syllabusDownload.pdfUrl}
+              reportTitle={rich.syllabusDownload.title}
+              nounLabel="syllabus"
+            />
+          </div>
+        )}
       </section>
 
       {/* Section 5 — Capstone projects */}

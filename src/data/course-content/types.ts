@@ -37,6 +37,51 @@ export interface CourseRichContent {
     highlight?: boolean;
   }>;
 
+  /**
+   * Optional visual roadmap for the curriculum, shown above the module list.
+   *
+   * A summary, never the source of truth: every word inside the image is
+   * invisible to crawlers and to AI engines, so the `curriculum` array above
+   * must independently carry the same information as text. If you find
+   * yourself adding a topic to the image only, add it to the curriculum too.
+   *
+   * Dimensions are required — /images/* is served immutable for a year and
+   * these pages hold CLS at 0.00. Version the filename on any update, or
+   * nobody sees the new file.
+   */
+  roadmapImage?: {
+    /** Path under /public. Use a -vN suffix; the cache is immutable. */
+    src: string;
+    width: number;
+    height: number;
+    /** Describes what the diagram shows. Not a transcription of it. */
+    alt: string;
+    /** Visible caption under the image. */
+    caption?: string;
+    /** Optional full-size original — the image is too tall to read on mobile. */
+    fullSizeHref?: string;
+  };
+
+  /**
+   * Optional gated syllabus PDF, rendered through the existing
+   * ReportDownloadForm lead-capture flow.
+   *
+   * The PDF is served noindex via X-Robots-Tag (see next.config.ts). It
+   * duplicates this page's content by design, so it must never be the
+   * indexable copy — the HTML page is canonical, and the PDF is a
+   * post-click convenience, not an acquisition asset.
+   */
+  syllabusDownload?: {
+    /** Public path under /public/downloads. Versioned filename. */
+    pdfUrl: string;
+    /** Shown in the form heading and recorded on the lead. */
+    title: string;
+    /** Feeds the lead `source` tag for admin segmentation. */
+    slug: string;
+    /** One or two lines of context above the form. */
+    blurb: string;
+  };
+
   /** Capstone projects with technologies + brief architecture. */
   projects: Array<{
     title: string;

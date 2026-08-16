@@ -280,6 +280,29 @@ const nextConfig: NextConfig = {
         ],
       },
 
+      // Downloadable PDFs — long-cached, and deliberately NOT indexable.
+      //
+      // Google crawls and ranks PDFs as standalone documents. A syllabus PDF
+      // carrying the same content as its course page produces two URLs
+      // competing for the same query, and the PDF is the worse one to win:
+      // no enquiry form, no navigation, no analytics. Money keywords already
+      // sit around position 11, so splitting the signal is a real cost.
+      //
+      // X-Robots-Tag is the only mechanism available — a PDF cannot carry a
+      // <meta robots> tag. Note this is deliberately NOT a robots.txt
+      // Disallow: that would block crawling, which stops Google ever seeing
+      // the noindex while still letting the bare URL surface in results.
+      //
+      // Filenames are versioned (-v1) because of the immutable max-age
+      // below: reusing a name means nobody sees the new file for a year.
+      {
+        source: "/downloads/:path*",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+          { key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" },
+        ],
+      },
+
       // DYNAMIC — meaningfully changes weekly+ (5-min edge cache).
       // /placements — new placements published with each batch close.
       // /batch-schedule — DB-backed upcoming-batch dates change weekly.

@@ -30,12 +30,19 @@ interface ReportDownloadFormProps {
   pdfUrl?: string;
   /** Display title used in the success message. */
   reportTitle: string;
+  /**
+   * Noun used in button labels — "report" by default. Course syllabus
+   * downloads pass "syllabus" so the CTA reads correctly; existing report
+   * pages keep the original wording by omitting this.
+   */
+  nounLabel?: string;
 }
 
 export function ReportDownloadForm({
   reportSlug,
   pdfUrl,
   reportTitle,
+  nounLabel = "report",
 }: ReportDownloadFormProps) {
   const [success, setSuccess] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
@@ -104,7 +111,7 @@ export function ReportDownloadForm({
             download
             className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
           >
-            Download the report (PDF)
+            Download the {nounLabel} (PDF)
           </a>
         )}
       </div>
@@ -165,7 +172,7 @@ export function ReportDownloadForm({
         {isPending
           ? "Submitting…"
           : pdfUrl
-            ? "Download the report (free)"
+            ? `Download the ${nounLabel} (free)`
             : "Notify me when ready"}
       </Button>
       <p className="text-xs text-muted-foreground">
