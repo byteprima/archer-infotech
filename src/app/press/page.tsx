@@ -21,6 +21,7 @@ import { teamMembers } from "@/data/team";
 import { buildPageMetadata } from "@/lib/seo";
 import { EVERGREEN_LAST_REVIEWED, NEW_ASSETS_LAST_REVIEWED } from "@/lib/seo/content-dates";
 import { LastUpdated } from "@/components/seo/last-updated";
+import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { FaqSection } from "@/components/seo/faq-section";
 import { pressHubFaqs } from "@/data/hub-faqs";
 
@@ -99,6 +100,18 @@ export default function PressPage() {
           </p>
         </div>
       </header>
+
+      {/* Summary block — audit 2026-08-17. This page carried a hero
+          paragraph but no self-contained opening passage, so a retrieval
+          engine reading only the top of the document got no statement of
+          what the page is or who it serves. States the answer and the
+          audience in the first sentence. */}
+      <DefinitiveAnswer eyebrow="What is on this page?">
+        {/* Single text node — see the note on the blog index: adjacent JSX
+            expressions serialise with HTML comment nodes between them, which
+            naive extractors render as stray spaces. */}
+        {`This is the press and media kit for Archer Infotech, an IT training institute in Kothrud, Pune operating since ${siteConfig.foundingYear}. It is written for journalists, editors, listing sites and partners who need approved copy and assets rather than marketing pages: company boilerplate in several lengths, a verified fact sheet covering founding year, address, scale and course range, leadership bios for founder Yogesh Patil and the teaching team, downloadable brand assets, and a direct press contact. Everything here is cleared for publication as written and does not need further permission. The figures on this page are the canonical ones we ask to be quoted — 10,000+ students trained, 5,000+ placed, and a ${siteConfig.stats.placementRate} placement rate.`}
+      </DefinitiveAnswer>
 
       <div className="container mx-auto px-4 py-12 md:py-16 space-y-16 max-w-5xl">
         {/* Boilerplate / about */}

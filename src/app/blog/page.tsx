@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { BlogCard } from "@/components/blog/blog-card";
 import { BlogSidebar } from "@/components/blog/blog-sidebar";
 import { BlogListingJsonLd, BlogBreadcrumbJsonLd } from "@/components/blog/blog-json-ld";
+import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { getPublishedPosts, getCategories, getRecentPosts } from "@/lib/actions/blog";
 import { siteConfig } from "@/data/site-config";
 import { buildPageMetadata } from "@/lib/seo";
@@ -78,6 +79,28 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
           </div>
         </div>
       </section>
+
+      {/* Summary block — audit 2026-08-17. Individual posts all carry one;
+          this index did not, so a retrieval engine reading the top of the
+          listing found a card grid and no statement of what the blog is or
+          who writes it. Renders only on the unfiltered index: on a tag view
+          the summary would describe the wrong thing. */}
+      {!tag && (
+        <DefinitiveAnswer eyebrow="What is the Archer Infotech blog?">
+          {/* One template literal, not interleaved JSX expressions. React
+              emits an HTML comment node between adjacent expressions, so
+              `across {n} categories.` serialises as
+              `across<!-- -->4 categories<!-- -->.` — invisible in a browser,
+              but a naive tag-stripping extractor turns each comment into a
+              space and reads "4 categories ." This block exists for exactly
+              those extractors, so it ships as a single text node. */}
+          {`The Archer Infotech blog is written by the trainers who teach at our Kothrud, Pune centre, covering Java, Python, full stack development, AI, cloud and DevOps across ${
+            categories.length > 0
+              ? `${categories.length} categories`
+              : "several categories"
+          }. It is aimed at three readers: students choosing a first course, freshers preparing for interviews at Pune companies, and working professionals upskilling around a job. Posts fall into four kinds — learning roadmaps, Pune hiring and salary context, interview preparation, and step-by-step technical tutorials. Every post carries a named author and a visible published date.`}
+        </DefinitiveAnswer>
+      )}
 
       {/* Main Content */}
       <section className="py-12">
