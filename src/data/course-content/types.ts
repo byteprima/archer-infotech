@@ -80,6 +80,18 @@ export interface CourseRichContent {
     slug: string;
     /** One or two lines of context above the form. */
     blurb: string;
+    /**
+     * Right-hand panels beside the form on desktop, stacked below it on
+     * mobile. Two jobs at once: they tell a reader what they are about to
+     * hand over an email address for, and they put extractable, keyword-
+     * bearing text in what was otherwise dead space.
+     *
+     * Write complementary content, not a restatement of the curriculum
+     * directly above — describe the document, the outcomes, the stack.
+     * Repeating the module list here would be thin and would read as
+     * padding to both a person and a crawler.
+     */
+    asideBlocks?: Array<{ heading: string; items: string[] }>;
   };
 
   /** Capstone projects with technologies + brief architecture. */

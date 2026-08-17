@@ -270,17 +270,20 @@ export function RichCourseContentBelowFold({
         {rich.syllabusDownload && (
           <div className="mt-10 rounded-xl border bg-muted/30 p-6 md:p-8">
             {/* Left-aligned, not centred: this heading has to line up with
-                "Detailed Curriculum" and the module cards above it. Measure
-                is capped so the fields stay a comfortable width on desktop. */}
-            <div className="max-w-2xl space-y-6">
-              <div className="space-y-2.5">
-                <h3 className="text-lg md:text-xl font-semibold">
-                  Download the full syllabus as a PDF
-                </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {rich.syllabusDownload.blurb}
-                </p>
-              </div>
+                "Detailed Curriculum" and the module cards above it. */}
+            <div className="space-y-2.5 max-w-2xl">
+              <h3 className="text-lg md:text-xl font-semibold">
+                Download the full syllabus as a PDF
+              </h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                {rich.syllabusDownload.blurb}
+              </p>
+            </div>
+
+            {/* Form left, contents right. The right column existed as dead
+                space; it now carries what a reader wants before handing over
+                an email, and puts extractable text where there was none. */}
+            <div className="mt-6 grid gap-8 lg:grid-cols-2 lg:gap-12">
               {/* `bare` — this container already supplies the card, so the
                   form must not draw a second one inside it. */}
               <ReportDownloadForm
@@ -290,6 +293,48 @@ export function RichCourseContentBelowFold({
                 nounLabel="syllabus"
                 bare
               />
+
+              {rich.syllabusDownload.asideBlocks &&
+                rich.syllabusDownload.asideBlocks.length > 0 && (
+                  <div className="space-y-6">
+                    {rich.syllabusDownload.asideBlocks.map((block, bi) => (
+                      <div key={block.heading} className="space-y-3">
+                        {/* h4, not h3 — the panel heading above is the h3 and
+                            the level must not be skipped. */}
+                        <h4 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                          {block.heading}
+                        </h4>
+                        {/* First block reads as prose, second as compact
+                            chips — a job-title list does not want bullets. */}
+                        {bi === 0 ? (
+                          <ul className="space-y-2.5">
+                            {block.items.map((item) => (
+                              <li
+                                key={item}
+                                className="flex items-start gap-2.5 text-sm text-muted-foreground leading-relaxed"
+                              >
+                                <CheckCircle className="h-4 w-4 text-secondary shrink-0 mt-0.5" />
+                                <span>{item}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <div className="flex flex-wrap gap-2">
+                            {block.items.map((item) => (
+                              <Badge
+                                key={item}
+                                variant="outline"
+                                className="text-xs font-normal"
+                              >
+                                {item}
+                              </Badge>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
             </div>
           </div>
         )}

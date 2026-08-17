@@ -352,6 +352,31 @@ export const javaFullStackTrainingInPune: CourseRichContent = {
     slug: "java-full-stack-syllabus",
     blurb:
       "The complete 12-level learning sequence this course follows, as a 12-page PDF you can keep or share — every topic from programming fundamentals through Spring AI, RAG and AI agents, plus the project progression and the 2026 stack. Everything in it is already on this page; the PDF is just the portable version.",
+    asideBlocks: [
+      {
+        heading: "What is inside the 12-page PDF",
+        items: [
+          "All twelve levels in order, from programming fundamentals and core Java through Spring Boot, JPA and Hibernate, Spring Security, microservices and cloud, ending in AI application development with Spring AI.",
+          "A fifteen-project progression, from a Student Management System in plain Java to a RAG document assistant and an enterprise AI-powered Java platform.",
+          "The recommended 2026 stack named tool by tool — Java, Spring Boot, PostgreSQL, JPA/Hibernate, Docker, Redis, Kafka, AWS or Azure, GitHub Actions, Spring AI and pgvector.",
+          "What not to spend your first year on: JSP-heavy development, applets, and old Java EE patterns still taught elsewhere in Pune.",
+          "The evaluation and security checklist for AI features — prompt injection, tool authorisation, groundedness, hallucination and token cost.",
+        ],
+      },
+      {
+        heading: "Roles this sequence prepares you for",
+        items: [
+          "Java Developer",
+          "Backend Developer",
+          "Java Full Stack Developer",
+          "Spring Boot Developer",
+          "Microservices Developer",
+          "Cloud Developer",
+          "AI-integrated Java Developer",
+          "Enterprise Application Developer",
+        ],
+      },
+    ],
   },
 
   projects: [
