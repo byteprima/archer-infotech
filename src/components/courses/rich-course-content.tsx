@@ -171,7 +171,6 @@ export function RichCourseContentBelowFold({
                 srcSet={rich.roadmapImage.src.replace(/\.webp$/, ".avif")}
                 type="image/avif"
               />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={rich.roadmapImage.src}
                 alt={rich.roadmapImage.alt}
@@ -267,32 +266,35 @@ export function RichCourseContentBelowFold({
             with its own source tag so admin can segment these leads.
             The PDF is noindex (next.config.ts) — it duplicates this page by
             design, and this page is the canonical, indexable copy. */}
+        {/* Tinted with --secondary (the amber the site uses for action)
+            rather than --muted: muted is oklch(0.96) against an oklch(0.99)
+            background, which is invisible at this size. */}
         {rich.syllabusDownload && (
-          <div className="mt-10 rounded-xl border bg-muted/30 p-6 md:p-8">
-            {/* Left-aligned, not centred: this heading has to line up with
-                "Detailed Curriculum" and the module cards above it. */}
-            <div className="space-y-2.5 max-w-2xl">
-              <h3 className="text-lg md:text-xl font-semibold">
-                Download the full syllabus as a PDF
-              </h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                {rich.syllabusDownload.blurb}
-              </p>
-            </div>
-
-            {/* Form left, contents right. The right column existed as dead
-                space; it now carries what a reader wants before handing over
-                an email, and puts extractable text where there was none. */}
-            <div className="mt-6 grid gap-8 lg:grid-cols-2 lg:gap-12">
-              {/* `bare` — this container already supplies the card, so the
-                  form must not draw a second one inside it. */}
-              <ReportDownloadForm
-                reportSlug={rich.syllabusDownload.slug}
-                pdfUrl={rich.syllabusDownload.pdfUrl}
-                reportTitle={rich.syllabusDownload.title}
-                nounLabel="syllabus"
-                bare
-              />
+          <div className="mt-10 rounded-xl border border-secondary/30 bg-secondary/[0.07] dark:bg-secondary/[0.12] p-6 md:p-8">
+            {/* Both columns start at the top of the grid. The heading used to
+                sit above it capped at max-w-2xl, which left the top-right
+                corner empty and started the right column lower than the
+                left. Heading now lives in the left column with the form. */}
+            <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
+              <div className="space-y-6">
+                <div className="space-y-2.5">
+                  <h3 className="text-lg md:text-xl font-semibold">
+                    Download the full syllabus as a PDF
+                  </h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {rich.syllabusDownload.blurb}
+                  </p>
+                </div>
+                {/* `bare` — this container already supplies the card, so the
+                    form must not draw a second one inside it. */}
+                <ReportDownloadForm
+                  reportSlug={rich.syllabusDownload.slug}
+                  pdfUrl={rich.syllabusDownload.pdfUrl}
+                  reportTitle={rich.syllabusDownload.title}
+                  nounLabel="syllabus"
+                  bare
+                />
+              </div>
 
               {rich.syllabusDownload.asideBlocks &&
                 rich.syllabusDownload.asideBlocks.length > 0 && (
