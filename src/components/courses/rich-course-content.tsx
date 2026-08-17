@@ -268,19 +268,29 @@ export function RichCourseContentBelowFold({
             The PDF is noindex (next.config.ts) — it duplicates this page by
             design, and this page is the canonical, indexable copy. */}
         {rich.syllabusDownload && (
-          <div className="mt-8 rounded-xl border bg-muted/30 p-6 md:p-7">
-            <h3 className="text-lg md:text-xl font-semibold mb-2">
-              Download the full syllabus as a PDF
-            </h3>
-            <p className="text-sm text-muted-foreground mb-5 max-w-2xl">
-              {rich.syllabusDownload.blurb}
-            </p>
-            <ReportDownloadForm
-              reportSlug={rich.syllabusDownload.slug}
-              pdfUrl={rich.syllabusDownload.pdfUrl}
-              reportTitle={rich.syllabusDownload.title}
-              nounLabel="syllabus"
-            />
+          <div className="mt-10 rounded-xl border bg-muted/30 p-6 md:p-8">
+            {/* Left-aligned, not centred: this heading has to line up with
+                "Detailed Curriculum" and the module cards above it. Measure
+                is capped so the fields stay a comfortable width on desktop. */}
+            <div className="max-w-2xl space-y-6">
+              <div className="space-y-2.5">
+                <h3 className="text-lg md:text-xl font-semibold">
+                  Download the full syllabus as a PDF
+                </h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  {rich.syllabusDownload.blurb}
+                </p>
+              </div>
+              {/* `bare` — this container already supplies the card, so the
+                  form must not draw a second one inside it. */}
+              <ReportDownloadForm
+                reportSlug={rich.syllabusDownload.slug}
+                pdfUrl={rich.syllabusDownload.pdfUrl}
+                reportTitle={rich.syllabusDownload.title}
+                nounLabel="syllabus"
+                bare
+              />
+            </div>
           </div>
         )}
       </section>

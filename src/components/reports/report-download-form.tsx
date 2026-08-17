@@ -36,6 +36,12 @@ interface ReportDownloadFormProps {
    * pages keep the original wording by omitting this.
    */
   nounLabel?: string;
+  /**
+   * Drop this form's own card chrome (border, background, padding) when it
+   * is nested inside a container that already provides it. Without this the
+   * syllabus block rendered a bordered card inside a bordered card.
+   */
+  bare?: boolean;
 }
 
 export function ReportDownloadForm({
@@ -43,6 +49,7 @@ export function ReportDownloadForm({
   pdfUrl,
   reportTitle,
   nounLabel = "report",
+  bare = false,
 }: ReportDownloadFormProps) {
   const [success, setSuccess] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
@@ -121,10 +128,14 @@ export function ReportDownloadForm({
   return (
     <form
       action={handleSubmit}
-      className="rounded-xl border bg-card p-6 space-y-4"
+      className={
+        bare
+          ? "space-y-5"
+          : "rounded-xl border bg-card p-6 space-y-5"
+      }
       noValidate
     >
-      <div>
+      <div className="space-y-2">
         <Label htmlFor="report-name">Your name</Label>
         <Input
           id="report-name"
@@ -136,7 +147,7 @@ export function ReportDownloadForm({
           disabled={isPending}
         />
       </div>
-      <div>
+      <div className="space-y-2">
         <Label htmlFor="report-email">Work or personal email</Label>
         <Input
           id="report-email"
@@ -148,7 +159,7 @@ export function ReportDownloadForm({
           disabled={isPending}
         />
       </div>
-      <div>
+      <div className="space-y-2">
         <Label htmlFor="report-phone">Phone (10 digits, India)</Label>
         <Input
           id="report-phone"
@@ -168,14 +179,14 @@ export function ReportDownloadForm({
           {errorMsg}
         </p>
       )}
-      <Button type="submit" disabled={isPending} className="w-full">
+      <Button type="submit" disabled={isPending} className="w-full mt-1">
         {isPending
           ? "Submitting…"
           : pdfUrl
             ? `Download the ${nounLabel} (free)`
             : "Notify me when ready"}
       </Button>
-      <p className="text-xs text-muted-foreground">
+      <p className="text-xs text-muted-foreground !mt-3">
         We email the PDF link to the address above. No spam — you can
         unsubscribe at any time.
       </p>
