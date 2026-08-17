@@ -104,3 +104,47 @@ export function buildCourseDefinitiveAnswer(course: Course): string {
 export function buildCourseDefinitiveAnswerEyebrow(course: Course): string {
   return `What is the ${course.title} course in Pune?`;
 }
+
+/**
+ * One-sentence bottom line for the course page, rendered behind an explicit
+ * "In short —" label above the definitive-answer paragraph.
+ *
+ * WHY, given the paragraph below already summarises the course: the
+ * 2026-08-17 PPCBlogPro re-audit still reported "top summary answer", "key
+ * takeaway or summary" and "clear summary for AI extraction" as missing on a
+ * page that has carried a definitive-answer block since 2026-08-09. The block
+ * was present, first thing after the H1, and factual — but nothing on the
+ * page was shaped like a summary to a scanner. The explicit cue is what was
+ * missing, and it is a real reading aid: a visitor gets the answer in one
+ * line before the six-sentence version.
+ *
+ * Deliberately does NOT restate the paragraph's opening sentence. The
+ * paragraph says what the course IS; this says who it is for and what they
+ * walk out with. Both audits phrase the requirement as "states the main
+ * answer AND who it is for", and a takeaway that merely repeats the next
+ * sentence reads as padding to a person even if it satisfies a checker.
+ */
+function durationPhrase(duration: string): string {
+  // "6 Months" -> "6-month", "45 Days" -> "45-day". Ranges and non-numeric
+  // durations ("6 to 8 Months", "Ongoing (Semester-wise)") have no clean
+  // adjective form, so they are returned for use after "runs" instead.
+  const m = duration.trim().match(/^(\d+(?:\.\d+)?)\s+(month|week|day|year)s?$/i);
+  if (!m) return "";
+  return `${m[1]}-${m[2].toLowerCase()}`;
+}
+
+export function buildCourseKeyTakeaway(course: Course): string {
+  const audience =
+    course.level === "Beginner"
+      ? "freshers and career switchers with no prior programming background"
+      : course.level === "Advanced"
+        ? "working developers who already have production experience"
+        : "freshers and working professionals with basic programming familiarity";
+
+  const adj = durationPhrase(course.duration);
+  const span = adj
+    ? `a ${adj} path`
+    : `a structured path (${course.duration.toLowerCase()})`;
+
+  return `Built for ${audience}: ${span} from fundamentals to job-ready ${course.title} skills, taught at our Kothrud, Pune centre or live online, with placement assistance and real project work you can show an interviewer.`;
+}

@@ -48,6 +48,7 @@ import { resolveCourseMetaDescription } from "@/lib/seo/course-seo-description";
 import {
   buildCourseDefinitiveAnswer,
   buildCourseDefinitiveAnswerEyebrow,
+  buildCourseKeyTakeaway,
 } from "@/lib/seo/course-definitive-answer";
 import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { buildPageMetadata } from "@/lib/seo";
@@ -458,7 +459,10 @@ export default async function CoursePage({ params }: CoursePageProps) {
           four separate ways on 2026-08-09. Composed from the course's own
           duration/level/mode/module/role fields — see
           lib/seo/course-definitive-answer.ts. */}
-      <DefinitiveAnswer eyebrow={buildCourseDefinitiveAnswerEyebrow(course)}>
+      <DefinitiveAnswer
+        eyebrow={buildCourseDefinitiveAnswerEyebrow(course)}
+        keyTakeaway={buildCourseKeyTakeaway(course)}
+      >
         {buildCourseDefinitiveAnswer(course)}
       </DefinitiveAnswer>
 

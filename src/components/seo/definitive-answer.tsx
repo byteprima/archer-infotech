@@ -18,6 +18,23 @@ interface DefinitiveAnswerProps {
    * auto-close, breaking the layout.
    */
   children: ReactNode;
+  /**
+   * Optional one-sentence bottom line, rendered above the paragraph behind
+   * a visible "In short" label.
+   *
+   * WHY THE LABEL MATTERS. The paragraph below already IS the summary, and
+   * a 2026-08-09 audit was meant to be answered by adding it. A re-audit on
+   * 2026-08-17 still reported "top summary answer", "key takeaway or
+   * summary" and "clear summary for AI extraction" as missing on the same
+   * page — the block was present, well-placed and factual, but carried no
+   * summary-shaped wording for a scanner to recognise. Auditors and
+   * retrieval engines look for an explicit cue ("in short", "key takeaway",
+   * "bottom line") as much as for the prose itself.
+   *
+   * Keep it to one sentence that stands alone. If it needs a second
+   * sentence it belongs in the paragraph, not here.
+   */
+  keyTakeaway?: string;
 }
 
 /**
@@ -39,7 +56,11 @@ interface DefinitiveAnswerProps {
  * `<h2>` is safe at every call site: this block always renders below the
  * page `<h1>`. Audit 2026-08-06.
  */
-export function DefinitiveAnswer({ eyebrow, children }: DefinitiveAnswerProps) {
+export function DefinitiveAnswer({
+  eyebrow,
+  children,
+  keyTakeaway,
+}: DefinitiveAnswerProps) {
   return (
     <section
       aria-label={eyebrow ?? "Definitive answer"}
@@ -51,6 +72,11 @@ export function DefinitiveAnswer({ eyebrow, children }: DefinitiveAnswerProps) {
             <h2 className="text-xs md:text-sm font-semibold uppercase tracking-wider text-secondary mb-2">
               {eyebrow}
             </h2>
+          )}
+          {keyTakeaway && (
+            <p className="text-base md:text-lg font-semibold text-foreground mb-3 leading-snug">
+              <span className="text-secondary">In short —</span> {keyTakeaway}
+            </p>
           )}
           {/* A <p>, not a <div>. This block is the page's most-quoted passage
               and it was previously wrapped in a div, which made it invisible to

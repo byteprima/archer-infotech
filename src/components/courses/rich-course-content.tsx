@@ -235,9 +235,19 @@ export function RichCourseContentBelowFold({
                 </div>
               </CardHeader>
               <CardContent className="space-y-3">
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {module.description}
-                </p>
+                {/* Split on blank lines into real <p> elements rather than
+                    one paragraph with line breaks in it. A long module
+                    description is measured per-paragraph by readability
+                    checks and reads as a wall of text to a person; both
+                    care about the element, not the rendered line breaks. */}
+                {module.description.split(/\n{2,}/).map((para, pi) => (
+                  <p
+                    key={pi}
+                    className="text-sm text-muted-foreground leading-relaxed"
+                  >
+                    {para.trim()}
+                  </p>
+                ))}
                 <div className="flex flex-wrap gap-2 pt-2">
                   {module.topics.map((topic, ti) => {
                     const highlightTopic =
