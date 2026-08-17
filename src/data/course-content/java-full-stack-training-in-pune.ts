@@ -688,96 +688,171 @@ export const javaFullStackTrainingInPune: CourseRichContent = {
     ],
   },
 
+  /**
+   * FAQs — expanded and extended 2026-08-17.
+   *
+   * Rendered through the shared <FaqSection>, which makes every question a
+   * real <h3> with its answer as the immediate next sibling, and leads with
+   * the direct answer. The bespoke <details> markup this replaced put each
+   * question inside a <span> in a <summary>, so the page emitted FAQPage
+   * schema for eighteen questions while having no question-shaped headings
+   * at all — the same defect already fixed on trainers and location pages.
+   *
+   * Two answers were stale after the curriculum restructure and are
+   * corrected here: Core Java foundations now run weeks 1–5 rather than 1–3,
+   * and the DSA refresher sits in the weeks 23–26 capstone block rather than
+   * weeks 14–15.
+   *
+   * The last ten questions cover the syllabus added in the Java + AI Roadmap
+   * 2026 restructure — Spring AI and RAG, testing, JVM internals, production
+   * engineering, security depth, and what is deliberately no longer taught.
+   */
   faqs: [
     {
       question: "What is the Java Full Stack developer salary in Pune?",
       answer:
-        "Indeed Pune reports an average of ₹10.61 lakh per year for Full Stack Developer (n=35, January 2026) and ₹8.32 lakh per year for Java Developer overall. Junior Java Developer averages ₹3.62 lakh; Senior averages ₹9.95 lakh; Lead Java Software Engineer averages ₹23.19 lakh. Your number depends on framework depth and project quality.",
+        "Indeed Pune reports an average of ₹10.61 lakh per year for Full Stack Developer (n=35, January 2026) and ₹8.32 lakh per year for Java Developer overall. Junior Java Developer averages ₹3.62 lakh; Senior averages ₹9.95 lakh; Lead Java Software Engineer averages ₹23.19 lakh. Your number depends on framework depth and project quality far more than on years served. In practice the candidates who clear ₹8 lakh early are the ones who can explain a Spring Boot service end to end — persistence, security, caching, and how they tested it — rather than those who list the most technologies on a resume.",
     },
     {
       question: "How long does the Java Full Stack course take?",
       answer:
-        "Six months — 22 weeks of structured curriculum (Programming Fundamentals through AI for Java Developers, including React or Angular) plus 4 weeks of capstone and interview preparation. Weekend batches stretch over 8–9 months at the same content depth, designed for working professionals.",
+        "Six months — 22 weeks of structured curriculum plus 4 weeks of capstone and interview preparation, 26 weeks in total. The curriculum runs from programming fundamentals and core Java through JVM internals, SQL, Spring Boot, REST APIs and persistence, React or Angular, security and testing, production engineering, microservices and cloud, and finishes with AI application development in Java. Weekend batches cover identical content at a lower weekly load and stretch over 8–9 months, which suits working professionals travelling in from Hinjewadi, Kharadi or Pimpri-Chinchwad.",
     },
     {
       question: "Java Full Stack vs MERN Stack — which has more jobs in Pune?",
       answer:
-        "Java Full Stack has roughly 3–4× the openings of MERN in Pune. Indeed lists 1,000+ Java and 922+ Full Stack openings versus ~100–200 MERN-specific roles. Pick Java for IT-services and banking, MERN for product startups. Volume bias favours Java in Pune.",
+        "Java Full Stack has roughly 3–4× the openings of MERN in Pune. Indeed lists 1,000+ Java and 922+ Full Stack openings against roughly 100–200 MERN-specific roles. Pick Java if you are targeting IT services, banking and the GCC belt — TCS, Infosys, Cognizant, Barclays, Citibank, Synechron. Pick MERN if you are aiming at product startups where JavaScript everywhere is the norm. Volume bias favours Java in Pune, and the Java roles tend to survive downturns better because the codebases behind them are long-lived enterprise systems rather than funded experiments.",
     },
     {
       question: "Which frontend (React or Angular) is better with Java in Pune?",
       answer:
-        "Pune Java Full Stack hiring splits roughly 60% React (product/fintech) and 30% Angular (IT-services like Cognizant, Infosys, TCS). React is the default in our course; Angular is offered as an opt-in alternative for students targeting IT-services campus hiring.",
+        "Pune Java Full Stack hiring splits roughly 60% React (product and fintech) against 30% Angular (IT services such as Cognizant, Infosys and TCS). React 19 with Next.js is the default track in our Java Full Stack course in Pune; Angular 18+ is an opt-in alternative running the same weeks with the same project deliverables against the same Spring Boot backend. Choose on your target employers rather than on preference — if your shortlist is campus IT-services hiring, Angular is the safer signal on a fresher resume.",
     },
     {
       question: "Is Java Full Stack a good career in 2026?",
       answer:
-        "Yes — it is the most stable backend hiring track in Pune. Java codebases live for decades, the maintenance and new-feature pipeline produces steady jobs, and 2026 modernisation (Java 21/25, Spring Boot 3.5/4.0, virtual threads, microservices on cloud) keeps the role technically interesting.",
+        "Yes — it remains the most stable backend hiring track in Pune. Java codebases live for decades, so the maintenance and new-feature pipeline produces steady work rather than boom-and-bust cycles. The 2026 modernisation wave keeps it technically current: Java 21 and 25, Spring Boot 3.5 and 4.0, virtual threads, microservices on cloud, and now AI features built directly into Java services with Spring AI. The combination that is genuinely scarce in 2026 is a developer who can build a Spring Boot service and add a grounded AI feature to it, which is exactly what this course now covers.",
     },
     {
       question: "What is the fee for Java Full Stack training in Pune at Archer Infotech?",
       answer:
-        "Course fees range from ₹20,000 to ₹90,000 depending on mode (classroom / online / weekend), batch type, and any applicable concession. The higher end covers placement-track classroom batches with extended interview prep and the 4-week capstone; the lower end covers concession-eligible online or weekend formats.",
+        "Course fees range from ₹20,000 to ₹90,000 depending on mode (classroom, online or weekend), batch type, and any applicable concession. The higher end covers placement-track classroom batches at our Kothrud centre with extended interview preparation and the 4-week capstone; the lower end covers concession-eligible online or weekend formats. EMI across 2–3 instalments is available at no extra cost, and corporate sponsorship can be invoiced to your employer with GST. Reach us for the current 2026 quote — fees are confirmed in writing before you enrol, never revised mid-course.",
     },
     {
       question: "Do I need to know Core Java before joining Full Stack?",
       answer:
-        "No — the course starts with 3 weeks of Core Java foundations before moving to advanced Java, Spring Boot, microservices, and frontend. If you already know Core Java well, you can skip the foundation weeks and join from week 4 (with a small fee adjustment); kindly discuss with the lead trainer.",
+        "No — the Java Full Stack course in Pune starts from the beginning. Weeks 1 and 2 cover programming fundamentals and the Java platform (JDK, JRE, JVM, bytecode, classpath), weeks 3 and 4 cover object orientation and modern Java through records, sealed classes, lambdas and the Stream API, and week 5 covers exceptions and collections. If you already know core Java well you can join from week 6 with a fee adjustment, but sit the assessment first — most self-taught learners are solid on syntax and weak on the equals/hashCode contract and collection choice, which is precisely what interviews probe.",
     },
     {
       question: "Which companies in Pune hire Java Full Stack freshers?",
       answer:
-        "TCS, Infosys, Wipro, Cognizant, Capgemini, LTIMindtree, HCLTech, Synechron Hinjawadi, Persistent Systems, BMC Software, Citibank Pune, Barclays Pune, Bajaj Finserv, Mercedes-Benz R&D India, Volkswagen IT Services, Cummins, and Honeywell are among the top Pune employers actively hiring Java Full Stack developers in 2026.",
+        "TCS, Infosys, Wipro, Cognizant, Capgemini, LTIMindtree, HCLTech, Synechron Hinjawadi, Persistent Systems, BMC Software, Citibank Pune, Barclays Pune, Bajaj Finserv, Mercedes-Benz R&D India, Volkswagen IT Services, Cummins and Honeywell are among the Pune employers actively hiring Java Full Stack developers in 2026. The IT-services names hire in volume through campus and walk-in drives and weight DSA screening heavily; the product and BFSI names hire in smaller numbers and interview far harder on Spring Boot internals, SQL and system design. Our interview preparation splits along that line rather than treating all employers the same.",
     },
     {
       question: "Will I work on real projects?",
       answer:
-        "Yes — three capstone projects: (1) Spring Boot + React full-stack SaaS application with JWT, (2) microservices system on Docker + Kubernetes with Spring Cloud, (3) Java Full Stack with the Angular track for students targeting IT-services. All three become public GitHub repositories.",
+        "Yes — four capstone projects, each a public GitHub repository you can hand an interviewer. A Spring Boot and React full-stack SaaS application with JWT authentication and Spring Security 6; a microservices system on Docker and Kubernetes with Spring Cloud Gateway, Resilience4j and distributed tracing; a RAG-powered document assistant built with Spring AI and pgvector; and, for Angular-track students, the same backend fronted by Angular 18+. Every project ships with a test suite, which matters more than most students expect — an untested repository reads as a tutorial follow-along to anyone reviewing it.",
     },
     {
       question: "What is Spring Boot, and why is it the focus?",
       answer:
-        "Spring Boot is plain Spring Framework plus auto-configuration, embedded server, and opinionated defaults — it powers ~70% of Pune backend hiring. Every active Pune banking, fintech, and product job description says 'Spring Boot,' not 'Spring.' We teach Spring Boot 3.5 / 4.0 directly with Java 21 baseline.",
+        "Spring Boot is the Spring Framework plus auto-configuration, an embedded server and opinionated defaults, and it powers roughly 70% of Pune backend hiring. Every active Pune banking, fintech and product job description names Spring Boot rather than plain Spring. We teach Spring Boot 3.5 and 4.0 on a Java 21 baseline, and we teach Spring Core first — inversion of control, dependency injection, beans, component scanning — so that auto-configuration is explicable rather than magical. That distinction is what separates a candidate who can debug a failing context from one who can only scaffold from Spring Initializr.",
     },
     {
       question: "Do I need data structures and algorithms before joining?",
       answer:
-        "No — DSA is reviewed in weeks 14–15 specifically for technical screening rounds at companies like TCS, Cognizant, Synechron, and Bajaj Finserv. We focus on the 30–40 patterns that actually appear in Pune company interviews, not generic LeetCode-grinding.",
+        "No — DSA is covered in the weeks 23–26 capstone and interview-preparation block, timed deliberately for technical screening rounds at companies such as TCS, Cognizant, Synechron and Bajaj Finserv. We work the 30–40 patterns that actually appear in Pune company interviews rather than open-ended LeetCode grinding, because the screening rounds at IT-services employers are pattern-recognition tests on a narrow set of problems. Placing DSA at the end also means you practise it while actively interviewing, when retention is highest, rather than six months before you need it.",
     },
     {
       question: "Are weekend Java Full Stack classes available in Pune?",
       answer:
-        "Yes — Saturday and Sunday, 09:00–13:00, stretched over 8–9 months instead of 6. Same content, same trainers, same projects. Designed for working professionals who cannot attend weekday batches.",
+        "Yes — Saturday and Sunday, 09:00 to 13:00, stretched over 8–9 months instead of 6. Same syllabus, same trainers, same projects and the same placement support; only the weekly load differs. Weekend batches are the format most working professionals choose, particularly those commuting from Hinjewadi, Wakad, Kharadi and Pimpri-Chinchwad where a weekday evening trip to Kothrud is not realistic. Live online is the other option for that group, and many students combine the two — online through the week, classroom on Saturday for the lab-heavy sessions.",
     },
     {
       question: "What support do I get after course completion?",
       answer:
-        "Six months of active placement support — mock interviews, referrals via our alumni network at 12 partner companies, resume and LinkedIn rewrites, and salary negotiation coaching. If your first round of interviews does not land, you can sit in on a future batch's interview-prep sessions free of charge.",
+        "Six months of active placement support: mock interviews, referrals through our alumni network at partner companies, resume and LinkedIn rewrites, and salary negotiation coaching. Support starts at week 12 of the course rather than at the end, so by the time you finish, your resume is written, your GitHub is presentable and you have completed at least three mock technical interviews against Pune company question banks. If your first round of interviews does not land, you can sit in on a future batch's interview-preparation sessions free of charge.",
     },
     {
       question: "Is virtual-threads coverage really useful in 2026 Pune interviews?",
       answer:
-        "Yes — virtual threads (Java 21 + Spring Boot 3.2+) are now a standard topic in Pune senior Spring Boot interviews. The one-line `spring.threads.virtual.enabled=true` switch and when to enable it are routinely tested at Synechron, Bajaj Finserv, and BMC Software interviews in 2026.",
+        "Yes — virtual threads (Java 21 with Spring Boot 3.2+) are now a standard topic in Pune senior Spring Boot interviews. The one-line `spring.threads.virtual.enabled=true` switch, and more importantly when not to enable it, are routinely tested at Synechron, Bajaj Finserv and BMC Software. We cover them inside the JVM, memory and concurrency module alongside the platform threads and thread pools they replace, plus structured concurrency, because the interview question is almost always comparative — what changes, what breaks, and which workloads see no benefit at all.",
     },
     {
       question: "Are the named trainers actually teaching, or just on the brochure?",
       answer:
-        "Yogesh Patil personally leads core programming and architecture / microservices weeks. Amol Patil leads Spring Boot and the project weeks. Ankita Hartale leads Spring Framework and database modules. The same names you see on this page are the same people you meet on day one of your batch.",
+        "Yogesh Patil personally leads the core programming and architecture and microservices weeks. Amol Patil leads Spring Boot and the project weeks. Ankita Hartale leads Spring Framework and the database modules. The names on this page are the people you meet on day one of your batch. Batches are capped at 15 students, which is what makes that possible — a 60-seat batch cannot be taught by senior trainers at a sustainable cost, which is why institutes that run them substitute junior staff after the first week.",
     },
     {
       question: "Do you offer Java Full Stack classes near me in Pune?",
       answer:
-        "Our classroom is in Kothrud, Pune, and students travel in for Java Full Stack classes from Karve Nagar, Deccan, Shivaji Nagar, Hinjewadi, Wakad, Baner, Aundh, and Pimpri-Chinchwad. If a daily commute is hard, the online live batch is identical in content, trainers, and project reviews — so \"Java classes near me\" effectively means anywhere in Pune or beyond.",
+        "Our classroom is in Kothrud, Pune, and students travel in for Java Full Stack classes from Karve Nagar, Deccan, Shivaji Nagar, Erandwane, Warje, Hinjewadi, Wakad, Baner, Aundh, Kharadi and Pimpri-Chinchwad. If a daily commute is hard, the live online batch is identical in content, trainers and project reviews, so \"Java classes near me\" effectively means anywhere in Pune or beyond. Each neighbourhood has its own page on this site with commute detail and an honest view of which batch format actually works from there.",
     },
     {
       question: "What is the eligibility for the Java Full Stack course in Pune?",
       answer:
-        "Anyone with basic computer skills and logical aptitude can join — BE, BTech, BCA, BCS, MCA, BSc-CS students, freshers, and working professionals or career switchers from non-tech backgrounds. No prior programming experience is required; the course starts from Core Java foundations in week one.",
+        "Anyone with basic computer skills and logical aptitude can join — BE, BTech, BCA, BCS, MCA and BSc-CS students, freshers, and working professionals or career switchers from non-technical backgrounds. No prior programming experience is required; the course starts from programming fundamentals in week one. The honest filter is time rather than background: this needs six months of consistent effort, and career switchers who cannot protect that time are better served by a shorter, narrower course than by starting this one and falling behind by week eight.",
     },
     {
       question: "Is EMI available for the Java Full Stack course fees in Pune?",
       answer:
-        "Yes — EMI is available. Fees can be split across 2–3 instalments at no extra cost, alongside a single-payment early-bird discount and corporate-sponsorship invoicing with GST. Reach out for the current 2026 fee quote for classroom, online, or weekend batches.",
+        "Yes — EMI is available. Fees can be split across 2–3 instalments at no extra cost, alongside a single-payment early-bird discount and corporate-sponsorship invoicing with GST. There is no third-party lender, no interest and no credit check involved; it is a direct instalment arrangement with us. Reach out for the current 2026 fee quote for classroom, online or weekend batches, and ask about the concession criteria — they apply more often than most applicants expect, particularly for final-year students and recent graduates.",
+    },
+
+    {
+      question: "Does the Java Full Stack course cover AI and Spring AI?",
+      answer:
+        "Yes — weeks 22 and 23 are a full module on building AI features in Java, and it is the part of this syllabus most Pune courses do not have. You cover LLM mechanics (prompts, tokens, context windows, structured output, streaming, tool calling), then Spring AI for chat models, prompt templates and embeddings, then a complete RAG pipeline — document ingestion, chunking, vector storage in PostgreSQL with pgvector, similarity search and grounded generation. It closes on AI agents with tool calling and memory, AI security, and AI evaluation. Deliberately placed last, because it only makes sense on top of solid backend foundations.",
+    },
+    {
+      question: "What is the difference between AI-assisted coding and building AI features in Java?",
+      answer:
+        "They are two different skills and this course teaches both. AI-assisted coding is using GitHub Copilot, Claude or Cursor to scaffold, generate tests and refactor faster — a working practice, so it runs woven through the course with dedicated sessions in weeks 5, 12 and 21. Building AI features in Java is engineering: calling LLM APIs from a Spring Boot service, storing embeddings, retrieving context, grounding an answer and evaluating whether it was correct. Most candidates in 2026 can do the first. Very few can do the second, which is why interviews are starting to separate on it.",
+    },
+    {
+      question: "Is RAG and vector database work included in the Java syllabus?",
+      answer:
+        "Yes — RAG is built end to end rather than described. You ingest a document corpus, choose a chunking strategy, generate embeddings, store vectors in PostgreSQL using the pgvector extension, run similarity search, construct context and produce grounded answers. The capstone for this module is a RAG-powered document assistant that also exposes your own REST APIs and database as callable tools, with a human-approval step before any write action. Vector search is taught on Postgres rather than a dedicated vector database because most Pune teams already run Postgres and adding pgvector is a far easier internal sell.",
+    },
+    {
+      question: "Which testing tools does the Java Full Stack course teach?",
+      answer:
+        "JUnit and Mockito for unit testing, Testcontainers for integration tests against a real database rather than an in-memory substitute, REST Assured and Postman for API testing, and JaCoCo for coverage. Testing sits in weeks 16 and 17 alongside security, and it is not optional — your capstone ships with a test suite. This matters commercially: testing is the most common gap on fresher resumes in Pune, and the fastest way to look experienced in a code review is a repository where the tests explain what the code is supposed to do.",
+    },
+    {
+      question: "Do you cover Kafka, Redis and caching in the Java course?",
+      answer:
+        "Yes — weeks 18 and 19 are a production engineering module. Redis and the cache-aside pattern, TTL strategy and what distributed caching changes about correctness. Kafka beyond the buzzword: producers and consumers, topics, partitions, consumer groups, event ordering, and idempotency — the concept that decides whether your retry logic corrupts data or not. Docker, Dockerfiles, volumes, networks and Compose sit in the same module. These are the topics that separate a candidate who has built a service from one who has only built an application.",
+    },
+    {
+      question: "Do you teach JVM internals and garbage collection?",
+      answer:
+        "Yes — week 6 covers JVM architecture (stack, heap, metaspace, code cache), garbage collection and its generations, class loading, JIT compilation, how memory leaks happen in a garbage-collected language, and the basics of JVM tuning. This is a frequent interview topic at Pune product and BFSI employers and a common gap for self-taught candidates. The practical framing is the one interviewers actually use: your service slowed down at 3am — what do you look at, in what order, and what does the answer tell you.",
+    },
+    {
+      question: "What security topics does the Spring Boot part of the course cover?",
+      answer:
+        "Authentication against authorisation, password hashing, roles and permissions, method-level security, JWT, OAuth 2.0 and OpenID Connect, CORS, CSRF, and the Spring Security 6 filter chain understood rather than copy-pasted. Weeks 16 and 17 cover it alongside testing. Spring Security is the module most students find hardest and most interviewers ask about, largely because the common learning path is pasting a configuration that works and never learning why — so we build the filter chain up rather than starting from a working template.",
+    },
+    {
+      question: "Do you still teach JSP and Servlets in 2026?",
+      answer:
+        "No, not as core content. JSP-heavy development, applets and older Java EE patterns are deliberately out of the main syllabus — they consume weeks that are better spent on Spring Boot, testing, cloud and AI integration, and they no longer appear in the Pune job descriptions this course targets. Some Pune institutes still teach a Servlets-and-JSP-first curriculum because the material is old and cheap to deliver. If a specific employer or a maintenance project genuinely requires it, we cover it on request, which is the right time to learn legacy technology.",
+    },
+    {
+      question: "Can I download the Java Full Stack syllabus as a PDF?",
+      answer:
+        "Yes — the complete 12-level syllabus is available as a 12-page PDF from the download block on this page. It contains everything shown here: all twelve levels in order, the fifteen-project progression from a Student Management System to an enterprise AI-powered Java platform, the recommended 2026 stack named tool by tool, what not to prioritise in your first year, and the AI evaluation and security checklist. Everything in the PDF is already on this page — the download is simply the portable version you can keep, print or share with a parent or employer sponsoring the fees.",
+    },
+    {
+      question: "What is the Java + AI Roadmap 2026 this course follows?",
+      answer:
+        "It is a twelve-level progression from programming fundamentals to AI-integrated Java development, and this course is structured around it. Levels 1 to 6 build the language and the platform — fundamentals, modern Java, collections, JVM and concurrency, SQL and JDBC. Levels 7 to 11 build the working developer — Spring and Spring Boot, REST and persistence, security and testing, production engineering, microservices and cloud. Level 12 is AI application development. Its guiding principle is the one we teach to: AI should accelerate Java development, never replace Java knowledge, and you must be able to explain, test, debug and secure anything it writes for you.",
+    },
+    {
+      question: "Do you cover microservices, Docker and Kubernetes for Pune jobs?",
+      answer:
+        "Yes — weeks 20 and 21 cover service boundaries, API Gateway, service discovery, OpenFeign, Resilience4j circuit breakers, distributed transactions and the Saga pattern, and event-driven architecture, then AWS or Azure deployment with GitHub Actions CI/CD and secrets management, and finally observability with OpenTelemetry, Prometheus and Grafana concepts. Docker and Compose come earlier in production engineering; Kubernetes basics — pods, services, deployments — sit here. Pune banking and product teams interview on this material specifically, and the Saga question in particular is a reliable filter at Synechron and Barclays.",
     },
   ],
 

@@ -32,6 +32,7 @@ import {
 } from "@/components/ui/accordion";
 import { CourseJsonLd, FAQJsonLd, BreadcrumbJsonLd } from "@/components/seo/json-ld";
 import { Breadcrumbs } from "@/components/seo/breadcrumbs";
+import { FaqSection } from "@/components/seo/faq-section";
 import { ReviewRibbon } from "@/components/seo/review-ribbon";
 import { getCourseTestimonials } from "@/lib/actions/public-testimonials";
 import { Star, Quote } from "lucide-react";
@@ -545,30 +546,28 @@ export default async function CoursePage({ params }: CoursePageProps) {
                   rich={rich}
                   courseName={course.shortTitle}
                 />
-                {/* FAQ from rich content — server-rendered, AI-citable */}
+                {/* FAQ from rich content — server-rendered, AI-citable.
+                    Rendered through the shared FaqSection, the same component
+                    the trainers and location pages use. The bespoke
+                    <details> markup this replaces put each question inside a
+                    <span> in a <summary>, so the page emitted FAQPage schema
+                    for every question while having no question-shaped
+                    headings at all, and each answer was a sibling of
+                    <summary> rather than of a heading. FaqSection makes the
+                    question a real <h3> with the answer immediately after it,
+                    and leads with the direct answer sentence.
+                    withSchema is off because this page already emits
+                    FAQJsonLd from effectiveFaqs above — two FAQPage payloads
+                    on one URL is a validation error. Audit 2026-08-17. */}
                 {effectiveFaqs.length > 0 && (
-                  <section className="mt-12 space-y-4">
-                    <h2 className="text-2xl md:text-3xl font-bold">Frequently Asked Questions</h2>
-                    <div className="space-y-4">
-                      {effectiveFaqs.map((faq, i) => (
-                        <details
-                          key={i}
-                          className="group border rounded-lg bg-background"
-                          open={i < 3}
-                        >
-                          <summary className="cursor-pointer list-none p-5 font-medium flex items-start justify-between gap-4 hover:bg-muted/30 transition-colors">
-                            <span>{faq.question}</span>
-                            <span className="shrink-0 text-muted-foreground transition-transform group-open:rotate-45 text-xl leading-none">
-                              +
-                            </span>
-                          </summary>
-                          <div className="px-5 pb-5 text-sm text-muted-foreground leading-relaxed">
-                            {faq.answer}
-                          </div>
-                        </details>
-                      ))}
-                    </div>
-                  </section>
+                  <div className="mt-12">
+                    <FaqSection
+                      heading="Frequently Asked Questions"
+                      items={effectiveFaqs}
+                      anchorId="faqs"
+                      withSchema={false}
+                    />
+                  </div>
                 )}
               </>
             </>
