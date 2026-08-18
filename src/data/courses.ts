@@ -66,6 +66,21 @@ export interface Course {
   level: "Beginner" | "Intermediate" | "Advanced" | "All Levels";
   mode: ("Online" | "Offline")[];
   image: string;
+  /**
+   * Course tile artwork — a generated banner carrying the language or
+   * technology mark with a small Archer Infotech lockup.
+   *
+   * Separate from `image` above rather than replacing it: `image` points at
+   * legacy JPGs that nothing currently renders (the /courses tiles use
+   * <CourseImagePlaceholder>, and the detail page never used it), several of
+   * those files are 1.7 MB, and one of them was assigned to the wrong course.
+   * Introducing a new field lets the tile set roll out course by course
+   * without disturbing the 44 that have no artwork yet.
+   *
+   * Give the WebP path; the AVIF sibling is derived by extension swap.
+   * Version the filename — /images is served immutable for a year.
+   */
+  tileImage?: string;
   highlights: string[];
   modules: CourseModule[];
   faqs: CourseFAQ[];
@@ -361,7 +376,8 @@ export const courses: Course[] = [
     duration: "1.5 Months",
     level: "Beginner",
     mode: ["Online", "Offline"],
-    image: "/images/courses/cpp.jpg",
+    image: "/images/courses/c-programming-v1.webp",
+    tileImage: "/images/courses/c-programming-v1.webp",
     highlights: [
       "C language fundamentals and syntax",
       "Control structures, functions, and arrays",
@@ -405,7 +421,8 @@ export const courses: Course[] = [
     duration: "2 Months",
     level: "Beginner",
     mode: ["Online", "Offline"],
-    image: "/images/courses/cpp.jpg",
+    image: "/images/courses/cpp-programming-v1.webp",
+    tileImage: "/images/courses/cpp-programming-v1.webp",
     highlights: [
       "C++ syntax and modern features",
       "Object-oriented programming concepts",
