@@ -385,6 +385,53 @@ export const dotnetFullStackTrainingInPune: CourseRichContent = {
     },
   ],
 
+  /**
+   * Gated syllabus PDF. Served noindex via X-Robots-Tag (next.config.ts) —
+   * it duplicates this page's content by design, so the HTML page stays the
+   * canonical, indexable copy and the PDF is a post-click convenience.
+   *
+   * `roadmapImage` is deliberately absent: the .NET roadmap diagram does not
+   * exist yet. Add the field once the artwork lands — convert to WebP/AVIF,
+   * version the filename (/images/* is served immutable for a year), give it
+   * real alt text describing what the diagram shows, and keep the curriculum
+   * array carrying the same information as text, since none of the words
+   * inside an image are visible to crawlers or AI engines.
+   */
+  syllabusDownload: {
+    pdfUrl: "/downloads/dotnet-ai-roadmap-2026-v1.pdf",
+    title: ".NET + AI Roadmap 2026 — Complete Syllabus",
+    slug: "dotnet-full-stack-syllabus",
+    blurb:
+      "The complete 16-level learning sequence this course follows, as a 14-page PDF you can keep or share — every topic from programming fundamentals through Semantic Kernel, RAG and AI agents, plus the fifteen-project progression and the recommended 2026 stack. Everything in it is already on this page; the PDF is just the portable version.",
+    asideBlocks: [
+      {
+        heading: "What is inside the 14-page PDF",
+        items: [
+          "All sixteen levels in order, from programming fundamentals and the .NET platform through C#, ASP.NET Core, EF Core, Angular or React, Azure and microservices, ending in AI integration and architecture.",
+          "A fifteen-project progression, from a banking console application in plain C# to a company knowledge assistant and an enterprise AI-powered .NET platform.",
+          "The recommended 2026 stack named tool by tool — C# and modern .NET, ASP.NET Core, EF Core, PostgreSQL or SQL Server, React, Redis, Kafka, Docker, Azure, GitHub Actions, Microsoft.Extensions.AI and Semantic Kernel.",
+          "What not to spend your first year on: ASP.NET Web Forms, .NET Framework-first development, and legacy MVC patterns still taught elsewhere in Pune.",
+          "The AI security and evaluation checklist — prompt injection, tool authorisation, groundedness, hallucination, retrieval quality and token cost.",
+        ],
+      },
+      {
+        heading: "Roles this sequence prepares you for",
+        items: [
+          "C# Developer",
+          ".NET Developer",
+          "ASP.NET Core Developer",
+          "Backend Developer",
+          ".NET Full Stack Developer",
+          "Cloud Developer",
+          "Azure Developer",
+          "Microservices Developer",
+          "AI-enabled .NET Developer",
+          "Enterprise Application Developer",
+        ],
+      },
+    ],
+  },
+
   projects: [
     {
       title: "Enterprise Full-Stack App — ASP.NET Core API + Angular + SQL Server",
