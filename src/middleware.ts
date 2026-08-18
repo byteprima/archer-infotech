@@ -3,10 +3,25 @@ import { legacyRedirectMap } from "@/lib/legacy-redirects";
 
 // Legacy WordPress query keys. Any URL bearing one of these is a WP-era artifact:
 // - p / page_id  → permalink shortcuts
-// - cat / tag / author / m → archive views
+// - cat / author / m → archive views
 // - s            → WP search
 // All redirect to the clean path with WP keys stripped.
-const WP_QUERY_KEYS = ["p", "page_id", "cat", "tag", "author", "m", "s"];
+//
+// `tag` is deliberately NOT in this list. It used to be, and that broke the
+// blog: /blog?tag=<x> is a live filter this site actually serves — blog/page.tsx
+// reads the param and blog/[slug]/page.tsx links to it from every post — but the
+// rule stripped it before the page ever saw it, 301-ing every tag link to an
+// unfiltered /blog. Google reported ~120 such URLs under "Page with redirect",
+// and every tag link on the site was dead for visitors too.
+//
+// The WordPress artifact was `/?tag=x` — tag on the ROOT path. Ours is
+// `/blog?tag=x`. WP_ROOT_ONLY_QUERY_KEYS below handles that distinction rather
+// than banning the key everywhere.
+const WP_QUERY_KEYS = ["p", "page_id", "cat", "author", "m", "s"];
+
+// Keys that were WP archive views at the site root but are legitimate elsewhere.
+// Stripped only when they appear on `/`.
+const WP_ROOT_ONLY_QUERY_KEYS = ["tag"];
 
 // /?feed=* served the WP RSS feed. We have no RSS, so return 410 Gone to deindex.
 const WP_FEED_KEY = "feed";
@@ -62,11 +77,16 @@ export function middleware(request: NextRequest) {
     return new NextResponse(null, { status: 410 });
   }
 
-  const hasWpKey = WP_QUERY_KEYS.some((key) => searchParams.has(key));
+  const hasWpKey =
+    WP_QUERY_KEYS.some((key) => searchParams.has(key)) ||
+    (pathname === "/" &&
+      WP_ROOT_ONLY_QUERY_KEYS.some((key) => searchParams.has(key)));
   if (hasWpKey) {
     const cleanUrl = new URL(pathname, origin);
     searchParams.forEach((value, key) => {
-      if (!WP_QUERY_KEYS.includes(key)) {
+      const isRootOnlyArtifact =
+        pathname === "/" && WP_ROOT_ONLY_QUERY_KEYS.includes(key);
+      if (!WP_QUERY_KEYS.includes(key) && !isRootOnlyArtifact) {
         cleanUrl.searchParams.set(key, value);
       }
     });
