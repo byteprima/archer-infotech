@@ -208,7 +208,8 @@ export const courses: Course[] = [
     duration: "3 Months",
     level: "Beginner",
     mode: ["Online", "Offline"],
-    image: "/images/courses/java.jpg",
+    image: "/images/courses/java-v1.webp",
+    tileImage: "/images/courses/java-v1.webp",
     isFeatured: true,
     isPopular: true,
     highlights: [
@@ -270,7 +271,8 @@ export const courses: Course[] = [
     duration: "2.5 Months",
     level: "Beginner",
     mode: ["Online", "Offline"],
-    image: "/images/courses/python.jpg",
+    image: "/images/courses/python-v1.webp",
+    tileImage: "/images/courses/python-v1.webp",
     isFeatured: true,
     isPopular: true,
     highlights: [
@@ -328,7 +330,8 @@ export const courses: Course[] = [
     duration: "2 Months",
     level: "Beginner",
     mode: ["Online", "Offline"],
-    image: "/images/courses/javascript.jpg",
+    image: "/images/courses/javascript-v1.webp",
+    tileImage: "/images/courses/javascript-v1.webp",
     highlights: [
       "JavaScript fundamentals and ES6+",
       "DOM manipulation and events",
@@ -376,8 +379,8 @@ export const courses: Course[] = [
     duration: "1.5 Months",
     level: "Beginner",
     mode: ["Online", "Offline"],
-    image: "/images/courses/c-programming-v1.webp",
-    tileImage: "/images/courses/c-programming-v1.webp",
+    image: "/images/courses/c-v1.webp",
+    tileImage: "/images/courses/c-v1.webp",
     highlights: [
       "C language fundamentals and syntax",
       "Control structures, functions, and arrays",
@@ -421,8 +424,8 @@ export const courses: Course[] = [
     duration: "2 Months",
     level: "Beginner",
     mode: ["Online", "Offline"],
-    image: "/images/courses/cpp-programming-v1.webp",
-    tileImage: "/images/courses/cpp-programming-v1.webp",
+    image: "/images/courses/cpp-v1.webp",
+    tileImage: "/images/courses/cpp-v1.webp",
     highlights: [
       "C++ syntax and modern features",
       "Object-oriented programming concepts",
@@ -466,7 +469,8 @@ export const courses: Course[] = [
     duration: "3 Months",
     level: "Beginner",
     mode: ["Online", "Offline"],
-    image: "/images/courses/dotnet.jpg",
+    image: "/images/courses/dotnet-csharp-v1.webp",
+    tileImage: "/images/courses/dotnet-csharp-v1.webp",
     isPopular: true,
     highlights: [
       "C# programming fundamentals",
@@ -517,7 +521,8 @@ export const courses: Course[] = [
     duration: "2.5 Months",
     level: "Intermediate",
     mode: ["Online", "Offline"],
-    image: "/images/courses/spring-boot-microservices.jpg",
+    image: "/images/courses/spring-boot-microservices-v1.webp",
+    tileImage: "/images/courses/spring-boot-microservices-v1.webp",
     isFeatured: true,
     isPopular: true,
     highlights: [
@@ -674,7 +679,8 @@ export const courses: Course[] = [
     duration: "6 Months",
     level: "Intermediate",
     mode: ["Online", "Offline"],
-    image: "/images/courses/java-fullstack.jpg",
+    image: "/images/courses/java-full-stack-v1.webp",
+    tileImage: "/images/courses/java-full-stack-v1.webp",
     isFeatured: true,
     isPopular: true,
     highlights: [
@@ -870,7 +876,8 @@ export const courses: Course[] = [
     duration: "5 Months",
     level: "Intermediate",
     mode: ["Online", "Offline"],
-    image: "/images/courses/mern.jpg",
+    image: "/images/courses/mern-stack-v1.webp",
+    tileImage: "/images/courses/mern-stack-v1.webp",
     isFeatured: true,
     isPopular: true,
     highlights: [
@@ -926,7 +933,8 @@ export const courses: Course[] = [
     duration: "5 Months",
     level: "Intermediate",
     mode: ["Online", "Offline"],
-    image: "/images/courses/python-fullstack.jpg",
+    image: "/images/courses/python-full-stack-v1.webp",
+    tileImage: "/images/courses/python-full-stack-v1.webp",
     highlights: [
       "Python programming mastery",
       "Django framework",
@@ -976,7 +984,8 @@ export const courses: Course[] = [
     duration: "6 Months",
     level: "Intermediate",
     mode: ["Online", "Offline"],
-    image: "/images/courses/dotnet-fullstack.jpg",
+    image: "/images/courses/dotnet-full-stack-v1.webp",
+    tileImage: "/images/courses/dotnet-full-stack-v1.webp",
     highlights: [
       "C# programming",
       "ASP.NET Core MVC",
@@ -1090,7 +1099,8 @@ export const courses: Course[] = [
     duration: "2.5 Months",
     level: "Intermediate",
     mode: ["Online", "Offline"],
-    image: "/images/courses/react.jpg",
+    image: "/images/courses/react-v1.webp",
+    tileImage: "/images/courses/react-v1.webp",
     isPopular: true,
     highlights: [
       "React fundamentals and JSX",
@@ -1139,7 +1149,8 @@ export const courses: Course[] = [
     duration: "2.5 Months",
     level: "Intermediate",
     mode: ["Online", "Offline"],
-    image: "/images/courses/angular.jpg",
+    image: "/images/courses/angular-v1.webp",
+    tileImage: "/images/courses/angular-v1.webp",
     highlights: [
       "Angular CLI, workspace setup, and project structure",
       "TypeScript, components, templates, and data binding",
@@ -1203,7 +1214,8 @@ export const courses: Course[] = [
     duration: "2 Months",
     level: "Intermediate",
     mode: ["Online", "Offline"],
-    image: "/images/courses/nextjs.jpg",
+    image: "/images/courses/nextjs-v1.webp",
+    tileImage: "/images/courses/nextjs-v1.webp",
     highlights: [
       "Next.js App Router",
       "Server Components",
@@ -1247,7 +1259,8 @@ export const courses: Course[] = [
     duration: "1.5 Months",
     level: "Intermediate",
     mode: ["Online", "Offline"],
-    image: "/images/courses/typescript.jpg",
+    image: "/images/courses/typescript-v1.webp",
+    tileImage: "/images/courses/typescript-v1.webp",
     highlights: [
       "TypeScript fundamentals",
       "Type annotations and inference",
@@ -1291,7 +1304,8 @@ export const courses: Course[] = [
     duration: "2.5 Months",
     level: "Intermediate",
     mode: ["Online", "Offline"],
-    image: "/images/courses/nodejs.jpg",
+    image: "/images/courses/nodejs-v1.webp",
+    tileImage: "/images/courses/nodejs-v1.webp",
     highlights: [
       "Node.js fundamentals",
       "Express.js framework",
@@ -1341,7 +1355,8 @@ export const courses: Course[] = [
     duration: "3 Months",
     level: "Intermediate",
     mode: ["Online", "Offline"],
-    image: "/images/courses/aws.jpg",
+    image: "/images/courses/aws-v1.webp",
+    tileImage: "/images/courses/aws-v1.webp",
     isFeatured: true,
     isPopular: true,
     highlights: [
@@ -1396,7 +1411,8 @@ export const courses: Course[] = [
     duration: "3 Months",
     level: "Intermediate",
     mode: ["Online", "Offline"],
-    image: "/images/courses/azure.jpg",
+    image: "/images/courses/azure-v1.webp",
+    tileImage: "/images/courses/azure-v1.webp",
     highlights: [
       "Azure core services",
       "Virtual machines and networking",
@@ -1445,7 +1461,8 @@ export const courses: Course[] = [
     duration: "2.5 Months",
     level: "Intermediate",
     mode: ["Online", "Offline"],
-    image: "/images/courses/gcp.jpg",
+    image: "/images/courses/google-cloud-v1.webp",
+    tileImage: "/images/courses/google-cloud-v1.webp",
     highlights: [
       "GCP core services",
       "Compute Engine and GKE",
@@ -1490,7 +1507,8 @@ export const courses: Course[] = [
     duration: "4 Months",
     level: "Intermediate",
     mode: ["Online", "Offline"],
-    image: "/images/courses/devops.jpg",
+    image: "/images/courses/devops-v1.webp",
+    tileImage: "/images/courses/devops-v1.webp",
     isFeatured: true,
     isPopular: true,
     highlights: [
@@ -1546,7 +1564,8 @@ export const courses: Course[] = [
     duration: "2 Months",
     level: "Advanced",
     mode: ["Online", "Offline"],
-    image: "/images/courses/kubernetes.jpg",
+    image: "/images/courses/kubernetes-v1.webp",
+    tileImage: "/images/courses/kubernetes-v1.webp",
     highlights: [
       "Kubernetes architecture",
       "Deployments and services",
@@ -1595,7 +1614,8 @@ export const courses: Course[] = [
     duration: "1.5 Months",
     level: "Intermediate",
     mode: ["Online", "Offline"],
-    image: "/images/courses/docker.jpg",
+    image: "/images/courses/docker-v1.webp",
+    tileImage: "/images/courses/docker-v1.webp",
     highlights: [
       "Docker fundamentals",
       "Dockerfile creation",
@@ -1641,7 +1661,8 @@ export const courses: Course[] = [
     duration: "2.5 Months",
     level: "Intermediate",
     mode: ["Online", "Offline"],
-    image: "/images/courses/aws-sa.jpg",
+    image: "/images/courses/aws-solutions-architect-v1.webp",
+    tileImage: "/images/courses/aws-solutions-architect-v1.webp",
     highlights: [
       "Exam-focused curriculum",
       "Hands-on labs",
@@ -1690,7 +1711,8 @@ export const courses: Course[] = [
     duration: "2.5 Months",
     level: "Intermediate",
     mode: ["Online", "Offline"],
-    image: "/images/courses/azure-admin.jpg",
+    image: "/images/courses/azure-administrator-v1.webp",
+    tileImage: "/images/courses/azure-administrator-v1.webp",
     highlights: [
       "AZ-104 exam preparation",
       "Hands-on labs",
@@ -1739,7 +1761,8 @@ export const courses: Course[] = [
     duration: "2 Months",
     level: "Intermediate",
     mode: ["Online", "Offline"],
-    image: "/images/courses/gcp-ace.jpg",
+    image: "/images/courses/gcp-associate-cloud-engineer-v1.webp",
+    tileImage: "/images/courses/gcp-associate-cloud-engineer-v1.webp",
     highlights: [
       "Exam-focused training",
       "Hands-on labs",
@@ -1790,7 +1813,8 @@ export const courses: Course[] = [
     duration: "4 Months",
     level: "Intermediate",
     mode: ["Online", "Offline"],
-    image: "/images/courses/ml.jpg",
+    image: "/images/courses/machine-learning-v1.webp",
+    tileImage: "/images/courses/machine-learning-v1.webp",
     isFeatured: true,
     isPopular: true,
     highlights: [
@@ -1840,7 +1864,8 @@ export const courses: Course[] = [
     duration: "5 Months",
     level: "Intermediate",
     mode: ["Online", "Offline"],
-    image: "/images/courses/data-science.jpg",
+    image: "/images/courses/data-science-v1.webp",
+    tileImage: "/images/courses/data-science-v1.webp",
     isFeatured: true,
     highlights: [
       "Python for data science",
@@ -1889,7 +1914,8 @@ export const courses: Course[] = [
     duration: "3 Months",
     level: "Beginner",
     mode: ["Online", "Offline"],
-    image: "/images/courses/data-analytics.jpg",
+    image: "/images/courses/data-analytics-v1.webp",
+    tileImage: "/images/courses/data-analytics-v1.webp",
     highlights: [
       "Excel for analytics",
       "SQL querying",
@@ -1937,7 +1963,8 @@ export const courses: Course[] = [
     duration: "4 Months",
     level: "Advanced",
     mode: ["Online", "Offline"],
-    image: "/images/courses/data-engineering.jpg",
+    image: "/images/courses/data-engineering-v1.webp",
+    tileImage: "/images/courses/data-engineering-v1.webp",
     highlights: [
       "Apache Spark",
       "Apache Kafka",
@@ -1987,7 +2014,8 @@ export const courses: Course[] = [
     duration: "3 Months",
     level: "Intermediate",
     mode: ["Online", "Offline"],
-    image: "/images/courses/genai.png",
+    image: "/images/courses/genai-v1.webp",
+    tileImage: "/images/courses/genai-v1.webp",
     isFeatured: true,
     isPopular: true,
     highlights: [
@@ -2037,7 +2065,8 @@ export const courses: Course[] = [
     duration: "2 Months",
     level: "Intermediate",
     mode: ["Online", "Offline"],
-    image: "/images/courses/llm.png",
+    image: "/images/courses/chatgpt-llms-v1.webp",
+    tileImage: "/images/courses/chatgpt-llms-v1.webp",
     highlights: [
       "LLM fundamentals",
       "ChatGPT API",
@@ -2081,7 +2110,8 @@ export const courses: Course[] = [
     duration: "1 Month",
     level: "Beginner",
     mode: ["Online", "Offline"],
-    image: "/images/courses/prompt.jpg",
+    image: "/images/courses/prompt-engineering-v1.webp",
+    tileImage: "/images/courses/prompt-engineering-v1.webp",
     highlights: [
       "Prompt fundamentals",
       "Advanced techniques",
@@ -2125,7 +2155,8 @@ export const courses: Course[] = [
     duration: "1 Month",
     level: "Beginner",
     mode: ["Online", "Offline"],
-    image: "/images/courses/ai-tools.jpg",
+    image: "/images/courses/ai-tools-v1.webp",
+    tileImage: "/images/courses/ai-tools-v1.webp",
     highlights: [
       "ChatGPT for work",
       "GitHub Copilot",
@@ -2171,7 +2202,8 @@ export const courses: Course[] = [
     duration: "4 Months",
     level: "Intermediate",
     mode: ["Online", "Offline"],
-    image: "/images/courses/android.jpg",
+    image: "/images/courses/android-development-v1.webp",
+    tileImage: "/images/courses/android-development-v1.webp",
     isFeatured: true,
     highlights: [
       "Kotlin and Java for Android",
@@ -2224,7 +2256,8 @@ export const courses: Course[] = [
     duration: "3.5 Months",
     level: "Intermediate",
     mode: ["Online", "Offline"],
-    image: "/images/courses/flutter.jpg",
+    image: "/images/courses/flutter-development-v1.webp",
+    tileImage: "/images/courses/flutter-development-v1.webp",
     isFeatured: true,
     isPopular: true,
     highlights: [
@@ -2278,7 +2311,8 @@ export const courses: Course[] = [
     duration: "3 Months",
     level: "Intermediate",
     mode: ["Online", "Offline"],
-    image: "/images/courses/react-native.jpg",
+    image: "/images/courses/react-native-v1.webp",
+    tileImage: "/images/courses/react-native-v1.webp",
     highlights: [
       "React Native fundamentals",
       "React Navigation",
@@ -2326,7 +2360,8 @@ export const courses: Course[] = [
     duration: "4 Months",
     level: "Intermediate",
     mode: ["Online", "Offline"],
-    image: "/images/courses/ios-swift.jpg",
+    image: "/images/courses/ios-swift-v1.webp",
+    tileImage: "/images/courses/ios-swift-v1.webp",
     highlights: [
       "Swift programming language",
       "SwiftUI and UIKit",
@@ -2380,7 +2415,8 @@ export const courses: Course[] = [
     duration: "2 Months",
     level: "Beginner",
     mode: ["Online", "Offline"],
-    image: "/images/courses/mysql.jpg",
+    image: "/images/courses/mysql-v1.webp",
+    tileImage: "/images/courses/mysql-v1.webp",
     highlights: [
       "SQL fundamentals",
       "Database design and normalization",
@@ -2428,7 +2464,8 @@ export const courses: Course[] = [
     duration: "2 Months",
     level: "Intermediate",
     mode: ["Online", "Offline"],
-    image: "/images/courses/postgresql.jpg",
+    image: "/images/courses/postgresql-v1.webp",
+    tileImage: "/images/courses/postgresql-v1.webp",
     highlights: [
       "PostgreSQL fundamentals",
       "Advanced SQL features",
@@ -2476,7 +2513,8 @@ export const courses: Course[] = [
     duration: "2 Months",
     level: "Intermediate",
     mode: ["Online", "Offline"],
-    image: "/images/courses/mongodb.jpg",
+    image: "/images/courses/mongodb-v1.webp",
+    tileImage: "/images/courses/mongodb-v1.webp",
     isPopular: true,
     highlights: [
       "Document database concepts",
@@ -2525,7 +2563,8 @@ export const courses: Course[] = [
     duration: "3 Months",
     level: "Intermediate",
     mode: ["Online", "Offline"],
-    image: "/images/courses/oracle.jpg",
+    image: "/images/courses/oracle-database-v1.webp",
+    tileImage: "/images/courses/oracle-database-v1.webp",
     highlights: [
       "Oracle SQL",
       "PL/SQL programming",
@@ -2573,7 +2612,8 @@ export const courses: Course[] = [
     duration: "1.5 Months",
     level: "Beginner",
     mode: ["Online", "Offline"],
-    image: "/images/courses/firebase.jpg",
+    image: "/images/courses/firebase-v1.webp",
+    tileImage: "/images/courses/firebase-v1.webp",
     highlights: [
       "Firestore database",
       "Firebase Authentication",
@@ -2623,7 +2663,8 @@ export const courses: Course[] = [
     duration: "8 weeks / 2 months",
     level: "Beginner",
     mode: ["Online", "Offline"],
-    image: "/images/courses/codeleap-bootcamp.jpg",
+    image: "/images/courses/codeleap-bootcamp-v1.webp",
+    tileImage: "/images/courses/codeleap-bootcamp-v1.webp",
     isFeatured: true,
     isPopular: true,
     highlights: [
@@ -2677,7 +2718,8 @@ export const courses: Course[] = [
     duration: "Ongoing (Semester-wise)",
     level: "Beginner",
     mode: ["Online", "Offline"],
-    image: "/images/courses/careercode-bootcamp.jpg",
+    image: "/images/courses/careercode-bootcamp-v1.webp",
+    tileImage: "/images/courses/careercode-bootcamp-v1.webp",
     highlights: [
       "6 specialisation tracks available",
       "Runs alongside your engineering degree",
@@ -2733,7 +2775,8 @@ export const courses: Course[] = [
     duration: "6 to 8 Months",
     level: "Beginner",
     mode: ["Online", "Offline"],
-    image: "/images/courses/techready-bootcamp.jpg",
+    image: "/images/courses/techready-bootcamp-v1.webp",
+    tileImage: "/images/courses/techready-bootcamp-v1.webp",
     highlights: [
       "10 specialised programs",
       "6 hours daily, full-time intensive",
@@ -2786,7 +2829,8 @@ export const courses: Course[] = [
     duration: "2 Months",
     level: "Intermediate",
     mode: ["Online", "Offline"],
-    image: "/images/courses/selenium.jpg",
+    image: "/images/courses/selenium-v1.webp",
+    tileImage: "/images/courses/selenium-v1.webp",
     isPopular: true,
     highlights: [
       "Selenium 4 WebDriver with Java",
@@ -2849,7 +2893,8 @@ export const courses: Course[] = [
     duration: "2 Months",
     level: "Beginner",
     mode: ["Online", "Offline"],
-    image: "/images/courses/software-testing.jpg",
+    image: "/images/courses/software-testing-v1.webp",
+    tileImage: "/images/courses/software-testing-v1.webp",
     highlights: [
       "SDLC + STLC fundamentals",
       "Test case design (BVA, ECP, decision tables, state transition)",
@@ -2911,7 +2956,8 @@ export const courses: Course[] = [
     duration: "3 Months",
     level: "All Levels",
     mode: ["Online", "Offline"],
-    image: "/images/courses/salesforce.jpg",
+    image: "/images/courses/salesforce-v1.webp",
+    tileImage: "/images/courses/salesforce-v1.webp",
     isPopular: true,
     highlights: [
       "Salesforce Lightning Experience deep-dive",
@@ -2984,7 +3030,8 @@ export const courses: Course[] = [
     duration: "2 Months",
     level: "Intermediate",
     mode: ["Online", "Offline"],
-    image: "/images/courses/agentic-ai.jpg",
+    image: "/images/courses/agentic-ai-v1.webp",
+    tileImage: "/images/courses/agentic-ai-v1.webp",
     isPopular: true,
     isFeatured: true,
     highlights: [
