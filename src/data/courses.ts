@@ -970,22 +970,84 @@ export const courses: Course[] = [
       "Azure deployment",
       "Microservices with .NET",
     ],
+    // Restructured 2026-08-18 to mirror the .NET + AI Roadmap 2026
+    // (Levels 1-16). Kept in step with the week-by-week curriculum in
+    // course-content/dotnet-full-stack-training-in-pune.ts — the previous
+    // four-module list described roughly a third of what the course teaches.
+    // Per roadmap section 5, ASP.NET Web Forms, .NET Framework-first
+    // development and legacy MVC patterns are not core content.
     modules: [
       {
-        title: "C# & .NET Core",
-        topics: ["C# advanced features", ".NET Core overview", "Dependency injection", "Configuration", "Logging"],
+        title: "Programming Fundamentals",
+        topics: ["Algorithms and flowcharts", "Variables, data types, operators", "Conditions, loops, functions", "Debugging as a method", "Core data structures", "Time and space complexity"],
       },
       {
-        title: "ASP.NET Core",
-        topics: ["MVC pattern", "Razor pages", "Web API", "Middleware", "Authentication"],
+        title: ".NET Platform and Tooling",
+        topics: [".NET SDK vs runtime", "CLR, IL and JIT compilation", "Assemblies and NuGet", "dotnet CLI — new, build, run, test, publish", "Solution and project layout"],
       },
       {
-        title: "Database & EF Core",
-        topics: ["SQL Server", "Entity Framework Core", "Migrations", "LINQ queries", "Performance"],
+        title: "C# Fundamentals and OOP",
+        topics: ["Value vs reference types", "Nullable types and conversion", "ref, out, in, params", "Classes, constructors, properties", "Encapsulation, inheritance, polymorphism, abstraction", "Interfaces and composition"],
+      },
+      {
+        title: "Modern C#",
+        topics: ["Delegates, Action, Func, Predicate", "Lambdas, events, extension methods", "Records, init and required members", "Nullable reference types", "Pattern matching and tuples", "Primary constructors and collection expressions"],
+      },
+      {
+        title: "Collections, Generics and LINQ",
+        topics: ["List, Dictionary, HashSet, Queue, Stack", "IEnumerable, ICollection, IList", "Generic constraints, covariance, contravariance", "LINQ query and method syntax", "Deferred execution", "IEnumerable vs IQueryable"],
+      },
+      {
+        title: "Exceptions, Runtime and Async",
+        topics: ["Exceptions and custom exception types", "Stack vs heap, garbage collection", "IDisposable, using, resource lifetime", "Task, async/await, CancellationToken", "ThreadPool, locks, concurrent collections", "Channels, background services, IAsyncEnumerable"],
+      },
+      {
+        title: "SQL and Data Access",
+        topics: ["Joins, subqueries, CTEs, window functions", "Indexes, transactions, ACID, isolation", "Query optimisation", "ADO.NET and SQL-injection prevention", "EF Core — DbContext, entities, migrations", "Tracking, loading strategies, concurrency"],
+      },
+      {
+        title: "Dependency Injection and ASP.NET Core",
+        topics: ["Inversion of control and DI", "Singleton, scoped, transient lifetimes", "Middleware pipeline and routing", "Configuration, environments, options pattern", "Logging and application lifecycle", "Minimal APIs vs controllers"],
+      },
+      {
+        title: "REST APIs and Security",
+        topics: ["HTTP methods, status codes, DTOs", "Validation, pagination, filtering, versioning", "ASP.NET Core Identity and password hashing", "Roles, claims and policies", "JWT and refresh tokens", "OAuth 2.0, OpenID Connect, CORS, CSRF"],
       },
       {
         title: "Frontend Development",
-        topics: ["TypeScript", "Angular/React basics", "Component architecture", "Services", "HTTP client"],
+        topics: ["HTML, CSS, JavaScript, TypeScript", "Angular 19 — components, services, RxJS", "React 19 as an opt-in alternative", "Forms, routing, API integration", "HttpClient, JWT interceptors, route guards", "NgRx for global state"],
+      },
+      {
+        title: "Testing and Dev Tools",
+        topics: ["xUnit and NUnit concepts", "Mocking and assertions", "Integration testing with Testcontainers", "Postman and REST testing", "Playwright end-to-end tests", "Git, pull requests, code review, GitHub Actions"],
+      },
+      {
+        title: "Production Engineering",
+        topics: ["Docker, Compose, volumes, health checks", "Redis — cache-aside, TTL, distributed caching", "Rate limiting and distributed locks", "RabbitMQ and Kafka", "Partitions, consumer groups, idempotency", "gRPC and Protocol Buffers"],
+      },
+      {
+        title: "Microservices, Azure and DevOps",
+        topics: ["Service boundaries and modular monolith", "API Gateway, service discovery, resilience", "Saga pattern and event-driven architecture", "Azure App Service, Container Apps, Functions", "Azure SQL, Key Vault, Service Bus, Entra ID", "GitHub Actions CI/CD", "OpenTelemetry and Application Insights"],
+      },
+      {
+        title: "AI for .NET Developers",
+        topics: ["Tokens, context windows, prompts", "Structured outputs and streaming", "Function/tool calling and model selection", "Microsoft.Extensions.AI abstractions", "Semantic Kernel", "Azure OpenAI", "Auth, logging and rate limiting on AI endpoints"],
+      },
+      {
+        title: "Embeddings, RAG, Agents and AI Safety",
+        topics: ["Embeddings and semantic search", "pgvector and Azure AI Search", "RAG — chunking, retrieval, reranking, citations", "Tool calling against internal APIs", "Agents — planning, memory, human-in-the-loop", "Prompt injection and tool authorisation", "Groundedness, hallucination and cost evaluation"],
+      },
+      {
+        title: "Architecture and Design Principles",
+        topics: ["SOLID, DRY, KISS", "Layered, Clean and Hexagonal architecture", "Modular monolith vs microservices", "CQRS concepts and Saga", "Scalability, fault tolerance, load balancing"],
+      },
+      {
+        title: "AI-Assisted Development Workflow",
+        topics: ["GitHub Copilot, Claude, Cursor, IDE-native AI", "Prompting for C# and ASP.NET Core", "AI-assisted test generation", "AI debugging from errors and logs", "Guardrails — hallucinated APIs, licensing, privacy", "Reviewing and owning AI-generated code"],
+      },
+      {
+        title: "Capstone Project",
+        topics: ["Requirement analysis and schema design", "ASP.NET Core API development", "Frontend integration", "Authentication and authorisation", "Testing and deployment to Azure", "An AI-backed feature end to end", "GitHub portfolio preparation"],
       },
     ],
     faqs: [

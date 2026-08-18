@@ -30,7 +30,7 @@ export const dotnetFullStackTrainingInPune: CourseRichContent = {
       "Career restarter targeting enterprise full-stack as a stable re-entry path",
     ],
     notForYou: [
-      "If you have no programming background — at least basic C / C++ / Java / JavaScript is required from week 1",
+      "If you cannot commit six months — the sequence runs from programming fundamentals to AI integration and does not compress well",
       "If you cannot put in 10–12 hours per week of practice outside class — full-stack is the most lab-heavy of the major tracks",
       "If you only want a certificate sticker with no portfolio — Pune enterprise hiring screens hard on real PRs and deployed apps",
       "If your goal is specifically Pune SaaS / fintech startups — those skew Node.js or Python far more than .NET; pick MERN or Python Full Stack",
@@ -38,188 +38,349 @@ export const dotnetFullStackTrainingInPune: CourseRichContent = {
     ],
   },
 
+  /**
+   * Curriculum restructured 2026-08-18 to follow the .NET + AI Roadmap 2026
+   * progression (Levels 1–16), matching the treatment already applied to the
+   * Java Full Stack course.
+   *
+   * Unlike the Java roadmap, this one CARRIES ITS OWN FRONTEND (Level 10,
+   * "Full Stack, Testing and Dev Tools"), so nothing had to be added. Level 10
+   * is split here into a three-week frontend module and a one-week testing
+   * module, because bundling a first encounter with a frontend framework into
+   * the same week as xUnit and Playwright is how students end up weak at both.
+   *
+   * FRONTEND ORDER. The roadmap lists React under "frontend option". This
+   * course keeps ANGULAR primary with React as the opt-in alternative — the
+   * inverse of the Java Full Stack course — because Angular is the dominant
+   * frontend in Pune enterprise and BFSI .NET teams, and because every other
+   * claim on this page already says so: the comparison table ("Angular 19
+   * (primary) + React parallel path"), the capstone projects (Angular 19 +
+   * NgRx) and the FAQs. Flipping the modules to match the roadmap literally
+   * would have left the page contradicting itself in four places.
+   *
+   * Two AI levels are merged: L14 (Embeddings, RAG, Agents) and L15 (AI
+   * Security and Evaluation) run as one module, since evaluation and
+   * injection-handling are taught against the RAG pipeline you just built
+   * rather than in the abstract.
+   *
+   * Per roadmap §5, ASP.NET Web Forms, .NET Framework-first development and
+   * legacy MVC patterns are not core content.
+   *
+   * DURATION. courses.ts published "6 Months" while this file said "13 weeks
+   * plus 2 weeks (~3.5 months total)" and then explained the gap away as "the
+   * original 6-month listing reflects the optional extended evening format".
+   * A course page cannot state two durations and expect either to be
+   * believed. Six months is the published figure and the one used here: 24
+   * taught weeks plus 2 weeks of capstone and interview preparation, 26 in
+   * total.
+   */
   curriculum: [
     {
-      title: "C# 13 & .NET 9 Foundations",
-      weekRange: "Weeks 1–2",
+      title: "Programming Fundamentals",
+      weekRange: "Week 1",
       description:
-        "C# 13 from first principles — primitive types, control flow, methods, classes, structs, records (now first-class for most domain types), pattern matching, nullable reference types, async / await, exception handling, plus the C# 13 additions (params collections, partial members). The .NET 9 runtime — projects, solutions, NuGet, minimal CLI use, performance characteristics, Native AOT for the cases where it fits. By the end of week 2 every student has Visual Studio 2026 (or VS Code with C# Dev Kit) configured, .NET 9 SDK installed, and a small console app deployed.",
+        "Before any C# syntax, the thinking. What an algorithm is, how to decompose a problem, how memory holds a value, and how to read your own code back when it misbehaves. Flowcharts, variables, data types, operators, conditions, loops, functions and input/output, then debugging taught as a method rather than picked up by accident. Closes with a first look at data structures and at time and space complexity, so \"is this fast enough?\" has a real answer rather than a shrug.",
       topics: [
-        "C# 13 — primitive types, control flow, methods",
-        "Classes, structs, records, sealed types",
-        "Pattern matching and switch expressions",
-        "Nullable reference types and the warning discipline",
-        "Async / await and TaskCompletionSource",
-        "Exception handling and the try-with style",
-        "Generic types and constraints",
-        "LINQ basics — Where, Select, Aggregate",
-        "Visual Studio 2026 / VS Code with C# Dev Kit setup",
+        "Algorithms and flowcharts",
+        "Variables, data types, operators",
+        "Conditions, loops, functions",
+        "Input/output and program structure",
+        "Debugging as a method",
+        "Core data structures",
+        "Time and space complexity",
+        "Practice builds — calculator, ATM, billing, banking",
       ],
     },
     {
-      title: "OOP, LINQ & Collections",
-      weekRange: "Week 3",
+      title: ".NET Platform and Tooling",
+      weekRange: "Week 2",
       description:
-        "Object-oriented C# done with the modern idioms — inheritance vs composition, interfaces with default implementations, abstract classes (when they still earn their place), the visitor / strategy / template-method patterns rendered in C# style. LINQ at the level you actually use it (deferred execution, IEnumerable vs IQueryable, the practical operator subset, custom extensions), plus the Collections world — List, Dictionary, HashSet, ConcurrentDictionary, ImmutableArray. We finish by refactoring a 200-line procedural method into clean OOP + LINQ.",
+        "What actually happens between the .cs file you write and the process that runs. The .NET SDK against the runtime, the CLR, C# compiled to IL and then JIT-compiled, assemblies, and NuGet as the dependency system you will live inside. Then the CLI properly — dotnet new, build, run, test and publish — because every CI pipeline you meet later is those five commands in a YAML file, and students who only ever pressed F5 in Visual Studio are the ones who cannot debug a failing build.",
       topics: [
-        "Classes, inheritance, polymorphism with modern C#",
-        "Interfaces with default methods",
-        "Abstract classes vs interfaces — when each wins",
-        "Records as primary domain types",
-        "LINQ — deferred execution, IEnumerable vs IQueryable",
-        "LINQ operators that matter — Where, Select, GroupBy, Join",
-        "Collections — List, Dictionary, HashSet, ConcurrentDictionary",
-        "Immutable collections and value-style domain modelling",
+        ".NET SDK vs .NET Runtime",
+        "CLR, IL and JIT compilation",
+        "Assemblies and project structure",
+        "NuGet package management",
+        "dotnet CLI — new, build, run, test, publish",
+        "Solution and project layout conventions",
+        "Visual Studio and VS Code workflows",
       ],
     },
     {
-      title: "ASP.NET Core MVC & Razor Pages",
-      weekRange: "Week 4",
+      title: "C# Fundamentals and OOP",
+      weekRange: "Weeks 3–4",
       description:
-        "ASP.NET Core MVC for traditional server-rendered web applications — routing, controllers, actions, views with Razor syntax, model binding, validation with DataAnnotations and FluentValidation, tag helpers, view components, layouts, partial views. We cover Razor Pages alongside MVC for the smaller-team / page-focused use case, plus middleware, dependency injection (the integrated container — no third-party DI for new code), and configuration with Options pattern. Useful for Pune teams that ship internal tools and admin dashboards on server-rendered .NET.",
+        "The language, then object orientation done properly. Value against reference types, nullable types, conversion, methods, optional and named parameters, and the ref/out/in/params modifiers that appear in every interview and half of all confused code. Then classes, constructors, fields against properties, access modifiers, encapsulation, inheritance, polymorphism, abstraction and interfaces — followed by the part most courses skip: composition, association and aggregation, and when to reach for each instead of inheriting.",
       topics: [
-        "ASP.NET Core middleware pipeline",
-        "MVC — routing, controllers, actions",
-        "Razor syntax, layouts, partial views",
-        "Tag helpers and view components",
-        "Model binding and validation",
-        "Razor Pages for page-focused apps",
-        "Dependency Injection with the integrated container",
-        "Configuration and Options pattern",
+        "Value vs reference types, nullable types, conversion",
+        "Methods, optional and named parameters",
+        "ref, out, in and params",
+        "Classes, objects, constructors",
+        "Fields vs properties, access modifiers",
+        "Encapsulation, inheritance, polymorphism, abstraction",
+        "Interfaces and interface-based design",
+        "Composition, association, aggregation",
       ],
     },
     {
-      title: "ASP.NET Core Web API & Minimal APIs",
+      title: "Modern C#",
       weekRange: "Week 5",
       description:
-        "REST API design as Pune .NET teams actually do it. Cover Web API controllers with attribute routing, the new Minimal APIs (now the default for new microservices), model binding and validation with FluentValidation, exception handling middleware, OpenAPI / Swagger with Swashbuckle (or the built-in OpenAPI generation in .NET 9), versioning, content negotiation, plus the security middleware stack (authentication, authorization, CORS, rate limiting via the built-in middleware). We finish by building a complete RESTful API for a real domain with full validation, pagination, sorting, and filtering.",
+        "Everything C# has added since the version most tutorials still teach. Delegates, Action, Func and Predicate, lambda expressions, events and extension methods, then the modern surface: records, init and required members, nullable reference types, pattern matching, tuples, primary constructors, collection expressions, file-scoped namespaces and global usings. This is the module that decides whether your code reads like 2026 or like 2014 — and reviewers notice within about thirty seconds.",
       topics: [
-        "Web API controllers with attribute routing",
-        "Minimal APIs — the .NET 8 / 9 default for new services",
-        "Model binding, validation, FluentValidation",
-        "Exception handling middleware",
-        "OpenAPI / Swagger with Swashbuckle",
-        "API versioning",
-        "CORS and rate limiting",
-        "Content negotiation and ProblemDetails",
+        "Delegates, Action, Func, Predicate",
+        "Lambda expressions and events",
+        "Extension methods",
+        "Records, init and required members",
+        "Nullable reference types",
+        "Pattern matching and tuples",
+        "Primary constructors and collection expressions",
+        "File-scoped namespaces and global usings",
       ],
     },
     {
-      title: "Entity Framework Core & SQL Server",
+      title: "Collections, Generics and LINQ",
       weekRange: "Week 6",
       description:
-        "Database access as it is actually written today. SQL Server fundamentals (the dominant database in Pune .NET shops) — joins, transactions, indexes, EXPLAIN plans equivalent, query store. Then Entity Framework Core 9 — code-first DbContext, migrations, relationships (one-to-many, many-to-many with skip navigations), query optimisation, projection with Select, AsNoTracking for read-only paths, the JSON-column support added in EF Core 8 / 9. We cover the N+1 query trap, AsSplitQuery, the EF Core query plan logger, and Dapper for the cases where EF Core's overhead is too much.",
+        "The three APIs you will touch every working day. Arrays, List, Dictionary, HashSet, Queue and Stack, plus the interfaces behind them — IEnumerable, ICollection, IList and the read-only variants — and, the part interviews actually probe, when to reach for each. Generics with constraints, covariance and contravariance. Then LINQ in full, ending on the two things that separate confident users from cargo-cult ones: deferred execution, and the difference between IEnumerable and IQueryable when a database is on the other end.",
       topics: [
-        "SQL Server essentials — joins, transactions, indexes",
-        "EF Core — DbContext, code-first, migrations",
-        "Relationships and navigation properties",
-        "Querying — Where / Select / Include / AsNoTracking",
-        "JSON columns (EF Core 8 / 9)",
-        "N+1 trap, AsSplitQuery",
-        "Performance — query plans, compiled queries",
-        "Dapper for hot paths",
+        "Arrays, List, Dictionary, HashSet, Queue, Stack",
+        "IEnumerable, ICollection, IList, read-only collections",
+        "Generic classes and methods, constraints",
+        "Covariance and contravariance",
+        "LINQ — Where, Select, SelectMany, GroupBy, Join",
+        "Ordering, aggregation, Skip/Take, Distinct",
+        "Deferred execution",
+        "IEnumerable vs IQueryable and why it matters",
       ],
     },
     {
-      title: "Authentication, Authorization & Identity",
+      title: "Exceptions, Runtime and Async",
       weekRange: "Week 7",
       description:
-        "JWT bearer authentication for APIs, cookie authentication for MVC / Razor Pages applications, ASP.NET Core Identity for user management, role-based and policy-based authorization (the .NET-idiomatic approach), then the modern external-IdP integration — Azure AD / Microsoft Entra ID (the dominant Pune enterprise IdP), Identity Server / Duende, OpenIddict (the open-source alternative). Plus the security baseline — anti-forgery tokens, data protection, password hashing defaults, secrets management with User Secrets and Azure Key Vault.",
+        "How .NET manages memory, and how not to block it. Exceptions and custom exception types, propagation, then the runtime — stack against heap, garbage collection and its generations, IDisposable and using, IAsyncDisposable, resource lifetime, and how memory leaks still happen in a garbage-collected language. Then async: Task and Task-of-T, async/await, CancellationToken, WhenAll and WhenAny, the thread pool, locks, concurrent collections, Channels, background services and async streams with IAsyncEnumerable.",
       topics: [
-        "JWT bearer authentication for APIs",
-        "Cookie authentication for MVC",
-        "ASP.NET Core Identity",
-        "Role-based and policy-based authorization",
-        "Azure AD / Microsoft Entra ID integration",
-        "Identity Server / Duende, OpenIddict",
-        "Anti-forgery tokens and data protection",
-        "Secrets management — User Secrets, Azure Key Vault",
+        "Exceptions, custom exceptions, propagation",
+        "Stack vs heap, garbage collection and GC generations",
+        "IDisposable, using, IAsyncDisposable, resource lifetime",
+        "Memory leaks in a managed runtime",
+        "Task, async/await, CancellationToken",
+        "Task.WhenAll and Task.WhenAny",
+        "ThreadPool, locks, concurrent collections",
+        "Channels, background services, IAsyncEnumerable",
       ],
     },
     {
-      title: "Frontend — Angular (with React Path)",
+      title: "SQL and Data Access",
       weekRange: "Weeks 8–9",
       description:
-        "The frontend half of full-stack. Angular as the primary frontend (dominant in Pune .NET enterprise hiring) — TypeScript foundations, Angular 19 standalone components, Signals, reactive forms, HttpClient with interceptors for JWT, RxJS at the operators-you-actually-use level, route guards, NgRx-light or Signal stores. React provided as a parallel path for students targeting Pune SaaS / fintech .NET shops (BharatPe Pune, Pine Labs Pune, etc.) — React 19 essentials, hooks, TanStack Query, Tailwind. We finish by wiring the Angular / React frontend to the ASP.NET Core API from week 5.",
+        "SQL taken seriously, then two ways of reaching it. The full query vocabulary through JOINs, GROUP BY, HAVING, subqueries, CTEs and window functions, then views, indexes, transactions, ACID, isolation levels, locking and query optimisation. ADO.NET next — Connection, Command, DataReader, parameters, transactions, connection pooling and parameterised queries as the actual defence against SQL injection. Then EF Core: DbContext, entities, relationships, migrations, tracking against no-tracking, loading strategies and concurrency handling.",
       topics: [
-        "TypeScript essentials for frontend",
-        "Angular 19 standalone components and Signals",
-        "Reactive forms and validation",
-        "HttpClient with JWT interceptor",
-        "RxJS operators that matter",
-        "Route guards and lazy loading",
-        "NgRx or Signal-based state",
-        "(Parallel path) React 19, hooks, TanStack Query, Tailwind",
-        "Wiring the frontend to the .NET API",
+        "SELECT, JOIN, GROUP BY, HAVING, subqueries",
+        "CTEs, window functions, views",
+        "Indexes, transactions, ACID, isolation, locking",
+        "Query optimisation",
+        "ADO.NET — Connection, Command, DataReader, parameters",
+        "Connection pooling and SQL-injection prevention",
+        "EF Core — DbContext, entities, relationships, migrations",
+        "Tracking vs no-tracking, loading strategies, concurrency",
       ],
     },
     {
-      title: "Microservices, Docker & Azure Deployment",
-      weekRange: "Week 10",
+      title: "Dependency Injection and ASP.NET Core",
+      weekRange: "Weeks 10–11",
       description:
-        "Beyond the monolith. Decompose a .NET monolith into microservices using ASP.NET Core Minimal APIs, communicate via REST and message broker (RabbitMQ or Azure Service Bus), centralised configuration with Azure App Configuration, API gateway with YARP or Azure API Management, and resilience patterns with Polly (retry, circuit breaker, timeout). Containerise services with Docker (multi-stage Dockerfiles), then deploy — Azure App Service for traditional web apps, Azure Container Apps for serverless containers, Azure Kubernetes Service for full orchestration. Plus structured logging with Serilog, Application Insights for observability, and Azure Monitor dashboards.",
+        "Inversion of control first, so the framework is explicable rather than magical. Service registration and the three lifetimes — singleton, scoped and transient — plus what actually goes wrong when you inject a scoped service into a singleton, which is a favourite interview question because it is a real production bug. Then ASP.NET Core itself: the middleware pipeline, routing, configuration and environments, logging, the options pattern, the application lifecycle, and both Minimal APIs and controllers with an honest view of when each fits.",
       topics: [
-        ".NET microservice decomposition",
-        "REST + message broker communication",
-        "Polly — retry, circuit breaker, timeout",
-        "YARP and Azure API Management",
-        "Docker multi-stage Dockerfiles for .NET",
-        "Azure App Service deployment",
-        "Azure Container Apps",
-        "Azure Kubernetes Service basics",
-        "Serilog + Application Insights + Azure Monitor",
+        "Inversion of control and dependency injection",
+        "Service registration and resolution",
+        "Singleton, scoped and transient lifetimes",
+        "Captive-dependency bugs and how to spot them",
+        "Middleware pipeline and routing",
+        "Configuration, environments and the options pattern",
+        "Logging and application lifecycle",
+        "Minimal APIs vs controllers",
       ],
     },
     {
-      title: "Testing, CI/CD & Production Practices",
-      weekRange: "Week 11",
+      title: "REST APIs and Security",
+      weekRange: "Weeks 12–13",
       description:
-        "Testing as Pune enterprise teams actually do it. xUnit for unit tests (the .NET community default), FluentAssertions for readable expectations, Moq for mocking dependencies, in-memory EF Core for repository tests, WebApplicationFactory for integration tests against ASP.NET Core, Testcontainers for tests against real SQL Server, plus Playwright .NET for end-to-end. CI/CD with Azure DevOps Pipelines (the dominant choice in Pune .NET enterprise) and GitHub Actions (the modern alternative) — building, testing, scanning, and deploying to Azure with proper environment promotion.",
+        "Build the API the rest of the course consumes, then secure it properly. HTTP methods, status codes, headers and JSON, then REST principles, DTOs, validation, pagination, filtering, sorting and versioning. Security in the same breath because bolting it on later is how vulnerabilities ship: authentication against authorisation, ASP.NET Core Identity, password hashing, roles, claims and policies, JWT with refresh tokens, OAuth 2.0 and OpenID Connect, CORS, CSRF and security headers — the filter pipeline understood rather than copied from a blog post that worked.",
       topics: [
-        "xUnit + FluentAssertions",
-        "Moq for mocking",
-        "In-memory EF Core for tests",
-        "WebApplicationFactory integration tests",
-        "Testcontainers for real SQL Server in tests",
-        "Playwright .NET for end-to-end",
-        "Azure DevOps Pipelines",
-        "GitHub Actions for .NET",
-        "Build, test, scan, deploy patterns",
+        "HTTP methods, status codes, headers, JSON",
+        "REST principles, DTOs, validation",
+        "Pagination, filtering, sorting, API versioning",
+        "Authentication vs authorisation",
+        "ASP.NET Core Identity and password hashing",
+        "Roles, claims and policy-based authorisation",
+        "JWT and refresh tokens",
+        "OAuth 2.0 and OpenID Connect",
+        "CORS, CSRF and security headers",
       ],
     },
     {
-      title: "Capstone Project & Interview Preparation",
-      weekRange: "Weeks 12–13 + 2 weeks placement prep",
+      title: "Frontend — Angular 19 + TypeScript",
+      weekRange: "Weeks 14–16",
       description:
-        "Two weeks of full-time capstone work plus structured interview preparation. Pick one of three capstone projects (see Capstone Projects). Mock interviews calibrated for Pune .NET enterprise hiring panels — Mercedes-Benz R&D, Cummins, John Deere ETC, Honeywell, Cognizant Pune Capital Markets, Bajaj Finserv, Synechron, Microsoft Pune. Includes a coding round (LINQ + EF Core + Web API), a design round (decompose a feature, choose between MVC and Web API, structure DbContext access), and a behavioural round. Resume / LinkedIn / GitHub polish included.",
+        "The full-stack half, placed here deliberately: you now have a real secured API to build against rather than a mock. HTML, CSS and JavaScript brought to a working level, then TypeScript, then Angular 19 — components, services, RxJS, dependency injection, routing and lazy loading, template-driven and reactive forms, HttpClient with a JWT interceptor and route guards, and NgRx for global state. Angular leads on this course because it is the dominant frontend in Pune enterprise and BFSI .NET teams, which is where most .NET hiring here happens. You build the frontend half of your capstone in this module rather than treating it as a demo.",
       topics: [
-        "Capstone implementation, deployment, README",
+        "HTML, CSS and modern JavaScript",
+        "TypeScript essentials",
+        "Angular 19 — components, services, modules",
+        "RxJS — Observables, operators, async pipe",
+        "Dependency injection, routing and lazy loading",
+        "Template-driven and reactive forms",
+        "HttpClient, JWT interceptors and route guards",
+        "NgRx for global state",
+        "Blazor United primer — the .NET-native full-stack option",
+      ],
+    },
+    {
+      title: "React Track (opt-in alternative to Angular)",
+      weekRange: "Weeks 14–16 alternate",
+      description:
+        "For students targeting Pune product companies and startups, where React is the default rather than Angular, the same three weeks run as a React track. React 19 with TypeScript — components, props, state, hooks, forms, routing, API integration and the JWT auth flow — built against the same ASP.NET Core backend, with identical project deliverables. Choose on your target employers rather than on preference: Angular for enterprise .NET and BFSI teams, React for product and startup hiring.",
+      topics: [
+        "React 19 — components, props, state, hooks",
+        "TypeScript with React",
+        "Forms and validation",
+        "Routing and navigation",
+        "State management",
+        "API integration with the ASP.NET Core backend",
+        "JWT auth flow front-to-back",
+      ],
+    },
+    {
+      title: "Testing and Dev Tools",
+      weekRange: "Week 17",
+      description:
+        "The gap that shows up fastest on a fresher resume. xUnit for unit tests with the NUnit differences covered, assertions, mocking, integration tests against a real database with Testcontainers rather than an in-memory substitute, REST testing with Postman, and Playwright for end-to-end. Alongside it the working practices: Git and GitHub, branching, pull requests, code review as something you both give and receive, and GitHub Actions. Your capstone ships with a test suite, because a repository without one reads as a tutorial follow-along.",
+      topics: [
+        "xUnit — structure, assertions, fixtures",
+        "NUnit concepts and differences",
+        "Mocking collaborators",
+        "Integration testing with Testcontainers",
+        "Postman and REST testing",
+        "Playwright for end-to-end tests",
+        "Git, GitHub, pull requests, code review",
+        "GitHub Actions basics",
+      ],
+    },
+    {
+      title: "Production Engineering",
+      weekRange: "Weeks 18–19",
+      description:
+        "The layer between \"it runs locally\" and a system that survives real traffic. Docker properly — Dockerfiles, images, containers, volumes, networks, Compose, environment variables and health checks. Redis for caching: cache-aside, TTL strategy, distributed caching, sessions, rate limiting and distributed locks. Messaging with RabbitMQ and Kafka — producers, consumers, topics, partitions, consumer groups, offsets, ordering and idempotency, the concept that decides whether a retry corrupts data. Closes with gRPC and Protocol Buffers for service-to-service calls.",
+      topics: [
+        "Docker — Dockerfile, images, volumes, networks, health checks",
+        "Docker Compose and environment configuration",
+        "Redis — cache-aside, TTL, distributed caching",
+        "Sessions, rate limiting, distributed locks",
+        "RabbitMQ and Kafka — producers, consumers, topics",
+        "Partitions, consumer groups, offsets, ordering",
+        "Idempotency and safe retries",
+        "gRPC and Protocol Buffers",
+      ],
+    },
+    {
+      title: "Microservices, Azure and DevOps",
+      weekRange: "Weeks 20–21",
+      description:
+        "Distributed systems the way Pune enterprise .NET teams actually build them — including the honest caveat that a modular monolith is often the better answer. Service boundaries, API Gateway, service discovery, REST and gRPC between services, resilience and circuit breakers, distributed transactions and the Saga pattern, event-driven architecture. Then Azure: App Service, Container Apps, Functions, Storage, Azure SQL and PostgreSQL, Key Vault, Service Bus, Container Registry and Entra ID. CI/CD with GitHub Actions, and observability through structured logging, metrics, tracing, health checks, OpenTelemetry and Application Insights.",
+      topics: [
+        "Service boundaries and the modular-monolith alternative",
+        "API Gateway, service discovery, REST and gRPC",
+        "Resilience, circuit breakers, retries",
+        "Distributed transactions and the Saga pattern",
+        "Azure App Service, Container Apps, Functions",
+        "Azure SQL, PostgreSQL, Storage, Key Vault, Service Bus",
+        "Entra ID and Container Registry",
+        "GitHub Actions CI/CD, secrets and environments",
+        "Observability — OpenTelemetry, Application Insights, Prometheus/Grafana concepts",
+      ],
+    },
+    {
+      title: "AI for .NET Developers",
+      weekRange: "Week 22",
+      highlight: true,
+      description:
+        "Building AI features in ASP.NET Core — a different skill from using an AI assistant to write code, and the one starting to separate candidates in 2026. Deliberately placed late, because the roadmap this follows is explicit that AI comes after solid engineering fundamentals. Start with LLM mechanics: tokens, context windows, prompts, system instructions, structured outputs, streaming, tool calling and model selection. Then the Microsoft AI stack specifically — Microsoft.Extensions.AI as the abstraction layer, Semantic Kernel, and Azure OpenAI. Then build the feature itself into a real API: chat with streaming, conversation history, structured output, tool calling, and the parts most tutorials skip — authentication, logging and rate limiting on an endpoint that costs money per call.",
+      topics: [
+        "LLM mechanics — tokens, context windows, prompts",
+        "System instructions and structured outputs",
+        "Streaming and function/tool calling",
+        "Model selection and cost trade-offs",
+        "Microsoft.Extensions.AI abstractions",
+        "Semantic Kernel",
+        "Azure OpenAI integration",
+        "Chat, streaming and conversation history in ASP.NET Core",
+        "Auth, logging and rate limiting on AI endpoints",
+      ],
+    },
+    {
+      title: "Embeddings, RAG, Agents and AI Safety",
+      weekRange: "Week 23",
+      highlight: true,
+      description:
+        "Grounding a model in your own data, then proving it worked. Embeddings and vector representation, cosine similarity and semantic search, with vector storage on PostgreSQL and pgvector or Azure AI Search. A full RAG pipeline built end to end: ingestion, parsing, chunking, embedding, retrieval, reranking, context construction, grounded answers and citations. Then tool calling against your own database, search, CRM and internal APIs, and agents with planning, memory, state, multi-step workflows and a human-in-the-loop step. Security and evaluation are taught here rather than separately, because prompt injection, tool authorisation, groundedness and token cost only mean anything against a pipeline you have actually built.",
+      topics: [
+        "Embeddings, cosine similarity, semantic search",
+        "Vector storage — PostgreSQL + pgvector, Azure AI Search",
+        "RAG — ingestion, parsing, chunking, retrieval, reranking",
+        "Context construction, grounded answers, citations",
+        "Tool calling — database, search, internal APIs",
+        "Agents — planning, memory, state, multi-step workflows",
+        "Human-in-the-loop approval",
+        "AI security — prompt injection, data leakage, tool authorisation",
+        "Evaluation — groundedness, hallucination, retrieval quality, cost",
+      ],
+    },
+    {
+      title: "Architecture and Design Principles",
+      weekRange: "Week 24",
+      description:
+        "The vocabulary senior interviews are conducted in. SOLID, DRY and KISS applied to code you have already written rather than to toy examples, then layered, Clean and Hexagonal architecture, the modular monolith, microservices and event-driven architecture as choices with trade-offs instead of a hierarchy. CQRS concepts and the Saga pattern revisited now that you have built distributed services. Closes on the properties that decide production outcomes — scalability, fault tolerance and load balancing — and on being able to defend an architectural decision rather than name-drop one.",
+      topics: [
+        "SOLID, DRY, KISS in practice",
+        "Layered, Clean and Hexagonal architecture",
+        "Modular monolith vs microservices",
+        "Event-driven architecture",
+        "CQRS concepts",
+        "Saga and distributed transactions revisited",
+        "Scalability, fault tolerance, load balancing",
+        "Defending an architectural decision in interview",
+      ],
+    },
+    {
+      title: "Capstone Project and Interview Preparation",
+      weekRange: "Weeks 25–26 (plus placement prep from Week 12)",
+      description:
+        "Full-time capstone work plus placement preparation. Mock technical interviews against question banks from Pune .NET employers — Cybage, Persistent Systems, Amdocs, Capgemini, Synechron, BMC Software and the BFSI captives. A DSA refresher targeting the patterns that screen candidates out, resume and LinkedIn rewrites, GitHub portfolio cleanup, and HR mock interviews including salary negotiation. Your capstone ships as a deployed ASP.NET Core and React or Angular application with a test suite and at least one AI-backed feature.",
+      topics: [
+        "Capstone — deployed full-stack build with an AI feature",
         "Code review with the lead trainer",
-        "Live-coding mock — LINQ + EF Core + API",
-        "Design mock — feature decomposition",
-        "Behavioural and product-thinking round",
-        "Resume + LinkedIn rewrite for .NET Full Stack JDs",
-        "GitHub portfolio polish — deployed apps with Azure / GitHub Actions badges",
+        "Technical mock interviews — 3 rounds",
+        "DSA refresher — the patterns that screen out",
+        "Resume and LinkedIn rewrite",
+        "GitHub portfolio polish",
         "HR mock interview and salary negotiation",
       ],
     },
     {
       title: "AI-Assisted Development Workflow",
-      weekRange: "Final Week",
-      highlight: true,
+      weekRange: "Woven throughout — dedicated sessions in Weeks 5, 13 and 21",
       description:
-        "The skill every 2026 hiring panel now probes for — building real work with AI in the loop, responsibly. Learn to drive AI assistants (GitHub Copilot, Claude, Cursor, and IDE-native AI) to scaffold and accelerate the tools and stack this course covers, generate tests, explain and refactor unfamiliar code, and cut the boilerplate — while keeping you firmly in control of every decision. Heavy focus on guardrails: reviewing each AI suggestion, spotting hallucinated APIs or wrong answers, and handling licensing and data-privacy concerns. Close with a mini-project that takes a deliverable end-to-end using an AI-assisted workflow, then fold the same tooling into version control and everyday team practice.",
+        "Using AI to build faster without losing control of what you ship. This runs alongside the curriculum rather than at the end, because it is a working practice rather than a topic — the guiding principle of the roadmap this course follows is that AI should accelerate .NET development, never replace C# and software-engineering fundamentals. You drive GitHub Copilot, Claude, Cursor and IDE-native assistants to scaffold, generate tests, explain unfamiliar code and cut boilerplate, with heavy emphasis on guardrails: reviewing every suggestion, spotting hallucinated APIs, and handling licensing and data privacy. The standard is the professional one — you must be able to explain, test, debug, secure and modify anything AI writes for you.",
       topics: [
         "AI assistants — GitHub Copilot, Claude, Cursor, IDE-native AI",
-        "Effective prompting for this course's stack — scaffolding, boilerplate, config",
+        "Effective prompting for C# and ASP.NET Core",
         "AI-assisted test generation and coverage",
-        "Explaining, refactoring, and modernising unfamiliar code with AI",
-        "AI-driven review, error detection, and quality checks",
-        "Generating and maintaining documentation with AI",
-        "AI debugging — interpreting errors, logs, and failing output",
-        "Guardrails — reviewing output, avoiding hallucinations, licensing & data privacy",
-        "Team workflow — AI in the editor, in reviews, and in delivery pipelines",
-        "Mini-project — a deliverable built end-to-end with an AI-assisted workflow",
+        "Explaining, refactoring and modernising unfamiliar code",
+        "AI debugging — interpreting errors, logs and failing output",
+        "Guardrails — hallucinated APIs, licensing, data privacy",
+        "Team workflow — AI in the editor, in reviews, in pipelines",
+        "The standard — explain, test, debug, secure, modify",
       ],
     },
   ],
@@ -351,7 +512,7 @@ export const dotnetFullStackTrainingInPune: CourseRichContent = {
 
   modesAndDuration: {
     duration:
-      "13 weeks of structured curriculum plus 2 weeks of capstone project and interview preparation (~3.5 months total). The original 6-month listing reflects the optional extended evening format with deeper Azure architecture work; both formats cover the core stack.",
+      "6 months of structured curriculum — 24 taught weeks running from programming fundamentals through architecture and design principles, plus 2 weeks of capstone project and interview preparation, 26 weeks in total.",
     classroom: {
       location: "Archer Infotech, Kothrud, Pune",
       timing: [
@@ -396,7 +557,7 @@ export const dotnetFullStackTrainingInPune: CourseRichContent = {
 
   placementSupport: {
     paragraphs: [
-      "Placement support starts from week 9 of the course, not at the end. By the time you finish the curriculum, your resume highlights real deployed .NET full-stack applications, your GitHub has at least two production-style repositories, and you have completed at least three mock technical interviews against question banks from Pune .NET enterprise hiring teams.",
+      "Placement support starts from week 12 of the course, not at the end. By the time you finish the curriculum, your resume highlights real deployed .NET full-stack applications, your GitHub has at least two production-style repositories, and you have completed at least three mock technical interviews against question banks from Pune .NET enterprise hiring teams.",
       "We say placement support, not placement guarantee — for two honest reasons. First, no institute can guarantee a hire when the final decision is the company's. Second, the institutes that do guarantee tend to bury the conditions in fine print. Our support is unconditional, time-bound (six months after course completion), and includes free re-entry to a future batch's interview-prep sessions if your first round of interviews does not land.",
     ],
     process: [
@@ -531,7 +692,7 @@ export const dotnetFullStackTrainingInPune: CourseRichContent = {
     {
       question: "How long does .NET Full Stack training in Pune take at Archer Infotech?",
       answer:
-        "Approximately 3.5 months — 13 weeks of structured curriculum plus 2 weeks of capstone and interview preparation. The original 6-month listing reflects an optional extended evening format. The weekend batch stretches over ~6 months at the same content depth, designed for working professionals.",
+        "Six months — 24 weeks of structured curriculum (programming fundamentals through C#, ASP.NET Core, React or Angular, Azure, AI integration and architecture) plus 2 weeks of capstone and interview preparation. Weekend batches stretch over 8–9 months at the same content depth, designed for working professionals.",
     },
     {
       question: "What is the salary of a .NET Full Stack Developer in Pune?",
@@ -546,7 +707,7 @@ export const dotnetFullStackTrainingInPune: CourseRichContent = {
     {
       question: "Do I need C# experience to join the course?",
       answer:
-        "No — week 1 covers C# 13 from first principles. What we expect is at least basic programming background in any language (C, C++, Java, Python, JavaScript). If you have done our Java or C++ course (or equivalent self-study), you are ready.",
+        "No, and you no longer need prior programming experience either. Week 1 is programming fundamentals — algorithms, variables, conditions, loops, functions, debugging and complexity — before any C# syntax appears in week 2. If you already program in C, C++, Java, Python or JavaScript you can join from week 3 after an assessment, with a fee adjustment.",
     },
     {
       question: ".NET or Java Full Stack — which should I pick in Pune?",
@@ -566,7 +727,7 @@ export const dotnetFullStackTrainingInPune: CourseRichContent = {
     {
       question: "Is Blazor covered?",
       answer:
-        "Yes — week 8 includes a Blazor United primer (server + WebAssembly + auto interactivity in a single project, the .NET 8 / 9 model that has eliminated the awkward Server-vs-WebAssembly choice). Capstone Project #3 is a complete Blazor United internal tool. Blazor adoption is growing in Pune internal-tool work; we cover it deeply enough that you can interview for Blazor roles.",
+        "Yes — the frontend module in weeks 14–16 includes a Blazor United primer (server + WebAssembly + auto interactivity in a single project, the .NET 8 / 9 model that removed the awkward Server-vs-WebAssembly choice), taught alongside the Angular or React track rather than instead of it. Capstone Project #3 is a complete Blazor United internal tool. Blazor adoption is growing in Pune internal-tool work; we cover it deeply enough that you can interview for Blazor roles.",
     },
     {
       question: "Are weekend .NET classes available in Pune?",
@@ -581,7 +742,7 @@ export const dotnetFullStackTrainingInPune: CourseRichContent = {
     {
       question: "Does the course prepare me for Azure certifications?",
       answer:
-        "Indirectly — the Azure App Service / Container Apps / AKS hands-on covered in weeks 10–11 maps to a meaningful subset of the AZ-204 (Azure Developer Associate) exam. We do not run a dedicated AZ-204 mock-exam track inside this course (we have a separate Azure track for that), but graduates typically take AZ-204 within 6–12 weeks after course end and pass first time.",
+        "Indirectly — the Azure App Service / Container Apps hands-on covered in weeks 20–21 maps to a meaningful subset of the AZ-204 (Azure Developer Associate) exam. We do not run a dedicated AZ-204 mock-exam track inside this course (we have a separate Azure track for that), but graduates typically take AZ-204 within 6–12 weeks after course end and pass first time.",
     },
     {
       question: "What support do I get after course completion?",

@@ -99,6 +99,15 @@ const legacyWpRedirects: LegacyRedirect[] = [
   { from: "/best-power-bi-training-in-pune", to: "/courses/data-ai/data-analytics-training-in-pune" },
   { from: "/best-android-training-in-pune", to: "/courses/mobile-app-development/android-development-training-in-pune" },
   { from: "/best-mern-stack-training-classes-in-pune", to: "/courses/full-stack-development/mern-stack-training-in-pune" },
+  // MEAN, not MERN — the WordPress site had a page for it and Google still
+  // requests the URL (GSC "Not found (404)", last crawled 2026-05-14). Points
+  // at the full-stack category rather than the MERN course on purpose: MEAN is
+  // MongoDB/Express/ANGULAR/Node, MERN swaps Angular for React, and Archer
+  // teaches Angular and MERN as separate tracks. Sending someone who searched
+  // for an Angular-based stack straight to a React course is a content
+  // mismatch Google can read as a soft 404; the category page lists both and
+  // lets them choose.
+  { from: "/best-mean-stack-training-classes-in-pune", to: "/courses/full-stack-development" },
   { from: "/best-spring-hibernate-training-classes-in-pune", to: "/courses/programming/spring-boot-microservices-training-in-pune" },
   { from: "/full-stack-dot-net-developer-course-in-pune", to: "/courses/full-stack-development/dotnet-full-stack-training-in-pune" },
   { from: "/best-sql-training-classes-in-pune", to: "/courses/database-technologies/mysql-training-in-pune" },
