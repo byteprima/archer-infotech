@@ -537,7 +537,7 @@ export const dotnetFullStackTrainingInPune: CourseRichContent = {
     weekend: {
       timing: ["Saturday + Sunday, 09:00 to 13:00"],
       durationNote:
-        "Stretches over ~6 months instead of 3.5 to accommodate working professionals. Same content, lower weekly load.",
+        "Stretches over 8–9 months instead of 6 to accommodate working professionals. Same content, lower weekly load.",
     },
     batchPolicy:
       "Maximum 15 students per batch — small enough that the trainer reviews every student's PR personally. Classroom batches start every 6 weeks; weekend batches every 8 weeks.",
@@ -683,76 +683,157 @@ export const dotnetFullStackTrainingInPune: CourseRichContent = {
     ],
   },
 
+  /**
+   * FAQs — expanded and extended 2026-08-18, matching the treatment applied
+   * to the Java Full Stack course.
+   *
+   * Rendered through the shared <FaqSection> (the course template was
+   * switched over on 2026-08-17), so each question is a real <h3> with its
+   * answer as the immediate next sibling and the direct answer sentence
+   * always visible.
+   *
+   * One answer was stale after the curriculum restructure and is corrected
+   * here: weekend batches ran "~6 months instead of 3.5" when the weekday
+   * course itself was 3.5 months. The weekday course is 6 months, so weekend
+   * batches are 8-9.
+   *
+   * The last eleven questions cover the syllabus this course gained in the
+   * .NET + AI Roadmap 2026 restructure, which previously had no FAQ coverage
+   * at all — the AI layer, testing, production engineering, the runtime and
+   * async model, security depth, architecture, and what is deliberately no
+   * longer taught.
+   */
   faqs: [
     {
       question: "Which is the best .NET Full Stack training institute in Pune?",
       answer:
-        "We can't honestly answer 'best' for ourselves. The test that works: ask any institute you are considering to (1) name the trainer who will teach your batch and show their LinkedIn, (2) show real student GitHub repositories with deployed .NET apps and Azure / CI/CD badges, and (3) name companies that hired their last 5 batches. Compare on those three.",
+        "We can't honestly answer 'best' for ourselves, and you should distrust any institute that does. The test that works: ask anyone you are considering to (1) name the trainer who will teach your batch and show their LinkedIn, (2) show real student GitHub repositories with deployed .NET apps carrying Azure and CI/CD badges, and (3) name the companies that hired their last five batches. Compare on those three answers. Most places fail the first one — the demo is taken by a senior trainer and the batch is handed to someone else in week two. Our batches are capped at 15 students, which is what makes a named trainer economically possible in the first place.",
     },
     {
       question: "How long does .NET Full Stack training in Pune take at Archer Infotech?",
       answer:
-        "Six months — 24 weeks of structured curriculum (programming fundamentals through C#, ASP.NET Core, React or Angular, Azure, AI integration and architecture) plus 2 weeks of capstone and interview preparation. Weekend batches stretch over 8–9 months at the same content depth, designed for working professionals.",
+        "Six months — 24 weeks of structured curriculum plus 2 weeks of capstone and interview preparation, 26 weeks in total. The sequence runs from programming fundamentals and the .NET platform through C# and OOP, modern C#, collections and LINQ, the runtime and async model, SQL and EF Core, dependency injection and ASP.NET Core, REST APIs and security, Angular or React, testing, production engineering, microservices and Azure, AI integration, and finally architecture. Weekend batches cover identical content at a lower weekly load and stretch over 8–9 months, which is what most working professionals from Hinjewadi, Kharadi and Magarpatta take.",
     },
     {
       question: "What is the salary of a .NET Full Stack Developer in Pune?",
       answer:
-        "Indeed Pune reports an average of ₹7.18 lakh per year for .NET Developer (May 2026). Junior .NET Developer Pune entry sits at ₹3.5–6.5 lakh per year per AmbitionBox. Mid-level .NET Full Stack Developers (3–5 years) earn ₹10–17 lakh per Glassdoor. Senior .NET Full Stack Developers (5–8 years) earn ₹16–26 lakh. .NET Tech Leads / Architects earn ₹24–42 lakh nationally with Pune trending within ±10%.",
+        "Indeed Pune reports an average of ₹7.18 lakh per year for .NET Developer (May 2026). Junior .NET Developer entry sits at ₹3.5–6.5 lakh per AmbitionBox. Mid-level .NET Full Stack Developers at 3–5 years earn ₹10–17 lakh per Glassdoor, seniors at 5–8 years earn ₹16–26 lakh, and .NET Tech Leads or Architects earn ₹24–42 lakh nationally with Pune trending within ±10%. The band you land in depends far more on whether you can discuss EF Core query performance, DI lifetimes and an Azure deployment you actually built than on years served. Captive R&D centres and BFSI pay a small premium over IT services at the same experience.",
     },
     {
       question: "What is the fee for the .NET Full Stack course in Pune?",
       answer:
-        "Course fees range from ₹20,000 to ₹90,000 depending on mode (classroom / online / weekend), batch type, and applicable concession. The higher end covers placement-track classroom batches with full microservices / Blazor United modules and extended interview prep; the lower end covers concession-eligible online or weekend formats. Azure sandbox spend across the course runs ₹500–₹1,000 (paid directly by the student).",
+        "Course fees range from ₹20,000 to ₹90,000 depending on mode (classroom, online or weekend), batch type and any applicable concession. The higher end covers placement-track classroom batches at our Kothrud centre with the full microservices, Azure and AI modules plus extended interview preparation; the lower end covers concession-eligible online or weekend formats. Azure sandbox spend across the course runs ₹500–₹1,000 and is paid by the student directly — the Azure free tier covers most of it. EMI across 2–3 instalments is available at no extra cost, and fees are confirmed in writing before you enrol, never revised mid-course.",
     },
     {
       question: "Do I need C# experience to join the course?",
       answer:
-        "No, and you no longer need prior programming experience either. Week 1 is programming fundamentals — algorithms, variables, conditions, loops, functions, debugging and complexity — before any C# syntax appears in week 2. If you already program in C, C++, Java, Python or JavaScript you can join from week 3 after an assessment, with a fee adjustment.",
+        "No, and you no longer need prior programming experience either — this changed with the 2026 curriculum. Week 1 is programming fundamentals: algorithms, variables, conditions, loops, functions, debugging and complexity, before any C# syntax appears. Week 2 is the .NET platform itself — SDK against runtime, CLR, IL, JIT and the dotnet CLI. C# and OOP start in week 3. If you already program in C, C++, Java, Python or JavaScript, sit the assessment and join from week 3 with a fee adjustment; most self-taught applicants are fluent in syntax and weak on OOP boundaries and collection choice, which is exactly what interviews test.",
     },
     {
       question: ".NET or Java Full Stack — which should I pick in Pune?",
       answer:
-        ".NET if your goal is Pune captives (Mercedes-Benz, Cummins, John Deere, Honeywell), Cognizant Pune Capital Markets, BFSI .NET, or Microsoft Pune. Java if your goal is the IT services majors (TCS / Infosys / Wipro / Cognizant), Pune product engineering, or broader market reach. Java Pune market is roughly 1.4× .NET in raw openings; both pay similarly at equivalent experience.",
+        "Pick .NET if you are targeting Pune captive R&D centres — Mercedes-Benz, Cummins, John Deere, Honeywell — plus Cognizant Pune Capital Markets, BFSI .NET teams and Microsoft's own Pune teams. Pick Java if you are targeting the IT services majors, Pune product engineering or the widest possible reach. The Java market in Pune is roughly 1.4× .NET in raw openings, but .NET roles are concentrated in fewer, larger, more stable employers, and they pay similarly at equivalent experience. If you have no strong preference, the deciding question is usually which shortlist you can realistically reach — commute and referral network matter more than framework at fresher level.",
     },
     {
       question: "Will I work on real projects?",
       answer:
-        "Yes — three capstone projects: (1) enterprise full-stack app with ASP.NET Core API + Angular + SQL Server deployed to Azure, (2) microservices on Azure Container Apps with Service Bus + YARP + Polly, (3) Blazor United internal tool with Azure AD login. All three become public GitHub repositories with passing CI/CD badges and clickable demo URLs.",
+        "Yes — three capstone projects, each a public GitHub repository with passing CI/CD badges and a clickable demo URL. An enterprise full-stack application with an ASP.NET Core API, Angular and SQL Server deployed to Azure; a microservices system on Azure Container Apps with Service Bus, YARP and Polly; and a Blazor United internal tool with Entra ID login. From the 2026 curriculum your capstone also ships with a test suite and at least one AI-backed feature, because an untested repository reads as a tutorial follow-along to anyone reviewing it, and an AI feature is currently the fastest way to stand out in a stack of .NET resumes.",
     },
     {
       question: "Does the course cover Angular or React?",
       answer:
-        "Both — Angular as the primary frontend (dominant in Pune .NET enterprise hiring) is taught deeply, with React as a parallel path for students targeting Pune SaaS / fintech .NET shops. Capstone Project #1 uses Angular; you can swap to React if your target market calls for it.",
+        "Both, with Angular as the primary track. Angular 19 is taught deeply across weeks 14–16 — components, services, RxJS, dependency injection, routing and lazy loading, reactive forms, HttpClient with JWT interceptors and route guards, and NgRx for global state — because Angular is the dominant frontend in Pune enterprise and BFSI .NET hiring. React 19 runs as a full opt-in alternative in the same weeks with identical project deliverables, for students targeting Pune SaaS and fintech shops where React is the default. Choose on your target employers rather than on preference.",
     },
     {
       question: "Is Blazor covered?",
       answer:
-        "Yes — the frontend module in weeks 14–16 includes a Blazor United primer (server + WebAssembly + auto interactivity in a single project, the .NET 8 / 9 model that removed the awkward Server-vs-WebAssembly choice), taught alongside the Angular or React track rather than instead of it. Capstone Project #3 is a complete Blazor United internal tool. Blazor adoption is growing in Pune internal-tool work; we cover it deeply enough that you can interview for Blazor roles.",
+        "Yes — the frontend module in weeks 14–16 includes a Blazor United primer (server plus WebAssembly plus auto interactivity in a single project, the .NET 8 and 9 model that removed the awkward Server-versus-WebAssembly choice), taught alongside the Angular or React track rather than instead of it. Capstone Project #3 is a complete Blazor United internal tool with Entra ID login. Blazor adoption is growing in Pune internal-tool and line-of-business work, and we cover it deeply enough that you can interview for Blazor roles — but it is a complement to a mainstream frontend framework on your resume, not a replacement for one.",
     },
     {
       question: "Are weekend .NET classes available in Pune?",
       answer:
-        "Yes — Saturday and Sunday, 09:00–13:00, stretched over ~6 months instead of 3.5. Same content, same trainer, same projects. Designed for working professionals who cannot attend weekday batches.",
+        "Yes — Saturday and Sunday, 09:00 to 13:00, stretched over 8–9 months instead of 6. Same syllabus, same trainer, same projects and the same placement support; only the weekly load differs. Weekend batches are the format most working professionals choose, particularly those commuting from Hinjewadi, Wakad, Kharadi and Pimpri-Chinchwad where a weekday evening trip to Kothrud is not realistic. Live online is the other option for that group, and many students combine the two — online through the week, classroom on Saturday for the lab-heavy Azure and microservices sessions.",
     },
     {
       question: "Can I switch from .NET Framework 4.x to .NET 9 via this course?",
       answer:
-        "Yes — and we have a sizable cohort doing exactly this. Working .NET Framework developers transitioning into modern .NET 8 / 9 typically slot in well; the C# language layer translates directly, and the course ramps you onto the modern hosting model, dependency injection, configuration, and Minimal APIs that have replaced the .NET Framework conventions. We adjust capstone scope for migration-path students to highlight your existing strengths.",
+        "Yes, and there is a sizable cohort doing exactly this. Working .NET Framework developers slot in well: the C# language layer translates directly, so the real work is the modern hosting model, dependency injection, configuration, Minimal APIs and the async model that replaced the .NET Framework conventions. We adjust capstone scope for migration-path students so the project highlights your existing domain strength rather than pretending you are a fresher. The parts that most often catch experienced Framework developers are DI lifetimes, the middleware pipeline, and EF Core's tracking behaviour — all covered explicitly rather than assumed.",
     },
     {
       question: "Does the course prepare me for Azure certifications?",
       answer:
-        "Indirectly — the Azure App Service / Container Apps hands-on covered in weeks 20–21 maps to a meaningful subset of the AZ-204 (Azure Developer Associate) exam. We do not run a dedicated AZ-204 mock-exam track inside this course (we have a separate Azure track for that), but graduates typically take AZ-204 within 6–12 weeks after course end and pass first time.",
+        "Indirectly. The Azure App Service, Container Apps, Functions, Key Vault and Service Bus hands-on in weeks 20–21 maps to a meaningful subset of AZ-204 (Azure Developer Associate). We do not run a dedicated AZ-204 mock-exam track inside this course — there is a separate Azure track for that — but graduates typically sit AZ-204 within 6 to 12 weeks of finishing and pass first time. The practical point for hiring is that a deployed Azure application in your GitHub carries more weight in a Pune .NET interview than the certificate does; the certificate helps most when it is paired with one.",
     },
     {
       question: "What support do I get after course completion?",
       answer:
-        "Six months of active placement support — mock interviews calibrated for .NET Full Stack roles (live-coding + .NET conceptual + design rounds), referrals via our alumni network at 12+ partner companies (with extra emphasis on Pune captives and BFSI), resume / LinkedIn / GitHub rewrites, and salary negotiation coaching. If your first round of interviews does not land, you can sit in on a future batch's interview-prep sessions free of charge.",
+        "Six months of active placement support: mock interviews calibrated for .NET Full Stack roles across live-coding, .NET conceptual and design rounds, referrals through our alumni network at partner companies with extra emphasis on Pune captives and BFSI, resume, LinkedIn and GitHub rewrites, and salary negotiation coaching. Support starts at week 12 of the course rather than at the end, so by the time you finish, your resume is written and you have completed at least three mock technical interviews. If your first round of interviews does not land, you can sit in on a future batch's interview-preparation sessions free of charge.",
     },
     {
       question: "Is the named trainer actually teaching, or are they just on the brochure?",
       answer:
-        "Suraj Kudache personally leads every session of every batch from Day 1 through capstone — he ships .NET for a living at Capgemini and brings real production patterns into the classroom. The same name on this page is the same person you meet on day one; his LinkedIn is on the trainer profile page, and we welcome a 30-minute conversation with him before you enrol.",
+        "Suraj Kudache personally leads every session of every batch from day one through capstone — he ships .NET for a living at Capgemini and brings production patterns into the classroom rather than textbook examples. The name on this page is the person you meet on day one. His LinkedIn is on the trainer profile page, and we will arrange a 30-minute conversation with him before you enrol. Batches are capped at 15 students, which is what makes a single named trainer sustainable; a 40-seat batch cannot be taught this way at any honest price.",
+    },
+
+    {
+      question: "Does the .NET Full Stack course cover AI and Semantic Kernel?",
+      answer:
+        "Yes — weeks 22 and 23 are a full module on building AI features in ASP.NET Core, and it is the part of this syllabus most Pune .NET courses do not have. Week 22 covers LLM mechanics (tokens, context windows, prompts, system instructions, structured outputs, streaming, tool calling, model selection) and then the Microsoft AI stack specifically: Microsoft.Extensions.AI as the abstraction layer, Semantic Kernel, and Azure OpenAI. You then build the feature into a real API — chat with streaming, conversation history, structured output and tool calling, plus authentication, logging and rate limiting on an endpoint that costs money per call.",
+    },
+    {
+      question: "What is Microsoft.Extensions.AI and why does the course teach it?",
+      answer:
+        "Microsoft.Extensions.AI is the abstraction layer Microsoft shipped so .NET code can talk to different AI providers through one set of interfaces, in the same way Microsoft.Extensions.Logging abstracts logging providers. It matters commercially because it is the difference between an AI feature wired directly to one vendor's SDK and one you can move, test and mock. We teach it before Semantic Kernel and Azure OpenAI for the same reason we teach dependency injection before ASP.NET Core — the abstraction is what makes the concrete thing explicable, and it is what a reviewer will ask about.",
+    },
+    {
+      question: "Is RAG and vector search included in the .NET syllabus?",
+      answer:
+        "Yes — week 23 builds a RAG pipeline end to end rather than describing one. Embeddings and vector representation, cosine similarity and semantic search, vector storage on PostgreSQL with pgvector or on Azure AI Search, then ingestion, parsing, chunking, retrieval, reranking, context construction, grounded answers and citations. It continues into tool calling against your own database, search and internal APIs, and agents with planning, memory, state, multi-step workflows and a human-in-the-loop approval step. AI security and evaluation are taught in the same module, against the pipeline you just built rather than in the abstract.",
+    },
+    {
+      question: "What is the difference between AI-assisted coding and building AI features in .NET?",
+      answer:
+        "They are two different skills and this course teaches both. AI-assisted coding is using GitHub Copilot, Claude or Cursor to scaffold, generate tests and refactor faster — a working practice, so it runs woven through the course with dedicated sessions in weeks 5, 13 and 21. Building AI features in .NET is engineering: calling models from an ASP.NET Core service, storing embeddings, retrieving context, grounding an answer, authorising which tools the model may call, and evaluating whether the output was correct. Most candidates in 2026 can do the first. Very few can do the second, which is where interviews are starting to separate.",
+    },
+    {
+      question: "Which testing tools does the .NET course teach?",
+      answer:
+        "xUnit as the primary framework with NUnit differences covered, assertions and fixtures, mocking of collaborators, integration testing with Testcontainers against a real database rather than an in-memory substitute, Postman for REST testing, and Playwright for end-to-end. Testing sits in week 17 alongside Git, pull requests, code review and GitHub Actions, and it is not optional — your capstone ships with a test suite. This matters commercially: testing is the most common gap on fresher .NET resumes in Pune, and a repository whose tests explain what the code is supposed to do is the fastest way to look experienced in a review.",
+    },
+    {
+      question: "Do you cover Kafka, Redis and gRPC in the .NET course?",
+      answer:
+        "Yes — weeks 18 and 19 are a production engineering module. Docker with Dockerfiles, volumes, networks, Compose and health checks. Redis for caching: cache-aside, TTL strategy, distributed caching, sessions, rate limiting and distributed locks. Messaging with RabbitMQ and Kafka — producers, consumers, topics, partitions, consumer groups, offsets, ordering and idempotency, the concept that decides whether a retry corrupts data. Then gRPC with Protocol Buffers, unary and streaming calls and service contracts, which is how Pune .NET microservices usually talk to each other rather than over REST.",
+    },
+    {
+      question: "Does the course cover the .NET runtime, garbage collection and async?",
+      answer:
+        "Yes — week 7 covers exceptions and custom exception types, then the runtime itself: stack against heap, garbage collection and its generations, IDisposable and using, IAsyncDisposable, resource lifetime, and how memory leaks still happen in a managed runtime. The async half covers Task and Task-of-T, async/await, CancellationToken, WhenAll and WhenAny, the thread pool, locks, concurrent collections, Channels, background services and async streams with IAsyncEnumerable. These are frequent interview topics at Pune product and captive employers and a common gap for developers who learned .NET from tutorials rather than from production.",
+    },
+    {
+      question: "What security topics does the ASP.NET Core part of the course cover?",
+      answer:
+        "Authentication against authorisation, ASP.NET Core Identity, password hashing, roles, claims and policy-based authorisation, JWT with refresh tokens, OAuth 2.0 and OpenID Connect, CORS, CSRF and security headers. It sits in weeks 12 and 13 alongside REST API design, deliberately, because bolting security on after the API exists is how vulnerabilities ship. Identity is the module most students find hardest and most interviewers ask about, largely because the common learning path is pasting a configuration that works and never learning why — so we build the pipeline up rather than starting from a working template.",
+    },
+    {
+      question: "Is software architecture taught, or just frameworks?",
+      answer:
+        "Week 24 is a dedicated architecture module, and it is deliberately placed after you have built distributed services rather than before. SOLID, DRY and KISS applied to code you have already written, then layered, Clean and Hexagonal architecture, the modular monolith, microservices and event-driven architecture presented as choices with trade-offs instead of a hierarchy. CQRS concepts and the Saga pattern revisited with real context. It closes on scalability, fault tolerance and load balancing, and on being able to defend an architectural decision in an interview rather than name-drop one — which is what actually separates senior candidates.",
+    },
+    {
+      question: "Do you still teach ASP.NET Web Forms or .NET Framework?",
+      answer:
+        "No, not as core content. ASP.NET Web Forms, .NET Framework-first development and legacy MVC patterns without current relevance are deliberately out of the main syllabus. They consume weeks better spent on ASP.NET Core, testing, Azure and AI integration, and they no longer appear in the Pune job descriptions this course targets — most Pune teams migrated off .NET Framework and .NET Core 3.1 years ago. Some institutes still teach a Web Forms curriculum because the material is old and cheap to deliver. If a specific maintenance project or employer requires it, we cover it on request, which is the right time to learn legacy technology.",
+    },
+    {
+      question: "Which Azure services does the course actually use?",
+      answer:
+        "App Service and Container Apps for hosting, Functions for event-driven work, Azure SQL and PostgreSQL for data, Storage, Key Vault for secrets, Service Bus for messaging, Container Registry for images, Entra ID for identity, and Monitor with Application Insights for observability. Weeks 20 and 21 deploy real services onto them rather than watching a walkthrough, with GitHub Actions handling build, test, containerise and deploy plus secrets and environment management. Azure sandbox spend across the course runs ₹500–₹1,000 and the free tier covers most of it.",
+    },
+    {
+      question: "Which companies in Pune hire .NET Full Stack developers?",
+      answer:
+        "Mercedes-Benz R&D India, Cummins, John Deere ETC, Honeywell, Cognizant Pune Capital Markets, Bajaj Finserv, Synechron, Microsoft's Pune teams, Cybage, Persistent Systems, Amdocs, Capgemini, TCS and Infosys, plus a long tail of BFSI and manufacturing captives. Indeed Pune listed more than 1,100 active .NET, C# and ASP.NET Core roles as of May 2026. The captives hire in smaller numbers and interview hard on C# internals, EF Core performance and design; the services firms hire in volume and weight DSA screening more heavily. Our interview preparation splits along that line rather than treating all employers the same.",
     },
   ],
 
