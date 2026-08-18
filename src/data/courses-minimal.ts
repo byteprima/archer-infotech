@@ -124,6 +124,13 @@ export interface CourseSummary {
   level: "Beginner" | "Intermediate" | "Advanced" | "All Levels";
   mode: ("Online" | "Offline")[];
   image: string;
+  /**
+   * Tile artwork for the /courses grid. When present, <CourseImagePlaceholder>
+   * renders it instead of the generated gradient. Mirrors `tileImage` on the
+   * full Course type in courses.ts — this file is a hand-maintained slim copy
+   * that ships to the client, so both have to be kept in step.
+   */
+  tileImage?: string;
   isFeatured?: boolean;
   isPopular?: boolean;
 }
@@ -183,7 +190,8 @@ export const coursesSummary: CourseSummary[] = [
     duration: "1.5 Months",
     level: "Beginner",
     mode: ["Online", "Offline"],
-    image: "/images/courses/cpp.jpg",
+    image: "/images/courses/c-programming-v1.webp",
+    tileImage: "/images/courses/c-programming-v1.webp",
   },
   {
     id: "cpp",
@@ -196,7 +204,8 @@ export const coursesSummary: CourseSummary[] = [
     duration: "2 Months",
     level: "Beginner",
     mode: ["Online", "Offline"],
-    image: "/images/courses/cpp.jpg",
+    image: "/images/courses/cpp-programming-v1.webp",
+    tileImage: "/images/courses/cpp-programming-v1.webp",
   },
   {
     id: "dotnet-csharp",

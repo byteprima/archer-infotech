@@ -37,6 +37,36 @@ export function CourseImagePlaceholder({ course }: { course: Course }) {
   const category = categories.find((item) => item.slug === course.categorySlug);
   const Icon = iconMap[category?.icon ?? "Code"] ?? Code;
 
+  // Real tile artwork when the course has it; the generated gradient below
+  // stays as the fallback for courses that do not, so the set can roll out
+  // course by course without the grid looking half-finished.
+  //
+  // Plain <img> in a <picture> rather than next/image: these are static,
+  // already-optimised assets in /public (6-7 KB WebP), so the optimiser adds
+  // a round trip for no gain. object-cover because the tile is 294px wide on
+  // desktop and 358px on mobile against a fixed 160px height — the art is
+  // drawn at 1.84:1 (the narrowest tile aspect) with a safe margin, so the
+  // Archer lockup survives the crop at both widths.
+  if (course.tileImage) {
+    return (
+      <picture>
+        <source
+          srcSet={course.tileImage.replace(/\.webp$/, ".avif")}
+          type="image/avif"
+        />
+        <img
+          src={course.tileImage}
+          alt={`${course.title} course at Archer Infotech, Pune`}
+          width={880}
+          height={478}
+          loading="lazy"
+          decoding="async"
+          className="h-full w-full object-cover"
+        />
+      </picture>
+    );
+  }
+
   return (
     <div className="relative h-full overflow-hidden bg-gradient-to-br from-primary/12 via-primary/6 to-background">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(217,119,6,0.18),transparent_30%),radial-gradient(circle_at_bottom_left,rgba(13,148,136,0.16),transparent_32%)]" />

@@ -278,30 +278,6 @@ export default async function CoursePage({ params }: CoursePageProps) {
             Back to {category.name}
           </Link>
 
-          {/* Course tile artwork. Rendered only where `tileImage` is set, so
-              courses without artwork are unaffected while the set rolls out.
-              Plain <img> in a <picture> rather than next/image: these are
-              static, already-optimised assets in /public (7-10 KB WebP), so
-              the optimiser would add a round trip for no gain.
-              Explicit dimensions and eager decoding — this sits in the hero,
-              above the fold, so it must not shift layout. */}
-          {course.tileImage && (
-            <picture>
-              <source
-                srcSet={course.tileImage.replace(/\.webp$/, ".avif")}
-                type="image/avif"
-              />
-              <img
-                src={course.tileImage}
-                alt={`${course.title} course at Archer Infotech, Pune`}
-                width={880}
-                height={400}
-                decoding="async"
-                className="mb-6 w-full max-w-md h-auto rounded-xl border border-white/15 shadow-lg"
-              />
-            </picture>
-          )}
-
           <div className="grid lg:grid-cols-3 gap-8 items-start">
             <div className="lg:col-span-2">
               <div className="flex flex-wrap gap-2 mb-4">
