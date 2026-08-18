@@ -672,7 +672,7 @@ export const dotnetFullStackTrainingInPune: CourseRichContent = {
 
   prerequisitesAndStart: {
     paragraphs: [
-      "Prerequisites: at least basic programming background in any language (C, C++, Java, Python, JavaScript), basic understanding of OOP concepts, and willingness to commit 10–12 hours per week of practice outside class. We expect basic programming fluency on day 1; we do not start from 'what is a variable'. If you have done our Java or C++ course (or equivalent self-study), you are ready. Pure non-programmers should do a foundation course first.",
+      "Prerequisites: none beyond basic computer skills, logical aptitude, and the willingness to commit 10–12 hours per week of practice outside class. This changed with the 2026 curriculum — week 1 is now programming fundamentals and week 2 is the .NET platform, so the course genuinely starts from 'what is a variable' rather than assuming it. If you already program in C, C++, Java, Python or JavaScript, sit the assessment and join from week 3 with a fee adjustment; most self-taught applicants are fluent in syntax and weak on OOP boundaries and collection choice, which is exactly what interviews test.",
     ],
     suggestedSteps: [
       "Decide your mode — classroom in Kothrud, online live, or weekend",
