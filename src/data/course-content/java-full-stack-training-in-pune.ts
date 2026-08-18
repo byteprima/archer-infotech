@@ -335,15 +335,30 @@ export const javaFullStackTrainingInPune: CourseRichContent = {
     },
   ],
 
+  /**
+   * v2, 2026-08-18. v1 was a hand-designed 864x1821 portrait diagram. At
+   * 390px its text was unreadable, so the caption had to send readers to a
+   * full-size file just to make it legible — the image was decoration on the
+   * device most visitors use.
+   *
+   * v2 is generated from the source markdown (so it cannot drift from the
+   * syllabus) and laid out 4x3 landscape at 1680x1144, matching the .NET
+   * diagram. Structure and phase colours survive at phone width; the
+   * full-size link is now for detail rather than for basic legibility.
+   *
+   * v1 files are kept in public/images/courses/ — /images is served immutable
+   * for a year, so the version suffix is what makes the swap visible at all,
+   * and it makes reverting a one-line change.
+   */
   roadmapImage: {
-    src: "/images/courses/java-ai-roadmap-2026-v1.webp",
-    width: 864,
-    height: 1821,
+    src: "/images/courses/java-ai-roadmap-2026-v2.webp",
+    width: 1680,
+    height: 1144,
     alt:
-      "Java + AI Roadmap 2026 — a 30-step visual learning path from programming fundamentals through core Java, JVM and concurrency, SQL and JDBC, Spring Boot and REST APIs, security, testing, Docker, Redis, Kafka, microservices, cloud and CI/CD, ending in LLM APIs, Spring AI, embeddings and vector databases, RAG and AI agents.",
+      "Java + AI Roadmap 2026 — a 12-level visual learning path from programming fundamentals and the Java platform through OOP and modern Java, exceptions and collections, JVM memory and concurrency, I/O tools and databases, Spring and Spring Boot, REST APIs and persistence, security and testing, production engineering with Docker, Redis and Kafka, microservices, cloud and DevOps, ending in AI for Java developers with Spring AI, embeddings, RAG on PostgreSQL with pgvector, agents and AI evaluation.",
     caption:
       "The full progression at a glance. Every step is covered in the module list below —",
-    fullSizeHref: "/images/courses/java-ai-roadmap-2026-v1.png",
+    fullSizeHref: "/images/courses/java-ai-roadmap-2026-v2.png",
   },
 
   syllabusDownload: {
