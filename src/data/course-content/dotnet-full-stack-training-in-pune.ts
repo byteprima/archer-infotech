@@ -386,16 +386,34 @@ export const dotnetFullStackTrainingInPune: CourseRichContent = {
   ],
 
   /**
+   * Visual roadmap, generated 2026-08-18 from the source markdown rather than
+   * hand-designed, so it cannot drift from the syllabus it summarises.
+   *
+   * Laid out 4x4 and landscape (1680x1317, aspect 1.28) rather than following
+   * the Java diagram's tall 864x1821 portrait shape. That one is unreadable
+   * at 390px and needs a "full-size version" escape hatch in its caption;
+   * this one holds up scaled into a phone-width column.
+   *
+   * A SUMMARY, NOT THE SOURCE OF TRUTH. Every word inside this image is
+   * invisible to crawlers and AI engines, so the curriculum array above
+   * carries the same information as text and is the thing that must stay
+   * correct. If you add a topic here, add it there.
+   */
+  roadmapImage: {
+    src: "/images/courses/dotnet-ai-roadmap-2026-v1.webp",
+    width: 1680,
+    height: 1317,
+    alt:
+      ".NET + AI Roadmap 2026 — a 16-level visual learning path from programming fundamentals and the .NET platform through C# and OOP, modern C#, collections and LINQ, the runtime and async model, SQL and EF Core, dependency injection and ASP.NET Core, REST APIs and security, full stack with Angular or React, testing, production engineering, microservices on Azure and DevOps, ending in AI for .NET developers with Semantic Kernel, embeddings, RAG, agents, AI security and evaluation, and software architecture.",
+    caption:
+      "The full progression at a glance. Every level is covered in the module list below —",
+    fullSizeHref: "/images/courses/dotnet-ai-roadmap-2026-v1.png",
+  },
+
+  /**
    * Gated syllabus PDF. Served noindex via X-Robots-Tag (next.config.ts) —
    * it duplicates this page's content by design, so the HTML page stays the
    * canonical, indexable copy and the PDF is a post-click convenience.
-   *
-   * `roadmapImage` is deliberately absent: the .NET roadmap diagram does not
-   * exist yet. Add the field once the artwork lands — convert to WebP/AVIF,
-   * version the filename (/images/* is served immutable for a year), give it
-   * real alt text describing what the diagram shows, and keep the curriculum
-   * array carrying the same information as text, since none of the words
-   * inside an image are visible to crawlers or AI engines.
    */
   syllabusDownload: {
     pdfUrl: "/downloads/dotnet-ai-roadmap-2026-v1.pdf",
