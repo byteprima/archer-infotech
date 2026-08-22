@@ -259,12 +259,27 @@ const nextConfig: NextConfig = {
           { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
         ],
       },
-      {
-        source: "/_next/static/:path*",
-        headers: [
-          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
-        ],
-      },
+      // Production only. In dev, Turbopack reuses stable chunk URLs
+      // (e.g. src_components_0fb7wv6._.js) rather than content-hashing them,
+      // so `immutable` pins a chunk URL to bytes that later change on disk.
+      // The browser then never revalidates and silently mixes stale chunks
+      // with fresh ones — surfacing as hydration mismatches and
+      // "module factory is not available" errors. Next.js warns about this
+      // custom header at dev startup for exactly this reason. Content-hashed
+      // production chunks make the header correct there, so prod is unchanged.
+      ...(process.env.NODE_ENV === "production"
+        ? [
+            {
+              source: "/_next/static/:path*",
+              headers: [
+                {
+                  key: "Cache-Control",
+                  value: "public, max-age=31536000, immutable",
+                },
+              ],
+            },
+          ]
+        : []),
 
       // Downloadable PDFs — long-cached, and deliberately NOT indexable.
       //
