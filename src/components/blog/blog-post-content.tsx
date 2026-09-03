@@ -170,7 +170,23 @@ function cleanHtml(html: string): string {
     // the P3-22 SEO audit on /blog/getting-started-full-stack-development-2025).
     // Demoting at the renderer prevents recurrence on any future post
     // that accidentally uses a top-level `# heading` in its markdown.
-    .replace(/<h1(\s[^>]*)?>([\s\S]*?)<\/h1>/g, "<h2$1>$2</h2>");
+    .replace(/<h1(\s[^>]*)?>([\s\S]*?)<\/h1>/g, "<h2$1>$2</h2>")
+    // Give wide tables their own horizontal scroll instead of letting them
+    // push the whole page sideways. `prose` sets `table { width: 100% }` but
+    // never caps min-content width, so a comparison table with 5+ columns
+    // overflows the article on a 375px phone and the *body* scrolls — the
+    // page header and every paragraph drift with it. 17 posts already ship
+    // markdown tables, so this is fixed at the renderer rather than per post.
+    //
+    // The wrapper carries no `not-prose`: the table must stay inside the prose
+    // tree so the `prose-th:`/`prose-td:` border and padding variants keep
+    // applying. `prose-table:w-full` still lets narrow tables fill the column —
+    // CSS table layout treats a specified width below min-content as a floor,
+    // so a wide table grows past the wrapper and scrolls inside it instead.
+    .replace(
+      /<table>([\s\S]*?)<\/table>/g,
+      '<div class="overflow-x-auto"><table>$1</table></div>',
+    );
 }
 
 export async function BlogPostContent({ content }: BlogPostContentProps) {
