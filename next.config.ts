@@ -434,7 +434,6 @@ const nextConfig: NextConfig = {
       // STABLE — content hubs edited on the quarterly review cadence.
       stableRule("/questions"),
       stableRule("/questions/:slug"),
-      stableRule("/alumni"),
       stableRule("/interview-questions/:path*"),
       stableRule("/it-training-in-pune-for"),
       stableRule("/it-training-in-pune-for/:city"),
@@ -447,6 +446,19 @@ const nextConfig: NextConfig = {
       // intent explicit at the origin so a future rule change cannot
       // silently start caching the form.
       noCacheRule("/contact"),
+
+      // /alumni — same reasoning as /contact, and it is the page that
+      // actually proved it: in 2026-06 a cached copy served stale
+      // server-action ids and every submission failed with "Failed to find
+      // Server Action". It was on the STABLE tier until 2026-09-05,
+      // surviving only because that tier also sent `max-age=0` and because
+      // the Cloudflare rule excludes this path. Moving the edge TTL into
+      // `max-age` (so stale-while-revalidate works) removed the first of
+      // those protections — browsers would have started caching the form for
+      // an hour — and the Cloudflare exclusion means the rule's 60s Browser
+      // TTL override does not reach it either. Stating no-store at the
+      // origin is what actually holds.
+      noCacheRule("/alumni"),
 
       // Security headers — apply to every route.
       { source: "/:path*", headers: SECURITY_HEADERS },
