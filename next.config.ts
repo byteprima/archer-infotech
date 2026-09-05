@@ -186,25 +186,32 @@ const nextConfig: NextConfig = {
       key: "Cache-Control",
       value: "public, max-age=300, stale-while-revalidate=86400",
     };
-    // These carry the edge TTL in `max-age` rather than `s-maxage` for the
-    // reason documented above: `s-maxage` disables stale-while-revalidate.
-    // The browser does NOT end up caching for an hour or six — a Cloudflare
-    // cache rule ("Cache HTML per origin headers") overrides Browser TTL to
-    // 60s while leaving Edge TTL on respect_origin, so the number below is
-    // the edge TTL and browsers revalidate every minute. That override was
-    // verified not to touch `no-store` routes such as /blog.
+    // These two tiers KEEP `s-maxage`, and therefore keep swr disabled. That
+    // is a deliberate trade, not an oversight — see the 5-minute tier above
+    // for the mechanism.
     //
-    // Consequence worth knowing: the tier TTLs still live here, in code, but
-    // the browser-vs-edge split now depends on that Cloudflare rule. If the
-    // rule is ever deleted, browsers would start honouring these values
-    // directly and hold HTML for 1-6 hours.
+    // Moving the edge TTL into `max-age` here was tried on 2026-09-05 and
+    // reverted the same hour. It fixes swr but tells browsers to cache the
+    // HTML for 1-6 hours, which cannot be purged. The intended mitigation —
+    // a Cloudflare cache rule setting Browser TTL to override_origin/60s —
+    // does not work: Cloudflare applies whichever of Browser TTL and the
+    // origin `max-age` is HIGHER, so a 60s override cannot cap a 21600s
+    // origin value. Verified live: a freshly cached /guides served
+    // `max-age=21600` to the browser with that override active.
+    //
+    // Fixing these tiers properly needs Edge TTL set per tier in Cloudflare
+    // cache rules (mode override_origin) with the origin sending a short
+    // `max-age` — which would duplicate this file's tier/path mapping into
+    // Cloudflare, where it can drift. Not worth it without a reason.
     const PUBLIC_CACHE_STABLE = {
       key: "Cache-Control",
-      value: "public, max-age=3600, stale-while-revalidate=86400",
+      value:
+        "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400",
     };
     const PUBLIC_CACHE_VERY_STABLE = {
       key: "Cache-Control",
-      value: "public, max-age=21600, stale-while-revalidate=86400",
+      value:
+        "public, max-age=0, s-maxage=21600, stale-while-revalidate=86400",
     };
     // Never edge-cache. For routes that must always hit origin (forms whose
     // markup embeds per-deploy server-action ids, personalised or
