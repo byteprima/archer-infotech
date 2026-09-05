@@ -52,7 +52,6 @@ export async function POST(req: NextRequest) {
         photoUrl: str(body.photoUrl),
         linkedinUrl: str(body.linkedinUrl),
         githubUrl: str(body.githubUrl),
-        placedAt: str(body.placedAt),
         isHighlighted: body.isHighlighted !== undefined ? Boolean(body.isHighlighted) : false,
         isPublished: body.isPublished !== undefined ? Boolean(body.isPublished) : true,
       })

@@ -18,6 +18,7 @@
 import { useEffect, useRef, useState } from "react";
 import { MessageCircle, X, Send, Loader2, CheckCircle2 } from "lucide-react";
 import { submitLead } from "@/lib/actions/leads";
+import { CourseSelect } from "@/components/forms/course-select";
 
 interface Msg {
   role: "user" | "assistant";
@@ -91,7 +92,7 @@ export function ChatWidget() {
   const [leadDone, setLeadDone] = useState(false);
   const [leadName, setLeadName] = useState("");
   const [leadPhone, setLeadPhone] = useState("");
-  const [leadCourse, setLeadCourse] = useState("");
+  const [leadCourses, setLeadCourses] = useState<string[]>([]);
   const [leadEmail, setLeadEmail] = useState("");
   const [leadMessage, setLeadMessage] = useState("");
   const [leadBusy, setLeadBusy] = useState(false);
@@ -158,7 +159,7 @@ export function ChatWidget() {
     if (phone.length !== 10) return setLeadError("Please enter a valid 10-digit phone number.");
     setLeadBusy(true);
     try {
-      const course = leadCourse.trim();
+      const course = leadCourses.join(", ");
       const typed = leadMessage.trim();
       const result = await submitLead({
         name,
@@ -184,8 +185,10 @@ export function ChatWidget() {
           },
         ]);
         setLeadName("");
+        setLeadEmail("");
         setLeadPhone("");
-        setLeadCourse("");
+        setLeadCourses([]);
+        setLeadMessage("");
       } else {
         setLeadError(result.message || "Something went wrong. Please try again.");
       }
@@ -313,11 +316,10 @@ export function ChatWidget() {
                 placeholder="10-digit phone number"
                 className="h-9 w-full rounded-lg border border-input bg-background px-3 text-sm outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/40"
               />
-              <input
-                value={leadCourse}
-                onChange={(e) => setLeadCourse(e.target.value)}
+              <CourseSelect
+                value={leadCourses}
+                onValueChange={setLeadCourses}
                 placeholder="Course of interest (optional)"
-                className="h-9 w-full rounded-lg border border-input bg-background px-3 text-sm outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/40"
               />
               <textarea
                 value={leadMessage}

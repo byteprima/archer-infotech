@@ -24,7 +24,6 @@ const testimonialSchema = z.object({
   photoUrl: z.string().url("Please enter a valid image URL").optional().or(z.literal("")),
   linkedinUrl: z.string().url("Please enter a valid LinkedIn URL").optional().or(z.literal("")),
   githubUrl: z.string().url("Please enter a valid GitHub URL").optional().or(z.literal("")),
-  placedAt: z.string().optional(),
   isHighlighted: z.boolean().optional(),
   isPublished: z.boolean().optional(),
 });
@@ -169,7 +168,6 @@ export async function createTestimonial(data: TestimonialFormData): Promise<Acti
         photoUrl: validationResult.data.photoUrl || null,
         linkedinUrl: validationResult.data.linkedinUrl || null,
         githubUrl: validationResult.data.githubUrl || null,
-        placedAt: validationResult.data.placedAt || null,
         isHighlighted: validationResult.data.isHighlighted ?? false,
         isPublished: validationResult.data.isPublished ?? true,
       })
@@ -247,7 +245,6 @@ export async function updateTestimonial(
         photoUrl: validationResult.data.photoUrl || null,
         linkedinUrl: validationResult.data.linkedinUrl || null,
         githubUrl: validationResult.data.githubUrl || null,
-        placedAt: validationResult.data.placedAt || null,
         isHighlighted: validationResult.data.isHighlighted ?? false,
         isPublished: validationResult.data.isPublished ?? true,
         updatedAt: new Date(),
@@ -442,4 +439,61 @@ export async function toggleTestimonialHighlightStatus(
       message: "Failed to update highlight status. Please try again.",
     };
   }
+}
+
+/**
+ * Photo helpers for the admin testimonial form.
+ *
+ * That form posts a JSON payload rather than FormData, so a file cannot ride
+ * along with the save. These two actions resolve a photo to a stored URL
+ * first; the form then submits that URL in `photoUrl` like any other field.
+ *
+ * Both write into the `testimonials` media collection on the persistent
+ * volume — the same place alumni and placement photos live — so the image
+ * survives redeploys instead of being baked into the container image.
+ */
+
+export type PhotoResult =
+  | { success: true; url: string; message: string }
+  | { success: false; message: string };
+
+/** Copy a GitHub profile avatar into our own storage and return its URL. */
+export async function fetchTestimonialGithubPhoto(
+  githubUrl: string,
+): Promise<PhotoResult> {
+  await requireAdminAction();
+
+  const { fetchGithubAvatar } = await import("@/lib/storage/github-avatar");
+  const { mediaUrl } = await import("@/lib/storage/media");
+
+  const result = await fetchGithubAvatar(githubUrl, "testimonials");
+  if (!result.ok) return { success: false, message: result.error };
+
+  return {
+    success: true,
+    url: mediaUrl("testimonials", result.filename),
+    message: `Photo copied from github.com/${result.username}.`,
+  };
+}
+
+/** Store a photo chosen from the admin's machine and return its URL. */
+export async function uploadTestimonialPhoto(
+  formData: FormData,
+): Promise<PhotoResult> {
+  await requireAdminAction();
+
+  const file = formData.get("photo");
+  if (!(file instanceof File) || file.size === 0) {
+    return { success: false, message: "Choose an image file first." };
+  }
+
+  const { saveMedia, mediaUrl } = await import("@/lib/storage/media");
+  const saved = await saveMedia(file, "testimonials");
+  if (!saved.ok) return { success: false, message: saved.error };
+
+  return {
+    success: true,
+    url: mediaUrl("testimonials", saved.filename),
+    message: `Uploaded ${file.name}.`,
+  };
 }

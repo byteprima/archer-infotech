@@ -45,7 +45,6 @@ export async function PATCH(req: NextRequest, ctx: Ctx) {
     if ("photoUrl" in body) patch.photoUrl = str(body.photoUrl);
     if ("linkedinUrl" in body) patch.linkedinUrl = str(body.linkedinUrl);
     if ("githubUrl" in body) patch.githubUrl = str(body.githubUrl);
-    if ("placedAt" in body) patch.placedAt = str(body.placedAt);
     if ("isHighlighted" in body) patch.isHighlighted = Boolean(body.isHighlighted);
     if ("isPublished" in body) patch.isPublished = Boolean(body.isPublished);
 

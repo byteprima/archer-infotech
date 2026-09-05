@@ -20,7 +20,6 @@ export interface TestimonialData {
   photoUrl: string | null;
   linkedinUrl: string | null;
   githubUrl: string | null;
-  placedAt: string | null;
 }
 
 function buildTestimonialAlt(t: TestimonialData): string {
@@ -28,7 +27,7 @@ function buildTestimonialAlt(t: TestimonialData): string {
   // "[Student name], placed at [Company] after [Course] at Archer Infotech"
   // Falls back gracefully when placement company / course is unknown so we
   // never ship a bare name as alt text (was the pre-fix state).
-  const placement = t.placedAt || t.company;
+  const placement = t.company;
   const parts = [t.name];
   if (placement && t.courseTaken) {
     parts.push(`placed at ${placement} after ${t.courseTaken}`);

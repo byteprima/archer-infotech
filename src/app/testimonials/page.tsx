@@ -92,14 +92,14 @@ function classifyTrack(courseTaken: string | null): string {
  */
 function buildTestimonialAlt(
   name: string,
-  placedAt: string | null,
+  company: string | null,
   courseTaken: string | null,
 ): string {
   const parts = [name];
-  if (placedAt && courseTaken) {
-    parts.push(`placed at ${placedAt} after ${courseTaken}`);
-  } else if (placedAt) {
-    parts.push(`placed at ${placedAt}`);
+  if (company && courseTaken) {
+    parts.push(`placed at ${company} after ${courseTaken}`);
+  } else if (company) {
+    parts.push(`placed at ${company}`);
   } else if (courseTaken) {
     parts.push(`student of ${courseTaken}`);
   } else {
@@ -136,7 +136,7 @@ export default async function TestimonialsPage() {
   const onSiteTestimonialCount = dbTestimonials.length;
   const uniqueCompanies = new Set(
     dbTestimonials
-      .map((t) => t.placedAt || t.company)
+      .map((t) => t.company)
       .filter((c): c is string => Boolean(c)),
   ).size;
 
@@ -148,7 +148,7 @@ export default async function TestimonialsPage() {
     .map((t) => ({
       id: t.id,
       authorName: t.name,
-      authorCompany: t.placedAt || t.company,
+      authorCompany: t.company,
       authorRole: t.role,
       body: t.content,
       rating: t.rating ?? 5,
@@ -660,7 +660,7 @@ function TestimonialCard({
             {t.photoUrl && (
               <AvatarImage
                 src={t.photoUrl}
-                alt={buildTestimonialAlt(t.name, t.placedAt, t.courseTaken)}
+                alt={buildTestimonialAlt(t.name, t.company, t.courseTaken)}
               />
             )}
             <AvatarFallback className="bg-primary text-primary-foreground">
@@ -716,20 +716,20 @@ function TestimonialCard({
             </div>
           )}
         </div>
-        {(t.courseTaken || t.placedAt) && (
+        {(t.courseTaken || t.company) && (
           <div className="mt-3 flex flex-wrap gap-2 text-xs">
             {t.courseTaken && (
               <Badge variant="outline" className="font-normal">
                 {t.courseTaken}
               </Badge>
             )}
-            {t.placedAt && (
+            {t.company && (
               <Badge
                 variant="outline"
                 className="font-normal border-primary/30 text-primary"
               >
                 <CheckCircle2 className="h-3 w-3 mr-1" />
-                Placed at {t.placedAt}
+                Placed at {t.company}
               </Badge>
             )}
           </div>

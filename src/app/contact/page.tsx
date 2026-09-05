@@ -225,31 +225,45 @@ export default function ContactPage() {
           and have something to tell us. Both were previously unreachable —
           /alumni existed but was linked from nowhere, and placements could
           only be entered by an admin. */}
-      <section className="py-12">
-        <div className="container mx-auto px-4">
+      <section className="relative overflow-hidden gradient-hero py-12 text-white">
+        {/* Same treatment as the home-page CTA (components/home/cta-section):
+            the gradient plus this 10%-opacity cross pattern. Kept as markup
+            rather than extracted into a shared component because the two
+            sections lay their content out differently — only the backdrop is
+            shared. */}
+        <div className="absolute inset-0 opacity-10">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+            }}
+          />
+        </div>
+
+        <div className="container relative mx-auto px-4">
           <div className="mx-auto max-w-4xl">
             <h2 className="mb-2 text-center text-2xl font-bold">
               Already studied with us?
             </h2>
-            <p className="mb-8 text-center text-muted-foreground">
+            <p className="mb-8 text-center text-white/80">
               Two quick forms — no login needed.
             </p>
             <div className="grid gap-5 md:grid-cols-2">
               <Link
                 href="/placements/submit"
-                className="group rounded-xl border p-6 transition-all hover:border-primary hover:shadow-md"
+                className="group rounded-xl border border-white/20 bg-white/5 p-6 transition-all hover:border-secondary hover:bg-white/10 hover:shadow-md"
               >
-                <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-lg bg-secondary/10 text-secondary">
+                <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-lg bg-secondary/20 text-secondary">
                   <Trophy className="h-5 w-5" />
                 </div>
-                <h3 className="mb-1 font-semibold group-hover:text-primary">
+                <h3 className="mb-1 font-semibold text-white group-hover:text-secondary">
                   Recently placed? Tell us about it
                 </h3>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-white/70">
                   Share your offer and attach the letter. We verify every
                   placement before it appears anywhere.
                 </p>
-                <span className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-primary">
+                <span className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-secondary">
                   Submit your placement
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </span>
@@ -257,19 +271,19 @@ export default function ContactPage() {
 
               <Link
                 href="/alumni"
-                className="group rounded-xl border p-6 transition-all hover:border-primary hover:shadow-md"
+                className="group rounded-xl border border-white/20 bg-white/5 p-6 transition-all hover:border-white hover:bg-white/10 hover:shadow-md"
               >
-                <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-lg bg-white/15 text-white">
                   <GraduationCap className="h-5 w-5" />
                 </div>
-                <h3 className="mb-1 font-semibold group-hover:text-primary">
+                <h3 className="mb-1 font-semibold text-white group-hover:text-white">
                   Archer alumnus? Share where you are now
                 </h3>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-white/70">
                   Update your role and company — and tell us if your team is
                   hiring, so we can refer current students.
                 </p>
-                <span className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-primary">
+                <span className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-white">
                   Update your details
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </span>

@@ -34,7 +34,7 @@ const AVATAR_MAX_BYTES = 2 * 1024 * 1024;
 export async function fetchGithubAvatar(
   profileUrl: string | null | undefined,
   /** Where to store it. Defaults to `alumni` so existing callers are unchanged. */
-  collection: "alumni" | "placements" = "alumni",
+  collection: "alumni" | "placements" | "testimonials" = "alumni",
 ): Promise<GithubAvatarResult> {
   const username = parseGithubUsername(profileUrl);
   if (!username) {

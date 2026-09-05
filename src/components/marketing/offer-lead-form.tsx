@@ -23,15 +23,8 @@
  */
 
 import { useState } from "react";
-import { categories, coursesSummary } from "@/data/courses-minimal";
+import { CourseSelect } from "@/components/forms/course-select";
 import { submitLead } from "@/lib/actions/leads";
-
-/** Featured first — the batches most campaigns advertise. */
-const FEATURED_SLUGS = [
-  "java-full-stack-training-in-pune",
-  "dotnet-full-stack-training-in-pune",
-  "python-full-stack-training-in-pune",
-];
 
 /** "Independence Day Offer" -> "popup:independence-day-offer" */
 export function popupLeadSource(subject: string): string {
@@ -55,19 +48,7 @@ export function OfferLeadForm({ subject, onSuccess }: Props) {
   const [done, setDone] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
-
-  const featured = FEATURED_SLUGS.map((slug) =>
-    coursesSummary.find((c) => c.slug === slug),
-  ).filter((c) => c !== undefined);
-
-  const otherGroups = categories
-    .map((cat) => ({
-      name: cat.name,
-      courses: coursesSummary.filter(
-        (c) => c.categorySlug === cat.slug && !FEATURED_SLUGS.includes(c.slug),
-      ),
-    }))
-    .filter((g) => g.courses.length > 0);
+  const [selectedCourses, setSelectedCourses] = useState<string[]>([]);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -75,7 +56,7 @@ export function OfferLeadForm({ subject, onSuccess }: Props) {
     const name = String(fd.get("name") || "").trim();
     const email = String(fd.get("email") || "").trim();
     const phone = String(fd.get("phone") || "").trim();
-    const course = String(fd.get("course") || "").trim();
+    const course = selectedCourses.join(", ");
     const typedMessage = String(fd.get("message") || "").trim();
 
     const next: Record<string, string> = {};
@@ -201,33 +182,13 @@ export function OfferLeadForm({ subject, onSuccess }: Props) {
           aria-invalid={!!errors.phone}
           className={field}
         />
-        <select
-          name="course"
-          defaultValue=""
-          aria-label="Course interested in"
-          aria-invalid={!!errors.course}
-          className={field}
-        >
-          <option value="" disabled>
-            Course interested in
-          </option>
-          <optgroup label="Featured">
-            {featured.map((c) => (
-              <option key={c.slug} value={c.title}>
-                {c.title}
-              </option>
-            ))}
-          </optgroup>
-          {otherGroups.map((g) => (
-            <optgroup key={g.name} label={g.name}>
-              {g.courses.map((c) => (
-                <option key={c.slug} value={c.title}>
-                  {c.title}
-                </option>
-              ))}
-            </optgroup>
-          ))}
-        </select>
+        <div aria-invalid={!!errors.course} className="sm:col-span-2">
+          <CourseSelect
+            value={selectedCourses}
+            onValueChange={setSelectedCourses}
+            placeholder="Course interested in"
+          />
+        </div>
         <textarea
           name="message"
           rows={2}

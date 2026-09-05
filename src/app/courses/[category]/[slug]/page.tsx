@@ -1064,12 +1064,12 @@ export default async function CoursePage({ params }: CoursePageProps) {
                     </p>
                     <div className="pt-3 border-t">
                       <div className="font-semibold text-sm">{t.name}</div>
-                      {(t.role || t.placedAt) && (
+                      {(t.role || t.company) && (
                         <div className="text-xs text-muted-foreground">
                           {t.role}
-                          {t.role && t.placedAt && " — placed at "}
-                          {!t.role && t.placedAt && "Placed at "}
-                          {t.placedAt}
+                          {t.role && t.company && " — placed at "}
+                          {!t.role && t.company && "Placed at "}
+                          {t.company}
                         </div>
                       )}
                       <div className="flex items-center gap-1 mt-1">

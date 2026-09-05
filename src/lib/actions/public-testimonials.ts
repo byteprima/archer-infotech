@@ -29,7 +29,6 @@ export const getHomeTestimonials = unstable_cache(
           photoUrl: testimonialsTable.photoUrl,
           linkedinUrl: testimonialsTable.linkedinUrl,
           githubUrl: testimonialsTable.githubUrl,
-          placedAt: testimonialsTable.placedAt,
           // P8-04 — feeds Review.datePublished in the home-page
           // ReviewListJsonLd. Truthful date from the DB; never invented.
           createdAt: testimonialsTable.createdAt,

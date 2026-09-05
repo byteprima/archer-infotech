@@ -168,7 +168,6 @@ export const testimonials = sqliteTable("testimonials", {
   photoUrl: text("photo_url"),
   linkedinUrl: text("linkedin_url"),
   githubUrl: text("github_url"),
-  placedAt: text("placed_at"), // Company where placed
   isHighlighted: integer("is_highlighted", { mode: "boolean" }).default(false),
   isPublished: integer("is_published", { mode: "boolean" }).default(true),
   createdAt: integer("created_at", { mode: "timestamp" }).notNull().$defaultFn(() => new Date()),

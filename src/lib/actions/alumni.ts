@@ -450,7 +450,6 @@ export async function approveAndPublishAlumnus(
       photoUrl,
       linkedinUrl: row.linkedinUrl || null,
       githubUrl: row.githubUrl || null,
-      placedAt: row.currentCompany || null,
       isPublished: true,
     };
 

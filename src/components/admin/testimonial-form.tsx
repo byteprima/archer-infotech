@@ -1,8 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Loader2, Save, Eye, EyeOff, Star, Quote, Link2, ExternalLink } from "lucide-react";
+import { Loader2, Save, Eye, EyeOff, Star, Quote, Link2, ExternalLink, Upload, CheckCircle2, AlertCircle } from "lucide-react";
+// lucide-react ships no GitHub mark; the repo keeps its own.
+import { GitHubIcon } from "@/components/common/social-icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -19,8 +21,11 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   createTestimonial,
   updateTestimonial,
+  fetchTestimonialGithubPhoto,
+  uploadTestimonialPhoto,
   type TestimonialFormData,
 } from "@/lib/actions/testimonials";
+import { parseGithubUsername } from "@/lib/github-username";
 import type { Testimonial } from "@/db";
 import { toast } from "sonner";
 
@@ -34,7 +39,6 @@ type TestimonialFormState = {
   photoUrl: string;
   linkedinUrl: string;
   githubUrl: string;
-  placedAt: string;
   isHighlighted: boolean;
   isPublished: boolean;
 };
@@ -59,10 +63,44 @@ export function TestimonialForm({ testimonial }: TestimonialFormProps) {
     photoUrl: testimonial?.photoUrl || "",
     linkedinUrl: testimonial?.linkedinUrl || "",
     githubUrl: testimonial?.githubUrl || "",
-    placedAt: testimonial?.placedAt || "",
     isHighlighted: testimonial?.isHighlighted ?? false,
     isPublished: testimonial?.isPublished ?? true,
   });
+
+  // Photo resolution. Both the GitHub copy and the local upload end up as a
+  // stored URL in `photoUrl`, so the save payload stays plain JSON.
+  const photoInputRef = useRef<HTMLInputElement>(null);
+  const [photoBusy, setPhotoBusy] = useState<false | "github" | "upload">(false);
+  const [photoStatus, setPhotoStatus] = useState<
+    { ok: boolean; message: string } | null
+  >(null);
+
+  const githubUser = parseGithubUsername(formData.githubUrl);
+
+  const handleGithubPhoto = async () => {
+    setPhotoBusy("github");
+    setPhotoStatus(null);
+    const result = await fetchTestimonialGithubPhoto(formData.githubUrl);
+    if (result.success) {
+      setFormData((prev) => ({ ...prev, photoUrl: result.url }));
+    }
+    setPhotoStatus({ ok: result.success, message: result.message });
+    setPhotoBusy(false);
+  };
+
+  const handlePhotoUpload = async (file: File) => {
+    setPhotoBusy("upload");
+    setPhotoStatus(null);
+    const fd = new FormData();
+    fd.append("photo", file);
+    const result = await uploadTestimonialPhoto(fd);
+    if (result.success) {
+      setFormData((prev) => ({ ...prev, photoUrl: result.url }));
+    }
+    setPhotoStatus({ ok: result.success, message: result.message });
+    setPhotoBusy(false);
+    if (photoInputRef.current) photoInputRef.current.value = "";
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -80,7 +118,6 @@ export function TestimonialForm({ testimonial }: TestimonialFormProps) {
       photoUrl: formData.photoUrl,
       linkedinUrl: formData.linkedinUrl,
       githubUrl: formData.githubUrl,
-      placedAt: formData.placedAt,
       isHighlighted: formData.isHighlighted,
       isPublished: formData.isPublished,
     };
@@ -208,17 +245,6 @@ export function TestimonialForm({ testimonial }: TestimonialFormProps) {
                     placeholder="e.g. Full Stack Development"
                   />
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="placedAt">Placed At</Label>
-                  <Input
-                    id="placedAt"
-                    value={formData.placedAt}
-                    onChange={(e) =>
-                      setFormData((prev) => ({ ...prev, placedAt: e.target.value }))
-                    }
-                    placeholder="e.g. Capgemini"
-                  />
-                </div>
               </div>
 
               <div className="space-y-2">
@@ -300,19 +326,108 @@ export function TestimonialForm({ testimonial }: TestimonialFormProps) {
               <CardTitle>Links</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="photoUrl">Photo URL</Label>
-                <Input
-                  id="photoUrl"
-                  value={formData.photoUrl}
-                  onChange={(e) =>
-                    setFormData((prev) => ({ ...prev, photoUrl: e.target.value }))
-                  }
-                  placeholder="https://example.com/photo.jpg"
-                  className={fieldErrors.photoUrl ? "border-red-500" : ""}
+              {/* Photo, in the order it is meant to be used: pull it from
+                  GitHub if there is a profile, otherwise browse for a file,
+                  and either way the resulting URL lands in the field below.
+                  The status line reports whichever route was taken. */}
+              <div className="space-y-3 rounded-lg border p-3">
+                <div className="flex items-center justify-between gap-3">
+                  <div className="min-w-0">
+                    <p className="text-sm font-medium">Photo</p>
+                    <p className="text-xs text-muted-foreground">
+                      Stored on the media volume, so it survives redeploys.
+                    </p>
+                  </div>
+                  {formData.photoUrl ? (
+                    <Avatar className="h-12 w-12 shrink-0 border">
+                      <AvatarImage src={formData.photoUrl} alt="" />
+                      <AvatarFallback>
+                        {formData.name.slice(0, 2).toUpperCase() || "?"}
+                      </AvatarFallback>
+                    </Avatar>
+                  ) : null}
+                </div>
+
+                {/* 1 — GitHub, automatic. Disabled until the GitHub URL below
+                    parses to a real username, so it cannot fire on nonsense. */}
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="w-full justify-start"
+                  disabled={!githubUser || photoBusy !== false}
+                  onClick={handleGithubPhoto}
+                >
+                  {photoBusy === "github" ? (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  ) : (
+                    <GitHubIcon className="mr-2 h-4 w-4" />
+                  )}
+                  {githubUser
+                    ? `Use photo from github.com/${githubUser}`
+                    : "Add a GitHub URL below to pull the photo"}
+                </Button>
+
+                {/* 2 — browse for a local file */}
+                <input
+                  ref={photoInputRef}
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp,image/avif"
+                  className="sr-only"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) handlePhotoUpload(file);
+                  }}
                 />
-                {fieldErrors.photoUrl && (
-                  <p className="text-sm text-red-500">{fieldErrors.photoUrl[0]}</p>
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="w-full justify-start"
+                  disabled={photoBusy !== false}
+                  onClick={() => photoInputRef.current?.click()}
+                >
+                  {photoBusy === "upload" ? (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  ) : (
+                    <Upload className="mr-2 h-4 w-4" />
+                  )}
+                  Browse for a photo…
+                </Button>
+
+                {/* 3 — the resolved link, editable by hand */}
+                <div className="space-y-2">
+                  <Label htmlFor="photoUrl">Photo URL</Label>
+                  <Input
+                    id="photoUrl"
+                    value={formData.photoUrl}
+                    onChange={(e) => {
+                      setFormData((prev) => ({ ...prev, photoUrl: e.target.value }));
+                      setPhotoStatus(null);
+                    }}
+                    placeholder="https://example.com/photo.jpg"
+                    className={fieldErrors.photoUrl ? "border-red-500" : ""}
+                  />
+                  {fieldErrors.photoUrl && (
+                    <p className="text-sm text-red-500">{fieldErrors.photoUrl[0]}</p>
+                  )}
+                </div>
+
+                {/* 4 — status, below the link */}
+                {photoStatus && (
+                  <div
+                    role="status"
+                    className={`flex items-start gap-2 rounded-md border p-2 text-xs ${
+                      photoStatus.ok
+                        ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300"
+                        : "border-red-500/40 bg-red-500/10 text-red-700 dark:text-red-300"
+                    }`}
+                  >
+                    {photoStatus.ok ? (
+                      <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0" />
+                    ) : (
+                      <AlertCircle className="mt-0.5 h-3.5 w-3.5 shrink-0" />
+                    )}
+                    <span>{photoStatus.message}</span>
+                  </div>
                 )}
               </div>
               <div className="space-y-2">

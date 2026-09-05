@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 // P-12 (2026-06-04) chunk-audit fix: import light-only data so the 79 KB
 // full course catalogue doesn't leak into the /contact form chunk.
 import { coursesSummary as courses, categories } from "@/data/courses-minimal";
+import { categoryColor } from "@/data/course-category-colors";
 
 interface CourseSelectProps {
   value: string[];
@@ -152,9 +153,17 @@ export function CourseSelect({
             }}
           >
           <div className="max-h-[300px] overflow-y-auto p-1">
-            {groupedCourses.map((group) => (
-              <div key={group.categorySlug}>
-                <div className="px-2 py-1.5 text-xs font-semibold text-muted-foreground">
+            {groupedCourses.map((group) => {
+              const tone = categoryColor(group.categorySlug);
+              return (
+              <div key={group.categorySlug} className={cn("mb-1 border-l-2 pl-1", tone.border)}>
+                <div
+                  className={cn(
+                    "flex items-center gap-1.5 px-2 py-1.5 text-xs font-semibold",
+                    tone.text
+                  )}
+                >
+                  <span className={cn("h-2 w-2 shrink-0 rounded-full", tone.dot)} />
                   {group.category}
                 </div>
                 {group.courses.map((course) => {
@@ -165,9 +174,11 @@ export function CourseSelect({
                       type="button"
                       onClick={() => toggleCourse(course.title)}
                       className={cn(
-                        "relative flex w-full cursor-pointer items-center rounded-md py-2 pl-8 pr-2 text-sm outline-none",
-                        "hover:bg-accent hover:text-accent-foreground",
-                        isSelected && "bg-accent/50"
+                        "relative mb-0.5 flex w-full cursor-pointer items-center rounded-md py-2 pl-8 pr-2 text-sm outline-none transition-colors",
+                        // Category-tinted row. The selected wash is stronger
+                        // than the hover wash so a selected row still reads as
+                        // selected while the pointer is over it.
+                        isSelected ? tone.rowSelected : tone.row
                       )}
                     >
                       <span
@@ -180,12 +191,14 @@ export function CourseSelect({
                       >
                         {isSelected && <Check className="h-3 w-3" />}
                       </span>
+                      <span className={cn("mr-2 h-1.5 w-1.5 shrink-0 rounded-full", tone.dot)} />
                       <span className="truncate">{course.title}</span>
                     </button>
                   );
                 })}
               </div>
-            ))}
+              );
+            })}
           </div>
           </div>,
           document.body

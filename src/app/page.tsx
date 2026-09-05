@@ -122,7 +122,7 @@ export default async function HomePage() {
           id: t.id,
           authorName: t.name,
           authorRole: t.role,
-          authorCompany: t.placedAt || t.company,
+          authorCompany: t.company,
           body: t.content,
           rating: t.rating,
           course: t.courseTaken,
