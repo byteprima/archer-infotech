@@ -46,9 +46,11 @@ export async function isAdmin(): Promise<boolean> {
     return isLegacyAuthenticated();
   }
 
-  // Check if user has admin role
-  // @ts-ignore - role is an additional field
-  return session.user.role === "admin";
+  // `role` is an additional field better-auth carries on the user record but
+  // does not surface on its inferred session type, so the access needs a
+  // narrow cast. This replaces a blanket `@ts-ignore`, which would have
+  // silenced any future error on this line, not just the known one.
+  return (session.user as { role?: string }).role === "admin";
 }
 
 /**

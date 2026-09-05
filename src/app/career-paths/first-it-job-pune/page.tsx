@@ -720,7 +720,7 @@ export default function FirstITJobPuneCareerPath() {
                   className="block rounded border p-3 bg-card hover:border-secondary transition-colors"
                 >
                   <span className="font-medium block text-sm">
-                    Bachelor's Degree vs Bootcamp for Pune IT
+                    Bachelor&apos;s Degree vs Bootcamp for Pune IT
                   </span>
                   <span className="text-xs text-muted-foreground">
                     Comparison · qualification path decision framework

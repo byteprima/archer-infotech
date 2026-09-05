@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { useIsMounted } from "@/lib/use-client-only";
 import { createPortal } from "react-dom";
 import { Check, ChevronsUpDown, X } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -20,7 +21,6 @@ export function CourseSelect({
   placeholder = "Select courses...",
 }: CourseSelectProps) {
   const [open, setOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const [popupStyle, setPopupStyle] = useState<{
     top: number;
     left: number;
@@ -39,11 +39,10 @@ export function CourseSelect({
     }))
     .filter((group) => group.courses.length > 0);
 
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  // Gates the createPortal call below, which needs `document`.
+  const mounted = useIsMounted();
 
+  // Close dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       const target = event.target as Node;

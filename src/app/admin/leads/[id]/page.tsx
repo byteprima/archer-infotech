@@ -40,7 +40,7 @@ export default async function AdminLeadDetailPage({ params }: AdminLeadDetailPag
           </div>
           <div>
             <h1 className="text-xl font-bold">Lead Details</h1>
-            <p className="text-sm text-muted-foreground">Manage {lead.name}'s enquiry</p>
+            <p className="text-sm text-muted-foreground">Manage {lead.name}&apos;s enquiry</p>
           </div>
         </div>
       </header>

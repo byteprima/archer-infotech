@@ -319,7 +319,7 @@ export default function PuneItHiringReportPage() {
             <p className="text-xs text-muted-foreground">
               Ranges are Pune-specific median bands; individual offers vary
               with company tier, candidate quality, and stack-fit. We do not
-              quote a single "average" because the distribution is bimodal —
+              quote a single &quot;average&quot; because the distribution is bimodal —
               services-major fresher offers cluster at the lower band, product
               captives at the higher band.
             </p>
@@ -346,7 +346,7 @@ export default function PuneItHiringReportPage() {
               Where direct data is unavailable, we publish an honest
               estimate range with the underlying assumption stated. We do
               not invent hiring counts, salary bands, or placement
-              statistics. We do not claim "100% placement" or any number
+              statistics. We do not claim &quot;100% placement&quot; or any number
               that can&apos;t be verified against named records.
             </p>
           </section>
@@ -406,7 +406,7 @@ export default function PuneItHiringReportPage() {
                 <p className="font-semibold">Pune IT Salary Calculator</p>
                 <p className="text-sm text-muted-foreground mt-1">
                   13 roles × 4 experience tiers + career-ladder bar +
-                  "train for this role" course links.
+                  &quot;train for this role&quot; course links.
                 </p>
               </Link>
               <Link

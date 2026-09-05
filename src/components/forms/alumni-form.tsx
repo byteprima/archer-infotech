@@ -9,7 +9,7 @@
  * separated from the public testimonial section in the UI.
  */
 
-import { useEffect, useRef, useState, useTransition } from "react";
+import { useRef, useState, useTransition } from "react";
 import {
   Loader2,
   CheckCircle2,
@@ -29,6 +29,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { submitAlumni } from "@/lib/actions/alumni";
+import { useClientOnly } from "@/lib/use-client-only";
 import { ALUMNI_PACKAGE_BANDS } from "@/lib/alumni/constants";
 import { courses } from "@/data/courses";
 import { getAnalyticsDistinctId } from "@/lib/posthog/client";
@@ -125,15 +126,15 @@ export function AlumniForm() {
 
   // --- Phone-book contact picker (mobile) ---
   const hrContactsRef = useRef<HTMLTextAreaElement>(null);
-  const [contactsSupported, setContactsSupported] = useState(false);
-
-  useEffect(() => {
-    setContactsSupported(
+  // Feature detection, evaluated only on the client — `navigator` and `window`
+  // do not exist while rendering on the server.
+  const contactsSupported = useClientOnly(
+    () =>
       typeof navigator !== "undefined" &&
-        "contacts" in navigator &&
-        "ContactsManager" in window
-    );
-  }, []);
+      "contacts" in navigator &&
+      "ContactsManager" in window,
+    false
+  );
 
   const pickFromPhoneBook = async () => {
     const mgr = (
