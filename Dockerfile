@@ -77,6 +77,16 @@ RUN --mount=type=secret,id=next_server_actions_key \
 # -------------------------------------------------------------------- runtime
 FROM node:22-bookworm-slim AS runner
 WORKDIR /app
+
+# curl is required, not a convenience. On a Dockerfile-based deployment Coolify
+# runs its healthcheck from *inside* the container, and the slim image ships
+# neither curl nor wget — so the check can never pass, the new container is
+# declared unhealthy, and the deploy rolls back with nothing else wrong. The
+# nixpacks image happened to provide it, which is why this only appeared after
+# the switch. (The ar-demo-api image has the same requirement.)
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends curl \
+ && rm -rf /var/lib/apt/lists/*
 ENV NODE_ENV=production \
     NEXT_TELEMETRY_DISABLED=1 \
     PORT=3000 \
