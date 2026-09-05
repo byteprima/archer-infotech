@@ -185,6 +185,20 @@ Linear Regression, Logistic Regression, K-Nearest Neighbors, Naive Bayes, Decisi
 
 Here is the side-by-side view:
 
+Here is the side-by-side view:
+
+| | Data Analytics | Data Engineering | Data Science | Machine Learning |
+|---|---|---|---|---|
+| **Core question** | What happened and why? | How does data get here reliably? | What will happen, and what drives it? | How do we predict it at scale? |
+| **Primary output** | Dashboards, reports, insights | Pipelines, warehouses, reliable datasets | Experiments, models, findings | Production models and predictions |
+| **Signature tools** | Excel, SQL, Power BI | Spark, Kafka, Airflow, Snowflake | Python, statistics, Scikit-Learn | Scikit-Learn, XGBoost, PyTorch |
+| **Maths intensity** | Low to moderate | Low | High | High |
+| **Engineering intensity** | Low | High | Moderate | High |
+| **Typical entry level** | Beginner-friendly | Needs programming maturity | Needs maths and statistics | Needs ML plus engineering |
+| **Time horizon** | Past and present | Continuous / real-time | Future and causal | Future, automated |
+
+In words, if you prefer them:
+
 **Data Analytics** — asks *what happened and why*. Ships dashboards, reports and insights. Runs on Excel, SQL and Power BI. Low maths, low engineering, beginner-friendly. Looks at the past and present.
 
 **Data Engineering** — asks *how does data get here reliably*. Ships pipelines, warehouses and trustworthy datasets. Runs on Spark, Kafka, Airflow and Snowflake. Low maths, heavy engineering. Needs programming maturity. Works continuously, often in real time.
@@ -209,7 +223,7 @@ The boundaries are real, but they are not rigid. In actual projects, professiona
 
 This is the table that explains why learning them separately wastes so much time.
 
-| Topic | DA | DS | ML | DE |
+| Topic | Data Analytics | Data Science | Machine Learning | Data Engineering |
 |---|:---:|:---:|:---:|:---:|
 | Python Fundamentals | ✅ | ✅ | ✅ | ✅ |
 | SQL | ✅ | ✅ | ✅ | ✅ |
@@ -251,8 +265,6 @@ This is the table that explains why learning them separately wastes so much time
 | Data Governance | ◐ | ◐ | ◐ | ✅ |
 | Data Security | ◐ | ◐ | ◐ | ✅ |
 | AI-Assisted Development | ✅ | ✅ | ✅ | ✅ |
-
-**Columns:** DA = Data Analytics · DS = Data Science · ML = Machine Learning · DE = Data Engineering
 
 **Legend:** ✅ major/core topic · ◐ useful or supporting topic · ❌ usually not a core topic
 
