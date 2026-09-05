@@ -1,0 +1,27 @@
+# Keep the build context small — it is uploaded to the builder on every run.
+# The nixpacks build was shipping ~30 MB of context; most of it was never read.
+node_modules
+.next
+.git
+.github
+.vscode
+.idea
+
+# Local databases. The real one lives on the mounted volume at runtime and must
+# never be baked into the image.
+*.db
+*.db-shm
+*.db-wal
+*.db.bak-*
+
+# Local env files. Every value the build needs arrives as a build arg, and
+# every runtime value comes from Coolify.
+.env
+.env.*
+!.env.example
+
+# Working files that have no business in an image.
+docs
+scripts/data
+*.log
+.DS_Store

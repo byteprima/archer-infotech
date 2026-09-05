@@ -1,0 +1,111 @@
+name: Build and publish image
+
+# Builds the production image on a GitHub runner and pushes it to GHCR, so the
+# VPS never has to build again.
+#
+# Background: the site was built on the VPS by nixpacks until that stopped
+# working. A cold Next.js 16 build of ~410 routes does not fit in the memory the
+# 7.9 GB box has spare while serving the live site and ~20 other containers, so
+# `npm run build` was OOM-killed by the kernel — silently, at a different phase
+# each run, with no error in the deploy log. Three weeks of commits never
+# shipped. A GitHub runner has 16 GB and builds this in minutes.
+#
+# Coolify's build pack is set to "Docker Image" and simply pulls the tag this
+# workflow publishes, which also drops deploy time from ~55 minutes to the time
+# it takes to pull and restart.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: "Trigger the Coolify deploy after publishing"
+        type: boolean
+        default: true
+
+# One build per branch; a newer push supersedes an in-flight one.
+concurrency:
+  group: build-image-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Derive image tags
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          # `main` is the tag Coolify pulls; the sha tag makes it possible to
+          # roll back to an exact commit without a rebuild.
+          tags: |
+            type=raw,value=main,enable={{is_default_branch}}
+            type=sha,format=long
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: linux/amd64
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          # Layer cache lives in the Actions cache, so an unchanged
+          # package-lock.json skips the whole npm ci layer on later runs.
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          # These are inlined into the client bundle at build time, so they must
+          # be supplied here and not only in Coolify.
+          #
+          # NEXT_SERVER_ACTIONS_ENCRYPTION_KEY must be byte-identical to the
+          # value Coolify injects at runtime. If they differ, every server
+          # action (contact form, lead capture, admin) fails in production.
+          build-args: |
+            NEXT_PUBLIC_SITE_URL=${{ secrets.NEXT_PUBLIC_SITE_URL }}
+            NEXT_PUBLIC_POSTHOG_TOKEN=${{ secrets.NEXT_PUBLIC_POSTHOG_TOKEN }}
+            NEXT_PUBLIC_POSTHOG_HOST=${{ secrets.NEXT_PUBLIC_POSTHOG_HOST }}
+            NEXT_PUBLIC_GA_MEASUREMENT_ID=${{ secrets.NEXT_PUBLIC_GA_MEASUREMENT_ID }}
+            NEXT_PUBLIC_FACEBOOK_PIXEL_ID=${{ secrets.NEXT_PUBLIC_FACEBOOK_PIXEL_ID }}
+            NEXT_PUBLIC_CHAT_ENABLED=${{ secrets.NEXT_PUBLIC_CHAT_ENABLED }}
+            NEXT_SERVER_ACTIONS_ENCRYPTION_KEY=${{ secrets.NEXT_SERVER_ACTIONS_ENCRYPTION_KEY }}
+
+      - name: Trigger Coolify deploy
+        # Skipped silently until COOLIFY_TOKEN exists, so the first runs can be
+        # verified as image builds before anything touches production.
+        if: ${{ github.event_name == 'push' || inputs.deploy }}
+        env:
+          COOLIFY_TOKEN: ${{ secrets.COOLIFY_TOKEN }}
+          COOLIFY_APP_UUID: i5knr4obzv3hzjhrkl58rn12
+        run: |
+          if [ -z "$COOLIFY_TOKEN" ]; then
+            echo "COOLIFY_TOKEN not set — image published, deploy not triggered."
+            exit 0
+          fi
+          code=$(curl -sS -o /tmp/deploy.json -w '%{http_code}' \
+            -X GET "https://coolify.byteprima.com/api/v1/deploy?uuid=$COOLIFY_APP_UUID" \
+            -H "Authorization: Bearer $COOLIFY_TOKEN")
+          echo "Coolify responded HTTP $code"
+          cat /tmp/deploy.json
+          [ "$code" = "200" ]
