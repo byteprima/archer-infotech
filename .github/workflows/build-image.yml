@@ -76,12 +76,9 @@ jobs:
           # package-lock.json skips the whole npm ci layer on later runs.
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          # These are inlined into the client bundle at build time, so they must
-          # be supplied here and not only in Coolify.
-          #
-          # NEXT_SERVER_ACTIONS_ENCRYPTION_KEY must be byte-identical to the
-          # value Coolify injects at runtime. If they differ, every server
-          # action (contact form, lead capture, admin) fails in production.
+          # NEXT_PUBLIC_* are build args because Next inlines them into the
+          # client bundle — they ship to every browser, so they are not secret
+          # and baking them into image history costs nothing.
           build-args: |
             NEXT_PUBLIC_SITE_URL=${{ secrets.NEXT_PUBLIC_SITE_URL }}
             NEXT_PUBLIC_POSTHOG_TOKEN=${{ secrets.NEXT_PUBLIC_POSTHOG_TOKEN }}
@@ -89,7 +86,13 @@ jobs:
             NEXT_PUBLIC_GA_MEASUREMENT_ID=${{ secrets.NEXT_PUBLIC_GA_MEASUREMENT_ID }}
             NEXT_PUBLIC_FACEBOOK_PIXEL_ID=${{ secrets.NEXT_PUBLIC_FACEBOOK_PIXEL_ID }}
             NEXT_PUBLIC_CHAT_ENABLED=${{ secrets.NEXT_PUBLIC_CHAT_ENABLED }}
-            NEXT_SERVER_ACTIONS_ENCRYPTION_KEY=${{ secrets.NEXT_SERVER_ACTIONS_ENCRYPTION_KEY }}
+          # The encryption key is a real secret, so it goes in as a BuildKit
+          # secret instead — mounted for the build command only, never written
+          # into a layer. It must be byte-identical to Coolify's runtime value
+          # or every server action fails in production; the Dockerfile refuses
+          # to build if it is missing.
+          secrets: |
+            next_server_actions_key=${{ secrets.NEXT_SERVER_ACTIONS_ENCRYPTION_KEY }}
 
       - name: Trigger Coolify deploy
         # Skipped silently until COOLIFY_TOKEN exists, so the first runs can be

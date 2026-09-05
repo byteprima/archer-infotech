@@ -41,14 +41,12 @@ ARG NEXT_PUBLIC_POSTHOG_HOST
 ARG NEXT_PUBLIC_GA_MEASUREMENT_ID
 ARG NEXT_PUBLIC_FACEBOOK_PIXEL_ID
 ARG NEXT_PUBLIC_CHAT_ENABLED
-ARG NEXT_SERVER_ACTIONS_ENCRYPTION_KEY
 ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL \
     NEXT_PUBLIC_POSTHOG_TOKEN=$NEXT_PUBLIC_POSTHOG_TOKEN \
     NEXT_PUBLIC_POSTHOG_HOST=$NEXT_PUBLIC_POSTHOG_HOST \
     NEXT_PUBLIC_GA_MEASUREMENT_ID=$NEXT_PUBLIC_GA_MEASUREMENT_ID \
     NEXT_PUBLIC_FACEBOOK_PIXEL_ID=$NEXT_PUBLIC_FACEBOOK_PIXEL_ID \
     NEXT_PUBLIC_CHAT_ENABLED=$NEXT_PUBLIC_CHAT_ENABLED \
-    NEXT_SERVER_ACTIONS_ENCRYPTION_KEY=$NEXT_SERVER_ACTIONS_ENCRYPTION_KEY \
     NEXT_TELEMETRY_DISABLED=1 \
     NODE_ENV=production
 
@@ -57,7 +55,24 @@ ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL \
 # already fall back to placeholder content when it is absent, which is exactly
 # what the nixpacks build was doing too. Blog and other DB-backed routes render
 # on demand at runtime.
-RUN npm run build
+# The encryption key arrives as a BuildKit secret, not an ARG/ENV, so it is
+# mounted only for the length of this one command and never lands in the image
+# or its layer history. An ARG would have been readable by anyone who can pull
+# the image — Docker warns about exactly this (SecretsUsedInArgOrEnv).
+#
+# The emptiness check is not paranoia. When the key is absent Next silently
+# generates its own, the build succeeds, and the failure only surfaces in
+# production as every server action breaking — contact form, lead capture,
+# admin. Failing the build here makes that impossible to ship by accident.
+RUN --mount=type=secret,id=next_server_actions_key \
+    set -eu; \
+    if [ ! -s /run/secrets/next_server_actions_key ]; then \
+      echo "ERROR: NEXT_SERVER_ACTIONS_ENCRYPTION_KEY build secret is missing or empty." >&2; \
+      echo "       Set it as a repo secret; it must match Coolify's runtime value exactly." >&2; \
+      exit 1; \
+    fi; \
+    NEXT_SERVER_ACTIONS_ENCRYPTION_KEY="$(cat /run/secrets/next_server_actions_key)" \
+      npm run build
 
 # -------------------------------------------------------------------- runtime
 FROM node:22-bookworm-slim AS runner
