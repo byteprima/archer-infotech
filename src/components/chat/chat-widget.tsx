@@ -92,6 +92,8 @@ export function ChatWidget() {
   const [leadName, setLeadName] = useState("");
   const [leadPhone, setLeadPhone] = useState("");
   const [leadCourse, setLeadCourse] = useState("");
+  const [leadEmail, setLeadEmail] = useState("");
+  const [leadMessage, setLeadMessage] = useState("");
   const [leadBusy, setLeadBusy] = useState(false);
   const [leadError, setLeadError] = useState("");
 
@@ -157,12 +159,17 @@ export function ChatWidget() {
     setLeadBusy(true);
     try {
       const course = leadCourse.trim();
+      const typed = leadMessage.trim();
       const result = await submitLead({
         name,
-        email: "",
+        email: leadEmail.trim(),
         phone,
         course: course || undefined,
-        message: `Callback request via website chatbot${course ? ` about ${course}` : ""}.`,
+        // Keep the synthesised line when the visitor writes nothing —
+        // submitLead enforces a 10-character minimum.
+        message:
+          typed ||
+          `Callback request via website chatbot${course ? ` about ${course}` : ""}.`,
         source: "chat_widget",
       });
       if (result.success) {
@@ -293,6 +300,13 @@ export function ChatWidget() {
                 className="h-9 w-full rounded-lg border border-input bg-background px-3 text-sm outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/40"
               />
               <input
+                value={leadEmail}
+                onChange={(e) => setLeadEmail(e.target.value)}
+                type="email"
+                placeholder="Your email (optional)"
+                className="h-9 w-full rounded-lg border border-input bg-background px-3 text-sm outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/40"
+              />
+              <input
                 value={leadPhone}
                 onChange={(e) => setLeadPhone(e.target.value)}
                 inputMode="numeric"
@@ -304,6 +318,13 @@ export function ChatWidget() {
                 onChange={(e) => setLeadCourse(e.target.value)}
                 placeholder="Course of interest (optional)"
                 className="h-9 w-full rounded-lg border border-input bg-background px-3 text-sm outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/40"
+              />
+              <textarea
+                value={leadMessage}
+                onChange={(e) => setLeadMessage(e.target.value)}
+                rows={2}
+                placeholder="Your question (optional)"
+                className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/40"
               />
               {leadError && <p className="text-xs text-destructive">{leadError}</p>}
               <div className="flex gap-2">

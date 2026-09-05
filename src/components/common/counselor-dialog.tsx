@@ -33,6 +33,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { CourseSelect } from "@/components/forms/course-select";
 import { toast } from "sonner";
 import { submitLead } from "@/lib/actions/leads";
 import {
@@ -60,7 +61,7 @@ interface CounselorDialogProps {
   defaultOpen?: boolean;
 }
 
-type FieldErrors = Partial<Record<"name" | "phone" | "message", string>>;
+type FieldErrors = Partial<Record<"name" | "email" | "phone" | "message", string>>;
 
 export function CounselorDialog({
   location,
@@ -73,6 +74,11 @@ export function CounselorDialog({
   const [open, setOpen] = useState(defaultOpen);
   const [isPending, startTransition] = useTransition();
   const [errors, setErrors] = useState<FieldErrors>({});
+  // Seeded from `defaultCourse` so course pages still arrive pre-filled — it is
+  // a course title, which is what CourseSelect stores.
+  const [selectedCourses, setSelectedCourses] = useState<string[]>(
+    defaultCourse ? [defaultCourse] : []
+  );
 
   // When mounted already-open (lazy auto-open path), the open goes through
   // useState init rather than handleOpenChange, so fire the analytics here.
@@ -105,8 +111,11 @@ export function CounselorDialog({
 
     const fd = new FormData(event.currentTarget);
     const name = String(fd.get("name") || "").trim();
+    const email = String(fd.get("email") || "").trim();
     const phone = String(fd.get("phone") || "").replace(/\D/g, "");
-    const course = String(fd.get("course") || "").trim();
+    // Matches /contact: multiple courses, stored as titles, joined for the
+    // single `course_interest` column.
+    const course = selectedCourses.join(", ");
     const typedMessage = String(fd.get("message") || "").trim();
 
     // The lead schema no longer requires a message, but an empty one tells the
@@ -133,7 +142,7 @@ export function CounselorDialog({
       try {
         const result = await submitLead({
           name,
-          email: "",
+          email,
           phone,
           message,
           course: courseInterest,
@@ -236,6 +245,20 @@ export function CounselorDialog({
           </div>
 
           <div className="space-y-1.5">
+            <Label htmlFor="counselor-email">Email Address</Label>
+            <Input
+              id="counselor-email"
+              name="email"
+              type="email"
+              placeholder="Enter your email"
+              aria-invalid={errors.email ? "true" : "false"}
+            />
+            {errors.email && (
+              <p className="text-sm text-destructive">{errors.email}</p>
+            )}
+          </div>
+
+          <div className="space-y-1.5">
             <Label htmlFor="counselor-phone">Phone Number *</Label>
             <Input
               id="counselor-phone"
@@ -255,12 +278,10 @@ export function CounselorDialog({
           </div>
 
           <div className="space-y-1.5">
-            <Label htmlFor="counselor-course">Course of Interest</Label>
-            <Input
-              id="counselor-course"
-              name="course"
-              placeholder="e.g. Java Full Stack"
-              defaultValue={defaultCourse}
+            <Label htmlFor="counselor-course">Courses Interested In</Label>
+            <CourseSelect
+              value={selectedCourses}
+              onValueChange={setSelectedCourses}
             />
           </div>
 

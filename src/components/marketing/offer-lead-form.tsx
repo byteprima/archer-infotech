@@ -73,8 +73,10 @@ export function OfferLeadForm({ subject, onSuccess }: Props) {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
     const name = String(fd.get("name") || "").trim();
+    const email = String(fd.get("email") || "").trim();
     const phone = String(fd.get("phone") || "").trim();
     const course = String(fd.get("course") || "").trim();
+    const typedMessage = String(fd.get("message") || "").trim();
 
     const next: Record<string, string> = {};
     if (name.length < 2) next.name = "Enter your name.";
@@ -88,11 +90,15 @@ export function OfferLeadForm({ subject, onSuccess }: Props) {
     try {
       const result = await submitLead({
         name,
-        email: "",
+        email,
         phone,
         course,
-        // submitLead enforces a 10-character minimum here.
-        message: `${subject} — enquiry from the website popup. Interested in: ${course}.`,
+        // Prefer what the visitor actually wrote; fall back to the synthesised
+        // line so the admin lead list is never blank (submitLead enforces a
+        // 10-character minimum here).
+        message:
+          typedMessage ||
+          `${subject} — enquiry from the website popup. Interested in: ${course}.`,
         honeypot: String(fd.get("website") || ""),
         source: popupLeadSource(subject),
         utmSource: "site",
@@ -166,13 +172,22 @@ export function OfferLeadForm({ subject, onSuccess }: Props) {
         className="absolute h-0 w-0 overflow-hidden opacity-0"
       />
 
-      <div className="grid gap-2 sm:grid-cols-[1fr_1fr_1fr_auto] sm:items-center">
+      <div className="grid gap-2 sm:grid-cols-2">
         <input
           name="name"
           autoComplete="name"
           placeholder="Your name"
           aria-label="Your name"
           aria-invalid={!!errors.name}
+          className={field}
+        />
+        <input
+          name="email"
+          type="email"
+          autoComplete="email"
+          placeholder="Your email (optional)"
+          aria-label="Your email"
+          aria-invalid={!!errors.email}
           className={field}
         />
         <input
@@ -213,10 +228,17 @@ export function OfferLeadForm({ subject, onSuccess }: Props) {
             </optgroup>
           ))}
         </select>
+        <textarea
+          name="message"
+          rows={2}
+          placeholder="Anything you'd like to ask? (optional)"
+          aria-label="Message"
+          className={`${field} h-auto py-2 sm:col-span-2`}
+        />
         <button
           type="submit"
           disabled={pending}
-          className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none disabled:opacity-60"
+          className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none disabled:opacity-60 sm:col-span-2"
         >
           {pending ? "Sending…" : "Enrol now"}
         </button>

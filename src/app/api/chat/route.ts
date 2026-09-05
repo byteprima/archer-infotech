@@ -86,6 +86,11 @@ const TOOLS = [
         type: "object",
         properties: {
           name: { type: "string", description: "The person's full name." },
+          email: {
+            type: "string",
+            description:
+              "Their email address, if they offer one. Optional — ask once, never insist.",
+          },
           phone: { type: "string", description: "Their 10-digit Indian mobile number (digits only)." },
           course: { type: "string", description: "The course they are interested in, if mentioned." },
           message: { type: "string", description: "A one-line summary of what they asked about." },
@@ -98,11 +103,13 @@ const TOOLS = [
 
 async function executeCaptureLead(args: {
   name?: string;
+  email?: string;
   phone?: string;
   course?: string;
   message?: string;
 }): Promise<string> {
   const name = (args.name || "").trim();
+  const email = (args.email || "").trim();
   const phone = (args.phone || "").replace(/\D/g, "").slice(-10);
   const course = (args.course || "").trim() || undefined;
   let message = (args.message || "").trim();
@@ -115,7 +122,7 @@ async function executeCaptureLead(args: {
       error: "Need a valid name and a 10-digit phone number before saving.",
     });
   }
-  const result = await submitLead({ name, email: "", phone, course, message, source: "chat_widget" });
+  const result = await submitLead({ name, email, phone, course, message, source: "chat_widget" });
   return JSON.stringify({ success: result.success, message: result.message });
 }
 
