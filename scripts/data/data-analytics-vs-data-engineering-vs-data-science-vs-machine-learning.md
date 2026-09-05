@@ -14,7 +14,7 @@ That last question is the expensive one. Get it wrong and you pay four times to 
 
 This guide answers all of it: what each field is, the technologies covered in each, where they overlap, where they separate, and the learning sequence that gets you through all four without repeating yourself.
 
-![Comparison infographic of Data Analytics, Data Engineering, Data Science and Machine Learning showing each field's typical workflow and use cases, the topic overlap between them, the common foundation topics shared by all four, how the four roles collaborate in a real project, the recommended eight-stage learning sequence, and the common tools and technologies including Python, SQL, Pandas, NumPy, Power BI, Excel, Spark, Airflow, Snowflake, AWS, Azure, Docker, GitHub, PostgreSQL, Kafka and Databricks.](/images/blog/data-analytics-engineering-science-ml-comparison.png)
+<img src="/media/blog/d50bb211-137a-475a-ac5c-22b6b1ee6ee3.png" alt="Comparison infographic of Data Analytics, Data Engineering, Data Science and Machine Learning showing each field's typical workflow and use cases, the topic overlap between them, the common foundation topics shared by all four, how the four roles collaborate in a real project, the recommended eight-stage learning sequence, and the common tools and technologies including Python, SQL, Pandas, NumPy, Power BI, Excel, Spark, Airflow, Snowflake, AWS, Azure, Docker, GitHub, PostgreSQL, Kafka and Databricks." width="1536" height="1024" loading="lazy" decoding="async">
 
 ## The one-line version
 
@@ -185,15 +185,13 @@ Linear Regression, Logistic Regression, K-Nearest Neighbors, Naive Bayes, Decisi
 
 Here is the side-by-side view:
 
-| | Data Analytics | Data Engineering | Data Science | Machine Learning |
-|---|---|---|---|---|
-| **Core question** | What happened and why? | How does data get here reliably? | What will happen, and what drives it? | How do we predict it at scale? |
-| **Primary output** | Dashboards, reports, insights | Pipelines, warehouses, reliable datasets | Experiments, models, findings | Production models and predictions |
-| **Signature tools** | Excel, SQL, Power BI | Spark, Kafka, Airflow, Snowflake | Python, statistics, Scikit-Learn | Scikit-Learn, XGBoost, PyTorch |
-| **Maths intensity** | Low to moderate | Low | High | High |
-| **Engineering intensity** | Low | High | Moderate | High |
-| **Typical entry level** | Beginner-friendly | Needs programming maturity | Needs maths and statistics | Needs ML plus engineering |
-| **Time horizon** | Past and present | Continuous / real-time | Future and causal | Future, automated |
+**Data Analytics** — asks *what happened and why*. Ships dashboards, reports and insights. Runs on Excel, SQL and Power BI. Low maths, low engineering, beginner-friendly. Looks at the past and present.
+
+**Data Engineering** — asks *how does data get here reliably*. Ships pipelines, warehouses and trustworthy datasets. Runs on Spark, Kafka, Airflow and Snowflake. Low maths, heavy engineering. Needs programming maturity. Works continuously, often in real time.
+
+**Data Science** — asks *what will happen, and what drives it*. Ships experiments, models and findings. Runs on Python, statistics and Scikit-Learn. High maths, moderate engineering. Needs statistics. Looks forward, and at cause.
+
+**Machine Learning** — asks *how do we predict it at scale*. Ships production models and predictions. Runs on Scikit-Learn, XGBoost and PyTorch. High maths, heavy engineering. Needs ML plus engineering. Looks forward, automatically.
 
 And as a flow, which is how these actually sit inside a company:
 
@@ -211,7 +209,7 @@ The boundaries are real, but they are not rigid. In actual projects, professiona
 
 This is the table that explains why learning them separately wastes so much time.
 
-| Topic | Data Analytics | Data Science | Machine Learning | Data Engineering |
+| Topic | DA | DS | ML | DE |
 |---|:---:|:---:|:---:|:---:|
 | Python Fundamentals | ✅ | ✅ | ✅ | ✅ |
 | SQL | ✅ | ✅ | ✅ | ✅ |
@@ -253,6 +251,8 @@ This is the table that explains why learning them separately wastes so much time
 | Data Governance | ◐ | ◐ | ◐ | ✅ |
 | Data Security | ◐ | ◐ | ◐ | ✅ |
 | AI-Assisted Development | ✅ | ✅ | ✅ | ✅ |
+
+**Columns:** DA = Data Analytics · DS = Data Science · ML = Machine Learning · DE = Data Engineering
 
 **Legend:** ✅ major/core topic · ◐ useful or supporting topic · ❌ usually not a core topic
 
@@ -421,13 +421,13 @@ Four roles, one ecosystem, one business outcome.
 
 ## What these roles pay in Pune
 
-Figures below are ₹ lakh per annum from our Pune salary dataset, aggregated from AmbitionBox, Glassdoor, Indeed and PayScale.
+All figures are ₹ lakh per annum (LPA), from our Pune salary dataset, aggregated from AmbitionBox, Glassdoor, Indeed and PayScale.
 
-| Role | Fresher (0–2 yrs) | Mid-level (3–5 yrs) | Senior (5–8 yrs) | Pune average |
+| Role | 0–2 yr | 3–5 yr | 5–8 yr | Pune avg |
 |---|---|---|---|---|
-| Data Analyst | ₹3.5–6 LPA | ₹7–11 LPA | ₹10–15 LPA | ₹5.8 LPA |
-| Data Scientist | ₹4.5–7.5 LPA | ₹10–18 LPA | ₹15–26 LPA | ₹10.8 LPA |
-| Machine Learning Engineer | ₹6–10 LPA | ₹14–22 LPA | ₹24–42 LPA | ₹10.3 LPA |
+| Data Analyst | 3.5–6 | 7–11 | 10–15 | 5.8 |
+| Data Scientist | 4.5–7.5 | 10–18 | 15–26 | 10.8 |
+| ML Engineer | 6–10 | 14–22 | 24–42 | 10.3 |
 
 Data Engineering roles in Pune are not yet a separate band in our dataset — check live listings for current ranges. You can model your own numbers with the [Pune IT salary calculator](/tools/pune-it-salary-calculator).
 
