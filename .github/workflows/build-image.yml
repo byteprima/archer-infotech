@@ -94,21 +94,45 @@ jobs:
           secrets: |
             next_server_actions_key=${{ secrets.NEXT_SERVER_ACTIONS_ENCRYPTION_KEY }}
 
-      - name: Trigger Coolify deploy
-        # Skipped silently until COOLIFY_TOKEN exists, so the first runs can be
-        # verified as image builds before anything touches production.
+      - name: Point Coolify at this exact image, then deploy
+        # Skipped silently until COOLIFY_TOKEN exists, so image builds can be
+        # verified before anything is allowed to touch production.
+        #
+        # IMAGE_REF is pinned to the immutable sha-<commit> tag rather than
+        # :main. Coolify's deploy builds Dockerfile.deploy, which is just a FROM
+        # — and a FROM against a moving tag would happily reuse whatever copy of
+        # :main the VPS already had, silently deploying a stale image. A digest
+        # -unique tag cannot be stale.
         if: ${{ github.event_name == 'push' || inputs.deploy }}
         env:
           COOLIFY_TOKEN: ${{ secrets.COOLIFY_TOKEN }}
+          COOLIFY_URL: https://coolify.byteprima.com
           COOLIFY_APP_UUID: i5knr4obzv3hzjhrkl58rn12
+          IMAGE_REF: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:sha-${{ github.sha }}
         run: |
-          if [ -z "$COOLIFY_TOKEN" ]; then
+          set -euo pipefail
+          if [ -z "${COOLIFY_TOKEN:-}" ]; then
             echo "COOLIFY_TOKEN not set — image published, deploy not triggered."
             exit 0
           fi
+
+          echo "Pinning IMAGE_REF to $IMAGE_REF"
+          # Create the variable, or update it if it already exists. Coolify
+          # returns 4xx on create-when-present, so fall through to PATCH.
+          curl -sS -X POST "$COOLIFY_URL/api/v1/applications/$COOLIFY_APP_UUID/envs" \
+            -H "Authorization: Bearer $COOLIFY_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d "{\"key\":\"IMAGE_REF\",\"value\":\"$IMAGE_REF\",\"is_buildtime\":true,\"is_runtime\":false}" \
+            -o /dev/null -w 'create: HTTP %{http_code}\n' || true
+          curl -sS -X PATCH "$COOLIFY_URL/api/v1/applications/$COOLIFY_APP_UUID/envs" \
+            -H "Authorization: Bearer $COOLIFY_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d "{\"key\":\"IMAGE_REF\",\"value\":\"$IMAGE_REF\",\"is_buildtime\":true,\"is_runtime\":false}" \
+            -o /dev/null -w 'update: HTTP %{http_code}\n'
+
           code=$(curl -sS -o /tmp/deploy.json -w '%{http_code}' \
-            -X GET "https://coolify.byteprima.com/api/v1/deploy?uuid=$COOLIFY_APP_UUID" \
+            -X GET "$COOLIFY_URL/api/v1/deploy?uuid=$COOLIFY_APP_UUID" \
             -H "Authorization: Bearer $COOLIFY_TOKEN")
-          echo "Coolify responded HTTP $code"
+          echo "deploy trigger: HTTP $code"
           cat /tmp/deploy.json
           [ "$code" = "200" ]

@@ -1,0 +1,19 @@
+# Deploy-only Dockerfile. Coolify builds THIS on the VPS; the real build
+# happens on a GitHub runner (see .github/workflows/build-image.yml).
+#
+# Why the indirection: Coolify cannot convert an existing git-backed
+# application to its "Docker Image" type — the API rejects that build pack, and
+# recreating the app would mean rebuilding 26 environment variables, the
+# persistent volume, the domains and the Traefik labels by hand. So the app
+# stays on the "dockerfile" build pack and this file makes that build a no-op:
+# a single FROM that resolves to the already-built image. Pull and retag only,
+# no compile, so the OOM that broke deploys for three weeks cannot recur here.
+#
+# IMAGE_REF is supplied by Coolify as a build arg from the application's
+# build-time environment variable of the same name. The workflow sets it to the
+# immutable sha-<commit> tag before triggering a deploy, which guarantees the
+# VPS pulls that exact image instead of reusing a stale local copy of a moving
+# tag. The :main default only applies to a manual deploy triggered from the
+# Coolify UI.
+ARG IMAGE_REF=ghcr.io/byteprima/archer-infotech:main
+FROM ${IMAGE_REF}
