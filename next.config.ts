@@ -157,15 +157,34 @@ const nextConfig: NextConfig = {
     //
     // NOTE: do NOT add `must-revalidate` here. It forbids serving a stale
     // response, which forces Cloudflare to revalidate synchronously against
-    // origin the moment s-maxage expires (cf-cache-status: EXPIRED) — the
-    // exact ~1s TTFB hit `stale-while-revalidate` exists to avoid. Confirmed
-    // 2026-06-21: field LCP p75 was 3.15s with cache HIT TTFB ~0.3s but
-    // MISS/EXPIRED TTFB ~1s. Without must-revalidate, post-TTL visitors get
-    // an instant stale response while Cloudflare refreshes in the background.
+    // origin the moment the edge TTL expires — the exact ~1s TTFB hit
+    // `stale-while-revalidate` exists to avoid. Confirmed 2026-06-21: field
+    // LCP p75 was 3.15s with cache HIT TTFB ~0.3s but MISS/EXPIRED TTFB ~1s.
+    //
+    // 2026-09-05 — that note was right about the mechanism and wrong about
+    // the trigger. `s-maxage` does the same thing: RFC 9111 §4.2.4 gives it
+    // proxy-revalidate semantics, and Cloudflare honours that by refusing to
+    // serve stale. So `max-age=0, s-maxage=N, stale-while-revalidate=86400`
+    // asks for two contradictory things and the swr half loses — it has
+    // never taken effect on this site.
+    //
+    // Measured on /blog/<slug> (300s tier) before the fix: at every TTL
+    // boundary Cloudflare returned `cf-cache-status: REVALIDATED` — a
+    // blocking origin round-trip — never `UPDATING`, which is what working
+    // swr produces. TTFB at those boundaries was 0.91s and 1.78s against a
+    // ~0.32s median for HIT: the 3-5x penalty this header was written to
+    // prevent, and part of why cache-warm.yml exists.
+    //
+    // The fix is Cloudflare's documented one: express the edge TTL as
+    // `max-age` and drop `s-maxage` entirely. The cost is that browsers now
+    // cache the HTML for the same window rather than revalidating every
+    // time, which is why this is applied to the 5-minute tier first — a
+    // visitor holding 5-minute-old HTML is harmless. Decoupling browser TTL
+    // from edge TTL on the longer tiers needs Edge Cache TTL set in a
+    // Cloudflare Cache Rule, which is a separate change.
     const PUBLIC_CACHE_DYNAMIC = {
       key: "Cache-Control",
-      value:
-        "public, max-age=0, s-maxage=300, stale-while-revalidate=86400",
+      value: "public, max-age=300, stale-while-revalidate=86400",
     };
     const PUBLIC_CACHE_STABLE = {
       key: "Cache-Control",
