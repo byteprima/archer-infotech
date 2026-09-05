@@ -136,3 +136,48 @@ jobs:
           echo "deploy trigger: HTTP $code"
           cat /tmp/deploy.json
           [ "$code" = "200" ]
+
+  # The 2026-08-15 → 2026-09-05 outage lasted three weeks because nothing
+  # reported it: the VPS build was OOM-killed silently, deploys were triggered
+  # manually and rarely, and 23 commits sat unshipped with the site looking
+  # perfectly healthy. A red tick in the Actions tab is only noticed by someone
+  # already looking at it, so failures are raised as an issue instead.
+  notify-failure:
+    needs: build
+    if: failure() && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Open or update a failure issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          title="Deploy pipeline failing on main"
+          # Reuse the open issue if there is one, so a run of consecutive
+          # failures produces one thread rather than a pile of duplicates.
+          existing=$(gh issue list --repo "$REPO" --state open --label deploy-failure \
+                       --json number --jq '.[0].number // empty')
+          body=$(printf '%s\n' \
+            "The image build or deploy failed for commit \`${SHA}\`." \
+            "" \
+            "Run: ${RUN_URL}" \
+            "" \
+            "Production is unaffected — it keeps serving the last good image — but" \
+            "**nothing new is shipping until this is fixed.**" \
+            "" \
+            "Worth checking first: the build secret guard (an empty" \
+            "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY fails the build by design), then the" \
+            "runner logs.")
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --repo "$REPO" --body "$body"
+          else
+            gh label create deploy-failure --repo "$REPO" --color B60205 \
+              --description "Image build or deploy failed on main" 2>/dev/null || true
+            gh issue create --repo "$REPO" --title "$title" \
+              --label deploy-failure --body "$body"
+          fi
