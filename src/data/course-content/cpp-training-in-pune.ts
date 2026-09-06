@@ -57,6 +57,42 @@ export const cppTrainingInPune: CourseRichContent = {
       ],
     },
     {
+      title: "Syntax, Types, Control Flow & Functions",
+      weekRange: "Week 1",
+      description:
+        "The procedural base that modern C++ still rests on. Types and their real sizes, `auto` and type deduction, `const` and `constexpr`, and the initialisation forms — including brace initialisation and why it is the safer default. Control flow, then functions: parameters by value and by reference, default arguments, overloading and the resolution rules, and `inline`.\n\nArrays and multidimensional arrays are covered alongside `std::array` and `std::vector`, with the standing recommendation to reach for the standard containers and the honest reason to still understand raw arrays: you will meet them in existing code and in every interview that touches memory.",
+      topics: [
+        "Fundamental types and their real sizes",
+        "auto, decltype and type deduction",
+        "const, constexpr and compile-time evaluation",
+        "Brace initialisation and narrowing prevention",
+        "Control flow and range-based for",
+        "Functions, parameters by value and by reference",
+        "Default arguments and function overloading",
+        "Overload resolution and ambiguity errors",
+        "Raw arrays, std::array and std::vector",
+        "std::string against C-style strings",
+      ],
+    },
+    {
+      title: "Pointers, References & Dynamic Memory",
+      weekRange: "Week 2",
+      description:
+        "The concepts that decide whether someone can read C++ or merely write it. Pointers and pointer arithmetic; references and the ways they differ from pointers; `const` correctness applied to both, which is where the syntax genuinely does get confusing and is worth slowing down for.\n\nDynamic memory with `new` and `delete`, arrays and their matching `delete[]`, and the failure modes: leaks, double frees, dangling pointers and use-after-free. This module deliberately precedes smart pointers so that RAII later reads as the solution to a problem you have personally had, rather than a rule you were handed.",
+      topics: [
+        "Pointers, dereferencing and pointer arithmetic",
+        "References and how they differ from pointers",
+        "const pointers and pointers to const",
+        "Null pointers and nullptr",
+        "new, delete and delete[]",
+        "Memory leaks and double frees",
+        "Dangling pointers and use-after-free",
+        "Stack versus heap allocation",
+        "Passing by value, reference and pointer",
+        "Why manual memory management does not scale",
+      ],
+    },
+    {
       title: "Object-Oriented C++",
       weekRange: "Weeks 2–3",
       description:
@@ -71,6 +107,24 @@ export const cppTrainingInPune: CourseRichContent = {
         "Diamond problem and virtual inheritance",
         "Composition over inheritance",
         "std::variant + std::visit for closed-set polymorphism",
+      ],
+    },
+    {
+      title: "Operator Overloading, Friends & Const Correctness",
+      weekRange: "Week 3",
+      description:
+        "The parts of C++ that make user-defined types behave like built-in ones. Operator overloading covers arithmetic, comparison, stream insertion and extraction, subscript, function call and assignment — with the discipline that matters more than the syntax: overload an operator only when its meaning is obvious, because a `+` that does something surprising is worse than a method with a clear name.\n\nFriend functions and classes are covered with their trade-off stated plainly. `const` correctness closes the module — const member functions, const parameters and const return values — because it is what makes an interface honest about what it will and will not modify.",
+      topics: [
+        "Overloading arithmetic and comparison operators",
+        "Stream insertion and extraction operators",
+        "Subscript, function-call and assignment operators",
+        "Member versus non-member overloads",
+        "The rule of three and the rule of five",
+        "Copy constructor and copy assignment",
+        "Friend functions and friend classes",
+        "const member functions",
+        "const parameters and return values",
+        "When not to overload an operator",
       ],
     },
     {
@@ -107,6 +161,24 @@ export const cppTrainingInPune: CourseRichContent = {
       ],
     },
     {
+      title: "Exception Handling & File I/O",
+      weekRange: "Week 5",
+      description:
+        "Failure and persistence, treated together because both are where resource management becomes visible. Exceptions cover `try`, `catch` and `throw`, the standard exception hierarchy, custom exception types, catching by reference, and the exception-safety guarantees — basic, strong and no-throw — that a library author is expected to state.\n\nThe interaction with RAII is the important part: an exception thrown between a `new` and its `delete` leaks, and destructors running during stack unwinding are what make the smart pointers in the next module correct rather than merely convenient. File I/O then covers streams, text and binary modes, error state checking and stream manipulators.",
+      topics: [
+        "try, catch, throw and rethrow",
+        "The standard exception hierarchy",
+        "Custom exception types",
+        "Catching by reference, not by value",
+        "Exception-safety guarantees",
+        "Stack unwinding and destructors",
+        "Why exceptions and raw new do not mix",
+        "ifstream, ofstream and fstream",
+        "Text versus binary mode",
+        "Stream state, error checking and manipulators",
+      ],
+    },
+    {
       title: "Memory, RAII & Smart Pointers",
       weekRange: "Week 6",
       description:
@@ -119,6 +191,24 @@ export const cppTrainingInPune: CourseRichContent = {
         "std::make_unique / std::make_shared",
         "Custom deleters and reference cycles",
         "When to use raw pointers (non-owning observation)",
+      ],
+    },
+    {
+      title: "Move Semantics & Perfect Forwarding",
+      weekRange: "Week 6",
+      description:
+        "The feature that changed C++ performance characteristics, and the one most self-taught developers cannot explain. Lvalues and rvalues; rvalue references; move constructors and move assignment; and `std::move`, which is correctly described as a cast rather than as something that moves anything.\n\nThe rule of five follows from it, then perfect forwarding with forwarding references and `std::forward` — the mechanism behind `emplace_back` and every factory function in the standard library. Copy elision and return-value optimisation close the module, including the useful fact that the compiler frequently does this for you and hand-written `std::move` on a return can make things worse.",
+      topics: [
+        "Lvalues, rvalues and value categories",
+        "Rvalue references",
+        "Move constructor and move assignment",
+        "std::move as a cast, not an action",
+        "The rule of five",
+        "noexcept move operations and why containers care",
+        "Forwarding references and std::forward",
+        "Perfect forwarding and emplace",
+        "Copy elision and return-value optimisation",
+        "When std::move on a return makes things worse",
       ],
     },
     {
@@ -137,6 +227,60 @@ export const cppTrainingInPune: CourseRichContent = {
         "std::thread, std::async, std::future",
         "std::mutex, std::lock_guard, std::unique_lock",
         "std::atomic basics",
+      ],
+    },
+    {
+      title: "Data Structures, Algorithms & Complexity in C++",
+      weekRange: "Week 7",
+      description:
+        "The interview layer, and the reason many learners choose C++ in the first place. Implementing linked lists, stacks, queues, trees and graphs by hand, then comparing each with its standard-library equivalent — which teaches both the structure and the reason the standard version is the one to ship.\n\nAlgorithms cover sorting, searching, recursion, greedy approaches, divide and conquer, and an introduction to dynamic programming. Complexity analysis is applied throughout in Big-O terms, along with the practical note that constant factors and cache behaviour are why a `std::vector` frequently beats a `std::list` even where the asymptotics say otherwise.",
+      topics: [
+        "Linked lists, stacks and queues by hand",
+        "Trees, binary search trees and traversal",
+        "Graphs, adjacency representations, BFS and DFS",
+        "Heaps and priority queues",
+        "Hash tables and unordered containers",
+        "Sorting algorithms and std::sort",
+        "Recursion, backtracking and memoisation",
+        "Greedy and divide-and-conquer approaches",
+        "Introduction to dynamic programming",
+        "Big-O, constant factors and cache locality",
+      ],
+    },
+    {
+      title: "Debugging, Sanitisers & Secure C++ Practices",
+      weekRange: "Week 8",
+      description:
+        "Finding faults in a language that will happily compile a program with undefined behaviour. GDB and LLDB for breakpoints, backtraces and inspecting objects; address, undefined-behaviour and thread sanitisers, which catch at runtime what review misses; and Valgrind for leaks.\n\nSecure practice covers the C++ vulnerability classes that persist because the language allows them — buffer overruns, iterator invalidation, dangling references, integer overflow, uninitialised reads — and the modern habits that remove most of them: standard containers over raw arrays, smart pointers over raw owning pointers, `std::string_view` used carefully, and static analysis with clang-tidy in the build.",
+      topics: [
+        "GDB and LLDB — breakpoints, backtraces, inspection",
+        "Address and undefined-behaviour sanitisers",
+        "Thread sanitiser for data races",
+        "Valgrind for leaks and invalid access",
+        "Reading a C++ crash and finding the cause",
+        "Iterator invalidation and dangling references",
+        "Buffer overruns and bounds-safe alternatives",
+        "Uninitialised reads and undefined behaviour",
+        "clang-tidy and static analysis in the build",
+        "Compiler warnings as errors",
+      ],
+    },
+    {
+      title: "Git, GitHub & Building Your C++ Portfolio",
+      weekRange: "Week 8",
+      description:
+        "The professional layer. Git as collaboration — branching, merging, conflicts, pull requests, and a history someone else can read. For C++ specifically, a credible repository needs a build that works from a clean checkout, which in practice means CMake, a stated compiler and standard version, and a README that says how to build and what the program does.\n\nThe habit worth carrying out of the course is documenting limitations honestly: a repository that states which platforms it was tested on and what it does not handle reads as considerably more professional than one that implies it handles everything.",
+      topics: [
+        "Branching, merging and resolving conflicts",
+        "Commit messages a stranger can follow",
+        "Pull requests and code review",
+        ".gitignore for build directories and artefacts",
+        "CMake so the project builds from a clean checkout",
+        "Stating compiler and C++ standard version",
+        "README with build and run instructions",
+        "Documenting known limitations honestly",
+        "Consistent formatting with clang-format",
+        "Presenting a C++ project at interview",
       ],
     },
     {
@@ -177,6 +321,43 @@ export const cppTrainingInPune: CourseRichContent = {
       ],
     },
   ],
+
+  roadmapImage: {
+    src: "/images/courses/cpp-programming-workflow-v1.webp",
+    width: 1400,
+    height: 900,
+    alt: "Eight-stage C plus plus programming learning sequence at Archer Infotech Pune, covering C plus plus foundations, object-oriented C plus plus, templates, STL containers and algorithms, RAII, smart pointers, modern C plus plus features, concurrency, testing, build systems, capstone projects and interview preparation.",
+    caption:
+      "The C++ course moves from C-aware foundations into modern C++17/20/23, ownership, STL, testing and performance-oriented capstone work.",
+  },
+
+  syllabusDownload: {
+    pdfUrl: "/downloads/cplusplus-programming-syllabus-v1.pdf",
+    title: "C++ Programming Course Syllabus — Complete Module List",
+    slug: "cplusplus-programming-syllabus",
+    blurb:
+      "The complete 51-module syllabus as a 29-page PDF — C++ fundamentals, functions, arrays and strings, pointers and references, dynamic memory, the full object-oriented sequence, operator overloading, templates, exception handling, file handling, the entire STL, lambdas, smart pointers and RAII, move semantics, modern C++, multithreading, data structures, algorithms, testing, build systems, competitive-programming foundations, mini projects, a capstone and interview preparation. Everything in it is on this page; the PDF is the portable version.",
+    asideBlocks: [
+      {
+        heading: "What is inside the 29-page PDF",
+        items: [
+          "All 51 modules in teaching order, each with its topic list and practical exercises.",
+          "The STL broken out properly — sequence, associative, unordered and adapter containers, iterators and algorithms, each with its own module.",
+          "Modern C++ given real space: lambdas, smart pointers and RAII, move semantics, perfect forwarding and the current standard's features.",
+          "Recommended lab assignments, suggested duration, prerequisites, tools, learning outcomes and the recommended progression after C++.",
+        ],
+      },
+      {
+        heading: "Roles this syllabus prepares you for",
+        items: [
+          "C++ Developer in product, systems and embedded engineering.",
+          "Competitive programming and placement screening rounds.",
+          "Game, graphics and performance-critical engineering.",
+          "Automotive and embedded roles across Pune's engineering firms.",
+        ],
+      },
+    ],
+  },
 
   projects: [
     {

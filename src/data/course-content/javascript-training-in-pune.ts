@@ -55,6 +55,24 @@ export const javascriptTrainingInPune: CourseRichContent = {
       ],
     },
     {
+      title: "Strings, Arrays & Advanced Array Methods",
+      weekRange: "Week 2",
+      description:
+        "The data-handling core of everyday JavaScript. Strings, their methods, template literals and the immutability that surprises people arriving from other languages. Then arrays properly: creation, indexing, and the crucial split between methods that mutate the original and methods that return a new one — which is the distinction that makes React state updates work or silently fail.\n\nThe functional methods get the most time: `map`, `filter`, `reduce`, `find`, `some`, `every`, `flat` and `flatMap`, taught through real transformations rather than definitions. `reduce` gets extra attention because it is the one people avoid, and the one that makes the rest click.",
+      topics: [
+        "String methods, template literals and immutability",
+        "Array creation, indexing and length behaviour",
+        "Mutating versus non-mutating methods",
+        "map, filter and chaining transformations",
+        "reduce, and the accumulator pattern",
+        "find, findIndex, some, every, includes",
+        "sort and writing a correct comparator",
+        "flat, flatMap and nested data",
+        "Destructuring, spread and rest with arrays",
+        "Choosing the right method instead of a loop",
+      ],
+    },
+    {
       title: "Modern ECMAScript & Idiomatic JS",
       weekRange: "Week 3",
       description:
@@ -69,6 +87,24 @@ export const javascriptTrainingInPune: CourseRichContent = {
         "Array methods — map, filter, reduce, findLast",
         "Object methods — groupBy, fromEntries, Object.hasOwn",
         "Iterator helpers (ES2025 staged)",
+      ],
+    },
+    {
+      title: "Scope, Hoisting, Closures & `this`",
+      weekRange: "Week 3",
+      description:
+        "The four concepts that JavaScript interviews are actually built on, and the ones that explain most confusing behaviour. Scope and the scope chain; hoisting and the temporal dead zone, which is why `let` and `const` behave differently from `var` in ways that matter; and closures — taught until a counter function, a module pattern and a memoised function are all things you can write from scratch.\n\n`this` gets its own extended treatment because its binding rules are genuinely non-obvious: default, implicit, explicit with `call`, `apply` and `bind`, `new`, and arrow functions, which do not bind it at all. You predict the output of deliberately tricky examples before running them.",
+      topics: [
+        "Lexical scope and the scope chain",
+        "Hoisting, var, let and const",
+        "The temporal dead zone",
+        "Closures and captured variables",
+        "The classic loop-and-closure trap",
+        "Practical closures — counters, modules, memoisation",
+        "The four binding rules for this",
+        "call, apply and bind",
+        "Arrow functions and lexical this",
+        "Predicting output before running it",
       ],
     },
     {
@@ -88,6 +124,42 @@ export const javascriptTrainingInPune: CourseRichContent = {
       ],
     },
     {
+      title: "Objects, Prototypes & the Prototype Chain",
+      weekRange: "Week 4",
+      description:
+        "How JavaScript's object model actually works underneath the `class` keyword. Object creation, property access, computed keys, descriptors, and the difference between shallow and deep copying — which is where a great many state bugs originate.\n\nPrototypes are then taught properly rather than hidden: `__proto__` against `prototype`, the lookup chain, `Object.create`, and how `class` is syntax over exactly this machinery. That matters practically, because prototype-based inheritance is what you meet when reading library source, and a developer who only knows the `class` syntax cannot follow it.",
+      topics: [
+        "Object literals, computed keys and shorthand",
+        "Property descriptors, getters and setters",
+        "Shallow versus deep copy, and structuredClone",
+        "Object.keys, values, entries and fromEntries",
+        "Optional chaining and nullish coalescing",
+        "__proto__ versus prototype",
+        "The prototype chain and property lookup",
+        "Object.create and delegation",
+        "class as syntax over prototypes",
+        "Reading library source that uses prototypes",
+      ],
+    },
+    {
+      title: "Set, Map, Symbols, Iterators & Generators",
+      weekRange: "Week 4",
+      description:
+        "The parts of modern JavaScript that most self-taught developers skip and that appear in every serious codebase. `Set` and `Map` and the genuine reasons to prefer them over arrays and plain objects — key types, ordering guarantees and performance. `WeakSet` and `WeakMap` for references that should not prevent collection.\n\nSymbols are covered as unique property keys and as the well-known symbols that customise language behaviour, which leads directly into iterators: the protocol behind `for...of`, spread and destructuring. Generators close the module — lazy sequences, `yield`, and the two-way communication that makes them more than syntax sugar.",
+      topics: [
+        "Set — uniqueness, operations and conversions",
+        "Map — key types and ordering guarantees",
+        "WeakSet and WeakMap",
+        "When a Map beats a plain object",
+        "Symbols as unique property keys",
+        "Well-known symbols and language hooks",
+        "The iterator protocol and Symbol.iterator",
+        "Writing a custom iterable",
+        "Generators, yield and lazy sequences",
+        "Two-way communication with generators",
+      ],
+    },
+    {
       title: "Asynchronous JavaScript — Promises, async / await",
       weekRange: "Week 5",
       description:
@@ -101,6 +173,24 @@ export const javascriptTrainingInPune: CourseRichContent = {
         "AbortController and cancellation",
         "Sequential vs parallel awaits",
         "Error handling and unhandled rejection traps",
+      ],
+    },
+    {
+      title: "Regular Expressions, Date & Number Utilities",
+      weekRange: "Week 5",
+      description:
+        "The utility layer every application needs and most courses skip. Regular expressions cover pattern syntax, groups, flags, greedy against lazy matching, and the string methods that take them — plus the standing advice that a regex you cannot read in six months is a liability regardless of how clever it was.\n\nDates in JavaScript are notoriously awkward: the `Date` object, its off-by-one month, parsing pitfalls, time zones, and the `Intl` API for locale-aware formatting — which matters for Indian date and currency formats. `Math` and `Number` close the module, including floating-point precision and why `0.1 + 0.2` is the interview question it is.",
+      topics: [
+        "Regex syntax, flags and character classes",
+        "Groups, named groups and back-references",
+        "Greedy versus lazy matching",
+        "match, matchAll, replace and replaceAll",
+        "The Date object and its month off-by-one",
+        "Parsing pitfalls and ISO 8601",
+        "Time zones and the Intl API",
+        "Locale-aware date, number and currency formatting",
+        "Math methods and random number generation",
+        "Floating-point precision and 0.1 + 0.2",
       ],
     },
     {
@@ -118,6 +208,24 @@ export const javascriptTrainingInPune: CourseRichContent = {
         "IntersectionObserver, ResizeObserver, MutationObserver",
         "View Transitions API",
         "Web Workers for CPU-bound tasks",
+      ],
+    },
+    {
+      title: "DOM Events, Forms & Validation",
+      weekRange: "Week 6",
+      description:
+        "The interaction layer, taught by hand before any framework hides it. The event model in full — listeners, the event object, bubbling, capturing, `preventDefault`, `stopPropagation` — and event delegation, which is how you attach one listener to a list of a thousand items instead of a thousand listeners.\n\nForms cover access to field values, the constraint validation API, custom validation with useful messages, and submission with and without a page reload. Debouncing and throttling close the module, because a search box that fires a request per keystroke is a bug every reviewer recognises and every beginner writes once.",
+      topics: [
+        "Event listeners and the event object",
+        "Bubbling, capturing and the propagation path",
+        "preventDefault and stopPropagation",
+        "Event delegation and why it scales",
+        "Custom events and dispatching",
+        "Form field access and the FormData API",
+        "Constraint validation and validity states",
+        "Custom validation with useful messages",
+        "Submission with and without reload",
+        "Debouncing and throttling input handlers",
       ],
     },
     {
@@ -149,6 +257,42 @@ export const javascriptTrainingInPune: CourseRichContent = {
         "Vite for development",
         "Playwright for end-to-end",
         "GitHub Actions for CI",
+      ],
+    },
+    {
+      title: "Web Workers, Performance & Security Basics",
+      weekRange: "Week 8",
+      description:
+        "Why the page freezes, and what to do about it. The single-threaded model revisited from a performance angle: long tasks block rendering and input, and Web Workers move heavy computation off the main thread with a message-passing interface that has real constraints worth knowing before you design around it.\n\nPerformance covers measuring before optimising, the rendering pipeline, layout thrashing, memory leaks from listeners and timers never cleaned up, and lazy loading. Security covers what applies client-side: XSS and why `innerHTML` with user input is dangerous, safe DOM construction, CORS and same-origin, token storage trade-offs, and never trusting anything a browser sends you.",
+      topics: [
+        "Long tasks and blocking the main thread",
+        "Web Workers and message passing",
+        "What a worker can and cannot access",
+        "Measuring with the Performance API and dev tools",
+        "The rendering pipeline and layout thrashing",
+        "Memory leaks from listeners and timers",
+        "Lazy loading and code splitting",
+        "XSS and the danger of innerHTML",
+        "Safe DOM construction with user input",
+        "CORS, same-origin and token storage",
+      ],
+    },
+    {
+      title: "Git, npm, Build Tools & Clean JavaScript Practices",
+      weekRange: "Week 8",
+      description:
+        "The professional layer around the language. Git as collaboration — branching, merging, conflicts, pull requests and a readable history. npm properly: `package.json`, semantic versioning, the lockfile and why it is committed, `dependencies` against `devDependencies`, scripts, and auditing for vulnerabilities.\n\nBuild tooling covers what a bundler actually does and why the browser needs one, Vite as the current default, transpilation and browser targets, and source maps. Clean-code practice covers ESLint and Prettier, naming, module boundaries and the readability habits that get a pull request approved on the first pass rather than the third.",
+      topics: [
+        "Branching, merging and resolving conflicts",
+        "Pull requests and review etiquette",
+        "package.json and semantic versioning",
+        "The lockfile and reproducible installs",
+        "dependencies versus devDependencies",
+        "npm scripts and task automation",
+        "npm audit and dependency vulnerabilities",
+        "What a bundler does, and Vite as the default",
+        "Transpilation, browser targets and source maps",
+        "ESLint, Prettier and readable module boundaries",
       ],
     },
     {
@@ -185,6 +329,43 @@ export const javascriptTrainingInPune: CourseRichContent = {
       ],
     },
   ],
+
+  roadmapImage: {
+    src: "/images/courses/javascript-programming-workflow-v1.webp",
+    width: 1400,
+    height: 900,
+    alt: "Eight-stage JavaScript programming learning sequence at Archer Infotech Pune, covering JavaScript foundations, modern ECMAScript, object-oriented and functional JavaScript, asynchronous runtime concepts, browser APIs, TypeScript basics, testing, tooling, capstone projects and framework onboarding.",
+    caption:
+      "The JavaScript course builds framework readiness step by step: language fundamentals first, then browser APIs, TypeScript, testing and a deployable project.",
+  },
+
+  syllabusDownload: {
+    pdfUrl: "/downloads/javascript-programming-syllabus-v1.pdf",
+    title: "JavaScript Programming Course Syllabus — Complete Module List",
+    slug: "javascript-programming-syllabus",
+    blurb:
+      "The complete 55-module syllabus as a 29-page PDF — JavaScript fundamentals, arrays and advanced array methods, objects and prototypes, functions, closures, scope and execution context, the DOM, events, forms, browser APIs, storage, asynchronous JavaScript, promises, async/await, the Fetch API, modules, generators, testing, security, performance, tooling, DSA, mini projects, a capstone and interview preparation. Everything in it is on this page; the PDF is the portable version.",
+    asideBlocks: [
+      {
+        heading: "What is inside the 29-page PDF",
+        items: [
+          "All 55 modules in teaching order, each with its topic list and practical exercises.",
+          "The concepts JavaScript interviews are actually built on — scope, hoisting, execution context, closures, prototypes and the four binding rules for `this`.",
+          "Browser work in depth: the DOM, events, forms and validation, the Browser Object Model, storage, Web Workers and browser APIs.",
+          "Recommended lab assignments, suggested duration, prerequisites, tools, learning outcomes and the recommended progression after JavaScript.",
+        ],
+      },
+      {
+        heading: "Roles this syllabus prepares you for",
+        items: [
+          "Frontend Developer and JavaScript Developer.",
+          "The prerequisite for React, Angular, Vue, Node.js and TypeScript.",
+          "Full Stack JavaScript Developer once a framework and Node are added.",
+          "Automation and scripting roles that assume JavaScript fluency.",
+        ],
+      },
+    ],
+  },
 
   projects: [
     {

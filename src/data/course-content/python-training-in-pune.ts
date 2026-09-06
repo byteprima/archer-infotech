@@ -2,20 +2,20 @@ import type { CourseRichContent } from "./types";
 
 export const pythonTrainingInPune: CourseRichContent = {
   intro:
-    "Python is the fastest path from 'I have never coded' to a working programmer in Pune's IT job market. It powers data science, AI/LLM integration, automation, web backends (Django, FastAPI), and the scripting layer of every cloud platform. Indeed Pune lists 1,000+ active Python roles as of 2026 — across product engineering at Persistent Systems and BMW TechWorks India, data and analytics at Tiger Analytics and Fractal, and IT services at TCS, Infosys, and Cognizant. Archer Infotech's Python training in Pune teaches Python as it is actually used in 2026 — Python 3.13, FastAPI for AI-glue services, Django 5 with async, pandas 2 + NumPy 2 + scikit-learn, and direct hands-on with LLM APIs. Classroom in Kothrud, online live, and weekend batches available.",
+    "Python is the fastest path from 'I have never coded' to a working programmer in Pune's IT job market. Archer Infotech's Core Python training in Pune teaches the language itself in depth: Python 3.13 syntax, variables, control flow, functions, modules, packages, virtual environments, lists, tuples, dictionaries, sets, comprehensions, file handling, exceptions, OOP, iterators, generators, decorators, regular expressions, database connectivity basics, testing and interview-ready problem solving. Django, FastAPI, Data Science and AI/LLM integration are separate follow-on tracks; this page is the Core Python foundation. Classroom in Kothrud, online live, and weekend batches available.",
 
   whyLearn: {
     heading: "Why Learn Python in 2026",
     paragraphs: [
-      "Python has the lowest learning curve of any production language and the highest demand growth of any backend language in India over the last three years. Indeed Pune lists more than 1,000 active Python roles as of May 2026, spanning IT services, product engineering, data and analytics, and engineering R&D. Tiger Analytics, Fractal Analytics, ZS Associates, MathCo, and Persistent Systems are all hiring Python developers in Pune today. The language is also the de-facto layer for AI integration — every Pune fintech, healthtech, and SaaS team building LLM features writes the glue code in Python.",
-      "What changed in 2026: Python 3.13 is the production default and ships free-threaded mode (no-GIL) as a beta build, FastAPI has matured into the dominant framework for AI/LLM-glue microservices, Django 5 has full async support across ORM, views, and middleware, and the data stack (pandas 2 with Arrow backend, NumPy 2, scikit-learn 1.5+) is faster and more memory-efficient than the 2020-era stack most legacy courses still teach.",
-      "What this means for hiring in Pune: job descriptions increasingly call out specific combinations — Python + FastAPI + LLM API + vector database (pgvector, Pinecone, Weaviate), or Python + Django + Celery + Postgres + Docker, or Python + pandas + scikit-learn + MLflow. Archer Infotech's curriculum is rebuilt around these actual JD patterns, not a generic 2020 syllabus.",
+      "Python has the lowest learning curve of any production language and one of the widest use cases in India: scripting, automation, testing, backend development, data work and AI. But every one of those paths begins with Core Python. Pune employers still screen beginners on syntax, functions, data structures, file handling, OOP, exceptions, debugging and the ability to explain small programs clearly.",
+      "What changed in 2026: Python 3.13 is the modern baseline, virtual-environment tooling is cleaner, type hints are normal in professional code, and AI-assisted development has become part of the learning workflow. A Core Python course should therefore teach the language deeply enough that learners can later move into Django, FastAPI, data analytics, machine learning or AI without relearning fundamentals.",
+      "What this means for hiring in Pune: the strongest beginner profile is not a long list of frameworks. It is a clean GitHub portfolio showing Core Python programs, file/CSV/JSON automation, OOP design, database connectivity basics, tested code, and problem-solving practice. Archer Infotech's curriculum is built around that foundation first.",
     ],
     keyPoints: [
       "Python 3.13 with free-threaded mode and JIT improvements",
-      "FastAPI for AI-glue services, Django 5 for production web apps",
-      "pandas 2 with Arrow backend, NumPy 2, scikit-learn 1.5+, PyTorch 2.4+",
-      "LLM integration — OpenAI / Anthropic SDKs, LangChain, LlamaIndex, vector DBs",
+      "Core Python depth — functions, modules, OOP, exceptions, files, regex, iterators, decorators",
+      "Database and API basics without turning the course into a framework track",
+      "Foundation for Django, FastAPI, Data Science, Machine Learning and GenAI follow-on courses",
       "Pune market reality — 1,000+ active Indeed Python listings, growing year-on-year",
     ],
   },
@@ -23,10 +23,10 @@ export const pythonTrainingInPune: CourseRichContent = {
   whoIsThisFor: {
     forYou: [
       "Engineering, BCS, MCA, or BSc-CS student looking for your first IT or data role in Pune",
-      "Working professional in a non-Python stack wanting to switch into data, ML, or AI engineering",
+      "Working professional in a non-Python stack wanting a clean Python foundation before automation, data or AI",
       "BSc graduate or 12th-passout looking for the lowest-friction entry into a programming career",
       "Career restarter (took a break, raising a family, switching from non-tech) re-entering software",
-      "Domain expert (analytics, finance, biology) who wants to add Python to your toolkit for data work",
+      "Domain expert who wants Python for scripts, reports, automation and later data work",
     ],
     notForYou: [
       "If you are targeting core-banking or large-team Cognizant-style enterprise Java work — pick Java Full Stack instead, both have ample Pune jobs",
@@ -51,6 +51,24 @@ export const pythonTrainingInPune: CourseRichContent = {
         "f-strings and formatted output",
         "Type hints (PEP 484) and mypy basics",
         "Errors and exception handling",
+      ],
+    },
+    {
+      title: "Strings, Regular Expressions & Text Processing",
+      weekRange: "Week 3",
+      description:
+        "Python's string handling in depth, because a very large share of real Python work is reading text, reshaping it and writing it back out. Slicing, the method set, f-strings and the format mini-language, and encoding — which is where beginners meet their first genuinely confusing production bug, usually involving a UTF-8 file opened as ASCII.\n\nRegular expressions follow: pattern syntax, groups, greedy against lazy matching, and the `re` module's compile, search, findall and sub. The module closes on the discipline of knowing when a regex is the wrong tool, and you build a log-parsing utility that extracts structured records from unstructured text.",
+      topics: [
+        "Slicing, indexing and immutability",
+        "String methods and when each is the right one",
+        "f-strings and the format mini-language",
+        "Encoding, decoding and UnicodeDecodeError",
+        "Joining, splitting and building strings efficiently",
+        "Regex syntax — classes, anchors, quantifiers",
+        "Groups, named groups and back-references",
+        "Greedy versus lazy matching",
+        "re.compile, search, findall, finditer and sub",
+        "When a regular expression is the wrong tool",
       ],
     },
     {
@@ -83,73 +101,202 @@ export const pythonTrainingInPune: CourseRichContent = {
       ],
     },
     {
-      title: "File I/O, JSON, and Working with the Filesystem",
+      title: "File I/O, JSON, CSV and Working with the Filesystem",
       weekRange: "Week 6",
       description:
-        "Read and write text and binary files using context managers, parse and emit JSON, walk directory trees with pathlib (the modern replacement for os.path), and work with CSV and Excel data using pandas. Covers the patterns Pune SaaS and analytics teams use daily — log parsing, batch file processing, scheduled report generation.",
+        "Read and write text and binary files using context managers, parse and emit JSON, handle CSV data with the standard library, walk directory trees with pathlib, and build small scripts that rename files, validate folders, clean text and generate reports. This is Core Python as it appears in everyday work: automation, data handling, logs, configuration files and repeatable utilities, without jumping into pandas or web frameworks too early.",
       topics: [
         "Context managers and the with statement",
         "JSON read / write / streaming",
         "pathlib for filesystem operations",
-        "CSV and Excel via pandas",
+        "CSV handling with the csv module",
+        "Text processing and log-file parsing",
+        "Basic configuration files",
         "Working with environment variables",
       ],
     },
     {
-      title: "Web Backends — Django 5 + FastAPI",
-      weekRange: "Weeks 7–8",
+      title: "Standard Library Essentials — collections, itertools, functools",
+      weekRange: "Week 6",
       description:
-        "Two frameworks, two use cases. Django 5 for full-feature web apps with admin, ORM, auth, templates, and async views — the framework powering most Pune SaaS and IT-services Python backends. FastAPI for high-performance API services and AI-glue microservices — the framework Pune fintech and ML-platform teams ship today. Both delivered hands-on, not lectured.",
+        "The modules that separate Python that reads like Python from Python that reads like translated Java. `collections` gives you `defaultdict`, `Counter`, `deque`, `namedtuple` and `OrderedDict` — each of which replaces a five-line pattern beginners write by hand every time.\n\n`itertools` covers lazy iteration, chaining, grouping, combinations and infinite sequences; `functools` covers `lru_cache`, `partial`, `reduce` and `wraps`. The framing throughout is the same: before writing a loop, check whether the standard library already did it — faster, tested, and in one line that a reviewer will recognise immediately.",
       topics: [
-        "Django 5 — models, views, templates, admin, async views",
-        "Django REST Framework basics",
-        "FastAPI — Pydantic v2, async endpoints, dependency injection",
-        "Authentication — Django auth, FastAPI + JWT",
-        "Database integration — Postgres + SQLAlchemy 2 / Django ORM",
-        "Migrations and database evolution",
+        "defaultdict and eliminating key checks",
+        "Counter for frequency work",
+        "deque for queues and sliding windows",
+        "namedtuple and lightweight records",
+        "itertools — chain, groupby, islice, product",
+        "combinations, permutations and infinite iterators",
+        "functools.lru_cache and memoisation",
+        "partial and function specialisation",
+        "reduce, and when a loop is clearer",
+        "Reading the standard library before writing a loop",
       ],
     },
     {
-      title: "Data Science & Analytics with Python",
-      weekRange: "Weeks 9–10",
+      title: "Date, Time & Working with Real-World Data",
+      weekRange: "Week 6",
       description:
-        "The data stack as it is actually used in 2026 — pandas 2 with Arrow backend (10–100× faster than legacy pandas on common operations), NumPy 2, scikit-learn 1.5+, matplotlib + seaborn for visualisation. Build a real end-to-end project — load a public dataset, clean and feature-engineer with pandas, train a model with scikit-learn, evaluate with cross-validation, and produce a report. This module alone qualifies you for entry-level data analyst roles in Pune.",
+        "Dates are where correct-looking programs quietly produce wrong answers, so they get their own treatment. `datetime`, `date`, `time` and `timedelta`; naive against aware datetimes and why mixing them raises; time zones with `zoneinfo`; parsing and formatting with `strptime` and `strftime`; and ISO 8601 as the format to use whenever you control the choice.\n\nThe module then covers the practical data work that surrounds dates in real scripts — validating input, handling missing and malformed values, normalising inconsistent formats, and the defensive habits that stop one bad row from ending a batch job halfway through.",
       topics: [
-        "pandas 2 — DataFrames, Arrow backend, performance",
-        "NumPy 2 — arrays, vectorisation, broadcasting",
-        "Data cleaning and feature engineering",
-        "Visualisation — matplotlib, seaborn, plotly",
-        "scikit-learn — pipelines, cross-validation, common models",
-        "Train/test discipline and model evaluation",
+        "datetime, date, time and timedelta",
+        "Naive versus timezone-aware datetimes",
+        "Time zones with zoneinfo",
+        "strptime, strftime and ISO 8601",
+        "Date arithmetic and interval logic",
+        "Common off-by-one and DST mistakes",
+        "Validating and cleaning input data",
+        "Handling missing and malformed values",
+        "Normalising inconsistent formats",
+        "Failing a row without failing the batch",
       ],
     },
     {
-      title: "AI & LLM Integration",
-      weekRange: "Week 11",
+      title: "Modules, Packages, Virtual Environments & Tooling",
+      weekRange: "Week 7",
       description:
-        "The 2026 differentiator. Integrate OpenAI and Anthropic APIs into a Python backend, build a retrieval-augmented generation (RAG) pipeline with a vector database, use LangChain or LlamaIndex for orchestration, and ship a small AI-powered service. This module is what separates 2026 Pune Python hiring from 2022 Pune Python hiring.",
+        "Learn how Python projects are organised once they grow past a single file. Cover modules, packages, imports, __name__ == '__main__', virtual environments, dependency installation, requirements files, pyproject.toml awareness, command-line arguments and clean folder layout. We also introduce GitHub workflow, README writing and code-review habits so your Core Python projects look professional rather than like classroom fragments.",
       topics: [
-        "OpenAI and Anthropic SDKs",
-        "Embeddings and vector databases (pgvector, Pinecone, Weaviate)",
-        "Retrieval-augmented generation (RAG)",
-        "LangChain and LlamaIndex orchestration basics",
-        "Prompt design for production",
-        "Cost, rate limits, and observability for LLM calls",
+        "Modules, packages and imports",
+        "__name__ == '__main__' and script entry points",
+        "Virtual environments and dependency files",
+        "pip, uv / poetry awareness, pyproject.toml basics",
+        "Command-line arguments with argparse",
+        "Project folder structure and README discipline",
+        "Git and GitHub workflow for Python projects",
       ],
     },
     {
-      title: "Capstone Project & Interview Preparation",
-      weekRange: "Week 12 + 2 weeks placement prep",
+      title: "Type Hints, Dataclasses & Modern Python",
+      weekRange: "Week 7",
       description:
-        "Pick one of three capstone projects (see Capstone Projects). Two weeks of full-time project work plus mock interviews with Pune company question banks (TCS, Infosys, Persistent, Tiger Analytics, Fractal). DSA refresher targeting screening rounds, resume + LinkedIn polish, GitHub cleanup, and HR mock interviews including salary negotiation.",
+        "What professional Python looks like in 2026. Type hints are not enforced at runtime and are still expected in any serious codebase: annotating functions, variables and collections, `Optional` and unions, generics, and running `mypy` so the hints actually catch something rather than decorating the file.\n\nDataclasses remove the boilerplate of `__init__`, `__repr__` and `__eq__`, and `frozen=True` gives immutability for free. Enums, `pathlib` instead of string paths, and the walrus operator and structural pattern matching close the module — the features that make current Python read very differently from Python written five years ago.",
       topics: [
-        "Capstone project — full implementation, deployment, README",
-        "Code review with the lead trainer",
-        "Technical mock interviews — 3 rounds",
-        "DSA refresher targeted at screening patterns",
+        "Annotating functions, variables and collections",
+        "Optional, unions and the modern | syntax",
+        "Generics and TypeVar",
+        "Running mypy and reading its output",
+        "Dataclasses and generated methods",
+        "frozen dataclasses and immutability",
+        "Enum and IntEnum",
+        "pathlib instead of os.path",
+        "The walrus operator",
+        "Structural pattern matching with match",
+      ],
+    },
+    {
+      title: "Advanced Core Python Patterns",
+      weekRange: "Week 8",
+      description:
+        "Strengthen the Python features that separate copy-paste beginners from confident programmers: iterators, generators, decorators, context managers, regular expressions, logging, configuration, datetime handling and type hints. These topics appear constantly in automation scripts, backend code, testing tools and data pipelines. Each concept is tied to a practical mini-task so it becomes usable rather than theoretical.",
+      topics: [
+        "Iterators and generator functions",
+        "Decorators and higher-order functions",
+        "Custom context managers",
+        "Regular expressions for validation and extraction",
+        "Logging and configuration patterns",
+        "datetime and timezone-safe basics",
+        "Type hints and mypy awareness",
+      ],
+    },
+    {
+      title: "Database, API Consumption & Automation Basics",
+      weekRange: "Week 9",
+      description:
+        "Use Core Python to connect with the outside world. Learn SQLite and basic relational-database access, parameterised queries, simple CRUD operations, HTTP requests to public APIs, response parsing, retry awareness and automation scripts that move data between files, APIs and databases. This module gives the practical bridge into backend, data and automation tracks while staying within Core Python.",
+      topics: [
+        "SQLite connectivity from Python",
+        "CRUD operations and parameterised queries",
+        "Basic relational modelling",
+        "HTTP API consumption with requests / httpx awareness",
+        "JSON response parsing",
+        "Retry and error-handling basics",
+        "Automation scripts for reports and validation",
+      ],
+    },
+    {
+      title: "Logging, Command-Line Interfaces & Configuration",
+      weekRange: "Week 9",
+      description:
+        "The difference between a script and a tool someone else can run. Logging replaces `print` — levels, handlers, formatters, writing to file and console, and structured logging that can actually be searched. The rule taught is simple and rarely followed: `print` is for a human watching now, logging is for a human investigating later.\n\nCommand-line interfaces with `argparse` cover arguments, options, defaults, subcommands and help text. Configuration covers environment variables, `.env` files, config precedence, and keeping secrets out of source control — the mistake that ends up in a public repository often enough to be worth a section of its own.",
+      topics: [
+        "Logging levels and when to use each",
+        "Handlers, formatters and multiple destinations",
+        "Structured logging you can search",
+        "Why print is not logging",
+        "argparse — arguments, options and defaults",
+        "Subcommands and useful help text",
+        "Exit codes and scriptable behaviour",
+        "Environment variables and .env files",
+        "Configuration precedence and defaults",
+        "Keeping secrets out of source control",
+      ],
+    },
+    {
+      title: "Concurrency & Asynchronous Python",
+      weekRange: "Week 9",
+      description:
+        "Doing several things at once in a language with a Global Interpreter Lock, which is the subject most Python developers are vaguest about and interviewers most enjoy probing. The GIL is explained plainly, along with its actual consequence: threads help with I/O-bound work and do not help with CPU-bound work.\n\nFrom there: `threading` and its locks, `multiprocessing` for true parallelism, `concurrent.futures` as the interface worth reaching for first, and `asyncio` — the event loop, coroutines, `async`/`await` and `gather`. The judgement being taught is which to choose, and the honest answer that for most scripts the correct choice is none of them.",
+      topics: [
+        "The GIL and what it actually prevents",
+        "I/O-bound versus CPU-bound work",
+        "threading, locks and race conditions",
+        "multiprocessing for true parallelism",
+        "concurrent.futures and executor pools",
+        "asyncio, the event loop and coroutines",
+        "async, await and gather",
+        "Async libraries and blocking calls that ruin them",
+        "Choosing between threads, processes and async",
+        "When concurrency is not the answer",
+      ],
+    },
+    {
+      title: "Git, GitHub & Clean Python Practices",
+      weekRange: "Week 10",
+      description:
+        "The habits that make your work reviewable and your portfolio credible. Git as collaboration rather than three memorised commands: branching, merging, resolving conflicts, pull requests, review etiquette, and a commit history a stranger can follow.\n\nClean Python covers PEP 8 and what it is actually for, project layout, docstrings worth writing, `ruff` and `black` so formatting stops being a discussion, and the readability habits that get code approved rather than returned. You finish with a public repository — README, requirements, a working entry point — because that repository is what a Pune hiring panel opens before your CV.",
+      topics: [
+        "Branching strategy and pull-request workflow",
+        "Merging, rebasing and resolving conflicts",
+        "Writing commits a stranger can follow",
+        "Code review — giving and receiving",
+        "PEP 8 and what it is for",
+        "Project layout and package structure",
+        "Docstrings worth writing",
+        "ruff, black and automated formatting",
+        "requirements.txt, pyproject and reproducible installs",
+        "A README that lets someone run your project",
+      ],
+    },
+    {
+      title: "Testing, Debugging, DSA & Capstone Preparation",
+      weekRange: "Weeks 10–11",
+      description:
+        "Turn Core Python knowledge into reliable code. Learn debugging in VS Code or PyCharm, pytest basics, fixtures, assertions, mocking awareness, coverage, and code-review habits. Then practise DSA patterns in Python: arrays/lists, strings, dictionaries, sets, stacks, queues, recursion, sorting and searching. This module prepares students for both the capstone and entry-level technical interviews.",
+      topics: [
+        "Debugger workflow in VS Code / PyCharm",
+        "pytest basics, fixtures and assertions",
+        "Mocking awareness and coverage reports",
+        "Code review and refactoring repeated logic",
+        "Lists, strings, dictionaries and sets for interviews",
+        "Stacks, queues, recursion, sorting and searching",
+        "Big-O time and space complexity",
+      ],
+    },
+    {
+      title: "Core Python Capstone & Interview Preparation",
+      weekRange: "Week 12 + placement prep",
+      description:
+        "Build a reviewed Core Python project that combines files, OOP, collections, exceptions, database/API basics, tests and documentation. Choose a file organiser, expense tracker, student records system, API data collector, log analyser or automation toolkit. Final review covers code structure, README quality, GitHub presentation, viva-style explanation, resume points, mock technical questions and next-path counselling for Django, FastAPI, Data Science, Machine Learning or GenAI.",
+      topics: [
+        "Core Python capstone implementation",
+        "OOP, collections, files, database/API basics in one project",
+        "pytest test cases for important flows",
+        "README, screenshots and setup instructions",
+        "Project explanation practice",
         "Resume + LinkedIn rewrite",
-        "GitHub portfolio polish",
-        "HR mock interview and salary negotiation",
+        "Mock technical and HR interviews",
+        "Next-path counselling after Core Python",
       ],
     },
     {
@@ -173,47 +320,84 @@ export const pythonTrainingInPune: CourseRichContent = {
     },
   ],
 
+  roadmapImage: {
+    src: "/images/courses/python-programming-workflow-v1.webp",
+    width: 1400,
+    height: 900,
+    alt: "Eight-stage Core Python learning sequence at Archer Infotech Pune, covering Python foundations, functions, data structures, object-oriented programming, exceptions, file handling, modules, packages, virtual environments, iterators, generators, decorators, regex, database basics, API consumption, testing, debugging, DSA, capstone projects and interview preparation.",
+    caption:
+      "The Python course stays focused on Core Python: syntax, functions, OOP, files, modules, automation, testing, DSA and a reviewed capstone.",
+  },
+
+  syllabusDownload: {
+    pdfUrl: "/downloads/python-programming-syllabus-v1.pdf",
+    title: "Core Python Programming Course Syllabus — Complete Module List",
+    slug: "python-programming-syllabus",
+    blurb:
+      "The complete 56-module syllabus as a 30-page PDF — Python fundamentals, every built-in data structure, functions and comprehensions, modules and packages, exception and file handling, the full object-oriented sequence, dataclasses, iterators, generators, decorators, context managers, regular expressions, type hints, concurrency and async, SQLite, DSA, mini projects, a capstone and interview preparation. Everything in it is on this page; the PDF is the portable version.",
+    asideBlocks: [
+      {
+        heading: "What is inside the 30-page PDF",
+        items: [
+          "All 56 modules in teaching order, each with its topic list and practical exercises.",
+          "The object-oriented sequence in full — constructors, encapsulation, inheritance, polymorphism, abstract base classes, special methods and operator overloading.",
+          "The Python that separates professional code from scripts: dataclasses, type hints, decorators, context managers, collections, itertools, functools and logging.",
+          "Recommended lab assignments, suggested duration, prerequisites, tools, learning outcomes and the recommended progression after Core Python.",
+        ],
+      },
+      {
+        heading: "Roles this syllabus prepares you for",
+        items: [
+          "Python Developer and Junior Software Engineer.",
+          "Automation and scripting roles across Pune IT services.",
+          "The foundation before Django, FastAPI or Python Full Stack.",
+          "The entry point into Data Analytics, Data Science and AI tracks.",
+        ],
+      },
+    ],
+  },
+
   projects: [
     {
-      title: "FastAPI + LLM-Powered REST Service",
+      title: "Core Python File Automation Toolkit",
       description:
-        "Build a FastAPI backend with JWT auth, Postgres, and an LLM-integrated endpoint — for example, a document Q&A service that ingests PDFs, embeds chunks into pgvector, and answers user queries via OpenAI or Anthropic. Includes rate limiting, structured logging, and a basic dashboard. Deploy to AWS or Render. Outcome: a public GitHub repo demonstrating the exact stack Pune AI-platform teams want to see in interviews.",
+        "Build a practical automation toolkit that organises folders, validates filenames, reads CSV/JSON files, generates summary reports, logs errors and exposes a simple command-line interface. The focus is Core Python: functions, modules, pathlib, file I/O, exceptions, logging, argparse, type hints and pytest. Outcome: a public GitHub repository that shows useful Python without relying on frameworks.",
       technologies: [
-        "FastAPI",
         "Python 3.13",
-        "PostgreSQL + pgvector",
-        "OpenAI / Anthropic SDK",
-        "JWT auth",
-        "Docker",
-        "AWS or Render",
+        "pathlib",
+        "csv and json modules",
+        "argparse",
+        "logging",
+        "pytest",
+        "GitHub README",
       ],
     },
     {
-      title: "Django 5 SaaS Application",
+      title: "Student Records or Expense Tracker with SQLite",
       description:
-        "A multi-user web application with Django 5 — user auth, role-based permissions, a custom admin interface, async views for long-running tasks, Celery + Redis for background jobs, and Postgres as the database. Pick a real domain — expense tracker, asset manager, ticketing system. Deployed to a cloud provider with Nginx + Gunicorn, includes basic monitoring.",
+        "Create a menu-driven Core Python application for student records, expenses, library books or inventory. Use OOP classes, validation, custom exceptions, collections, SQLite persistence, parameterised queries and report generation. This project helps students explain class design, data modelling and database operations clearly in interviews.",
       technologies: [
-        "Django 5",
-        "Django REST Framework",
-        "Celery + Redis",
-        "PostgreSQL",
-        "Nginx + Gunicorn",
-        "Docker Compose",
-        "AWS or DigitalOcean",
+        "Python 3.13",
+        "OOP",
+        "SQLite",
+        "Parameterized SQL",
+        "Collections",
+        "Custom exceptions",
+        "pytest",
       ],
     },
     {
-      title: "End-to-End Data Science Project",
+      title: "Python DSA and Problem-Solving Notebook",
       description:
-        "Pick a public dataset (Kaggle or Indian government open data), build the full pipeline — data cleaning with pandas 2, exploratory analysis, feature engineering, model training with scikit-learn, evaluation, and a deployment as a small FastAPI inference endpoint with MLflow tracking. Outcome: a Jupyter notebook plus a deployed prediction API — the combo Pune data and analytics teams interview on.",
+        "Build a structured practice repository of Python interview problems: strings, lists, dictionaries, sets, stacks, queues, recursion, sorting, searching and tree traversal basics. Each solution includes explanation, complexity notes and tests. This becomes a reusable interview-prep asset and a clean signal that the student can reason, not just run scripts.",
       technologies: [
-        "pandas 2",
-        "NumPy 2",
-        "scikit-learn",
-        "matplotlib + seaborn",
-        "MLflow",
-        "FastAPI inference endpoint",
-        "Jupyter / VS Code",
+        "Python 3.13",
+        "Data structures",
+        "Algorithms",
+        "Big-O notes",
+        "pytest",
+        "Markdown explanations",
+        "GitHub portfolio",
       ],
     },
   ],
@@ -223,8 +407,8 @@ export const pythonTrainingInPune: CourseRichContent = {
 
   careerOutcomes: {
     paragraphs: [
-      "Python developers are among the most-hired roles in Pune's IT corridor — Indeed lists over 1,000 active Pune Python openings as of May 2026, growing year-on-year. Salary depends heavily on specialisation (web vs data vs AI/ML) and project depth, not raw years of experience.",
-      "What pulls a Python developer above the average band: a public GitHub portfolio with at least one deployed FastAPI or Django project, demonstrable data-science work (a clean Kaggle-style notebook), and one LLM-integrated project. Our capstone projects are designed exactly around these signals.",
+      "Core Python is the entry foundation for automation, testing, backend, data and AI paths in Pune. Salary depends heavily on specialisation later, but beginners are first evaluated on Python syntax, functions, OOP, file handling, data structures, debugging, testing and project explanation.",
+      "What pulls a Core Python learner above the average fresher band: a public GitHub portfolio with useful scripts, file/CSV/JSON automation, OOP projects, database/API basics, pytest coverage and clean README files. Django, FastAPI, data science and AI can raise the ceiling later, but this course builds the base.",
       "Senior and Lead Python bands below are national figures (Pune-specific Indeed pages do not exist for these roles); Pune trends within ±10% of these figures based on AmbitionBox and 6figr aggregations.",
     ],
     salaryBands: [
@@ -281,13 +465,12 @@ export const pythonTrainingInPune: CourseRichContent = {
     ],
     rolesAfterCourse: [
       "Python Developer",
-      "Backend Engineer (FastAPI / Django)",
-      "Data Analyst",
-      "Junior Data Scientist",
-      "ML Engineer (with self-study)",
-      "AI/LLM Integration Engineer",
+      "Core Python Developer",
       "Automation Engineer",
+      "Python Trainee Developer",
       "Software Engineer at IT services",
+      "Application Support Engineer with Python",
+      "Prerequisite met for Python Full Stack or Data/AI tracks",
     ],
   },
 
@@ -323,7 +506,7 @@ export const pythonTrainingInPune: CourseRichContent = {
     note:
       "Course fees range from ₹20,000 to ₹90,000 depending on mode (classroom / online / weekend), batch type, and any applicable concession. Kindly reach us for the current 2026 quote.",
     range:
-      "₹20,000 – ₹90,000 — the higher end covers placement-track classroom batches with extended interview prep and the AI/LLM module; the lower end covers concession-eligible online or weekend formats.",
+      "₹20,000 – ₹90,000 — the higher end covers placement-track classroom batches with extended interview prep; the lower end covers concession-eligible online or weekend formats.",
     paymentOptions: [
       "Single payment with early-bird discount",
       "EMI in 2–3 instalments at no extra cost",
@@ -377,19 +560,19 @@ export const pythonTrainingInPune: CourseRichContent = {
         typical: "Often Python 3.10 or generic 'Python 3'",
       },
       {
-        feature: "Web framework coverage",
-        archer: "Both Django 5 (full stack) and FastAPI (AI-glue)",
-        typical: "One framework or just Flask",
+        feature: "Core Python scope clarity",
+        archer: "Core Python only — Django, FastAPI, data science and AI are routed to follow-on courses",
+        typical: "Often mixes Python basics, web, data and AI without a clear sequence",
       },
       {
-        feature: "Data science stack",
-        archer: "pandas 2, NumPy 2, scikit-learn 1.5+, real Kaggle-style project",
-        typical: "Topic list only with no project work",
+        feature: "Automation and file handling",
+        archer: "Files, folders, CSV, JSON, regex, logging, CLI scripts and practical utilities",
+        typical: "Mostly syntax exercises with little practical scripting",
       },
       {
-        feature: "AI / LLM integration module",
-        archer: "Yes — OpenAI/Anthropic SDK, RAG, vector DB, LangChain",
-        typical: "Not covered or marketing-only mention",
+        feature: "Testing and debugging",
+        archer: "pytest, debugger workflow, assertions, refactoring and code review",
+        typical: "Usually skipped or left for advanced batches",
       },
       {
         feature: "Public GitHub portfolio output",
@@ -424,9 +607,9 @@ export const pythonTrainingInPune: CourseRichContent = {
   versusAlternative: {
     heading: "Python vs Java — Which to Learn First in 2026",
     paragraphs: [
-      "If your goal is data, ML, AI/LLM-integration, scripting, or automation jobs, Python wins on time-to-first-paycheck — the Pune market for 'Python + AI glue' roles is wider than ever. Tiger Analytics, Fractal, ZS Associates, MathCo, and most fintech AI teams hire Python far more than Java.",
-      "If your goal is enterprise backend engineering — banking, large-team Java-shop work at Cognizant, Synechron, or Bajaj Finserv Pune — Java is still the higher-floor language, and Python alone won't get you in. Java has roughly 14% more open jobs in India than Python on LinkedIn, but the volumes are close enough that the choice should be by goal, not by job count.",
-      "Honest answer for most Pune freshers: start with Python because the entry barrier is lower, get placed, then add Java if you pivot to enterprise. Mid-career engineers already in Java should add Python as a secondary skill, not replace. Many of our students do both — start here, get a job, then add the second language as a side study.",
+      "If your goal is scripting, automation, testing support, data preparation or a gentle first programming language, Core Python is usually the easier start. You write useful programs quickly and the syntax does not fight beginners.",
+      "If your goal is enterprise backend engineering, large services-company Java teams or Android-adjacent work, Core Java may be the stronger first language. Java has a wider enterprise footprint in Pune, while Python gives faster early productivity.",
+      "Honest answer for most Pune freshers: choose Python if you want the lowest-friction entry into programming and later data/AI options. Choose Java if you are targeting enterprise backend from day one. Many students eventually learn both.",
     ],
   },
 
@@ -447,7 +630,7 @@ export const pythonTrainingInPune: CourseRichContent = {
     {
       question: "What is the Python course fee in Pune at Archer Infotech?",
       answer:
-        "Course fees range from ₹20,000 to ₹90,000 depending on mode (classroom / online / weekend), batch type, and any applicable concession. The higher end covers placement-track classroom batches with extended interview prep and the AI/LLM module; the lower end covers concession-eligible online or weekend formats. Placement support is included in every fee tier.",
+        "Course fees range from ₹20,000 to ₹90,000 depending on mode (classroom / online / weekend), batch type, and any applicable concession. The higher end covers placement-track classroom batches with extended interview prep; the lower end covers concession-eligible online or weekend formats. Placement support is included in every fee tier.",
     },
     {
       question: "How long is the Python training course in Pune?",
@@ -477,17 +660,17 @@ export const pythonTrainingInPune: CourseRichContent = {
     {
       question: "Is Python certification worth it for jobs in Pune?",
       answer:
-        "Pune hiring managers screen on portfolio over certificates. A clean public GitHub with one deployed FastAPI or Django project plus one data-science notebook beats any certification at the screening stage. We help you build exactly this portfolio during the course.",
+        "Pune hiring managers screen on portfolio over certificates. For a Core Python learner, a clean public GitHub with automation scripts, OOP projects, SQLite-backed utilities, tested functions and readable README files is stronger than a certificate alone. We help you build that portfolio during the course.",
     },
     {
       question: "Can I learn Python and switch to data science / AI later?",
       answer:
-        "Yes — and the course is designed for this. The curriculum includes a full data-science module (pandas 2, NumPy, scikit-learn) and an AI/LLM integration module. After the course, many of our students take a focused data-science specialisation as a follow-up — but the foundation set here is enough for entry-level data analyst and Python-with-AI roles.",
+        "Yes. This Core Python course gives the programming base required for Data Science, Machine Learning and Generative AI tracks. It does not teach pandas, NumPy, scikit-learn, RAG or LLM app development in depth; those are separate follow-on courses once your Core Python is strong.",
     },
     {
       question: "Will I work on real projects?",
       answer:
-        "Yes — three capstone projects: (1) FastAPI + LLM-powered REST service with vector DB, (2) Django 5 SaaS application with Celery and Redis, (3) end-to-end data science project with pandas, scikit-learn, and a deployed inference endpoint. All three become public GitHub repositories.",
+        "Yes — Core Python projects such as a file automation toolkit, student records or expense tracker with SQLite, and a Python DSA/problem-solving repository. The projects use functions, modules, OOP, collections, files, exceptions, database/API basics, pytest and README documentation.",
     },
     {
       question: "Are weekend Python classes available in Pune?",
@@ -495,14 +678,14 @@ export const pythonTrainingInPune: CourseRichContent = {
         "Yes — Saturday and Sunday, 09:00–13:00, stretched over 5 months instead of 3. Same content, same trainers, same projects. Designed for working professionals who cannot attend weekday batches.",
     },
     {
-      question: "Do you cover Django and FastAPI both, or only one?",
+      question: "Are Django and FastAPI included in this Core Python course?",
       answer:
-        "Both. Django 5 for full-feature web applications (the framework powering most Pune SaaS Python backends) and FastAPI for high-performance APIs and AI-glue services (the framework Pune fintech and ML-platform teams ship today). You will build at least one project in each.",
+        "No. This page is for Core Python training. Django and FastAPI are covered in Python Full Stack or backend-focused follow-on tracks. In this course, you learn the Python language, files, OOP, modules, packages, testing, database/API basics and problem solving first.",
     },
     {
-      question: "Is the AI/LLM module included or extra?",
+      question: "Is AI or LLM integration included in this Core Python course?",
       answer:
-        "Included in every batch. You will integrate OpenAI and Anthropic APIs into a Python backend, build a retrieval-augmented generation (RAG) pipeline with a vector database, and ship a small AI-powered service. This is what separates 2026 Pune Python hiring from 2022 Pune Python hiring.",
+        "No full AI/LLM module is included in the Core Python syllabus. We may show how AI coding assistants help with debugging and explanations, but OpenAI/Anthropic SDKs, RAG, vector databases and GenAI applications are covered in separate Generative AI and AI Engineering courses.",
     },
     {
       question: "Can a fresher get a Python job in Pune?",

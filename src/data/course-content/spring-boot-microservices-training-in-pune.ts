@@ -209,6 +209,41 @@ export const springBootMicroservicesTrainingInPune: CourseRichContent = {
     },
   ],
 
+  roadmapImage: {
+    src: "/images/courses/spring-boot-microservices-workflow-v1.webp",
+    width: 1400,
+    height: 900,
+    alt: "Eight-stage Spring Boot and microservices learning sequence at Archer Infotech Pune, covering Java 21 refresher, Spring Core, REST APIs, persistence with JPA and PostgreSQL, microservices boundaries, gateway, discovery, config, Kafka, RabbitMQ, Docker, Kubernetes, observability, capstone projects and interview preparation.",
+    caption:
+      "The Spring Boot & Microservices course follows a production backend sequence: Spring fundamentals, APIs, persistence, service boundaries, messaging, cloud operations and capstone delivery.",
+  },
+
+  syllabusDownload: {
+    pdfUrl: "/downloads/spring-boot-microservices-syllabus-v1.pdf",
+    title: "Spring Boot & Microservices Course Syllabus — Complete Module List",
+    slug: "spring-boot-microservices-syllabus",
+    blurb:
+      "Download the Spring Boot and Microservices syllabus PDF covering Java refresher, Spring Core, REST APIs, persistence, microservices patterns, Spring Cloud, messaging, observability, containers, Kubernetes, performance and capstone work.",
+    asideBlocks: [
+      {
+        heading: "What the Spring Boot syllabus covers",
+        items: [
+          "Production Java backend modules using Java 21, Spring Boot 3.x, Spring Framework, REST APIs, validation and OpenAPI.",
+          "Microservices depth through Spring Cloud Gateway, service discovery, config, Resilience4j, Kafka, RabbitMQ and distributed tracing.",
+          "Operations and deployment through Docker, Kubernetes, observability, GraalVM awareness and a production-grade capstone.",
+        ],
+      },
+      {
+        heading: "Best-fit outcomes",
+        items: [
+          "Spring Boot Developer, Java Backend Developer, Microservices Developer and Cloud Backend Developer paths.",
+          "Upskilling route for Java developers who already know core Java and want production backend architecture.",
+          "Portfolio evidence for Pune enterprise, BFSI, product engineering and GCC backend interviews.",
+        ],
+      },
+    ],
+  },
+
   projects: [
     {
       title: "Production-Grade Microservices System on Kubernetes",

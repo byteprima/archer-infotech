@@ -2,28 +2,28 @@ import type { CourseRichContent } from "./types";
 
 export const javaTrainingInPune: CourseRichContent = {
   intro:
-    "Java is among the most heavily-deployed enterprise programming languages globally — powering 90%+ of Fortune 500 backends, the Android platform, and the majority of Pune's IT-services and product-engineering hiring. Archer Infotech's Java training in Pune teaches the language as it is actually used in 2026 — Java 21 LTS with virtual threads, Spring Boot 3.x, microservices on Kubernetes, and direct hiring connections with companies like Persistent Systems, TCS, Infosys, Wipro, BMC Software, and Bajaj Finserv. Classroom in Kothrud, online live, and weekend batches available.",
+    "Java is among the most heavily-deployed enterprise programming languages globally — powering Fortune 500 backends, Android foundations, banking systems, product platforms, and the majority of Pune's IT-services hiring. Archer Infotech's Core Java training in Pune teaches the language itself in depth: Java 21 LTS syntax, JVM fundamentals, object-oriented programming, exception handling, collections, generics, streams, file handling, multithreading, JDBC, and interview-ready problem solving. Spring Boot and microservices are taught in the separate Spring Boot & Microservices course; this page is the Core Java foundation. Classroom in Kothrud, online live, and weekend batches available.",
 
   whyLearn: {
     heading: "Why Learn Java in 2026",
     paragraphs: [
       "Java is foundational, not legacy. Stack Overflow's enterprise survey shows roughly 60% of large-scale enterprise systems run on the JVM, and over 90% of Fortune 500 companies still maintain mission-critical Java codebases. LinkedIn India lists approximately 14% more open Java positions than Python ones, with around 1.1 lakh active Java postings as of early 2026. In Pune specifically, Java is the dominant backend language for the BFSI sector, the IT services majors (TCS, Infosys, Wipro, Cognizant), and product engineering teams at Persistent Systems, BMC Software, Bajaj Finserv, and Synechron.",
-      "What changed is the language itself. Java 21 LTS (September 2023) shipped virtual threads via Project Loom — write synchronous-looking code that runs at asynchronous scale, no callback nesting required. Pattern matching for switch is now final. Sequenced collections give proper ordering guarantees on Set and Map. Generational ZGC delivers sub-millisecond pause times on multi-GB heaps. Java 25 LTS (September 2025) graduated scoped values, refined structured concurrency, and added flexible constructor bodies. Spring Boot 3.x exposes virtual threads with a one-line property switch.",
-      "What this means for hiring: Pune job postings increasingly call out Spring Boot 3.x, microservices on AWS or GCP, and integration with LLM APIs as standard requirements rather than nice-to-haves. Archer Infotech's curriculum is rebuilt around this 2026 reality — modern Java, modern Spring, real cloud deployment, and AI-aware backend design — not a Java 8 syllabus retitled.",
+      "What changed is the language itself. Java 21 LTS (September 2023) shipped virtual threads via Project Loom, pattern matching for switch, sequenced collections, records, sealed classes and better garbage-collection behaviour. Java 25 LTS (September 2025) continues that modernisation. A Core Java course in 2026 should therefore not stop at Java 8-era syntax; it should teach the modern language while making the foundations clear enough for beginners.",
+      "What this means for hiring: Pune job postings still screen beginners on Core Java before they test frameworks. Interviewers ask about OOP, collection internals, exception handling, strings, immutability, generics, multithreading, JDBC, SQL basics and problem solving. Archer Infotech's Core Java curriculum is rebuilt around that sequence, so learners can either apply for Java trainee / junior developer roles or move confidently into Java Full Stack, Spring Boot, Android or automation tracks.",
     ],
     keyPoints: [
       "Java 21 LTS — virtual threads, pattern matching, sequenced collections",
-      "Spring Boot 3.x — Java 21 baseline, GraalVM native images, virtual-thread switch",
+      "Core Java depth — OOP, exceptions, collections, generics, streams, I/O, JDBC",
       "Pune market reality — ~14% more Java jobs than Python on LinkedIn India",
       "BFSI + product engineering hiring — Persistent, BMC, Bajaj Finserv, Synechron",
-      "AI integration — Spring Boot services calling LLM APIs is the new normal",
+      "Foundation for Java Full Stack, Spring Boot, Android, Selenium and enterprise backend paths",
     ],
   },
 
   whoIsThisFor: {
     forYou: [
       "Engineering, BCS, MCA or BSc-CS student looking for your first full-time IT role in Pune",
-      "Working professional in a non-Java stack wanting to switch into enterprise backend",
+      "Working professional in a non-Java stack wanting a strong Java foundation before Spring Boot or full stack",
       "BSc graduate or 12th-passout willing to commit 3 months to a structured curriculum",
       "Career restarter (took a break, raising a family, switching from a non-tech role) re-entering software",
       "International student or out-of-state candidate planning to settle in Pune for IT work",
@@ -54,6 +54,24 @@ export const javaTrainingInPune: CourseRichContent = {
       ],
     },
     {
+      title: "Strings, Wrapper Classes, Enums & Autoboxing",
+      weekRange: "Week 3",
+      description:
+        "The types Java programs actually spend their time on. Strings get proper treatment — immutability and why it exists, the string pool, `equals` against `==` (the interview question that eliminates more candidates than any other), and `StringBuilder` for the loops where concatenation quietly becomes quadratic.\n\nWrapper classes and autoboxing follow, including the caching behaviour that makes `Integer` comparison with `==` work for small numbers and fail for large ones — a bug that survives code review because it passes the test data. Enums are taught as full types with fields, constructors and methods, not as named constants, because that is what makes them worth using.",
+      topics: [
+        "String immutability and the string pool",
+        "equals versus == and why it matters",
+        "String methods, formatting and text blocks",
+        "StringBuilder, StringBuffer and concatenation cost",
+        "Wrapper classes and the primitive-object boundary",
+        "Autoboxing, unboxing and the Integer cache trap",
+        "Parsing, conversion and NumberFormatException",
+        "Enums with fields, constructors and methods",
+        "EnumMap, EnumSet and switch over enums",
+        "Choosing the right type for a value",
+      ],
+    },
+    {
       title: "Object-Oriented Programming",
       weekRange: "Weeks 3–4",
       description:
@@ -69,8 +87,78 @@ export const javaTrainingInPune: CourseRichContent = {
       ],
     },
     {
+      title: "Interfaces, Abstraction & Nested Classes",
+      weekRange: "Week 4",
+      description:
+        "The design half of object orientation, where most learners' understanding stops being syntax and starts being judgement. Abstract classes against interfaces, and the honest rule for choosing: an abstract class models what something *is*, an interface models what it *can do*. Default and static methods in interfaces, and why they were added.\n\nNested, inner, static-nested, local and anonymous classes are covered because you will meet all five in real codebases, and because the difference between a static nested class and an inner class — one holds a reference to the enclosing instance, one does not — is a genuine source of memory leaks. Functional interfaces close the module and set up lambdas.",
+      topics: [
+        "Abstract classes and abstract methods",
+        "Interfaces, default methods and static methods",
+        "Abstract class or interface — choosing correctly",
+        "Multiple inheritance of type through interfaces",
+        "Marker interfaces and their role",
+        "Static nested versus inner classes",
+        "Local and anonymous classes",
+        "Anonymous classes as a precursor to lambdas",
+        "Functional interfaces and @FunctionalInterface",
+        "Designing an API around interfaces",
+      ],
+    },
+    {
+      title: "Exception Handling, Packages & File I/O",
+      weekRange: "Week 5",
+      description:
+        "Move from writing small programs to organising real Java code. Learn packages, imports, access control across packages, JAR structure, and the discipline of separating model, service and utility classes. Then go deep on exception handling — checked vs unchecked exceptions, custom exceptions, try-with-resources and meaningful error messages. File handling covers java.io and java.nio, text files, CSV-style data, serialization awareness, and safe resource management so your programs can read, write and recover cleanly.",
+      topics: [
+        "Packages, imports and project structure",
+        "Access modifiers across classes and packages",
+        "Checked vs unchecked exceptions",
+        "Custom exception classes",
+        "try, catch, finally and try-with-resources",
+        "java.io and java.nio file handling",
+        "Reading and writing text and CSV-style files",
+        "Serialization awareness and safe resource cleanup",
+      ],
+    },
+    {
+      title: "Date-Time API, Regular Expressions & Text Processing",
+      weekRange: "Week 5",
+      description:
+        "Two everyday jobs that Java made genuinely pleasant only recently. The `java.time` API replaced a legacy design so error-prone that its replacement is one of the strongest arguments for keeping a codebase current: `LocalDate`, `LocalDateTime`, `Instant`, `Duration`, `Period`, time zones and formatting, all immutable and thread-safe.\n\nRegular expressions cover pattern syntax, groups, quantifiers, greedy versus lazy matching, and the `Pattern` and `Matcher` API — plus the discipline of knowing when a regex is the wrong tool, which is more often than enthusiasts admit. You build a text-processing utility that parses, validates and reformats real input.",
+      topics: [
+        "LocalDate, LocalTime, LocalDateTime and Instant",
+        "Duration, Period and date arithmetic",
+        "Time zones, offsets and ZonedDateTime",
+        "Formatting and parsing with DateTimeFormatter",
+        "Why the legacy Date and Calendar API was replaced",
+        "Regex syntax — character classes, anchors, quantifiers",
+        "Groups, capturing and back-references",
+        "Greedy versus lazy matching",
+        "Pattern and Matcher in practice",
+        "When a regular expression is the wrong tool",
+      ],
+    },
+    {
+      title: "Lambda Expressions & Functional Interfaces",
+      weekRange: "Week 6",
+      description:
+        "The shift from writing loops to describing transformations, and the foundation the Stream API is built on. Lambda syntax and the type inference behind it; method references in all four forms; and the built-in functional interfaces — `Function`, `Predicate`, `Consumer`, `Supplier`, `BiFunction` and the primitive specialisations that exist to avoid boxing in hot code.\n\nEffectively-final capture is covered carefully, because it is the source of the compiler error every learner hits and few can explain. The module closes on composing functions with `andThen` and `compose`, and writing your own functional interface when the built-in set does not fit.",
+      topics: [
+        "Lambda syntax and target typing",
+        "Method references — static, instance, arbitrary, constructor",
+        "Function, Predicate, Consumer, Supplier",
+        "BiFunction and the primitive specialisations",
+        "Effectively-final capture and the compiler error",
+        "Composing with andThen and compose",
+        "Writing custom functional interfaces",
+        "Lambdas versus anonymous classes",
+        "Where lambdas hurt readability",
+        "Debugging code written with lambdas",
+      ],
+    },
+    {
       title: "Collections, Generics & Streams",
-      weekRange: "Weeks 5–6",
+      weekRange: "Weeks 6–7",
       description:
         "The Collections Framework — List, Set, Map, Queue, Deque — with practical guidance on which to choose for which use case. Generics in depth (bounded wildcards, type erasure). Stream API for declarative data processing — filter, map, reduce, collect — and how it interacts with parallel streams. Sequenced collections (Java 21) for proper ordering guarantees on Set and Map. We finish the module by re-implementing a small subset of Collections from scratch so you understand the cost trade-offs.",
       topics: [
@@ -85,7 +173,7 @@ export const javaTrainingInPune: CourseRichContent = {
     },
     {
       title: "Multithreading & Virtual Threads",
-      weekRange: "Week 7",
+      weekRange: "Week 8",
       description:
         "Threads, ExecutorService, synchronisation, the volatile and atomic primitives, and the modern alternative — virtual threads (Java 21). We teach when classic threads are right (CPU-bound parallel work) versus when virtual threads are right (I/O-bound services handling thousands of concurrent requests). Includes the structured concurrency API (preview in Java 21, stable in Java 25) which is the recommended pattern for new code.",
       topics: [
@@ -98,65 +186,121 @@ export const javaTrainingInPune: CourseRichContent = {
       ],
     },
     {
-      title: "JDBC, JPA & Hibernate",
+      title: "Memory Management & Garbage Collection",
       weekRange: "Week 8",
       description:
-        "Connect Java to MySQL and PostgreSQL using JDBC, then graduate to JPA / Hibernate. Understand connection pooling (HikariCP), prepared statements, transactions, and the N+1 query problem that bites every junior developer in their first production sprint. Build a small repository pattern from scratch before introducing Spring Data, so you appreciate what Spring Data is doing under the hood.",
+        "What the JVM is doing while your program runs, and why it matters in interviews and in production. The runtime memory areas — heap, stack, metaspace — and what lives where; object lifecycle and reachability; and generational collection with the young and old generations and why most objects die young.\n\nThe collectors are compared as engineering choices rather than trivia: G1 as the default, ZGC and Shenandoah for low-pause requirements, and what each trades away. Memory leaks in a garbage-collected language get their own section, because they absolutely happen — static collections that grow, listeners never removed, inner classes holding an enclosing reference — and finding one is a genuine skill.",
       topics: [
-        "JDBC API and PreparedStatement",
-        "Connection pooling with HikariCP",
-        "Transactions and isolation levels",
-        "JPA basics — entities, relationships, EntityManager",
-        "Hibernate — first-level and second-level cache",
-        "N+1 queries and how to fix them",
-        "Repository pattern from scratch",
+        "Heap, stack and metaspace",
+        "Object lifecycle and reachability",
+        "Generational collection and the weak generational hypothesis",
+        "Minor, major and full collections",
+        "G1, ZGC and Shenandoah compared",
+        "Stop-the-world pauses and latency",
+        "Memory leaks in a garbage-collected language",
+        "Strong, soft, weak and phantom references",
+        "Reading heap dumps and using a profiler",
+        "JVM flags worth knowing and ones to leave alone",
       ],
     },
     {
-      title: "Spring Boot 3.x — REST APIs",
-      weekRange: "Weeks 9–10",
+      title: "JDBC & SQL Connectivity",
+      weekRange: "Week 9",
       description:
-        "The framework powering the majority of Pune backend hiring. Build a Spring Boot 3 REST API from project init to production-ready: controllers, services, repositories, validation, exception handling, OpenAPI spec via springdoc, JWT-based authentication, and full CRUD against PostgreSQL via Spring Data JPA. Includes profile-based configuration, externalised secrets, and switching the application to virtual threads with a single property — `spring.threads.virtual.enabled=true`.",
+        "Connect Core Java programs to relational databases using JDBC. Learn the driver model, Connection, Statement, PreparedStatement, ResultSet, transactions, commit / rollback, and connection-pool awareness. The goal is not to hide SQL behind a framework; it is to understand how Java talks to a database before you ever touch Hibernate or Spring Data. You will build a small DAO layer for a student or inventory database and practise the SQL queries that Pune junior Java interviews commonly test.",
       topics: [
-        "Spring Boot 3 project setup with Spring Initializr",
-        "Dependency injection — constructor injection style",
-        "REST controllers, request mapping, content negotiation",
-        "Validation with Jakarta Bean Validation",
-        "Exception handling with @ControllerAdvice",
-        "Spring Data JPA — derived queries, JPQL",
-        "Spring Security with JWT",
-        "OpenAPI / Swagger via springdoc",
-        "Profiles and externalised configuration",
-        "Virtual threads in Spring Boot 3",
+        "JDBC driver setup for MySQL or PostgreSQL",
+        "Connection, Statement and PreparedStatement",
+        "ResultSet handling and type mapping",
+        "Transactions — commit, rollback and isolation awareness",
+        "DAO pattern in plain Core Java",
+        "SQL joins, filters and aggregate queries for interviews",
+        "Connection-pool awareness before frameworks",
       ],
     },
     {
-      title: "Microservices & Cloud Deployment",
-      weekRange: "Week 11",
+      title: "Annotations, Reflection & Modern Java Features",
+      weekRange: "Week 9",
       description:
-        "Split a monolith into microservices the way enterprise teams actually do it — Spring Cloud (config server, service discovery via Eureka, gateway routing), service-to-service communication via REST and RabbitMQ, distributed tracing via Micrometer + OpenTelemetry. Containerise each service with Docker, run via Docker Compose locally, and deploy to AWS (EC2 + RDS) plus a free-tier Kubernetes cluster (Minikube locally, then EKS).",
+        "How frameworks do what they appear to do by magic. Annotations — built-in, custom, retention policies and targets — then reflection: inspecting classes at runtime, reading annotations, and instantiating objects dynamically. Once you have written a tiny dependency-injection container of your own, Spring stops being mysterious, and that is the point of this module.\n\nModern Java closes it: records for data carriers, sealed classes for closed hierarchies, pattern matching for `instanceof` and `switch`, text blocks, and `var`. These are the features a 2026 interview panel expects you to have used, and the ones that make current Java read very differently from Java 8.",
       topics: [
-        "Microservice decomposition strategy",
-        "Spring Cloud Config and service discovery",
-        "API gateway routing",
-        "Async messaging with RabbitMQ",
-        "Resilience patterns — circuit breaker (Resilience4j)",
-        "Distributed tracing — Micrometer + Zipkin",
-        "Docker and Docker Compose",
-        "Kubernetes basics — pods, services, deployments",
-        "AWS EC2 + RDS deployment walkthrough",
+        "Built-in annotations and their meaning",
+        "Custom annotations, retention and targets",
+        "Reflection — classes, fields, methods, constructors",
+        "Reading annotations at runtime",
+        "Building a miniature DI container",
+        "The performance and safety cost of reflection",
+        "Records as transparent data carriers",
+        "Sealed classes and closed hierarchies",
+        "Pattern matching for instanceof and switch",
+        "Text blocks and var",
       ],
     },
     {
-      title: "Capstone Project & Interview Preparation",
-      weekRange: "Week 12 + 2 weeks placement prep",
+      title: "Data Structures, Algorithms & Problem Solving in Java",
+      weekRange: "Week 10",
       description:
-        "Two weeks of full-time project work plus interview preparation. Pick one of three capstone projects (see Capstone Projects section). Mock technical interviews using question banks from Pune companies — TCS, Infosys, Persistent Systems, BMC Software, Bajaj Finserv. DSA refresher targeting the 30–40 patterns that actually appear in screening rounds. Resume and LinkedIn polish, GitHub portfolio cleanup, and HR mock interviews including salary negotiation.",
+        "Use Java to solve the patterns that appear in fresher and junior-developer screening rounds. This is not random LeetCode grinding. We connect data-structure theory to Java implementation: arrays, strings, lists, stacks, queues, hash maps, sets, recursion, sorting, searching and basic tree traversal. Each problem is reviewed for time complexity, space complexity, edge cases, naming and testability. By the end of the module, students can explain not only the answer but why the chosen collection or algorithm is appropriate.",
       topics: [
-        "Capstone project — full implementation, deployment, README",
+        "Arrays and strings interview patterns",
+        "Linked lists, stacks and queues",
+        "HashMap and HashSet problem patterns",
+        "Sorting, searching and two-pointer techniques",
+        "Recursion and backtracking basics",
+        "Tree traversal fundamentals",
+        "Big-O time and space complexity",
+        "JUnit tests for algorithmic code",
+      ],
+    },
+    {
+      title: "Debugging, Unit Testing & Build Tools",
+      weekRange: "Week 10",
+      description:
+        "The working practices that separate someone who writes Java from someone employable as a Java developer. Debugging as a method — breakpoints, conditional breakpoints, watches, stepping, evaluating expressions live, and reading a stack trace properly instead of pasting it into a search engine.\n\nJUnit 5 covers test structure, assertions, parameterised tests and lifecycle; Mockito covers mocking collaborators without pretending it is a substitute for design. Maven and Gradle are then taught as what they are — dependency management, the build lifecycle, and reproducible builds — because \"it works on my machine\" stops being acceptable the moment you join a team.",
+      topics: [
+        "Breakpoints, conditional breakpoints and watches",
+        "Stepping, frames and live expression evaluation",
+        "Reading a stack trace and finding the real cause",
+        "JUnit 5 structure, assertions and lifecycle",
+        "Parameterised and nested tests",
+        "Mockito — stubbing, verifying and when not to mock",
+        "Test coverage and what it does not prove",
+        "Maven — POM, dependencies, build lifecycle",
+        "Gradle basics and when teams choose it",
+        "Reproducible builds and dependency conflicts",
+      ],
+    },
+    {
+      title: "Git, GitHub & Professional Java Practices",
+      weekRange: "Week 10",
+      description:
+        "The habits that make your work reviewable, and your portfolio credible. Git as collaboration rather than as three memorised commands: branching, merging, rebasing, resolving conflicts calmly, pull requests and review etiquette, and a commit history a stranger can follow.\n\nProfessional practice covers Java naming and code conventions, package structure, Javadoc worth writing, static analysis with SonarLint or SpotBugs, and the readability habits that get code approved rather than sent back. You finish with a public repository containing a README that explains how to build and run the project — which is the artefact a Pune hiring panel actually opens.",
+      topics: [
+        "Branching strategy and pull-request workflow",
+        "Merging, rebasing and resolving conflicts",
+        "Writing commits a stranger can follow",
+        "Code review — giving and receiving",
+        "Java naming and code conventions",
+        "Package structure and layering",
+        "Javadoc that is worth writing",
+        "Static analysis with SonarLint and SpotBugs",
+        "README and project documentation",
+        "Building a credible public portfolio repository",
+      ],
+    },
+    {
+      title: "Core Java Capstone & Interview Preparation",
+      weekRange: "Weeks 11–12 + placement prep",
+      description:
+        "Bring the Core Java syllabus together in a reviewed capstone project. Pick a student management system, inventory and billing application, banking transaction simulator, library management system or file-backed utility. The trainer reviews class design, package structure, exception handling, collections usage, JDBC layer, test cases and README quality. Interview preparation covers Core Java viva questions, coding rounds, OOP design explanations, collection internals, multithreading basics, JDBC questions, resume cleanup and GitHub portfolio polish.",
+      topics: [
+        "Core Java capstone implementation",
+        "Class design, package structure and layered code",
+        "JDBC-backed or file-backed persistence",
+        "JUnit test cases for key flows",
         "Code review with the lead trainer",
-        "Technical mock interviews — 3 rounds",
-        "DSA quick refresher — patterns that screen-out, not LeetCode-grinding",
+        "Core Java technical mock interviews",
+        "DSA quick refresher for screening rounds",
         "Resume + LinkedIn rewrite",
         "GitHub portfolio polish",
         "HR mock interview and salary negotiation",
@@ -183,50 +327,85 @@ export const javaTrainingInPune: CourseRichContent = {
     },
   ],
 
+  roadmapImage: {
+    src: "/images/courses/java-programming-workflow-v1.webp",
+    width: 1400,
+    height: 900,
+    alt: "Eight-stage Core Java learning sequence at Archer Infotech Pune, starting with Java fundamentals and object-oriented programming, then exception handling, packages, file input output, collections, generics, streams, multithreading, JDBC, SQL connectivity, data structures, algorithms, capstone projects and interview preparation.",
+    caption:
+      "The Java course stays focused on Core Java: JVM fundamentals, OOP, exceptions, collections, threads, JDBC, DSA and a reviewed capstone.",
+  },
+
+  syllabusDownload: {
+    pdfUrl: "/downloads/java-programming-syllabus-v1.pdf",
+    title: "Core Java Programming Course Syllabus — Complete Module List",
+    slug: "java-programming-syllabus",
+    blurb:
+      "The complete 60-module syllabus as a 31-page PDF — Java fundamentals and architecture, the full object-oriented sequence, exception handling, the Collections Framework, generics, I/O and NIO, the Date-Time API, lambdas and the Stream API, multithreading and concurrency, memory management, reflection, modern Java features, JDBC, testing, build tools, DSA, mini projects, a capstone and interview preparation. Everything in it is on this page; the PDF is the portable version.",
+    asideBlocks: [
+      {
+        heading: "What is inside the 31-page PDF",
+        items: [
+          "All 60 modules in teaching order, each with its topic list and practical exercises.",
+          "The full Collections Framework broken out module by module — List, Set, Map, Queue and Deque implementations, generics, Comparable and Comparator.",
+          "Modern Java given real space: lambdas, functional interfaces, the Stream API, Optional, records, sealed classes and virtual threads.",
+          "Recommended lab assignments, suggested duration, prerequisites, tools, learning outcomes and the recommended progression after Core Java.",
+        ],
+      },
+      {
+        heading: "Roles this syllabus prepares you for",
+        items: [
+          "Core Java Trainee and Junior Java Developer.",
+          "Software Engineer fresher at Pune services majors and GCC captives.",
+          "A clean foundation before Spring Boot, Java Full Stack, Android or Selenium.",
+          "Backend Developer once Spring and databases are added.",
+        ],
+      },
+    ],
+  },
+
   projects: [
     {
-      title: "Spring Boot REST API + JWT Auth + PostgreSQL",
+      title: "Core Java Student Management System",
       description:
-        "Build a production-grade backend service from scratch — user registration, JWT login, role-based access, full CRUD on a domain entity (expense tracker, library system, or ticket booking — your choice), input validation, exception handling with proper HTTP status codes, OpenAPI spec, and integration tests with JUnit 5 + RestAssured. Deploy to AWS EC2 + RDS for PostgreSQL with a GitHub Actions pipeline. Outcome: a public GitHub repo with a CI badge — exactly what Pune product companies want to see in interviews.",
+        "Build a layered Core Java application for student admissions, courses, marks and reports. The project uses OOP domain classes, packages, validation, custom exceptions, collections, file import/export and a JDBC-backed database option. Outcome: a public GitHub repository with clean package structure, README, screenshots, sample data and JUnit tests for the important flows.",
       technologies: [
-        "Spring Boot 3",
-        "Spring Security",
-        "JWT",
-        "Spring Data JPA",
-        "PostgreSQL",
-        "AWS EC2 + RDS",
+        "Core Java 21",
+        "OOP",
+        "Collections Framework",
+        "Custom Exceptions",
+        "File I/O",
+        "JDBC",
+        "MySQL or PostgreSQL",
         "JUnit 5",
-        "GitHub Actions",
       ],
     },
     {
-      title: "Microservices System on Docker + Kubernetes",
+      title: "Inventory and Billing Application",
       description:
-        "Decompose a monolith into four microservices (user, catalog, order, payment) communicating via REST and RabbitMQ. Wire up Spring Cloud Gateway for routing, Eureka for service discovery, Micrometer + Zipkin for distributed tracing. Containerise each service with Docker, run via Docker Compose locally, then deploy to a Minikube cluster. Includes one circuit-breaker pattern (Resilience4j) and one async messaging flow that you can demo end-to-end in interviews.",
+        "Create an inventory and billing system that manages products, suppliers, purchase entries, sale invoices and low-stock reports. The emphasis is Core Java design: classes, interfaces, collections, sorting/filtering, exception-safe operations, JDBC transactions and report generation. This project gives interviewers something concrete to ask about without requiring Spring Boot.",
       technologies: [
-        "Spring Boot 3",
-        "Spring Cloud",
-        "RabbitMQ",
-        "Resilience4j",
-        "Micrometer + Zipkin",
-        "Docker",
-        "Docker Compose",
-        "Kubernetes (Minikube)",
+        "Core Java 21",
+        "Interfaces",
+        "Generics",
+        "Streams",
+        "JDBC Transactions",
+        "SQL Joins",
+        "JUnit 5",
       ],
     },
     {
-      title: "Java + React Full-Stack Application",
+      title: "Collections and DSA Practice Library",
       description:
-        "Spring Boot REST API + React frontend + PostgreSQL — the stack roughly 60% of Pune product companies hire for. Real-time updates via WebSocket, JWT auth carried through to the frontend, Redux Toolkit for state, deployed Spring Boot to AWS and React to Netlify or Vercel. Includes basic monitoring (Spring Boot Actuator + Prometheus metrics) and structured JSON logging via SLF4J + Logback.",
+        "Implement a small learning library of Java data-structure and algorithm examples: custom stack, queue, linked list, hash-map usage patterns, sorting/searching utilities, recursion examples and tree traversal exercises. Each implementation includes complexity notes and tests, turning interview preparation into a reusable GitHub asset.",
       technologies: [
-        "Spring Boot 3",
-        "React",
-        "Redux Toolkit",
-        "WebSocket",
-        "PostgreSQL",
-        "JWT",
-        "AWS + Netlify",
-        "Prometheus + Logback",
+        "Core Java 21",
+        "Collections",
+        "Generics",
+        "Algorithms",
+        "Big-O Notes",
+        "JUnit 5",
+        "GitHub README",
       ],
     },
   ],
@@ -236,8 +415,8 @@ export const javaTrainingInPune: CourseRichContent = {
 
   careerOutcomes: {
     paragraphs: [
-      "Java backend developers are among the most-hired roles in Pune's IT corridor. Salary depends heavily on framework depth (Spring Boot, microservices, cloud) and project quality, not raw years of experience. Below are real Pune-market figures from Indeed and PayScale — we show you both because they differ by roughly 35% and the truth sits between the two.",
-      "What pulls a Java developer above the average band: a public GitHub portfolio with deployed projects, demonstrable Spring Boot 3 + microservices experience, and one cloud deployment (AWS or GCP) you can talk through end-to-end. Our capstone projects are designed exactly around these signals.",
+      "Core Java is the entry foundation for many Pune developer roles. Salary depends on interview performance, OOP clarity, collection internals, JDBC basics, problem-solving ability and project quality. Below are real Pune-market Java salary figures from Indeed and PayScale — we show both because published salary sources vary and the truth usually sits between them.",
+      "What pulls a Core Java learner above the average fresher band: a public GitHub portfolio with clean Core Java projects, confidence explaining OOP decisions, collections usage, exception handling, JDBC transactions and DSA trade-offs. Spring Boot, microservices and cloud can raise the ceiling later, but this course is where that base is built.",
     ],
     salaryBands: [
       {
@@ -309,12 +488,12 @@ export const javaTrainingInPune: CourseRichContent = {
     ],
     rolesAfterCourse: [
       "Java Developer",
-      "Backend Engineer",
-      "Spring Boot Developer",
-      "Microservices Engineer",
-      "Java Full Stack Developer (with frontend self-study)",
+      "Core Java Developer",
+      "Junior Software Engineer",
+      "Java Trainee Developer",
       "Software Engineer at IT services",
-      "Junior Backend Engineer at product companies",
+      "Application Support Engineer with Java",
+      "Automation Tester with Java foundation",
     ],
   },
 
@@ -404,14 +583,14 @@ export const javaTrainingInPune: CourseRichContent = {
         typical: "Often Java 8 with brief Java 11 mention",
       },
       {
-        feature: "Spring Boot version covered",
-        archer: "Spring Boot 3.x — including virtual threads",
-        typical: "Spring Boot 2.x or generic 'Spring framework'",
+        feature: "Core Java scope clarity",
+        archer: "Core Java only — Spring Boot and microservices are routed to the separate specialisation course",
+        typical: "Often mixes Core Java, Advanced Java and framework claims without a clear sequence",
       },
       {
-        feature: "Microservices and cloud deployment",
-        archer: "Included in the base curriculum",
-        typical: "Often a separate paid module or not covered",
+        feature: "JDBC and database connectivity",
+        archer: "Covered through plain JDBC, PreparedStatement, ResultSet, transactions and DAO pattern",
+        typical: "Often skipped or replaced too quickly by framework demos",
       },
       {
         feature: "Public GitHub portfolio output",
@@ -489,7 +668,7 @@ export const javaTrainingInPune: CourseRichContent = {
     {
       question: "What is the salary of a Java developer in Pune?",
       answer:
-        "Indeed Pune (December 2025) reports ₹3.62 lakh for Junior Java Developer, ₹8.32 lakh overall average, ₹9.95 lakh for Senior Java Developer, and ₹23.19 lakh for Lead Java Software Engineer. PayScale's averages run about 35% lower (₹6.13 lakh overall). Your actual number depends on framework depth and project quality, not raw years.",
+        "Indeed Pune (December 2025) reports ₹3.62 lakh for Junior Java Developer, ₹8.32 lakh overall average, ₹9.95 lakh for Senior Java Developer, and ₹23.19 lakh for Lead Java Software Engineer. PayScale's averages run about 35% lower (₹6.13 lakh overall). For freshers, your actual number depends on Core Java clarity, problem-solving ability, project quality and interview performance.",
     },
     {
       question: "Is Java still relevant in 2026?",
@@ -514,12 +693,12 @@ export const javaTrainingInPune: CourseRichContent = {
     {
       question: "Will I work on real projects?",
       answer:
-        "Yes — three capstone projects: (1) Spring Boot REST API with JWT and PostgreSQL, deployed to AWS, (2) microservices on Docker and Kubernetes, (3) Spring Boot + React full-stack. All three end up as public GitHub repositories that you reference in interviews.",
+        "Yes — Core Java projects such as a Student Management System, Inventory and Billing Application, and Collections/DSA Practice Library. The projects use OOP, collections, exception handling, file I/O, JDBC, SQL and JUnit. They end up as public GitHub repositories that you can reference in interviews.",
     },
     {
-      question: "What is covered in Spring Boot training?",
+      question: "Is Spring Boot included in this Core Java course?",
       answer:
-        "Spring Boot 3.x — dependency injection, REST controllers, Spring Data JPA, Spring Security with JWT, validation, exception handling, OpenAPI specification, profiles and externalised config, and the modern bits — virtual-thread support via `spring.threads.virtual.enabled`, GraalVM native images, observability via Micrometer and OpenTelemetry.",
+        "No. This page is for Core Java training: Java syntax, OOP, exceptions, packages, file I/O, collections, generics, streams, multithreading, JDBC, SQL basics, DSA and capstone work. Spring Boot, REST APIs, Spring Security, microservices and cloud deployment are covered in the separate Spring Boot & Microservices course.",
     },
     {
       question: "Do I need data structures and algorithms before joining?",
@@ -539,17 +718,17 @@ export const javaTrainingInPune: CourseRichContent = {
     {
       question: "What's the difference between Core Java and Advanced Java in your course?",
       answer:
-        "Core Java is modules 1–4 (fundamentals, OOP, collections, multithreading) — the language. Advanced is modules 5–7 (JDBC and JPA, Spring Boot, microservices and cloud) — what makes you employable. We teach both. Core-Java-only courses do not get you hired in 2026.",
+        "Core Java is the language foundation: syntax, OOP, exceptions, packages, collections, generics, streams, multithreading, file I/O, JDBC and problem solving. Advanced Java usually means frameworks and enterprise layers such as servlets, Spring Boot, JPA/Hibernate, REST APIs and microservices. This course stays focused on Core Java; the advanced/framework path is handled in separate courses.",
     },
     {
       question: "How is this different from your Java Full Stack course?",
       answer:
-        "This Java Training in Pune programme is the foundation course — 3 months focused on Java, Spring Boot, and microservices. The Java Full Stack course is a separate 4-month programme that adds React frontend, full UI/UX, and DevOps. Many students start here and then add the frontend track later.",
+        "This Java Training in Pune programme is the Core Java foundation course. It focuses on the language, OOP, collections, threads, JDBC, DSA and Core Java projects. The Java Full Stack course is longer and adds Spring Boot, REST APIs, frontend development, databases, deployment and full-stack capstone work. Many students start with Core Java and then choose Java Full Stack or Spring Boot based on their target role.",
     },
     {
       question: "Are the named trainers actually teaching, or are they just on the brochure?",
       answer:
-        "Yogesh Patil (Founder & Director, 15+ years) personally leads the core programming sessions and the architecture / microservices weeks. Amol Patil (Senior Corporate Trainer, 10+ years) leads Spring Boot, JDBC, and the project weeks. The same names you see on this page show up in your batch on day one.",
+        "Yogesh Patil (Founder & Director, 15+ years) personally leads the core programming sessions. Amol Patil (Senior Corporate Trainer, 10+ years) supports Java, JDBC, project review and interview-prep sessions. The same names you see on this page show up in your batch on day one.",
     },
   ],
 

@@ -53,6 +53,42 @@ export const cTrainingInPune: CourseRichContent = {
       ],
     },
     {
+      title: "Variables, Data Types, Operators & Expressions",
+      weekRange: "Week 1",
+      description:
+        "C's type system is small and unforgiving, and understanding it precisely is what makes the rest of the language safe. Integer and floating types and their actual sizes on your machine; signed against unsigned and the wraparound behaviour that produces security bugs; constants and `const`; and the storage classes — `auto`, `static`, `extern`, `register` — which decide lifetime and visibility.\n\nOperators cover arithmetic, relational, logical, bitwise, assignment and the conditional operator, along with precedence, associativity, and the type-promotion rules that quietly turn a comparison into something other than what it looks like. Overflow, underflow and undefined behaviour are named here rather than met later as a mystery.",
+      topics: [
+        "Integer and floating-point types and their real sizes",
+        "signed and unsigned, and wraparound",
+        "Constants, const and #define compared",
+        "Storage classes — auto, static, extern, register",
+        "Arithmetic, relational and logical operators",
+        "Bitwise operators and shift behaviour",
+        "Assignment, increment and the comma operator",
+        "Precedence, associativity and defensive parentheses",
+        "Implicit type promotion and explicit casting",
+        "Overflow, underflow and undefined behaviour",
+      ],
+    },
+    {
+      title: "Control Flow — Decisions, Loops & Program Structure",
+      weekRange: "Week 1",
+      description:
+        "The building blocks of every algorithm you will write, taught until the logic is automatic. `if`, `else if`, nested conditions and `switch` with its fall-through behaviour — which is a feature often enough to be worth understanding rather than always guarding against.\n\nLoops cover `for`, `while` and `do...while`, nesting, and `break` and `continue`, along with the off-by-one errors that account for a large share of beginner bugs. The module deliberately spends time on trace-by-hand exercises: writing the value of each variable on paper for each iteration is slow, unfashionable and the single fastest way to stop guessing what a loop does.",
+      topics: [
+        "if, else if and nested conditions",
+        "switch, case and deliberate fall-through",
+        "The conditional operator as an expression",
+        "for, while and do...while",
+        "Choosing the right loop for the problem",
+        "Nested loops and pattern programs",
+        "break, continue and loop control",
+        "Off-by-one errors and boundary conditions",
+        "Infinite loops and how to spot one",
+        "Tracing a loop by hand before running it",
+      ],
+    },
+    {
       title: "Functions, Arrays & Strings",
       weekRange: "Week 2",
       description:
@@ -114,6 +150,24 @@ export const cTrainingInPune: CourseRichContent = {
       ],
     },
     {
+      title: "Bit Manipulation & Low-Level Operations",
+      weekRange: "Week 5",
+      description:
+        "The material that makes C worth learning even if you never ship C, and that appears constantly in embedded, systems and interview contexts. Bitwise AND, OR, XOR and NOT; left and right shifts and the difference between arithmetic and logical shifting; and the standard idioms — setting, clearing, toggling and testing an individual bit.\n\nBit fields inside structures, masks and flag registers follow, which is exactly how hardware is addressed in embedded work. The module closes on the classic interview problems: counting set bits, swapping without a temporary, checking powers of two, and finding the single unpaired number in an array.",
+      topics: [
+        "AND, OR, XOR and NOT at the bit level",
+        "Left and right shifts, arithmetic and logical",
+        "Setting, clearing, toggling and testing a bit",
+        "Masks and flag registers",
+        "Bit fields inside structures",
+        "Packing multiple values into one word",
+        "Counting set bits",
+        "Swapping without a temporary variable",
+        "Checking and rounding to powers of two",
+        "Endianness and byte order",
+      ],
+    },
+    {
       title: "File I/O, Standard Library & Preprocessor",
       weekRange: "Week 6",
       description:
@@ -129,6 +183,60 @@ export const cTrainingInPune: CourseRichContent = {
       ],
     },
     {
+      title: "Modular Programming & Multi-File Projects",
+      weekRange: "Week 6",
+      description:
+        "How a C program stops being one file. Header files and implementation files and what belongs in each; include guards and `#pragma once` and the duplicate-definition errors they prevent; `extern` declarations; and internal linkage with `static` at file scope, which is C's approximation of a private function.\n\nThe compilation model is then made explicit — preprocess, compile, assemble, link — because almost every confusing C error is a message from one specific stage, and knowing which one narrows the problem immediately. Makefiles cover targets, dependencies and incremental builds, and you split an existing single-file program into a properly organised project.",
+      topics: [
+        "Header files and implementation files",
+        "Include guards and #pragma once",
+        "extern declarations and shared symbols",
+        "static at file scope for internal linkage",
+        "Preprocess, compile, assemble, link",
+        "Reading a linker error and finding the cause",
+        "Object files, archives and static libraries",
+        "Makefiles — targets, dependencies, incremental builds",
+        "Separating interface from implementation",
+        "Refactoring one file into a real project",
+      ],
+    },
+    {
+      title: "Data Structures Using C",
+      weekRange: "Week 6",
+      description:
+        "Building the structures other languages hand you, which is the fastest route to genuinely understanding them. Linked lists — singly, doubly and circular — implemented with your own memory management, so that insertion, deletion and traversal are operations you have written rather than called.\n\nStacks and queues on both arrays and lists; trees and binary search trees with recursive traversal; and hash tables with a collision strategy you chose. Because C gives you no safety net, every leak and every dangling pointer is yours to find — which is exactly why this module produces a durable understanding that a `std::vector` or an `ArrayList` never does.",
+      topics: [
+        "Singly, doubly and circular linked lists",
+        "Insertion, deletion and traversal by hand",
+        "Stacks on arrays and on lists",
+        "Queues and circular buffers",
+        "Binary trees and recursive traversal",
+        "Binary search trees — insert, search, delete",
+        "Hash tables and collision handling",
+        "Choosing a structure for a problem",
+        "Memory ownership in a data structure",
+        "Finding leaks and dangling pointers in your own code",
+      ],
+    },
+    {
+      title: "Debugging, Error Diagnosis & Secure C Practices",
+      weekRange: "Week 6",
+      description:
+        "C fails in ways higher-level languages cannot, so diagnosis is a taught skill rather than an assumed one. Compiler warnings turned all the way up and treated as errors — most segmentation faults were a warning you ignored. GDB for breakpoints, stepping, backtraces and inspecting memory; Valgrind and sanitisers for leaks, invalid reads and use-after-free.\n\nSecurity covers the classic C vulnerability classes, which exist because the language trusts you: buffer overflows, `gets` and the unsafe string functions, format-string bugs, integer overflow, and unchecked `malloc`. The defensive habits taught here — bounds checking, safe alternatives, validating every input — are the difference between working code and safe code.",
+      topics: [
+        "Compiler warnings as the first line of defence",
+        "GDB — breakpoints, stepping, backtraces",
+        "Inspecting memory and variables in a debugger",
+        "Valgrind and address sanitisers",
+        "Reading a segmentation fault",
+        "Buffer overflows and bounds checking",
+        "Unsafe string functions and their alternatives",
+        "Format-string vulnerabilities",
+        "Integer overflow and unchecked arithmetic",
+        "Checking every malloc and every return value",
+      ],
+    },
+    {
       title: "Capstone Project & Embedded / Systems Onboarding",
       weekRange: "Week 7",
       description:
@@ -140,6 +248,42 @@ export const cTrainingInPune: CourseRichContent = {
         "Resume + LinkedIn rewrite for embedded / firmware / systems JDs",
         "GitHub portfolio polish",
         "HR mock interview and salary negotiation",
+      ],
+    },
+    {
+      title: "Problem Solving & Algorithmic Thinking in C",
+      weekRange: "Week 7",
+      description:
+        "Turning language knowledge into the ability to solve an unfamiliar problem under time pressure, which is what a technical screening measures. Decomposition, pseudocode before code, and tracing an approach on paper before typing it — the habits that separate candidates who start writing immediately and fail from those who think first and finish.\n\nThe standard patterns follow: searching, sorting, recursion and its base cases, two pointers, sliding windows and prefix sums. Complexity analysis runs throughout in Big-O terms, because the follow-up question after \"does it work\" is always \"what does it cost\", and a candidate without an answer stalls there.",
+      topics: [
+        "Decomposing a problem before coding",
+        "Pseudocode and tracing on paper",
+        "Linear and binary search",
+        "Bubble, selection, insertion and merge sort",
+        "Recursion, base cases and the call stack",
+        "Two-pointer techniques",
+        "Sliding window problems",
+        "Prefix sums and cumulative arrays",
+        "Big-O analysis of time and space",
+        "Explaining your approach aloud under questioning",
+      ],
+    },
+    {
+      title: "Git, GitHub & Building Your C Portfolio",
+      weekRange: "Week 7",
+      description:
+        "The professional habits, applied to systems work. Git as collaboration rather than three memorised commands: branching, merging, resolving conflicts, pull requests, and a commit history someone else can follow.\n\nFor C specifically, a credible repository needs more than source: a Makefile that builds cleanly, a README stating platform and compiler assumptions, sample input and expected output, and a statement of what the program does not handle. That last item matters more than beginners expect — a candidate who documents the limitations of their own code reads as considerably more senior than one who claims none.",
+      topics: [
+        "Branching, merging and resolving conflicts",
+        "Commit messages a stranger can follow",
+        "Pull requests and code review",
+        ".gitignore for build artefacts",
+        "A Makefile that builds from a clean checkout",
+        "README with platform and compiler assumptions",
+        "Sample input, expected output and test scripts",
+        "Documenting known limitations honestly",
+        "Consistent C style and formatting",
+        "Presenting a systems project at interview",
       ],
     },
     {
@@ -162,6 +306,43 @@ export const cTrainingInPune: CourseRichContent = {
       ],
     },
   ],
+
+  roadmapImage: {
+    src: "/images/courses/c-programming-workflow-v1.webp",
+    width: 1400,
+    height: 900,
+    alt: "Eight-stage C programming learning sequence at Archer Infotech Pune, covering C foundations, compiler workflow, functions, arrays, strings, pointers, memory management, structures, unions, file input output, POSIX basics, embedded systems onboarding, capstone projects and interview preparation.",
+    caption:
+      "The C course is ordered around systems thinking: compiler model, memory, pointers, structures, files, then embedded and systems capstone work.",
+  },
+
+  syllabusDownload: {
+    pdfUrl: "/downloads/c-programming-syllabus-v1.pdf",
+    title: "C Programming Course Syllabus — Complete Module List",
+    slug: "c-programming-syllabus",
+    blurb:
+      "The complete 30-module syllabus as a 20-page PDF — programming fundamentals, the C toolchain, data types and operators, control flow, functions, arrays and strings, pointers, dynamic memory, structures, unions, the preprocessor, file handling, bit manipulation, data structures in C, debugging, secure practices, problem solving, mini projects, a capstone and interview preparation. Everything in it is on this page; the PDF is the portable version.",
+    asideBlocks: [
+      {
+        heading: "What is inside the 20-page PDF",
+        items: [
+          "All 30 modules in teaching order, each with its topic list and practical exercises.",
+          "Pointers and dynamic memory given the space they need — the material that decides whether the rest of C makes sense.",
+          "Data structures implemented from scratch: linked lists, stacks, queues, trees and hash tables with your own memory management.",
+          "Recommended lab assignments, suggested duration, prerequisites, tools, learning outcomes and the recommended progression after C.",
+        ],
+      },
+      {
+        heading: "Roles this syllabus prepares you for",
+        items: [
+          "Embedded and systems programming entry roles.",
+          "The strongest possible foundation before C++, Java or Python.",
+          "Placement preparation where C is the screening language.",
+          "Engineering students whose curriculum assumes C.",
+        ],
+      },
+    ],
+  },
 
   projects: [
     {
