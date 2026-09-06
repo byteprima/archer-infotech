@@ -14,6 +14,24 @@ const optionalNumber = z.preprocess((value) => {
   return value;
 }, z.number().int().min(1).max(5).optional());
 
+/**
+ * Photos may be an absolute URL (someone pastes a LinkedIn/CDN link) or a
+ * site-relative path we produced ourselves — `/media/<collection>/<file>`
+ * from mediaUrl(), or `/images/...` for anything committed to the repo.
+ *
+ * A bare `z.string().url()` rejects the relative form, which broke two real
+ * cases: the GitHub-avatar and local-upload buttons on the admin form, and —
+ * before those existed — editing any testimonial promoted from an alumni
+ * submission, since that path writes `/media/alumni/<file>` straight to the
+ * table via a direct insert and never passes through this schema.
+ */
+const imageUrl = z
+  .string()
+  .refine(
+    (v) => v.startsWith("/") || /^https?:\/\//.test(v),
+    "Please enter a valid image URL, or an uploaded /media path",
+  );
+
 const testimonialSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(255),
   role: z.string().optional(),
@@ -21,7 +39,7 @@ const testimonialSchema = z.object({
   courseTaken: z.string().optional(),
   content: z.string().trim().min(1, "Testimonial content is required"),
   rating: optionalNumber,
-  photoUrl: z.string().url("Please enter a valid image URL").optional().or(z.literal("")),
+  photoUrl: imageUrl.optional().or(z.literal("")),
   linkedinUrl: z.string().url("Please enter a valid LinkedIn URL").optional().or(z.literal("")),
   githubUrl: z.string().url("Please enter a valid GitHub URL").optional().or(z.literal("")),
   isHighlighted: z.boolean().optional(),

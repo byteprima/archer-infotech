@@ -14,6 +14,20 @@ const optionalNumber = z.preprocess((value) => {
   return value;
 }, z.number().int().min(1900).max(new Date().getFullYear() + 1).optional());
 
+/**
+ * Photos may be an absolute URL (someone pastes a LinkedIn/CDN link) or a
+ * site-relative path we produced ourselves — `/media/<collection>/<file>`
+ * from mediaUrl(). A bare `z.string().url()` rejects the relative form, which
+ * would break the GitHub-avatar and upload buttons on the admin form.
+ * Mirrors the same guard in lib/actions/testimonials.ts.
+ */
+const imageUrl = z
+  .string()
+  .refine(
+    (v) => v.startsWith("/") || /^https?:\/\//.test(v),
+    "Please enter a valid image URL, or an uploaded /media path",
+  );
+
 const placementSchema = z.object({
   studentName: z.string().trim().min(1, "Student name is required").max(255),
   company: z.string().trim().min(1, "Company is required").max(255),
@@ -21,8 +35,9 @@ const placementSchema = z.object({
   package: z.string().optional(),
   courseTaken: z.string().optional(),
   batchYear: optionalNumber,
-  photoUrl: z.string().url("Please enter a valid image URL").optional().or(z.literal("")),
+  photoUrl: imageUrl.optional().or(z.literal("")),
   linkedinUrl: z.string().url("Please enter a valid LinkedIn URL").optional().or(z.literal("")),
+  githubUrl: z.string().url("Please enter a valid GitHub URL").optional().or(z.literal("")),
   testimonial: z.string().optional(),
   isHighlighted: z.boolean().optional(),
   isPublished: z.boolean().optional(),
@@ -167,6 +182,7 @@ export async function createPlacement(data: PlacementFormData): Promise<ActionRe
         batchYear: validationResult.data.batchYear ?? null,
         photoUrl: validationResult.data.photoUrl || null,
         linkedinUrl: validationResult.data.linkedinUrl || null,
+        githubUrl: validationResult.data.githubUrl || null,
         testimonial: validationResult.data.testimonial || null,
         isHighlighted: validationResult.data.isHighlighted ?? false,
         isPublished: validationResult.data.isPublished ?? true,
@@ -237,6 +253,7 @@ export async function updatePlacement(id: number, data: PlacementFormData): Prom
         batchYear: validationResult.data.batchYear ?? null,
         photoUrl: validationResult.data.photoUrl || null,
         linkedinUrl: validationResult.data.linkedinUrl || null,
+        githubUrl: validationResult.data.githubUrl || null,
         testimonial: validationResult.data.testimonial || null,
         isHighlighted: validationResult.data.isHighlighted ?? false,
         isPublished: validationResult.data.isPublished ?? true,
@@ -425,4 +442,61 @@ export async function togglePlacementHighlightStatus(
       message: "Failed to update highlight status. Please try again.",
     };
   }
+}
+
+/**
+ * Photo helpers for the admin placement form.
+ *
+ * That form posts a JSON payload rather than FormData, so a file cannot ride
+ * along with the save. These two actions resolve a photo to a stored URL
+ * first; the form then submits that URL in `photoUrl` like any other field.
+ *
+ * Both write into the `placements` media collection on the persistent volume,
+ * so the image survives redeploys instead of being baked into the container
+ * image. Same shape as the testimonial helpers.
+ */
+
+export type PhotoResult =
+  | { success: true; url: string; message: string }
+  | { success: false; message: string };
+
+/** Copy a GitHub profile avatar into our own storage and return its URL. */
+export async function fetchPlacementGithubPhoto(
+  githubUrl: string,
+): Promise<PhotoResult> {
+  await requireAdminAction();
+
+  const { fetchGithubAvatar } = await import("@/lib/storage/github-avatar");
+  const { mediaUrl } = await import("@/lib/storage/media");
+
+  const result = await fetchGithubAvatar(githubUrl, "placements");
+  if (!result.ok) return { success: false, message: result.error };
+
+  return {
+    success: true,
+    url: mediaUrl("placements", result.filename),
+    message: `Photo copied from github.com/${result.username}.`,
+  };
+}
+
+/** Store a photo chosen from the admin's machine and return its URL. */
+export async function uploadPlacementPhoto(
+  formData: FormData,
+): Promise<PhotoResult> {
+  await requireAdminAction();
+
+  const file = formData.get("photo");
+  if (!(file instanceof File) || file.size === 0) {
+    return { success: false, message: "Choose an image file first." };
+  }
+
+  const { saveMedia, mediaUrl } = await import("@/lib/storage/media");
+  const saved = await saveMedia(file, "placements");
+  if (!saved.ok) return { success: false, message: saved.error };
+
+  return {
+    success: true,
+    url: mediaUrl("placements", saved.filename),
+    message: `Uploaded ${file.name}.`,
+  };
 }

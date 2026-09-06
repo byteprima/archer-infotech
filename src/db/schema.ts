@@ -127,6 +127,7 @@ export const placements = sqliteTable("placements", {
   batchYear: integer("batch_year"),
   photoUrl: text("photo_url"),
   linkedinUrl: text("linkedin_url"),
+  githubUrl: text("github_url"),
   testimonial: text("testimonial"),
   isHighlighted: integer("is_highlighted", { mode: "boolean" }).default(false),
   isPublished: integer("is_published", { mode: "boolean" }).default(true),

@@ -1,8 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Loader2, Save, Eye, EyeOff, Star, Building, Briefcase } from "lucide-react";
+import {
+  Loader2,
+  Save,
+  Eye,
+  EyeOff,
+  Star,
+  Building,
+  Briefcase,
+  Link2,
+  ExternalLink,
+  Upload,
+  CheckCircle2,
+  AlertCircle,
+} from "lucide-react";
+// lucide-react ships no GitHub mark; the repo keeps its own.
+import { GitHubIcon } from "@/components/common/social-icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -20,8 +35,11 @@ import { CoursePickerField } from "@/components/admin/course-picker-field";
 import {
   createPlacement,
   updatePlacement,
+  fetchPlacementGithubPhoto,
+  uploadPlacementPhoto,
   type PlacementFormData,
 } from "@/lib/actions/placements";
+import { parseGithubUsername } from "@/lib/github-username";
 import type { Placement } from "@/db";
 import { toast } from "sonner";
 
@@ -34,6 +52,7 @@ type PlacementFormState = {
   batchYear: number | "";
   photoUrl: string;
   linkedinUrl: string;
+  githubUrl: string;
   testimonial: string;
   isHighlighted: boolean;
   isPublished: boolean;
@@ -58,10 +77,46 @@ export function PlacementForm({ placement }: PlacementFormProps) {
     batchYear: placement?.batchYear ?? "",
     photoUrl: placement?.photoUrl || "",
     linkedinUrl: placement?.linkedinUrl || "",
+    githubUrl: placement?.githubUrl || "",
     testimonial: placement?.testimonial || "",
     isHighlighted: placement?.isHighlighted ?? false,
     isPublished: placement?.isPublished ?? true,
   });
+
+  // Photo resolution. Both the GitHub copy and the local upload end up as a
+  // stored URL in `photoUrl`, so the save payload stays plain JSON.
+  const photoInputRef = useRef<HTMLInputElement>(null);
+  const [photoBusy, setPhotoBusy] = useState<false | "github" | "upload">(false);
+  const [photoStatus, setPhotoStatus] = useState<
+    { ok: boolean; message: string } | null
+  >(null);
+
+  const githubUser = parseGithubUsername(formData.githubUrl);
+
+  const handleGithubPhoto = async () => {
+    setPhotoBusy("github");
+    setPhotoStatus(null);
+    const result = await fetchPlacementGithubPhoto(formData.githubUrl);
+    if (result.success) {
+      setFormData((prev) => ({ ...prev, photoUrl: result.url }));
+    }
+    setPhotoStatus({ ok: result.success, message: result.message });
+    setPhotoBusy(false);
+  };
+
+  const handlePhotoUpload = async (file: File) => {
+    setPhotoBusy("upload");
+    setPhotoStatus(null);
+    const fd = new FormData();
+    fd.append("photo", file);
+    const result = await uploadPlacementPhoto(fd);
+    if (result.success) {
+      setFormData((prev) => ({ ...prev, photoUrl: result.url }));
+    }
+    setPhotoStatus({ ok: result.success, message: result.message });
+    setPhotoBusy(false);
+    if (photoInputRef.current) photoInputRef.current.value = "";
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -78,6 +133,7 @@ export function PlacementForm({ placement }: PlacementFormProps) {
       batchYear: formData.batchYear === "" ? undefined : formData.batchYear,
       photoUrl: formData.photoUrl,
       linkedinUrl: formData.linkedinUrl,
+      githubUrl: formData.githubUrl,
       testimonial: formData.testimonial,
       isHighlighted: formData.isHighlighted,
       isPublished: formData.isPublished,
@@ -243,6 +299,148 @@ export function PlacementForm({ placement }: PlacementFormProps) {
         <div className="space-y-6">
           <Card>
             <CardHeader>
+              <CardTitle>Links</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {/* Order matters here: the two profile links come first because
+                  the photo block reads the GitHub URL to offer its avatar —
+                  asking for it after the button that depends on it read
+                  backwards. Status sits at the end, reporting on whichever
+                  photo route was used. */}
+              <div className="space-y-2">
+                <Label htmlFor="linkedinUrl">LinkedIn URL</Label>
+                <Input
+                  id="linkedinUrl"
+                  value={formData.linkedinUrl}
+                  onChange={(e) =>
+                    setFormData((prev) => ({ ...prev, linkedinUrl: e.target.value }))
+                  }
+                  placeholder="https://linkedin.com/in/..."
+                  className={fieldErrors.linkedinUrl ? "border-red-500" : ""}
+                />
+                {fieldErrors.linkedinUrl && (
+                  <p className="text-sm text-red-500">{fieldErrors.linkedinUrl[0]}</p>
+                )}
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="githubUrl">GitHub URL</Label>
+                <Input
+                  id="githubUrl"
+                  value={formData.githubUrl}
+                  onChange={(e) =>
+                    setFormData((prev) => ({ ...prev, githubUrl: e.target.value }))
+                  }
+                  placeholder="https://github.com/..."
+                  className={fieldErrors.githubUrl ? "border-red-500" : ""}
+                />
+                {fieldErrors.githubUrl && (
+                  <p className="text-sm text-red-500">{fieldErrors.githubUrl[0]}</p>
+                )}
+              </div>
+
+              {/* Photo — pull it from the GitHub profile above, or browse for
+                  a file. Either route stores the image on the media volume and
+                  writes its URL into the field below. */}
+              <div className="space-y-3 rounded-lg border p-3">
+                <div className="flex items-center justify-between gap-3">
+                  <div className="min-w-0">
+                    <p className="text-sm font-medium">Photo</p>
+                    <p className="text-xs text-muted-foreground">
+                      Stored on the media volume, so it survives redeploys.
+                    </p>
+                  </div>
+                  {formData.photoUrl ? (
+                    <Avatar className="h-12 w-12 shrink-0 border">
+                      <AvatarImage src={formData.photoUrl} alt="" />
+                      <AvatarFallback>{fallbackInitials || "?"}</AvatarFallback>
+                    </Avatar>
+                  ) : null}
+                </div>
+
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="w-full justify-start"
+                  disabled={!githubUser || photoBusy !== false}
+                  onClick={handleGithubPhoto}
+                >
+                  {photoBusy === "github" ? (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  ) : (
+                    <GitHubIcon className="mr-2 h-4 w-4" />
+                  )}
+                  {githubUser
+                    ? `Use photo from github.com/${githubUser}`
+                    : "Add a GitHub URL above to pull the photo"}
+                </Button>
+
+                <input
+                  ref={photoInputRef}
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp,image/avif"
+                  className="sr-only"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) handlePhotoUpload(file);
+                  }}
+                />
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="w-full justify-start"
+                  disabled={photoBusy !== false}
+                  onClick={() => photoInputRef.current?.click()}
+                >
+                  {photoBusy === "upload" ? (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  ) : (
+                    <Upload className="mr-2 h-4 w-4" />
+                  )}
+                  Browse for a photo…
+                </Button>
+
+                <div className="space-y-2">
+                  <Label htmlFor="photoUrl">Photo URL</Label>
+                  <Input
+                    id="photoUrl"
+                    value={formData.photoUrl}
+                    onChange={(e) => {
+                      setFormData((prev) => ({ ...prev, photoUrl: e.target.value }));
+                      setPhotoStatus(null);
+                    }}
+                    placeholder="https://example.com/photo.jpg"
+                    className={fieldErrors.photoUrl ? "border-red-500" : ""}
+                  />
+                  {fieldErrors.photoUrl && (
+                    <p className="text-sm text-red-500">{fieldErrors.photoUrl[0]}</p>
+                  )}
+                </div>
+              </div>
+
+              {/* Status — below the whole links section. */}
+              {photoStatus && (
+                <div
+                  role="status"
+                  className={`flex items-start gap-2 rounded-md border p-2 text-xs ${
+                    photoStatus.ok
+                      ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300"
+                      : "border-red-500/40 bg-red-500/10 text-red-700 dark:text-red-300"
+                  }`}
+                >
+                  {photoStatus.ok ? (
+                    <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0" />
+                  ) : (
+                    <AlertCircle className="mt-0.5 h-3.5 w-3.5 shrink-0" />
+                  )}
+                  <span>{photoStatus.message}</span>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
               <CardTitle>Status</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -335,6 +533,18 @@ export function PlacementForm({ placement }: PlacementFormProps) {
                   )}
                   <span>{formData.isPublished ? "Published" : "Draft"}</span>
                 </div>
+                {formData.linkedinUrl && (
+                  <div className="flex items-center gap-2">
+                    <Link2 className="h-4 w-4 text-muted-foreground" />
+                    <span className="truncate">{formData.linkedinUrl}</span>
+                  </div>
+                )}
+                {formData.githubUrl && (
+                  <div className="flex items-center gap-2">
+                    <ExternalLink className="h-4 w-4 text-muted-foreground" />
+                    <span className="truncate">{formData.githubUrl}</span>
+                  </div>
+                )}
               </div>
 
               {formData.photoUrl && (

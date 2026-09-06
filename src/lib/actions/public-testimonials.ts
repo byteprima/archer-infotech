@@ -13,7 +13,7 @@ import { testimonials as testimonialsTable } from "@/db/schema";
  * from the admin write path).
  */
 
-/** Home — 6 published testimonials, projected to the card-display columns. */
+/** Home — up to 12 published testimonials, projected to the card-display columns. */
 export const getHomeTestimonials = unstable_cache(
   async () => {
     try {
@@ -35,7 +35,11 @@ export const getHomeTestimonials = unstable_cache(
         })
         .from(testimonialsTable)
         .where(eq(testimonialsTable.isPublished, true))
-        .limit(6);
+        // Was 6 — exactly what the home carousel displays, so every visitor
+        // saw the same six. The section now shuffles client-side for variety,
+        // which needs a pool bigger than the view. 12 keeps the cached payload
+        // and the Review JSON-LD on the same page a sensible size.
+        .limit(12);
     } catch (error) {
       // The production image is built without a populated SQLite file
       // (bind-mounted only at runtime), so the build-time prerender of `/`

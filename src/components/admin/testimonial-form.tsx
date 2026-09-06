@@ -265,203 +265,6 @@ export function TestimonialForm({ testimonial }: TestimonialFormProps) {
               </div>
             </CardContent>
           </Card>
-        </div>
-
-        <div className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Status</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex items-center justify-between gap-4">
-                <div className="space-y-0.5">
-                  <Label htmlFor="isPublished">Publish</Label>
-                  <p className="text-sm text-muted-foreground">
-                    {formData.isPublished ? "Visible on the site" : "Saved as draft"}
-                  </p>
-                </div>
-                <Switch
-                  id="isPublished"
-                  checked={formData.isPublished}
-                  onCheckedChange={(checked) =>
-                    setFormData((prev) => ({ ...prev, isPublished: checked }))
-                  }
-                />
-              </div>
-
-              <div className="flex items-center justify-between gap-4">
-                <div className="space-y-0.5">
-                  <Label htmlFor="isHighlighted">Highlight</Label>
-                  <p className="text-sm text-muted-foreground">
-                    {formData.isHighlighted ? "Shown as featured" : "Regular testimonial"}
-                  </p>
-                </div>
-                <Switch
-                  id="isHighlighted"
-                  checked={formData.isHighlighted}
-                  onCheckedChange={(checked) =>
-                    setFormData((prev) => ({ ...prev, isHighlighted: checked }))
-                  }
-                />
-              </div>
-
-              <Button type="submit" className="w-full" disabled={isSubmitting}>
-                {isSubmitting ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Saving...
-                  </>
-                ) : (
-                  <>
-                    <Save className="mr-2 h-4 w-4" />
-                    {isEditing ? "Update Testimonial" : "Save Testimonial"}
-                  </>
-                )}
-              </Button>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>Links</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              {/* Photo, in the order it is meant to be used: pull it from
-                  GitHub if there is a profile, otherwise browse for a file,
-                  and either way the resulting URL lands in the field below.
-                  The status line reports whichever route was taken. */}
-              <div className="space-y-3 rounded-lg border p-3">
-                <div className="flex items-center justify-between gap-3">
-                  <div className="min-w-0">
-                    <p className="text-sm font-medium">Photo</p>
-                    <p className="text-xs text-muted-foreground">
-                      Stored on the media volume, so it survives redeploys.
-                    </p>
-                  </div>
-                  {formData.photoUrl ? (
-                    <Avatar className="h-12 w-12 shrink-0 border">
-                      <AvatarImage src={formData.photoUrl} alt="" />
-                      <AvatarFallback>
-                        {formData.name.slice(0, 2).toUpperCase() || "?"}
-                      </AvatarFallback>
-                    </Avatar>
-                  ) : null}
-                </div>
-
-                {/* 1 — GitHub, automatic. Disabled until the GitHub URL below
-                    parses to a real username, so it cannot fire on nonsense. */}
-                <Button
-                  type="button"
-                  variant="outline"
-                  className="w-full justify-start"
-                  disabled={!githubUser || photoBusy !== false}
-                  onClick={handleGithubPhoto}
-                >
-                  {photoBusy === "github" ? (
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  ) : (
-                    <GitHubIcon className="mr-2 h-4 w-4" />
-                  )}
-                  {githubUser
-                    ? `Use photo from github.com/${githubUser}`
-                    : "Add a GitHub URL below to pull the photo"}
-                </Button>
-
-                {/* 2 — browse for a local file */}
-                <input
-                  ref={photoInputRef}
-                  type="file"
-                  accept="image/jpeg,image/png,image/webp,image/avif"
-                  className="sr-only"
-                  onChange={(e) => {
-                    const file = e.target.files?.[0];
-                    if (file) handlePhotoUpload(file);
-                  }}
-                />
-                <Button
-                  type="button"
-                  variant="outline"
-                  className="w-full justify-start"
-                  disabled={photoBusy !== false}
-                  onClick={() => photoInputRef.current?.click()}
-                >
-                  {photoBusy === "upload" ? (
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  ) : (
-                    <Upload className="mr-2 h-4 w-4" />
-                  )}
-                  Browse for a photo…
-                </Button>
-
-                {/* 3 — the resolved link, editable by hand */}
-                <div className="space-y-2">
-                  <Label htmlFor="photoUrl">Photo URL</Label>
-                  <Input
-                    id="photoUrl"
-                    value={formData.photoUrl}
-                    onChange={(e) => {
-                      setFormData((prev) => ({ ...prev, photoUrl: e.target.value }));
-                      setPhotoStatus(null);
-                    }}
-                    placeholder="https://example.com/photo.jpg"
-                    className={fieldErrors.photoUrl ? "border-red-500" : ""}
-                  />
-                  {fieldErrors.photoUrl && (
-                    <p className="text-sm text-red-500">{fieldErrors.photoUrl[0]}</p>
-                  )}
-                </div>
-
-                {/* 4 — status, below the link */}
-                {photoStatus && (
-                  <div
-                    role="status"
-                    className={`flex items-start gap-2 rounded-md border p-2 text-xs ${
-                      photoStatus.ok
-                        ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300"
-                        : "border-red-500/40 bg-red-500/10 text-red-700 dark:text-red-300"
-                    }`}
-                  >
-                    {photoStatus.ok ? (
-                      <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0" />
-                    ) : (
-                      <AlertCircle className="mt-0.5 h-3.5 w-3.5 shrink-0" />
-                    )}
-                    <span>{photoStatus.message}</span>
-                  </div>
-                )}
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="linkedinUrl">LinkedIn URL</Label>
-                <Input
-                  id="linkedinUrl"
-                  value={formData.linkedinUrl}
-                  onChange={(e) =>
-                    setFormData((prev) => ({ ...prev, linkedinUrl: e.target.value }))
-                  }
-                  placeholder="https://linkedin.com/in/..."
-                  className={fieldErrors.linkedinUrl ? "border-red-500" : ""}
-                />
-                {fieldErrors.linkedinUrl && (
-                  <p className="text-sm text-red-500">{fieldErrors.linkedinUrl[0]}</p>
-                )}
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="githubUrl">GitHub URL</Label>
-                <Input
-                  id="githubUrl"
-                  value={formData.githubUrl}
-                  onChange={(e) =>
-                    setFormData((prev) => ({ ...prev, githubUrl: e.target.value }))
-                  }
-                  placeholder="https://github.com/..."
-                  className={fieldErrors.githubUrl ? "border-red-500" : ""}
-                />
-                {fieldErrors.githubUrl && (
-                  <p className="text-sm text-red-500">{fieldErrors.githubUrl[0]}</p>
-                )}
-              </div>
-            </CardContent>
-          </Card>
 
           <Card>
             <CardHeader>
@@ -519,6 +322,205 @@ export function TestimonialForm({ testimonial }: TestimonialFormProps) {
                   </div>
                 )}
               </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        <div className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Links</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {/* Order matters here: the two profile links come first because
+                  the photo block reads the GitHub URL to offer its avatar —
+                  asking for it after the button that depends on it read
+                  backwards. Status sits at the end, reporting on whichever
+                  photo route was used. */}
+              <div className="space-y-2">
+                <Label htmlFor="linkedinUrl">LinkedIn URL</Label>
+                <Input
+                  id="linkedinUrl"
+                  value={formData.linkedinUrl}
+                  onChange={(e) =>
+                    setFormData((prev) => ({ ...prev, linkedinUrl: e.target.value }))
+                  }
+                  placeholder="https://linkedin.com/in/..."
+                  className={fieldErrors.linkedinUrl ? "border-red-500" : ""}
+                />
+                {fieldErrors.linkedinUrl && (
+                  <p className="text-sm text-red-500">{fieldErrors.linkedinUrl[0]}</p>
+                )}
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="githubUrl">GitHub URL</Label>
+                <Input
+                  id="githubUrl"
+                  value={formData.githubUrl}
+                  onChange={(e) =>
+                    setFormData((prev) => ({ ...prev, githubUrl: e.target.value }))
+                  }
+                  placeholder="https://github.com/..."
+                  className={fieldErrors.githubUrl ? "border-red-500" : ""}
+                />
+                {fieldErrors.githubUrl && (
+                  <p className="text-sm text-red-500">{fieldErrors.githubUrl[0]}</p>
+                )}
+              </div>
+
+              {/* Photo — pull it from the GitHub profile above, or browse for
+                  a file. Either route stores the image on the media volume and
+                  writes its URL into the field below. */}
+              <div className="space-y-3 rounded-lg border p-3">
+                <div className="flex items-center justify-between gap-3">
+                  <div className="min-w-0">
+                    <p className="text-sm font-medium">Photo</p>
+                    <p className="text-xs text-muted-foreground">
+                      Stored on the media volume, so it survives redeploys.
+                    </p>
+                  </div>
+                  {formData.photoUrl ? (
+                    <Avatar className="h-12 w-12 shrink-0 border">
+                      <AvatarImage src={formData.photoUrl} alt="" />
+                      <AvatarFallback>
+                        {formData.name.slice(0, 2).toUpperCase() || "?"}
+                      </AvatarFallback>
+                    </Avatar>
+                  ) : null}
+                </div>
+
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="w-full justify-start"
+                  disabled={!githubUser || photoBusy !== false}
+                  onClick={handleGithubPhoto}
+                >
+                  {photoBusy === "github" ? (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  ) : (
+                    <GitHubIcon className="mr-2 h-4 w-4" />
+                  )}
+                  {githubUser
+                    ? `Use photo from github.com/${githubUser}`
+                    : "Add a GitHub URL above to pull the photo"}
+                </Button>
+
+                <input
+                  ref={photoInputRef}
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp,image/avif"
+                  className="sr-only"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) handlePhotoUpload(file);
+                  }}
+                />
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="w-full justify-start"
+                  disabled={photoBusy !== false}
+                  onClick={() => photoInputRef.current?.click()}
+                >
+                  {photoBusy === "upload" ? (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  ) : (
+                    <Upload className="mr-2 h-4 w-4" />
+                  )}
+                  Browse for a photo…
+                </Button>
+
+                <div className="space-y-2">
+                  <Label htmlFor="photoUrl">Photo URL</Label>
+                  <Input
+                    id="photoUrl"
+                    value={formData.photoUrl}
+                    onChange={(e) => {
+                      setFormData((prev) => ({ ...prev, photoUrl: e.target.value }));
+                      setPhotoStatus(null);
+                    }}
+                    placeholder="https://example.com/photo.jpg"
+                    className={fieldErrors.photoUrl ? "border-red-500" : ""}
+                  />
+                  {fieldErrors.photoUrl && (
+                    <p className="text-sm text-red-500">{fieldErrors.photoUrl[0]}</p>
+                  )}
+                </div>
+              </div>
+
+              {/* Status — below the whole links section. */}
+              {photoStatus && (
+                <div
+                  role="status"
+                  className={`flex items-start gap-2 rounded-md border p-2 text-xs ${
+                    photoStatus.ok
+                      ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300"
+                      : "border-red-500/40 bg-red-500/10 text-red-700 dark:text-red-300"
+                  }`}
+                >
+                  {photoStatus.ok ? (
+                    <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0" />
+                  ) : (
+                    <AlertCircle className="mt-0.5 h-3.5 w-3.5 shrink-0" />
+                  )}
+                  <span>{photoStatus.message}</span>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Status</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex items-center justify-between gap-4">
+                <div className="space-y-0.5">
+                  <Label htmlFor="isPublished">Publish</Label>
+                  <p className="text-sm text-muted-foreground">
+                    {formData.isPublished ? "Visible on the site" : "Saved as draft"}
+                  </p>
+                </div>
+                <Switch
+                  id="isPublished"
+                  checked={formData.isPublished}
+                  onCheckedChange={(checked) =>
+                    setFormData((prev) => ({ ...prev, isPublished: checked }))
+                  }
+                />
+              </div>
+
+              <div className="flex items-center justify-between gap-4">
+                <div className="space-y-0.5">
+                  <Label htmlFor="isHighlighted">Highlight</Label>
+                  <p className="text-sm text-muted-foreground">
+                    {formData.isHighlighted ? "Shown as featured" : "Regular testimonial"}
+                  </p>
+                </div>
+                <Switch
+                  id="isHighlighted"
+                  checked={formData.isHighlighted}
+                  onCheckedChange={(checked) =>
+                    setFormData((prev) => ({ ...prev, isHighlighted: checked }))
+                  }
+                />
+              </div>
+
+              <Button type="submit" className="w-full" disabled={isSubmitting}>
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Saving...
+                  </>
+                ) : (
+                  <>
+                    <Save className="mr-2 h-4 w-4" />
+                    {isEditing ? "Update Testimonial" : "Save Testimonial"}
+                  </>
+                )}
+              </Button>
             </CardContent>
           </Card>
         </div>
