@@ -399,6 +399,15 @@ export const dotnetFullStackTrainingInPune: CourseRichContent = {
    * carries the same information as text and is the thing that must stay
    * correct. If you add a topic here, add it there.
    */
+  posterImage: {
+    src: "/images/courses/dotnet-full-stack-poster-v1.webp",
+    width: 1122,
+    height: 1402,
+    alt: ".NET Full Stack Developer course poster for Archer Infotech showing the technology stack: C# programming fundamentals, ASP.NET Core for modern web apps, .NET Web API to build and consume APIs, Entity Framework for data access, SQL Server for database management, HTML for structure, CSS for styling, JavaScript for dynamic web apps, React or Angular for modern frontend development, Git for version control, Azure cloud fundamentals and deployment to the cloud. Listed learning outcomes include full stack web development, ASP.NET Core backend, RESTful APIs with .NET, database design with SQL Server, frontend with HTML, CSS and JavaScript, React or Angular development, cloud deployment on Azure, and real-world projects with best practices. Career opportunities listed are .NET Full Stack Developer, Backend Developer, Frontend Developer, Software Engineer, Technical Consultant, Cloud Developer and freelancer or entrepreneur.",
+    caption:
+      "The .NET full-stack technology stack and what each part does. Every technology on the poster is covered as a module below.",
+  },
+
   roadmapImage: {
     src: "/images/courses/dotnet-ai-roadmap-2026-v1.webp",
     width: 1680,
@@ -416,24 +425,25 @@ export const dotnetFullStackTrainingInPune: CourseRichContent = {
    * canonical, indexable copy and the PDF is a post-click convenience.
    */
   syllabusDownload: {
-    pdfUrl: "/downloads/dotnet-ai-roadmap-2026-v1.pdf",
-    title: ".NET + AI Roadmap 2026 — Complete Syllabus",
+    pdfUrl: "/downloads/dotnet-full-stack-syllabus-v1.pdf",
+    title: ".NET Full Stack Course Syllabus — Complete Module List",
     slug: "dotnet-full-stack-syllabus",
     blurb:
-      "The complete 16-level learning sequence this course follows, as a 14-page PDF you can keep or share — every topic from programming fundamentals through Semantic Kernel, RAG and AI agents, plus the fifteen-project progression and the recommended 2026 stack. Everything in it is already on this page; the PDF is just the portable version.",
+      "The complete 90-section syllabus as a 32-page PDF — C# from fundamentals through LINQ, async and the runtime, SQL Server and database design, HTML, CSS and JavaScript, React with an optional Angular track, ASP.NET Core and Web API, Entity Framework Core, security, testing, Azure, microservices, AI-assisted development, four project tiers and a full interview-preparation section. Everything in it is on this page; the PDF is the portable version.",
     asideBlocks: [
       {
-        heading: "What is inside the 14-page PDF",
+        heading: "What is inside the 32-page PDF",
         items: [
-          "All sixteen levels in order, from programming fundamentals and the .NET platform through C#, ASP.NET Core, EF Core, Angular or React, Azure and microservices, ending in AI integration and architecture.",
-          "A fifteen-project progression, from a banking console application in plain C# to a company knowledge assistant and an enterprise AI-powered .NET platform.",
-          "The recommended 2026 stack named tool by tool — C# and modern .NET, ASP.NET Core, EF Core, PostgreSQL or SQL Server, React, Redis, Kafka, Docker, Azure, GitHub Actions, Microsoft.Extensions.AI and Semantic Kernel.",
-          "What not to spend your first year on: ASP.NET Web Forms, .NET Framework-first development, and legacy MVC patterns still taught elsewhere in Pune.",
-          "The AI security and evaluation checklist — prompt injection, tool authorisation, groundedness, hallucination, retrieval quality and token cost.",
+          "All 90 numbered sections in teaching order, grouped into twenty parts from programming fundamentals through to mock interviews.",
+          "The C# language in full — OOP, advanced features, LINQ, async and await, memory management and the .NET runtime, plus data structures and algorithms in C#.",
+          "Both frontend tracks: React as the default path, with a parallel Angular track for teams and employers that use it.",
+          "The enterprise layer most syllabi skip — Entity Framework Core, API security, testing, Azure services and monitoring, microservices with ASP.NET Core, and AI integration with generative models.",
+          "Four tiers of project work — C# mini projects, SQL projects, frontend mini projects and ASP.NET Core API projects — then three full-stack builds and a capstone.",
+          "A complete interview-preparation section covering C#, SQL, ASP.NET Core, frontend and system design, plus mock interviews and coding practice.",
         ],
       },
       {
-        heading: "Roles this sequence prepares you for",
+        heading: "Roles this syllabus prepares you for",
         items: [
           "C# Developer",
           ".NET Developer",

@@ -55,8 +55,144 @@ export const pythonFullStackTrainingInPune: CourseRichContent = {
       ],
     },
     {
+      title: "Programming & Software Development Fundamentals",
+      weekRange: "Week 1",
+      description:
+        "The mental model before the syntax. How a web application actually works — client and server, the request-response lifecycle, HTTP and HTTPS, three-tier architecture, and what separates a static site from a dynamic one. The toolchain is set up properly on day one (VS Code or PyCharm, the terminal, Git) rather than debugged in week six.\n\nThis week also fixes the vocabulary the rest of the course depends on: what an API is, what REST means, and what development, staging and production environments are for. It is short, and it prevents a specific kind of confusion that otherwise surfaces much later at a much worse time.",
+      topics: [
+        "How web applications work — client, server, database",
+        "Client-server architecture and the request-response lifecycle",
+        "HTTP and HTTPS, methods, status codes and headers",
+        "Three-tier architecture — presentation, application, data",
+        "Frontend versus backend responsibilities",
+        "Static versus dynamic websites",
+        "REST API fundamentals",
+        "Development, staging and production environments",
+        "VS Code and PyCharm setup",
+        "Terminal and command-line fundamentals",
+        "Git and GitHub — first repository, first commits",
+      ],
+    },
+    {
+      title: "Python Data Structures & Functions in Depth",
+      weekRange: "Week 2",
+      description:
+        "The four built-in structures, taught by what each is actually for rather than as a syntax tour. Lists and their mutation semantics, tuples and why immutability matters, sets and the operations that make them the right answer to deduplication and membership problems, and dictionaries — which underpin more Python code than any other structure.\n\nComprehensions get real time, because they are the difference between Python that reads like Python and Python that reads like translated Java. Functions then cover positional, keyword, default and variadic arguments, scope and the LEGB rule, lambdas, closures and decorators — the last being what makes Django and FastAPI's syntax legible rather than magical.",
+      topics: [
+        "Strings — slicing, methods, formatting, f-strings",
+        "Lists — methods, slicing, sorting, nesting",
+        "Tuples, packing and unpacking, and immutability",
+        "Sets — union, intersection, difference, membership",
+        "Dictionaries — keys, iteration, nesting, methods",
+        "List, dict and set comprehensions",
+        "Function arguments — positional, keyword, default, *args, **kwargs",
+        "Scope and the LEGB rule",
+        "Lambdas, map, filter and reduce",
+        "Closures and decorators",
+        "Generators, yield and lazy evaluation",
+      ],
+    },
+    {
+      title: "Object-Oriented Python, Files & Error Handling",
+      weekRange: "Week 3",
+      description:
+        "Classes, objects, inheritance, encapsulation and polymorphism as they are actually written in Python — including the parts that differ from Java and C# and trip up developers arriving from those languages: duck typing, dunder methods, properties instead of getters and setters, and multiple inheritance with the method resolution order.\n\nException handling covers the full try, except, else and finally structure, exception hierarchies, custom exceptions and the discipline of catching narrowly. File handling covers text, CSV and JSON, context managers, and the `pathlib` module. Together these are the everyday competence that separates code that survives production from code that only works on the demo path.",
+      topics: [
+        "Classes, objects, attributes and methods",
+        "Inheritance, super() and method resolution order",
+        "Encapsulation, properties and name mangling",
+        "Polymorphism and duck typing",
+        "Dunder methods — __init__, __str__, __repr__, __eq__",
+        "Class methods, static methods and class variables",
+        "Abstract base classes and interfaces in Python",
+        "Exceptions — try, except, else, finally",
+        "Exception hierarchy and custom exceptions",
+        "Files — text, CSV, JSON, and pathlib",
+        "Context managers and the with statement",
+        "Modules, packages and virtual environments",
+      ],
+    },
+    {
+      title: "Data Structures & Algorithms with Python",
+      weekRange: "Week 4",
+      description:
+        "The module that decides screening rounds. Pune product companies and services majors both run a coding filter before anyone reads your project work, and it tests exactly this material — arrays and strings, stacks and queues, linked lists, hash maps, trees, and the traversals over them.\n\nAlgorithms cover searching, the sorting family, recursion, two-pointer and sliding-window patterns, and an introduction to dynamic programming. Complexity analysis runs throughout rather than as an appendix, because the interview question is never just \"does it work\" — it is \"what is the time complexity, and can you do better\".",
+      topics: [
+        "Arrays, strings and in-place operations",
+        "Stacks and queues, including deque",
+        "Linked lists — singly and doubly",
+        "Hash maps, sets and collision behaviour",
+        "Trees, binary search trees and traversals",
+        "Heaps and priority queues",
+        "Linear and binary search",
+        "Sorting — bubble, insertion, merge, quick",
+        "Recursion and backtracking",
+        "Two-pointer and sliding-window patterns",
+        "Introduction to dynamic programming",
+        "Big-O analysis of time and space",
+      ],
+    },
+    {
+      title: "Web Fundamentals — HTML5, CSS3 & Tailwind",
+      weekRange: "Week 5",
+      description:
+        "The frontend ground that Django templates render into and React components produce. Semantic HTML5, forms and input types, and accessibility attributes — written semantically, because a Django template built on div soup is as unreadable and unindexable as any other.\n\nCSS covers selectors and specificity, the box model, Flexbox and Grid with a clear rule for choosing between them, and mobile-first responsive design. Tailwind then covers utility-first styling, configuration and component extraction, with Bootstrap noted as the alternative you will meet in existing Django projects and admin panels.",
+      topics: [
+        "Semantic HTML5 structure and document outline",
+        "Forms — input types, labels, validation attributes",
+        "Accessibility attributes and why they matter",
+        "CSS selectors, specificity and the cascade",
+        "The box model, display and positioning",
+        "Flexbox and CSS Grid, and choosing between them",
+        "Mobile-first methodology and breakpoints",
+        "Responsive images and fluid typography",
+        "Tailwind utilities, configuration and theming",
+        "Component extraction and avoiding class soup",
+        "Bootstrap as the alternative in existing projects",
+      ],
+    },
+    {
+      title: "JavaScript for Python Developers",
+      weekRange: "Week 6",
+      description:
+        "The second language, taught with the differences called out rather than glossed. Syntax, types and the coercion rules; functions, arrow functions and `this`; scope, hoisting and closures; and the array methods — map, filter, reduce — which look familiar to a Python developer and behave differently enough to matter.\n\nThe DOM and events come next, then asynchronous JavaScript: the event loop, promises, async/await and fetch. That last section is where Python developers most often stumble, because Python's async model and JavaScript's are genuinely different, and the differences are worth stating plainly rather than discovering through bugs.",
+      topics: [
+        "Syntax, types, coercion and strict equality",
+        "let, const and var — and what each changes",
+        "Functions, arrow functions and `this`",
+        "Scope, hoisting and closures",
+        "Arrays and the functional methods",
+        "Objects, destructuring, spread and rest",
+        "ES modules, template literals and optional chaining",
+        "DOM selection, manipulation and events",
+        "The event loop, task and microtask queues",
+        "Promises, async/await and error handling",
+        "fetch, JSON, status codes and CORS",
+        "Where JavaScript's async model differs from Python's",
+      ],
+    },
+    {
+      title: "MongoDB & NoSQL for Python Applications",
+      weekRange: "Week 7",
+      description:
+        "Relational is the default in this course and PostgreSQL gets a full week of its own, but a Python full-stack developer meets MongoDB often enough that not covering it is a gap. Documents and collections, BSON types, CRUD and query operators, and the modelling decision that actually determines performance — embedding versus referencing.\n\nPython integration uses PyMongo and Motor for async work, with Beanie as the ODM. Indexing and the aggregation pipeline get proper attention, and the module closes with a clear rule for when a document store is the right answer for a Python service and when reaching for one is a mistake you will pay for at reporting time.",
+      topics: [
+        "Documents, collections and BSON types",
+        "CRUD operations and query operators",
+        "Embedding versus referencing — the modelling decision",
+        "PyMongo for synchronous access",
+        "Motor and Beanie for async FastAPI services",
+        "Schema design and validation",
+        "Indexes — single, compound and text",
+        "The aggregation pipeline",
+        "Reading an explain plan",
+        "MongoDB Atlas and managed hosting",
+        "SQL or NoSQL — an honest rule for choosing",
+      ],
+    },
+    {
       title: "Django 5 Foundations — Models, Views, Templates, Admin",
-      weekRange: "Weeks 2–3",
+      weekRange: "Weeks 8–9",
       description:
         "Django from first principles, taught in the order that produces working applications fastest. Cover the project / app structure, Django ORM (models, fields, relationships, querysets, the discipline that prevents N+1 queries), database migrations, the URL dispatcher, function-based and class-based views, the Django template language, and the Django admin (which alone is a hiring differentiator — most institutes underuse it). Plus the discipline of Django settings management — environment variables, dotenv, settings split (base / dev / prod). By the end of week 3 every student has built a small CRM-style app with custom admin and full CRUD.",
       topics: [
@@ -72,7 +208,7 @@ export const pythonFullStackTrainingInPune: CourseRichContent = {
     },
     {
       title: "Django REST Framework — APIs Done Right",
-      weekRange: "Week 4",
+      weekRange: "Week 10",
       description:
         "DRF is still the dominant Pune Django API toolkit. Cover serializers (the heart of DRF), ModelViewSets and the default router, authentication (Session, Token, JWT via djangorestframework-simplejwt), permissions and the discipline of permission classes, throttling, filtering / search / ordering, pagination, plus OpenAPI / Swagger generation via drf-spectacular. We compare with django-ninja (the Pydantic-based DRF alternative gaining adoption) and FastAPI — and we honestly say when each is the right tool.",
       topics: [
@@ -88,7 +224,7 @@ export const pythonFullStackTrainingInPune: CourseRichContent = {
     },
     {
       title: "Async Django, FastAPI & Real-Time",
-      weekRange: "Week 5",
+      weekRange: "Week 11",
       description:
         "The newer side of Python web. Django 5 async views and the async ORM, ASGI deployment, Django Channels for WebSocket. Then FastAPI as the standalone framework for high-performance APIs and AI-glue microservices — Pydantic v2, async endpoints, dependency injection, OpenAPI auto-generated. We build one async Django service and one FastAPI service so you internalise the ergonomic differences. Plus the production reality — when async earns its complexity (I/O-bound services with thousands of concurrent connections) and when sync Django is still the right tool.",
       topics: [
@@ -103,7 +239,7 @@ export const pythonFullStackTrainingInPune: CourseRichContent = {
     },
     {
       title: "PostgreSQL Depth & SQL for Backend Engineers",
-      weekRange: "Week 6",
+      weekRange: "Week 12",
       description:
         "Database depth that separates junior from mid-level Python engineers. Cover Postgres essentials at the level you will actually use — joins, transactions, indexes (B-tree / GIN / GiST / BRIN), EXPLAIN plans, materialised views, JSON / JSONB columns, full-text search, CTEs, window functions. Then the Django ORM mapping — raw SQL when you need it, F() and Q() expressions, select_related / prefetch_related (the #1 N+1 fix), aggregations, conditional updates. Plus connection pooling with pgbouncer (the production must-have most institutes skip).",
       topics: [
@@ -119,7 +255,7 @@ export const pythonFullStackTrainingInPune: CourseRichContent = {
     },
     {
       title: "Authentication, Authorization & Security",
-      weekRange: "Week 7",
+      weekRange: "Week 13",
       description:
         "The security baseline every production Python service needs. Cover Django's built-in auth (still the right default for most apps), JWT for SPA / mobile clients via simplejwt, social / OAuth login via django-allauth or python-social-auth (Google / GitHub / Azure AD), role-based and object-level permissions, rate limiting, and the security middleware stack (CSRF, XSS, SQL injection — Django defends most of these by default but you should understand how). Plus secrets management — django-environ, AWS Secrets Manager, Azure Key Vault — and the Pune-relevant compliance basics (PII handling, password storage, audit logging).",
       topics: [
@@ -135,7 +271,7 @@ export const pythonFullStackTrainingInPune: CourseRichContent = {
     },
     {
       title: "Background Jobs — Celery, Redis, and Async Workflows",
-      weekRange: "Week 8",
+      weekRange: "Week 14",
       description:
         "The backbone of every production Python service. Celery 5.x with Redis (the dominant Pune choice) — task queues, scheduled tasks via celery-beat, retry / backoff, error handling, monitoring with Flower. Cover the patterns that matter — idempotency, dead-letter queues, task chunking for large datasets, result backends, plus the discipline of designing tasks that survive worker restarts. We cover the alternatives (RQ for simpler stacks, dramatiq, Huey) and when each fits, plus a small section on django-q2 for teams that don't want Celery's complexity.",
       topics: [
@@ -150,7 +286,7 @@ export const pythonFullStackTrainingInPune: CourseRichContent = {
     },
     {
       title: "Frontend — React 19 + TypeScript + TanStack Query",
-      weekRange: "Weeks 9–10",
+      weekRange: "Weeks 15–16",
       description:
         "The frontend half of full-stack. React 19 essentials — components, props, state, hooks (useState, useEffect, useTransition, useOptimistic, useFormStatus), TypeScript-first throughout, Vite as the build tool, Tailwind for styling. Then the integration layer — TanStack Query for server state (the modern default), React Router 7 for routing, React Hook Form + Zod for forms, JWT interceptor pattern. We finish by wiring the React frontend to the Django + DRF API from week 4 — login, list / detail / create / update / delete, optimistic updates, error handling. (Optional Next.js path for students targeting SSR-heavy use cases.)",
       topics: [
@@ -167,7 +303,7 @@ export const pythonFullStackTrainingInPune: CourseRichContent = {
     },
     {
       title: "Production — Docker, Deployment, Observability",
-      weekRange: "Week 11",
+      weekRange: "Week 17",
       description:
         "The week that turns a notebook into a service Pune teams will deploy. Docker multi-stage builds for Python apps (Gunicorn / uvicorn, the right WSGI / ASGI choice, the static-files story), Docker Compose for local-dev stacks (Django + Postgres + Redis + Celery worker + Celery beat). Then deployment — Render and Fly.io for fast deploys, AWS Elastic Beanstalk for the AWS path, Railway for the simplest path, plus a brief on AKS / EKS for larger teams. Observability — structured logging with structlog, Sentry for error tracking, OpenTelemetry instrumentation, Prometheus metrics via django-prometheus.",
       topics: [
@@ -183,7 +319,7 @@ export const pythonFullStackTrainingInPune: CourseRichContent = {
     },
     {
       title: "Capstone Project & Interview Preparation",
-      weekRange: "Weeks 12–13 + 2 weeks placement prep",
+      weekRange: "Weeks 18–19 + 2 weeks placement prep",
       description:
         "Two weeks of full-time capstone work plus structured interview preparation. Pick one of three capstone projects (see Capstone Projects). Mock interviews calibrated for Pune Python full-stack hiring panels — Amagi, Fyllo, Drip Capital, Innovaccer Pune, Persistent product engineering, plus Pune analytics product teams. Includes a coding round (Django / DRF / SQL live), a design round (decompose a feature, choose between sync and async, structure DRF serializers), and a behavioural round. Resume / LinkedIn / GitHub polish included.",
       topics: [
@@ -217,6 +353,52 @@ export const pythonFullStackTrainingInPune: CourseRichContent = {
       ],
     },
   ],
+
+  posterImage: {
+    src: "/images/courses/python-full-stack-poster-v1.webp",
+    width: 1122,
+    height: 1402,
+    alt: "Python Full Stack Developer course poster for Archer Infotech showing the technology stack: Python as the core language, Django as the web framework, REST APIs to build and integrate, SQL for database management, HTML for structure, CSS for styling, JavaScript for interactivity, React for dynamic user interfaces, Git for version control and deployment for live applications. Listed learning outcomes include Python from core to advanced, Django and FastAPI backend development, REST APIs and API integration, SQL and database management, React frontend development, Git and GitHub version control, cloud and production deployment, and building real-world projects. Career opportunities listed are Python Full Stack Developer, Backend Developer, Frontend Developer, API Developer, Software Engineer and freelancer or entrepreneur.",
+    caption:
+      "The Python full-stack technology stack and what each part does. Every technology on the poster is covered as a module below.",
+  },
+
+  roadmapImage: {
+    src: "/images/courses/python-full-stack-path-v1.webp",
+    width: 1400,
+    height: 900,
+    alt: "Eight-stage Python Full Stack learning path taught at Archer Infotech Pune: Python covering syntax, data structures, object-oriented programming, modules and exceptions; databases covering SQL, schema design, ORM and MongoDB basics; web and JavaScript covering HTML5, CSS3, ES6+, the DOM and async; React covering components, hooks, routing, state and forms; Django and Django REST Framework covering models, the ORM, authentication, admin and REST APIs; FastAPI and integration covering async APIs, JWT and wiring React to the backend; deployment and scaling covering Docker, CI/CD, cloud, Redis, Celery and security; and AI-assisted development covering copilots, LLM integration, projects and interviews.",
+    caption:
+      "The order this course is taught in. Each stage expands into the modules below — nothing arrives before its prerequisite.",
+  },
+
+  syllabusDownload: {
+    pdfUrl: "/downloads/python-full-stack-syllabus-v1.pdf",
+    title: "Python Full Stack Course Syllabus — Complete Module List",
+    slug: "python-full-stack-syllabus",
+    blurb:
+      "The complete 58-section syllabus as a 24-page PDF — Python from fundamentals through advanced features, data structures and algorithms, SQL and MongoDB, web fundamentals and React, Django and Django REST Framework, FastAPI, testing, Docker, CI/CD, cloud deployment, security, AI-assisted development, four project tiers and a full interview-preparation section. Everything in it is on this page; the PDF is the portable version.",
+    asideBlocks: [
+      {
+        heading: "What is inside the 24-page PDF",
+        items: [
+          "All 58 numbered sections in teaching order, grouped into thirteen parts from Python fundamentals through to mock interviews.",
+          "Both Python backend frameworks in full — Django with its ORM, admin, forms and REST Framework, and FastAPI for async services.",
+          "The engineering layer most syllabi skip: Redis and caching, background processing, WebSockets, application security, Linux, Docker, CI/CD and cloud deployment.",
+          "A complete interview-preparation section covering Python, SQL, Django, REST, React and system design, plus mock interviews and coding practice.",
+        ],
+      },
+      {
+        heading: "Roles this syllabus prepares you for",
+        items: [
+          "Python Full Stack Developer — Django or FastAPI backend with a React frontend.",
+          "Backend Developer — the Django and DRF path, which is where most Python openings sit.",
+          "API Developer — REST design, authentication and integration work.",
+          "Software Engineer — the general title, with Python as the route into data and AI work later.",
+        ],
+      },
+    ],
+  },
 
   projects: [
     {

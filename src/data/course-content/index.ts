@@ -5,6 +5,7 @@ import { javaTrainingInPune } from "./java-training-in-pune";
 import { pythonTrainingInPune } from "./python-training-in-pune";
 import { javaFullStackTrainingInPune } from "./java-full-stack-training-in-pune";
 import { mernStackTrainingInPune } from "./mern-stack-training-in-pune";
+import { meanStackTrainingInPune } from "./mean-stack-training-in-pune";
 import { springBootMicroservicesTrainingInPune } from "./spring-boot-microservices-training-in-pune";
 
 // Tier 2
@@ -93,6 +94,7 @@ export const courseRichContent: Record<string, CourseRichContent> = {
   "python-training-in-pune": pythonTrainingInPune,
   "java-full-stack-training-in-pune": javaFullStackTrainingInPune,
   "mern-stack-training-in-pune": mernStackTrainingInPune,
+  "mean-stack-training-in-pune": meanStackTrainingInPune,
   "spring-boot-microservices-training-in-pune": springBootMicroservicesTrainingInPune,
 
   // Tier 2

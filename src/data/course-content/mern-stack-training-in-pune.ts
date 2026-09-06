@@ -40,66 +40,174 @@ export const mernStackTrainingInPune: CourseRichContent = {
 
   curriculum: [
     {
-      title: "JavaScript & TypeScript Foundations",
+      title: "Programming & Web Development Fundamentals",
+      weekRange: "Week 1",
+      description:
+        "The mental model before the syntax. How a web application actually works — client and server, the request-response lifecycle, what HTTP and HTTPS do, why three-tier architecture exists, and what separates a static site from a dynamic one. You set up the toolchain properly on day one (VS Code, Node, npm, Git) rather than fixing environment problems in week six.\n\nThis week also fixes the vocabulary the rest of the course leans on: what an API is, what REST means, and what development, staging and production environments are for. Learners who skip it arrive at Express still unsure what a status code is.",
+      topics: [
+        "How web applications work — client, server, database",
+        "Client-server architecture and the request-response lifecycle",
+        "HTTP and HTTPS, methods, status codes and headers",
+        "Three-tier architecture — presentation, application, data",
+        "Frontend versus backend responsibilities",
+        "REST API fundamentals",
+        "Development, staging and production environments",
+        "VS Code setup, extensions and the integrated terminal",
+        "Node.js and npm installation",
+        "Git and GitHub — first repository, first commits",
+      ],
+    },
+    {
+      title: "HTML5, CSS3 & Modern Layouts",
       weekRange: "Weeks 1–2",
       description:
-        "Modern JavaScript (ES2024+) — let / const, arrow functions, destructuring, spread / rest, template literals, async / await, modules. Then TypeScript — types, interfaces, generics, narrowing, utility types — because Pune 2026 MERN JDs increasingly say 'TypeScript' explicitly. Set up Node 24 with native TypeScript support so you can run `.ts` files directly without a build step. By end of module you write TS comfortably and read existing JS codebases without flinching.",
+        "Semantic markup and the styling model underneath every React component you will later write. HTML5 structure, forms and input types, media and accessibility attributes — written semantically, because JSX renders into this and a component built on div soup is unreadable and unindexable alike.\n\nCSS covers selectors and specificity, the cascade and the box model, then Flexbox and Grid as the two layout tools they are, with a clear rule for choosing: Flexbox for one dimension, Grid for two. Responsive design closes the module — mobile-first, breakpoints chosen from content rather than device names, fluid typography and responsive images.",
       topics: [
-        "ES2024+ syntax — destructuring, spread, optional chaining",
-        "async / await and Promises",
-        "ES modules (import / export)",
-        "TypeScript basics — types, interfaces, generics",
-        "Narrowing, type guards, utility types",
-        "Node 24 native TypeScript support",
-        "tsconfig.json essentials",
+        "Semantic HTML5 structure and document outline",
+        "Forms — input types, labels, validation attributes",
+        "Accessibility attributes and why they matter",
+        "CSS selectors, specificity and the cascade",
+        "The box model, display and positioning",
+        "Flexbox — axes, alignment, growth and shrink",
+        "CSS Grid — template areas, tracks and auto-placement",
+        "Mobile-first methodology and breakpoint strategy",
+        "Fluid typography and responsive images",
+        "CSS variables and design tokens",
+        "Transitions, transforms and animation basics",
       ],
     },
     {
-      title: "Node.js 24 & Backend Fundamentals",
-      weekRange: "Week 3",
+      title: "Tailwind CSS & UI Foundations",
+      weekRange: "Week 2",
       description:
-        "How Node actually works — event loop, libuv, async I/O, streams, buffers — at a useful level (no kernel-level rabbit holes). Build a small HTTP server from scratch using the `http` module before introducing Express, so you appreciate what Express is doing. Cover environment variables, dotenv, package.json scripts, and the npm vs pnpm vs yarn choice (we recommend pnpm for new projects).",
+        "Tailwind is the styling default in current React work, so it is taught properly rather than mentioned. Utility-first methodology and why it initially looks wrong and then stops looking wrong; configuration and theming; responsive and state variants; and component extraction, which is how you avoid the class soup that critics reasonably complain about.\n\nBootstrap is covered briefly as the alternative you will meet in existing projects and admin panels, along with an honest account of when a component library beats utilities.",
       topics: [
-        "Node event loop and async I/O",
-        "Streams and buffers (just enough)",
-        "HTTP module from scratch",
-        "package.json, npm scripts, dotenv",
-        "pnpm vs npm vs yarn",
-        "Native fetch in Node 24",
+        "Tailwind utility-first methodology",
+        "Configuration, theming and design tokens",
+        "Responsive, hover, focus and dark variants",
+        "Component extraction and avoiding class soup",
+        "Arbitrary values and when to reach for them",
+        "Bootstrap grid and components as the alternative",
+        "Choosing utilities versus a component library",
+        "Building an accessible, responsive UI shell",
       ],
     },
     {
-      title: "Express 5 — REST APIs",
-      weekRange: "Weeks 4–5",
+      title: "JavaScript Fundamentals",
+      weekRange: "Weeks 3–4",
       description:
-        "Express 5 — middleware, routing, error handling (much improved in v5), request validation with Zod or Joi, structured logging with Pino, and JWT-based authentication. Build a real REST API with full CRUD against MongoDB. Cover the basics of testing with Vitest or Jest. Includes a brief introduction to NestJS for students considering senior product-engineering tracks.",
+        "The language itself, taught properly, because every problem later in this course is a JavaScript problem wearing a React or Node costume. Variables and the difference `let`, `const` and `var` actually make; data types and the coercion rules that produce JavaScript's famous surprises; operators, conditionals and loops; and functions in all their forms.\n\nScope, hoisting and closures get real time rather than a mention. Closures are what separate a developer who can read React's source from one who cannot, and they return in week seven when hooks and stale closures start causing bugs that look like magic.",
       topics: [
-        "Express 5 middleware and routing",
-        "Error handling (Express 5 async error propagation)",
-        "Request validation with Zod or Joi",
-        "Structured logging with Pino",
-        "JWT auth with jsonwebtoken",
-        "Testing with Vitest / Jest",
-        "Brief NestJS introduction (controllers, providers, modules)",
+        "Variables — let, const, var and the differences that matter",
+        "Data types, coercion and strict equality",
+        "Operators, conditionals and switch",
+        "Loops — for, while, for...of, for...in",
+        "Function declarations, expressions and arrow functions",
+        "Parameters, defaults and rest arguments",
+        "Scope, hoisting and the temporal dead zone",
+        "Closures and practical uses for them",
+        "The `this` keyword and how it is bound",
+        "Error handling with try, catch and finally",
       ],
     },
     {
-      title: "MongoDB 8 — Database & ODM",
+      title: "Arrays, Objects & Functional JavaScript",
+      weekRange: "Week 4",
+      description:
+        "The data-handling half of JavaScript, and the part you use every single day in React. Arrays and their mutating versus non-mutating methods; objects, nesting, references and how copying actually behaves. Then the functional array methods — map, filter, reduce, find, some, every — until transforming a data structure is reflex.\n\nThis matters disproportionately here. Every list you render, every API response you reshape and every piece of immutable state you update in React is this material applied, and the immutability rules in particular are why `push` on a state array silently does nothing.",
+      topics: [
+        "Array creation, indexing and iteration",
+        "Mutating versus non-mutating array methods",
+        "map, filter, reduce — with real transformations",
+        "find, findIndex, some, every, includes, sort",
+        "Objects, nested objects and property access",
+        "Reference versus value, shallow versus deep copy",
+        "Destructuring arrays and objects",
+        "Spread and rest with arrays and objects",
+        "Optional chaining and nullish coalescing",
+        "Immutability patterns for state updates",
+        "JSON — parse, stringify and common pitfalls",
+      ],
+    },
+    {
+      title: "Object-Oriented & Modern JavaScript (ES6+)",
+      weekRange: "Week 5",
+      description:
+        "Classes, prototypes, inheritance and encapsulation — the object model underneath the ecosystem, so that library source stops looking opaque. Prototypal inheritance is covered honestly, including why it confuses developers arriving from Java or C#.\n\nThe ES6+ half covers everything modern JavaScript added that appears in every React and Node codebase: modules with import and export, template literals, maps and sets, iterators and generators, symbols, and the syntax that makes current code look nothing like the JavaScript of ten years ago.",
+      topics: [
+        "Classes, constructors, methods and fields",
+        "Inheritance, super and method overriding",
+        "Getters, setters, private fields and static members",
+        "Prototypes and the prototype chain",
+        "ES modules — import, export, default exports",
+        "Template literals and tagged templates",
+        "Map, Set, WeakMap and WeakSet",
+        "Iterators, generators and Symbol.iterator",
+        "Object and array methods added in ES2020+",
+        "Structured cloning and immutability helpers",
+      ],
+    },
+    {
+      title: "DOM, Events, Forms & Browser Storage",
+      weekRange: "Weeks 5–6",
+      description:
+        "How JavaScript actually reaches the page — and why React exists. You manipulate the DOM directly first: selecting, creating, updating and removing elements, handling events, delegating them, and understanding bubbling and capturing. Then form handling and validation entirely by hand, which is genuinely tedious.\n\nThat tedium is the point. Building the same form twice — once by hand here, once with React in week eight — is the fastest way to understand what a framework buys you and why declarative rendering is worth the abstraction.",
+      topics: [
+        "Selecting elements — querySelector and friends",
+        "Creating, updating and removing nodes",
+        "Attributes, properties, classList and dataset",
+        "Event listeners, the event object, bubbling and capturing",
+        "Event delegation and why it scales",
+        "preventDefault and stopPropagation",
+        "Form submission and constraint validation",
+        "Custom validation and error display by hand",
+        "localStorage, sessionStorage and their limits",
+        "Cookies, and choosing between storage options",
+        "A small project built with no framework at all",
+      ],
+    },
+    {
+      title: "Asynchronous JavaScript & API Communication",
       weekRange: "Week 6",
       description:
-        "MongoDB schema design, indexing, aggregation pipelines, and the ODM choice (Mongoose vs Prisma — we cover both with honest trade-offs). Includes the patterns Pune SaaS teams actually use — embedded vs referenced documents, two-phase commits in single-document transactions, and the Atlas-specific features (Vector Search, Search Index) that keep showing up in 2026 MERN + AI JDs. Cover Postgres briefly as a pragmatic alternative since some Pune product teams use Postgres with Prisma instead of MongoDB.",
+        "The concept most beginners get wrong and every interviewer asks about. The single-threaded model, the call stack, the event loop, the task and microtask queues — worked through with code you run and predict, because the theory only sticks after you have got the ordering wrong yourself once.\n\nThen callbacks and their nesting problem, promises and chaining, async/await, and error handling across all three. The module closes on fetch, response handling, HTTP status codes in practice, CORS and the errors it produces, and consuming a real third-party API end to end.",
       topics: [
-        "MongoDB schema design — embedded vs referenced",
-        "Indexes, query optimisation",
-        "Aggregation pipelines",
-        "Mongoose vs Prisma",
-        "Atlas Vector Search basics",
-        "Brief Postgres + Prisma alternative",
+        "Single-threaded execution and the call stack",
+        "The event loop, task queue and microtask queue",
+        "Callbacks and callback nesting",
+        "Promises — states, chaining, catch and finally",
+        "Promise.all, allSettled, race and any",
+        "async/await and error handling",
+        "fetch — requests, responses, headers, JSON",
+        "HTTP status codes in practice",
+        "CORS, and reading the error it produces",
+        "AbortController and cancelling requests",
+        "Consuming a real third-party API end to end",
+      ],
+    },
+    {
+      title: "TypeScript for React Developers",
+      weekRange: "Week 7",
+      description:
+        "TypeScript is the professional default in React work, and candidates who learned JavaScript-only are visibly behind in 2026 interviews. Types and inference, unions and literals, interfaces versus type aliases, and generics — which is what makes a reusable component genuinely reusable rather than typed as `any`.\n\nThe React-specific half is where it pays off: typing props and children, typing hooks including `useState` and `useReducer`, typing events, discriminated unions for component variants, and the utility types that remove most of the boilerplate people complain about.",
+      topics: [
+        "Types, inference and the primitive set",
+        "Union, intersection and literal types",
+        "Interfaces versus type aliases",
+        "Typed functions, overloads and return types",
+        "Generics — functions, components and constraints",
+        "Typing props, children and component variants",
+        "Typing hooks — useState, useReducer, useRef",
+        "Typing events and form handlers",
+        "Discriminated unions and exhaustive checks",
+        "Type narrowing and type guards",
+        "tsconfig, strict mode and compiler options",
+        "Utility types — Partial, Pick, Omit, Record",
       ],
     },
     {
       title: "React 19 + Next.js 15",
-      weekRange: "Weeks 7–9",
+      weekRange: "Weeks 8–10",
       description:
         "Modern React — function components and Hooks (`useState`, `useEffect`, `useReducer`, `useContext`, `useMemo`, `useCallback`), the new `use()` hook, Suspense, Error Boundaries. Server Components and the App Router — the model Pune 2026 product hiring expects. Forms with Actions, server actions for write operations, and Tailwind CSS for styling. State management with Zustand (recommended for new code) or Redux Toolkit (for heritage codebases).",
       topics: [
@@ -114,8 +222,71 @@ export const mernStackTrainingInPune: CourseRichContent = {
       ],
     },
     {
+      title: "React State, Data Fetching & Performance",
+      weekRange: "Week 11",
+      description:
+        "The half of React that separates a working application from a good one. State management in layers — local state, lifted state, Context for genuinely global values, and Redux Toolkit when an application has outgrown all three, with an honest rule for when it has not. Most React projects reach for a store far earlier than they need one.\n\nServer state is treated as its own problem, because it is: TanStack Query for caching, background refetching, invalidation and optimistic updates removes an entire category of hand-written `useEffect` bugs. Performance closes the module — memoisation and when it helps, the React Compiler, list virtualisation, code splitting and lazy loading, and profiling to find the actual bottleneck rather than the guessed one.",
+      topics: [
+        "Local state, lifted state and prop drilling",
+        "Context API — what it is for and what it is not",
+        "Redux Toolkit — slices, reducers, selectors",
+        "When a global store is genuinely warranted",
+        "Server state versus client state",
+        "TanStack Query — caching, invalidation, refetching",
+        "Optimistic updates and rollback",
+        "useMemo, useCallback and React.memo — and their cost",
+        "The React Compiler and what it automates",
+        "List virtualisation for large data sets",
+        "Code splitting, lazy and Suspense",
+        "Profiling with React DevTools",
+      ],
+    },
+    {
+      title: "Node.js 24 & Backend Fundamentals",
+      weekRange: "Week 12",
+      description:
+        "How Node actually works — event loop, libuv, async I/O, streams, buffers — at a useful level (no kernel-level rabbit holes). Build a small HTTP server from scratch using the `http` module before introducing Express, so you appreciate what Express is doing. Cover environment variables, dotenv, package.json scripts, and the npm vs pnpm vs yarn choice (we recommend pnpm for new projects).",
+      topics: [
+        "Node event loop and async I/O",
+        "Streams and buffers (just enough)",
+        "HTTP module from scratch",
+        "package.json, npm scripts, dotenv",
+        "pnpm vs npm vs yarn",
+        "Native fetch in Node 24",
+      ],
+    },
+    {
+      title: "Express 5 — REST APIs",
+      weekRange: "Weeks 12–13",
+      description:
+        "Express 5 — middleware, routing, error handling (much improved in v5), request validation with Zod or Joi, structured logging with Pino, and JWT-based authentication. Build a real REST API with full CRUD against MongoDB. Cover the basics of testing with Vitest or Jest. Includes a brief introduction to NestJS for students considering senior product-engineering tracks.",
+      topics: [
+        "Express 5 middleware and routing",
+        "Error handling (Express 5 async error propagation)",
+        "Request validation with Zod or Joi",
+        "Structured logging with Pino",
+        "JWT auth with jsonwebtoken",
+        "Testing with Vitest / Jest",
+        "Brief NestJS introduction (controllers, providers, modules)",
+      ],
+    },
+    {
+      title: "MongoDB 8 — Database & ODM",
+      weekRange: "Week 14",
+      description:
+        "MongoDB schema design, indexing, aggregation pipelines, and the ODM choice (Mongoose vs Prisma — we cover both with honest trade-offs). Includes the patterns Pune SaaS teams actually use — embedded vs referenced documents, two-phase commits in single-document transactions, and the Atlas-specific features (Vector Search, Search Index) that keep showing up in 2026 MERN + AI JDs. Cover Postgres briefly as a pragmatic alternative since some Pune product teams use Postgres with Prisma instead of MongoDB.",
+      topics: [
+        "MongoDB schema design — embedded vs referenced",
+        "Indexes, query optimisation",
+        "Aggregation pipelines",
+        "Mongoose vs Prisma",
+        "Atlas Vector Search basics",
+        "Brief Postgres + Prisma alternative",
+      ],
+    },
+    {
       title: "Full Stack Integration & Real-time Features",
-      weekRange: "Week 10",
+      weekRange: "Week 15",
       description:
         "Connect the pieces — frontend ↔ backend with REST and TanStack Query for caching, JWT carried through, real-time updates via WebSocket or Server-Sent Events. Cover file upload to S3-compatible storage, image optimisation with Next/Image, and the deployment topology (Vercel for the frontend, Render or AWS for the backend). Includes a mini-project end-to-end before the capstone.",
       topics: [
@@ -129,7 +300,7 @@ export const mernStackTrainingInPune: CourseRichContent = {
     },
     {
       title: "DevOps, Docker & Production Practices",
-      weekRange: "Week 11",
+      weekRange: "Week 16",
       description:
         "Containerise your Express + Node service with Docker, a multi-stage build for size optimisation, and Docker Compose for local Mongo + backend + frontend. CI/CD via GitHub Actions, environment promotion (dev → staging → prod), structured logging that ships to a free-tier observability service. Cover the OWASP top-10 for Node specifically — JWT signing-key handling, npm audit, supply-chain attacks (recent npm supply-chain incidents are an interview topic in Pune product roles).",
       topics: [
@@ -143,7 +314,7 @@ export const mernStackTrainingInPune: CourseRichContent = {
     },
     {
       title: "AI Integration (Bonus) + Capstone & Interview Prep",
-      weekRange: "Week 12 + 2 weeks placement prep",
+      weekRange: "Weeks 17–18 + 2 weeks placement prep",
       description:
         "Add an LLM-integrated feature to your capstone — for example, a 'summarise this thread' button that calls OpenAI or Anthropic, or a vector-search feature using MongoDB Atlas Vector Search. Two weeks of capstone work plus mock interviews with Pune company question banks (Raja Software Labs, FindingPi, Scry Analytics, Cognizant, Mphasis). DSA refresher, resume + LinkedIn polish, GitHub cleanup, HR mock interviews.",
       topics: [
@@ -177,6 +348,52 @@ export const mernStackTrainingInPune: CourseRichContent = {
       ],
     },
   ],
+
+  posterImage: {
+    src: "/images/courses/mern-stack-poster-v1.webp",
+    width: 836,
+    height: 941,
+    alt: "MERN Stack Developer course poster for Archer Infotech: MongoDB stores data, Express.js handles APIs, React builds the user interface and Node.js runs JavaScript, shown as a four-stage flow. Key skills listed are JavaScript ES6+, React with hooks, context and routing, Express.js REST APIs and middleware, MongoDB data modelling and aggregation, Node.js event loop, NPM and deployment, Tailwind CSS and modern UI development, Git and GitHub, and DevOps basics with CI/CD and Docker. Real-world solutions listed are modern web applications, real-time applications, e-commerce platforms, and social media and community apps.",
+    caption:
+      "The four parts of MERN and what each one does. Every skill on the poster is covered as a module below.",
+  },
+
+  roadmapImage: {
+    src: "/images/courses/mern-stack-path-v1.webp",
+    width: 1400,
+    height: 900,
+    alt: "Eight-stage MERN Stack learning path taught at Archer Infotech Pune: web fundamentals with HTML5, CSS3, Flexbox, Grid and Tailwind; JavaScript covering functions, arrays, objects, object-oriented programming and ES6+; DOM and asynchronous programming covering events, forms, storage, promises and fetch; TypeScript covering types, interfaces, generics and typed React; React covering hooks, routing, context, Redux Toolkit and performance; Node.js and Express covering modules, middleware, REST APIs and authentication; MongoDB covering schemas, Mongoose, aggregation and indexing; and deployment and career covering Docker, CI/CD, cloud, projects and interviews.",
+    caption:
+      "The order this course is taught in. Each stage expands into the modules below — nothing arrives before its prerequisite.",
+  },
+
+  syllabusDownload: {
+    pdfUrl: "/downloads/mern-stack-syllabus-v1.pdf",
+    title: "MERN Stack Course Syllabus — Complete Module List",
+    slug: "mern-stack-syllabus",
+    blurb:
+      "The complete 124-section syllabus as a 40-page PDF — web fundamentals, JavaScript, TypeScript, the full React surface including hooks, Redux Toolkit and performance, Node.js and Express, MongoDB and Mongoose, security, testing, DevOps, four project tiers and a full interview-preparation section. Everything in it is on this page; the PDF is the portable version.",
+    asideBlocks: [
+      {
+        heading: "What is inside the 40-page PDF",
+        items: [
+          "All 124 numbered sections in teaching order, grouped into thirty-one parts from web fundamentals through to mock interviews.",
+          "The React surface in full — components, hooks, routing, Context, Redux Toolkit, server state, forms and performance optimisation.",
+          "Four tiers of project work: JavaScript mini projects, React mini projects, Node and Express API projects, MongoDB projects, then three full-stack builds and an industry-style capstone.",
+          "A complete interview-preparation section with separate question sets for JavaScript, React, Node.js, Express, MongoDB, web and API topics, and system design.",
+        ],
+      },
+      {
+        heading: "Roles this syllabus prepares you for",
+        items: [
+          "MERN Stack Developer — the full TypeScript-first stack, end to end.",
+          "React Developer — the frontend specialisation with the highest opening count in Pune.",
+          "Node.js Backend Developer — Express APIs, MongoDB and authentication.",
+          "Full Stack JavaScript Developer — the general title most listings use for this skill set.",
+        ],
+      },
+    ],
+  },
 
   projects: [
     {
