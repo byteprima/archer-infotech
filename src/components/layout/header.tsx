@@ -17,6 +17,8 @@ import {
   Smartphone,
   Database,
   Rocket,
+  Bug,
+  Briefcase,
   LucideIcon,
 } from "lucide-react";
 import {
@@ -41,7 +43,7 @@ import {
 import { cn } from "@/lib/utils";
 // P-12 (2026-06-04) chunk-audit fix: import light-only data so the 79 KB
 // full course catalogue doesn't leak into every page's header chunk.
-import { categories, getFeaturedCoursesSummary } from "@/data/courses-minimal";
+import { categories, coursesSummary } from "@/data/courses-minimal";
 import { siteConfig } from "@/data/site-config";
 import { captureAnalyticsEvent } from "@/lib/posthog/client";
 
@@ -69,13 +71,47 @@ const categoryIcons: Record<string, LucideIcon> = {
   Smartphone,
   Database,
   Rocket,
+  // testing-qa and salesforce declare these in courses-minimal; without them
+  // here IconComponent resolved to undefined and those two rows rendered with
+  // no icon while every other category had one.
+  Bug,
+  Briefcase,
 };
 
 export function Header() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  /**
+   * The Courses mega-menu is controlled so it can be closed explicitly.
+   *
+   * Uncontrolled, it owned its own open state and knew nothing about routing:
+   * clicking a course navigated client-side, the header never unmounted, and
+   * the panel stayed open on top of the page just opened. Closing it on click
+   * (rather than on a pathname effect) also covers clicking through to the
+   * page you are already on, where the pathname never changes.
+   */
+  const [coursesMenu, setCoursesMenu] = useState<string | null>(null);
+  const closeCoursesMenu = () => setCoursesMenu(null);
 
-  const featuredCourses = getFeaturedCoursesSummary().slice(0, 5);
+  /**
+   * The mega-menu's "Popular Courses" list, curated rather than derived.
+   *
+   * It used to be `getFeaturedCoursesSummary().slice(0, 5)` — whatever the
+   * first five `isFeatured` courses happened to be, which is a flag set for
+   * several unrelated reasons and gave no control over what the nav promotes.
+   * These are the full-stack tracks the business actually wants surfaced,
+   * in this order.
+   */
+  const POPULAR_COURSE_SLUGS = [
+    "java-full-stack-training-in-pune",
+    "python-full-stack-training-in-pune",
+    "dotnet-full-stack-training-in-pune",
+    "mean-stack-training-in-pune",
+    "mern-stack-training-in-pune",
+  ];
+  const featuredCourses = POPULAR_COURSE_SLUGS.map((slug) =>
+    coursesSummary.find((c) => c.slug === slug),
+  ).filter((c) => c !== undefined);
   const trackContactClick = (method: "phone" | "email", location: string) => {
     captureAnalyticsEvent("contact_method_clicked", {
       method,
@@ -209,7 +245,7 @@ export function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-1">
-            <NavigationMenu>
+            <NavigationMenu value={coursesMenu} onValueChange={setCoursesMenu}>
               <NavigationMenuList>
                 {mainNavItems.map((item) =>
                   item.hasDropdown ? (
@@ -239,6 +275,7 @@ export function Header() {
                                     <Link
                                       href={href}
                                       className="flex items-center gap-2 select-none rounded-md p-2 text-sm leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                                      onClick={closeCoursesMenu}
                                     >
                                       {IconComponent && <IconComponent className="h-4 w-4 text-primary" />}
                                       {category.name}
@@ -262,7 +299,8 @@ export function Header() {
                                   <Link
                                     href={courseHref}
                                     className="block select-none rounded-md p-2 text-sm leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                                  >
+                                    onClick={closeCoursesMenu}
+                                    >
                                     <div className="font-medium">{course.shortTitle}</div>
                                     <p className="text-xs text-muted-foreground">
                                       {course.duration}
@@ -276,7 +314,8 @@ export function Header() {
                               <Link
                                 href="/courses"
                                 className="text-sm font-medium text-primary hover:text-secondary"
-                              >
+                                onClick={closeCoursesMenu}
+                                    >
                                 View All Courses →
                               </Link>
                             </div>
