@@ -53,6 +53,24 @@ export const agenticAITrainingInPune: CourseRichContent = {
 
   curriculum: [
     {
+      title: "Foundations of Agentic AI — Agents, Chatbots and Workflows",
+      weekRange: "Week 1",
+      description:
+        "The distinction the whole course rests on, made precise before any code. A chatbot answers. A workflow executes a sequence you wrote. An agent is given a goal and decides for itself what steps to take, which tools to call, and when it is done — and that autonomy is exactly what makes agents powerful, expensive, hard to test and occasionally dangerous.\n\nYou work through where each of the three is the right answer, using real business processes rather than toy examples: a support ticket triage, a lead qualification flow, a document review. The most valuable output of the week is the ability to say no — to recognise the large class of problems where a deterministic workflow with one LLM call is cheaper, faster and more reliable than an agent, which is the judgement that distinguishes an engineer from someone who has read the marketing.",
+      topics: [
+        "What Agentic AI means and where the term is misused",
+        "Chatbots versus AI agents versus fixed workflows",
+        "Generative AI versus Agentic AI",
+        "Why agentic systems matter now",
+        "Real-world use cases across support, sales, HR and engineering",
+        "Autonomy as a cost — testing, debugging and trust",
+        "Matching agent complexity to business value",
+        "When to avoid agents and use deterministic software",
+        "Opportunities, risks and current limitations",
+        "Mapping a business process into candidate agent steps",
+      ],
+    },
+    {
       title: "Foundations: LLMs as Reasoning Engines",
       weekRange: "Week 1–2",
       description:
@@ -62,56 +80,254 @@ export const agenticAITrainingInPune: CourseRichContent = {
         "Function / tool calling — the agent's most important primitive",
         "System prompts + behaviour shaping (with worked examples)",
         "Structured outputs — JSON mode, schema constraints, retry on parse failure",
+        "Reasoning, planning and instruction following",
         "Token economics + context-window strategy",
+        "Model behaviour over long multi-step tasks",
+        "Model selection for agentic systems",
         "Streaming vs blocking responses",
         "When agents are NOT the answer — workflow vs agent decision frame",
       ],
     },
     {
-      title: "Agent Frameworks",
+      title: "Agent Architecture — Goals, Planning, Tools, Memory, State",
+      weekRange: "Week 2",
+      description:
+        "The anatomy of an agent, component by component, so that later framework code is recognisable rather than magical. An agent is a loop around five parts: a goal and its instructions, a context it can read, a set of tools it can call, a memory it can write to and read back, and a state that survives between steps. Take any one away and you get a different, usually worse, system.\n\nYou build a single-agent ReAct loop by hand — no framework — so the observe / think / act cycle, the stopping condition and the state object are code you wrote rather than abstractions you imported. This is the module students most often say made the frameworks in Week 3 click, because every LangGraph node afterwards maps to something they have already implemented themselves.",
+      topics: [
+        "The five components of an agent",
+        "Goals, instructions and context design",
+        "Planning and task decomposition",
+        "The observe, think, act and reflect loop",
+        "Agent state and what must survive a step",
+        "Stopping conditions and step limits",
+        "Tool use as the agent's interface to the world",
+        "Short-term versus long-term memory",
+        "Building a ReAct loop from scratch, no framework",
+        "Reading an agent trace and finding the bad step",
+      ],
+    },
+    {
+      title: "Tools and Function Calling in Depth",
+      weekRange: "Week 2–3",
+      description:
+        "Tools are where an agent stops being a conversation and starts having effects, so they get a module of their own rather than a passing mention. You build the four families the job actually requires: API tools against a real third-party service with authentication and rate limits, database tools with parameterised queries, search and retrieval tools over a document set, and file or document tools that read and write real artefacts.\n\nThe engineering half is where the marks are. Tool schemas written so the model picks correctly rather than plausibly; input validation that assumes the model will pass something wrong, because it will; result handling that turns an API error into something the agent can recover from rather than a stack trace; idempotency so a retried call does not charge a customer twice. You also classify tools by risk — read-only, reversible write, irreversible action — which is the classification the security module later builds permissions on.",
+      topics: [
+        "What a tool is in an agentic system",
+        "Function-calling schemas that the model picks correctly",
+        "API tools — authentication, pagination, rate limits",
+        "Database tools and safe parameterised queries",
+        "Search and retrieval tools",
+        "File and document tools",
+        "Tool input validation and type coercion",
+        "Tool result handling and error recovery",
+        "Idempotency and safe retries",
+        "Read-only, reversible and irreversible tool classes",
+        "Tool descriptions as prompt engineering",
+        "Building a tool-enabled assistant prototype",
+      ],
+    },
+    {
+      title: "Agent Frameworks — LangChain, LangGraph, Agents SDK, CrewAI",
       weekRange: "Week 3–4",
       description:
-        "The framework tour, but with discipline. LangChain core — chains, runnables, the LangChain Expression Language — covered as the most-widely-deployed agent framework in 2026 but with explicit notes on its abstraction overhead. LangGraph (Salesforce-AI's stateful agent graph framework, now LangChain's recommended pattern) — the production default. OpenAI Assistants API + Threads as the vendor-native alternative. Claude tool use + Computer Use API direct against the SDK so you know what the framework wrappers are hiding. By end of Module 2 you'll have built a single-agent ReAct loop from scratch without a framework — then with LangGraph — and understand exactly what abstractions you bought.",
+        "The framework tour, but with discipline. LangChain core — chains, runnables, the LangChain Expression Language — covered as the most-widely-deployed agent framework in 2026 but with explicit notes on its abstraction overhead. LangGraph — stateful agent graphs, the production default. OpenAI Assistants and the Agents SDK as the vendor-native alternative. Claude tool use + Computer Use API direct against the SDK so you know what the framework wrappers are hiding. CrewAI and AutoGen-style multi-agent frameworks covered for their role-based model.\n\nBecause you built a ReAct loop by hand in Week 2, you rebuild that same loop with LangGraph here and can state precisely what abstraction you bought and what it cost you in debuggability. The module closes on framework selection for a project — and on the case for no framework at all, which for a two-tool agent is often correct.",
       topics: [
         "LangChain core — chains, runnables, expression language",
         "LangGraph — stateful agent graphs, the production pattern",
-        "OpenAI Assistants API + Threads + Runs",
+        "OpenAI Assistants API + Threads + Runs, and the Agents SDK",
         "Claude tool use + Computer Use API",
+        "CrewAI and role-based agent frameworks",
+        "AutoGen-style multi-agent concepts",
+        "Spring AI agentic patterns for Java teams",
         "Cross-framework comparison: when to use which",
-        "Building a ReAct loop from scratch (no framework)",
-        "Rebuilding the same loop with LangGraph",
+        "Rebuilding the hand-written ReAct loop with LangGraph",
+        "When no framework is the right answer",
+      ],
+    },
+    {
+      title: "Agent Design Patterns — Router, Sequential, Parallel, Evaluator",
+      weekRange: "Week 4",
+      description:
+        "Most working agentic systems are not one clever autonomous agent; they are a small number of well-understood patterns composed together. This module names them so you can reach for the right one instead of reinventing it, and so you can recognise them in an architecture discussion at interview.\n\nThe router pattern classifies an incoming request and dispatches it. The sequential pattern runs deterministic steps with an LLM at each. The parallel pattern fans work out and merges results. The evaluator-optimiser pattern has one model produce and another critique until a quality bar is met. The supervisor-worker pattern delegates to specialists. Human-in-the-loop inserts an approval gate. For each you cover what it costs, how it fails and the size of problem it suits — and you implement two of them against the same task so the trade-off is something you have measured rather than read.",
+      topics: [
+        "Single-agent workflow",
+        "Router pattern for request classification",
+        "Sequential and chained workflows",
+        "Parallel fan-out and result merging",
+        "Evaluator-optimiser loops",
+        "Supervisor and worker delegation",
+        "Human-in-the-loop approval gates",
+        "Choosing a pattern by cost, latency and failure mode",
+        "Composing patterns without losing traceability",
+        "Implementing two patterns against one task and comparing",
       ],
     },
     {
       title: "Multi-step Workflows + Memory",
-      weekRange: "Week 5–6",
+      weekRange: "Week 5",
       description:
         "Where agent engineering gets hard. ReAct + reflection patterns — the agent observes its own output and decides whether to continue, replan, or finish. Plan-and-execute architectures (LangGraph's plan-and-execute primitive) for tasks that benefit from explicit upfront decomposition. Short-term vs long-term memory and the architectural patterns for each. Vector stores for episodic memory — Pinecone, Weaviate, pgvector — taught against the cost-and-latency trade-offs that matter in production. Conversation summarisation + context pruning when context windows fill. Error recovery + retry strategies (the most common production failure mode).",
       topics: [
         "ReAct + self-reflection loops",
         "Plan-and-execute agent architectures",
         "Memory taxonomy — short-term, long-term, episodic, working",
+        "Conversation memory, task memory and user-preference memory",
         "Vector stores — Pinecone, Weaviate, pgvector comparison",
+        "Vector-based memory retrieval and updating",
         "Embedding strategy + chunk size + retrieval tuning",
         "Conversation summarisation + context pruning patterns",
+        "Memory privacy, retention and user consent",
         "Error recovery + retry strategies",
         "Capstone milestone: single-agent system with memory deployed locally",
       ],
     },
     {
-      title: "Multi-Agent Systems + Production",
-      weekRange: "Week 7–8",
+      title: "Planning, Replanning and Human-in-the-Loop Review",
+      weekRange: "Week 5–6",
       description:
-        "The production handoff. Supervisor + worker multi-agent patterns (LangGraph's recommended approach). Agent-to-agent communication protocols and when MCP (Model Context Protocol) fits. Tool registries + permission models for trustworthy production agents. Observability with LangSmith and Helicone — non-negotiable for production agent debugging. Eval frameworks: deterministic checks + LLM-as-judge + human-in-the-loop sampling. Cost controls + caching strategies (the difference between sustainable and bankrupt agent products). Deployment patterns: FastAPI + serverless edge. The 2-week capstone closes with a deployed multi-step multi-agent system you can demo at interview.",
+        "An agent that plans once and executes blindly fails on the first tool error. This module is about what happens after something goes wrong, which in production is most of the time. You cover task decomposition into steps small enough to verify, replanning when a step fails or returns something unexpected, and the difference between a retryable failure and one that should stop the run and ask a person.\n\nHuman-in-the-loop is treated as an architectural decision rather than a safety afterthought: where to put an approval checkpoint, what to show the reviewer so the decision takes seconds rather than minutes, how to hold agent state while waiting for a human who may not return for hours, and how to resume cleanly. You also cover controlling long-running tasks — step budgets, wall-clock limits, cost ceilings and cancellation — because an agent that loops without a bound is the single most expensive bug in this field.",
       topics: [
-        "Multi-agent patterns — supervisor + worker, hierarchical, swarm",
-        "MCP (Model Context Protocol) basics",
-        "Tool registries + permission models",
-        "Observability — LangSmith, Helicone, instrumentation patterns",
-        "Evals: deterministic + LLM-as-judge + human-sampled",
-        "Cost controls + caching + token budgeting",
-        "Deployment — FastAPI + Vercel / Cloudflare Workers",
-        "Capstone (final 2 weeks): deployed multi-agent system",
+        "Task breakdown into verifiable steps",
+        "Step-by-step planning and plan representation",
+        "Replanning after tool failure or unexpected output",
+        "Retryable failures versus stop-and-ask failures",
+        "Human approval checkpoints and what to show a reviewer",
+        "Holding and resuming agent state across a human wait",
+        "Agent reflection and self-critique",
+        "Step budgets, time limits and cost ceilings",
+        "Cancellation and clean shutdown of a run",
+        "Building safer workflows for sensitive tasks",
+      ],
+    },
+    {
+      title: "Retrieval-Augmented Agents and Agentic RAG",
+      weekRange: "Week 6",
+      description:
+        "Agents that answer from a knowledge base rather than from training data — the most commonly deployed agentic pattern in Indian enterprise work, because it is the one with an obvious business case. You start from a RAG refresher, then move to what makes retrieval agentic: the agent decides whether to retrieve at all, what to search for, whether the results were good enough, and whether to search again with a different query.\n\nThat decision loop is both the value and the risk. You cover source-grounded answering with citations, using retrieval to reduce rather than launder hallucination, retrieval as an input to a decision rather than just to a sentence, and knowledge-base maintenance — the unglamorous work of keeping an index current, which is where most deployed systems quietly decay. You finish by building a knowledge-base agent over a real document set with grounded, cited answers.",
+      topics: [
+        "RAG refresher — embeddings, chunking, retrieval",
+        "Letting the agent decide whether and what to retrieve",
+        "Query reformulation and repeated retrieval",
+        "Vector stores and semantic search for agents",
+        "Document retrieval as input to an agent decision",
+        "Source-grounded answers with citations",
+        "Detecting insufficient retrieval before answering",
+        "Knowledge-base maintenance and freshness",
+        "Access control over retrieved content",
+        "Building a knowledge-base agent end to end",
+      ],
+    },
+    {
+      title: "Multi-Agent Systems",
+      weekRange: "Week 6–7",
+      description:
+        "Several agents with distinct roles, coordinating on one task. Supervisor and worker as the default production pattern; role-based specialists such as researcher, writer, reviewer, coder and tester; debate and review patterns where one agent critiques another's output; and hierarchical and swarm arrangements with an honest account of where each stops working.\n\nThe module gives equal weight to the failure side, because multi-agent systems fail in ways single agents do not: cost multiplied by the number of participants, latency stacked serially, conflicting conclusions with no arbiter, agents talking past each other, and traces that no one can debug. The rule taught here is that a second agent must earn its place — if one agent with two tools does the job, that is the better system, and being able to argue that in a design review is worth more than being able to build a six-agent swarm.",
+      topics: [
+        "What a multi-agent system is and when it earns its cost",
+        "Role-based specialist agents",
+        "Supervisor and worker pattern",
+        "Debate, critique and review patterns",
+        "Research, coding, testing and review agent teams",
+        "Agent-to-agent communication and message contracts",
+        "Model Context Protocol (MCP) for shared tool access",
+        "Collaboration and conflict resolution",
+        "Cost, latency and complexity multipliers",
+        "Tracing a multi-agent run end to end",
+        "Designing a small multi-agent workflow",
+      ],
+    },
+    {
+      title: "Agentic Automation — Support, Sales, HR and Operations",
+      weekRange: "Week 7",
+      description:
+        "The applied module, and the one that most directly maps to what Pune employers are actually buying. Business process automation with agents is where the current budget sits: support ticket triage and resolution, sales lead qualification and follow-up, resume screening and interview scheduling, email and communication handling, education and training assistants, and internal operations workflows.\n\nFor each you do the same exercise: take the existing manual process, break it into steps, mark which steps an agent can own outright, which need a tool, and which must stay with a person and why. The deliverable is an automation blueprint for one real workflow — the artefact that turns “I built an agent” into “I automated a process and can say what it saved”, which is the version that survives an interview follow-up question.",
+      topics: [
+        "Mapping a business workflow into agent steps",
+        "Customer support triage and resolution agents",
+        "Sales and lead qualification agents",
+        "HR, resume screening and scheduling agents",
+        "Email and communication automation",
+        "Education and training assistants",
+        "Personal productivity and task agents",
+        "Identifying mandatory manual approval points",
+        "Integrating with CRM, helpdesk and internal systems",
+        "Writing an automation blueprint with expected savings",
+      ],
+    },
+    {
+      title: "Agent Evaluation and Testing",
+      weekRange: "Week 7",
+      description:
+        "Evaluating an agent is genuinely harder than evaluating a model, and pretending otherwise is how unreliable systems reach production. There is no single correct output to compare against: two different tool sequences can both be right, and the same input can legitimately produce different runs. So evaluation moves to the things that can be measured — did the task succeed against a defined criterion, did the agent select the right tool, were the arguments correct, was the answer grounded in what was retrieved, how many steps and how much money did it take.\n\nYou build a scenario suite from real inputs, score runs on task success, tool-selection accuracy, groundedness, cost and latency, and wire it as a regression test so a prompt or model change that quietly breaks step four gets caught before a customer finds it. Human evaluation gets a rubric rather than a vibe, and you cover feedback loops that turn production failures back into test cases.",
+      topics: [
+        "Why agent evaluation is harder than model evaluation",
+        "Defining task success criteria",
+        "Tool-selection and tool-argument accuracy",
+        "Groundedness and hallucination checks",
+        "Step count, latency and cost as quality metrics",
+        "Building a scenario suite from real inputs",
+        "Regression testing agent workflows",
+        "LLM-as-judge and where it misleads",
+        "Human evaluation rubrics",
+        "Feedback loops from production failures into tests",
+      ],
+    },
+    {
+      title: "Security, Guardrails and Responsible Agentic AI",
+      weekRange: "Week 8",
+      description:
+        "An agent with tools is an attack surface with a language model in front of it. Prompt injection matters more here than anywhere else in AI engineering, because the model does not just say something wrong — it calls a tool. You cover direct and indirect injection, injection arriving through retrieved documents and fetched web pages, and why filtering the input is not a fix.\n\nThe defences are architectural: permission boundaries per tool, approval required before any irreversible or sensitive action, least-privilege credentials so a compromised agent cannot exceed its remit, output validation before a result is acted on, and excessive-agency control — the OWASP category that names precisely this failure. Alongside: data privacy and access control over what an agent may read, unbounded token and cost control, system-prompt leakage, and audit logs detailed enough to reconstruct what an agent did and why. Framed against the OWASP Top 10 for LLM Applications, which is what an enterprise security review will hold you to.",
+      topics: [
+        "Prompt injection, direct and indirect",
+        "Injection through retrieved documents and fetched pages",
+        "Tool abuse and unsafe action execution",
+        "Excessive agency and how to bound it",
+        "Permission boundaries and least-privilege credentials",
+        "Approval gates before irreversible actions",
+        "Output validation before acting on a result",
+        "Data privacy and access control for agent reads",
+        "System-prompt leakage awareness",
+        "Unbounded token and cost control",
+        "Audit logs and traceability",
+        "OWASP Top 10 for LLM applications as a checklist",
+      ],
+    },
+    {
+      title: "Production Agents — Deployment, Tracing, Cost and Monitoring",
+      weekRange: "Week 8",
+      description:
+        "The production handoff. Observability first, because a seven-step agent loop cannot be debugged from logs alone: tracing with LangSmith or Langfuse, span-level visibility into every model call and tool invocation, and instrumentation you add while building rather than after an incident.\n\nThen the operational layer — deployment behind FastAPI with async workers and streaming, containerisation, background execution for long runs, error recovery and escalation paths, monitoring failed runs, alerting on cost and step-count anomalies, and versioning tools, prompts and workflows together so a rollback restores a known-good system rather than half of one. Caching and token budgeting close the cost loop. You finish against a production-readiness checklist covering the questions asked before an agent is allowed near real users.",
+      topics: [
+        "Tracing with LangSmith and Langfuse",
+        "Span-level visibility into model and tool calls",
+        "Instrumentation patterns added during development",
+        "Deployment — FastAPI, async workers, streaming responses",
+        "Containerisation and background execution for long runs",
+        "Error recovery and escalation paths",
+        "Monitoring failed runs and alerting on anomalies",
+        "Cost controls, caching and token budgeting",
+        "Versioning tools, prompts and workflows together",
+        "Rollback and safe re-deployment",
+        "Production-readiness checklist for agents",
+      ],
+    },
+    {
+      title: "Capstone Project & Interview Preparation",
+      weekRange: "Weeks 9–10",
+      description:
+        "Two weeks of full-time capstone work on a deployed agentic system, plus interview preparation calibrated to how agentic AI is actually assessed. You pick one capstone (see Capstone Projects), take it to a deployed, traced, evaluated state, and document the architecture with a diagram — because the interview question is never ‘did it work’, it is ‘why did you choose that pattern, and what did you do when a tool call failed’.\n\nMock rounds cover agent system design, tool-use and function-calling questions, memory and retrieval questions, multi-agent coordination, and security and responsible-AI questions. You rehearse explaining your own trace: walking a panel through a real run, naming the step that failed and the fix. Resume, LinkedIn and GitHub polish is included, aimed at the AI Engineer and Agentic AI Developer job descriptions Pune product companies are posting.",
+      topics: [
+        "Capstone implementation, deployment and README",
+        "Architecture diagram for an agent system",
+        "Code and trace review with the lead trainer",
+        "Agent system-design mock round",
+        "Tool-use and function-calling interview questions",
+        "Memory, RAG and retrieval interview questions",
+        "Multi-agent system interview questions",
+        "Security and responsible-AI interview questions",
+        "Walking a panel through a real agent trace",
+        "Resume, LinkedIn and GitHub polish for AI Engineer roles",
+        "HR mock interview and salary negotiation",
       ],
     },
     {
@@ -134,6 +350,43 @@ export const agenticAITrainingInPune: CourseRichContent = {
       ],
     },
   ],
+
+  roadmapImage: {
+    src: "/images/courses/agentic-ai-overview-v1.webp",
+    width: 1672,
+    height: 941,
+    alt: "Agentic AI overview diagram used in Archer Infotech's Pune training: how Agentic AI differs from traditional AI, generative AI and human-in-the-loop systems; the agent loop of perception, reasoning, planning, tool use, memory, action and feedback; core capabilities including goal-driven behaviour, multi-step task execution, tool orchestration, autonomous decision flow and context awareness; the typical agent workflow from goal through understand, plan, use tools, act, observe and improve; and common use cases such as research, coding, support, productivity, data analysis and multi-agent workflows.",
+    caption:
+      "The agent loop this course teaches — perceive, reason, plan, call tools, act, remember, and learn from the result — plus how Agentic AI differs from generative AI. Every ring in the diagram is a module below.",
+  },
+
+  syllabusDownload: {
+    pdfUrl: "/downloads/agentic-ai-syllabus-v1.pdf",
+    title: "Agentic AI Course Syllabus — Complete Module List",
+    slug: "agentic-ai-syllabus",
+    blurb:
+      "The full fifteen-part syllabus as a 7-page PDF — agent architecture, tools and function calling, memory, planning and replanning, agentic RAG, multi-agent systems, automation use cases, evaluation, security and guardrails, frameworks, seven capstone projects and an interview-preparation section. Everything in it is on this page; the PDF is the portable version.",
+    asideBlocks: [
+      {
+        heading: "What is inside the 7-page PDF",
+        items: [
+          "All fifteen syllabus parts plus a thirteen-module teaching plan, in the order they are taught.",
+          "Eight hands-on assignments listed with the skill each one practises, from a tool-calling assistant to a multi-agent research workflow and an agent safety checklist.",
+          "The production sections most agent courses omit: agent design patterns, tool safety and permission boundaries, evaluation metrics, guardrails, tracing, and a deployment checklist.",
+          "Prerequisites written as three separate tracks — required AI foundation, non-coding learners, and technical learners — so you can place yourself before enrolling.",
+        ],
+      },
+      {
+        heading: "Roles this syllabus prepares you for",
+        items: [
+          "Agentic AI Engineer — designing and shipping tool-using, multi-step agent systems.",
+          "AI Engineer — the applied LLM-application path at Pune product companies.",
+          "AI Automation Engineer — turning business processes into supervised agent workflows.",
+          "AI Solutions Architect — choosing agent patterns, tools and guardrails for enterprise use.",
+        ],
+      },
+    ],
+  },
 
   projects: [
     {
@@ -355,6 +608,46 @@ export const agenticAITrainingInPune: CourseRichContent = {
       question: "What's the placement process for such a new and specialised track?",
       answer:
         "Smaller volume but higher quality. Rather than 100+ broad partner introductions, we run a curated process of 20–30 introductions to Pune AI-practice teams and product companies actively hiring agent engineers. The bottleneck for agentic AI placements is consistently the working-agent-on-GitHub artefact — graduates with a deployed capstone agent place 3–5x faster than those who couldn't ship the capstone. We track this and prioritise capstone-completion support over abstract interview prep.",
+    },
+    {
+      question: "Should I learn Generative AI before Agentic AI?",
+      answer:
+        "Yes, and it is the sequence we recommend. Agentic AI assumes you already understand LLMs, tokens and context windows, prompting, structured outputs, embeddings and RAG — an agent is those components arranged in a loop with tools attached. If you have that from our Generative AI course, from work, or from your own building, start here. If you do not, start with Generative AI; the two courses were designed to run in that order and the Agentic AI syllabus opens by assuming the Generative AI syllabus is behind you.",
+    },
+    {
+      question: "What is the difference between Generative AI and Agentic AI?",
+      answer:
+        "Generative AI creates or transforms content: user asks, model generates, you read the result. Agentic AI acts: the system is given a goal, decides what steps to take, calls tools to search, query, write or send, observes what came back, and continues until the task is complete or it stops to ask a person. Generative AI is the intelligence layer; Agentic AI is how that intelligence interacts with real systems and performs work. Practically, the difference in an interview is that agentic work brings in tool design, permissions, state, planning, error recovery and evaluation.",
+    },
+    {
+      question: "Is Agentic AI suitable for experienced software developers?",
+      answer:
+        "It is arguably the AI specialisation that suits experienced developers best. Building a reliable agent is mostly software engineering: API design, authentication, validation, idempotency, error recovery, state management, permissions, logging and testing. The LLM is one component in a system that has to be architected properly. Developers with backend or full-stack experience usually move faster through this course than candidates with a pure data-science background, because the hard parts are the parts they already do.",
+    },
+    {
+      question: "Can I take this course without a coding background?",
+      answer:
+        "Not this one. Every module has hands-on Python, and the LangGraph work in particular assumes comfort with async code and typed data structures. If your interest in agents is about automating business processes rather than writing them, our AI Tools for Productivity course covers no-code and low-code automation, and you can return to this course after our Python track. We would rather tell you that up front than have you sit through eight weeks of code you cannot follow.",
+    },
+    {
+      question: "Does the course cover multi-agent systems, or only single agents?",
+      answer:
+        "Both, with the single-agent work first because most production systems are single agents and most multi-agent designs would be better as one. You build a single-agent ReAct loop by hand in week two, then move through supervisor-and-worker patterns, role-based specialist agents, debate and review patterns, and agent-to-agent communication. The multi-agent module gives equal weight to the failure modes — multiplied cost, stacked latency, conflicting conclusions and untraceable runs — because knowing when a second agent does not earn its place is the more valuable judgement.",
+    },
+    {
+      question: "How do you actually test an agent? There is no single right answer.",
+      answer:
+        "That is exactly why evaluation gets its own module. You cannot diff against one expected output, so you measure what can be measured: did the task meet a defined success criterion, did the agent choose the right tool, were the arguments correct, was the answer grounded in what was retrieved, and how many steps and how much money did it take. You build a scenario suite from real inputs and run it as a regression test, so a prompt or model change that quietly breaks step four is caught before a customer finds it. Human review is done against a written rubric rather than an impression.",
+    },
+    {
+      question: "Is prompt injection and agent security covered seriously?",
+      answer:
+        "Yes, as a full module rather than a closing slide, because an agent with tools is an attack surface with a language model in front of it. We cover direct and indirect prompt injection, injection arriving through retrieved documents and fetched web pages, tool abuse, and excessive agency. The defences taught are architectural: per-tool permission boundaries, least-privilege credentials, approval gates before irreversible actions, output validation before a result is acted on, and audit logs you can reconstruct a run from. The module is framed against the OWASP Top 10 for LLM Applications, which is the checklist an enterprise security review will actually hold you to.",
+    },
+    {
+      question: "Can I download the full Agentic AI syllabus before enrolling?",
+      answer:
+        "Yes. The complete fifteen-part syllabus is available as a 7-page PDF from the download block on this page — all modules in teaching order, the eight hands-on assignments with the skill each one practises, the prerequisites split into three tracks, and the production sections on design patterns, tool safety, evaluation, guardrails and deployment. Everything in the PDF is also on this page as text; the PDF is simply the version you can read offline or forward to a manager approving the training.",
     },
   ],
 

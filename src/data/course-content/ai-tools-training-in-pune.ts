@@ -40,10 +40,10 @@ export const aiToolsTrainingInPune: CourseRichContent = {
 
   curriculum: [
     {
-      title: "Text AI Tools — ChatGPT, Claude, Gemini, Perplexity",
+      title: "AI Tool Foundations and Daily-Driver Setup",
       weekRange: "Week 1",
       description:
-        "The daily-driver text-AI toolkit. Cover ChatGPT (paid plan benefits, Custom GPTs, voice mode, Canvas, Projects), Claude (Sonnet 4.6 / Opus 4.7, Projects, Artifacts, computer use), Gemini (2.5 Pro for long-context, deep research), Perplexity (the de-facto research / fact-checking tool with citations), plus the discipline of choosing the right tool for the right task. Each student builds a personal 'tool selection grid' — a 2-page document explaining when they reach for which tool.",
+        "The course starts with orientation: what AI tools are good at, what they are bad at, and how to use them without weakening your own judgement. Students set up a practical toolkit around ChatGPT, Claude, Gemini, Perplexity and NotebookLM, then learn the difference between a chat assistant, a search assistant, a document-grounded assistant and a coding assistant.\n\nThe first output is a personal tool-selection grid. For each common task — research, writing, summarising, planning, coding, creative work and automation — students decide which tool to use, what input it needs, what review step is required, and what kind of data should never be pasted into it.",
       topics: [
         "ChatGPT — Custom GPTs, Canvas, Projects, voice mode",
         "Claude — Projects, Artifacts, computer use",
@@ -51,13 +51,29 @@ export const aiToolsTrainingInPune: CourseRichContent = {
         "Perplexity — research with citations",
         "NotebookLM — document-grounded thinking",
         "Tool selection grid — when to reach for which",
+        "Privacy rules for personal and company data",
       ],
     },
     {
-      title: "Creative AI Tools — Image, Video, Audio",
+      title: "Research, Reading, Writing and Documentation Workflows",
       weekRange: "Week 2",
       description:
-        "The creative-AI toolkit. Image generation — Midjourney v7 (the de-facto creative-tool default), DALL-E 3 (built into ChatGPT), Stable Diffusion 3.5 / Flux Pro (the open-source / power-user options), Adobe Firefly (the brand-safe enterprise option). Video — Sora, Runway Gen-3, Kling. Audio — ElevenLabs (text-to-speech), Whisper (speech-to-text), Suno / Udio for music. Plus the disciplined patterns — prompt engineering for images, brand-safety filtering, asset pipelines.",
+        "Week 2 makes the toolkit useful for everyday knowledge work. Students build research workflows with Perplexity, ChatGPT, Claude and Gemini; compare source-backed and non-source-backed answers; summarise long PDFs or notes with NotebookLM; and turn messy source material into structured briefs, emails, SOPs and documentation.\n\nThe important habit is verification. Every workflow includes a review pass: checking citations, comparing summaries against source material, separating facts from suggestions, and editing AI drafts into a voice that sounds human and professional. This module is especially useful for managers, analysts, consultants, teachers, founders and students.",
+      topics: [
+        "Research workflows with citations",
+        "Long-document reading with NotebookLM",
+        "Summarisation and rewriting",
+        "Email, SOP and report drafting",
+        "Meeting notes and action-item extraction",
+        "Fact-checking AI outputs",
+        "Editing AI drafts for tone and accuracy",
+      ],
+    },
+    {
+      title: "Creative AI Tools — Image, Video, Audio and Presentations",
+      weekRange: "Week 2",
+      description:
+        "Creative tools are taught as a practical production workflow, not as random prompt experiments. Students compare image generation tools, learn prompt patterns for layout and style, build simple visual assets for social posts or presentations, and understand where brand safety, copyright and likeness rules matter.\n\nThe module also covers video and audio at an awareness-and-workflow level: Sora and Runway-style video generation, Whisper-style transcription, ElevenLabs-style voice synthesis, and how to turn research into a slide outline or visual brief. The emphasis is on useful outputs that can be reviewed and reused, not on spectacle.",
       topics: [
         "Midjourney v7",
         "DALL-E 3 (in ChatGPT)",
@@ -67,13 +83,14 @@ export const aiToolsTrainingInPune: CourseRichContent = {
         "ElevenLabs / Whisper for audio",
         "Image-prompt patterns",
         "Asset pipelines and copyright",
+        "AI-assisted presentation outlines",
       ],
     },
     {
       title: "Code AI Tools — Cursor, Claude Code, GitHub Copilot",
       weekRange: "Week 3",
       description:
-        "The 2026 dominant coding-AI tools. Cover Cursor (the IDE that has become the developer default in many Pune product engineering teams) — Composer mode, Agent mode, codebase-wide context. Claude Code (the CLI agentic coding tool) — terminal-native, agentic, integrates with existing workflows. GitHub Copilot (the autocomplete + chat baseline). The honest comparison: when each fits, when each over-promises, plus the discipline of code-review-driven AI-coding (don't ship what you don't understand). Module is included for non-engineers as 'tools your engineering colleagues use' so cross-functional teams have shared vocabulary.",
+        "Coding tools are taught for both technical and non-technical learners. Developers practise Cursor, Claude Code and GitHub Copilot for explaining unfamiliar code, generating tests, refactoring small functions and building simple features. Non-engineers learn the vocabulary and limits of these tools so they can collaborate better with engineering teams.\n\nThe core rule is review before trust. Students learn how AI coding tools hallucinate libraries, miss business rules, introduce security issues and produce code the user does not understand. The module output is a small documented coding or code-review workflow, adjusted to the learner's background.",
       topics: [
         "Cursor — Composer, Agent mode",
         "Claude Code — CLI agentic coding",
@@ -81,13 +98,15 @@ export const aiToolsTrainingInPune: CourseRichContent = {
         "When each fits",
         "Code-review-driven AI coding",
         "Cross-functional vocabulary",
+        "AI-generated tests and documentation",
+        "Spotting hallucinated APIs and unsafe code",
       ],
     },
     {
-      title: "Automation, Workflow Integration & Capstone",
+      title: "Automation and Workflow Integration",
       weekRange: "Week 4",
       description:
-        "Tying tools together into real workflows. Automation tools — Zapier AI, Make.com, n8n with AI nodes — and the patterns for connecting Gmail / Slack / Notion / Sheets / your CRM with AI-augmented steps. Plus the integration patterns — meeting notes (Otter, Fireflies, Granola), research workflows (Perplexity + Claude + NotebookLM), content workflows (Claude + Midjourney + Canva), code workflows (Cursor + Claude Code + GitHub Copilot). Capstone — design and ship one complete AI-augmented workflow for your specific role / domain.",
+        "This module ties individual tools into repeatable workflows. Students map a real process, identify the handoff points, choose where AI should assist, and decide where a human approval checkpoint is required. Zapier AI, Make.com and n8n are introduced as practical ways to connect email, forms, spreadsheets, Slack, Notion or CRM-style tools.\n\nThe teaching stays grounded: not every workflow should be automated, and not every AI step should be trusted. Students build a small supervised automation that includes trigger, AI-assisted step, review, output, audit trail and rollback plan.",
       topics: [
         "Zapier AI, Make.com, n8n",
         "Workflow automation patterns",
@@ -95,7 +114,36 @@ export const aiToolsTrainingInPune: CourseRichContent = {
         "Research workflow — Perplexity + Claude + NotebookLM",
         "Content workflow — Claude + Midjourney + Canva",
         "Code workflow — Cursor + Claude Code + Copilot",
-        "Capstone — your role-specific workflow",
+        "Human approval checkpoints",
+        "Audit trails and rollback",
+      ],
+    },
+    {
+      title: "Role-Based Workflow Design and Productivity Measurement",
+      weekRange: "Week 4",
+      description:
+        "The course then becomes personal. A marketer, developer, HR executive, founder, teacher and analyst should not leave with the same workflow. Students choose their role or target role, document the current process, add AI assistance where it genuinely helps, and define what improvement means: time saved, quality improved, fewer errors, faster research or better communication.\n\nThis module teaches before / after measurement without exaggerated claims. Students record a baseline, run the AI-assisted workflow, review the output quality and note failure cases. The result is a realistic productivity case study that can be used at work or discussed in interviews.",
+      topics: [
+        "Role-specific workflow mapping",
+        "Baseline and before / after measurement",
+        "Quality checks and review criteria",
+        "Failure-case documentation",
+        "Productivity metrics without exaggeration",
+        "Workflow documentation for teams",
+      ],
+    },
+    {
+      title: "Capstone — Personal AI Productivity System",
+      weekRange: "Week 4",
+      description:
+        "The capstone pulls the course into one usable system. Students create a role-specific AI productivity playbook with a tool-selection grid, reusable prompts, workflow diagrams or screenshots, review checklists, privacy rules, and a short reflection on what should remain human-led.\n\nThe final presentation is practical: demonstrate the workflow, show the input and output, explain the review step, quantify the improvement and name the limitations. This gives non-technical learners a workplace-ready artefact and gives technical learners a cleaner way to communicate AI adoption to teams.",
+      topics: [
+        "Personal AI productivity playbook",
+        "Reusable prompts and checklists",
+        "Workflow diagram or screenshots",
+        "Privacy and data-handling rules",
+        "Before / after productivity summary",
+        "Final demo and feedback",
       ],
     },
     {
@@ -118,6 +166,41 @@ export const aiToolsTrainingInPune: CourseRichContent = {
       ],
     },
   ],
+
+  roadmapImage: {
+    src: "/images/courses/ai-tools-productivity-workflow-v1.webp",
+    width: 1400,
+    height: 818,
+    alt: "AI Tools for Productivity workflow diagram showing the course sequence from AI tool foundations and daily-driver setup to research, writing, creative work, coding assistance, automation, role-based workflow design and a personal productivity capstone.",
+    caption:
+      "The focused AI Tools sequence — set up the daily-driver toolkit, use it for research and content, add creative and coding workflows, automate carefully, then build a role-specific productivity system.",
+  },
+
+  syllabusDownload: {
+    pdfUrl: "/downloads/ai-tools-for-productivity-syllabus-v1.pdf",
+    title: "AI Tools for Productivity Syllabus — Complete Module List",
+    slug: "ai-tools-for-productivity-syllabus",
+    blurb:
+      "Download the 4-week syllabus covering daily-driver AI tools, research and writing workflows, creative tools, coding assistants, automation, productivity measurement and a personal AI workflow capstone.",
+    asideBlocks: [
+      {
+        heading: "What is inside the PDF",
+        items: [
+          "A practical sequence for non-technical and technical learners: setup, research, content, creative tools, coding assistants, automation and capstone.",
+          "Review habits for citations, privacy, copyright, AI-written content, hallucinated code and human approval checkpoints.",
+          "A capstone template for turning AI tools into a role-specific productivity system rather than a loose collection of demos.",
+        ],
+      },
+      {
+        heading: "Best fit for",
+        items: [
+          "Working professionals who want daily productivity with AI tools.",
+          "Students preparing for AI-fluent workplaces.",
+          "Founders, marketers, analysts, teachers and consultants building repeatable workflows.",
+        ],
+      },
+    ],
+  },
 
   projects: [
     {

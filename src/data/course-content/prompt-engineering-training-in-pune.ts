@@ -39,52 +39,71 @@ export const promptEngineeringTrainingInPune: CourseRichContent = {
 
   curriculum: [
     {
-      title: "Prompting Foundations & The 2026 Model Landscape",
+      title: "Prompting Foundations and Model Behaviour",
       weekRange: "Week 1",
       description:
-        "What prompting actually is — communication with a probabilistic system, not magic. Cover the model-family landscape (Claude, GPT, Gemini, Llama / Mistral) and their distinctive prompting patterns, the anatomy of a prompt (system / user / assistant roles, context, instructions, few-shot examples), token budgets and cost / latency awareness, plus the discipline of writing prompts as code (in Git, with versioning, with telemetry).",
+        "The course begins by replacing trial-and-error prompting with a clear mental model. A prompt is an instruction package for a probabilistic system: it contains task, context, constraints, examples and output format, and each part changes the quality of the answer. Students compare Claude, GPT, Gemini and open-source models on the same tasks to see why a prompt that works well in one model may need adjustment in another.\n\nThe first week also covers tokens, context windows, temperature, privacy and safe tool setup. By the end of the module every student has a reusable prompt anatomy checklist and can diagnose whether a weak answer came from missing context, vague instructions, poor examples, the wrong model or unrealistic expectations.",
       topics: [
         "Model families — Claude / GPT / Gemini / Llama / Mistral",
         "Prompting patterns that differ by model",
         "Prompt anatomy — system / user / assistant",
         "Context, instructions, few-shot",
         "Token budgets and cost / latency",
-        "Prompts as code — versioning, telemetry",
+        "Privacy and safe AI-tool usage",
+        "Diagnosing weak model responses",
       ],
     },
     {
-      title: "Core Prompting Techniques",
+      title: "Task Design, Context Design and Prompt Patterns",
       weekRange: "Week 2",
       description:
-        "The techniques that move prompting from beginner to mid-level. Few-shot prompting (one-shot, few-shot, zero-shot — when each fits), chain-of-thought prompting (and the limits — Anthropic and Google have published research on when CoT helps vs hurts), role / persona prompts (with the honest caveat that production systems should use them sparingly), self-consistency, plus the disciplined evaluation pattern of running each prompt against 10–20 test cases.",
+        "Week 2 is where prompting becomes design. Students learn to break a vague request into a task brief: audience, source material, constraints, acceptance criteria, tone and final format. Zero-shot, one-shot and few-shot prompting are taught through business examples, not toy examples, so learners understand when examples help and when they accidentally narrow the answer too much.\n\nThe module also covers role prompts, step-back prompting, decomposition, critique-and-revise loops and the limits of chain-of-thought prompting. Every pattern is tested on real workflows such as support summarisation, sales email drafting, research synthesis, code explanation and policy comparison.",
       topics: [
+        "Turning vague requests into task briefs",
         "Few-shot prompting — examples that work",
         "Chain-of-thought and the limits",
         "Role / persona prompts — when, why, why-not",
         "Self-consistency",
         "Step-back prompting",
-        "Test-case-driven prompt iteration",
+        "Task decomposition and critique-revise loops",
+        "Prompt patterns for support, sales, research and code",
       ],
     },
     {
-      title: "Structured Output, Validators & Production Prompting",
+      title: "Structured Output, Reusable Templates and Prompt Libraries",
       weekRange: "Week 3",
       description:
-        "The 2026 production-prompting layer. Cover structured output (OpenAI Structured Outputs, Anthropic tool-use as structured output, Pydantic-AI for type-safe responses), output validators, retry-and-repair patterns, prompt versioning (treating prompts like code in Git), A/B testing prompts, plus the observability layer (Langfuse, LangSmith). We use Anthropic Claude and OpenAI GPT side-by-side so you internalise the differences.",
+        "The third week focuses on prompts that can be reused by a team. You learn structured outputs, JSON-like formats, tables, rubrics, validators and retry instructions so the model returns something that another person or system can check. Engineers see how this maps to schemas and Pydantic; non-engineers learn the same idea as a reliable output contract.\n\nStudents then organise prompts into a library: naming conventions, version notes, model-specific variants, examples of good and bad outputs, and a short usage guide. This module is the bridge between 'I got a good answer once' and 'my team can use this workflow repeatedly'.",
       topics: [
         "Structured Outputs — OpenAI, Anthropic tool-use",
         "Pydantic-AI for type-safe LLM responses",
         "Output validators and retry-repair",
-        "Prompt versioning in Git",
-        "A/B testing prompts",
-        "Langfuse / LangSmith observability",
+        "Tables, rubrics and repeatable formats",
+        "Prompt templates and reusable variables",
+        "Model-specific prompt variants",
+        "Prompt library structure and documentation",
       ],
     },
     {
-      title: "Domain-Specific Patterns & Capstone",
+      title: "Evaluation, Versioning and Prompt Improvement",
+      weekRange: "Week 3–4",
+      description:
+        "A prompt is not production-ready because it worked on one example. This module teaches evaluation as a practical habit: create 10–20 representative test cases, define what a good answer means, score factuality, format, completeness and safety, and compare prompt versions without relying on memory or taste.\n\nStudents use simple spreadsheets for non-technical workflows and Git-based versioning for technical ones. They also learn when to use telemetry tools such as Langfuse or LangSmith, how to record failure cases, and how to improve a prompt without overfitting it to one demo. This is the module that makes the course portfolio credible.",
+      topics: [
+        "Test-case-driven prompt iteration",
+        "Evaluation rubrics and scoring sheets",
+        "Prompt versioning in Git",
+        "A/B testing prompts",
+        "Langfuse / LangSmith observability",
+        "Failure-case logs",
+        "Avoiding overfitting prompts to one example",
+      ],
+    },
+    {
+      title: "Domain-Specific Prompting Patterns",
       weekRange: "Week 4",
       description:
-        "How prompting varies by domain. Sales / customer-support assistants, content / marketing prompts, code / engineering prompts (the GitHub Copilot / Cursor pattern), analysis / research / financial-summary prompts, legal / regulatory document analysis, medical / clinical reasoning (with the discipline of safety guardrails). Plus the capstone — pick a real workflow and build a production-grade prompt suite with versioning, telemetry, and evaluation.",
+        "Prompting changes by domain because the acceptance criteria change. A sales prompt needs persuasion without false claims. A support prompt needs empathy and policy grounding. A research prompt needs citations and uncertainty. A coding prompt needs runnable output and review. Legal, medical and financial prompts need stronger guardrails and clear human-review boundaries.\n\nStudents practise prompt suites for six domains: sales and support, content and marketing, research and analysis, code and engineering, legal and regulatory review, and education or training. The goal is to choose the pattern that fits the work instead of using one generic prompt for every job.",
       topics: [
         "Sales and customer-support patterns",
         "Content / marketing prompts",
@@ -92,8 +111,23 @@ export const promptEngineeringTrainingInPune: CourseRichContent = {
         "Analysis / research / financial summary",
         "Legal / regulatory document analysis",
         "Medical / clinical reasoning + guardrails",
-        "Capstone implementation",
-        "HR mock interview / role-prep",
+        "Education and training-material prompts",
+        "Human-review boundaries",
+      ],
+    },
+    {
+      title: "Capstone Prompt Suite and Role Preparation",
+      weekRange: "Week 4",
+      description:
+        "The capstone is a complete prompt suite for a real workflow, not a list of clever prompts. Students choose one domain, write the prompt library, include examples, evaluate it against test cases, document known limitations, and present a before / after comparison of output quality.\n\nRole preparation is built around the capstone. Learners practise explaining the prompt design, the test cases, the failure handling and the business value. Engineers position it as an AI workflow artefact; non-engineering professionals position it as proof of productivity, judgement and responsible AI use.",
+      topics: [
+        "Choosing one real workflow",
+        "Prompt library implementation",
+        "Examples, expected outputs and test cases",
+        "Evaluation report and limitations",
+        "Portfolio documentation",
+        "Interview or internal demo practice",
+        "Resume points for AI Specialist / productivity roles",
       ],
     },
     {
@@ -116,6 +150,41 @@ export const promptEngineeringTrainingInPune: CourseRichContent = {
       ],
     },
   ],
+
+  roadmapImage: {
+    src: "/images/courses/prompt-engineering-workflow-v1.webp",
+    width: 1400,
+    height: 736,
+    alt: "Prompt Engineering workflow diagram showing the course sequence from model behaviour and prompt anatomy to task design, reusable templates, structured outputs, evaluation, domain patterns and a capstone prompt suite.",
+    caption:
+      "The focused Prompt Engineering sequence — understand model behaviour, design the task, structure the output, evaluate the prompt, adapt it to a domain and finish with a reusable prompt suite.",
+  },
+
+  syllabusDownload: {
+    pdfUrl: "/downloads/prompt-engineering-syllabus-v1.pdf",
+    title: "Prompt Engineering Course Syllabus — Complete Module List",
+    slug: "prompt-engineering-syllabus",
+    blurb:
+      "Download the 4-week syllabus covering prompt anatomy, task design, few-shot examples, structured output, reusable prompt libraries, evaluation, domain patterns and a capstone prompt suite.",
+    asideBlocks: [
+      {
+        heading: "What is inside the PDF",
+        items: [
+          "A clear teaching sequence for beginners and working professionals: foundations, task design, output contracts, evaluation, domain adaptation and capstone.",
+          "Reusable checklists for prompt anatomy, model choice, output review, privacy and human approval.",
+          "Capstone guidance for building a prompt library that can be shown in an interview or used in a real team workflow.",
+        ],
+      },
+      {
+        heading: "Best fit for",
+        items: [
+          "Non-technical professionals who want reliable AI-assisted work.",
+          "Students preparing for AI Specialist or junior GenAI roles.",
+          "Developers who want stronger prompt design before deeper LLM engineering.",
+        ],
+      },
+    ],
+  },
 
   projects: [
     {

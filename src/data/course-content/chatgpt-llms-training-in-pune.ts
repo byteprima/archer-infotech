@@ -39,52 +39,71 @@ export const chatgptLlmsTrainingInPune: CourseRichContent = {
 
   curriculum: [
     {
-      title: "OpenAI Ecosystem Foundations",
+      title: "LLM Foundations and the OpenAI Ecosystem",
       weekRange: "Week 1",
       description:
-        "What an LLM is at the level you need to build with one. Cover the OpenAI model family (GPT-5, GPT-4.1, GPT-4o, GPT-3.5-turbo, embeddings, Whisper, Sora, DALL-E 3) and which suits which use case, the OpenAI Python SDK and TypeScript SDK, API key management, plus the Playground for prototyping. By the end of week 1 every student has API keys, a working SDK setup, and has built their first 'Hello, world' chat completion.",
+        "The course opens with the mental model every later module depends on: what a Large Language Model is, what it can do reliably, and where it fails. You learn the OpenAI model family in practical terms — GPT-5 and GPT-4.1 for reasoning and general application work, smaller models for low-cost throughput, embedding models for retrieval, Whisper for speech, and multimodal models for images and documents.\n\nThe setup work is deliberately hands-on. Students configure API keys, install the Python and TypeScript SDKs, use the Playground for fast experiments, and build a first chat-completion call that logs request, response, token usage and cost. By the end of the week you can explain the difference between a chat UI and an LLM API, and you have a working local environment ready for the rest of the course.",
       topics: [
-        "OpenAI model family — GPT-5, GPT-4.1, embeddings, Whisper, Sora",
+        "OpenAI model family — GPT-5, GPT-4.1, smaller models, embeddings, Whisper",
         "Model selection criteria — quality / cost / latency",
         "Python SDK + TypeScript SDK setup",
         "API key management",
         "OpenAI Playground for prototyping",
         "Cost dashboards and rate limits",
+        "First chat-completion call with token logging",
       ],
     },
     {
-      title: "Chat Completions, Streaming & Structured Outputs",
+      title: "Chat Completions, Prompts, Streaming and State",
       weekRange: "Week 2",
       description:
-        "The foundational API surface. Cover Chat Completions (system / user / assistant roles), temperature / top_p / max_tokens, streaming responses (the Server-Sent-Events pattern that real production UIs use), Structured Outputs with JSON schemas (the 2024+ feature that guarantees JSON-schema compliance — replacing the old prompt-engineered 'please output JSON' pattern), plus the discipline of designing prompts as code (in Git, with tests, with telemetry).",
+        "Once the environment works, the API surface becomes the subject. You study system, user and assistant messages, when to keep state in your application instead of assuming the model remembers, how temperature and token limits affect output, and why prompt templates should live in code rather than in someone’s notes app.\n\nThe module then moves from a blocking response to a production-style streamed response. Students wire Server-Sent Events into a small chat endpoint, add graceful timeout handling, and compare the user experience of streaming with a plain request-response flow. The goal is not only to make a chat box, but to understand the request lifecycle of an LLM feature.",
       topics: [
         "Chat Completions API",
         "Roles — system / user / assistant",
         "Temperature, top_p, max_tokens",
+        "Conversation state in your application",
+        "Prompt templates in source control",
         "Streaming with SSE",
+        "Timeouts, retries and user-facing errors",
+      ],
+    },
+    {
+      title: "Structured Outputs, Schemas and Reliable Extraction",
+      weekRange: "Week 3",
+      description:
+        "The third week turns natural-language output into software you can trust. You learn Structured Outputs with JSON Schema, schema-constrained generation, Pydantic validation, retry-and-repair loops, and the difference between asking a model to 'return JSON' and requiring a shape your application can parse.\n\nHands-on labs focus on practical extraction: pulling fields from resumes, invoices, support tickets and product documents; validating the output; and writing tests that catch schema drift. This is the point where students begin thinking like application engineers rather than prompt users, because every response must either pass a contract or fail safely.",
+      topics: [
         "Structured Outputs with JSON schema",
+        "Schema-constrained generation",
+        "Pydantic validation",
+        "Retry-and-repair patterns",
+        "Reliable data extraction",
+        "Prompt regression tests",
         "Prompt versioning",
       ],
     },
     {
       title: "Function Calling & Tool Use",
-      weekRange: "Week 3",
+      weekRange: "Week 4",
       description:
-        "Function calling — the pattern that lets the LLM invoke real-world tools (database queries, API calls, computations). Cover the JSON-schema description of tools, the request-response loop, parallel tool calling, plus the discipline of designing tools that survive LLM mis-invocation (idempotency, validation, error handling). We finish by building a small assistant that combines retrieval + computation + external APIs.",
+        "Function calling is where an LLM stops being a text generator and starts becoming part of a workflow. You define tools with JSON schemas, let the model choose when to call them, execute those tools in your code, and return observations to the model for the next step.\n\nThe engineering discipline gets equal weight: tool arguments must be validated, database access must be parameterised, external API calls need retries, and dangerous actions need approval gates. Students build a small assistant that combines a calculator, a database lookup and a REST API call, then intentionally break it to learn how tool misuse appears in logs.",
       topics: [
         "Function calling — schema description",
         "Request-response loop",
         "Parallel tool calling",
         "Tool design — idempotency, validation",
         "Error handling and retry",
+        "Read-only vs write tools",
+        "Approval gates for sensitive actions",
         "Multi-step assistants",
       ],
     },
     {
       title: "Embeddings, Vector Stores & RAG",
-      weekRange: "Week 4",
+      weekRange: "Week 5",
       description:
-        "Retrieval-Augmented Generation in the OpenAI ecosystem. Cover OpenAI's text-embedding-3-large / -small, the geometry of embedding space, vector storage options (OpenAI Vector Stores for managed RAG, plus pgvector / Chroma / Weaviate / Pinecone for self-hosted), retrieval techniques (semantic + hybrid + reranking), chunking strategies (fixed-size, semantic, parent-document), plus the Assistants API's built-in File Search (the managed RAG path that gets you to a working system in 1 hour).",
+        "This week teaches the most common enterprise LLM pattern: grounding a model in documents instead of hoping it already knows the answer. You learn embeddings, vector similarity, chunking, metadata, retrieval quality and the difference between semantic search and keyword search.\n\nThe implementation uses both managed and self-hosted paths. Students build one RAG prototype with OpenAI Vector Stores and File Search, then compare it with a simple pgvector or Chroma implementation so they understand what the managed layer hides. The module closes with citation-aware answers and a small evaluation sheet that records whether the right chunks were retrieved.",
       topics: [
         "text-embedding-3-large / -small",
         "OpenAI Vector Stores",
@@ -92,26 +111,29 @@ export const chatgptLlmsTrainingInPune: CourseRichContent = {
         "Chunking strategies",
         "Hybrid retrieval and reranking",
         "Assistants API File Search (managed RAG)",
+        "Citation-aware generation",
+        "Retrieval quality checks",
       ],
     },
     {
       title: "Custom GPTs, Assistants API & Realtime API",
-      weekRange: "Week 5",
+      weekRange: "Week 6",
       description:
-        "The OpenAI productised layer. Cover Custom GPTs (the consumer-product surface — for sales / marketing / internal-tool users), the Assistants API (the developer-product surface — for engineers building stateful applications), threads / messages / runs, plus the Realtime API for voice-first applications (the surface that powers ChatGPT's voice mode, Apple Intelligence-like UX). Honest discussion: when each productised surface is right vs when raw Chat Completions is the better choice.",
+        "After the raw APIs, students study the productised OpenAI surfaces and learn when each belongs in a real organisation. Custom GPTs are treated as the fast internal-tool path for business users. The Assistants API is treated as the developer path for stateful applications with tools, files and longer-running work. The Realtime API introduces voice and low-latency interaction patterns.\n\nThe practical output is a decision matrix: when to use a Custom GPT, when to build on Assistants, when to stay with raw chat completions, and when the complexity is not justified. Students build a small assistant with files, tools and conversation state, then compare the trade-offs against the earlier FastAPI implementation.",
       topics: [
         "Custom GPTs — building, sharing, monetising",
         "Assistants API — threads, messages, runs",
         "Stateful conversations",
         "Realtime API for voice",
+        "Files, tools and assistant instructions",
         "Custom GPTs vs Assistants API vs raw Chat Completions",
       ],
     },
     {
       title: "Fine-Tuning & Production Engineering",
-      weekRange: "Weeks 6–7",
+      weekRange: "Week 7",
       description:
-        "When fine-tuning OpenAI models earns its place — domain register (legal / medical / customer-support tone), task-specific behaviour, cost reduction (fine-tune a smaller model to match a frontier model on your specific task). Cover the OpenAI fine-tuning API for GPT-4o-mini and GPT-3.5-turbo, dataset preparation, evaluation, plus reinforcement fine-tuning (RFT — newly GA). Then production engineering — FastAPI for serving, streaming responses, observability with Langfuse / OpenAI usage dashboards, the Batch API for 50% cost savings on non-real-time work, plus the safety / moderation patterns.",
+        "Fine-tuning is taught as a choice, not as a badge. You learn when it helps — domain tone, repeated classification, extraction style, cost reduction — and when RAG or better prompting is the correct answer. The module covers dataset preparation, train / validation splits, examples in the required format, post-fine-tune evaluation and rollback planning.\n\nThe second half is production engineering: serving through FastAPI, logging prompts safely, tracing calls with Langfuse or OpenAI usage dashboards, using the Batch API for non-real-time workloads, and applying moderation or safety checks where user-generated content is involved. The emphasis is that a model feature is a service with operations, cost and failure modes.",
       topics: [
         "When to fine-tune (and when not)",
         "Fine-tuning API for GPT-4o-mini / GPT-3.5-turbo",
@@ -129,13 +151,14 @@ export const chatgptLlmsTrainingInPune: CourseRichContent = {
       title: "Capstone & Interview Prep",
       weekRange: "Week 8",
       description:
-        "One week of capstone work plus structured interview preparation. Pick one of three capstone projects (see Capstone Projects). Mock interviews calibrated for Pune AI Engineer hiring panels.",
+        "The final teaching week converts the course into a portfolio artefact. Students choose a capstone, implement it with a clean repository, add a README, record setup steps, capture screenshots or a demo video, and write an evaluation note that explains quality, latency, cost and known limits.\n\nInterview preparation runs beside the capstone rather than after it. You practise explaining OpenAI API choices, tool schemas, RAG retrieval failures, streaming architecture and fine-tuning trade-offs. The aim is simple: when an interviewer opens your GitHub project, you can walk through not just what it does, but why each engineering choice was made.",
       topics: [
         "Capstone implementation, deployment, README",
         "AI system-design mock round",
         "Evaluation / observability discussion",
         "Resume + LinkedIn rewrite for AI Engineer JDs",
         "GitHub portfolio polish",
+        "Demo walkthrough practice",
         "HR mock and salary negotiation",
       ],
     },
@@ -159,6 +182,41 @@ export const chatgptLlmsTrainingInPune: CourseRichContent = {
       ],
     },
   ],
+
+  roadmapImage: {
+    src: "/images/courses/chatgpt-llms-workflow-v1.webp",
+    width: 1400,
+    height: 818,
+    alt: "ChatGPT and LLMs workflow diagram showing the course sequence from LLM foundations and OpenAI setup to chat APIs, structured outputs, function calling, RAG, Assistants API, Realtime API, production engineering and capstone deployment.",
+    caption:
+      "The focused ChatGPT & LLMs sequence — model foundations, API integration, reliable outputs, tool use, RAG, Assistants and a deployable capstone.",
+  },
+
+  syllabusDownload: {
+    pdfUrl: "/downloads/chatgpt-llms-syllabus-v1.pdf",
+    title: "ChatGPT & LLMs Course Syllabus — Complete Module List",
+    slug: "chatgpt-llms-syllabus",
+    blurb:
+      "Download the focused 8-week syllabus covering OpenAI setup, chat APIs, structured output, function calling, embeddings, RAG, Assistants, Realtime, fine-tuning, production engineering and capstone work.",
+    asideBlocks: [
+      {
+        heading: "What is inside the PDF",
+        items: [
+          "A week-by-week sequence from LLM foundations to deployable OpenAI-powered applications.",
+          "Production topics usually missing from short courses: schema validation, tool safety, streaming, cost tracking, RAG quality checks and observability.",
+          "Capstone and interview-preparation guidance so the course output becomes a portfolio project, not only classroom notes.",
+        ],
+      },
+      {
+        heading: "Best fit for",
+        items: [
+          "Backend and full-stack developers adding OpenAI integration.",
+          "Students targeting junior AI Engineer and LLM application roles.",
+          "Product and solution teams building OpenAI-backed internal tools.",
+        ],
+      },
+    ],
+  },
 
   projects: [
     {

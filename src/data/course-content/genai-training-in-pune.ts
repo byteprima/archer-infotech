@@ -44,7 +44,7 @@ export const genaiTrainingInPune: CourseRichContent = {
       title: "Foundations — Transformers, LLMs, the 2026 Model Landscape",
       weekRange: "Week 1",
       description:
-        "What an LLM actually is — at the level you need to build with one, not the level you need to publish a paper. Cover the transformer architecture (attention, positional encoding, layer norm, residual streams) at an intuition level, the difference between pre-training, instruction tuning, and RLHF / DPO, the model-family landscape (Claude, GPT, Gemini, Llama, Mistral, Phi, Qwen), and why specific models suit specific use cases (Claude for long-context analysis, GPT for general tasks, Gemini for multimodal, Llama / Mistral for on-prem and privacy). Plus the discipline that good AI Engineers practice — what a model is bad at, where hallucinations come from, and the cost / latency / quality triangle.",
+        "What an LLM actually is — at the level you need to build with one, not the level you need to publish a paper. Cover the transformer architecture (attention, positional encoding, layer norm, residual streams) at an intuition level, the difference between pre-training, instruction tuning, and RLHF / DPO, the model-family landscape (Claude, GPT, Gemini, Llama, Mistral, Phi, Qwen), and why specific models suit specific use cases (Claude for long-context analysis, GPT for general tasks, Gemini for multimodal, Llama / Mistral for on-prem and privacy). Plus the discipline that good AI Engineers practice — what a model is bad at, where hallucinations come from, and the cost / latency / quality triangle.\n\nThe week also fixes the vocabulary that the rest of the course leans on and that interviewers use as a filter: how AI, Machine Learning, Deep Learning and Generative AI actually nest inside one another, what a token is and why it is the unit you pay in, what a context window bounds, and what temperature and the other sampling parameters change about a response.",
       topics: [
         "Transformer architecture intuition — attention and residual stream",
         "Pre-training, instruction tuning, RLHF / DPO",
@@ -52,20 +52,88 @@ export const genaiTrainingInPune: CourseRichContent = {
         "Frontier-model selection criteria",
         "Hallucinations — sources and mitigations",
         "Cost / latency / quality trade-offs",
+        "AI vs Machine Learning vs Deep Learning vs Generative AI",
+        "Tokens, context windows, temperature and sampling parameters",
+        "Training, fine-tuning and inference — three different activities",
+        "How LLMs understand and generate text",
+        "Evolution of Generative AI and the current tool landscape",
+        "Documented LLM capabilities and documented limitations",
+      ],
+    },
+    {
+      title: "AI Product Thinking — Deciding What to Build with AI",
+      weekRange: "Week 1",
+      description:
+        "The module most GenAI courses skip entirely, and the one that separates an engineer who ships from an engineer who demos. Before any code, you learn to answer the question a hiring panel and a product owner both ask first: should this feature use an LLM at all? Many problems that look like AI problems are better solved by a database query, a rules engine or a form — and choosing the model anyway produces a system that is slower, more expensive and less reliable than the thing it replaced.\n\nYou work through a decision frame covering business value against cost, latency and reliability; where non-determinism is acceptable and where it is not; how to design a feature so a human reviews the output before it has consequences; and how to size an AI feature so it can be measured. The output of the week is a one-page AI feature brief for a real workflow, of the kind you will be asked to write in a product-engineering job and can talk through at interview.",
+      topics: [
+        "When to use AI and when explicitly not to",
+        "AI feature design and user experience",
+        "Business value against cost, latency and reliability",
+        "Designing workflows with human review built in",
+        "Acceptable and unacceptable non-determinism",
+        "Framing an AI feature so it can be measured",
+        "Build vs buy vs API for AI capability",
+        "Writing an AI feature brief",
+        "Failure modes users forgive and failure modes they do not",
+        "Scoping a first AI release",
       ],
     },
     {
       title: "Prompt Engineering & Structured Output",
       weekRange: "Week 2",
       description:
-        "Prompt engineering as a real engineering discipline, not magic incantations. Cover system prompts vs user prompts, few-shot prompting, chain-of-thought and the limits thereof, role / persona prompts (and why most production systems should not use them), JSON mode / structured output / Pydantic-AI for type-safe LLM responses, response constraints and validators, prompt versioning and A/B testing, and the discipline of writing prompts as code (in Git, with tests, with metrics). Hands-on with Claude, GPT, and Gemini APIs side-by-side so you internalise their differences.",
+        "Prompt engineering as a real engineering discipline, not magic incantations. Cover system prompts vs user prompts, few-shot prompting, chain-of-thought and the limits thereof, role / persona prompts (and why most production systems should not use them), JSON mode / structured output / Pydantic-AI for type-safe LLM responses, response constraints and validators, prompt versioning and A/B testing, and the discipline of writing prompts as code (in Git, with tests, with metrics). Hands-on with Claude, GPT, and Gemini APIs side-by-side so you internalise their differences.\n\nThe second half moves from writing a prompt to keeping it working: reusable prompt templates and patterns, prompt evaluation with test cases rather than impressions, and the iteration loop that turns a prompt that works once into a prompt that works on the hundredth input.",
       topics: [
         "System prompts vs user prompts — when each is right",
         "Few-shot and chain-of-thought prompting",
+        "Zero-shot, one-shot and few-shot patterns compared",
+        "Role-based prompting and where it backfires",
         "Structured output — JSON mode, Pydantic-AI, response_format",
+        "JSON schema design and schema validation",
         "Output validation and retry patterns",
+        "Reusable prompt templates and prompt libraries",
+        "Prompt evaluation and iteration with test cases",
         "Prompt versioning, A/B testing, telemetry",
+        "Reliable extraction from unstructured text",
         "Anthropic / OpenAI / Google API SDKs hands-on",
+      ],
+    },
+    {
+      title: "Generative AI for Content, Documentation & Knowledge Work",
+      weekRange: "Week 2",
+      description:
+        "The applied half of prompting, aimed at the work that actually reaches a business. LLMs are used far more often for drafting, rewriting, summarising, translating and documenting than for anything exotic, and doing that well at professional quality is a distinct skill from calling the API. You work through ideation and drafting, summarisation and rewriting against a fixed brief, tone and register control, and long-document handling where the source will not fit in a single context window.\n\nDevelopers get the parts that apply directly to engineering output — API and README documentation generated from source, release notes, technical explainers — with the standing rule that everything generated is a draft under review. The module closes on verification: how to check a summary against its source, and how to catch the fluent, confident, wrong paragraph that is the characteristic failure of this kind of work.",
+      topics: [
+        "Content ideation and structured drafting",
+        "Summarisation and rewriting to a brief",
+        "Tone, register and audience control",
+        "Long-document handling beyond the context window",
+        "Email, blog, social and marketing copy workflows",
+        "Technical writing and API documentation",
+        "Translation and localisation support",
+        "Study notes and training material generation",
+        "Verifying a summary against its source",
+        "Editing and fact-checking AI drafts",
+      ],
+    },
+    {
+      title: "LLM APIs & Application Integration",
+      weekRange: "Week 3",
+      description:
+        "Where the model stops being a chat window and becomes a dependency in your application. Cover the chat-completions and responses API shapes across vendors, message roles and conversation state, streaming versus blocking calls and what each does to perceived latency, structured outputs and function-call payloads over the wire, and the error surface you must handle — rate limits, timeouts, truncated responses, content filters and transient 5xx.\n\nThe engineering discipline is the point: retries with backoff and idempotency, fallback models when the primary is degraded, request and response logging that is safe to keep, per-request token budgets, and configuration that lets you change model without changing code. You finish by adding a working AI feature to a small web application, wired the way a production service would be rather than the way a notebook is.",
+      topics: [
+        "Chat-completion and responses APIs across vendors",
+        "Message roles and conversation state",
+        "Streaming versus blocking responses",
+        "Function-call payloads over the wire",
+        "Rate limits, timeouts and retry with backoff",
+        "Fallback models and graceful degradation",
+        "Prompt templates inside an application",
+        "Safe logging of prompts and responses",
+        "Per-request token budgets and cost control",
+        "Adding an AI feature to a web application",
+        "Configuration-driven model selection",
+        "API keys, secrets and environment separation",
       ],
     },
     {
@@ -75,12 +143,17 @@ export const genaiTrainingInPune: CourseRichContent = {
         "The retrieval half of retrieval-augmented generation. Cover sentence embeddings (sentence-transformers, BAAI BGE, OpenAI text-embedding-3, Voyage), the geometry of embedding space, vector databases (pgvector for SQL-native, Chroma for prototyping, Weaviate / Pinecone / Qdrant for scale), distance metrics (cosine, dot product, L2), HNSW indexing, hybrid retrieval (BM25 + dense + reranking with cross-encoders), and chunking strategies (fixed-size, semantic, parent-document). We finish with a small semantic-search service against a real corpus of your choice.",
       topics: [
         "Embedding models — sentence-transformers, BGE, OpenAI, Voyage",
+        "What an embedding is and what the numbers mean",
+        "Semantic search versus keyword search",
         "Vector geometry — cosine, dot product, L2",
         "pgvector, Chroma, Weaviate, Pinecone, Qdrant",
         "HNSW indexing and approximate nearest neighbour",
+        "Similarity search and top-k selection",
         "Chunking — fixed, semantic, parent-document",
+        "Document loading and pre-processing",
         "Hybrid retrieval — BM25 + dense + reranker",
         "Cross-encoders for reranking",
+        "Knowledge-base design for search",
       ],
     },
     {
@@ -89,14 +162,38 @@ export const genaiTrainingInPune: CourseRichContent = {
       description:
         "RAG is the dominant production GenAI pattern in Pune product engineering — and the pattern most poorly executed in the field. Cover the full pipeline: ingestion (PDFs, HTML, code, images via vision models), chunking, embedding, storage, query rewriting, retrieval, reranking, prompt assembly, generation, citation, and response validation. The discipline that separates working RAG from theatre — chunk-size experimentation, retrieval recall measurement, hybrid retrieval, query rewriting for vague questions, and citation-aware generation. Build a production-style RAG service with measured retrieval quality.",
       topics: [
+        "Why RAG exists and what problem it solves",
         "End-to-end RAG architecture",
         "Document ingestion — PDFs, HTML, code, vision-OCR",
+        "Embedding and indexing a document set",
         "Query rewriting and expansion",
+        "Retrieving relevant context",
         "Hybrid retrieval (BM25 + dense + reranker)",
         "Prompt assembly with citation tags",
-        "Citation-aware generation",
+        "Citation-aware generation with sources",
         "Anti-patterns — when RAG doesn't help",
         "Multi-tenant RAG and access control",
+        "Keeping a knowledge base current",
+      ],
+    },
+    {
+      title: "Advanced RAG — Grounding, Re-ranking & RAG Evaluation",
+      weekRange: "Week 5",
+      description:
+        "A first RAG build almost always works on the demo question and fails on the real ones. This module is the repair kit. You measure before you change anything: retrieval recall and precision at k on a golden question set, so you can tell a retrieval failure from a generation failure — the single most common misdiagnosis in production RAG, and the reason teams spend weeks tuning a prompt when the right chunk was never retrieved.\n\nFrom there: query decomposition for multi-part questions, hypothetical-document embedding, metadata filtering and structured pre-filters, parent-document and sentence-window retrieval, cross-encoder re-ranking, and context compression to fit more signal into the same budget. Grounding gets its own treatment — enforcing that every claim traces to a retrieved passage, and detecting the answer that sounds supported but is not. You close with RAG-specific evaluation: faithfulness, answer relevance, context precision and context recall, run as a repeatable suite rather than a one-off check.",
+      topics: [
+        "Measuring retrieval recall and precision at k",
+        "Separating retrieval failure from generation failure",
+        "Golden question sets for a corpus",
+        "Query decomposition for multi-part questions",
+        "Hypothetical document embeddings",
+        "Metadata filtering and structured pre-filters",
+        "Parent-document and sentence-window retrieval",
+        "Cross-encoder re-ranking in the pipeline",
+        "Context compression and budget packing",
+        "Enforcing grounding in generated answers",
+        "Faithfulness, answer relevance, context precision and recall",
+        "Regression testing a RAG pipeline",
       ],
     },
     {
@@ -105,12 +202,16 @@ export const genaiTrainingInPune: CourseRichContent = {
       description:
         "Agentic workflows — LLMs that call tools, query databases, hit APIs, and loop until a goal is satisfied. Cover OpenAI function calling, Claude tool use, Anthropic's Model Context Protocol (MCP) for tool federation, the agent design loop (think → act → observe → think), task decomposition patterns, ReAct, error handling, and the honest limits of agents in production today (cost, latency, debuggability). Build a multi-tool agent that combines retrieval, computation, and external APIs against a real-world workflow.",
       topics: [
+        "Agent versus chatbot — the actual difference",
         "OpenAI function calling and Claude tool use",
         "Model Context Protocol (MCP) basics",
         "Agent loops — ReAct, Plan-and-Execute",
+        "Tools, memory, planning and actions",
         "Task decomposition patterns",
         "Tool design — schemas, error handling, idempotency",
         "Multi-step memory and conversational state",
+        "Workflow automation with AI",
+        "Risks and controls in agentic systems",
         "Honest limits — cost, latency, debuggability",
       ],
     },
@@ -125,7 +226,9 @@ export const genaiTrainingInPune: CourseRichContent = {
         "Pydantic-AI — type-safe agent design",
         "Vanilla SDK vs framework — when each wins",
         "Tracing with LangSmith / Langfuse",
+        "Reading a framework's source when it misbehaves",
         "Framework migration patterns",
+        "Choosing a framework for a project",
       ],
     },
     {
@@ -136,12 +239,35 @@ export const genaiTrainingInPune: CourseRichContent = {
       topics: [
         "RAGAS — faithfulness, answer relevance, context precision / recall",
         "DeepEval — unit-test-style LLM evaluation",
+        "Golden datasets and human review rubrics",
         "Human-in-the-loop evaluation",
+        "LLM-as-judge and its failure modes",
+        "Regression testing for AI workflows",
         "LangSmith / Langfuse tracing",
         "Latency / cost / token observability",
         "Prompt injection and jailbreak defence",
         "Content filtering and output safety",
         "Red-teaming patterns before launch",
+      ],
+    },
+    {
+      title: "Responsible AI, Privacy & Prompt-Injection Defence",
+      weekRange: "Week 7",
+      description:
+        "Security and responsibility treated as engineering requirements rather than a closing slide. Prompt injection is the defining vulnerability class of LLM applications: untrusted text — a retrieved document, a user upload, a web page an agent fetched — carrying instructions the model then follows. You work through direct and indirect injection, why input filtering alone does not fix it, and the defences that do hold: separating instructions from data, constraining tool permissions, validating output before it acts, and requiring human approval before anything irreversible.\n\nAlongside that: PII detection and redaction before text reaches a third-party API, data-retention and residency questions that decide whether a Pune BFSI or healthcare client can use a hosted model at all, bias and fairness in generated content, output moderation, and audit logging that records what was asked and what was returned without becoming a new leak. The module is framed against the OWASP Top 10 for LLM Applications, which is the checklist enterprise security reviews actually use.",
+      topics: [
+        "Direct and indirect prompt injection",
+        "Separating trusted instructions from untrusted data",
+        "OWASP Top 10 for LLM applications",
+        "Sensitive-information disclosure and system-prompt leakage",
+        "PII detection, redaction and minimisation",
+        "Data residency, retention and vendor terms",
+        "Bias, fairness and ethical AI in generated content",
+        "Output moderation and content policy",
+        "Hallucination and output verification workflows",
+        "Human review and approval before consequential actions",
+        "Audit logging without creating a new leak",
+        "Secure design for AI features",
       ],
     },
     {
@@ -154,8 +280,11 @@ export const genaiTrainingInPune: CourseRichContent = {
         "Local serving — Ollama, vLLM, TGI, llama.cpp",
         "PEFT — LoRA, QLoRA — on Colab Pro / single consumer GPU",
         "Dataset preparation for fine-tuning",
+        "Instruction-tuning data format and quality",
         "Evaluation post-fine-tune",
+        "Fine-tuning versus RAG versus prompting — choosing correctly",
         "Frontier API vs fine-tuned open — the honest comparison",
+        "On-premise deployment for data-sensitive clients",
       ],
     },
     {
@@ -167,10 +296,33 @@ export const genaiTrainingInPune: CourseRichContent = {
         "Vision-language models — Claude / GPT / Gemini vision",
         "OCR and document understanding",
         "Image generation — DALL-E 3, Imagen, Stable Diffusion, Flux",
-        "Speech — Whisper, ElevenLabs",
+        "Image editing and style transfer workflows",
+        "Presentation and design workflows with AI",
+        "Speech — Whisper transcription, ElevenLabs synthesis",
+        "Video generation and editing concepts",
         "Code generation patterns",
         "Multimodal RAG",
         "Cost discipline for multimodal",
+      ],
+    },
+    {
+      title: "Model Selection, Token Economics & Cost Control",
+      weekRange: "Week 9",
+      description:
+        "An LLM feature that works but costs more than it earns gets switched off, and the engineer who cannot explain the bill does not get to defend it. This module makes cost a design input rather than a monthly surprise. You learn to read a pricing page properly — input against output tokens, cached input, and why a long system prompt repeated on every call is usually the largest line item — and to estimate cost per request before writing the feature.\n\nThen the levers, in the order they pay off: choosing the smallest model that passes your evaluation rather than the best one available, routing easy requests to a cheap model and hard ones to a strong model, exact and semantic caching, prompt compression, trimming retrieved context, batching, and streaming to improve perceived latency without changing spend. You also cover rate limits, quota planning and fallback chains, then build a small cost dashboard so the number is visible to the team rather than discovered on the invoice.",
+      topics: [
+        "Reading LLM pricing — input, output and cached tokens",
+        "Estimating cost per request before building",
+        "Choosing models for speed, quality, reasoning and cost",
+        "Model routing — cheap model first, strong model on escalation",
+        "Context-window planning and prompt compression",
+        "Exact caching and semantic caching",
+        "Trimming retrieved context without losing accuracy",
+        "Batching and concurrency for throughput",
+        "Rate limits, quotas and fallback chains",
+        "Latency budgets and streaming for perceived speed",
+        "Cost tracking per feature and per tenant",
+        "Building a cost and usage dashboard",
       ],
     },
     {
@@ -184,8 +336,11 @@ export const genaiTrainingInPune: CourseRichContent = {
         "Docker containers for inference",
         "GitHub Actions CI/CD with API mocking",
         "Langfuse + Prometheus + Grafana telemetry",
+        "Versioning prompts and AI workflows",
+        "Monitoring errors, latency, cost and user feedback",
         "Token budgets, semantic caching, prompt compression",
         "Cost dashboards and alerting",
+        "Production-readiness checklist for AI applications",
       ],
     },
     {
@@ -201,6 +356,7 @@ export const genaiTrainingInPune: CourseRichContent = {
         "Behavioural and product-thinking round",
         "Resume + LinkedIn rewrite for AI Engineer JDs",
         "GitHub portfolio polish — RAG with measured retrieval recall, agent demos",
+        "Explaining your architecture decisions under questioning",
         "HR mock interview and salary negotiation",
       ],
     },
@@ -224,6 +380,43 @@ export const genaiTrainingInPune: CourseRichContent = {
       ],
     },
   ],
+
+  roadmapImage: {
+    src: "/images/courses/generative-ai-overview-v1.webp",
+    width: 1672,
+    height: 941,
+    alt: "Generative AI overview diagram used in Archer Infotech's Pune training: what Generative AI is, how a foundation model turns a prompt into text, image, code, audio or video output, the core concepts of foundation models, transformers, prompting, embeddings and fine-tuning, key capabilities, common use cases, benefits, limitations including hallucination and bias, and a five-step learning path from prompting through LLM basics, RAG and fine-tuning to evaluation.",
+    caption:
+      "The whole subject on one page — what Generative AI is, how a foundation model turns a prompt into output, and the five-step path from prompting to evaluation. Every block in it is a module below.",
+  },
+
+  syllabusDownload: {
+    pdfUrl: "/downloads/generative-ai-syllabus-v1.pdf",
+    title: "Generative AI Course Syllabus — Complete Module List",
+    slug: "generative-ai-syllabus",
+    blurb:
+      "The full twelve-part syllabus as a 5-page PDF — foundations and LLMs, prompt engineering, content and developer workflows, embeddings and vector search, RAG, agents and tool use, AI APIs, responsible AI and security, and six capstone projects. Everything in it is on this page; the PDF is the portable version you can send to a manager or read offline.",
+    asideBlocks: [
+      {
+        heading: "What is inside the 5-page PDF",
+        items: [
+          "All twelve syllabus parts in teaching order, from AI foundations and how LLMs generate text through to responsible AI and capstone projects.",
+          "Two prerequisite tracks written separately — one for non-coding learners, one for developers — so you can tell before enrolling which starting point is yours.",
+          "The industry-readiness sections most syllabi omit: AI product thinking, model selection and cost management, structured outputs and function calling, evaluation, guardrails, and deployment with monitoring.",
+          "Five named paths for what to learn after the course — AI application development, Java and Spring AI, agentic AI, AI automation, and AI security and governance.",
+        ],
+      },
+      {
+        heading: "Roles this syllabus prepares you for",
+        items: [
+          "Generative AI Engineer — building LLM-powered features and services.",
+          "AI Engineer / Applied AI Engineer — the applied path into production AI at Pune product companies.",
+          "LLM Application Developer — RAG systems, assistants and knowledge products.",
+          "AI Solutions Developer — integrating foundation models into existing enterprise software.",
+        ],
+      },
+    ],
+  },
 
   projects: [
     {
@@ -604,6 +797,31 @@ export const genaiTrainingInPune: CourseRichContent = {
       question: "Are the named trainers actually teaching, or are they just on the brochure?",
       answer:
         "Vinod Patil personally leads the LLM foundations, prompt engineering, agents, fine-tuning, and capstone weeks. Amol Patil leads the RAG, frameworks, evaluation, and production engineering weeks. The same names you see on this page show up in your batch on day one.",
+    },
+    {
+      question: "What is RAG and why does it matter so much on this course?",
+      answer:
+        "Retrieval-Augmented Generation connects a language model to knowledge it was never trained on — your documents, your database, your policies. The pipeline retrieves the passages relevant to a question and puts them in the prompt, so the answer is grounded in a source you control and can cite. It matters because it is the dominant production pattern in Indian enterprise AI work: almost every internal assistant, document Q&A system and support bot being built in Pune is a RAG system. This course gives it two full modules — one to build the pipeline and one to measure and repair it, because a first RAG build almost always works on the demo question and fails on the real ones.",
+    },
+    {
+      question: "Should I learn Generative AI before Agentic AI?",
+      answer:
+        "Yes. Agentic AI assumes you already have LLM fundamentals, prompting, structured outputs, embeddings, RAG and evaluation — an agent is those parts arranged in a loop with tools attached. Start here, then move to Agentic AI to learn how an application uses tools, holds state and completes multi-step tasks. The two courses were built to run in that sequence, and this one closes on agents and tool use precisely so the handover is continuous.",
+    },
+    {
+      question: "Is prompt engineering enough on its own, or do I need the full course?",
+      answer:
+        "Prompt engineering is one module of eighteen here, and on its own it is not a professional AI qualification. Writing a good prompt is a genuine skill and we teach it properly — with templates, evaluation against test cases and versioning — but production AI work also requires APIs and error handling, structured outputs, embeddings and retrieval, RAG and its evaluation, cost control, security against prompt injection, and deployment with monitoring. If you specifically want the prompting skill for non-engineering work, our shorter Prompt Engineering course is the right fit and is honestly scoped as that.",
+    },
+    {
+      question: "What should I learn after the Generative AI course?",
+      answer:
+        "The natural progression is Agentic AI — tool calling, agent state and memory, multi-agent systems, guardrails and production agent engineering — which is the course directly above this one in the same track. Beyond that, the syllabus names five paths and you pick by the job you want: AI application development with FastAPI or Node, Java with Spring AI and pgvector for enterprise teams, agentic development with LangGraph and CrewAI, AI automation with n8n or Make for process work, or AI security and governance following the OWASP LLM Top 10 and the NIST AI Risk Management Framework.",
+    },
+    {
+      question: "Can I download the full Generative AI syllabus before enrolling?",
+      answer:
+        "Yes. The complete twelve-part syllabus is available as a 5-page PDF from the download block on this page — every part in teaching order, both prerequisite tracks written separately for non-coding and technical learners, the industry-readiness sections on product thinking, cost management, evaluation, guardrails and deployment, and the six capstone projects. Everything in the PDF is also on this page as text; the PDF is the portable copy for reading offline or forwarding to whoever approves the training budget.",
     },
   ],
 
