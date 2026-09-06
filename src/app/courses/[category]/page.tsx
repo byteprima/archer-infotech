@@ -1,12 +1,12 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight, Clock, BarChart, Briefcase, IndianRupee } from "lucide-react";
+import { ArrowRight, Clock, BarChart, Briefcase, IndianRupee, CheckCircle2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { CourseImagePlaceholder } from "@/components/courses/course-image-placeholder";
 import { BreadcrumbJsonLd, CategoryCollectionJsonLd } from "@/components/seo/json-ld";
-import { categories, courses, getCategory } from "@/data/courses";
+import { categories, courses, getCategory, type Course } from "@/data/courses";
 import { buildPageMetadata } from "@/lib/seo";
 import { getCategoryContent } from "@/data/category-content";
 import { FaqSection } from "@/components/seo/faq-section";
@@ -41,6 +41,55 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
       `Explore ${category.name} courses at Archer Infotech, Pune — classroom and online batches, expert trainers, and placement assistance. ${category.description ?? ""}`.trim(),
     path: `/courses/${categorySlug}`,
   });
+}
+
+/**
+ * One course tile. Extracted so the grouped and ungrouped grids render
+ * identical cards — previously the markup lived inline in a single map, and
+ * adding a second grid would have meant duplicating forty lines of JSX.
+ */
+function CourseCard({ course }: { course: Course }) {
+  const href =
+    course.categorySlug === "bootcamps"
+      ? `/bootcamps/${course.slug.replace("-bootcamp", "")}`
+      : `/courses/${course.categorySlug}/${course.slug}`;
+  return (
+    <Link href={href} className="block h-full">
+      <Card className="group overflow-hidden hover:shadow-lg transition-all hover:border-primary/20 h-full flex flex-col cursor-pointer">
+        <CardHeader className="p-0 flex-shrink-0">
+          <div className="relative h-40 bg-gradient-to-br from-primary/10 to-primary/5 overflow-hidden">
+            <CourseImagePlaceholder course={course} />
+            {course.isPopular && (
+              <Badge className="absolute top-3 right-3 bg-secondary text-secondary-foreground z-10">
+                Popular
+              </Badge>
+            )}
+          </div>
+        </CardHeader>
+        <CardContent className="p-5 flex-grow flex flex-col">
+          <h3 className="font-semibold text-lg mb-2 group-hover:text-primary transition-colors">
+            {course.title}
+          </h3>
+          <p className="text-muted-foreground text-sm line-clamp-2 mb-3">
+            {course.shortDescription}
+          </p>
+          <div className="flex items-center gap-4 text-sm text-muted-foreground mt-auto">
+            <div className="flex items-center gap-1">
+              <Clock className="h-4 w-4" /> {course.duration}
+            </div>
+            <div className="flex items-center gap-1">
+              <BarChart className="h-4 w-4" /> {course.level}
+            </div>
+          </div>
+        </CardContent>
+        <CardFooter className="px-5 pb-5 pt-4 border-t-0 bg-transparent flex-shrink-0 mt-auto">
+          <span className="w-full inline-flex items-center justify-center h-10 px-4 py-2 rounded-md border border-input bg-background text-sm font-medium group-hover:bg-accent group-hover:text-accent-foreground group-hover:border-accent transition-colors">
+            View Details <ArrowRight className="ml-2 h-4 w-4" />
+          </span>
+        </CardFooter>
+      </Card>
+    </Link>
+  );
 }
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
@@ -87,6 +136,29 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   // minimal layout when not configured (e.g. bootcamps category).
   // P4-11.
   const rich = getCategoryContent(categorySlug);
+
+  /**
+   * Resolve declared groups to real courses. Anything in the category that no
+   * group names still renders, in a trailing "More courses" group — so adding
+   * a course to the data file can never silently drop it off the page.
+   */
+  const courseGroups = (() => {
+    if (!rich?.courseGroups?.length) return null;
+    const bySlug = new Map(categoryCourses.map((c) => [c.slug, c]));
+    const claimed = new Set<string>();
+    const groups = rich.courseGroups.map((g) => {
+      const courses = g.slugs
+        .map((slug) => bySlug.get(slug))
+        .filter((c) => c !== undefined);
+      courses.forEach((c) => claimed.add(c.slug));
+      return { ...g, courses };
+    });
+    const leftover = categoryCourses.filter((c) => !claimed.has(c.slug));
+    if (leftover.length > 0) {
+      groups.push({ heading: "More courses", blurb: undefined, slugs: [], courses: leftover });
+    }
+    return groups.filter((g) => g.courses.length > 0);
+  })();
 
   return (
     <>
@@ -180,6 +252,76 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         </section>
       )}
 
+      {/* Structured sections — question-shaped H2s with a lead answer, an
+          optional list and an optional diagram. Separate from `paragraphs`
+          above because answer engines lift a heading plus its first sentence,
+          which a flat prose run cannot express. */}
+      {rich?.sections?.length ? (
+        <section className="py-16 border-b">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto space-y-14">
+              {rich.sections.map((sec) => (
+                <div key={sec.id} id={sec.id} className="scroll-mt-24">
+                  <h2 className="text-2xl md:text-3xl font-bold mb-4">
+                    {sec.heading}
+                  </h2>
+                  {sec.lead && (
+                    <p className="text-base md:text-lg text-foreground/90 leading-relaxed mb-4">
+                      {sec.lead}
+                    </p>
+                  )}
+                  {sec.body?.map((para, i) => (
+                    <p
+                      key={i}
+                      className="text-base md:text-lg text-muted-foreground leading-relaxed mb-4"
+                    >
+                      {para}
+                    </p>
+                  ))}
+                  {sec.bullets && sec.bullets.length > 0 && (
+                    <ul className="mt-4 grid gap-2 sm:grid-cols-2">
+                      {sec.bullets.map((b, i) => (
+                        <li
+                          key={i}
+                          className="flex items-start gap-2 text-base text-muted-foreground"
+                        >
+                          <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-primary" />
+                          <span>{b}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  {sec.figure && (
+                    <figure className="mt-6">
+                      <picture>
+                        <source
+                          srcSet={sec.figure.src.replace(/\.webp$/, ".avif")}
+                          type="image/avif"
+                        />
+                        <img
+                          src={sec.figure.src}
+                          alt={sec.figure.alt}
+                          width={sec.figure.width}
+                          height={sec.figure.height}
+                          loading="lazy"
+                          decoding="async"
+                          className="w-full rounded-xl border shadow-sm"
+                        />
+                      </picture>
+                      {sec.figure.caption && (
+                        <figcaption className="mt-3 text-sm text-muted-foreground">
+                          {sec.figure.caption}
+                        </figcaption>
+                      )}
+                    </figure>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
+
       <section className="py-12">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between mb-8">
@@ -194,51 +336,34 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {categoryCourses.map((course) => {
-              const href =
-                course.categorySlug === "bootcamps"
-                  ? `/bootcamps/${course.slug.replace("-bootcamp", "")}`
-                  : `/courses/${course.categorySlug}/${course.slug}`;
-              return (
-                <Link key={course.id} href={href} className="block h-full">
-                  <Card className="group overflow-hidden hover:shadow-lg transition-all hover:border-primary/20 h-full flex flex-col cursor-pointer">
-                    <CardHeader className="p-0 flex-shrink-0">
-                      <div className="relative h-40 bg-gradient-to-br from-primary/10 to-primary/5 overflow-hidden">
-                        <CourseImagePlaceholder course={course} />
-                        {course.isPopular && (
-                          <Badge className="absolute top-3 right-3 bg-secondary text-secondary-foreground z-10">
-                            Popular
-                          </Badge>
-                        )}
-                      </div>
-                    </CardHeader>
-                    <CardContent className="p-5 flex-grow flex flex-col">
-                      <h3 className="font-semibold text-lg mb-2 group-hover:text-primary transition-colors">
-                        {course.title}
-                      </h3>
-                      <p className="text-muted-foreground text-sm line-clamp-2 mb-3">
-                        {course.shortDescription}
-                      </p>
-                      <div className="flex items-center gap-4 text-sm text-muted-foreground mt-auto">
-                        <div className="flex items-center gap-1">
-                          <Clock className="h-4 w-4" /> {course.duration}
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <BarChart className="h-4 w-4" /> {course.level}
-                        </div>
-                      </div>
-                    </CardContent>
-                    <CardFooter className="px-5 pb-5 pt-4 border-t-0 bg-transparent flex-shrink-0 mt-auto">
-                      <span className="w-full inline-flex items-center justify-center h-10 px-4 py-2 rounded-md border border-input bg-background text-sm font-medium group-hover:bg-accent group-hover:text-accent-foreground group-hover:border-accent transition-colors">
-                        View Details <ArrowRight className="ml-2 h-4 w-4" />
-                      </span>
-                    </CardFooter>
-                  </Card>
-                </Link>
-              );
-            })}
-          </div>
+          {/* Grouped when the category declares courseGroups, otherwise one
+              flat grid. Both paths render the same <CourseCard>, so the two
+              layouts cannot drift apart. */}
+          {courseGroups ? (
+            <div className="space-y-12">
+              {courseGroups.map((group) => (
+                <div key={group.heading}>
+                  <h3 className="text-xl font-bold mb-1">{group.heading}</h3>
+                  {group.blurb && (
+                    <p className="text-muted-foreground mb-6 max-w-3xl">
+                      {group.blurb}
+                    </p>
+                  )}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    {group.courses.map((course) => (
+                      <CourseCard key={course.id} course={course} />
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {categoryCourses.map((course) => (
+                <CourseCard key={course.id} course={course} />
+              ))}
+            </div>
+          )}
         </div>
       </section>
 

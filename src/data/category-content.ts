@@ -59,6 +59,61 @@ export interface CategoryContent {
   careerOutcomes: CategoryCareerRole[];
   /** Category-level FAQs (5+ required by spec). */
   faqs: FaqItem[];
+  /**
+   * Optional structured sections rendered below the overview prose.
+   *
+   * `paragraphs` above is a flat run of <p> with a single H2, which is fine
+   * for a short overview but cannot express "question heading, direct answer,
+   * supporting list, diagram" — the shape answer engines and AI summarisers
+   * actually extract. Each section gets its own H2 with a stable anchor id,
+   * an optional lead answer, optional bullets, and an optional figure.
+   *
+   * Optional so the eleven categories that do not use it are untouched.
+   */
+  sections?: CategorySection[];
+  /**
+   * Optional grouping for the course grid.
+   *
+   * By default every course in a category renders as one flat grid, which is
+   * right when the courses are peers. It is wrong when some are a sequential
+   * engineering track and the rest are shorter standalone courses — a reader
+   * cannot tell from a flat grid that two of the five build on each other and
+   * the other three do not.
+   *
+   * Slugs are listed explicitly so the order is editorial rather than
+   * whatever the data file happens to be sorted by. Any course in the
+   * category not named in a group still renders, in a trailing group, so
+   * adding a course can never silently hide it.
+   */
+  courseGroups?: Array<{
+    heading: string;
+    blurb?: string;
+    slugs: string[];
+  }>;
+}
+
+export interface CategorySection {
+  /** Anchor id — also the deep-link target, so keep it stable. */
+  id: string;
+  /** Rendered as an H2. Phrase as the question a reader would ask. */
+  heading: string;
+  /**
+   * First paragraph. Write it as a complete, self-contained answer to the
+   * heading — this is the sentence an AI summary or featured snippet lifts.
+   */
+  lead?: string;
+  /** Supporting paragraphs after the lead. */
+  body?: string[];
+  /** Extractable list — answer engines favour these over prose runs. */
+  bullets?: string[];
+  /** Optional diagram. Dimensions are required to avoid layout shift. */
+  figure?: {
+    src: string;
+    alt: string;
+    width: number;
+    height: number;
+    caption?: string;
+  };
 }
 
 export const categoryContent: CategoryContent[] = [
@@ -141,6 +196,121 @@ export const categoryContent: CategoryContent[] = [
           "Single-language programming courses range from ₹15,000 to ₹35,000 depending on duration and batch type. Spring Boot, microservices and architectural specialisation tracks sit at the upper end. Every course supports EMI plans and bundles lifetime LMS access, certification and placement assistance.",
       },
     ],
+    sections: [
+      {
+        id: "which-programming-language-first",
+        heading: "Which programming language should you learn first?",
+        lead: "Pick the one your target job uses, then learn it properly before adding a second. Java has the highest fresher hiring volume across Pune's services majors. Python opens the widest range of destinations, including data and AI. JavaScript is unavoidable if you want to build for the web. C and C++ build the strongest fundamentals. C# is the entry to the Microsoft ecosystem.",
+        body: [
+          "The question beginners actually mean is \"which one gets me hired\", and the honest answer is that all five do — in different places. What loses people a year is not choosing wrongly; it is switching every few weeks, so that six months in they have surface familiarity with four languages and depth in none. A hiring panel can tell the difference within two questions.",
+          "The diagram below maps each language to the work it leads to. Read it as a decision aid rather than a ranking: none of these languages is harder than the others in a way that should affect your choice, and the fundamentals you build in any of them transfer to the rest.",
+        ],
+        figure: {
+          src: "/images/courses/programming-languages-map-v1.webp",
+          alt: "Comparison diagram of the five foundation programming languages taught at Archer Infotech Pune. Java leads to enterprise backend work, Spring Boot and microservices, and services majors and GCC captives, continuing into Java Full Stack. Python leads to backend and APIs, automation, data, machine learning and AI, and product companies, continuing into Data and AI and GenAI courses. JavaScript leads to frontend development, Node.js backend, React and Angular, and startups and SaaS, continuing into MERN, MEAN and Modern Web. C and C plus plus lead to systems and embedded work, performance-critical code and competitive programming. C sharp and .NET lead to ASP.NET Core backend, enterprise applications and Azure-oriented work at GCC captives, continuing into .NET Full Stack.",
+          width: 1500,
+          height: 556,
+          caption:
+            "Each foundation language and the work it leads to. Learn one properly before adding a second — every specialisation assumes fluency in the language beneath it.",
+        },
+      },
+      {
+        id: "what-a-programming-course-covers",
+        heading: "What does a programming course actually teach?",
+        lead: "The language syntax is the smallest part. A programming course teaches you to break a problem into steps, choose the right data structure, handle what goes wrong, read code you did not write, and debug something that is failing for a reason you cannot see — which is what the job is.",
+        body: [
+          "Syntax you could learn from documentation in a fortnight. What takes a course, and a trainer who reviews your code, is the judgement layer: why this loop instead of that one, why this exception is caught here and not there, why the working solution is still the wrong solution. That is also what interviews test, which is why candidates who learned only syntax stall at the first follow-up question.",
+        ],
+        bullets: [
+          "Variables, data types, operators and control flow",
+          "Functions, scope and parameter passing",
+          "Collections and the data structures each language provides",
+          "Object-oriented programming — classes, inheritance, interfaces, polymorphism",
+          "Exception handling and defensive coding",
+          "File handling and working with external data",
+          "Debugging — reading a stack trace and isolating a fault",
+          "Clean code, naming and readability as a habit",
+          "Git and GitHub from the first week, not the last",
+          "Problem solving and the logic that survives a language change",
+        ],
+      },
+      {
+        id: "how-long-to-become-job-ready",
+        heading: "How long does it take to become job-ready?",
+        lead: "Six to eight weeks of consistent work gets you fluent in one language. Becoming employable takes a further specialisation — a framework, a stack or a platform — plus two or three projects you can defend in an interview. Courses here run six weeks to three months depending on the language.",
+        body: [
+          "The variable is not the course length; it is practice between sessions. A learner writing code four evenings a week reaches a very different place in two months than one who watches recordings and never opens an editor. Trainers here set assignments precisely so that gap becomes visible early enough to correct.",
+          "Working professionals commonly take the weekend or live-online format and stretch the same syllabus across a longer calendar. That works well — the sequence matters more than the pace.",
+        ],
+      },
+      {
+        id: "after-your-first-language",
+        heading: "What comes after your first language?",
+        lead: "A specialisation. A language on its own is rarely the job description — what employers hire for is a language plus a framework, a stack, or a platform, and the natural next step is decided by which language you learned.",
+        body: [
+          "This is the point where the language you chose starts to matter, because the specialisations open in different directions. It is also where the earlier advice pays off: learners who went deep on one language move into a framework comfortably, while learners who sampled several find every framework confusing for the same reason.",
+        ],
+        bullets: [
+          "Java → Spring Boot and microservices, then Java Full Stack",
+          "Python → Data Analytics, Data Science, Machine Learning, or Python Full Stack",
+          "JavaScript → React or Angular, Node.js, then MERN or MEAN",
+          "C# / .NET → ASP.NET Core and .NET Full Stack",
+          "C / C++ → systems, embedded, or a strong base for anything else",
+          "Any of them → databases, Git, testing, cloud deployment — the shared engineering layer",
+        ],
+      },
+      {
+        id: "who-can-learn-programming",
+        heading: "Who can learn programming?",
+        lead: "Anyone prepared to practise between classes. Programming classes at Archer Infotech take engineering and computer-science students, non-IT graduates changing field, working professionals adding a language, and complete beginners who have never written a line of code.",
+        body: [
+          "Non-IT graduates are the group most likely to talk themselves out of it and least likely to actually struggle. Programming rewards patience and systematic thinking far more than it rewards a computer-science degree, and a commerce or mechanical graduate who does the assignments will out-perform an IT graduate who does not. What genuinely does not work is enrolling and treating it as a lecture series.",
+        ],
+        bullets: [
+          "Engineering, BCA, MCA, BSc and MSc Computer Science students",
+          "Non-IT graduates moving into software",
+          "Freshers preparing for campus and off-campus hiring drives",
+          "Working professionals adding a second language",
+          "Testers, support engineers and analysts moving toward development",
+          "School leavers exploring a technology career before a degree specialisation",
+        ],
+      },
+      {
+        id: "programming-practice-and-projects",
+        heading: "What should you build while learning?",
+        lead: "Small, finished programs — then one application that uses a database. A reviewer is checking whether your code runs, whether you can explain a decision inside it, and whether the repository has a README. Originality of the idea counts for almost nothing.",
+        bullets: [
+          "Daily exercises on logic, strings, arrays and collections",
+          "A console application with file input and output",
+          "An object-oriented model of something real — library, bank account, inventory",
+          "A program that reads and writes to a database",
+          "A small command-line tool you actually use",
+          "Every one of them committed to GitHub with a README",
+        ],
+      },
+    ],
+
+    courseGroups: [
+      {
+        heading: "Start here — your first language",
+        blurb:
+          "Foundation courses that assume no prior programming experience. Pick one based on where you want to end up, learn it properly, and only then add a second.",
+        slugs: [
+          "java-training-in-pune",
+          "python-training-in-pune",
+          "javascript-training-in-pune",
+          "c-training-in-pune",
+          "cpp-training-in-pune",
+          "dotnet-csharp-training-in-pune",
+        ],
+      },
+      {
+        heading: "Next step — framework specialisation",
+        blurb:
+          "Builds on a language you already know. This is the layer that turns \"I can write Java\" into a job description Pune companies are actually hiring for.",
+        slugs: ["spring-boot-microservices-training-in-pune"],
+      },
+    ],
   },
 
   // ============================================================
@@ -148,12 +318,12 @@ export const categoryContent: CategoryContent[] = [
   // ============================================================
   {
     slug: "full-stack-development",
-    metaTitle: "Full Stack Courses in Pune — Java, MERN, Python, .NET",
-    h1: "Full Stack Development Courses in Pune — Java, MERN, Python and .NET Stacks",
+    metaTitle: "Full Stack Courses Pune — Java, MERN, MEAN, Python, .NET",
+    h1: "Full Stack Development Courses in Pune — Java, MERN, MEAN, Python and .NET Stacks",
     subhead:
-      "Build complete production web applications end-to-end at Pune's most-trusted full-stack institute — Java Full Stack, MERN, Python Full Stack and .NET Full Stack tracks with placement assistance.",
+      "Build complete production web applications end-to-end at Pune's most-trusted full-stack institute — Java Full Stack, MERN, MEAN, Python Full Stack and .NET Full Stack tracks with placement assistance.",
     paragraphs: [
-      "Full Stack Development is now the most-hired engineering pattern at Pune MNCs and product startups. The shift has been steady since 2018: companies prefer engineers who can ship a feature end-to-end — backend service, data layer, frontend, and deployment — rather than handing off between specialised teams. Archer Infotech's Full Stack courses in Pune are built around the four production-grade stacks Pune actually hires for: Java Full Stack (Spring Boot + database + React/Angular), MERN Stack (MongoDB + Express + React + Node.js), Python Full Stack (Django + REST + React), and .NET Full Stack (ASP.NET Core + C# + Angular).",
+      "Full Stack Development is now the most-hired engineering pattern at Pune MNCs and product startups. The shift has been steady since 2018: companies prefer engineers who can ship a feature end-to-end — backend service, data layer, frontend, and deployment — rather than handing off between specialised teams. Archer Infotech teaches five production-grade paths rather than pushing every learner through one, because different organisations standardise on different technology ecosystems. Whichever you pick, the architecture underneath is the same one described below; what changes is the language and framework you write each tier in.",
       "The hiring picture in Pune is concrete. Java Full Stack is the highest-volume hiring pattern across services majors and GCC captives — TCS, Infosys, Persistent Systems, Tech Mahindra and Capgemini all run dedicated Java Full Stack fresher pipelines through Pune. MERN is the dominant pattern at product startups and modern engineering firms across Hinjewadi, Wakad, Baner and Kharadi. Python Full Stack picks up roles at product companies and AI-adjacent firms where Django backends pair with ML pipelines. .NET Full Stack opens GCC captive engagements with Microsoft-aligned enterprises. Knowing one stack deeply and being able to read the others is the realistic 2026 graduate target.",
       "Every full-stack course at Archer Infotech is taught by a working trainer who still ships production code. Yogesh Patil (founder, 15+ years at Persistent Systems and Wipro) leads Java Full Stack architecture sessions; Ankita Hartale runs the day-to-day Java FS delivery with 5+ years of Java + database production experience; Amol Chougule owns the MERN / React / Angular tracks (5+ years front-end and mobile); Suraj Kudache leads .NET Full Stack with 7+ years of C# / ASP.NET at Pune product companies. The full-stack curriculum is refreshed every six months against the framework versions, hiring patterns and interview questions you'll actually face — last reviewed 2026-05-06 with the Pillar 1 long-form rewrite.",
       "Full-stack classes at Archer Infotech's Kothrud institute run 5–6 months at standard pace covering the complete stack: language fundamentals, framework deep-dive, database design, REST APIs, frontend integration, authentication, deployment, and testing. Every course closes with a capstone project — a deployed full-stack app you'll demo in placement interviews — built and reviewed under the trainer team. Weekday, weekend and live online batches run the same curriculum; lifetime LMS access keeps recordings and project rubrics available for revision long after the course ends.",
@@ -221,6 +391,205 @@ export const categoryContent: CategoryContent[] = [
         question: "What is the fee range for full-stack courses?",
         answer:
           "Flagship full-stack courses at Archer Infotech range from ₹35,000 to ₹90,000 depending on stack, duration and batch type. Java Full Stack and MERN sit at the upper end of the range; specialised single-track variants start lower. Every course supports EMI plans and bundles lifetime LMS access, certification, and placement assistance.",
+      },
+      {
+        question: "What is the difference between MEAN and MERN stack?",
+        answer:
+          "Both use MongoDB for the database, Express.js for the web layer and Node.js for the runtime. The only substantial difference is the frontend framework: MEAN uses Angular, MERN uses React. Angular is more opinionated and arrives with routing, forms, HTTP and dependency injection built in, which suits structured enterprise applications and larger teams. React is a library rather than a framework and leaves those choices to you, which suits product and startup work. Both are taught at Archer Infotech and neither is harder than the other.",
+      },
+      {
+        question: "Which is better — Java Full Stack or MERN Stack?",
+        answer:
+          "They target different ecosystems rather than different skill levels. Java Full Stack is associated with Spring-based enterprise applications and has the highest fresher hiring volume across Pune services majors and GCC captives. MERN uses JavaScript throughout — React, Node.js, Express and MongoDB — and dominates at product startups, SaaS firms and modern engineering teams. Choose by the kind of company you want to work at, not by which is supposedly stronger.",
+      },
+      {
+        question: "Which is better — Python Full Stack or Java Full Stack?",
+        answer:
+          "Python has a lighter syntax and a shorter path to a working application, and it connects naturally to automation, data and AI work — useful if you may want to move toward those later. Java has a mature enterprise ecosystem, Spring Boot as the dominant backend framework, and the largest volume of Pune fresher openings. Both are strong career paths; the honest deciding factor is which ecosystem the companies you want to join actually run.",
+      },
+      {
+        question: "Does a full stack developer need to know DevOps?",
+        answer:
+          "You do not need to be a DevOps engineer, but you do need to understand the ground your application runs on. Git and GitHub, CI/CD pipelines, containers, cloud deployment and the difference between development, staging and production environments are increasingly assumed in developer interviews rather than treated as a specialisation. Every full stack track here covers those fundamentals; the Cloud & DevOps courses go deeper for anyone who wants the specialist path.",
+      },
+      {
+        question: "Is AI going to replace full stack developers?",
+        answer:
+          "AI is changing how developers write, test and debug software rather than removing the need for them. Generating code is one part of software engineering; understanding requirements, architecture, APIs, databases, security, testing and deployment is the larger part, and someone has to be able to tell when generated code is wrong. The developers best positioned right now are the ones who combine strong fundamentals with fluent, reviewed use of AI assistants — which is what these tracks are built to produce.",
+      },
+      {
+        question: "Can I become a full stack developer after graduation?",
+        answer:
+          "Yes, and it is one of the most common entry paths into software development for computer science, IT and engineering graduates in Pune. A degree gives you programming logic and computer-science fundamentals; a full stack course adds the frameworks, databases, APIs, version control, testing and deployment practice that hiring panels test for, plus a deployed capstone project and a GitHub portfolio to show them.",
+      },
+    ],
+    sections: [
+      {
+        id: "what-is-full-stack-development",
+        heading: "What is full stack development?",
+        lead: "Full stack development is building both halves of a software application — the frontend a user sees and the backend that makes it work — along with the database, APIs, tests and deployment that connect them. A full stack developer can follow a single feature from the screen through the API and business logic down to the database row and back out to production.",
+        body: [
+          "Almost every web application in production is arranged in three tiers, and the diagram below is the shape you will build against in whichever stack you choose. The presentation tier is what users see and interact with — HTML, CSS, JavaScript or TypeScript, and a framework such as React, Angular or Vue. The application tier holds business logic, authentication, processing and the APIs the frontend calls; this is where Java with Spring Boot, Node.js with Express, Python with FastAPI or Django, or C# with .NET does its work. The data tier stores and retrieves everything, whether that is MySQL, PostgreSQL, SQL Server, MongoDB or Redis.",
+          "Underneath all three sits the operational layer that decides whether your application ever reaches a user: Git and GitHub, testing, Docker, CI/CD pipelines, cloud hosting, monitoring, and — increasingly — AI coding assistants. This is why a full stack course is not simply a frontend course bolted onto a backend course. The subject is how the tiers talk to each other, and how a change in one of them ripples into the others.",
+        ],
+        figure: {
+          src: "/images/courses/three-tier-architecture-v1.webp",
+          alt: "Three-tier application architecture diagram: a presentation tier built with HTML, CSS, JavaScript, TypeScript, React, Angular or Vue for the user interface; an application tier holding APIs, business logic, authentication and processing using Java with Spring Boot, Node.js with Express, Python with FastAPI or Django, or C# with .NET; and a data tier for persistent storage, caching and retrieval using MySQL, PostgreSQL, MongoDB, SQL Server or Redis. Beneath them a DevOps band shows code moving from a development environment through a staging environment for QA and UAT to a production environment with live deployment, monitoring and scaling.",
+          width: 1448,
+          height: 1086,
+          caption:
+            "The three-tier architecture every stack on this page implements — presentation, application and data — plus the DevOps path that carries a change from development through staging to production.",
+        },
+      },
+      {
+        id: "why-learn-full-stack-development",
+        heading: "Why learn full stack development?",
+        lead: "Because employers hire for the ability to ship a feature end to end, not for one layer of it. Learning full stack gives you the whole software development lifecycle rather than a slice of it, which is what makes a junior developer useful on a small team and promotable on a large one.",
+        body: [
+          "The practical advantage shows up in interviews. A candidate who can only describe their own layer stalls the moment a panel asks how the data got there or what happens on deployment. A candidate who can trace a request from a button click through the API, into the database and back — and explain what they would check when it fails — answers a question the panel did not have to ask.",
+        ],
+        bullets: [
+          "Frontend web development — responsive, interactive user interfaces",
+          "Backend application development and business logic",
+          "Database design, querying and management",
+          "REST API development and integration",
+          "Authentication, authorisation and application security",
+          "Git and GitHub as professional source control",
+          "Application testing — unit, API and integration",
+          "Cloud deployment and application hosting",
+          "DevOps fundamentals and CI/CD concepts",
+          "Software architecture and how components interact",
+          "AI-assisted software development",
+          "Debugging and performance optimisation",
+          "End-to-end application development, start to finish",
+        ],
+      },
+      {
+        id: "choose-your-full-stack-course",
+        heading: "Which full stack course should you choose — Java, Python, .NET, MERN or MEAN?",
+        lead: "There is no single best stack. The five paths differ in backend language and frontend framework rather than in difficulty, and the right one is decided by the technology ecosystem you want to work in — enterprise Java, Microsoft, Python and AI, or JavaScript product engineering.",
+        body: [
+          "Different organisations standardise on different stacks, so Archer Infotech teaches five rather than pushing everyone through one. What stays the same across all five is the architecture in the diagram above: every path builds a presentation tier, an application tier and a data tier, and covers APIs, Git, testing and deployment. What changes is the language and framework you write each tier in.",
+          "If you are genuinely unsure, the fastest way to decide is a conversation rather than a comparison table — bring your background and the kind of company you want to work at to a counselling session or a free demo class, and the trainer team will shortlist against that instead of against a trend.",
+        ],
+        bullets: [
+          "Java Full Stack — Java and Spring Boot backend, React or Angular frontend, SQL or NoSQL. Choose it for enterprise applications and the highest fresher hiring volume in Pune.",
+          "Python Full Stack — Python with Django or FastAPI, React or JavaScript frontend, SQL or NoSQL. Choose it for web applications, APIs, automation and AI-integrated work.",
+          ".NET Full Stack — C# and ASP.NET Core, Angular or React frontend, SQL Server. Choose it for the Microsoft ecosystem and Azure-oriented enterprise software.",
+          "MERN Stack — Node.js and Express backend, React frontend, MongoDB. Choose it for JavaScript across the whole stack and modern product or SaaS work.",
+          "MEAN Stack — Node.js and Express backend, Angular frontend, MongoDB. Choose it for JavaScript and TypeScript across the stack with Angular's more structured approach.",
+          "MEAN and MERN share MongoDB, Express and Node.js — the only real difference is Angular versus React on the frontend.",
+        ],
+      },
+      {
+        id: "full-stack-learning-roadmap",
+        heading: "In what order should you learn full stack development?",
+        lead: "Programming fundamentals first, then web fundamentals, then a frontend framework, then backend, database, APIs, security, version control, testing, deployment and cloud — with a capstone project at the end. The sequence matters more than the speed, because each step assumes the one before it.",
+        body: [
+          "The most common way beginners stall is starting at a framework. React makes very little sense without JavaScript, Spring Boot makes very little sense without Java, and neither is debuggable without an understanding of how HTTP requests and databases behave. Learners who already program can move through the early steps quickly and spend their time on application development instead.",
+        ],
+        bullets: [
+          "Programming fundamentals — logic, data structures and object-oriented programming",
+          "Web fundamentals — HTML, CSS and JavaScript",
+          "A frontend framework — React or Angular, depending on your stack",
+          "Backend development — Java, Python, .NET or Node.js",
+          "Databases — relational, NoSQL, or both",
+          "REST APIs — developing them and consuming them",
+          "Authentication and security — login, roles and application security fundamentals",
+          "Git and GitHub — professional source-code management",
+          "Testing — frontend, backend and API",
+          "DevOps and deployment — development, staging and production environments",
+          "Cloud — deploying and hosting your application",
+          "AI-assisted development — using modern coding tools responsibly",
+          "Capstone project — everything above, in one complete application",
+        ],
+      },
+      {
+        id: "ai-assisted-full-stack-development",
+        heading: "How is AI changing full stack development?",
+        lead: "AI coding assistants now sit inside the everyday development loop — generating code, explaining unfamiliar codebases, writing tests, drafting queries and reviewing changes. They change how fast a developer works, not what a developer needs to understand.",
+        body: [
+          "Every full stack track at Archer Infotech includes a module on working with AI assistants responsibly, because hiring panels in 2026 ask about it directly. The emphasis is on judgement: reviewing every suggestion, recognising a hallucinated API or a plausible-looking wrong answer, and understanding the licensing and data-privacy questions that come with pasting company code into a third-party tool.",
+          "The objective is not to replace fundamentals. A developer who cannot read the generated code cannot tell when it is wrong, and that is precisely the failure mode interviewers probe for. The developer who benefits most from these tools is the one who already understands architecture, APIs, databases and deployment — which is the developer this track is designed to produce.",
+        ],
+        bullets: [
+          "Understanding unfamiliar code and legacy codebases",
+          "Code generation, refactoring and modernisation",
+          "Debugging — interpreting errors, logs and failing output",
+          "Writing unit tests and improving coverage",
+          "API development and database query drafting",
+          "Documentation and code review support",
+          "Learning a new framework faster",
+          "Reviewing AI output — the judgement that makes the rest safe",
+        ],
+      },
+      {
+        id: "full-stack-projects-and-portfolio",
+        heading: "What projects should a full stack developer build?",
+        lead: "Work up in stages — practice exercises, then mini projects on a single layer, then an API project with a database and authentication, then a full stack application, and finally a capstone that demonstrates the complete workflow. Publish the ones worth showing on GitHub, because Pune recruiters routinely ask for the link.",
+        body: [
+          "A portfolio of five small finished applications beats one ambitious unfinished one. What a reviewer is checking is whether the code runs, whether the repository has a README that explains how to run it, and whether you can talk through a decision you made in it — not whether the idea was original.",
+        ],
+        bullets: [
+          "E-commerce application with catalogue, cart and orders",
+          "Learning management system",
+          "Employee management system",
+          "Recruitment or job portal",
+          "Expense management application",
+          "Appointment booking platform",
+          "Inventory management system",
+          "Customer relationship management application",
+          "Project management application",
+          "An AI-enabled web application",
+        ],
+      },
+      {
+        id: "who-can-join-full-stack-course",
+        heading: "Who can join a full stack development course?",
+        lead: "Students and graduates from BE, BTech, BCA, MCA, BSc and MSc Computer Science backgrounds, freshers targeting a first development role, and working professionals moving into or across software development. No prior programming experience is required if you start with the fundamentals.",
+        body: [
+          "Beginners can absolutely learn full stack development — the condition is sequence, not talent. Anyone without a programming background should complete programming, HTML, CSS and JavaScript fundamentals before touching Spring Boot, Django, ASP.NET Core, React, Angular or Node.js. Learners who already program move through those foundation modules faster and spend their time on application development instead.",
+        ],
+        bullets: [
+          "BE, BTech, BCA, MCA, BSc and MSc Computer Science students",
+          "Recent graduates and freshers targeting software development roles",
+          "Working IT professionals upgrading their technology stack",
+          "Manual testers moving toward development",
+          "Support engineers looking for development roles",
+          "Frontend developers who want backend knowledge, and backend developers who want frontend",
+          "Professionals returning to software development after a break",
+        ],
+      },
+      {
+        id: "future-of-full-stack-development",
+        heading: "Is full stack development still a good career in the age of AI?",
+        lead: "Yes, and the role is widening rather than shrinking. AI tools automate portions of writing code, but requirements, architecture, APIs, databases, security, testing, debugging and deployment still have to be understood by someone — and that someone is the person best placed to use the tools well.",
+        body: [
+          "The direction of travel is full stack plus cloud, DevOps, APIs, security and AI. A developer who understands the complete application lifecycle can adopt AI assistance without losing control of the system, which is why the modern full stack role is evolving into an AI-assisted software engineer who can build, integrate, deploy and maintain complete applications.",
+          "Full stack experience is also the broadest foundation for what comes next. The common progressions from here are cloud engineering, DevOps, microservices and software architecture on one side, and generative AI application development and AI engineering on the other — both of which assume exactly the end-to-end understanding this track builds.",
+        ],
+      },
+    ],
+
+    courseGroups: [
+      {
+        heading: "Enterprise and language-specialised stacks",
+        blurb:
+          "Backend built in Java, Python or C#, with React or Angular on the frontend and a relational database underneath. These are the stacks Pune's services majors, GCC captives and enterprise product teams standardise on.",
+        slugs: [
+          "java-full-stack-training-in-pune",
+          "python-full-stack-training-in-pune",
+          "dotnet-full-stack-training-in-pune",
+        ],
+      },
+      {
+        heading: "JavaScript stacks — MERN and MEAN",
+        blurb:
+          "One language across the whole application. Both use MongoDB, Express and Node.js; the difference is React on the frontend for MERN and Angular for MEAN. Favoured by product startups, SaaS teams and modern engineering firms.",
+        slugs: [
+          "mern-stack-training-in-pune",
+          "mean-stack-training-in-pune",
+        ],
       },
     ],
   },
@@ -298,6 +667,96 @@ export const categoryContent: CategoryContent[] = [
         question: "Will I have a portfolio at the end of the course?",
         answer:
           "Yes. Every Modern Web track is project-led — by week 3 of any course you'll have a deployed application live on Vercel / Render / AWS; by course-end a portfolio of 2–3 production-grade apps with public GitHub repos that recruiters ask for during interviews.",
+      },
+    ],
+    sections: [
+      {
+        id: "what-is-modern-web-development",
+        heading: "What is modern web development?",
+        lead: "Building web applications with a typed language, a component-based frontend framework, a rendering strategy chosen deliberately, an API layer, and a Node.js backend — rather than pages of hand-written DOM manipulation. The five courses in this category are the layers of that one stack.",
+        body: [
+          "The web application a Pune product company ships in 2026 is assembled, not written top to bottom. TypeScript gives the whole codebase types. React or Angular turns the interface into composable components with explicit state. Next.js decides what renders on the server, what renders at build time and what streams to the browser. Node.js runs the server side in the same language. The diagram below is that stack in order.",
+          "This is also why these courses are worth taking as a set rather than in isolation. React without TypeScript is how most people start and how most people get stuck; Node.js without an understanding of the API contract produces a backend the frontend cannot use cleanly.",
+        ],
+        figure: {
+          src: "/images/courses/modern-web-architecture-v1.webp",
+          alt: "Diagram of the modern web stack taught at Archer Infotech Pune, in seven layers: TypeScript as the typed foundation over JavaScript; a component user interface built with React or Angular using state, props and composition; routing and rendering with Next.js covering server-side rendering, static generation, streaming and the app router; an API layer of REST and JSON contracts between client and server; a Node.js backend with Express, middleware, authentication and business logic; a data layer using SQL or MongoDB with queries and schema design; and finally build and deployment covering bundling, environments, hosting and monitoring.",
+          width: 1500,
+          height: 858,
+          caption:
+            "The modern web stack, layer by layer. Each course in this category teaches one or two of these layers in depth.",
+        },
+      },
+      {
+        id: "react-or-angular",
+        heading: "React or Angular — which should you learn?",
+        lead: "React if you are targeting product startups, SaaS companies and the broadest set of Pune openings. Angular if you are targeting enterprise teams, GCC captives and large codebases that benefit from structure. Both are in demand; neither is being replaced by the other.",
+        body: [
+          "The real difference is how much the framework decides for you. React is a library: it renders components and leaves routing, forms, HTTP and state management to you and the ecosystem. That flexibility is why it dominates startup work and why two React codebases can look nothing alike. Angular is a full framework with routing, forms, HTTP, dependency injection and testing already decided, which is why large teams and long-lived enterprise applications favour it.",
+          "For a first framework, React has the gentler entry and the larger volume of Pune listings. For a developer who already works in a structured enterprise environment — or who is heading toward MEAN — Angular is the more direct choice. Learners who go deep on either can read the other within weeks; the concepts are shared even where the syntax is not.",
+        ],
+      },
+      {
+        id: "where-typescript-nextjs-nodejs-fit",
+        heading: "Where do TypeScript, Next.js and Node.js fit?",
+        lead: "TypeScript sits underneath everything, Next.js sits on top of React, and Node.js sits behind both as the server. They are not alternatives to React and Angular — they are the rest of the same stack.",
+        bullets: [
+          "TypeScript — JavaScript with a type system. Now the default in professional React and Angular codebases, and assumed rather than asked about in interviews.",
+          "Next.js — the React framework. Adds routing, server-side rendering, static generation, streaming and API routes to React, which by itself does none of those.",
+          "Node.js — JavaScript on the server. Express, middleware, authentication, REST APIs and the backend half of MERN and MEAN.",
+          "Together with React or Angular, these four cover the whole application: types, interface, rendering and server.",
+        ],
+      },
+      {
+        id: "do-you-need-javascript-first",
+        heading: "Do you need JavaScript before a React or Angular course?",
+        lead: "Yes, and it is the single most common reason learners struggle. React is JavaScript, and a framework cannot be debugged by someone who cannot read the language it is written in.",
+        body: [
+          "The specific things worth having before you start: functions and arrow functions, array methods such as map and filter, destructuring, promises and async/await, modules, and a working understanding of the DOM and how an HTTP request behaves. None of that is exotic, and the JavaScript Programming course in the Programming category covers exactly it.",
+          "Learners who arrive without that background typically get through the first two weeks by copying patterns, then hit the first bug they cannot reason about. Learners who arrive with it spend their time on the framework itself, which is what they enrolled for.",
+        ],
+      },
+      {
+        id: "modern-web-projects",
+        heading: "What will you build?",
+        lead: "Applications, not exercises. Every modern web course here closes with a deployed project that uses real data, real routing and real authentication, published to GitHub — because the Pune interview question is \"show me something you built\", not \"list what you studied\".",
+        bullets: [
+          "A component-driven dashboard with real state management",
+          "A server-rendered application with authentication and protected routes",
+          "A REST API with Express, validation and error handling",
+          "A typed frontend consuming that API end to end",
+          "A deployment, with environment configuration and a live URL",
+        ],
+      },
+      {
+        id: "modern-web-careers",
+        heading: "Where do these courses lead?",
+        lead: "Frontend, backend and full-stack JavaScript roles at Pune product companies, SaaS firms and startups across Hinjewadi, Baner, Kharadi and Magarpatta — and, for anyone who takes the whole stack, directly into the MERN and MEAN full-stack tracks.",
+        body: [
+          "A single course in this category makes you a specialist in one layer, which is a real and hireable position. Taking the stack as a set — TypeScript, a framework, Next.js and Node.js — is what converts into a full-stack JavaScript title and the salary band that comes with it. The Full Stack Development category packages exactly that combination with databases and deployment added.",
+        ],
+      },
+    ],
+
+    courseGroups: [
+      {
+        heading: "Frontend frameworks",
+        blurb:
+          "The interface layer. React and Angular are alternatives — pick one; Next.js builds on top of React rather than competing with it.",
+        slugs: [
+          "react-training-in-pune",
+          "angular-training-in-pune",
+          "nextjs-training-in-pune",
+        ],
+      },
+      {
+        heading: "The language and the server",
+        blurb:
+          "Underneath and behind the frontend. TypeScript types the whole codebase; Node.js runs the backend in the same language you already write.",
+        slugs: [
+          "typescript-training-in-pune",
+          "nodejs-training-in-pune",
+        ],
       },
     ],
   },
@@ -382,6 +841,100 @@ export const categoryContent: CategoryContent[] = [
           "Yes — the majority of Cloud / DevOps cohorts at Archer Infotech are working professionals upskilling alongside full-time jobs. Weekend and evening batches run 4 hours per session; lifetime LMS access covers session recordings and lab walkthroughs for revision around work commitments.",
       },
     ],
+    sections: [
+      {
+        id: "cloud-vs-devops",
+        heading: "What is the difference between cloud and DevOps?",
+        lead: "Cloud is where the application runs — the compute, storage, networking and managed services rented from AWS, Azure or Google Cloud. DevOps is how the application gets there and stays healthy — version control, automated builds and tests, containers, deployment pipelines and monitoring. Most jobs want both, which is why they are taught together here.",
+        body: [
+          "In practice the boundary is blurred and the job titles overlap. A Cloud Engineer who cannot write a pipeline is limited to clicking through a console; a DevOps Engineer who does not understand the cloud platform underneath cannot debug why a deployment failed. The diagram below is the path a change actually takes from a developer's editor to a running production system, and the courses in this category cover it stage by stage.",
+        ],
+        figure: {
+          src: "/images/courses/devops-pipeline-v1.webp",
+          alt: "Seven-stage DevOps pipeline diagram taught at Archer Infotech Pune: Code with Git, branching, pull requests and code review; Build covering compilation, packaging, dependency and artefact management; Test with unit and integration tests and automated quality gates; Containerise with Docker images, registries and reproducible environments; Release through CI/CD pipelines using Jenkins, GitHub Actions or GitLab CI; Deploy to Kubernetes and cloud services on AWS, Azure or Google Cloud; and Operate with monitoring, logging, alerting, scaling and incident response.",
+          width: 1500,
+          height: 858,
+          caption:
+            "How code reaches production. Each stage maps to courses in this category — Docker and Kubernetes to containerise and deploy, DevOps Engineering to release, the cloud platform courses to run and operate.",
+        },
+      },
+      {
+        id: "aws-azure-or-gcp",
+        heading: "AWS, Azure or Google Cloud — which should you learn first?",
+        lead: "AWS for the largest number of openings and the widest transferable vocabulary. Azure if you are targeting enterprise and GCC captives, which in Pune is a substantial share of the market. Google Cloud if you are heading toward data engineering, analytics or machine learning work.",
+        body: [
+          "The reassuring part is that the second platform takes a fraction of the time the first did. The concepts are shared — compute, object storage, virtual networks, identity and access management, managed databases, load balancing — and what changes is naming and console layout. Learn one properly and you can read the other two.",
+          "The mistake worth avoiding is studying all three at once to seem broad. It produces a candidate who recognises every service name and can configure none of them, which an interviewer establishes with a single practical question.",
+        ],
+      },
+      {
+        id: "do-you-need-coding-for-devops",
+        heading: "Do you need to be a programmer for a DevOps role?",
+        lead: "You need to be comfortable with code, not to be a developer. Scripting — Python or shell — is genuinely required, because automation is the entire point of the discipline. Application development is not.",
+        body: [
+          "What the work actually asks of you: read a script and understand what it does, write one that automates a repetitive task, work confidently on a Linux command line, read YAML without flinching, and use Git properly. Configuration as code — Terraform, Kubernetes manifests, pipeline definitions — is declarative rather than algorithmic, which is why people from support, system administration and testing backgrounds move into DevOps successfully all the time.",
+        ],
+      },
+      {
+        id: "cloud-devops-learning-order",
+        heading: "In what order should you learn cloud and DevOps?",
+        lead: "Linux and Git first, then one cloud platform, then containers, then orchestration, then pipelines and infrastructure as code. Every stage assumes the previous one — Kubernetes in particular is unlearnable without Docker.",
+        bullets: [
+          "Linux command line and shell scripting — the ground everything else stands on",
+          "Git and GitHub — branching, merging, pull requests",
+          "One cloud platform — compute, storage, networking, identity, managed databases",
+          "Docker — images, containers, registries, Compose",
+          "Kubernetes — pods, deployments, services, ingress, scaling",
+          "CI/CD — Jenkins, GitHub Actions or GitLab CI",
+          "Infrastructure as code — Terraform and configuration management",
+          "Monitoring and observability — logs, metrics, alerting, incident response",
+        ],
+      },
+      {
+        id: "cloud-devops-projects",
+        heading: "What proves cloud and DevOps skill to an employer?",
+        lead: "A running system, not a certificate. The strongest artefact you can bring to a Pune interview is a deployed application with a pipeline that built it, a container that packaged it, and monitoring that watches it — with a repository that shows how.",
+        bullets: [
+          "An application containerised with Docker and pushed to a registry",
+          "A CI/CD pipeline that builds, tests and deploys on every commit",
+          "A Kubernetes deployment with services, ingress and autoscaling",
+          "Cloud infrastructure defined in Terraform and version-controlled",
+          "A monitoring dashboard with meaningful alerts",
+          "A written incident note — what broke, how you found it, what you changed",
+        ],
+      },
+      {
+        id: "cloud-devops-careers",
+        heading: "Where do cloud and DevOps roles lead?",
+        lead: "Cloud Engineer and DevOps Engineer are the entry titles; Site Reliability Engineer, Platform Engineer and Cloud Architect are where the path goes. It is one of the few technology tracks where operational experience compounds directly into seniority.",
+        body: [
+          "Pune's demand comes from both directions: services majors and GCC captives modernising legacy estates onto AWS and Azure, and product companies that need someone to own their deployment and reliability. Both hire, and both increasingly treat cloud and DevOps literacy as expected of senior developers too — which is why developers take these courses as often as specialists do.",
+        ],
+      },
+    ],
+
+    courseGroups: [
+      {
+        heading: "Cloud platforms",
+        blurb:
+          "Where the application runs. Learn one properly — the concepts transfer, and the second platform takes a fraction of the time the first did.",
+        slugs: [
+          "aws-training-in-pune",
+          "azure-training-in-pune",
+          "google-cloud-training-in-pune",
+        ],
+      },
+      {
+        heading: "DevOps toolchain",
+        blurb:
+          "How code reaches the platform and stays healthy. Docker before Kubernetes — orchestration makes very little sense without containers underneath it.",
+        slugs: [
+          "devops-training-in-pune",
+          "docker-training-in-pune",
+          "kubernetes-training-in-pune",
+        ],
+      },
+    ],
   },
 
   // ============================================================
@@ -458,6 +1011,70 @@ export const categoryContent: CategoryContent[] = [
           "First-attempt pass rates across associate-tier certifications consistently sit in the 80–90% range across cohorts who complete the mock-test gate (institute internal records). Learners who skip the mock-test phase have notably lower pass rates — the gate exists for that reason. Retake support is included if needed.",
       },
     ],
+    sections: [
+      {
+        id: "which-cloud-certification-first",
+        heading: "Which cloud certification should you start with?",
+        lead: "An associate-level certification on the platform your target employers use — AWS Solutions Architect Associate, Azure Administrator AZ-104, or Google Cloud Associate Cloud Engineer. Skip the foundational tier unless you are entirely new to cloud; it rarely changes a hiring decision on its own.",
+        body: [
+          "Every vendor runs the same shape of ladder: a foundational exam that proves you know the vocabulary, associate exams that prove you can build and operate, and professional or specialty exams that assume years of production experience. The associate tier is where hiring value concentrates, which is why all three courses in this category sit there.",
+          "Choose by employer rather than by preference. Pune's services majors and GCC captives skew Azure; product companies and startups skew AWS; data and analytics teams skew Google Cloud. If you have no specific target yet, AWS has the largest number of listings and the most transferable vocabulary.",
+        ],
+        figure: {
+          src: "/images/courses/cloud-certification-ladder-v1.webp",
+          alt: "Cloud certification ladder diagram comparing three vendors as taught at Archer Infotech Pune. AWS runs from Cloud Practitioner at entry level through Solutions Architect Associate, Developer and SysOps Associate, Architect Professional and specialty tracks, with Solutions Architect taught here. Microsoft Azure runs from AZ-900 Fundamentals through AZ-104 Administrator, AZ-204 Developer, AZ-305 Solutions Architect and security and data specialties, with AZ-104 Administrator taught here. Google Cloud runs from Cloud Digital Leader through Associate Cloud Engineer, Professional Cloud Architect, Data Engineer and Machine Learning Engineer, with Associate Cloud Engineer taught here.",
+          width: 1500,
+          height: 586,
+          caption:
+            "Where each certification sits on its vendor's ladder. The three taught here are all associate-tier — the level at which certifications actually move hiring decisions.",
+        },
+      },
+      {
+        id: "what-a-cloud-certification-is-worth",
+        heading: "What is a cloud certification actually worth?",
+        lead: "It reliably gets your CV read and it satisfies a filter that many Pune employers and staffing partners genuinely apply. It does not, on its own, prove you can build anything — and interviewers know that, which is why the certification opens the conversation rather than ending it.",
+        body: [
+          "The honest framing is that a certification is a credential, not a capability. Its value is real but narrow: it signals that you have covered the platform's services systematically, it is a required tick for many partner and vendor engagements, and it distinguishes you in a stack of otherwise similar CVs. What converts it into an offer is being able to answer the follow-up question about something you actually built.",
+          "This is why every course here pairs exam preparation with hands-on lab work on real cloud accounts. Preparing purely through practice questions produces a pass and a candidate who freezes at a whiteboard.",
+        ],
+      },
+      {
+        id: "certification-or-hands-on-skill",
+        heading: "Certification or hands-on experience — which matters more?",
+        lead: "Experience wins every time an interviewer can see it. The certification's job is to get you into the room where you can show it. The strongest position is both: the credential on the CV, and a deployed project with a repository behind it.",
+        body: [
+          "A candidate with a certification and nothing built struggles the moment questions turn practical. A candidate with a deployed, monitored application and no certification often never gets screened in. Neither on its own is a strategy; the pairing is, and it takes less time than most people assume because the lab work that prepares you for the exam is the same work that becomes the project.",
+        ],
+      },
+      {
+        id: "how-cloud-exams-work",
+        heading: "How do the exams actually work?",
+        lead: "Multiple choice and multiple response, scenario-based rather than recall-based, taken either at a test centre or online under remote proctoring, with a provisional result on screen at the end. The certification fee is paid to the vendor and is separate from any course fee.",
+        bullets: [
+          "Scenario questions — you are given a requirement and asked which architecture meets it",
+          "Roughly two hours; question count varies by vendor and exam",
+          "Booked directly with AWS, Microsoft or Google through their own portals",
+          "Online proctoring requires a quiet room, a webcam and a clear desk",
+          "Provisional pass or fail shown immediately; formal result follows",
+          "Certifications expire — typically after two to three years — and are renewed",
+        ],
+      },
+      {
+        id: "who-should-take-a-certification-course",
+        heading: "Who should take a cloud certification course?",
+        lead: "Working professionals who need the credential for a role, a client engagement or an internal promotion; engineers moving from on-premise infrastructure into cloud; and developers who want their platform knowledge formally validated.",
+        body: [
+          "Complete beginners are usually better served by the Cloud & DevOps courses first. A certification syllabus assumes you already know what a virtual network, a load balancer and an identity policy are; it tests breadth across a platform rather than teaching the ground concepts. Learners who come in without that background spend the course memorising rather than understanding, which shows up in the exam and again in the interview.",
+        ],
+        bullets: [
+          "Working IT professionals who need a credential for a role or engagement",
+          "System administrators and infrastructure engineers moving to cloud",
+          "Developers formalising the platform knowledge they already use",
+          "Support and operations staff moving into cloud roles",
+          "Consultants and partners where vendor certification is contractually required",
+        ],
+      },
+    ],
   },
 
   // ============================================================
@@ -465,15 +1082,104 @@ export const categoryContent: CategoryContent[] = [
   // ============================================================
   {
     slug: "data-ai",
-    h1: "Data Science, Machine Learning and AI Courses in Pune",
+    metaTitle: "Data & AI Courses in Pune | Analytics, Data Science, ML",
+    h1: "Data & AI Courses in Pune — Data Analytics, Data Engineering, Data Science and Machine Learning",
     subhead:
-      "Learn Data Science, Machine Learning, Data Analytics, Data Engineering and AI/ML at Archer Infotech, Kothrud Pune — Python, statistics, real datasets and placement assistance.",
+      "Four connected career paths, one foundation. Learn Data Analytics, Data Engineering, Data Science and Machine Learning at Archer Infotech, Kothrud Pune — Python, SQL, statistics and real datasets, with classroom and live-online batches.",
     paragraphs: [
       "Data, Machine Learning and AI is now the most-discussed career track in Indian IT — and the most misunderstood. Archer Infotech's Data & AI category covers the four real practitioner roles Pune actually hires for: Data Analyst, Data Scientist, Data Engineer, and Machine Learning Engineer. The curriculum maps cleanly onto those roles rather than chasing the buzzword cycle. Foundation courses cover Python for data, statistics, SQL, and visualisation; specialisation tracks go deep on ML algorithms, model deployment, and the data-pipeline tooling each role actually uses on the job.",
       "The Pune hiring picture in 2026 is more nuanced than the typical \"data scientist starts at ₹15 LPA\" headline suggests. Realistic fresher data analyst roles at services majors and GCC captives sit in the ₹3.5–5 LPA band; data engineer roles run ₹4–6 LPA fresher; data scientist roles for fresh graduates with strong math + ML projects run ₹5–8 LPA at product companies. The headline ₹15 LPA+ packages are overwhelmingly experienced specialists with 3+ years and proven ML model-deployment track records — a target to plan for, not a fresher expectation. Realistic positioning is what gets hired; ambitious mispositioning gets filtered out.",
       "The Data & AI tracks at Archer Infotech are taught by working trainers who have shipped data systems in production. Amol Patil — corporate trainer with 10+ years of senior-trainer experience and active enterprise engagements at Amdocs, Capgemini, MindTree and Tech Mahindra — leads the corporate Python and Data Analytics tracks. Vinod Patil (12 years across solution-architect and AI-platform roles) leads ML, Deep Learning and AI architecture sessions. The curriculum is refreshed every six months — last reviewed 2026-05-06 — against the libraries and patterns Pune product companies actively use (Pandas, NumPy, scikit-learn, PyTorch, TensorFlow, Apache Spark, Airflow, Power BI, Tableau).",
       "Data Science classes at the Kothrud institute run as deep, project-led courses — 5–6 months for the flagship Data Science track including statistics, ML algorithms, deep learning fundamentals, deployment, and a capstone project on a real dataset. Data Analytics is a tighter 3-month course focused on SQL + Python + Power BI for analyst roles; Data Engineering covers Spark, Airflow, and pipeline construction; Machine Learning is a specialist track for learners who already have a Python + statistics base. Every course is taught against real datasets — Kaggle competitions, public datasets, or institute-curated business problems — not toy classroom examples.",
       "Career outcomes for Data & AI roles split sharply by role: Data Analyst freshers run ₹3.5–5 LPA (placement-team data, last 12 months) at services majors and GCC captives; Data Scientist freshers with strong projects run ₹5–7 LPA; Machine Learning Engineer roles for graduates with ML deployment experience run ₹6–10 LPA. Working professionals with 2-3 years' experience switching into senior data roles regularly draw ₹12–18 LPA. Placement support is bundled into every course fee — resume rewrite focused on highlighting model-deployment evidence, GitHub portfolio review, mock interviews specifically calibrated to the data-role interview format, and direct referrals to 100+ hiring partners.",
+    ],
+    sections: [
+      {
+        id: "explore-data-ai-courses",
+        heading: "Which Data & AI courses does Archer Infotech offer?",
+        lead: "Four courses, each mapping to a distinct job role: Data Analytics (Data Analyst, BI Analyst), Data Engineering (Data Engineer, ETL Developer), Data Science (Data Scientist, Analytics Consultant) and Machine Learning (ML Engineer, AI/ML Engineer).",
+        body: [
+          "Data Analytics turns raw data into business insight using Excel, SQL, Python, Pandas and Power BI. Data Engineering builds the pipelines and platforms that make data available at all — SQL, data modelling, ETL/ELT, warehousing, data lakes, Spark, PySpark, Kafka, Airflow and cloud data services. Data Science combines programming, mathematics and statistics to investigate problems and build predictive models. Machine Learning goes deep on the algorithms themselves — regression, classification, ensembles, clustering, tuning and evaluation — through to deployment.",
+          "Pick by the role you want, not by which title sounds most advanced. Each course page carries the full module-by-module syllabus, batch duration and fees.",
+        ],
+      },
+      {
+        id: "how-data-ai-courses-relate",
+        heading: "How do these Data & AI courses relate?",
+        lead: "They are connected but not a rigid sequence — each addresses a different part of the data lifecycle, and you can enter at the point that matches your background.",
+        body: [
+          "Data Analytics explains what happened. Data Engineering builds the systems that collect, process and deliver the data. Data Science investigates complex problems using statistics and programming. Machine Learning builds predictive models from the result. In a real project all four run together rather than in a queue.",
+          "The practical learning structure is a shared foundation first — Python, SQL, statistics and data fundamentals — then a direction: Data Analytics or Data Engineering, then Data Science, then Machine Learning, then Deep Learning and modern AI. Learning the four as separate courses back to back means paying repeatedly to relearn Python, SQL, Pandas, statistics and data cleaning.",
+        ],
+        figure: {
+          src: "/images/courses/data-ai-learning-path-v1.webp",
+          alt: "Recommended Data & AI learning path at Archer Infotech Pune: a shared Data & AI Foundation of Python, SQL and Statistics branches into Data Analytics and Data Engineering, which lead into Data Science, then Machine Learning, then Deep Learning, then Modern AI and GenAI.",
+          width: 1400,
+          height: 788,
+          caption: "Figure 1. Recommended learning path for Data & AI — a common foundation of Python, SQL and statistics, then Analytics or Engineering, then Data Science, Machine Learning, Deep Learning and Modern AI.",
+        },
+      },
+      {
+        id: "which-data-ai-course-should-i-choose",
+        heading: "Which Data & AI course should you choose?",
+        lead: "Choose Data Analytics to start a career in data, Data Engineering to build large-scale pipelines, Data Science to combine statistics with problem-solving, and Machine Learning to build and deploy predictive models.",
+        bullets: [
+          "Choose Data Analytics if you want business dashboards, SQL, Python and Power BI, and a Data Analyst or Business Analyst role.",
+          "Choose Data Engineering if you want pipelines and platforms, Spark, Kafka, Airflow and cloud data tooling.",
+          "Choose Data Science if you want programming plus mathematics, statistical analysis and predictive solutions.",
+          "Choose Machine Learning if you want ML algorithms in depth, model deployment and a path into Deep Learning and Generative AI.",
+          "Not sure? Data Analytics is the most accessible entry point and the skills carry into every other track.",
+          "Already a developer? You can skip straight to the Python-for-ML and mathematics foundations.",
+        ],
+      },
+      {
+        id: "skills-across-data-ai-track",
+        heading: "What skills do you build across the Data & AI track?",
+        lead: "Python, SQL and statistics form the shared base; each course then adds its own specialist toolset on top.",
+        bullets: [
+          "Programming: Python",
+          "Data: SQL, Pandas, NumPy",
+          "Analytics: Excel, EDA, statistics, Power BI",
+          "Data Engineering: ETL/ELT, Spark, Kafka, Airflow, warehousing",
+          "Machine Learning: scikit-learn, supervised and unsupervised learning, model evaluation",
+          "Engineering practice: Git, APIs, deployment fundamentals, AI-assisted development",
+        ],
+        body: [
+          "The objective is not to collect tools. It is to understand how data moves from source to insight and then into intelligent systems — which is the understanding interviews actually probe.",
+        ],
+      },
+      {
+        id: "from-data-to-ai",
+        heading: "How does Data & AI lead into Generative AI?",
+        lead: "The progression runs Data → Analytics → Statistics → Machine Learning → Deep Learning → Transformers → Generative AI → Agentic AI, and the Data & AI track builds the foundation the later stages assume.",
+        body: [
+          "Learners who want to build modern AI applications can continue into Archer Infotech's AI & GenAI programmes once the Python, statistics and machine-learning groundwork is in place. Starting at the Generative AI end without that base is the most common reason people stall.",
+        ],
+      },
+      {
+        id: "who-can-learn-data-ai",
+        heading: "Who can learn Data & AI?",
+        lead: "Engineering and computer-science students, recent graduates, working software professionals, analysts, database and backend developers, and career switchers moving into data or AI roles.",
+        body: [
+          "The right starting point depends on three things: your programming experience, your mathematics background and the role you are aiming at. A backend developer and a commerce graduate should not begin in the same place, and the counselling session exists to sort that out before you enrol.",
+        ],
+      },
+      {
+        id: "practical-implementation",
+        heading: "How practical is the training?",
+        lead: "Every course is built around implementation — real datasets, cleaning assignments, SQL problems, dashboards, ML experiments, mini projects and a capstone you can demonstrate.",
+        bullets: [
+          "Real-world datasets, not toy classroom examples",
+          "Data cleaning and SQL problem sets",
+          "Analytics dashboards and machine-learning experiments",
+          "Mini projects plus a capstone project",
+          "GitHub portfolio development",
+          "Mock interviews and interview preparation",
+        ],
+        body: [
+          "The aim is to move past tutorial-following and produce work you can defend in an interview. Classroom batches run at the Kothrud centre in Pune, with instructor-led online sessions available depending on the batch.",
+        ],
+      },
     ],
     careerOutcomes: [
       {
@@ -538,7 +1244,37 @@ export const categoryContent: CategoryContent[] = [
         answer:
           "Yes. Data-role-specific placement support — resume positioning emphasising deployed projects, GitHub portfolio review, mock interviews calibrated to data-interview format (case rounds + technical rounds), and direct referrals to 100+ hiring partners — is bundled into every Data & AI course fee with no separate placement charge.",
       },
-    ],
+          {
+        question: "Which is the best Data & AI course for beginners?",
+        answer:
+          "Data Analytics is usually the most accessible starting point, because it introduces data, SQL, Python, statistics and visualisation before any advanced modelling. Those skills also carry into every other track, so nothing is wasted if you later move towards Data Science or Machine Learning.",
+      },
+      {
+        question: "Should I learn Data Science before Machine Learning?",
+        answer:
+          "A full Data Science course already includes Machine Learning fundamentals. If you specifically want model building and AI engineering, you can take Machine Learning as a focused specialisation once you have Python and basic mathematics — you do not have to complete the whole Data Science track first.",
+      },
+      {
+        question: "Is Data Engineering required before Data Science?",
+        answer:
+          "No. They are separate career paths with different day-to-day work. That said, understanding databases, pipelines and how data is processed makes a Data Scientist or ML Engineer considerably more effective, because production models depend on the data platform underneath them.",
+      },
+      {
+        question: "Do I need mathematics for Machine Learning?",
+        answer:
+          "Yes — basic statistics, probability and linear algebra genuinely matter for understanding what an algorithm is doing. You do not need them all before you start; the more advanced mathematics is taught progressively during the course.",
+      },
+      {
+        question: "Can a software developer learn Machine Learning directly?",
+        answer:
+          "Yes. If you already program in Python or a similar language, you can begin with the mathematics and Python-for-ML foundations rather than working through the entire Data Analytics track first.",
+      },
+      {
+        question: "What should I learn after Machine Learning?",
+        answer:
+          "The natural progression is Deep Learning, neural networks, NLP, Transformers, Generative AI and then Agentic AI. Archer Infotech's AI & GenAI programmes pick up from exactly that point.",
+      },
+],
   },
 
   // ============================================================
@@ -546,16 +1282,156 @@ export const categoryContent: CategoryContent[] = [
   // ============================================================
   {
     slug: "generative-ai",
-    metaTitle: "Generative AI Courses in Pune — LLMs, RAG, LangChain",
-    h1: "Generative AI Courses in Pune — ChatGPT, LLMs, RAG, LangChain and Prompt Engineering",
+    metaTitle: "AI & GenAI Courses in Pune | Generative & Agentic AI",
+    h1: "AI & GenAI Courses in Pune — Generative AI, LLMs, RAG and Agentic AI",
     subhead:
-      "Build production AI applications with LLMs, RAG and modern AI tooling at Archer Infotech's Pune institute — Generative AI, ChatGPT/Claude integration, Prompt Engineering, AI Engineer roadmap.",
+      "Two courses, one engineering path. Learn Generative AI and Agentic AI at Archer Infotech, Kothrud Pune — LLMs, prompt and context engineering, embeddings, RAG, tool calling, agent state and production AI, built hands-on in classroom and live-online batches.",
     paragraphs: [
       "Generative AI has moved from research buzz to actual production hiring in roughly 18 months. By 2026 every Pune product company of meaningful scale is shipping at least one LLM-backed feature, and several services majors have built dedicated GenAI practices to staff client engagements. Archer Infotech's Generative AI courses in Pune are built for that production-hiring reality: foundations of how LLMs work, hands-on integration with the major model APIs (OpenAI, Anthropic, Gemini), retrieval-augmented generation (RAG) with vector databases, agent frameworks like LangChain, and prompt-engineering patterns that hold up under real production constraints.",
       "The Pune hiring landscape for GenAI roles in 2026 splits cleanly into three tracks. AI Engineer roles — building LLM-backed product features — sit in the ₹5–10 LPA fresher band at product startups and the ₹8–14 LPA range at GCC captives. Prompt Engineer roles are a real but smaller slice of the market, mostly absorbed into AI Engineer and product-facing engineering roles rather than standalone titles. AI / ML solution-architect roles for senior engineers run ₹18–30 LPA at product companies. The trap to avoid is positioning as a \"prompt engineer\" with no programming foundation; the high-paying GenAI roles all require working code in Python, JavaScript or both.",
-      "Archer Infotech's GenAI tracks are anchored on Vinod Patil — 12 years across solution-architect and AI-platform roles — who teaches the AI / Generative AI / Solution Architecture courses end-to-end. The Generative AI flagship covers LLM internals (transformers, attention, tokenisation), API integration (OpenAI, Anthropic, Gemini), prompt-engineering patterns, RAG with vector databases (Pinecone, Chroma, Weaviate), agent frameworks (LangChain, LlamaIndex), evaluation and guardrails. ChatGPT & LLMs is a tighter introductory track. Prompt Engineering is a 6-week focused course for product managers, content teams and developers who need to build prompt libraries without going deep on the rest of the stack. AI Tools is a 3-month survey for non-engineering roles wanting fluency across the modern AI tooling.",
+      "Archer Infotech's GenAI tracks are anchored on Vinod Patil — 12 years across solution-architect and AI-platform roles — who teaches the AI / Generative AI / Solution Architecture courses end-to-end. The Generative AI flagship covers LLM internals (transformers, attention, tokenisation), API integration (OpenAI, Anthropic, Gemini), prompt-engineering patterns, RAG with vector databases (Pinecone, Chroma, Weaviate), agent frameworks (LangChain, LlamaIndex), evaluation and guardrails. The shorter focused courses are scoped deliberately: ChatGPT & LLMs teaches the OpenAI ecosystem and LLM application patterns in 8 weeks, Prompt Engineering teaches prompt design, structured output and evaluation in 4 weeks, and AI Tools for Productivity teaches practical text, research, creative, coding and automation tools in 4 weeks.",
       "GenAI classes at the Kothrud institute run weekday, weekend and live online formats — weekend is by far the most popular because the GenAI student profile is overwhelmingly working developers upskilling. Every track is project-led: by week 4 you'll have a deployed LLM-backed application running against real model APIs; by course-end a portfolio of 2–3 production-grade GenAI apps with public GitHub repos. The curriculum was last reviewed 2026-05-06 against the current model versions (GPT-5, Claude Opus 4.6, Gemini 2.x), pricing tiers, and the framework versions Pune product companies actually deploy. Lifetime LMS access keeps recordings and lab walkthroughs available — important given how fast the GenAI tooling layer evolves.",
       "Career outcomes for GenAI roles consistently sit in the upper salary bands. AI Engineer freshers with strong portfolios regularly draw ₹5–8 LPA at product startups (placement-team data, last 12 months); top performers with deployed LLM applications and benchmark experience have crossed ₹14 LPA. Working developers (2–3 years' experience) switching into AI Engineer roles routinely move from ₹8–10 LPA into the ₹15–22 LPA band. Placement support is bundled into every GenAI course fee — resume rewrite emphasising deployed AI applications, portfolio review, mock interviews calibrated to AI-engineer interview format (system design + LLM-specific evaluation rounds), and direct referrals to the 100+ hiring partners with active AI / GenAI hiring.",
+    ],
+    courseGroups: [
+      {
+        heading: "The AI engineering track",
+        blurb:
+          "Two courses taken in sequence. Generative AI teaches you to build applications on Large Language Models; Agentic AI teaches those applications to use tools, hold state and complete multi-step tasks.",
+        slugs: ["genai-training-in-pune", "agentic-ai-training-in-pune"],
+      },
+      {
+        heading: "Focused shorter courses",
+        blurb:
+          "Standalone courses for a specific capability rather than the full engineering path. Each page now carries its own ordered syllabus, visual roadmap and project outcome, so learners can pick the exact capability they need without reading the full GenAI engineering track first.",
+        slugs: [
+          "chatgpt-llms-training-in-pune",
+          "prompt-engineering-training-in-pune",
+          "ai-tools-training-in-pune",
+        ],
+      },
+    ],
+    sections: [
+      {
+        id: "explore-ai-genai-courses",
+        heading: "Which AI & GenAI courses does Archer Infotech offer?",
+        lead: "Two tracks that build on each other: Generative AI teaches you to build applications on Large Language Models, and Agentic AI teaches those applications to use tools, hold state and complete multi-step tasks.",
+        body: [
+          "Generative AI goes well past prompt engineering. It covers LLM and transformer fundamentals, tokens and context windows, prompt and context engineering, structured outputs, LLM APIs, embeddings, vector databases, semantic search, RAG and advanced RAG, evaluation, fine-tuning concepts, multimodal AI and production GenAI practice.",
+          "Agentic AI adds the ability to act: agent fundamentals, tool and function calling, reasoning and planning patterns, agent state and memory, agentic RAG, LangGraph and agent frameworks, human-in-the-loop workflows, multi-agent systems, orchestration, agent evaluation, guardrails, AI security, observability and production deployment.",
+          "Alongside these sit shorter focused courses — ChatGPT and LLMs, Prompt Engineering, and AI Tools — for learners who want a specific capability rather than the full engineering track. ChatGPT and LLMs moves from model basics to OpenAI APIs, function calling, RAG, Assistants and a deployed capstone. Prompt Engineering moves from prompt anatomy to examples, structured outputs, evaluation and a domain prompt suite. AI Tools moves from daily-driver text tools to research, creative work, coding assistance, automation and a role-specific workflow.",
+        ],
+      },
+      {
+        id: "generative-ai-vs-agentic-ai",
+        heading: "What is the difference between Generative AI and Agentic AI?",
+        lead: "Generative AI creates or transforms content: user → LLM → response. Agentic AI acts on a goal: user goal → agent → reason → choose tool → act → observe → decide → complete the task.",
+        body: [
+          "Generative AI is the intelligence layer. It produces chatbots, document question-answering, content and code generation, enterprise search, RAG applications, knowledge assistants and multimodal applications.",
+          "Agentic AI is what lets that intelligence interact with systems and do work — research agents, coding agents, customer-support agents, data-analysis agents, workflow automation, enterprise copilots, multi-agent applications and autonomous task execution.",
+          "The practical consequence is ordering: an agent that cannot be prompted reliably, cannot retrieve grounded context and cannot be evaluated is an agent that fails unpredictably. Generative AI comes first for that reason, not as a formality.",
+        ],
+      },
+      {
+        id: "how-ai-ml-deep-learning-genai-relate",
+        heading: "How do AI, Machine Learning, Deep Learning and Generative AI relate?",
+        lead: "They are nested, not competing: Artificial Intelligence is the broad field, Machine Learning is systems that learn patterns from data, Deep Learning is multi-layer neural networks, and Generative AI is the subset of deep learning that creates new content.",
+        body: [
+          "Getting this hierarchy right matters because it tells you what you can safely skip. You do not need to train models from scratch to build an LLM application — but you do need to understand what a model is doing when it fails, which is why the foundations are taught rather than assumed.",
+        ],
+        figure: {
+          src: "/images/courses/ai-big-picture-v1.webp",
+          alt: "Nested diagram of the AI field: Artificial Intelligence contains Machine Learning, which contains Deep Learning, which contains Generative AI. AI covers expert systems, robotics, computer vision, NLP, reasoning and planning; Machine Learning covers supervised, unsupervised and reinforcement learning, features and training data; Deep Learning covers neural networks, CNNs, RNNs and transformers; Generative AI covers LLMs, text, image and code generation, chatbots and multimodal AI.",
+          width: 1500,
+          height: 844,
+          caption: "The big picture — AI enables machines to think, Machine Learning helps them learn, Deep Learning lets them understand, and Generative AI helps them create.",
+        },
+      },
+      {
+        id: "recommended-learning-sequence-ai",
+        heading: "What is the recommended learning sequence for AI and GenAI?",
+        lead: "AI fundamentals → deep learning basics → transformers and LLMs → Generative AI → prompt and context engineering → embeddings and vector databases → RAG → advanced RAG → evaluation → AI agents → tool calling → agent state and memory → Agentic AI → multi-agent systems → guardrails → production AI engineering.",
+        body: [
+          "Beyond Agentic AI the field keeps going, and the roadmap below maps where it leads: core agent design, context and tool engineering, agent memory and long-horizon work, self-improving agents, multi-agent orchestration, harness and runtime engineering, sandboxing, and the reliability disciplines — evaluation, observability, reliability and security — that decide whether an agent survives contact with production.",
+          "Experienced programmers do not have to walk every step. Foundational topics can be compressed into accelerated prerequisite modules before entering Generative AI, which is how most working developers take this track.",
+        ],
+        figure: {
+          src: "/images/courses/ai-learning-progression-v1.webp",
+          alt: "AI learning progression roadmap from Generative AI to advanced agent engineering: the foundation stage runs Generative AI, RAG and knowledge systems, agent building and Agentic AI; the advanced stage covers core agent design, memory and adaptation, multi-agent orchestration, infrastructure and runtime, and reliability and trust; emerging protocols include MCP, A2A, AG-UI, A2UI, AP2 and UCP.",
+          width: 1500,
+          height: 844,
+          caption: "Figure 1. The AI learning progression — from Generative AI through RAG and agent building to Agentic AI, then the advanced agent-engineering disciplines and the emerging interoperability protocols.",
+        },
+      },
+      {
+        id: "what-will-you-build-ai",
+        heading: "What will you build on the AI & GenAI track?",
+        lead: "The focus is application engineering, so every stage produces something that runs — from a first LLM-powered app to a multi-agent system with evaluation and monitoring.",
+        bullets: [
+          "LLM-powered applications — foundation models integrated into Python and web apps",
+          "Intelligent document assistants — upload documents and question them with RAG",
+          "Semantic search systems — retrieval by meaning rather than keywords",
+          "Enterprise RAG applications — LLMs grounded in private organisational data",
+          "AI research assistants — search, retrieve, analyse and synthesise",
+          "Tool-using AI agents — agents that call APIs, databases and software tools",
+          "Stateful AI workflows — context maintained across long-running processes",
+          "Multi-agent systems — specialised agents collaborating on complex tasks",
+          "Production AI applications — security, evaluation, monitoring, tracing and deployment",
+        ],
+      },
+      {
+        id: "technologies-across-ai-track",
+        heading: "What technologies does the AI & GenAI track cover?",
+        lead: "Python and APIs at the base, then foundation models, retrieval, agents, frameworks, evaluation and the production engineering that surrounds them.",
+        bullets: [
+          "Programming and APIs: Python, REST, FastAPI, structured data",
+          "Foundation models: commercial and open-source LLM concepts",
+          "AI application development: prompting, structured outputs, tool calling, streaming",
+          "Knowledge and retrieval: embeddings, vector databases, semantic search, RAG",
+          "Agentic systems: agents, tools, state, memory, planning, orchestration",
+          "Frameworks: modern LLM and agent-development frameworks",
+          "Evaluation: golden datasets, LLM and RAG evaluation, AI quality testing",
+          "Production engineering: Docker, APIs, observability, tracing, caching, security",
+        ],
+        body: [
+          "The emphasis is architecture and engineering concepts first, implementation second. Frameworks change every few months; understanding why a retrieval step exists does not.",
+        ],
+      },
+      {
+        id: "do-you-need-ml-before-genai",
+        heading: "Do you need Machine Learning before Generative AI?",
+        lead: "No — not a full Data Science or Machine Learning programme. Experienced developers can follow an accelerated path: programming → AI/ML fundamentals → deep learning basics → transformers and LLMs → Generative AI → Agentic AI.",
+        body: [
+          "A working understanding of AI, machine learning, neural networks and transformers genuinely helps, because it is what lets you reason about a model's failure rather than guess at it. But that understanding can be built in an accelerated foundation module rather than a full ML course.",
+          "Learners who do want depth in model training, statistics and algorithms should start with the Data & AI courses instead, then come back to this track.",
+        ],
+      },
+      {
+        id: "who-should-learn-ai-genai",
+        heading: "Who should learn AI & GenAI?",
+        lead: "Software and Python developers, Java and .NET engineers moving into AI, backend and full-stack developers, data scientists and ML engineers, cloud and DevOps professionals, engineering students, and technical leads planning an AI transition.",
+        body: [
+          "This is an engineering track, not an overview. It suits people who are comfortable writing and debugging code, because everything after the first module is built rather than watched.",
+        ],
+      },
+      {
+        id: "learn-by-building-ai",
+        heading: "How practical is the AI training?",
+        lead: "AI cannot be learned from slides or prompt demonstrations — the track is built around coding exercises, working APIs and projects you deploy.",
+        bullets: [
+          "Coding exercises against real AI APIs",
+          "Prompt and context experiments with measured outcomes",
+          "RAG applications and vector search implementations",
+          "Agent workflows and tool integrations",
+          "Mini projects plus a capstone",
+          "GitHub portfolio development",
+          "Architecture discussions and design reviews",
+          "Mock interviews and interview preparation",
+        ],
+        body: [
+          "The goal is that you learn not only how to use an AI model, but how to design the complete system around it — which is the difference the market pays for.",
+        ],
+      },
     ],
     careerOutcomes: [
       {
@@ -598,7 +1474,7 @@ export const categoryContent: CategoryContent[] = [
       {
         question: "Which AI / GenAI course should I pick?",
         answer:
-          "AI Engineer (6 months) is the right pick if you target AI Engineer roles — it covers LLMs, RAG, agents, deployment end-to-end. Generative AI (4 months) is the broader survey including ChatGPT/Claude, LangChain and prompt engineering. Prompt Engineering (6 weeks) is for non-engineering roles building prompt libraries. ChatGPT & LLMs (8 weeks) is a focused introduction. Counsellors help match background + target role during the free demo.",
+          "AI Engineer (6 months) is the right pick if you target AI Engineer roles — it covers LLMs, RAG, agents, deployment end-to-end. Generative AI (4 months) is the broader survey including ChatGPT/Claude, LangChain and prompt engineering. Prompt Engineering (4 weeks) is for learners building reliable prompt libraries and evaluation habits. ChatGPT & LLMs (8 weeks) is the OpenAI and LLM application track. AI Tools (4 weeks) is for broad productivity across text, research, creative, coding and automation workflows. Counsellors help match background + target role during the free demo.",
       },
       {
         question: "Will I build real AI applications during the course?",
@@ -620,7 +1496,37 @@ export const categoryContent: CategoryContent[] = [
         answer:
           "Yes. AI-role-specific placement support — resume positioning emphasising deployed AI applications, portfolio review, and mock interviews calibrated to AI Engineer interview format (system design rounds + LLM-specific evaluation rounds + product-thinking questions) — is bundled into every GenAI course fee. Direct referrals to the 100+ hiring partners with active AI / GenAI roles.",
       },
-    ],
+          {
+        question: "What is the difference between Generative AI and Agentic AI?",
+        answer:
+          "Generative AI creates or transforms content using foundation models — user in, generated response out. Agentic AI extends that: the system takes a goal, reasons about it, chooses and calls tools, observes the result, decides the next step and keeps going until the task is done. One produces information; the other performs work.",
+      },
+      {
+        question: "Should I learn Generative AI before Agentic AI?",
+        answer:
+          "Yes, and not as a formality. Agents are built on prompting, context handling, retrieval and evaluation. An agent whose underlying LLM calls are unreliable or ungrounded fails in ways that are very hard to debug, so the Generative AI foundations come first.",
+      },
+      {
+        question: "Is Prompt Engineering a complete AI course?",
+        answer:
+          "No. Prompt Engineering is one component of Generative AI. Professional AI development also needs context engineering, APIs, embeddings, retrieval and RAG, evaluation, tool calling, security and production engineering. A prompt-only course leaves you unable to build or operate a real application.",
+      },
+      {
+        question: "What is RAG and why does it matter?",
+        answer:
+          "Retrieval-Augmented Generation connects an LLM to external or private knowledge: relevant information is retrieved first and supplied as context when the model generates its answer. It is what lets an AI application answer from your organisation's documents rather than from the model's training data, and it is the single most-used pattern in enterprise AI work.",
+      },
+      {
+        question: "What should I learn after Generative AI?",
+        answer:
+          "Advanced RAG, AI evaluation, tool calling, AI agents, Agentic AI, multi-agent systems and production AI engineering — in roughly that order. Beyond that sits the advanced agent-engineering work: agent memory, orchestration, runtime and sandboxing, and the reliability, observability and security disciplines.",
+      },
+      {
+        question: "Is Agentic AI suitable for experienced software developers?",
+        answer:
+          "It is arguably the best fit for them. Agentic AI is systems engineering — state, control flow, tool interfaces, failure handling, observability and security — applied to a non-deterministic component. Developers already think in those terms, which is why they tend to move through this track faster than the model-training route.",
+      },
+],
   },
 
   // ============================================================
@@ -703,6 +1609,98 @@ export const categoryContent: CategoryContent[] = [
           "Yes. Mobile-role-specific placement support — resume positioning emphasising published apps, portfolio review, mock interviews calibrated to mobile-interview format, and direct referrals to the 100+ hiring partner network including Pune consumer-app companies — is bundled into every Mobile App Development course fee.",
       },
     ],
+    sections: [
+      {
+        id: "native-or-cross-platform",
+        heading: "Native or cross-platform — which should you learn?",
+        lead: "Cross-platform if you want to ship to both Android and iOS from one codebase, which is what most Pune product companies and startups actually do. Native if you want the deepest platform control, or if you are targeting a team that has committed to one platform.",
+        body: [
+          "Native means writing separately for each platform — Kotlin and the Android SDK for one, Swift and SwiftUI for the other. You get complete access to platform capabilities and the best possible performance, at the cost of building and maintaining two applications.",
+          "Cross-platform means one codebase for both. Flutter uses Dart and paints its own UI, giving a consistent look on both platforms; React Native uses JavaScript and React, driving genuinely native components underneath and reusing knowledge any React developer already has. The diagram below sets the four routes side by side.",
+        ],
+        figure: {
+          src: "/images/courses/mobile-development-paths-v1.webp",
+          alt: "Comparison diagram of the four mobile development routes taught at Archer Infotech Pune. Native Android uses Kotlin, the Android SDK and Jetpack Compose for one platform with full access and Play Store release. Native iOS uses Swift, SwiftUI and Xcode for one platform with App Store release, and requires a Mac to build. Flutter uses Dart and a widget tree with its own rendering engine to target Android and iOS together with a consistent user interface. React Native uses JavaScript and React to target both platforms with native components underneath, reusing existing React knowledge and common at product startups.",
+          width: 1500,
+          height: 556,
+          caption:
+            "The four routes to a mobile application. Cross-platform reaches both stores faster; native gives deeper platform control.",
+        },
+      },
+      {
+        id: "do-you-need-a-mac-for-ios",
+        heading: "Do you need a Mac for iOS development?",
+        lead: "To build and ship an iOS app, yes — Xcode runs only on macOS, and Apple requires it for compiling and submitting to the App Store. To learn Swift and the concepts, no.",
+        body: [
+          "This is a genuine constraint rather than a preference, and it is worth knowing before you enrol rather than after. The practical routes are working on a Mac at the Kothrud centre during sessions, using a cloud Mac service, or choosing a cross-platform course instead.",
+          "Flutter and React Native sidestep the problem for learning purposes: you can build and test the Android half on Windows or Linux and add the iOS build later when you have machine access. That is one reason cross-platform is the more common starting point for learners in Pune.",
+        ],
+      },
+      {
+        id: "should-you-learn-react-before-react-native",
+        heading: "Should you learn React before React Native?",
+        lead: "Yes. React Native is React — the same components, props, state, hooks and mental model — rendering to native views instead of the DOM. Learning both at once means learning React while also learning what is different about it, which is harder than doing them in order.",
+        body: [
+          "If you already write React, React Native is the fastest route to a mobile application you will find; most of the first week is recognising things you know. If you do not, the React course in the Modern Web category is the prerequisite worth taking first. Flutter has no such dependency — Dart is learned from scratch inside the course, which makes it the more direct option for someone with no JavaScript background.",
+        ],
+      },
+      {
+        id: "what-it-takes-to-publish-an-app",
+        heading: "What does it actually take to publish an app?",
+        lead: "More than finishing the code. Store submission has its own requirements — signing, permissions, privacy declarations, screenshots, review — and every course here takes at least one project through it, because \"published on the Play Store\" is a materially stronger interview line than \"built an app\".",
+        bullets: [
+          "A signed release build, not a debug build",
+          "Application icons and store screenshots at required sizes",
+          "A privacy policy and data-safety declarations",
+          "Permissions justified — stores reject over-requesting",
+          "Store listing copy, categorisation and content rating",
+          "Review, and handling a rejection without panicking",
+          "Versioning and shipping an update afterwards",
+        ],
+      },
+      {
+        id: "mobile-careers-in-pune",
+        heading: "What do Pune employers hire mobile developers for?",
+        lead: "Product companies and startups building consumer and B2B applications, services firms delivering client mobile projects, and in-house teams at enterprises with customer-facing apps. Cross-platform skills — Flutter and React Native — currently see the broadest demand.",
+        body: [
+          "Mobile hiring in Pune is smaller in volume than web and full-stack hiring but consistently under-supplied, particularly for developers who can demonstrate a published application. That asymmetry is the opportunity: a portfolio with a live store listing and a repository behind it puts you ahead of a considerably larger pool of candidates who have only coursework.",
+          "Longer term, mobile experience combines well with backend work — most applications are a client for an API — which is why senior mobile engineers frequently move into full-stack or architecture roles rather than staying purely on the device.",
+        ],
+      },
+      {
+        id: "who-can-learn-mobile-development",
+        heading: "Who can learn mobile app development?",
+        lead: "Anyone with programming fundamentals in one language. These are intermediate courses — they assume you can already write and debug code, and teach the platform rather than teaching you to program.",
+        bullets: [
+          "Students and graduates with Java, Kotlin, JavaScript or any object-oriented background",
+          "Web developers adding mobile to their range",
+          "React developers moving into React Native",
+          "Working professionals switching from services work to product engineering",
+          "Anyone with an application idea who wants to build and publish it themselves",
+        ],
+      },
+    ],
+
+    courseGroups: [
+      {
+        heading: "Native platform development",
+        blurb:
+          "One platform, built with its own language and tools. Deepest control and best performance, at the cost of maintaining two separate applications.",
+        slugs: [
+          "android-development-training-in-pune",
+          "ios-swift-training-in-pune",
+        ],
+      },
+      {
+        heading: "Cross-platform development",
+        blurb:
+          "One codebase, both stores. Flutter uses Dart and paints its own UI; React Native uses JavaScript and React over native components.",
+        slugs: [
+          "flutter-development-training-in-pune",
+          "react-native-training-in-pune",
+        ],
+      },
+    ],
   },
 
   // ============================================================
@@ -777,6 +1775,593 @@ export const categoryContent: CategoryContent[] = [
         question: "Will I learn how to clear database interview rounds?",
         answer:
           "Yes. Every Archer Infotech database course includes the interview-format whiteboard SQL questions, schema-design exercises, and optimisation patterns Pune services majors and product companies actually use in interview rounds. Mock-interview rounds with database focus are part of the placement-assistance pipeline.",
+      },
+    ],
+    sections: [
+      {
+        id: "sql-vs-nosql",
+        heading: "SQL or NoSQL — what is the actual difference?",
+        lead: "A relational database stores data in tables with a fixed schema and enforces relationships and transactions for you. A document database stores flexible documents and leaves that enforcement to your application. Neither is newer or better; they make opposite trade-offs, and most real systems use both.",
+        body: [
+          "Relational engines — MySQL, PostgreSQL, Oracle — give you joins, constraints and ACID transactions. If two rows must change together or not at all, the database guarantees it. That is exactly what you want behind a payment, an order or an enrolment.",
+          "Document engines — MongoDB — let each record have its own shape and scale horizontally with less ceremony. That suits content, catalogues, event data and anything whose structure is still moving. What you give up is the database enforcing consistency, which becomes your code's job instead. The diagram below places the courses in this category against that split.",
+        ],
+        figure: {
+          src: "/images/courses/database-landscape-v1.webp",
+          alt: "Comparison diagram of database types taught at Archer Infotech Pune. Relational SQL databases cover MySQL as the web default, PostgreSQL as the modern default and Oracle for large enterprise, with schemas, joins, normalisation, ACID transactions, indexes and query plans. Document NoSQL covers MongoDB with documents and collections, schema-on-read, embedding versus referencing, the aggregation pipeline, replica sets and sharding, and forms the backbone of MERN and MEAN. Backend-as-a-service covers Firebase with Firestore and Realtime Database, built-in authentication, real-time sync to clients, Cloud Functions, mobile and rapid prototyping, with no server to operate.",
+          width: 1500,
+          height: 586,
+          caption:
+            "The three families of database taught here, and what each is for. SQL is the skill that transfers everywhere — learn it first.",
+        },
+      },
+      {
+        id: "which-database-first",
+        heading: "Which database should you learn first?",
+        lead: "SQL, on any relational engine. It is the one database skill that transfers to every other job you will ever hold, it is the one interviews test most reliably, and it is assumed rather than asked about in developer, analyst, tester and data roles alike.",
+        body: [
+          "Once SQL is solid, the specific engine matters less than people expect — the language is largely shared, and moving from MySQL to PostgreSQL is a matter of dialect and tooling rather than relearning. Add MongoDB when your stack needs it, which for MERN and MEAN developers is immediately.",
+          "Choose by target: MySQL for general web development and the widest base of Pune openings, PostgreSQL for modern product engineering and anything requiring advanced types or extensions, Oracle for large enterprise and DBA-track roles, MongoDB for JavaScript stacks, Firebase for mobile and rapid prototypes.",
+        ],
+      },
+      {
+        id: "database-course-if-doing-full-stack",
+        heading: "Do you need a separate database course if you are doing full stack?",
+        lead: "Not to pass the course — every full stack track here includes the database work its stack requires. You need one when the database is where you want your depth, because a full stack course teaches enough SQL to build an application, not enough to tune one.",
+        body: [
+          "The practical difference shows up in interviews. Full stack coverage gets you comfortable writing queries and designing a workable schema. A dedicated database course goes into indexing strategy, execution plans, normalisation trade-offs, transactions and isolation levels, stored procedures and performance work — the material that separates a developer who uses a database from one who is trusted to own it.",
+        ],
+      },
+      {
+        id: "what-database-interviews-test",
+        heading: "What do database interview rounds actually test?",
+        lead: "Writing a query against an unfamiliar schema, explaining what an index does and when it does not help, and reasoning about why a slow query is slow. Almost never memorised definitions.",
+        bullets: [
+          "Joins — inner, outer, self — written live against a schema you are shown",
+          "GROUP BY, HAVING and aggregate logic",
+          "Window functions and subqueries, increasingly at fresher level",
+          "Indexes — what they cost, and why one is being ignored",
+          "Reading an execution plan and finding the expensive step",
+          "Normalisation and when denormalising is the right call",
+          "Transactions, isolation levels and concurrency problems",
+          "For MongoDB: embedding versus referencing, and the aggregation pipeline",
+        ],
+      },
+      {
+        id: "who-should-learn-databases",
+        heading: "Who should learn database technologies?",
+        lead: "Backend and full-stack developers who want depth rather than working knowledge, testers and analysts who query production data daily, and anyone targeting a data engineering, analytics or DBA path — all of which rest on SQL.",
+        bullets: [
+          "Backend and full-stack developers deepening beyond basic queries",
+          "Software testers and QA engineers verifying results against the database",
+          "Business and data analysts who work in SQL every day",
+          "Aspiring data engineers and data scientists building the required foundation",
+          "Support engineers and administrators moving toward a DBA role",
+          "Students who want one skill that makes them useful in almost any team",
+        ],
+      },
+    ],
+
+    courseGroups: [
+      {
+        heading: "Relational databases — SQL",
+        blurb:
+          "Tables, schemas, joins and transactions. Learn SQL on any one of these and the language transfers to the others; the differences are dialect and tooling.",
+        slugs: [
+          "mysql-training-in-pune",
+          "postgresql-training-in-pune",
+          "oracle-database-training-in-pune",
+        ],
+      },
+      {
+        heading: "Document and cloud databases",
+        blurb:
+          "Flexible document storage and managed backends. MongoDB is the database behind MERN and MEAN; Firebase removes the server entirely for mobile and prototype work.",
+        slugs: [
+          "mongodb-training-in-pune",
+          "firebase-training-in-pune",
+        ],
+      },
+    ],
+  },
+  // ============================================================
+  // TESTING & QA
+  // ============================================================
+  {
+    slug: "testing-qa",
+    metaTitle: "Software Testing Courses in Pune — Manual & Selenium",
+    h1: "Software Testing and QA Courses in Pune — Manual Testing and Selenium Automation",
+    subhead:
+      "Learn software testing from fundamentals through to Selenium automation at Archer Infotech, Kothrud Pune — manual testing, SQL, Java for testers, TestNG frameworks and API testing, with placement assistance.",
+    paragraphs: [
+      "Software testing remains one of the most accessible entry points into the Pune IT industry, and one of the most misunderstood. The perception that testing is a lower-skilled alternative to development has not been true for years: the roles that hire in volume now are automation roles, and an automation engineer writes code, reads application logs, works with APIs and databases, and runs suites inside a CI pipeline. What has genuinely changed is that manual testing alone is no longer a career on its own — it is the first half of one.",
+      "Archer Infotech's software testing courses in Pune are built around that reality. The Software Testing & QA course covers the discipline properly — SDLC and STLC, test design techniques, defect lifecycle, functional and regression testing, SQL for verifying results, and the documentation practices real QA teams run on. The Selenium with Java course takes learners into automation: Java fundamentals aimed at testers, WebDriver, locators and waits, the Page Object Model, TestNG, Maven, data-driven frameworks and API testing. Together they are the standard path from no experience to an automation-capable QA engineer.",
+      "The Pune hiring picture is concrete. Services majors and GCC captives — TCS, Infosys, Capgemini, Tech Mahindra, Wipro and the captive centres across Hinjewadi and Kharadi — run continuous QA hiring, and their fresher pipelines increasingly specify automation exposure rather than treating it as a bonus. Product companies hire smaller numbers but at higher bands, and expect framework knowledge and CI familiarity. The pattern across both is the same: manual-only candidates compete on price, automation-capable candidates compete on skill.",
+      "Testing classes at the Kothrud institute run weekday, weekend and live online, taught by trainers who have worked in QA teams rather than only taught the subject. Every course is assignment-driven — test cases you write and have reviewed, defects you log properly, scripts you debug when they fail intermittently — because the difference between a candidate who has run a suite and one who has watched a recording of a suite is visible in the first interview round.",
+      "Placement support is bundled into the fee: resume and LinkedIn rewriting aimed at QA job descriptions, mock interviews covering both testing theory and live automation questions, and referrals to the institute's hiring-partner network. Archer Infotech has trained IT professionals in Pune since 2009 and reports a 90% placement rate across learners who complete training and clear at least one mock-interview round.",
+    ],
+    careerOutcomes: [
+      {
+        role: "QA Engineer / Software Tester",
+        description:
+          "Functional, regression and exploratory testing at services majors and GCC captives. The highest-volume fresher entry point in Pune QA hiring.",
+        band: "₹3–4.5 LPA",
+      },
+      {
+        role: "Automation Test Engineer",
+        description:
+          "Selenium and TestNG frameworks, scripted regression suites, execution inside CI. The role most Pune QA listings are actually written for.",
+        band: "₹4–7 LPA",
+      },
+      {
+        role: "API / Backend Test Engineer",
+        description:
+          "REST Assured and Postman against service layers, contract and data validation. Pairs naturally with SQL depth.",
+        band: "₹4.5–7 LPA",
+      },
+      {
+        role: "SDET (Software Development Engineer in Test)",
+        description:
+          "Builds the test framework rather than only using it. A development role in everything but name, at product companies and captives.",
+        band: "₹6–12 LPA",
+      },
+      {
+        role: "QA Lead / Test Manager",
+        description:
+          "Owns test strategy, coverage and release sign-off across a team. The senior track after three to five years.",
+        band: "₹10–18 LPA (after 4+ yrs)",
+      },
+    ],
+    faqs: [
+      {
+        question: "Is manual testing still a career in 2026?",
+        answer:
+          "Manual testing is still a necessary skill and still the right place to start, but manual-only is no longer a durable career on its own. Exploratory testing, test design and domain judgement cannot be automated and are genuinely valued — yet almost every Pune QA listing now also expects automation exposure. The realistic path is to learn testing properly first, then add Selenium and a framework, which is exactly how the two courses in this category are sequenced.",
+      },
+      {
+        question: "Do I need programming knowledge to become a tester?",
+        answer:
+          "Not to start. The Software Testing & QA course assumes no programming and covers SQL, which is the one technical skill manual testers use daily. You do need programming for automation, which is why the Selenium course begins with Java fundamentals taught specifically for testers — enough to write and debug test code, not a full developer syllabus.",
+      },
+      {
+        question: "Which should I learn — Selenium, Cypress or Playwright?",
+        answer:
+          "Selenium with Java, if you are hiring-driven. It has by a wide margin the most Pune job listings, the deepest ecosystem and the strongest presence at services majors and GCC captives, which is where most QA hiring volume sits. Cypress and Playwright are excellent tools and easier to start with, but they appear far more often at product companies than in the general market. Once you understand locators, waits, the Page Object Model and framework design in Selenium, moving to another tool is a matter of weeks.",
+      },
+      {
+        question: "How long does it take to become an automation tester?",
+        answer:
+          "Each course runs two months, so roughly four months for the full path from no experience to automation-capable, plus practice time between sessions. Learners who already program can go straight into the Selenium course and be writing framework code within weeks. The realistic gate is not course length — it is having a framework project you built and can explain.",
+      },
+      {
+        question: "Do testers need to know SQL?",
+        answer:
+          "Yes, and it comes up in almost every QA interview. Verifying that an application actually wrote what it claimed to write means querying the database directly, and test-data preparation usually means writing SQL as well. Joins, aggregate queries and basic schema reading are the working level; both courses cover it, and the Database Technologies category goes deeper for anyone who wants it.",
+      },
+      {
+        question: "Will I build a real automation framework during the course?",
+        answer:
+          "Yes. The Selenium course closes with a data-driven framework you build yourself — Page Object Model structure, TestNG suites, Maven build, reporting, and execution in a CI pipeline — published to GitHub. That repository is the artefact that matters in interviews, because it is what separates a candidate who has run scripts from one who has designed a framework.",
+      },
+      {
+        question: "Are testing classes available on weekends or online?",
+        answer:
+          "Yes. Both courses run in weekday, weekend and live-online formats with the same curriculum, trainers and assignments, which is what most working professionals and final-year students use. Batch schedules are shared on request through the contact form or on +91 9850 678451.",
+      },
+    ],
+    sections: [
+      {
+        id: "manual-to-automation-path",
+        heading: "How do you get from manual testing to automation?",
+        lead: "In order: testing fundamentals, then manual testing practice, then SQL, then enough programming to write test code, then Selenium, then a framework, then running it all in CI. Skipping to Selenium without the ground underneath it is the most common way learners stall.",
+        body: [
+          "The stage that surprises people is programming. Automation is software development — your test suite is an application, and it has to be structured, debugged and maintained like one. That is why the Selenium course spends its opening weeks on Java aimed squarely at testers rather than assuming you will pick it up alongside WebDriver.",
+          "The stage people skip is SQL, and it costs them in interviews. Verifying that the application stored what it displayed is a daily task, and a tester who cannot query the database is trusting the interface to tell the truth about itself.",
+        ],
+        figure: {
+          src: "/images/courses/testing-progression-v1.webp",
+          alt: "Seven-stage progression diagram from manual tester to automation engineer taught at Archer Infotech Pune: testing fundamentals covering SDLC, STLC, test case design and the defect lifecycle; manual testing covering functional, regression, exploratory and user acceptance testing; SQL and test data covering querying, verifying results and preparing data; programming for testers covering Java fundamentals as the automation prerequisite; Selenium WebDriver covering locators, waits and the Page Object Model; frameworks covering TestNG, Maven and data-driven and hybrid designs; and API and CI covering REST Assured, Postman and running suites in Jenkins.",
+          width: 1500,
+          height: 858,
+          caption:
+            "The route from no experience to automation-capable. The Software Testing & QA course covers the first three stages; Selenium with Java covers the rest.",
+        },
+      },
+      {
+        id: "what-software-testing-course-covers",
+        heading: "What does a software testing course cover?",
+        lead: "The discipline before the tools — how software fails, how to design tests that find those failures, how to report a defect so a developer can act on it, and how testing fits into a release. Tools are taught afterwards, because a tool used without that judgement automates the wrong checks.",
+        bullets: [
+          "SDLC and STLC — where testing sits in a release",
+          "Test case design — equivalence partitioning, boundary values, decision tables",
+          "Functional, regression, smoke, sanity and exploratory testing",
+          "Defect lifecycle, severity versus priority, and writing a report worth acting on",
+          "Test plans, traceability and coverage",
+          "SQL for verifying results and preparing test data",
+          "Agile and Scrum — testing inside a sprint",
+          "Test management and defect-tracking tools",
+          "API testing fundamentals with Postman",
+          "Selenium WebDriver, TestNG, Maven and framework design",
+        ],
+      },
+      {
+        id: "what-testing-interviews-test",
+        heading: "What do QA interviews actually ask?",
+        lead: "Two rounds, in effect. One on testing judgement — how would you test this, what would you check first, what is severity versus priority. One on automation — write a locator, explain a wait, describe your framework and why it is structured that way.",
+        body: [
+          "The automation half is where candidates are separated, and almost always on the same question: describe the framework you built. A candidate who used someone else's framework can name its parts; a candidate who built one can explain why the Page Object Model is worth the extra files, how they handled flaky waits, and what they would change. That is why the course is structured around building one rather than demonstrating one.",
+        ],
+        bullets: [
+          "\"How would you test this feature?\" — asked about something ordinary, on the spot",
+          "Severity versus priority, with an example of high one and low the other",
+          "Writing an XPath or CSS locator for an element you are shown",
+          "Implicit, explicit and fluent waits — and why Thread.sleep is the wrong answer",
+          "Your framework: structure, reporting, data handling, and why",
+          "A SQL query to verify what the application claims it saved",
+          "Handling a test that fails intermittently",
+          "Where your suite runs, and what happens when it fails in CI",
+        ],
+      },
+      {
+        id: "who-should-learn-software-testing",
+        heading: "Who should learn software testing?",
+        lead: "Freshers and non-IT graduates looking for a realistic entry into the Pune IT industry, manual testers who need automation to stay employable, and support or operations staff moving toward an engineering role.",
+        body: [
+          "Testing remains the most forgiving entry point into IT for candidates without a computer-science degree, because the first months reward carefulness and systematic thinking rather than programming background. That advantage is real but time-limited: the same candidate needs automation within a year or two to keep moving, which is why treating manual testing as the destination rather than the doorway is the mistake to avoid.",
+        ],
+        bullets: [
+          "Freshers and graduates from any discipline seeking an IT entry point",
+          "Non-IT graduates changing field into software",
+          "Manual testers adding automation to stay competitive",
+          "Support engineers and operations staff moving into engineering",
+          "Developers who want to understand testing properly",
+          "Working professionals returning to IT after a break",
+        ],
+      },
+      {
+        id: "testing-career-progression",
+        heading: "Where does a testing career lead?",
+        lead: "QA Engineer to Automation Engineer to SDET, then into test architecture or QA leadership. The SDET route in particular is a development role — building the framework rather than using it — and pays accordingly.",
+        body: [
+          "Testing also has unusually good lateral movement. Automation engineers move into DevOps, because running suites in pipelines is the same skill set. API testers move into backend development. QA leads move into product and delivery roles, because they have spent years understanding what the software is supposed to do. The common factor in all three is having gone past manual testing into code.",
+        ],
+      },
+    ],
+    courseGroups: [
+      {
+        heading: "Start here — testing foundations",
+        blurb:
+          "No programming assumed. Covers the discipline itself — test design, defect management, SQL and the practices QA teams actually run on.",
+        slugs: ["software-testing-training-in-pune"],
+      },
+      {
+        heading: "Automation specialisation",
+        blurb:
+          "Builds on the foundation above. Java for testers, Selenium WebDriver, the Page Object Model, TestNG frameworks, API testing and CI execution.",
+        slugs: ["selenium-training-in-pune"],
+      },
+    ],
+  },
+  // ============================================================
+  // SALESFORCE
+  // ============================================================
+  {
+    slug: "salesforce",
+    metaTitle: "Salesforce Course in Pune — Admin and Developer",
+    h1: "Salesforce Training in Pune — Administrator and Developer Course",
+    subhead:
+      "Learn Salesforce administration and development in one course at Archer Infotech, Kothrud Pune — security model, Flow automation, Apex, Lightning Web Components and integration, with placement assistance.",
+    paragraphs: [
+      "Salesforce is a career track rather than a tool, and it is one of the few in enterprise IT where a non-developer can start earning quickly and a developer can specialise deeply. The platform runs customer, sales, service and marketing operations for a large share of global enterprises, and every one of those implementations needs people who can configure it, automate it, extend it and integrate it with the rest of the business. In Pune that demand comes from consulting partners, GCC captives and the in-house Salesforce teams of large enterprises.",
+      "What makes the ecosystem unusual is the split between two related roles. An Administrator configures the platform — users, profiles, permissions, objects, fields, page layouts, reports, dashboards and Flow automation — largely without writing code. A Developer extends it with Apex, Lightning Web Components and integrations when configuration reaches its limits. Archer Infotech's Salesforce course in Pune covers both halves deliberately, because the admin skills are what get you hired and the developer skills are what move you up.",
+      "The course is taught against a real Salesforce org rather than slides. Learners work through the security model until profiles, roles, permission sets and sharing rules stop being abstract; build declarative automation in Flow Builder; then move into Apex classes, triggers, SOQL, governor limits and test classes; and finish with Lightning Web Components and REST integration. Every stage is hands-on, because Salesforce interviews are practical — panels ask you to describe how you would model a requirement, not to define a term.",
+      "Salesforce classes at the Kothrud institute run in weekday, weekend and live-online formats across three months, which suits both freshers entering the ecosystem and working professionals — business analysts, support staff and CRM users — moving into a platform role. Trailhead, Salesforce's own free learning platform, is used alongside the classroom work rather than replaced by it: the trainers set the sequence and review the work, which is the part Trailhead alone cannot do.",
+      "Placement support is included in the fee — resume rewriting aimed at Salesforce job descriptions, mock interviews covering both admin scenarios and Apex questions, and referrals to the institute's hiring-partner network. Archer Infotech has trained IT professionals in Pune since 2009 and reports a 90% placement rate across learners who complete training and clear at least one mock-interview round.",
+    ],
+    careerOutcomes: [
+      {
+        role: "Salesforce Administrator",
+        description:
+          "Owns the org — users, security, objects, reports, dashboards and Flow automation. The standard entry point, and reachable without a development background.",
+        band: "₹3.5–6 LPA",
+      },
+      {
+        role: "Salesforce Developer",
+        description:
+          "Apex, triggers, Lightning Web Components and integrations at consulting partners and captive teams. The step up once configuration hits its limits.",
+        band: "₹5–10 LPA",
+      },
+      {
+        role: "Salesforce Business Analyst",
+        description:
+          "Translates business requirements into platform design. Suits professionals coming from CRM, sales operations or support backgrounds.",
+        band: "₹5–9 LPA",
+      },
+      {
+        role: "Salesforce Consultant",
+        description:
+          "Implementation work at partner firms — discovery, configuration, data migration and user adoption across client engagements.",
+        band: "₹7–14 LPA (after 2+ yrs)",
+      },
+      {
+        role: "Salesforce Technical Architect",
+        description:
+          "Designs multi-org, integration-heavy implementations. One of the highest-paid specialisations in the enterprise SaaS ecosystem.",
+        band: "₹20 LPA+ (after 6+ yrs)",
+      },
+    ],
+    faqs: [
+      {
+        question: "Do I need programming experience to learn Salesforce?",
+        answer:
+          "Not for the administrator half, which is the larger part of the hiring market and is done through configuration rather than code. You do need it for the developer half — Apex is a Java-like language, and Lightning Web Components are JavaScript. The course is sequenced so that non-programmers build confidence through the declarative work first and meet code later, with the fundamentals taught rather than assumed.",
+      },
+      {
+        question: "Should I become a Salesforce Administrator or a Developer?",
+        answer:
+          "Start as an Administrator regardless of which you want. Admin skills are what most entry-level Salesforce roles hire for, they are learnable without a programming background, and no developer is effective on the platform without understanding the security model and data model an admin owns. Add Apex and Lightning Web Components afterwards — that combination is what raises the band substantially.",
+      },
+      {
+        question: "Is Salesforce a good career choice in India?",
+        answer:
+          "It is a durable one, with a caveat worth stating. The ecosystem is large and Pune has consistent demand from consulting partners, captives and in-house teams, and the ceiling for architects and consultants is high. The caveat is that it is a platform specialisation — your skills are valuable inside the Salesforce ecosystem specifically, and transfer less directly outside it than general programming does. That is a fair trade for many people, but it should be a choice made knowingly.",
+      },
+      {
+        question: "Do I need a Salesforce certification to get hired?",
+        answer:
+          "The Administrator certification carries real weight in this ecosystem — more than most vendor certifications do elsewhere — because partners and clients often require certified staff contractually. It is worth taking. It still does not substitute for having built something: interviewers ask you to walk through an org you configured or an automation you designed, and that answer decides the round.",
+      },
+      {
+        question: "What is Trailhead, and does this course replace it?",
+        answer:
+          "Trailhead is Salesforce's own free learning platform, and it is genuinely good. The course uses it alongside classroom work rather than competing with it. What a course adds is sequence, a trainer who reviews what you built and tells you why it is wrong, practical interview preparation, and answers to the questions Trailhead's modules do not anticipate. Learners who use both progress considerably faster than learners who use either alone.",
+      },
+      {
+        question: "Who typically joins the Salesforce course?",
+        answer:
+          "A wide mix, which is unusual for a technical course. Freshers and graduates entering IT, business analysts and CRM users moving into a platform role, support and operations staff stepping up, sales-operations professionals formalising what they already do, and developers adding an enterprise platform specialisation. The declarative half being accessible without programming is what makes that range possible.",
+      },
+      {
+        question: "How long does the Salesforce course take?",
+        answer:
+          "Three months, covering both the administrator and developer halves, in weekday, weekend or live-online format. Learners with a programming background move through the Apex and Lightning Web Components sections faster; learners from a business background typically spend longer there and less time on the configuration work. Batch schedules are available through the contact form or on +91 9850 678451.",
+      },
+    ],
+    sections: [
+      {
+        id: "what-is-salesforce",
+        heading: "What is Salesforce, and what does the course cover?",
+        lead: "Salesforce is a cloud platform that enterprises run their customer, sales and service operations on — and, more importantly for a career, a platform you configure, automate, extend with code and integrate with other systems. The course covers that whole arc, from the data model through to Apex and Lightning Web Components.",
+        body: [
+          "It helps to see the platform as layered. Underneath is a data model of objects, fields and relationships. Above it sits a security model deciding who sees what. Above that, declarative tools — page layouts, validation rules, reports and Flow Builder — let you build a great deal without code. When those run out, Apex and Lightning Web Components take over, and REST APIs connect the org to everything else the business runs.",
+          "The diagram below is that progression in teaching order. The first four stages are administrator territory and are the larger part of the hiring market; the last three are developer territory and are what raises the salary band.",
+        ],
+        figure: {
+          src: "/images/courses/salesforce-platform-v1.webp",
+          alt: "Seven-stage Salesforce learning progression taught at Archer Infotech Pune: platform basics covering CRM concepts, objects, records and the data model; administration covering users, profiles, permissions and the security model; declarative build covering fields, page layouts, validation rules, reports and dashboards; automation covering Flow Builder, approval processes and no-code logic; Apex covering classes, triggers, SOQL, governor limits and test classes; Lightning Web Components covering custom user interfaces and JavaScript on the platform; and integration and deployment covering REST APIs, sandboxes, change sets and release management.",
+          width: 1500,
+          height: 858,
+          caption:
+            "The Salesforce course in teaching order. The first four stages are the administrator half; the last three are the developer half.",
+        },
+      },
+      {
+        id: "admin-vs-developer",
+        heading: "Administrator or Developer — what is the difference?",
+        lead: "An administrator makes the platform do what the business needs using configuration. A developer makes it do the things configuration cannot, using Apex and Lightning Web Components. Most successful Salesforce careers begin as the first and add the second.",
+        body: [
+          "The distinction matters practically because the two roles hire differently. Administrator openings are more numerous, more accessible to non-programmers, and the usual entry point into the ecosystem. Developer openings are fewer, pay more, and expect you to already understand the platform an administrator manages — which is why attempting to start as a developer without admin grounding tends to go badly.",
+          "The most valuable position in this market is the person who does both. They can tell when a requirement should be a Flow rather than a trigger, which is a judgement call that saves clients considerable money and that pure developers routinely get wrong.",
+        ],
+        bullets: [
+          "Administrator — users, profiles, permission sets, roles and sharing rules",
+          "Administrator — objects, fields, relationships, validation and page layouts",
+          "Administrator — reports, dashboards and data management",
+          "Administrator — Flow Builder and approval processes, no code required",
+          "Developer — Apex classes, triggers, SOQL and governor limits",
+          "Developer — Lightning Web Components for custom interfaces",
+          "Developer — REST and platform integration with external systems",
+          "Both — sandboxes, change sets and deployment discipline",
+        ],
+      },
+      {
+        id: "salesforce-projects",
+        heading: "What will you build during the course?",
+        lead: "A working org, configured and extended by you. Salesforce interviews are practical — you are asked to describe how you modelled a requirement and why — so the deliverable is something you can walk a panel through rather than a certificate number.",
+        bullets: [
+          "A custom object model with relationships for a real business scenario",
+          "A security model — profiles, permission sets, roles and sharing rules — that survives scrutiny",
+          "Validation rules and page layouts driven by actual requirements",
+          "Reports and dashboards answering questions a manager would ask",
+          "Record-triggered and screen Flows replacing manual work",
+          "Apex triggers with proper bulkification and test coverage",
+          "A Lightning Web Component for something the standard interface cannot do",
+          "A REST integration with an external system",
+        ],
+      },
+      {
+        id: "who-should-learn-salesforce",
+        heading: "Who should learn Salesforce?",
+        lead: "People who want an enterprise IT career without necessarily wanting to be a programmer — and developers who want a platform specialisation with a high ceiling. Few technology tracks accommodate both as comfortably.",
+        body: [
+          "Salesforce is unusually welcoming to career changers because the administrator half rewards understanding a business process more than it rewards writing code. Business analysts, sales-operations staff, support engineers and CRM users already have half the required instinct; what they lack is the platform knowledge, and that is teachable in months.",
+        ],
+        bullets: [
+          "Freshers and graduates from any discipline entering IT",
+          "Business analysts and CRM users moving into a platform role",
+          "Support, operations and sales-operations professionals stepping up",
+          "Manual testers and non-development IT staff changing track",
+          "Developers adding an enterprise SaaS specialisation",
+          "Working professionals wanting an IT career without a coding-first path",
+        ],
+      },
+      {
+        id: "salesforce-career-path",
+        heading: "Where does a Salesforce career lead?",
+        lead: "Administrator to Developer or Business Analyst, then Consultant, then Technical Architect. It is one of the clearest ladders in enterprise IT, and the upper rungs are among the best-paid specialisations in the SaaS ecosystem.",
+        body: [
+          "Progression here is driven by breadth of implementation experience more than by years served. Someone who has delivered five different client orgs at a consulting partner typically moves faster than someone who has maintained one in-house org for the same period, because the range of problems encountered is what the senior roles are actually paying for.",
+          "The honest caveat, worth repeating: this is a platform career. The skills are deep and well paid inside the Salesforce ecosystem and transfer less directly outside it than general software engineering would. Knowing that up front is what makes it a good decision rather than an accidental one.",
+        ],
+      },
+    ],
+  },
+  // ============================================================
+  // BOOTCAMPS
+  // ============================================================
+  {
+    slug: "bootcamps",
+    metaTitle: "Coding Bootcamps in Pune — HSC, Students, Graduates",
+    h1: "Coding Bootcamps in Pune — CodeLeap, CareerCode and TechReady",
+    subhead:
+      "Structured, cohort-based programmes at Archer Infotech, Kothrud Pune — a vacation bootcamp for HSC passouts, semester-wise training for engineering students, and a placement-assisted intensive for graduates.",
+    paragraphs: [
+      "A bootcamp differs from a course in shape rather than subject. A course teaches a technology; a bootcamp takes a person from where they are to a defined outcome, with the sequence, the pace and the accountability built in. Archer Infotech runs three, and they exist because three distinct groups kept arriving with the same problem and needing entirely different answers: school leavers with time before college, engineering students with four years and no plan for them, and graduates who need to be employable in months.",
+      "CodeLeap is the vacation programme for HSC (12th standard) passouts — eight weeks between school and college, used to find out whether programming suits you before you commit a degree to the question. It is deliberately foundational: programming logic, one language, problem solving, and enough web development to build something real. Students who discover they enjoy it enter engineering with a genuine head start; students who discover they do not have learned that at the cheapest possible price.",
+      "CareerCode runs semester by semester alongside an engineering degree. The premise is that four years is ample time to become genuinely employable, and that most students lose it because nobody sequenced the learning. Each semester adds a layer — fundamentals, then web, then databases and backend, then a specialisation and projects — so that by final year the student has a portfolio and interview readiness rather than a certificate collection assembled in a panic.",
+      "TechReady is the intensive for graduates: six to eight months, full-time in commitment, ending in placement support. It is the programme for someone who has finished a degree, needs a job, and wants the whole path — fundamentals through specialisation, projects, portfolio, mock interviews and hiring-partner referrals — run as one continuous programme rather than assembled from separate courses. It is the most demanding of the three and the one with the clearest destination.",
+      "All three run from the Kothrud centre with the same trainer team that teaches the institute's regular courses, and all three are assignment-driven rather than lecture-driven. Archer Infotech has trained IT professionals in Pune since 2009 and reports a 90% placement rate across learners who complete training and clear at least one mock-interview round. Placement support in TechReady is bundled into the fee, with no separate placement charge.",
+    ],
+    careerOutcomes: [
+      {
+        role: "Software Developer (fresher)",
+        description:
+          "The TechReady destination — a first development role at a Pune services major, GCC captive or product company, entered with a portfolio rather than only a degree.",
+        band: "₹3.5–6 LPA",
+      },
+      {
+        role: "Full Stack Developer (fresher)",
+        description:
+          "For bootcamp learners who specialise into Java, Python or JavaScript full stack. The highest-volume fresher hiring pattern in Pune.",
+        band: "₹4–6 LPA",
+      },
+      {
+        role: "QA / Automation Engineer (fresher)",
+        description:
+          "A common TechReady specialisation and a realistic entry point for candidates from non-computer-science degrees.",
+        band: "₹3–4.5 LPA",
+      },
+      {
+        role: "Engineering student with a portfolio",
+        description:
+          "The CareerCode outcome — reaching final-year placements with projects, a GitHub history and interview practice already behind you.",
+      },
+      {
+        role: "Informed degree choice",
+        description:
+          "The CodeLeap outcome — finding out whether programming suits you across eight weeks rather than across four years and a degree fee.",
+      },
+    ],
+    faqs: [
+      {
+        question: "What is the difference between a bootcamp and a regular course?",
+        answer:
+          "A course teaches one technology and ends when the syllabus does. A bootcamp is a cohort-based programme with a destination — it sequences several technologies, sets the pace, enforces assignments, and takes you to a defined outcome such as employability or an informed degree choice. If you know exactly which technology you need, take the course. If you know where you want to end up but not how to get there, take the bootcamp.",
+      },
+      {
+        question: "Which bootcamp is right for me?",
+        answer:
+          "CodeLeap if you have just finished 12th and have a vacation before college. CareerCode if you are an engineering or computer-science student wanting to build skills across your degree rather than cram in the final year. TechReady if you have graduated and need to be employable in six to eight months. They are aimed at three different stages, not at three different skill levels, so the choice is usually obvious once stated this way.",
+      },
+      {
+        question: "Do I need any programming background to join a bootcamp?",
+        answer:
+          "No. All three begin from programming fundamentals and assume nothing. CodeLeap in particular is designed for students who have never written code. If you already program, tell the counsellor team — the early modules can be compressed so you spend your time on specialisation and projects instead of repeating what you know.",
+      },
+      {
+        question: "Is placement assistance included?",
+        answer:
+          "TechReady includes full placement support in the fee: resume and LinkedIn rewriting, ATS optimisation, mock interviews, soft-skills sessions and referrals to the institute's hiring-partner network, with no separate placement charge. CareerCode includes interview preparation and portfolio guidance in its later semesters, timed to final-year placements. CodeLeap is a foundation programme and is not placement-oriented — its outcome is skill and clarity, and it says so plainly.",
+      },
+      {
+        question: "Can I do a bootcamp alongside college or a job?",
+        answer:
+          "CareerCode is built for exactly that — it runs semester-wise alongside a degree, at a pace that assumes you have coursework. CodeLeap is a vacation programme and expects your time during those eight weeks. TechReady is intensive and difficult to combine with full-time work; learners who are employed usually take individual courses in weekend or live-online format instead, which covers the same ground on a longer calendar.",
+      },
+      {
+        question: "What will I actually have at the end?",
+        answer:
+          "Projects you built and can explain, a GitHub repository history rather than a single upload, and — for CareerCode and TechReady — interview practice against real questions. That is the deliverable that matters, because a Pune hiring panel asks what you have built long before it asks what you have attended. Certificates are issued, but they are not the point and it would be dishonest to present them as such.",
+      },
+      {
+        question: "How much do the bootcamps cost, and are EMI options available?",
+        answer:
+          "Fees vary by programme, duration and batch, and EMI options are available across all three. Because the three differ so much in length — eight weeks against six to eight months — a single range would be misleading, so figures are shared per programme on request through the contact form, on WhatsApp, or on +91 9850 678451. A free counselling session to establish which programme fits comes before any fee discussion.",
+      },
+    ],
+    sections: [
+      {
+        id: "how-a-bootcamp-works",
+        heading: "How does an Archer Infotech bootcamp work?",
+        lead: "The same seven-stage journey underlies all three programmes — foundations, core skills, a chosen specialisation, projects, a portfolio, and for the placement-oriented programme, interview preparation and referrals. What differs between them is entry point, pace and destination.",
+        body: [
+          "The stage that does the most work is specialisation, and it is chosen with a trainer rather than from a brochure. A student who enjoys building interfaces, one who enjoys data, and one who enjoys finding faults in other people's work should not end up on the same track, and the point of a cohort programme is that someone is paying enough attention to notice.",
+          "The stage learners most want to skip is the portfolio, and it is the one that decides outcomes. A finished project with a README that explains how to run it, committed over weeks rather than uploaded in one go, is the single most persuasive thing a fresher can put in front of a Pune hiring panel.",
+        ],
+        figure: {
+          src: "/images/courses/bootcamp-journey-v1.webp",
+          alt: "Seven-stage bootcamp journey diagram for Archer Infotech Kothrud Pune: where you start as a school leaver, engineering student or graduate; foundations covering programming logic, one language and problem solving; core skills covering web fundamentals, databases and version control; specialisation in full stack, testing, data or cloud chosen with a trainer; projects including assignments, mini projects and a reviewed capstone; portfolio covering GitHub, README discipline and a project you can explain; and placement covering resume preparation, mock interviews and referrals to hiring partners.",
+          width: 1500,
+          height: 858,
+          caption:
+            "The shared journey behind all three bootcamps. CodeLeap covers the first three stages; CareerCode spreads all seven across a degree; TechReady runs the full path in six to eight months.",
+        },
+      },
+      {
+        id: "which-bootcamp-should-you-choose",
+        heading: "Which bootcamp should you choose?",
+        lead: "By where you are, not by how much you know. The three programmes are aimed at three stages of a career — before college, during a degree, and after graduating — and each assumes no prior programming experience.",
+        bullets: [
+          "CodeLeap — HSC (12th) passouts, eight weeks of vacation, foundational. Find out whether programming suits you before committing a degree to the answer.",
+          "CareerCode — engineering and computer-science students, semester by semester alongside the degree. Reach final year with a portfolio instead of a panic.",
+          "TechReady — graduates, six to eight months, intensive and placement-assisted. The full path from fundamentals to a first development role.",
+          "If none of these fit — you are working, or you need one specific technology — the individual courses in the other categories are the better route.",
+        ],
+      },
+      {
+        id: "why-cohort-programmes-work",
+        heading: "Why do cohort programmes work better than self-study?",
+        lead: "Because the failure mode of self-study is almost never the material. It is sequence, pace and the absence of anyone to tell you that the thing you built works but is wrong. A bootcamp supplies all three, and a cohort supplies the fourth thing — people at the same stage as you.",
+        body: [
+          "Free learning material has never been better, and a genuinely disciplined self-learner can absolutely get there without a programme. Most people are not that, and there is no shame in the observation: the same person who cannot maintain a solo study schedule for six months will complete every assignment when there is a class on Tuesday and a trainer who will read their code.",
+          "The other thing a cohort provides is calibration. Studying alone, you have no idea whether your project is good. Sitting next to twenty people solving the same problem, you find out quickly — and that is the feedback that actually raises standards.",
+        ],
+      },
+      {
+        id: "who-joins-a-bootcamp",
+        heading: "Who joins these bootcamps?",
+        lead: "School leavers exploring the field, engineering and computer-science students who want their degree to end in a job, graduates from any discipline entering IT, and career changers who need a structured route rather than a list of courses.",
+        bullets: [
+          "HSC (12th) passouts with a vacation before college — CodeLeap",
+          "BE, BTech, BCA, BSc and MCA students across any semester — CareerCode",
+          "Recent graduates targeting a first development role — TechReady",
+          "Non-IT graduates changing field into software — TechReady",
+          "Students whose degree is strong on theory and thin on building — CareerCode",
+          "Anyone who has tried self-study and could not maintain the sequence",
+        ],
+      },
+      {
+        id: "bootcamp-outcomes",
+        heading: "What does a bootcamp actually deliver?",
+        lead: "Skills you can demonstrate, projects you can explain, and — for the placement-oriented programme — a hiring process you have been prepared for. Not a guarantee, which nobody honest offers, and not a certificate that means anything on its own.",
+        body: [
+          "It is worth being direct about what a bootcamp cannot do. It cannot make someone employable who does not do the assignments, and it cannot substitute for the practice hours between sessions. What it can do is make sure that the hours you do put in are spent in the right order, on the right things, with someone checking the result — which is the difference between six months of progress and six months of activity.",
+          "Archer Infotech reports a 90% placement rate across learners who complete training and clear at least one mock-interview round. Both conditions in that sentence are doing real work, and they are stated rather than buried because the number means nothing without them.",
+        ],
+      },
+    ],
+    courseGroups: [
+      {
+        heading: "For school and college students",
+        blurb:
+          "Foundation-first programmes that run before or alongside a degree. Neither assumes any programming background, and both are about building the base early rather than in the final year.",
+        slugs: ["codeleap-bootcamp", "careercode-bootcamp"],
+      },
+      {
+        heading: "For graduates targeting placement",
+        blurb:
+          "The intensive path. Six to eight months from fundamentals to a first development role, with projects, portfolio, mock interviews and hiring-partner referrals included.",
+        slugs: ["techready-bootcamp"],
       },
     ],
   },
