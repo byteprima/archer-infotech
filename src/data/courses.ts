@@ -65,7 +65,14 @@ export interface Course {
   duration: string;
   level: "Beginner" | "Intermediate" | "Advanced" | "All Levels";
   mode: ("Online" | "Offline")[];
-  image: string;
+  /**
+   * Legacy hero JPG. Optional since 2026-09-06: as the note on `tileImage`
+   * below already records, nothing renders this field — tiles use
+   * <CourseImagePlaceholder> and the detail page never read it. Requiring it
+   * forced every new course to invent a path to a file that does not exist.
+   * Verified before relaxing: no `course.image` consumer anywhere in src/.
+   */
+  image?: string;
   /**
    * Course tile artwork — a generated banner carrying the language or
    * technology mark with a small Archer Infotech lockup.
@@ -196,15 +203,17 @@ export const courses: Course[] = [
   {
     id: "java",
     slug: "java-training-in-pune",
-    title: "Java Programming",
+    seoTitle: "Core Java Course in Pune with Placement",
+    heroHeading: "Core Java Course in Pune with Placement",
+    title: "Core Java Programming",
     shortTitle: "Java",
     category: "Programming",
     categorySlug: "programming",
     // Route crawl equity from this indexed, frequently-crawled page to the
     // un-crawled Java Full Stack page (its natural next step for learners).
     relatedSlugs: ["java-full-stack-training-in-pune"],
-    description: "Master Java from basics to advanced concepts. Learn object-oriented programming, data structures, and build real-world applications with industry best practices.",
-    shortDescription: "Complete Java programming from fundamentals to advanced OOP concepts",
+    description: "Master Core Java from basics to interview-ready confidence. Learn JVM fundamentals, object-oriented programming, exception handling, collections, generics, streams, multithreading, JDBC, and data structures through hands-on projects.",
+    shortDescription: "Complete Core Java programming from fundamentals to OOP, collections, threads and JDBC",
     duration: "3 Months",
     level: "Beginner",
     mode: ["Online", "Offline"],
@@ -230,8 +239,8 @@ export const courses: Course[] = [
         topics: ["Classes and objects", "Inheritance", "Polymorphism", "Abstraction", "Encapsulation", "Interfaces"],
       },
       {
-        title: "Advanced Java",
-        topics: ["Exception handling", "Collections framework", "Generics", "File I/O", "Serialization"],
+        title: "Core Java Essentials",
+        topics: ["Exception handling", "Packages", "Collections framework", "Generics", "File I/O", "Serialization"],
       },
       {
         title: "Multithreading & Concurrency",
@@ -249,7 +258,7 @@ export const courses: Course[] = [
       },
       {
         question: "What projects will I build?",
-        answer: "You'll build multiple projects including a student management system, inventory application, and a complete web application.",
+        answer: "You'll build multiple Core Java projects including a student management system, inventory and billing application, and a collections/DSA practice library.",
       },
       {
         question: "Is Java still relevant in 2026?",
@@ -257,17 +266,19 @@ export const courses: Course[] = [
       },
     ],
     prerequisites: ["Basic computer knowledge", "Logical thinking ability"],
-    careerOpportunities: ["Java Developer", "Backend Developer", "Software Engineer", "Android Developer"],
+    careerOpportunities: ["Core Java Developer", "Junior Java Developer", "Software Engineer", "Automation Tester with Java"],
   },
   {
     id: "python",
     slug: "python-training-in-pune",
-    title: "Python Programming",
+    seoTitle: "Python Course in Pune with Placement",
+    heroHeading: "Python Course in Pune with Placement",
+    title: "Core Python Programming",
     shortTitle: "Python",
     category: "Programming",
     categorySlug: "programming",
-    description: "Learn Python programming from scratch to advanced levels. Master data structures, algorithms, and build powerful applications with Python's extensive ecosystem.",
-    shortDescription: "Comprehensive Python programming for beginners to advanced",
+    description: "Learn Core Python from scratch with functions, modules, packages, data structures, OOP, exceptions, file handling, regex, database/API basics, testing, DSA, and practical automation projects.",
+    shortDescription: "Core Python from fundamentals to OOP, files, testing and automation projects",
     duration: "2.5 Months",
     level: "Beginner",
     mode: ["Online", "Offline"],
@@ -280,8 +291,8 @@ export const courses: Course[] = [
       "Data structures and algorithms",
       "Object-oriented programming in Python",
       "File handling and modules",
-      "Web scraping basics",
-      "Introduction to data analysis",
+      "Regular expressions and automation scripts",
+      "Testing and debugging with pytest",
     ],
     modules: [
       {
@@ -301,26 +312,28 @@ export const courses: Course[] = [
         topics: ["Classes and objects", "Inheritance and polymorphism", "Encapsulation", "Magic methods", "Decorators"],
       },
       {
-        title: "Advanced Topics",
-        topics: ["File handling", "Exception handling", "Regular expressions", "Database connectivity", "API basics"],
+        title: "Core Python Project Skills",
+        topics: ["File handling", "Exception handling", "Regular expressions", "Database connectivity basics", "API consumption basics", "Testing"],
       },
     ],
     faqs: [
       {
         question: "Why should I learn Python?",
-        answer: "Python is versatile and used in web development, data science, AI/ML, automation, and more. It has the simplest syntax making it beginner-friendly.",
+        answer: "Python is versatile and beginner-friendly. This Core Python course builds the language base needed for automation, testing, backend, data science, AI/ML, and other follow-on paths.",
       },
       {
         question: "What can I do after learning Python?",
-        answer: "You can pursue careers in web development, data science, machine learning, automation, scripting, and many more fields.",
+        answer: "You can use Core Python for scripting, automation, testing support, application support, and as the foundation for later Python Full Stack, Data Science, Machine Learning, and GenAI courses.",
       },
     ],
     prerequisites: ["Basic computer knowledge"],
-    careerOpportunities: ["Python Developer", "Data Analyst", "Automation Engineer", "Backend Developer"],
+    careerOpportunities: ["Core Python Developer", "Python Trainee Developer", "Automation Engineer", "Software Engineer"],
   },
   {
     id: "javascript",
     slug: "javascript-training-in-pune",
+    seoTitle: "JavaScript Course in Pune with Placement",
+    heroHeading: "JavaScript Course in Pune with Placement",
     title: "JavaScript Programming",
     shortTitle: "JavaScript",
     category: "Programming",
@@ -370,6 +383,8 @@ export const courses: Course[] = [
   {
     id: "c",
     slug: "c-training-in-pune",
+    seoTitle: "C Programming Course in Pune with Placement",
+    heroHeading: "C Programming Course in Pune with Placement",
     title: "C Programming",
     shortTitle: "C",
     category: "Programming",
@@ -415,6 +430,8 @@ export const courses: Course[] = [
   {
     id: "cpp",
     slug: "cpp-training-in-pune",
+    seoTitle: "C++ Programming Course in Pune with Placement",
+    heroHeading: "C++ Programming Course in Pune with Placement",
     title: "C++ Programming",
     shortTitle: "C++",
     category: "Programming",
@@ -460,12 +477,14 @@ export const courses: Course[] = [
   {
     id: "dotnet-csharp",
     slug: "dotnet-csharp-training-in-pune",
-    title: ".NET/C# Programming",
-    shortTitle: ".NET/C#",
+    seoTitle: "C# and .NET Course in Pune with Placement",
+    heroHeading: "C# and .NET Course in Pune with Placement",
+    title: "C# Programming",
+    shortTitle: "C#",
     category: "Programming",
     categorySlug: "programming",
-    description: "Learn Microsoft .NET ecosystem with C# programming. Build desktop, web, and enterprise applications using the latest .NET technologies.",
-    shortDescription: "Enterprise application development with C# and .NET",
+    description: "Learn C# programming from fundamentals to modern language fluency. Master OOP, records, interfaces, generics, collections, LINQ, delegates, events, async/await, file I/O, JSON, testing, DSA, and capstone projects.",
+    shortDescription: "C# language fundamentals, OOP, LINQ, async, files, testing and projects",
     duration: "3 Months",
     level: "Beginner",
     mode: ["Online", "Offline"],
@@ -475,10 +494,10 @@ export const courses: Course[] = [
     highlights: [
       "C# programming fundamentals",
       "Object-oriented programming",
-      ".NET Core and .NET 8",
-      "ASP.NET basics",
-      "Entity Framework",
-      "Windows application development",
+      "Generics, collections, and LINQ",
+      "Delegates, events, and lambda expressions",
+      "Async/await, file I/O, and JSON",
+      "xUnit testing and capstone projects",
     ],
     modules: [
       {
@@ -490,8 +509,8 @@ export const courses: Course[] = [
         topics: ["Classes and objects", "Inheritance", "Interfaces", "Polymorphism", "Abstract classes"],
       },
       {
-        title: ".NET Ecosystem",
-        topics: [".NET overview", "CLR and framework", "Assemblies", "NuGet packages", ".NET CLI"],
+        title: "C# Runtime and Tooling",
+        topics: ["CLR overview", "Assemblies", "NuGet packages", ".NET CLI", "Project structure"],
       },
       {
         title: "Advanced C#",
@@ -500,12 +519,12 @@ export const courses: Course[] = [
     ],
     faqs: [
       {
-        question: "Is .NET still relevant?",
-        answer: ".NET is widely used in enterprise environments and Microsoft has modernized it with .NET Core/8 for cross-platform development.",
+        question: "Is this a C# course or full .NET course?",
+        answer: "This is a C# language course. ASP.NET Core, Entity Framework, Azure, and full-stack .NET are covered in follow-on courses after the C# foundation.",
       },
     ],
     prerequisites: ["Basic programming knowledge helpful"],
-    careerOpportunities: [".NET Developer", "Software Engineer", "Enterprise Developer"],
+    careerOpportunities: ["C# Developer", "Junior C# Developer", "Software Engineer", "Application Support Engineer"],
   },
   {
     id: "spring-boot-microservices",
@@ -867,6 +886,8 @@ export const courses: Course[] = [
   {
     id: "mern-stack",
     slug: "mern-stack-training-in-pune",
+    seoTitle: "MERN Stack Developer Course in Pune with Placement",
+    heroHeading: "MERN Stack Developer Course in Pune with Placement",
     title: "MERN Stack Development",
     shortTitle: "MERN Stack",
     category: "Full Stack Development",
@@ -922,8 +943,160 @@ export const courses: Course[] = [
     careerOpportunities: ["MERN Stack Developer", "Full Stack Developer", "React Developer", "Node.js Developer"],
   },
   {
+    id: "mean-stack",
+    slug: "mean-stack-training-in-pune",
+    seoTitle: "MEAN Stack Developer Course in Pune with Placement",
+    heroHeading: "MEAN Stack Developer Course in Pune with Placement",
+    title: "MEAN Stack Development",
+    shortTitle: "MEAN Stack",
+    category: "Full Stack Development",
+    categorySlug: "full-stack-development",
+    description:
+      "Master the MEAN stack — MongoDB, Express.js, Angular and Node.js. Build enterprise-grade, TypeScript-first web applications end to end, from schema design to deployment.",
+    shortDescription: "Build full-stack apps with MongoDB, Express, Angular, and Node.js",
+    duration: "5 Months",
+    level: "Intermediate",
+    mode: ["Online", "Offline"],
+    tileImage: "/images/courses/mean-stack-v1.webp",
+    isFeatured: true,
+    isPopular: true,
+    highlights: [
+      "TypeScript from the ground up",
+      "Angular components, services and RxJS",
+      "Node.js and Express REST APIs",
+      "MongoDB schema design with Mongoose",
+      "JWT authentication and route guards",
+      "State management with NgRx",
+      "Unit testing with Jasmine and Karma",
+      "Cloud deployment and CI/CD",
+    ],
+    modules: [
+      {
+        title: "JavaScript and TypeScript Foundations",
+        topics: [
+          "ES6+ syntax, destructuring, spread and modules",
+          "Asynchronous JavaScript: callbacks, promises, async/await",
+          "TypeScript types, interfaces and generics",
+          "Decorators and dependency-injection concepts",
+          "Tooling: npm, Angular CLI, Git",
+        ],
+      },
+      {
+        title: "Node.js Fundamentals",
+        topics: [
+          "Event loop, non-blocking I/O and the module system",
+          "File system, streams and buffers",
+          "npm scripts and environment configuration",
+          "Error handling and debugging",
+          "Building a CLI utility as a first project",
+        ],
+      },
+      {
+        title: "Express.js and REST API Design",
+        topics: [
+          "Routing, controllers and middleware",
+          "Request validation and centralised error handling",
+          "RESTful resource modelling and status codes",
+          "File uploads with Multer",
+          "API documentation with Swagger/OpenAPI",
+        ],
+      },
+      {
+        title: "MongoDB and Mongoose",
+        topics: [
+          "Document modelling versus relational thinking",
+          "CRUD, query operators and projections",
+          "Mongoose schemas, validation and middleware",
+          "Relationships: embedding versus referencing, populate",
+          "Aggregation pipeline, indexing and query performance",
+        ],
+      },
+      {
+        title: "Angular Core",
+        topics: [
+          "Components, templates and data binding",
+          "Directives and pipes, including custom ones",
+          "Services and dependency injection",
+          "Angular Router, lazy loading and route guards",
+          "Reactive and template-driven forms with validation",
+        ],
+      },
+      {
+        title: "Angular Advanced and RxJS",
+        topics: [
+          "Observables, operators and subscription management",
+          "HttpClient, interceptors and error handling",
+          "State management with NgRx: store, actions, effects",
+          "Change detection and OnPush performance tuning",
+          "Component testing with Jasmine and Karma",
+        ],
+      },
+      {
+        title: "Authentication, Security and Integration",
+        topics: [
+          "JWT issue, refresh and storage trade-offs",
+          "Role-based access control across API and UI",
+          "Password hashing, CORS, Helmet and rate limiting",
+          "Connecting Angular to the Express API end to end",
+          "Real-time features with Socket.io",
+        ],
+      },
+      {
+        title: "Deployment, DevOps and Capstone",
+        topics: [
+          "Environment configuration and secrets handling",
+          "Dockerising the API and the Angular build",
+          "MongoDB Atlas and cloud deployment",
+          "CI/CD pipelines with GitHub Actions",
+          "Capstone: a production-style MEAN application, reviewed and presented",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: "What is the difference between MEAN and MERN?",
+        answer:
+          "Only the frontend differs. Both use MongoDB, Express and Node.js on the server; MEAN uses Angular and MERN uses React. Angular is a full framework with routing, forms, HTTP and dependency injection built in and TypeScript by default, which is why enterprises and services companies favour it. React is a library you assemble with other packages, which suits product startups. The backend skills transfer completely between the two.",
+      },
+      {
+        question: "Should I learn MEAN or MERN in Pune?",
+        answer:
+          "Look at the employers you are targeting. Pune's services majors and GCC captives run large Angular estates, so MEAN maps well to those roles. Product startups lean React, so MERN suits them. If you are undecided, note that three of the four technologies are identical, so moving across later costs you the frontend only.",
+      },
+      {
+        question: "Do I need to know TypeScript before joining?",
+        answer:
+          "No. TypeScript is taught from the ground up in the first module, because Angular assumes it throughout. Comfort with basic JavaScript and HTML/CSS is what you need at the start.",
+      },
+      {
+        question: "How long is the MEAN Stack course?",
+        answer:
+          "Five months, in weekday, weekend or live-online batches. That covers the eight modules above plus the capstone project, with time for the project work that interviews actually ask about.",
+      },
+      {
+        question: "What projects will I build?",
+        answer:
+          "You build progressively: a CLI utility in the Node module, a documented REST API with authentication, an Angular client consuming it, and finally a capstone that ties the stack together and is deployed to the cloud. The capstone is the one you demonstrate in interviews.",
+      },
+    ],
+    prerequisites: [
+      "JavaScript fundamentals",
+      "Basic HTML and CSS",
+      "No TypeScript or Angular experience required",
+    ],
+    careerOpportunities: [
+      "MEAN Stack Developer",
+      "Angular Developer",
+      "Full Stack Developer",
+      "Node.js Backend Developer",
+      "JavaScript Engineer",
+    ],
+  },
+  {
     id: "python-fullstack",
     slug: "python-full-stack-training-in-pune",
+    seoTitle: "Python Full Stack Developer Course in Pune with Placement",
+    heroHeading: "Python Full Stack Developer Course in Pune with Placement",
     title: "Python Full Stack Development",
     shortTitle: "Python Full Stack",
     category: "Full Stack Development",
@@ -975,6 +1148,8 @@ export const courses: Course[] = [
   {
     id: "dotnet-fullstack",
     slug: "dotnet-full-stack-training-in-pune",
+    seoTitle: ".NET Full Stack Developer Course in Pune with Placement",
+    heroHeading: ".NET Full Stack Developer Course in Pune with Placement",
     title: ".NET Full Stack Development",
     shortTitle: ".NET Full Stack",
     category: "Full Stack Development",
@@ -1090,6 +1265,8 @@ export const courses: Course[] = [
   {
     id: "reactjs",
     slug: "react-training-in-pune",
+    seoTitle: "React JS Course in Pune with Placement",
+    heroHeading: "React JS Course in Pune with Placement",
     title: "React.js Development",
     shortTitle: "React.js",
     category: "Modern Web",
@@ -1140,6 +1317,8 @@ export const courses: Course[] = [
   {
     id: "angular",
     slug: "angular-training-in-pune",
+    seoTitle: "Angular Course in Pune with Placement",
+    heroHeading: "Angular Course in Pune with Placement",
     title: "Angular Development",
     shortTitle: "Angular",
     category: "Modern Web",
@@ -1205,6 +1384,8 @@ export const courses: Course[] = [
   {
     id: "nextjs",
     slug: "nextjs-training-in-pune",
+    seoTitle: "Next.js Course in Pune with Placement",
+    heroHeading: "Next.js Course in Pune with Placement",
     title: "Next.js Development",
     shortTitle: "Next.js",
     category: "Modern Web",
@@ -1250,6 +1431,8 @@ export const courses: Course[] = [
   {
     id: "typescript",
     slug: "typescript-training-in-pune",
+    seoTitle: "TypeScript Course in Pune with Placement",
+    heroHeading: "TypeScript Course in Pune with Placement",
     title: "TypeScript Development",
     shortTitle: "TypeScript",
     category: "Modern Web",
@@ -1295,6 +1478,8 @@ export const courses: Course[] = [
   {
     id: "nodejs",
     slug: "nodejs-training-in-pune",
+    seoTitle: "Node.js Course in Pune with Placement",
+    heroHeading: "Node.js Course in Pune with Placement",
     title: "Node.js Development",
     shortTitle: "Node.js",
     category: "Modern Web",
@@ -2005,6 +2190,8 @@ export const courses: Course[] = [
   {
     id: "generative-ai",
     slug: "genai-training-in-pune",
+    seoTitle: "Generative AI Course in Pune with Placement",
+    heroHeading: "Generative AI Course in Pune with Placement",
     title: "Generative AI",
     shortTitle: "Generative AI",
     category: "AI & GenAI",
@@ -3021,9 +3208,11 @@ export const courses: Course[] = [
   {
     id: "agentic-ai",
     slug: "agentic-ai-training-in-pune",
+    seoTitle: "Agentic AI Course in Pune — Build AI Agents",
+    heroHeading: "Agentic AI Course in Pune — Build Production AI Agents",
     title: "Agentic AI",
     shortTitle: "Agentic AI",
-    category: "Generative AI",
+    category: "AI & GenAI",
     categorySlug: "generative-ai",
     description: "Build production-grade AI agents with LangChain, LangGraph, OpenAI Assistants API, and Claude tool use. Learn the ReAct pattern, multi-step planning, memory and state management, multi-agent orchestration, and observability + deployment for real-world agent systems. The fastest-growing GenAI specialisation in the Pune product-engineering market.",
     shortDescription: "LangChain + LangGraph + OpenAI Assistants + Claude tool use; ReAct, memory, multi-agent orchestration",

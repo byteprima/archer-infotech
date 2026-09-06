@@ -123,7 +123,8 @@ export interface CourseSummary {
   duration: string;
   level: "Beginner" | "Intermediate" | "Advanced" | "All Levels";
   mode: ("Online" | "Offline")[];
-  image: string;
+  /** Legacy hero JPG — optional; nothing renders it. See courses.ts. */
+  image?: string;
   /**
    * Tile artwork for the /courses grid. When present, <CourseImagePlaceholder>
    * renders it instead of the generated gradient. Mirrors `tileImage` on the
@@ -270,6 +271,21 @@ export const coursesSummary: CourseSummary[] = [
     mode: ["Online", "Offline"],
     image: "/images/courses/mern-stack-v1.webp",
     tileImage: "/images/courses/mern-stack-v1.webp",
+    isFeatured: true,
+    isPopular: true,
+  },
+  {
+    id: "mean-stack",
+    slug: "mean-stack-training-in-pune",
+    title: "MEAN Stack Development",
+    shortTitle: "MEAN Stack",
+    category: "Full Stack Development",
+    categorySlug: "full-stack-development",
+    shortDescription: "Build full-stack apps with MongoDB, Express, Angular, and Node.js",
+    duration: "5 Months",
+    level: "Intermediate",
+    mode: ["Online", "Offline"],
+    tileImage: "/images/courses/mean-stack-v1.webp",
     isFeatured: true,
     isPopular: true,
   },
