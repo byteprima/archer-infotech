@@ -70,6 +70,25 @@ export const angularTrainingInPune: CourseRichContent = {
       ],
     },
     {
+      title: "Directives, Pipes & Modern Template Control Flow",
+      weekRange: "Week 3",
+      description:
+        "Angular's template language, which is where most of the framework's day-to-day expressiveness lives. Built-in structural and attribute directives, then the modern `@if`, `@for` and `@switch` control-flow syntax that replaced `*ngIf` and `*ngFor` — including why the change was made and what it does for build size and type checking.\n\nWriting your own directives is the point at which Angular stops feeling like a set of rules and starts feeling like a toolkit. Pipes cover the built-in set including `async`, custom pipes, and the pure-versus-impure distinction that decides whether a pipe is a performance win or a performance bug.",
+      topics: [
+        "Structural directives — the shape of the abstraction",
+        "@if, @for and @switch control flow",
+        "trackBy and list-rendering performance",
+        "Built-in attribute directives",
+        "ngClass, ngStyle and dynamic presentation",
+        "Writing custom attribute directives",
+        "Writing custom structural directives",
+        "Built-in pipes, including async",
+        "Custom pipes and parameters",
+        "Pure versus impure pipes and the cost of each",
+        "@defer for deferred template loading",
+      ],
+    },
+    {
       title: "Services, Dependency Injection & Application State",
       weekRange: "Week 4",
       description:
@@ -82,6 +101,24 @@ export const angularTrainingInPune: CourseRichContent = {
         "Signal-based state management",
         "NgRx — store, actions, reducers, effects, selectors",
         "When NgRx earns its complexity vs when it doesn't",
+      ],
+    },
+    {
+      title: "Angular Signals & Signal-Based State",
+      weekRange: "Week 4",
+      description:
+        "Angular's reactivity model, and the most consequential change to the framework in years. Signals as values that know who depends on them: `signal`, `computed` and `effect`, and how they let change detection do dramatically less work than it did under zone-based checking.\n\nThe module covers signal inputs and outputs, model signals for two-way binding, and — importantly — interoperability with RxJS through `toSignal` and `toObservable`, because real applications contain both and will for years. It closes with signal-based state as a genuine alternative to a store, which for a large share of applications is now the right answer.",
+      topics: [
+        "signal, computed and effect",
+        "How signals change what gets re-rendered",
+        "Signal inputs, outputs and model signals",
+        "Signals versus zone-based change detection",
+        "toSignal and toObservable interoperability",
+        "When to use a signal and when an observable",
+        "Signal-based state as an alternative to a store",
+        "linkedSignal and derived state",
+        "Resource and async data patterns",
+        "Migrating existing state to signals",
       ],
     },
     {
@@ -115,6 +152,24 @@ export const angularTrainingInPune: CourseRichContent = {
       ],
     },
     {
+      title: "Content Projection, View Queries & Dynamic Components",
+      weekRange: "Week 6",
+      description:
+        "The APIs that make genuinely reusable Angular components possible, and the ones most courses never reach. Content projection with `ng-content`, including multi-slot projection and conditional projection — the mechanism behind every card, dialog and layout component you will ever be asked to build.\n\nView and content queries give a component controlled access to its own children. Dynamic components cover creating components at runtime, which is how modals, toasts, dashboards with configurable widgets and anything driven by server-supplied configuration actually work. Template references and `ngTemplateOutlet` close the module.",
+      topics: [
+        "Single and multi-slot content projection",
+        "Conditional and fallback projection",
+        "ViewChild, ViewChildren and lifecycle timing",
+        "ContentChild and ContentChildren",
+        "Signal-based queries",
+        "TemplateRef and ngTemplateOutlet",
+        "Creating components dynamically at runtime",
+        "ViewContainerRef and component references",
+        "Passing data to and from dynamic components",
+        "Building a configurable widget host",
+      ],
+    },
+    {
       title: "HTTP Client, Interceptors & RxJS for Real Work",
       weekRange: "Week 7",
       description:
@@ -127,6 +182,24 @@ export const angularTrainingInPune: CourseRichContent = {
         "switchMap vs mergeMap vs concatMap — the practical guide",
         "Signal / Observable interop — toSignal, toObservable",
         "Error handling and retry patterns",
+      ],
+    },
+    {
+      title: "Angular Material, Data Tables & UI Motion",
+      weekRange: "Week 7",
+      description:
+        "The interface layer as enterprise Angular actually builds it. Angular Material components and theming, the CDK underneath them — overlays, portals, drag and drop, accessibility utilities — and how to customise Material without fighting it, which is the skill that separates a usable design from a default one.\n\nData-heavy UI gets its own treatment because it is what enterprise Angular is mostly used for: tables with sorting, filtering, server-side pagination and virtual scrolling over large sets. Animations close the module — Angular's animation API, transitions between routes, and motion used to explain state change rather than to decorate.",
+      topics: [
+        "Angular Material components and modules",
+        "Theming, typography and design tokens",
+        "The CDK — overlay, portal, drag and drop",
+        "Customising Material without fighting it",
+        "Data tables — sorting, filtering, pagination",
+        "Server-side pagination and large data sets",
+        "Virtual scrolling with the CDK",
+        "Angular animations and transition states",
+        "Route transition animations",
+        "Motion that explains rather than decorates",
       ],
     },
     {
@@ -160,6 +233,25 @@ export const angularTrainingInPune: CourseRichContent = {
       ],
     },
     {
+      title: "Accessibility, Internationalisation & PWA",
+      weekRange: "Week 9",
+      description:
+        "Three requirements that appear in enterprise specifications and almost never in training courses. Accessibility covers semantic templates, focus management across route changes in a single-page application, ARIA used correctly, accessible forms with announced errors, and testing with the CDK's a11y utilities and a screen reader.\n\nInternationalisation covers Angular's i18n system, message extraction, pluralisation and locale-aware formatting — genuinely relevant for Pune teams building for global users. Progressive web app concepts cover the service worker, caching strategies, offline behaviour and installability, along with an honest note on when a PWA is worth the added complexity.",
+      topics: [
+        "Semantic templates and heading structure",
+        "Focus management across route changes",
+        "ARIA roles and live regions",
+        "Accessible forms and error announcement",
+        "The CDK a11y utilities and testing with axe",
+        "Angular i18n and message extraction",
+        "Pluralisation, dates, numbers and currency by locale",
+        "Runtime versus build-time locale strategies",
+        "Service worker and caching strategies",
+        "Offline behaviour and installability",
+        "When a PWA is not worth it",
+      ],
+    },
+    {
       title: "Performance, SSR & Production Deployment",
       weekRange: "Week 10",
       description:
@@ -173,6 +265,43 @@ export const angularTrainingInPune: CourseRichContent = {
         "Azure Static Web Apps / S3 + CloudFront",
         "GitHub Actions / Azure Pipelines CI/CD",
         "Error tracking — Sentry, Application Insights",
+      ],
+    },
+    {
+      title: "Application Architecture — Standalone, Monorepos & Micro Frontends",
+      weekRange: "Week 10",
+      description:
+        "How an Angular application is organised once it is large enough that organisation decides whether it survives. Standalone-first architecture as the current default, and what NgModules were for — knowledge you need, because you will meet legacy applications that still use them and be asked to migrate one.\n\nFeature boundaries, shared and core layers, barrel files and the dependency rules that keep them from becoming circular. Then monorepos with Nx — project graphs, affected builds, enforced module boundaries — and micro frontends, covered honestly: a real solution to an organisational problem, and an expensive mistake when adopted for a technical one.",
+      topics: [
+        "Standalone components as the default",
+        "NgModules — what they were for, and migrating away",
+        "Feature, shared and core layer boundaries",
+        "Enforcing dependency rules between layers",
+        "Barrel files and circular-import traps",
+        "Monorepos with Nx — project graph and affected builds",
+        "Library boundaries and code sharing",
+        "Micro frontends and module federation",
+        "When micro frontends are the wrong answer",
+        "Documenting an architecture decision",
+      ],
+    },
+    {
+      title: "Code Quality, Debugging & CI/CD",
+      weekRange: "Week 10",
+      description:
+        "The professional habits, and the pipeline that enforces them. ESLint for Angular with the framework-specific rules, Prettier, strict TypeScript settings, and pre-commit hooks so unformatted or failing code cannot land. Conventional commits and a readable history.\n\nDebugging is taught as a method: Angular DevTools for the component tree and change-detection profiling, source maps, breakpoint debugging in the browser, and reading Angular's error messages — which are more informative than their reputation suggests once you know their shape. CI/CD then covers a real pipeline: install, lint, test, build, and deploy on merge.",
+      topics: [
+        "ESLint with Angular-specific rules",
+        "Prettier and shared formatting configuration",
+        "Strict TypeScript settings for Angular",
+        "Husky, lint-staged and pre-commit checks",
+        "Conventional commits and readable history",
+        "Angular DevTools and the component tree",
+        "Change-detection profiling",
+        "Breakpoint debugging and source maps",
+        "Reading Angular error messages properly",
+        "A CI pipeline — install, lint, test, build",
+        "Deploying on merge with GitHub Actions",
       ],
     },
     {
@@ -211,6 +340,43 @@ export const angularTrainingInPune: CourseRichContent = {
       ],
     },
   ],
+
+  roadmapImage: {
+    src: "/images/courses/angular-path-v1.webp",
+    width: 1400,
+    height: 900,
+    alt: "Eight-stage Angular learning path taught at Archer Infotech Pune: TypeScript covering types, interfaces, generics and decorators; components and templates covering bindings, lifecycle, encapsulation and signals; directives and pipes covering structural, attribute, custom and modern control flow; services and dependency injection covering injectors, providers and injection tokens; routing covering parameters, guards, resolvers and lazy loading; forms and HttpClient covering reactive forms, validation and interceptors; RxJS covering observables, operators and subscription management; and state, testing and deployment covering NgRx, Jasmine, Karma, build and deploy.",
+    caption:
+      "The order this course is taught in. Each stage expands into the modules below — nothing arrives before its prerequisite.",
+  },
+
+  syllabusDownload: {
+    pdfUrl: "/downloads/angular-syllabus-v1.pdf",
+    title: "Angular Course Syllabus — Complete Module List",
+    slug: "angular-syllabus",
+    blurb:
+      "The complete 92-section syllabus as a 42-page PDF — TypeScript, components and templates, directives, pipes, signals, RxJS, both form systems, routing, HttpClient, state management, change detection, server-side rendering, testing, accessibility, security, architecture, micro frontends, CI/CD, mini projects, a capstone and interview preparation. Everything in it is on this page; the PDF is the portable version.",
+    asideBlocks: [
+      {
+        heading: "What is inside the 42-page PDF",
+        items: [
+          "All 92 numbered sections in teaching order, from prerequisites through to career roles after training.",
+          "Modern Angular in full — signals, signal-based state and forms, the new control-flow syntax, deferred loading and standalone-first architecture.",
+          "RxJS given seven dedicated sections rather than a passing mention: fundamentals, operators, subjects and subscription management.",
+          "Enterprise material most syllabi skip — server-side rendering and hydration, internationalisation, micro frontends, Nx monorepos, accessibility and CI/CD.",
+        ],
+      },
+      {
+        heading: "Roles this syllabus prepares you for",
+        items: [
+          "Angular Developer — where Pune enterprise and GCC captive demand concentrates.",
+          "Frontend Developer — Angular as the primary framework.",
+          "MEAN Stack Developer — with Node, Express and MongoDB.",
+          "UI Engineer — enterprise design systems and data-heavy interfaces.",
+        ],
+      },
+    ],
+  },
 
   projects: [
     {

@@ -83,6 +83,24 @@ export const reactTrainingInPune: CourseRichContent = {
       ],
     },
     {
+      title: "Hooks in Depth — useEffect, useRef, useReducer & Custom Hooks",
+      weekRange: "Week 4",
+      description:
+        "The hooks beyond useState, taught by the problems they solve rather than as an API tour. useEffect gets the most time and deserves it: the dependency array, cleanup functions, and the honest rule that most effects people write should not exist — derived state belongs in render, and event logic belongs in handlers.\n\nuseRef for values that persist without re-rendering and for DOM access; useReducer for state whose transitions are worth naming; and custom hooks as the mechanism for extracting logic that two components share. Stale closures get their own treatment, because they produce bugs that look like React misbehaving and are actually JavaScript working exactly as specified.",
+      topics: [
+        "useEffect — dependencies, cleanup, and execution order",
+        "Effects you should not write — derived state and event logic",
+        "Fetching in effects, race conditions and AbortController",
+        "useRef for mutable values and DOM access",
+        "useReducer and naming state transitions",
+        "Context with useReducer as a lightweight store",
+        "Custom hooks — extracting and testing shared logic",
+        "Rules of hooks and why the linter is right",
+        "Stale closures and how to spot one",
+        "useLayoutEffect and when it is actually needed",
+      ],
+    },
+    {
       title: "Routing & State Management",
       weekRange: "Week 5",
       description:
@@ -109,6 +127,42 @@ export const reactTrainingInPune: CourseRichContent = {
         "Responsive design — breakpoints, container queries",
         "Dark mode, prefers-color-scheme, theme switching",
         "Accessibility — colour contrast, keyboard nav, ARIA basics",
+      ],
+    },
+    {
+      title: "Advanced Patterns & Reusable Component Design",
+      weekRange: "Week 6",
+      description:
+        "The difference between a component that works and one a team can use. Composition over configuration; compound components for related parts that share implicit state; render props and headless components; controlled versus uncontrolled inputs and why a library needs both.\n\nYou design a small component library of your own with a considered public API — prop naming, sensible defaults, forwarded refs, polymorphic `as` props, and typed variants. The judgement being taught is API design: every prop you add is a promise you have to keep, and the best component libraries add fewer of them than beginners expect.",
+      topics: [
+        "Composition over configuration",
+        "Compound components and implicit shared state",
+        "Render props and headless component patterns",
+        "Controlled versus uncontrolled components",
+        "Higher-order components — legacy but still encountered",
+        "forwardRef and useImperativeHandle",
+        "Polymorphic components and the `as` prop",
+        "Prop API design, defaults and naming",
+        "Typed component variants with discriminated unions",
+        "Building and documenting a small component library",
+      ],
+    },
+    {
+      title: "Code Quality, Git Workflow & Responsive UI",
+      weekRange: "Week 6",
+      description:
+        "The working habits that make a junior developer employable rather than merely capable. ESLint and Prettier configured so the team stops arguing about formatting; TypeScript strictness set deliberately; Husky and lint-staged so broken code cannot be committed; and conventional commits so the history is readable a year later.\n\nGit is taught as collaboration rather than as `add, commit, push`: branching strategy, pull requests, review comments, resolving conflicts without panic, and rebasing. The responsive half covers building interfaces that hold up from a 360-pixel phone upward, and the UI library decision — Material UI, shadcn/ui, Ant Design or your own.",
+      topics: [
+        "ESLint, Prettier and shared configuration",
+        "TypeScript strictness settings and what each costs",
+        "Husky, lint-staged and pre-commit checks",
+        "Conventional commits and readable history",
+        "Branching strategy and pull-request workflow",
+        "Code review — giving and receiving comments",
+        "Resolving merge conflicts calmly",
+        "Responsive layout and breakpoint strategy in React",
+        "UI libraries — Material UI, shadcn/ui, Ant Design",
+        "Choosing a library versus building your own",
       ],
     },
     {
@@ -142,6 +196,42 @@ export const reactTrainingInPune: CourseRichContent = {
       ],
     },
     {
+      title: "Error Handling, Debugging & Resilience",
+      weekRange: "Week 8",
+      description:
+        "What your application does when something fails, which in production is regularly. Error boundaries and what they can and cannot catch — notably not event handlers or async code, which surprises people at exactly the wrong moment. Fallback UI, retry affordances, and error reporting that gives you something to act on.\n\nDebugging is taught as a method rather than a reflex: React DevTools for the component tree and props, the Profiler for finding what actually re-renders, source maps, and reading a React error message properly instead of pasting it into a search box. You deliberately break a working application and find the fault.",
+      topics: [
+        "Error boundaries and what they do not catch",
+        "Fallback UI and recovery affordances",
+        "Async and event-handler errors",
+        "Error reporting and logging from the client",
+        "React DevTools — components, props and hooks",
+        "The Profiler and finding unnecessary re-renders",
+        "Source maps and debugging a production build",
+        "Reading React warnings and error messages",
+        "Network debugging — failed requests, CORS, payload shape",
+        "A structured method for isolating a fault",
+      ],
+    },
+    {
+      title: "Accessibility & Front-End Security",
+      weekRange: "Week 8",
+      description:
+        "Two subjects that get skipped in most React courses and asked about in serious interviews. Accessibility covers semantic markup under JSX, keyboard navigation and focus management in single-page applications, ARIA used sparingly and correctly, accessible forms with real error announcement, and testing with a screen reader rather than only a linter.\n\nSecurity covers what actually applies on the client: XSS and why `dangerouslySetInnerHTML` is named that way, token storage and the honest trade-off between localStorage and httpOnly cookies, protecting routes in the UI while enforcing on the server, dependency vulnerabilities, and never trusting anything that arrives from a browser.",
+      topics: [
+        "Semantic HTML underneath JSX",
+        "Keyboard navigation and focus management in SPAs",
+        "ARIA roles and attributes, used sparingly",
+        "Accessible forms, labels and error announcement",
+        "Colour contrast and reduced-motion preferences",
+        "Testing with axe and with a screen reader",
+        "XSS and dangerouslySetInnerHTML",
+        "Token storage — localStorage versus httpOnly cookies",
+        "Client-side route protection versus server enforcement",
+        "Dependency auditing and supply-chain basics",
+      ],
+    },
+    {
       title: "Server Components & Next.js App Router",
       weekRange: "Week 9",
       description:
@@ -154,6 +244,24 @@ export const reactTrainingInPune: CourseRichContent = {
         "Static vs dynamic rendering, ISR, on-demand revalidation",
         "Route handlers and middleware",
         "Image optimisation and metadata API",
+      ],
+    },
+    {
+      title: "Project Architecture, API Layer & Environments",
+      weekRange: "Week 9",
+      description:
+        "How a React codebase is organised once it outgrows a tutorial. Folder structure by feature rather than by file type, and the reasoning behind it: a feature folder is what you delete when the feature is removed, whereas a `components` folder is what you never dare touch.\n\nThe API service layer is built properly — a single configured client, typed request and response models, centralised error handling, interceptors for auth, and a retry policy — so that no component ever calls `fetch` directly. Environment management then covers configuration per environment, secrets that must never reach the bundle, and feature flags.",
+      topics: [
+        "Feature-based folder structure and why it survives",
+        "Separating UI, logic and data access",
+        "A single configured API client",
+        "Typed request and response models",
+        "Centralised error handling and retries",
+        "Auth interceptors and token refresh",
+        "Environment variables and build-time configuration",
+        "Secrets that must never reach the bundle",
+        "Feature flags and progressive rollout",
+        "Barrel files, path aliases and import hygiene",
       ],
     },
     {
@@ -208,6 +316,43 @@ export const reactTrainingInPune: CourseRichContent = {
       ],
     },
   ],
+
+  roadmapImage: {
+    src: "/images/courses/react-path-v1.webp",
+    width: 1400,
+    height: 900,
+    alt: "Eight-stage React.js learning path taught at Archer Infotech Pune: modern JavaScript covering ES6+, destructuring, modules and async; JSX and components covering elements, props, composition and rendering lists; state and events covering useState, handlers and controlled forms; hooks covering useEffect, useRef, useReducer and custom hooks; routing and data covering React Router, fetch and TanStack Query; state management covering Context, Redux Toolkit and Zustand; performance and testing covering memoisation, code splitting, React Testing Library and Vitest; and build and deployment covering Vite, environments, hosting and projects.",
+    caption:
+      "The order this course is taught in. Each stage expands into the modules below — nothing arrives before its prerequisite.",
+  },
+
+  syllabusDownload: {
+    pdfUrl: "/downloads/react-syllabus-v1.pdf",
+    title: "React.js Course Syllabus — Complete Module List",
+    slug: "react-syllabus",
+    blurb:
+      "The complete 58-section syllabus as a 31-page PDF — prerequisites, modern JavaScript, JSX and components, the full hooks surface, routing, forms, API integration, state management, advanced patterns, performance, testing, accessibility, security, architecture, deployment, mini projects, a capstone and interview preparation. Everything in it is on this page; the PDF is the portable version.",
+    asideBlocks: [
+      {
+        heading: "What is inside the 31-page PDF",
+        items: [
+          "All 58 numbered sections in teaching order, from prerequisites through to career roles after training.",
+          "The hooks surface in full — useState, useEffect, useRef, useReducer, Context and custom hooks, each with its own section.",
+          "The engineering material most React courses omit: project architecture, the API service layer, environment management, accessibility, security and code-quality standards.",
+          "Mini projects, a capstone with stated requirements, an interview-preparation set and coding exercises, plus the recommended 2026 development stack.",
+        ],
+      },
+      {
+        heading: "Roles this syllabus prepares you for",
+        items: [
+          "React Developer — the highest-volume frontend opening in Pune.",
+          "Frontend Developer — React as the primary framework.",
+          "Full Stack JavaScript Developer — with a Node or Next.js backend.",
+          "UI Engineer — component systems and design-system work.",
+        ],
+      },
+    ],
+  },
 
   projects: [
     {

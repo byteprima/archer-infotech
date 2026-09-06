@@ -53,6 +53,24 @@ export const typescriptTrainingInPune: CourseRichContent = {
       ],
     },
     {
+      title: "Core Types, Tuples, Enums & Assertions",
+      weekRange: "Week 1",
+      description:
+        "The type system's ground floor, covered properly so that nothing later rests on a guess. Primitives and inference; arrays and tuples and when a fixed-length tuple genuinely says more than an array; object types with optional and readonly members; and the four special types that beginners misuse most — `any`, `unknown`, `never` and `void`.\n\n`any` versus `unknown` gets particular attention, because reaching for `any` is how a TypeScript codebase quietly becomes a JavaScript codebase with extra syntax. Enums, `as const`, and type assertions close the module, along with a clear statement of when an assertion is a legitimate escape hatch and when it is a lie you will pay for at runtime.",
+      topics: [
+        "Primitives, inference and explicit annotation",
+        "Arrays, readonly arrays and tuples",
+        "Object types, optional and readonly members",
+        "any versus unknown — and why the difference matters",
+        "never and void, and where each appears",
+        "Union and intersection types",
+        "Literal types and literal widening",
+        "Enums, const enums and their trade-offs",
+        "as const and literal inference",
+        "Type assertions and non-null assertions, used honestly",
+      ],
+    },
+    {
       title: "Generics, Utility Types & Type Manipulation",
       weekRange: "Week 2",
       description:
@@ -64,6 +82,24 @@ export const typescriptTrainingInPune: CourseRichContent = {
         "ReturnType, Parameters, Awaited",
         "keyof, typeof, indexed access types",
         "Reading real npm package types",
+      ],
+    },
+    {
+      title: "Classes, Inheritance & Object-Oriented TypeScript",
+      weekRange: "Week 2",
+      description:
+        "The object model, and the parts TypeScript adds on top of JavaScript's. Classes, fields, constructors and parameter properties; access modifiers and the genuine difference between TypeScript's `private` and JavaScript's `#private`; inheritance and abstract classes; and implementing interfaces.\n\nThis material is what makes Angular, NestJS and much of the Node ecosystem legible — decorators, injectable services and controller classes are all built on it. The module also covers when not to reach for a class, since a good deal of TypeScript is better written as functions over plain data.",
+      topics: [
+        "Classes, fields, constructors and parameter properties",
+        "public, private, protected and readonly",
+        "TypeScript private versus JavaScript #private",
+        "Inheritance, super and method overriding",
+        "Abstract classes and abstract members",
+        "Implementing interfaces with classes",
+        "Static members and static blocks",
+        "Getters, setters and computed access",
+        "Decorators and metadata",
+        "When a class is the wrong tool",
       ],
     },
     {
@@ -82,6 +118,24 @@ export const typescriptTrainingInPune: CourseRichContent = {
       ],
     },
     {
+      title: "Modules, Declaration Files & Third-Party Typings",
+      weekRange: "Week 3",
+      description:
+        "How TypeScript understands code it did not compile. ES modules, import and export forms, and module resolution — which is the source of a large share of the confusing errors beginners hit, because the compiler is looking somewhere you did not expect.\n\nDeclaration files are then demystified: what a `.d.ts` actually contains, how DefinitelyTyped and `@types` packages work, how to write typings for an untyped library rather than giving up and using `any`, module augmentation, and declaration merging. Namespaces are covered as legacy you will meet in older codebases and should not write new.",
+      topics: [
+        "ES modules — named, default and re-exports",
+        "Module resolution and path mapping",
+        "Reading a module-not-found error properly",
+        "Declaration files and what .d.ts contains",
+        "DefinitelyTyped and @types packages",
+        "Writing typings for an untyped library",
+        "Module augmentation and global declarations",
+        "Declaration merging",
+        "Namespaces as legacy",
+        "Publishing types alongside a package",
+      ],
+    },
+    {
       title: "Type Guards, Narrowing & Discriminated Unions",
       weekRange: "Week 4",
       description:
@@ -94,6 +148,42 @@ export const typescriptTrainingInPune: CourseRichContent = {
         "Assertion functions",
         "Discriminated unions",
         "Exhaustiveness checking",
+      ],
+    },
+    {
+      title: "Async, Errors & Custom Error Types",
+      weekRange: "Week 4",
+      description:
+        "Typing the parts of a program that fail. Promises and their generic parameter, async/await with correct return types, and concurrent operations with `Promise.all` and `allSettled` — including the typing subtleties that make the difference between a useful result type and a union you have to unpick by hand.\n\nError handling is where TypeScript is least helpful by default: a caught value is `unknown`, and narrowing it is your job. You build a custom error hierarchy, learn to type-guard errors properly, and meet the Result type pattern — returning failures as values rather than throwing — which is increasingly common in TypeScript codebases and worth being able to argue about either way.",
+      topics: [
+        "Promise<T> and typed async functions",
+        "Promise.all, allSettled, race — and their result types",
+        "Typing a caught error, which is unknown",
+        "Custom error classes and an error hierarchy",
+        "instanceof narrowing for errors",
+        "The Result and Either pattern",
+        "Errors as values versus thrown exceptions",
+        "Typed retries and timeouts",
+        "Async iterators and generators",
+        "Error handling across module boundaries",
+      ],
+    },
+    {
+      title: "DOM, Events & Runtime Validation",
+      weekRange: "Week 4",
+      description:
+        "The boundary where types stop being guaranteed. TypeScript checks what you compile; it cannot check the JSON that arrives from an API, the value in a form field, or an environment variable — and code that assumes otherwise fails in production while type-checking perfectly.\n\nYou type DOM queries and events properly, then move to the real subject: runtime validation with Zod, parsing rather than asserting external data, and deriving static types from a validation schema so the type and the check can never drift apart. Type-safe environment variables and configuration close the module — a small pattern that prevents a specific and very common production failure.",
+      topics: [
+        "Typing DOM queries and element types",
+        "Event types and typed handlers",
+        "Why external data is not type-safe",
+        "Runtime validation with Zod",
+        "Parsing versus asserting",
+        "Inferring static types from a schema",
+        "Typing fetch responses honestly",
+        "Type-safe environment variables",
+        "Type-safe configuration objects",
+        "Validating at the boundary, trusting inside",
       ],
     },
     {
@@ -126,8 +216,63 @@ export const typescriptTrainingInPune: CourseRichContent = {
       ],
     },
     {
-      title: "Capstone Project & Interview Preparation",
+      title: "Domain Modelling, Immutability & Functional TypeScript",
+      weekRange: "Week 6",
+      description:
+        "Using the type system to make wrong states unrepresentable, which is the point at which TypeScript stops being annotation and starts being design. Branded and opaque types so a `UserId` cannot be passed where an `OrderId` is expected; discriminated unions that model a workflow's real states; and exhaustive checks that fail compilation when a new state is added and not handled.\n\nImmutability covers `readonly`, `as const` and deep-readonly patterns. The functional half covers composition, currying and typed pipelines — not as a doctrine, but because these techniques are common in modern TypeScript and reading them should not require guesswork.",
+      topics: [
+        "Making illegal states unrepresentable",
+        "Branded and opaque types",
+        "Discriminated unions for domain states",
+        "Exhaustive checking with never",
+        "readonly, as const and deep immutability",
+        "Immutable update patterns",
+        "Function composition and typed pipelines",
+        "Currying and partial application",
+        "Typed higher-order functions",
+        "Modelling a real domain end to end",
+      ],
+    },
+    {
+      title: "Design Patterns, SOLID & Clean Architecture",
+      weekRange: "Week 6",
+      description:
+        "The senior-developer layer, and the material that separates a TypeScript course from a syntax tutorial. The classic patterns as they are actually written in TypeScript — factory, strategy, adapter, repository, observer, builder — with an honest note on which are worth the ceremony in a language with first-class functions and which are Java habits in disguise.\n\nSOLID is taught with concrete TypeScript examples rather than definitions. Clean architecture covers layering, the dependency rule, and keeping domain logic free of framework imports — the thing that makes a codebase survivable when the framework changes, which it always eventually does.",
+      topics: [
+        "Factory, strategy and adapter in TypeScript",
+        "Repository and unit-of-work patterns",
+        "Observer, builder and decorator",
+        "Which patterns functions make unnecessary",
+        "Single responsibility and interface segregation",
+        "Dependency inversion in practice",
+        "Layering and the dependency rule",
+        "Keeping domain logic framework-free",
+        "Dependency injection without a container",
+        "Refactoring a tangled module into layers",
+      ],
+    },
+    {
+      title: "Testing, Monorepos & Library Development",
       weekRange: "Week 7",
+      description:
+        "The last mile — making typed code testable, shareable and maintainable at scale. Testing with Vitest and Jest, testing typed APIs, type-level tests that assert a type is what you think it is, and mocking without discarding type safety in the process.\n\nMonorepos cover workspace layout, project references, shared type packages and the incremental builds that make a large TypeScript repository tolerable. Library development covers package typing, dual ESM and CommonJS output, versioning a public type surface, and API contract sharing — including OpenAPI and GraphQL codegen, which is how most teams keep frontend and backend types in step.",
+      topics: [
+        "Vitest and Jest with TypeScript",
+        "Testing typed APIs and inferred returns",
+        "Type-level tests and expect-type assertions",
+        "Type-safe mocking",
+        "Monorepo layout and workspaces",
+        "Project references and incremental builds",
+        "Shared type packages across apps",
+        "Publishing a typed npm package",
+        "Dual ESM and CommonJS output",
+        "OpenAPI and GraphQL type generation",
+        "Versioning a public type surface",
+      ],
+    },
+    {
+      title: "Capstone Project & Interview Preparation",
+      weekRange: "Week 7 + 1 week capstone",
       description:
         "Two weeks of capstone work plus structured interview preparation. Pick one of three capstone projects (see Capstone Projects). Mock interviews calibrated for Pune frontend / backend hiring panels — Persistent, BMW TechWorks, Mercedes-Benz, Synechron, plus the Pune SaaS / fintech scene. Includes a TypeScript-specific mock round (type modelling on a whiteboard / shared editor — the most common 2026 senior interview question), and resume / LinkedIn / GitHub polish.",
       topics: [
@@ -160,6 +305,43 @@ export const typescriptTrainingInPune: CourseRichContent = {
       ],
     },
   ],
+
+  roadmapImage: {
+    src: "/images/courses/typescript-path-v1.webp",
+    width: 1400,
+    height: 900,
+    alt: "Eight-stage TypeScript learning path taught at Archer Infotech Pune: JavaScript refresher covering ES6+, closures, modules and async; types and inference covering primitives, unions, literals and narrowing; interfaces and type aliases covering objects, optional and readonly members and index signatures; functions and generics covering overloads, constraints and generic components; classes and decorators covering access modifiers, abstract classes and decorators; advanced types covering conditional, mapped, template literal and utility types; configuration and tooling covering tsconfig, strict mode, ESLint and build setup; and TypeScript in practice covering React, Node, testing and migrating an existing codebase.",
+    caption:
+      "The order this course is taught in. Each stage expands into the modules below — nothing arrives before its prerequisite.",
+  },
+
+  syllabusDownload: {
+    pdfUrl: "/downloads/typescript-syllabus-v1.pdf",
+    title: "TypeScript Course Syllabus — Complete Module List",
+    slug: "typescript-syllabus",
+    blurb:
+      "The complete 125-section syllabus as a 33-page PDF — the whole type system from primitives to conditional and mapped types, classes and decorators, modules and declaration files, runtime validation, TypeScript with React, Node, Express and Angular, domain modelling, SOLID and clean architecture, testing, monorepos, library development, seven mini projects, a capstone and interview preparation. Everything in it is on this page; the PDF is the portable version.",
+    asideBlocks: [
+      {
+        heading: "What is inside the 33-page PDF",
+        items: [
+          "All 125 numbered sections in teaching order, from prerequisites through to career roles after training.",
+          "The advanced type system given real space — conditional types, infer, mapped types, template literal types and the full utility-type set, each with its own section.",
+          "TypeScript applied across the stack: React, hooks, forms, Next.js, Angular, Express, Fastify, NestJS, databases, GraphQL and WebSockets.",
+          "The design material that separates senior TypeScript from annotated JavaScript — domain modelling, immutability, SOLID, clean architecture and type-design best practice.",
+        ],
+      },
+      {
+        heading: "Roles this syllabus prepares you for",
+        items: [
+          "TypeScript Developer — across frontend and backend.",
+          "Frontend Developer — React or Angular with strong typing.",
+          "Backend Developer — Node, Express, Fastify or NestJS in TypeScript.",
+          "Full Stack Developer — with shared types across the whole application.",
+        ],
+      },
+    ],
+  },
 
   projects: [
     {

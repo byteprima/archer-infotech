@@ -55,6 +55,24 @@ export const nextjsTrainingInPune: CourseRichContent = {
       ],
     },
     {
+      title: "Advanced Routing — Route Groups, Parallel & Intercepting Routes",
+      weekRange: "Week 2",
+      description:
+        "The App Router beyond folders and `page.tsx`. Route groups for organising files without affecting the URL — the mechanism behind having separate marketing and application layouts in one project. Templates versus layouts, and the specific difference that matters: a layout persists across navigation, a template remounts.\n\nParallel routes render several independent pages into one layout, which is how a real dashboard with independently loading panels is built. Intercepting routes are what produce the modal-over-a-feed pattern that has a real, shareable URL — the Instagram photo-modal behaviour — and they are genuinely hard to reason about until someone shows you the folder convention.",
+      topics: [
+        "Route groups and URL-neutral organisation",
+        "Nested layouts and shared UI",
+        "Templates versus layouts, and remount behaviour",
+        "Dynamic segments and catch-all routes",
+        "Parallel routes and named slots",
+        "Independent loading and error states per slot",
+        "Intercepting routes and the modal pattern",
+        "Soft navigation versus hard navigation",
+        "Link, prefetching and navigation performance",
+        "Programmatic navigation and the router API",
+      ],
+    },
+    {
       title: "React 19 Server Components in Next.js",
       weekRange: "Week 3",
       description:
@@ -85,6 +103,25 @@ export const nextjsTrainingInPune: CourseRichContent = {
       ],
     },
     {
+      title: "Caching in Depth — Lifetime, Tags & Revalidation",
+      weekRange: "Week 4",
+      description:
+        "The single most misunderstood part of Next.js, and the source of most \"why is my data stale\" bug reports. The caching layers are separated explicitly — request memoisation, the data cache, the full route cache, and the client router cache — because they have different lifetimes and different invalidation rules, and conflating them is what produces the confusion.\n\nYou then control them deliberately: cache lifetimes, tag-based invalidation with `revalidateTag`, path revalidation, opting routes into dynamic rendering, and reading the build output to see which routes were static and which were not. The rule taught throughout is to make caching an explicit decision rather than something that happens to you.",
+      topics: [
+        "The four caching layers and their lifetimes",
+        "Request memoisation within a render",
+        "The data cache and fetch options",
+        "The full route cache and static generation",
+        "The client-side router cache",
+        "Cache tags and revalidateTag",
+        "revalidatePath and on-demand invalidation",
+        "Time-based revalidation and ISR",
+        "Opting into dynamic rendering deliberately",
+        "Reading the build output for static and dynamic routes",
+        "Debugging a stale response",
+      ],
+    },
+    {
       title: "Server Actions & Mutations",
       weekRange: "Week 5",
       description:
@@ -97,6 +134,25 @@ export const nextjsTrainingInPune: CourseRichContent = {
         "useActionState, useFormStatus, useOptimistic",
         "Zod-based input validation",
         "Server Actions vs API routes — when each fits",
+      ],
+    },
+    {
+      title: "Route Handlers & Backend-for-Frontend",
+      weekRange: "Week 5",
+      description:
+        "Next.js as a backend, which for a large share of applications is the whole backend. Route handlers — the request and response objects, HTTP methods, dynamic segments, streaming responses and runtime selection between Node and edge.\n\nThe architectural framing is backend-for-frontend: an API layer shaped for this application rather than a general-purpose service, which is what makes it worth writing in the same repository. You cover input parsing and validation, consistent error responses, status codes, webhooks with signature verification, and — importantly — when you should not build the backend here and should call a separate service instead.",
+      topics: [
+        "Route handlers and HTTP methods",
+        "Request and response objects",
+        "Dynamic segments and query parsing",
+        "Input validation with Zod",
+        "Consistent error shapes and status codes",
+        "Streaming responses",
+        "Node versus edge runtime",
+        "Backend-for-frontend as an architecture",
+        "Webhooks and signature verification",
+        "Rate limiting a route handler",
+        "When not to build the backend in Next.js",
       ],
     },
     {
@@ -116,6 +172,44 @@ export const nextjsTrainingInPune: CourseRichContent = {
       ],
     },
     {
+      title: "Middleware, Security & Content Security Policy",
+      weekRange: "Week 6",
+      description:
+        "The request-level layer and the hardening that production requires. Middleware runs before a request is handled — the right place for redirects, locale detection, A/B assignment and coarse auth checks, and the wrong place for database work, which is a mistake with a very visible latency cost.\n\nSecurity covers what actually applies to a Next.js application: XSS and where React does and does not protect you, CSRF in the context of Server Actions, injection through unvalidated input, secure cookie configuration, and the `server-only` boundary that keeps secrets out of the client bundle. Content Security Policy is set up with nonces properly rather than disabled because it broke something.",
+      topics: [
+        "Middleware — what belongs there and what does not",
+        "Redirects, rewrites and locale detection",
+        "Coarse auth checks at the edge",
+        "Security headers and their effects",
+        "Content Security Policy with nonces",
+        "XSS — where React protects you and where it does not",
+        "CSRF and Server Action protections",
+        "Input validation and injection risks",
+        "Secure cookie attributes",
+        "The server-only boundary and leaked secrets",
+        "Auditing what actually ships in the client bundle",
+      ],
+    },
+    {
+      title: "Integrations — Uploads, Email, Payments & Real-Time",
+      weekRange: "Week 6",
+      description:
+        "The features every real product needs and no tutorial covers together. File uploads done properly — presigned URLs to object storage rather than routing bytes through your server, validation, size limits and image processing. Transactional email with a provider, templates, and the deliverability basics that decide whether your mail reaches an inbox.\n\nPayments cover the checkout flow, webhook-driven fulfilment and idempotency — with the standing rule that you never trust the client to tell you a payment succeeded. Real-time closes the module: Server-Sent Events, WebSocket options, polling as a legitimate choice, and streaming AI responses, which is now a common requirement.",
+      topics: [
+        "File uploads with presigned URLs to object storage",
+        "Upload validation, size limits and image processing",
+        "Transactional email providers and templates",
+        "Email deliverability basics",
+        "Payment checkout flows",
+        "Webhook-driven fulfilment and idempotency",
+        "Never trusting the client about payment state",
+        "Server-Sent Events for one-way updates",
+        "WebSocket options with Next.js",
+        "Polling as a legitimate choice",
+        "Streaming AI responses to the client",
+      ],
+    },
+    {
       title: "Performance, SEO & Image / Font / Script Optimisation",
       weekRange: "Week 7",
       description:
@@ -131,8 +225,65 @@ export const nextjsTrainingInPune: CourseRichContent = {
       ],
     },
     {
-      title: "Capstone Project & Interview Preparation",
+      title: "Testing Next.js Applications",
+      weekRange: "Week 7",
+      description:
+        "How you test an application whose components run in two different places. Unit tests with Vitest for pure logic; component tests with Testing Library for client components; and the honest position on Server Components, which are awkward to unit-test today and are better covered by end-to-end tests — a limitation worth stating plainly rather than pretending around.\n\nRoute handlers are tested as the API they are. End-to-end testing with Playwright covers the flows that matter — sign-in, checkout, form submission — and the module closes on test data strategy, mocking external services, and running the suite in CI so it actually protects the main branch.",
+      topics: [
+        "Unit testing with Vitest",
+        "Component testing with Testing Library",
+        "Server Components and their testing limits",
+        "Testing route handlers as APIs",
+        "Testing Server Actions",
+        "End-to-end tests with Playwright",
+        "Test data strategy and fixtures",
+        "Mocking external services and payment providers",
+        "Accessibility assertions in tests",
+        "Running the suite in CI",
+        "What is worth testing and what is not",
+      ],
+    },
+    {
+      title: "Deployment — Vercel, Self-Hosting, Docker & CI/CD",
+      weekRange: "Week 7",
+      description:
+        "Getting it live, on more than one kind of infrastructure. Vercel first because it is the reference deployment and everything works; then self-hosting honestly, because plenty of Pune employers run on their own infrastructure and need someone who knows what Next.js requires outside Vercel — the Node server, the standalone output mode, and which features need extra work.\n\nDocker covers multi-stage builds and small production images. CI/CD covers a pipeline that lints, tests, builds and deploys on merge, with preview deployments per pull request. Environment variables, secrets and configuration per environment run throughout.",
+      topics: [
+        "Vercel deployment and preview environments",
+        "Self-hosting on a Node server",
+        "Standalone output mode",
+        "Which features need extra work off Vercel",
+        "Dockerising Next.js with multi-stage builds",
+        "Docker Compose with a database",
+        "Cloud deployment options",
+        "Environment variables and secrets per environment",
+        "GitHub Actions — lint, test, build, deploy",
+        "Preview deployments per pull request",
+        "Rollback and release safety",
+      ],
+    },
+    {
+      title: "Architecture, Data Access & Migrating from Pages Router",
       weekRange: "Week 8",
+      description:
+        "How a Next.js codebase is organised so it survives its second year. A data access layer that every Server Component and route handler goes through, so authorisation is enforced in one place rather than repeated in twelve; repository patterns; and keeping domain logic out of route files.\n\nObservability covers structured logging, error tracking and web-vitals reporting from real users. The module closes on the Pages Router — still running in a great many production applications — what differs, and how an incremental migration to the App Router is actually carried out, since \"maintain and migrate an existing Next.js application\" is a real Pune job description.",
+      topics: [
+        "A data access layer as the single authorisation point",
+        "Repository patterns and testable data code",
+        "Keeping domain logic out of route files",
+        "Folder structure that survives growth",
+        "Structured logging and error tracking",
+        "Real-user web-vitals reporting",
+        "Analytics without wrecking performance",
+        "Pages Router — getServerSideProps and getStaticProps",
+        "What differs between the two routers",
+        "Incremental migration route by route",
+        "Running both routers during a migration",
+      ],
+    },
+    {
+      title: "Capstone Project & Interview Preparation",
+      weekRange: "Week 8 + 1 week capstone",
       description:
         "One week of full-time capstone work plus structured interview preparation. Pick one of three capstone projects (see Capstone Projects). Mock interviews calibrated for Pune Next.js hiring panels — Persistent, BMW TechWorks, Mastercard Pune Tech Hub, Amagi, Fyllo, BharatPe, Razorpay. Includes a Server Components / Server Actions whiteboard round (the most common 2026 senior interview question), a caching / revalidation scenario round, and a behavioural round. Resume / LinkedIn / GitHub polish included.",
       topics: [
@@ -165,6 +316,43 @@ export const nextjsTrainingInPune: CourseRichContent = {
       ],
     },
   ],
+
+  roadmapImage: {
+    src: "/images/courses/nextjs-path-v1.webp",
+    width: 1400,
+    height: 900,
+    alt: "Eight-stage Next.js learning path taught at Archer Infotech Pune: React foundations covering components, hooks and state as the prerequisite; the App Router covering file routing, layouts, nested and dynamic routes; rendering models covering Server Components, server-side rendering, static generation, incremental regeneration and streaming; data and mutations covering fetching, caching, revalidation and Server Actions; route handlers and authentication covering API routes, middleware, sessions and protection; the database layer covering Prisma or Drizzle, queries and migrations; optimisation and SEO covering images, fonts, metadata and Core Web Vitals; and deployment and operations covering Vercel, self-hosting, monitoring and projects.",
+    caption:
+      "The order this course is taught in. Each stage expands into the modules below — nothing arrives before its prerequisite.",
+  },
+
+  syllabusDownload: {
+    pdfUrl: "/downloads/nextjs-syllabus-v1.pdf",
+    title: "Next.js Course Syllabus — Complete Module List",
+    slug: "nextjs-syllabus",
+    blurb:
+      "The complete 119-section syllabus as a 41-page PDF — the App Router in full, Server and Client Components, every caching layer, Server Actions, route handlers, authentication, databases, the Metadata API and SEO, security and CSP, testing, deployment and self-hosting, seven mini projects, three capstone options and interview preparation. Everything in it is on this page; the PDF is the portable version.",
+    asideBlocks: [
+      {
+        heading: "What is inside the 41-page PDF",
+        items: [
+          "All 119 numbered sections in teaching order, from prerequisites through to career roles after training.",
+          "The App Router covered exhaustively — route groups, parallel routes, intercepting routes, layouts, templates, streaming and error handling.",
+          "Caching separated into its actual layers, with lifetime, tags and revalidation each given their own section — the part of Next.js most courses get wrong.",
+          "Seven mini projects and three capstone options (e-commerce, learning management, project-management SaaS), plus interview preparation for both Next.js and architecture rounds.",
+        ],
+      },
+      {
+        heading: "Roles this syllabus prepares you for",
+        items: [
+          "Next.js Developer — full-stack React with the App Router.",
+          "Full Stack Developer — frontend and backend in one codebase.",
+          "React Developer — with server rendering and SEO depth.",
+          "Frontend Engineer — performance and Core Web Vitals ownership.",
+        ],
+      },
+    ],
+  },
 
   projects: [
     {

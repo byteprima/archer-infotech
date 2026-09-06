@@ -69,6 +69,42 @@ export const nodejsTrainingInPune: CourseRichContent = {
       ],
     },
     {
+      title: "Core Modules — File System, Streams, Buffers & Events",
+      weekRange: "Week 2",
+      description:
+        "Node's standard library, which is what distinguishes a Node developer from a JavaScript developer who uses Express. The file system module in its callback, promise and synchronous forms, and why the synchronous ones are almost always the wrong choice on a server. Path handling that works on every operating system.\n\nStreams get the most time and earn it: reading a two-gigabyte file without loading two gigabytes into memory, piping, backpressure, and transform streams. Buffers cover binary data. The EventEmitter closes the module — the pattern that most of Node, including HTTP and streams, is built on top of.",
+      topics: [
+        "File system — callback, promise and sync APIs",
+        "Reading, writing, appending and watching files",
+        "Path, URL and platform-independent handling",
+        "Readable, writable and duplex streams",
+        "Piping and backpressure",
+        "Transform streams and stream composition",
+        "Buffers and binary data",
+        "EventEmitter and custom events",
+        "Error events and why they crash the process",
+        "Building a file-processing utility with streams",
+      ],
+    },
+    {
+      title: "Process, Child Processes, Worker Threads & Clustering",
+      weekRange: "Week 3",
+      description:
+        "Getting more than one CPU core out of a single-threaded runtime. The process object, signals, exit codes and graceful shutdown — which is what stops a deployment dropping in-flight requests. Environment variables and configuration handled properly rather than through scattered `process.env` reads.\n\nChild processes for running external commands; worker threads for CPU-bound work that would otherwise block the event loop; and clustering to use every core on the machine. The judgement taught here is which to reach for: worker threads for computation, child processes for external programs, clustering for throughput, and none of them for I/O, which Node already handles.",
+      topics: [
+        "The process object, argv and exit codes",
+        "Signals and graceful shutdown",
+        "Environment variables and typed configuration",
+        "spawn, exec, fork and execFile",
+        "Streaming output from a child process",
+        "Worker threads for CPU-bound work",
+        "Sharing memory between workers",
+        "Clustering across CPU cores",
+        "Choosing between workers, children and clusters",
+        "Detecting and diagnosing a blocked event loop",
+      ],
+    },
+    {
       title: "Express 5 — REST APIs Done Right",
       weekRange: "Weeks 3–4",
       description:
@@ -97,6 +133,25 @@ export const nodejsTrainingInPune: CourseRichContent = {
         "Repository pattern over direct ORM use",
         "EXPLAIN plans and N+1 query prevention",
         "Database seeding and test isolation",
+      ],
+    },
+    {
+      title: "MongoDB, Mongoose & Choosing a Database",
+      weekRange: "Week 5",
+      description:
+        "The other half of Node's data story. PostgreSQL is the course default and gets its own week; MongoDB gets this one, because a large share of Node work — and effectively all MERN and MEAN work — runs on it, and a Node developer who cannot model documents is limited.\n\nDocuments and collections, CRUD and query operators, then the modelling decision that determines whether an application performs: embedding versus referencing. Mongoose adds schemas, validation, middleware and population. Indexing and the aggregation pipeline get real attention, and the module closes with an honest rule for choosing between relational and document storage for a given service.",
+      topics: [
+        "Documents, collections and BSON types",
+        "CRUD operations and query operators",
+        "Embedding versus referencing",
+        "Mongoose schemas, types and validation",
+        "Middleware, virtuals and instance methods",
+        "Population across collections",
+        "Indexes and reading an explain plan",
+        "The aggregation pipeline",
+        "Transactions in MongoDB",
+        "MySQL with Node.js for existing estates",
+        "Relational or document — an honest rule",
       ],
     },
     {
@@ -131,6 +186,25 @@ export const nodejsTrainingInPune: CourseRichContent = {
       ],
     },
     {
+      title: "Background Jobs, Redis, Queues & Caching",
+      weekRange: "Week 7",
+      description:
+        "Work that must not happen inside a request. Sending an email, generating a report, processing an upload or calling a slow third party all belong in a queue, and a request handler that does them is a request handler that times out.\n\nRedis is covered as both cache and queue backend: data structures, expiry, and the patterns that matter — cache-aside, invalidation, and the stampede problem when a popular key expires. BullMQ covers job queues, retries with backoff, scheduled and repeatable jobs, dead-letter handling, and concurrency. Idempotency runs throughout, because a retried job that charges a customer twice is worse than one that failed.",
+      topics: [
+        "Why long work must leave the request path",
+        "Redis data structures and expiry",
+        "Cache-aside and read-through patterns",
+        "Cache invalidation and the stampede problem",
+        "BullMQ queues, workers and concurrency",
+        "Retries, backoff and dead-letter queues",
+        "Scheduled and repeatable jobs",
+        "Idempotency keys and safe retries",
+        "Monitoring queue depth and failures",
+        "Object storage and presigned uploads",
+        "Transactional email from a worker",
+      ],
+    },
+    {
       title: "GraphQL with Apollo Server / Mercurius",
       weekRange: "Week 8",
       description:
@@ -161,6 +235,43 @@ export const nodejsTrainingInPune: CourseRichContent = {
       ],
     },
     {
+      title: "Backend Architecture — Layers, DI & Clean Design",
+      weekRange: "Week 9",
+      description:
+        "How a Node codebase is organised once it is past one file of routes. The controller-service-repository split, and what each layer is actually responsible for: controllers translate HTTP, services hold business logic, repositories talk to the database — and business logic that knows about `req` and `res` is business logic you cannot test.\n\nDependency injection is covered without a framework first, so the pattern is understood rather than imported. Clean architecture covers the dependency rule and keeping the domain free of framework imports. NestJS is then introduced as the opinionated framework that packages all of this, with an honest account of when its structure is worth the learning curve.",
+      topics: [
+        "Controller, service and repository responsibilities",
+        "Keeping HTTP out of business logic",
+        "Dependency injection without a framework",
+        "The dependency rule and domain isolation",
+        "Layered and hexagonal architecture",
+        "Design patterns that earn their place in Node",
+        "SOLID applied to backend modules",
+        "NestJS — modules, providers, decorators",
+        "When NestJS is worth its learning curve",
+        "Refactoring a route-heavy project into layers",
+      ],
+    },
+    {
+      title: "Microservices, Message Brokers & Event-Driven Design",
+      weekRange: "Week 9",
+      description:
+        "Distributed backends, taught with the costs stated as clearly as the benefits. What a microservice actually is, what a monolith gets right, and the honest position that most teams should start with a well-layered monolith and split only when an organisational or scaling pressure demands it.\n\nInter-service communication covers synchronous HTTP and gRPC against asynchronous messaging. Message brokers cover queues and publish-subscribe with RabbitMQ and Kafka concepts. Event-driven design covers events as facts, eventual consistency, the saga pattern for distributed transactions, and idempotency — which stops being optional the moment a message can be delivered twice.",
+      topics: [
+        "Microservices and what a monolith gets right",
+        "Service boundaries and data ownership",
+        "Synchronous HTTP and gRPC between services",
+        "Asynchronous messaging and decoupling",
+        "RabbitMQ queues and Kafka concepts",
+        "Publish-subscribe and event streams",
+        "Events as facts, and eventual consistency",
+        "The saga pattern for distributed transactions",
+        "Idempotency and at-least-once delivery",
+        "API gateway and backend-for-frontend layers",
+        "When not to split a service",
+      ],
+    },
+    {
       title: "Testing, Observability & Production Practices",
       weekRange: "Week 10",
       description:
@@ -175,6 +286,26 @@ export const nodejsTrainingInPune: CourseRichContent = {
         "Docker multi-stage builds",
         "GitHub Actions CI/CD",
         "Deployment — AWS, Render, Fly.io, Neon",
+      ],
+    },
+    {
+      title: "Docker, CI/CD, Cloud Deployment & Observability",
+      weekRange: "Week 10",
+      description:
+        "Getting a Node service into production and keeping it healthy. Docker with multi-stage builds and small images, Compose for local parity with the database and Redis, and the container practices that stop an image being a security liability.\n\nDeployment covers process management with PM2, a reverse proxy in front, HTTPS, zero-downtime restarts and graceful shutdown. CI/CD covers a real GitHub Actions pipeline. Observability closes the module and the course's production arc: structured logging, metrics, distributed tracing, health and readiness endpoints, and alerting that tells you about a problem before a customer does.",
+      topics: [
+        "Dockerising a Node service with multi-stage builds",
+        "Small, non-root production images",
+        "Docker Compose with database and Redis",
+        "PM2 and process management",
+        "Reverse proxy, HTTPS and headers",
+        "Zero-downtime deploys and graceful shutdown",
+        "GitHub Actions — lint, test, build, deploy",
+        "Cloud deployment options and managed services",
+        "Structured logging and correlation IDs",
+        "Metrics, dashboards and alerting",
+        "Distributed tracing across services",
+        "Health and readiness endpoints",
       ],
     },
     {
@@ -213,6 +344,43 @@ export const nodejsTrainingInPune: CourseRichContent = {
       ],
     },
   ],
+
+  roadmapImage: {
+    src: "/images/courses/nodejs-path-v1.webp",
+    width: 1400,
+    height: 900,
+    alt: "Eight-stage Node.js learning path taught at Archer Infotech Pune: JavaScript and async covering ES6+, promises, async/await and error handling; the Node runtime covering the event loop, modules, npm and environment configuration; core modules covering the file system, path, streams, buffers and events; Express covering routing, middleware, controllers and error handling; databases covering MongoDB with Mongoose, SQL and data modelling; authentication and security covering JWT, bcrypt, validation, OWASP risks and rate limiting; real-time and testing covering Socket.IO, Jest, Supertest and coverage; and deployment and scaling covering Docker, CI/CD, PM2, caching and monitoring.",
+    caption:
+      "The order this course is taught in. Each stage expands into the modules below — nothing arrives before its prerequisite.",
+  },
+
+  syllabusDownload: {
+    pdfUrl: "/downloads/nodejs-syllabus-v1.pdf",
+    title: "Node.js Course Syllabus — Complete Module List",
+    slug: "nodejs-syllabus",
+    blurb:
+      "The complete 161-section syllabus as a 46-page PDF — the Node runtime and every core module, Express and Fastify, PostgreSQL, MySQL and MongoDB, authentication and API security, background jobs and Redis, real-time, NestJS and GraphQL, testing, performance and scaling, microservices, Docker, CI/CD, observability, seven mini projects, three capstone options and interview preparation. Everything in it is on this page; the PDF is the portable version.",
+    asideBlocks: [
+      {
+        heading: "What is inside the 46-page PDF",
+        items: [
+          "All 161 numbered sections in teaching order, from prerequisites through to career roles after training.",
+          "The Node standard library in depth — file system, streams, buffers, events, process, child processes, worker threads and clustering.",
+          "The production arc most courses stop short of: scaling, load balancing, microservices, message brokers, observability, tracing, health checks and Kubernetes concepts.",
+          "Seven mini projects and three capstone backends (e-commerce, learning management, SaaS project management), plus three tiers of interview preparation.",
+        ],
+      },
+      {
+        heading: "Roles this syllabus prepares you for",
+        items: [
+          "Node.js Backend Developer — the core title for this skill set.",
+          "Backend Engineer — APIs, databases and services.",
+          "Full Stack JavaScript Developer — with React, Angular or Next.js.",
+          "API Developer — REST and GraphQL service design.",
+        ],
+      },
+    ],
+  },
 
   projects: [
     {
