@@ -45,6 +45,36 @@ export function RichCourseContentAboveFold({
         <p className="text-lg leading-relaxed text-foreground">{rich.intro}</p>
       </section>
 
+      {/* Optional course poster. Width-capped and centred rather than
+          full-bleed: this artwork is portrait, and at container width it
+          would push every section below it off the first two screens.
+          Lazy-loaded with explicit dimensions so it can neither become the
+          LCP element nor shift layout. */}
+      {rich.posterImage && (
+        <figure className="mx-auto max-w-lg">
+          <picture>
+            <source
+              srcSet={rich.posterImage.src.replace(/\.webp$/, ".avif")}
+              type="image/avif"
+            />
+            <img
+              src={rich.posterImage.src}
+              alt={rich.posterImage.alt}
+              width={rich.posterImage.width}
+              height={rich.posterImage.height}
+              loading="lazy"
+              decoding="async"
+              className="w-full h-auto rounded-xl border bg-muted/20"
+            />
+          </picture>
+          {rich.posterImage.caption && (
+            <figcaption className="mt-2 text-sm text-muted-foreground text-center">
+              {rich.posterImage.caption}
+            </figcaption>
+          )}
+        </figure>
+      )}
+
       {/* Section 2 — Why learn */}
       <section className="space-y-4">
         <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-3">

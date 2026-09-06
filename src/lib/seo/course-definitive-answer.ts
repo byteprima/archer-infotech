@@ -51,7 +51,18 @@ function prose(items: string[]): string {
   return `${items.slice(0, -1).join(", ")} and ${items[items.length - 1]}`;
 }
 
-export function buildCourseDefinitiveAnswer(course: Course): string {
+/**
+ * @param richModuleCount Module count from the rich-content curriculum, when
+ * the course has one. `course.modules` is the short four-or-five entry
+ * outline used by the plain template; a course with rich content renders a
+ * far longer curriculum instead, and quoting the short count here understated
+ * every rich page — Generative AI showed "4 modules" against 18 on the page.
+ * The number an AI engine lifts must be the number a reader can count.
+ */
+export function buildCourseDefinitiveAnswer(
+  course: Course,
+  richModuleCount?: number,
+): string {
   const sentences: string[] = [];
 
   const level = course.level === "All Levels" ? "all levels" : course.level.toLowerCase();
@@ -72,9 +83,10 @@ export function buildCourseDefinitiveAnswer(course: Course): string {
 
   sentences.push(`${modeSentence(course.mode)}, using the same curriculum and trainers.`);
 
-  if (course.modules?.length) {
+  const moduleCount = richModuleCount ?? course.modules?.length ?? 0;
+  if (moduleCount) {
     sentences.push(
-      `The syllabus covers ${course.modules.length} modules and includes hands-on project work.`,
+      `The syllabus covers ${moduleCount} modules and includes hands-on project work.`,
     );
   }
 

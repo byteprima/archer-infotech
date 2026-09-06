@@ -464,7 +464,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
         eyebrow={buildCourseDefinitiveAnswerEyebrow(course)}
         keyTakeaway={buildCourseKeyTakeaway(course)}
       >
-        {buildCourseDefinitiveAnswer(course)}
+        {buildCourseDefinitiveAnswer(course, rich?.curriculum.length)}
       </DefinitiveAnswer>
 
       {/* Hiring-partner strip — the recruiter-logo row every page-1

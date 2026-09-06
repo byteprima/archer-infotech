@@ -49,6 +49,27 @@ export interface CourseRichContent {
    * these pages hold CLS at 0.00. Version the filename on any update, or
    * nobody sees the new file.
    */
+  /**
+   * Optional course poster, rendered above the fold under the intro.
+   *
+   * Distinct from `roadmapImage`, which is the learning-path diagram inside
+   * the curriculum section. A poster answers "what is this course and what
+   * will I be able to do" at a glance; a roadmap answers "in what order".
+   * Pages that have both show them in that order, which is the order a
+   * visitor asks the questions in.
+   *
+   * These are portrait artwork, so the renderer caps the width — dropped in
+   * full-bleed they push the entire page body below the fold.
+   */
+  posterImage?: {
+    src: string;
+    width: number;
+    height: number;
+    /** Describes what the poster shows. Not a transcription of it. */
+    alt: string;
+    caption?: string;
+  };
+
   roadmapImage?: {
     /** Path under /public. Use a -vN suffix; the cache is immutable. */
     src: string;
