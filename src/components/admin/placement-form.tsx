@@ -37,6 +37,7 @@ import {
   updatePlacement,
   fetchPlacementGithubPhoto,
   uploadPlacementPhoto,
+  uploadPlacementProof,
   type PlacementFormData,
 } from "@/lib/actions/placements";
 import { parseGithubUsername } from "@/lib/github-username";
@@ -54,6 +55,12 @@ type PlacementFormState = {
   linkedinUrl: string;
   githubUrl: string;
   testimonial: string;
+  instituteNote: string;
+  proofFilename: string;
+  proofType: string;
+  verified: boolean;
+  consentDisplayName: boolean;
+  consentDisplaySalary: boolean;
   isHighlighted: boolean;
   isPublished: boolean;
 };
@@ -66,6 +73,8 @@ export function PlacementForm({ placement }: PlacementFormProps) {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [proofUploading, setProofUploading] = useState(false);
+  const [proofMessage, setProofMessage] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string[]>>({});
 
   const [formData, setFormData] = useState<PlacementFormState>({
@@ -79,6 +88,12 @@ export function PlacementForm({ placement }: PlacementFormProps) {
     linkedinUrl: placement?.linkedinUrl || "",
     githubUrl: placement?.githubUrl || "",
     testimonial: placement?.testimonial || "",
+    instituteNote: placement?.instituteNote || "",
+    proofFilename: placement?.proofFilename || "",
+    proofType: placement?.proofType || "",
+    verified: Boolean(placement?.verifiedAt),
+    consentDisplayName: placement?.consentDisplayName ?? false,
+    consentDisplaySalary: placement?.consentDisplaySalary ?? false,
     isHighlighted: placement?.isHighlighted ?? false,
     isPublished: placement?.isPublished ?? true,
   });
@@ -135,6 +150,12 @@ export function PlacementForm({ placement }: PlacementFormProps) {
       linkedinUrl: formData.linkedinUrl,
       githubUrl: formData.githubUrl,
       testimonial: formData.testimonial,
+      instituteNote: formData.instituteNote,
+      proofFilename: formData.proofFilename,
+      proofType: formData.proofType,
+      verified: formData.verified,
+      consentDisplayName: formData.consentDisplayName,
+      consentDisplaySalary: formData.consentDisplaySalary,
       isHighlighted: formData.isHighlighted,
       isPublished: formData.isPublished,
     };
@@ -281,16 +302,190 @@ export function PlacementForm({ placement }: PlacementFormProps) {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="testimonial">Testimonial</Label>
+                <Label htmlFor="testimonial">Student&rsquo;s own words</Label>
                 <Textarea
                   id="testimonial"
                   value={formData.testimonial}
                   onChange={(e) =>
                     setFormData((prev) => ({ ...prev, testimonial: e.target.value }))
                   }
-                  placeholder="Optional student quote or placement note"
+                  placeholder="Quote from the student, in their voice"
                   rows={4}
                 />
+                <p className="text-xs text-muted-foreground">
+                  What the student says about us. This is kept as a record of
+                  the submission — to show it on the site, add it as a
+                  Testimonial, which is what reaches the home page, the
+                  testimonials page and the course pages.
+                </p>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="instituteNote">Our note about this placement</Label>
+                <Textarea
+                  id="instituteNote"
+                  value={formData.instituteNote}
+                  onChange={(e) =>
+                    setFormData((prev) => ({ ...prev, instituteNote: e.target.value }))
+                  }
+                  placeholder="What we want to say about this student, their placement and the course they took"
+                  rows={4}
+                />
+                <p className="text-xs text-muted-foreground">
+                  Written by us, in our voice. Shown only on the spotlight
+                  card, which requires &ldquo;Highlight&rdquo; below.
+                </p>
+              </div>
+
+              {/* Proof of employment. Private by construction: the file goes
+                  into the "offer-letters" collection, which the public /media
+                  route 404s, and only the admin media route can read it. The
+                  document is never published — the public record carries the
+                  attestation that it was checked, not the document. */}
+              <div className="space-y-3 rounded-lg border border-primary/40 bg-primary/[0.05] p-4">
+                <div>
+                  <p className="text-sm font-medium">Proof of employment</p>
+                  <p className="text-xs text-muted-foreground">
+                    Offer letter, ID card, salary slip or similar. PDF or
+                    image, up to 5 MB. Stored privately — never shown on the
+                    site, and never served to anyone who is not signed in
+                    here.
+                  </p>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="proofType">What is it?</Label>
+                  <select
+                    id="proofType"
+                    value={formData.proofType}
+                    onChange={(e) =>
+                      setFormData((prev) => ({ ...prev, proofType: e.target.value }))
+                    }
+                    className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm"
+                  >
+                    <option value="">Select…</option>
+                    <option value="Offer letter">Offer letter</option>
+                    <option value="Employee ID card">Employee ID card</option>
+                    <option value="Salary slip">Salary slip</option>
+                    <option value="Appointment letter">Appointment letter</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="proofFile">Upload</Label>
+                  <Input
+                    id="proofFile"
+                    type="file"
+                    accept="application/pdf,image/jpeg,image/png,image/webp,image/avif"
+                    disabled={proofUploading}
+                    onChange={async (e) => {
+                      const file = e.target.files?.[0];
+                      if (!file) return;
+                      setProofUploading(true);
+                      setProofMessage(null);
+                      const fd = new FormData();
+                      fd.append("proof", file);
+                      const res = await uploadPlacementProof(fd);
+                      setProofUploading(false);
+                      setProofMessage(res.message);
+                      if (res.success) {
+                        setFormData((prev) => ({
+                          ...prev,
+                          proofFilename: res.filename,
+                        }));
+                      }
+                    }}
+                  />
+                  {proofUploading && (
+                    <p className="text-xs text-muted-foreground">Uploading…</p>
+                  )}
+                  {proofMessage && (
+                    <p className="text-xs text-muted-foreground">{proofMessage}</p>
+                  )}
+                  {formData.proofFilename && (
+                    <p className="text-xs">
+                      On file:{" "}
+                      <a
+                        href={`/admin/media/offer-letters/${formData.proofFilename}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-medium text-primary underline underline-offset-4"
+                      >
+                        view (admin only)
+                      </a>
+                    </p>
+                  )}
+                </div>
+
+                <label className="flex items-start gap-3 text-sm">
+                  <input
+                    type="checkbox"
+                    className="mt-0.5 h-4 w-4 shrink-0"
+                    checked={formData.verified}
+                    disabled={!formData.proofFilename}
+                    onChange={(e) =>
+                      setFormData((prev) => ({ ...prev, verified: e.target.checked }))
+                    }
+                  />
+                  <span>
+                    I have checked this document against the details above
+                    <span className="block text-xs text-muted-foreground">
+                      Only this tick makes the placement count as verified on
+                      the public record. It cannot be set without a document
+                      on file.
+                    </span>
+                  </span>
+                </label>
+              </div>
+
+              {/* Consent is recorded per-row rather than assumed. A placement
+                  typed in here has no submission behind it, so nothing may be
+                  published under the student's real name or with their salary
+                  unless someone confirms the student agreed. */}
+              <div className="space-y-3 rounded-lg border border-amber-500/40 bg-amber-500/[0.06] p-4">
+                <p className="text-sm font-medium">Student consent</p>
+                <label className="flex items-start gap-3 text-sm">
+                  <input
+                    type="checkbox"
+                    className="mt-0.5 h-4 w-4 shrink-0"
+                    checked={formData.consentDisplayName}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        consentDisplayName: e.target.checked,
+                      }))
+                    }
+                  />
+                  <span>
+                    Student agreed we may show their full name and photo
+                    <span className="block text-xs text-muted-foreground">
+                      Unticked, the record still appears but as
+                      &ldquo;Rutuja G.&rdquo; with no photo.
+                    </span>
+                  </span>
+                </label>
+                <label className="flex items-start gap-3 text-sm">
+                  <input
+                    type="checkbox"
+                    className="mt-0.5 h-4 w-4 shrink-0"
+                    checked={formData.consentDisplaySalary}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        consentDisplaySalary: e.target.checked,
+                      }))
+                    }
+                  />
+                  <span>
+                    Student agreed we may publish their salary figure
+                    <span className="block text-xs text-muted-foreground">
+                      Our public submission form promises the salary is never
+                      published, so leave this unticked for anyone who applied
+                      through it. The cohort range still includes them.
+                    </span>
+                  </span>
+                </label>
               </div>
             </CardContent>
           </Card>

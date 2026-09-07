@@ -103,6 +103,18 @@ export const leads = sqliteTable("leads", {
   email: text("email").notNull(),
   phone: text("phone").notNull(),
   courseInterest: text("course_interest"),
+  /**
+   * Which delivery format the enquirer wants: "Online", "Offline",
+   * "Hybrid" or "No preference".
+   *
+   * A real column rather than a line folded into `message`, because this is
+   * the field the counselling team routes on — a classroom enquiry from
+   * outside Pune is a different conversation from an online one — and
+   * because it is the kind of thing you want to filter and count, not read.
+   * Nullable: older leads pre-date the field, and not every lead form asks
+   * (a newsletter signup is not expressing a course-format preference).
+   */
+  modePreference: text("mode_preference"),
   message: text("message"),
   source: text("source"), // e.g., "contact_form", "popup", "whatsapp"
   utmSource: text("utm_source"),
@@ -128,7 +140,62 @@ export const placements = sqliteTable("placements", {
   photoUrl: text("photo_url"),
   linkedinUrl: text("linkedin_url"),
   githubUrl: text("github_url"),
+  /**
+   * The STUDENT's own words, captured on the public submission form.
+   * Distinct from `instituteNote` below — do not mix the two voices in one
+   * column. On approval this is promoted into `testimonials`, which is the
+   * table that actually reaches the home page, /testimonials and the course
+   * pages; here it is kept only as the record of what was submitted.
+   */
   testimonial: text("testimonial"),
+  /**
+   * OUR words about the student, their placement and the course they took.
+   * Rendered on the spotlight card for highlighted placements — the
+   * institute-authored announcement, the opposite direction from a
+   * testimonial.
+   */
+  instituteNote: text("institute_note"),
+  /**
+   * Consent to show the student's FULL name and photo publicly.
+   *
+   * Defaults to false, and deliberately separate from `isPublished`: a row
+   * can be part of the public record while the person stays pseudonymous
+   * ("Rutuja G."). Set from `consentDisplayPublic` when a submission is
+   * approved — the public form asks exactly this ("You may show my name,
+   * company and photo on the website"). Rows typed by hand in admin carry
+   * no consent trail, so they start false and an admin must tick it.
+   */
+  consentDisplayName: integer("consent_display_name", { mode: "boolean" }).default(false),
+  /**
+   * Consent to publish this student's INDIVIDUAL salary figure.
+   *
+   * Separate from, and narrower than, `consentDisplayName`. The public
+   * submission form currently promises "your salary figure is never
+   * published either way", so every existing submission must default to
+   * false and stay false — the aggregate band on /placements is derived
+   * from all rows regardless, which is what that promise allows.
+   */
+  consentDisplaySalary: integer("consent_display_salary", { mode: "boolean" }).default(false),
+  /**
+   * Proof of employment held on file — offer letter, ID card, salary slip or
+   * similar. Stored in the PRIVATE "offer-letters" media collection, which
+   * the public /media route refuses to serve (404) and which only
+   * /admin/media/... can read, behind an auth check.
+   *
+   * This file is never published to anyone, crawlers included: it carries a
+   * real person's name, employer, salary and often a signature. What is
+   * public is the ATTESTATION that it exists and was checked — see
+   * `verifiedAt` — never the document itself.
+   */
+  proofFilename: text("proof_filename"),
+  /** What the proof actually is, so the attestation can be specific. */
+  proofType: text("proof_type"),
+  /**
+   * When a human checked the proof against this row. Null means unverified,
+   * and the public record says so rather than quietly implying every entry
+   * was checked.
+   */
+  verifiedAt: integer("verified_at", { mode: "timestamp" }),
   isHighlighted: integer("is_highlighted", { mode: "boolean" }).default(false),
   isPublished: integer("is_published", { mode: "boolean" }).default(true),
   createdAt: integer("created_at", { mode: "timestamp" }).notNull().$defaultFn(() => new Date()),

@@ -19,13 +19,44 @@ import { placements as placementsTable } from "@/db/schema";
 /** Shape handed to the public component. Deliberately narrower than the row. */
 export interface PublicPlacement {
   id: number;
-  /** Already reduced to "First I." — the full surname never leaves this module. */
+  /**
+   * "First I." by default. The full name is used ONLY where the student
+   * consented to it (`consentDisplayName`); otherwise the surname never
+   * leaves this module.
+   */
   displayName: string | null;
   company: string;
   designation: string;
+  /**
+   * The individual salary figure, or null where the student has not
+   * consented to it being published.
+   *
+   * The public submission form promises "your salary figure is never
+   * published either way", so this is null for every submitted placement
+   * unless someone explicitly re-consents. The aggregate band shown on
+   * /placements is computed separately, from all rows — a range across a
+   * cohort publishes nobody's figure, which is what that promise allows.
+   */
   package: string | null;
   courseTaken: string | null;
   batchYear: number | null;
+  /** Institute-authored note. Only rendered on spotlight cards. */
+  instituteNote: string | null;
+  /** Only surfaced where the student consented to name + photo. */
+  photoUrl: string | null;
+  linkedinUrl: string | null;
+  /** Drives the spotlight treatment above the table. */
+  isHighlighted: boolean;
+  /**
+   * True where a human checked documentary proof against this row.
+   *
+   * A boolean, deliberately: the proof filename never leaves the server and
+   * there is no public URL for it. Publishing the document would mean
+   * publishing a named person's employer, salary and often signature. What
+   * a reader — or a crawler — can check is that verification happened and
+   * how it is done, which the page states in full.
+   */
+  verified: boolean;
 }
 
 /**
@@ -93,19 +124,43 @@ export const getPublicPlacements = unstable_cache(
           package: placementsTable.package,
           courseTaken: placementsTable.courseTaken,
           batchYear: placementsTable.batchYear,
+          instituteNote: placementsTable.instituteNote,
+          photoUrl: placementsTable.photoUrl,
+          linkedinUrl: placementsTable.linkedinUrl,
+          isHighlighted: placementsTable.isHighlighted,
+          consentDisplayName: placementsTable.consentDisplayName,
+          consentDisplaySalary: placementsTable.consentDisplaySalary,
+          // The timestamp only. `proofFilename` is deliberately not selected,
+          // so it cannot reach the client payload even by accident.
+          verifiedAt: placementsTable.verifiedAt,
         })
         .from(placementsTable)
         .where(eq(placementsTable.isPublished, true));
 
-      return rows.map((r) => ({
-        id: r.id,
-        displayName: toDisplayName(r.studentName),
-        company: r.company,
-        designation: r.designation,
-        package: r.package,
-        courseTaken: r.courseTaken,
-        batchYear: r.batchYear,
-      }));
+      return rows.map((r) => {
+        const namedConsent = Boolean(r.consentDisplayName);
+        return {
+          id: r.id,
+          // Full name only with consent; otherwise the surname is reduced
+          // here so it is never serialised into the HTML payload.
+          displayName: namedConsent
+            ? r.studentName
+            : toDisplayName(r.studentName),
+          company: r.company,
+          designation: r.designation,
+          // Gated independently of the name: consenting to be shown is not
+          // consenting to have your salary published.
+          package: r.consentDisplaySalary ? r.package : null,
+          courseTaken: r.courseTaken,
+          batchYear: r.batchYear,
+          instituteNote: r.instituteNote,
+          // A photo is part of the same consent as the name.
+          photoUrl: namedConsent ? r.photoUrl : null,
+          linkedinUrl: namedConsent ? r.linkedinUrl : null,
+          isHighlighted: Boolean(r.isHighlighted),
+          verified: r.verifiedAt !== null,
+        };
+      });
     } catch {
       // Same reasoning as public-testimonials: the production image is built
       // without a populated SQLite file, so a build-time prerender would crash
@@ -114,13 +169,54 @@ export const getPublicPlacements = unstable_cache(
       return [];
     }
   },
-  ["public-placements"],
+  ["public-placements-v2"],
+  { tags: ["placements"], revalidate: 600 },
+);
+
+/**
+ * Salary aggregates across ALL published placements.
+ *
+ * Deliberately separate from `getPublicPlacements`: that fetcher nulls the
+ * per-row figure for students who did not consent to it being published, so
+ * computing the band from its output would silently narrow the range to the
+ * consenting subset. Reading here keeps every raw figure server-side — none
+ * is serialised into the page payload — while still letting the page show a
+ * cohort range, which publishes no individual's salary.
+ */
+export const getPlacementSalaryAggregates = unstable_cache(
+  async (): Promise<Pick<PlacementStats, "packageLow" | "packageHigh" | "packageMedian">> => {
+    try {
+      const rows = await db
+        .select({ package: placementsTable.package })
+        .from(placementsTable)
+        .where(eq(placementsTable.isPublished, true));
+      const values = rows
+        .map((r) => parseLpa(r.package))
+        .filter((n): n is number => n !== null)
+        .sort((a, b) => a - b);
+      if (values.length === 0) {
+        return { packageLow: null, packageHigh: null, packageMedian: null };
+      }
+      const mid = Math.floor(values.length / 2);
+      return {
+        packageLow: values[0],
+        packageHigh: values[values.length - 1],
+        packageMedian:
+          values.length % 2 === 0 ? (values[mid - 1] + values[mid]) / 2 : values[mid],
+      };
+    } catch {
+      return { packageLow: null, packageHigh: null, packageMedian: null };
+    }
+  },
+  ["public-placement-salary-aggregates"],
   { tags: ["placements"], revalidate: 600 },
 );
 
 /** Aggregates derived from the rows themselves — never hardcoded. */
 export interface PlacementStats {
   total: number;
+  /** How many of `total` were checked against a document. */
+  verified: number;
   companies: number;
   courses: number;
   years: number[];
@@ -137,6 +233,7 @@ function parseLpa(value: string | null): number | null {
 }
 
 export function computePlacementStats(rows: PublicPlacement[]): PlacementStats {
+  const verified = rows.filter((r) => r.verified).length;
   const packages = rows
     .map((r) => parseLpa(r.package))
     .filter((n): n is number => n !== null)
@@ -151,6 +248,7 @@ export function computePlacementStats(rows: PublicPlacement[]): PlacementStats {
 
   return {
     total: rows.length,
+    verified,
     companies: new Set(rows.map((r) => r.company).filter(Boolean)).size,
     courses: new Set(rows.map((r) => r.courseTaken).filter(Boolean)).size,
     years: [...new Set(rows.map((r) => r.batchYear).filter((y): y is number => !!y))].sort(),

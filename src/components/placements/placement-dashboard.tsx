@@ -35,6 +35,18 @@ interface Props {
 const ALL = "__all__";
 
 export function PlacementDashboard({ placements, stats }: Props) {
+  // Announcements, not filtered rows — a highlighted placement is meant to be
+  // seen, so it sits above the filters rather than inside them. Cards with
+  // neither a note nor a consented name would be an empty box, so they stay
+  // in the table instead.
+  const spotlights = useMemo(
+    () =>
+      placements.filter(
+        (p) => p.isHighlighted && (p.instituteNote || p.photoUrl),
+      ),
+    [placements],
+  );
+
   const [course, setCourse] = useState<string>(ALL);
   const [year, setYear] = useState<string>(ALL);
   const [company, setCompany] = useState<string>(ALL);
@@ -147,6 +159,92 @@ export function PlacementDashboard({ placements, stats }: Props) {
             </span>
           </div>
 
+          {spotlights.length > 0 && (
+            <div className="mb-8 grid gap-4 md:grid-cols-2">
+              {spotlights.map((p) => (
+                <article
+                  key={p.id}
+                  className="rounded-xl border border-border bg-background p-5"
+                >
+                  <div className="flex items-start gap-4">
+                    {p.photoUrl && (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={p.photoUrl}
+                        alt=""
+                        width={56}
+                        height={56}
+                        loading="lazy"
+                        decoding="async"
+                        className="h-14 w-14 shrink-0 rounded-full object-cover"
+                      />
+                    )}
+                    <div className="min-w-0 flex-1">
+                      <div className="flex flex-wrap items-baseline justify-between gap-x-3">
+                        <h3 className="font-semibold">{p.displayName ?? "—"}</h3>
+                        {/* Only present where the student consented to it. */}
+                        {p.package && (
+                          <span className="text-sm font-semibold tabular-nums text-primary">
+                            {p.package}
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-sm text-muted-foreground">
+                        {p.designation}, {p.company}
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        {[p.courseTaken, p.batchYear ? `Batch ${p.batchYear}` : null]
+                          .filter(Boolean)
+                          .join(" · ")}
+                      </p>
+                      {p.verified && (
+                        <span className="mt-1 inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
+                          Verified against documents
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  {p.instituteNote && (
+                    <blockquote className="mt-4 border-l-2 border-primary/40 pl-4 text-sm leading-relaxed text-muted-foreground">
+                      {p.instituteNote}
+                      <footer className="mt-2 text-xs not-italic">
+                        &mdash; Archer Infotech
+                      </footer>
+                    </blockquote>
+                  )}
+
+                  {p.linkedinUrl && (
+                    <a
+                      href={p.linkedinUrl}
+                      target="_blank"
+                      rel="nofollow noopener"
+                      className="mt-3 inline-block text-xs font-medium text-primary underline underline-offset-4"
+                    >
+                      LinkedIn profile
+                    </a>
+                  )}
+                </article>
+              ))}
+            </div>
+          )}
+
+          <p className="mb-4 text-sm text-muted-foreground">
+            <strong className="font-semibold text-foreground">
+              How these records are verified.
+            </strong>{" "}
+            We have checked {stats.verified} of the {stats.total} placements
+            listed here against documentary proof of employment — an offer letter, appointment letter, employee ID card
+            or salary slip — held on file at our Kothrud office. Those
+            documents are not published, and never will be: they carry a named
+            person&rsquo;s employer, salary and signature. Rows without a
+            &ldquo;Verified&rdquo; mark are recorded but not yet checked, and
+            we label them that way rather than implying otherwise. Anyone
+            assessing these figures — including a prospective student, a
+            parent, or a journalist — is welcome to ask us to walk through the
+            evidence in person.
+          </p>
+
           <div className="overflow-x-auto rounded-lg border border-border">
             <table className="w-full text-sm">
               <thead className="bg-muted/50">
@@ -157,6 +255,7 @@ export function PlacementDashboard({ placements, stats }: Props) {
                   <th scope="col" className="text-left font-semibold px-4 py-3">Company</th>
                   <th scope="col" className="text-left font-semibold px-4 py-3">Package</th>
                   <th scope="col" className="text-left font-semibold px-4 py-3">Batch</th>
+                  <th scope="col" className="text-left font-semibold px-4 py-3">Proof</th>
                 </tr>
               </thead>
               <tbody>
@@ -170,11 +269,20 @@ export function PlacementDashboard({ placements, stats }: Props) {
                     <td className="px-4 py-3 tabular-nums text-muted-foreground">
                       {p.batchYear ?? "—"}
                     </td>
+                    <td className="px-4 py-3">
+                      {p.verified ? (
+                        <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
+                          Verified
+                        </span>
+                      ) : (
+                        <span className="text-xs text-muted-foreground">—</span>
+                      )}
+                    </td>
                   </tr>
                 ))}
                 {rows.length === 0 && (
                   <tr>
-                    <td colSpan={6} className="px-4 py-6 text-center text-muted-foreground">
+                    <td colSpan={7} className="px-4 py-6 text-center text-muted-foreground">
                       No placements match those filters.
                     </td>
                   </tr>

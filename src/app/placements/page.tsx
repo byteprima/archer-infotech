@@ -26,6 +26,7 @@ import { SourceCitations } from "@/components/seo/source-citations";
 import { PlacementDashboard } from "@/components/placements/placement-dashboard";
 import {
   getPublicPlacements,
+  getPlacementSalaryAggregates,
   computePlacementStats,
   MIN_PUBLIC_PLACEMENTS,
   isPlacementRecordEnabled,
@@ -47,7 +48,14 @@ export default async function PlacementsPage() {
   // published rows are read (see public-placements.ts — the admin fetcher
   // deliberately returns drafts too).
   const placementRows = await getPublicPlacements();
-  const placementStats = computePlacementStats(placementRows);
+  // The per-row figure is null for students who did not consent to it being
+  // published, so the band is read separately from all rows. Otherwise the
+  // headline range would silently narrow to whoever happened to consent.
+  const salaryAggregates = await getPlacementSalaryAggregates();
+  const placementStats = {
+    ...computePlacementStats(placementRows),
+    ...salaryAggregates,
+  };
   // Below the threshold the section does not render at all: a three-row
   // placement table is weaker than the claim it is meant to support.
   // Two conditions, both required: enough rows to be credible AND an

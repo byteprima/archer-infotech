@@ -39,6 +39,17 @@ const placementSchema = z.object({
   linkedinUrl: z.string().url("Please enter a valid LinkedIn URL").optional().or(z.literal("")),
   githubUrl: z.string().url("Please enter a valid GitHub URL").optional().or(z.literal("")),
   testimonial: z.string().optional(),
+  instituteNote: z.string().optional(),
+  // Evidence of employment. Only the FILENAME travels through the form —
+  // never a URL, because the collection it lives in is private and has no
+  // public URL to hand out.
+  proofFilename: z.string().optional(),
+  proofType: z.string().optional(),
+  verified: z.boolean().optional(),
+  // Consent defaults to false everywhere: a row created without an explicit
+  // tick must never publish a real name, photo or salary.
+  consentDisplayName: z.boolean().optional(),
+  consentDisplaySalary: z.boolean().optional(),
   isHighlighted: z.boolean().optional(),
   isPublished: z.boolean().optional(),
 });
@@ -184,6 +195,15 @@ export async function createPlacement(data: PlacementFormData): Promise<ActionRe
         linkedinUrl: validationResult.data.linkedinUrl || null,
         githubUrl: validationResult.data.githubUrl || null,
         testimonial: validationResult.data.testimonial || null,
+        instituteNote: validationResult.data.instituteNote || null,
+        proofFilename: validationResult.data.proofFilename || null,
+        proofType: validationResult.data.proofType || null,
+        // Stamped only when an admin confirms they checked the document
+        // against the row. Unticking clears it, so the attestation can never
+        // outlive the check that justified it.
+        verifiedAt: validationResult.data.verified ? new Date() : null,
+        consentDisplayName: validationResult.data.consentDisplayName ?? false,
+        consentDisplaySalary: validationResult.data.consentDisplaySalary ?? false,
         isHighlighted: validationResult.data.isHighlighted ?? false,
         isPublished: validationResult.data.isPublished ?? true,
       })
@@ -255,6 +275,15 @@ export async function updatePlacement(id: number, data: PlacementFormData): Prom
         linkedinUrl: validationResult.data.linkedinUrl || null,
         githubUrl: validationResult.data.githubUrl || null,
         testimonial: validationResult.data.testimonial || null,
+        instituteNote: validationResult.data.instituteNote || null,
+        proofFilename: validationResult.data.proofFilename || null,
+        proofType: validationResult.data.proofType || null,
+        // Stamped only when an admin confirms they checked the document
+        // against the row. Unticking clears it, so the attestation can never
+        // outlive the check that justified it.
+        verifiedAt: validationResult.data.verified ? new Date() : null,
+        consentDisplayName: validationResult.data.consentDisplayName ?? false,
+        consentDisplaySalary: validationResult.data.consentDisplaySalary ?? false,
         isHighlighted: validationResult.data.isHighlighted ?? false,
         isPublished: validationResult.data.isPublished ?? true,
         updatedAt: new Date(),
@@ -442,6 +471,41 @@ export async function togglePlacementHighlightStatus(
       message: "Failed to update highlight status. Please try again.",
     };
   }
+}
+
+/**
+ * Store proof of employment for a placement.
+ *
+ * Writes into the PRIVATE "offer-letters" collection — the one the public
+ * /media route 404s and only /admin/media can read. That collection is also
+ * the only one that accepts PDF, which is what most proof arrives as.
+ *
+ * Returns the bare FILENAME, deliberately, not a URL: there is no public URL
+ * for this file and inventing one would invite someone to link it.
+ */
+export type ProofResult =
+  | { success: true; filename: string; message: string }
+  | { success: false; message: string };
+
+export async function uploadPlacementProof(
+  formData: FormData,
+): Promise<ProofResult> {
+  await requireAdminAction();
+
+  const file = formData.get("proof");
+  if (!(file instanceof File) || file.size === 0) {
+    return { success: false, message: "Choose a PDF or image file first." };
+  }
+
+  const { saveMedia } = await import("@/lib/storage/media");
+  const saved = await saveMedia(file, "offer-letters");
+  if (!saved.ok) return { success: false, message: saved.error };
+
+  return {
+    success: true,
+    filename: saved.filename,
+    message: `Stored ${file.name} privately.`,
+  };
 }
 
 /**

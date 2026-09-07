@@ -13,7 +13,7 @@ import { desc, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 
 import { db } from "@/db";
-import { placements, placementSubmissions } from "@/db/schema";
+import { placements, placementSubmissions, testimonials } from "@/db/schema";
 import { logAdminAction, requireAdminAction } from "@/lib/admin";
 import { mediaUrl } from "@/lib/storage/media";
 
@@ -68,9 +68,39 @@ export async function approvePlacementSubmission(
       photoUrl: row.photoFilename ? mediaUrl("placements", row.photoFilename) : null,
       linkedinUrl: row.linkedinUrl,
       testimonial: row.testimonial,
+      instituteNote: null,
+      // The public form asks exactly this: "You may show my name, company and
+      // photo on the website". Carry that decision onto the row rather than
+      // re-deriving it later.
+      consentDisplayName: Boolean(row.consentDisplayPublic),
+      // Never true from a submission. That same form promises "your salary
+      // figure is never published either way", so consenting to appear is not
+      // consenting to this. An admin must set it deliberately, per student.
+      consentDisplaySalary: false,
       isPublished: Boolean(row.consentDisplayPublic),
     })
     .returning({ id: placements.id });
+
+  // Promote the student's own words into `testimonials`, which is the table
+  // that actually reaches the home page, /testimonials and the course pages —
+  // `placements.testimonial` is only the record of what was submitted and is
+  // rendered nowhere. `courseTaken` is copied verbatim from the submission so
+  // the course-page match cannot be broken by a re-typed variant.
+  let testimonialCreated = false;
+  const quote = row.testimonial?.trim();
+  if (quote && row.consentDisplayPublic) {
+    await db.insert(testimonials).values({
+      name: row.studentName,
+      role: row.designation,
+      company: row.company,
+      courseTaken: row.courseTaken,
+      content: quote,
+      photoUrl: row.photoFilename ? mediaUrl("placements", row.photoFilename) : null,
+      linkedinUrl: row.linkedinUrl,
+      isPublished: true,
+    });
+    testimonialCreated = true;
+  }
 
   await db
     .update(placementSubmissions)
@@ -86,10 +116,16 @@ export async function approvePlacementSubmission(
 
   revalidatePath("/placements");
   revalidatePath("/admin/placement-submissions");
+  if (testimonialCreated) {
+    revalidatePath("/");
+    revalidatePath("/testimonials");
+  }
   return {
     success: true,
     message: row.consentDisplayPublic
-      ? "Approved and published."
+      ? testimonialCreated
+        ? "Approved and published. The student's quote was added as a testimonial too."
+        : "Approved and published."
       : "Approved. Saved to records only — the student did not consent to public display.",
   };
 }
