@@ -1,41 +1,14 @@
-import {
-  Award,
-  Brain,
-  Briefcase,
-  Bug,
-  Cloud,
-  Code,
-  Database,
-  Globe,
-  Layers,
-  Rocket,
-  Smartphone,
-  Sparkles,
-} from "lucide-react";
 // P-12 (2026-06-04) chunk-audit fix: light-only import (categories array +
 // {categorySlug,category,shortTitle} are all this component uses) so the
 // 79 KB full courses catalogue doesn't ride along into client bundles that
 // render <CourseImagePlaceholder> on the home/courses page.
 import { categories, type CourseSummary as Course } from "@/data/courses-minimal";
+import { CATEGORY_ICONS } from "@/lib/category-icons";
 
-const iconMap: Record<string, React.ElementType> = {
-  Award,
-  Brain,
-  Briefcase,
-  Bug,
-  Cloud,
-  Code,
-  Database,
-  Globe,
-  Layers,
-  Rocket,
-  Smartphone,
-  Sparkles,
-};
 
 export function CourseImagePlaceholder({ course }: { course: Course }) {
   const category = categories.find((item) => item.slug === course.categorySlug);
-  const Icon = iconMap[category?.icon ?? "Code"] ?? Code;
+  const Icon = CATEGORY_ICONS[category?.icon ?? "Code"];
 
   // Real tile artwork when the course has it; the generated gradient below
   // stays as the fallback for courses that do not, so the set can roll out

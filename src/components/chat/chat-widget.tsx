@@ -19,6 +19,7 @@ import { useEffect, useRef, useState } from "react";
 import { MessageCircle, X, Send, Loader2, CheckCircle2 } from "lucide-react";
 import { submitLead } from "@/lib/actions/leads";
 import { CourseSelect } from "@/components/forms/course-select";
+import { MODE_PREFERENCE_OPTIONS } from "@/components/forms/mode-preference-field";
 
 interface Msg {
   role: "user" | "assistant";
@@ -95,6 +96,9 @@ export function ChatWidget() {
   const [leadCourses, setLeadCourses] = useState<string[]>([]);
   const [leadEmail, setLeadEmail] = useState("");
   const [leadMessage, setLeadMessage] = useState("");
+  // Delivery format. Named ...ModePref rather than ...Mode because
+  // `leadMode` above is the boolean that toggles this form open.
+  const [leadModePref, setLeadModePref] = useState("");
   const [leadBusy, setLeadBusy] = useState(false);
   const [leadError, setLeadError] = useState("");
 
@@ -166,6 +170,7 @@ export function ChatWidget() {
         email: leadEmail.trim(),
         phone,
         course: course || undefined,
+        modePreference: leadModePref || undefined,
         // Keep the synthesised line when the visitor writes nothing —
         // submitLead enforces a 10-character minimum.
         message:
@@ -188,6 +193,7 @@ export function ChatWidget() {
         setLeadEmail("");
         setLeadPhone("");
         setLeadCourses([]);
+        setLeadModePref("");
         setLeadMessage("");
       } else {
         setLeadError(result.message || "Something went wrong. Please try again.");
@@ -321,6 +327,19 @@ export function ChatWidget() {
                 onValueChange={setLeadCourses}
                 placeholder="Course of interest (optional)"
               />
+              <select
+                value={leadModePref}
+                onChange={(e) => setLeadModePref(e.target.value)}
+                aria-label="How would you like to study?"
+                className="h-9 w-full rounded-lg border border-input bg-background px-3 text-sm outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/40"
+              >
+                <option value="">How would you like to study? (optional)</option>
+                {MODE_PREFERENCE_OPTIONS.map((option) => (
+                  <option key={option} value={option}>
+                    {option === "Offline" ? "Offline (classroom)" : option}
+                  </option>
+                ))}
+              </select>
               <textarea
                 value={leadMessage}
                 onChange={(e) => setLeadMessage(e.target.value)}

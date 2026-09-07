@@ -5,22 +5,12 @@ import {
   Phone,
   Mail,
   Clock,
-  Code,
-  Layers,
-  Globe,
-  Cloud,
-  Award,
-  Brain,
-  Wand2,
-  Smartphone,
-  Database,
-  Rocket,
-  LucideIcon,
 } from "lucide-react";
 import { TrackedAnchor } from "@/components/analytics/tracked-anchor";
 import { NewsletterSignupForm } from "@/components/newsletter/newsletter-signup-form";
 import { siteConfig } from "@/data/site-config";
 import { categories } from "@/data/courses";
+import { CATEGORY_ICONS } from "@/lib/category-icons";
 
 // Social media icons as SVG components
 function GitHubIcon({ className }: { className?: string }) {
@@ -79,18 +69,6 @@ function RedditIcon({ className }: { className?: string }) {
   );
 }
 
-const categoryIcons: Record<string, LucideIcon> = {
-  Code,
-  Layers,
-  Globe,
-  Cloud,
-  Award,
-  Brain,
-  Wand2,
-  Smartphone,
-  Database,
-  Rocket,
-};
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -335,7 +313,7 @@ export function Footer() {
             <h2 className="text-lg font-semibold mb-4 text-white">Course Categories</h2>
             <ul className="space-y-2">
               {categories.map((category) => {
-                const IconComponent = categoryIcons[category.icon];
+                const IconComponent = CATEGORY_ICONS[category.icon];
                 return (
                   <li key={category.slug}>
                     <Link

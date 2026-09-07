@@ -102,12 +102,44 @@ export interface Course {
   isPopular?: boolean;
 }
 
+/**
+ * The icon names a category may use.
+ *
+ * A closed union rather than `string`, because every consumer maps this name
+ * to a Lucide component through its own lookup table, and a name with no
+ * entry renders nothing at all — silently. That is exactly how Testing & QA
+ * and Salesforce ended up with no icon in the footer while having one in the
+ * header, and how AI & GenAI ended up with a generic fallback on course
+ * tiles: three hand-maintained tables drifted from the data and from each
+ * other, and nothing could tell.
+ *
+ * With the union, `src/lib/category-icons.ts` is typed
+ * `Record<CategoryIconName, LucideIcon>` — so adding a name here without
+ * adding the icon there is a compile error, and vice versa.
+ */
+export const CATEGORY_ICON_NAMES = [
+  "Code",
+  "Layers",
+  "Globe",
+  "Cloud",
+  "Award",
+  "Brain",
+  "Wand2",
+  "Smartphone",
+  "Database",
+  "Bug",
+  "Briefcase",
+  "Rocket",
+] as const;
+
+export type CategoryIconName = (typeof CATEGORY_ICON_NAMES)[number];
+
 export interface Category {
   id: string;
   slug: string;
   name: string;
   description: string;
-  icon: string;
+  icon: CategoryIconName;
   courseCount?: number;
 }
 

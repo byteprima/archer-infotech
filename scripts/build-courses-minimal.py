@@ -18,6 +18,14 @@ import re, pathlib
 
 src = pathlib.Path("src/data/courses.ts").read_text()
 cat_iface = re.search(r"export interface Category \{[^}]+\}", src, re.DOTALL).group(0)
+# Category.icon is a closed union, so the union has to come across too or the
+# generated file references a type it does not define. Copied rather than
+# imported from courses.ts: importing would reintroduce exactly the coupling
+# this file exists to avoid, even as a type-only import.
+icon_names = re.search(
+    r"export const CATEGORY_ICON_NAMES = \[[^\]]+\] as const;", src, re.DOTALL
+).group(0)
+icon_type = "export type CategoryIconName = (typeof CATEGORY_ICON_NAMES)[number];"
 m = re.search(r"export const categories: Category\[\] = \[", src)
 start = m.end()
 depth = 1; i = start
@@ -76,7 +84,7 @@ HEADER = '''/* AUTO-GENERATED from courses.ts — do NOT edit by hand.
  */
 
 '''
-out = [HEADER, cat_iface, "", categories_block, "",
+out = [HEADER, icon_names, "", icon_type, "", cat_iface, "", categories_block, "",
     'export function getCategory(slug: string): Category | undefined {',
     '  return categories.find((c) => c.slug === slug);',
     '}', '',

@@ -12,12 +12,29 @@
  */
 
 
+export const CATEGORY_ICON_NAMES = [
+  "Code",
+  "Layers",
+  "Globe",
+  "Cloud",
+  "Award",
+  "Brain",
+  "Wand2",
+  "Smartphone",
+  "Database",
+  "Bug",
+  "Briefcase",
+  "Rocket",
+] as const;
+
+export type CategoryIconName = (typeof CATEGORY_ICON_NAMES)[number];
+
 export interface Category {
   id: string;
   slug: string;
   name: string;
   description: string;
-  icon: string;
+  icon: CategoryIconName;
   courseCount?: number;
 }
 
@@ -888,6 +905,110 @@ export const coursesSummary: CourseSummary[] = [
     image: "/images/courses/salesforce-v1.webp",
     tileImage: "/images/courses/salesforce-v1.webp",
     isPopular: true,
+  },
+  {
+    id: "salesforce-administrator",
+    slug: "salesforce-administrator-training-in-pune",
+    title: "Salesforce Administrator",
+    shortTitle: "Salesforce Admin",
+    category: "Salesforce",
+    categorySlug: "salesforce",
+    shortDescription: "Configure and run a Salesforce org — no programming required",
+    duration: "3 Months",
+    level: "Beginner",
+    mode: ["Online", "Offline"],
+    tileImage: "/images/courses/salesforce-v1.webp",
+  },
+  {
+    id: "salesforce-developer",
+    slug: "salesforce-developer-training-in-pune",
+    title: "Salesforce Developer",
+    shortTitle: "Salesforce Dev",
+    category: "Salesforce",
+    categorySlug: "salesforce",
+    shortDescription: "Apex, LWC, integration and DevOps on the Salesforce platform",
+    duration: "3.5 Months",
+    level: "Intermediate",
+    mode: ["Online", "Offline"],
+    tileImage: "/images/courses/salesforce-v1.webp",
+  },
+  {
+    id: "salesforce-business-analyst",
+    slug: "salesforce-business-analyst-training-in-pune",
+    title: "Salesforce Business Analyst",
+    shortTitle: "Salesforce BA",
+    category: "Salesforce",
+    categorySlug: "salesforce",
+    shortDescription: "Requirements, process mapping and UAT for Salesforce delivery",
+    duration: "2.5 Months",
+    level: "Beginner",
+    mode: ["Online", "Offline"],
+    tileImage: "/images/courses/salesforce-v1.webp",
+  },
+  {
+    id: "salesforce-consultant",
+    slug: "salesforce-consultant-training-in-pune",
+    title: "Salesforce Consultant",
+    shortTitle: "Salesforce Consultant",
+    category: "Salesforce",
+    categorySlug: "salesforce",
+    shortDescription: "Progression track — delivery craft for experienced Salesforce practitioners",
+    duration: "3 Months",
+    level: "Advanced",
+    mode: ["Online", "Offline"],
+    tileImage: "/images/courses/salesforce-v1.webp",
+  },
+  {
+    id: "salesforce-data-analytics",
+    slug: "salesforce-data-analytics-training-in-pune",
+    title: "Salesforce Data & Analytics",
+    shortTitle: "Salesforce Data",
+    category: "Salesforce",
+    categorySlug: "salesforce",
+    shortDescription: "Data quality, CRM Analytics, Data Cloud and Tableau on Salesforce",
+    duration: "3 Months",
+    level: "Intermediate",
+    mode: ["Online", "Offline"],
+    tileImage: "/images/courses/salesforce-v1.webp",
+  },
+  {
+    id: "salesforce-marketing-cloud",
+    slug: "salesforce-marketing-cloud-training-in-pune",
+    title: "Salesforce Marketing Cloud",
+    shortTitle: "Marketing Cloud",
+    category: "Salesforce",
+    categorySlug: "salesforce",
+    shortDescription: "Journey Builder, Email Studio, segmentation and campaign analytics",
+    duration: "3 Months",
+    level: "Beginner",
+    mode: ["Online", "Offline"],
+    tileImage: "/images/courses/salesforce-v1.webp",
+  },
+  {
+    id: "salesforce-sales-cloud",
+    slug: "salesforce-sales-cloud-training-in-pune",
+    title: "Salesforce Sales Cloud",
+    shortTitle: "Sales Cloud",
+    category: "Salesforce",
+    categorySlug: "salesforce",
+    shortDescription: "Sales process, forecasting and pipeline design on Sales Cloud",
+    duration: "2 Months",
+    level: "Beginner",
+    mode: ["Online", "Offline"],
+    tileImage: "/images/courses/salesforce-v1.webp",
+  },
+  {
+    id: "salesforce-architect",
+    slug: "salesforce-architect-training-in-pune",
+    title: "Salesforce Architect",
+    shortTitle: "Salesforce Architect",
+    category: "Salesforce",
+    categorySlug: "salesforce",
+    shortDescription: "Preparation track — architecture for practitioners with 5+ years",
+    duration: "4 Months",
+    level: "Advanced",
+    mode: ["Online", "Offline"],
+    tileImage: "/images/courses/salesforce-v1.webp",
   },
   {
     id: "agentic-ai",

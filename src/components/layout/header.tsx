@@ -7,19 +7,6 @@ import { usePathname } from "next/navigation";
 import {
   Menu,
   Phone,
-  Code,
-  Layers,
-  Globe,
-  Cloud,
-  Award,
-  Brain,
-  Wand2,
-  Smartphone,
-  Database,
-  Rocket,
-  Bug,
-  Briefcase,
-  LucideIcon,
 } from "lucide-react";
 import {
   FacebookIcon,
@@ -44,6 +31,7 @@ import { cn } from "@/lib/utils";
 // P-12 (2026-06-04) chunk-audit fix: import light-only data so the 79 KB
 // full course catalogue doesn't leak into every page's header chunk.
 import { categories, coursesSummary } from "@/data/courses-minimal";
+import { CATEGORY_ICONS } from "@/lib/category-icons";
 import { siteConfig } from "@/data/site-config";
 import { captureAnalyticsEvent } from "@/lib/posthog/client";
 
@@ -60,23 +48,6 @@ const mainNavItems = [
   { name: "Contact", href: "/contact" },
 ];
 
-const categoryIcons: Record<string, LucideIcon> = {
-  Code,
-  Layers,
-  Globe,
-  Cloud,
-  Award,
-  Brain,
-  Wand2,
-  Smartphone,
-  Database,
-  Rocket,
-  // testing-qa and salesforce declare these in courses-minimal; without them
-  // here IconComponent resolved to undefined and those two rows rendered with
-  // no icon while every other category had one.
-  Bug,
-  Briefcase,
-};
 
 export function Header() {
   const pathname = usePathname();
@@ -266,7 +237,7 @@ export function Header() {
                             </h4>
                             <ul className="space-y-1">
                               {categories.map((category) => {
-                                const IconComponent = categoryIcons[category.icon];
+                                const IconComponent = CATEGORY_ICONS[category.icon];
                                 const href = category.slug === "bootcamps"
                                   ? "/bootcamps"
                                   : `/courses/${category.slug}`;
