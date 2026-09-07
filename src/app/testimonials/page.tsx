@@ -28,6 +28,7 @@ import { LastUpdated } from "@/components/seo/last-updated";
 import {
   BreadcrumbJsonLd,
   ReviewListJsonLd,
+  ReviewSourceRatingsJsonLd,
   type ReviewSchemaInput,
 } from "@/components/seo/json-ld";
 import { getAllPublishedTestimonials } from "@/lib/actions/public-testimonials";
@@ -177,6 +178,12 @@ export default async function TestimonialsPage() {
           and Google use for SERP star eligibility, attached to the
           page's Reviews not a redundant Org. */}
       <ReviewListJsonLd reviews={reviewSchemas} />
+
+      {/* One AggregateRating node per rated platform, each attributed to
+          the platform that published it and carrying the listing URL so
+          the figure is checkable from the structured data alone. Rendered
+          here only — this is the page about reviews. */}
+      <ReviewSourceRatingsJsonLd />
 
       {/* Hero */}
       <section className="gradient-hero text-white py-16 md:py-24">

@@ -28,7 +28,7 @@ import { desc, eq } from "drizzle-orm";
 
 import { db } from "@/db";
 import { gbpReviews, gbpSyncState, type GbpReview } from "@/db/schema";
-import { googleReviews } from "@/data/site-config";
+import { googleReviews, reviewSources, type ReviewSource } from "@/data/site-config";
 
 /**
  * How long a synced mirror stays publishable. The sync runs nightly, so
@@ -187,4 +187,107 @@ export async function getPublicReviews(limit = 50): Promise<GbpReview[]> {
   } catch {
     return [];
   }
+}
+
+/* ------------------------------------------------------------------ *
+ * Combined multi-platform rating
+ * ------------------------------------------------------------------ */
+
+/** A source that passed validation, with the age that let it through. */
+export interface AuditedSource extends ReviewSource {
+  ageDays: number;
+  included: boolean;
+  /** Why it was excluded. Empty when included. */
+  excludedBecause: string;
+}
+
+export interface CombinedRating {
+  /** Count-weighted mean across included sources, to one decimal. */
+  ratingValue: number;
+  /** Sum of the included counts. */
+  ratingCount: number;
+  /** Every source considered, included or not — this is the audit trail. */
+  sources: AuditedSource[];
+  /** Platforms that contributed, for visible attribution. */
+  platforms: string[];
+}
+
+/**
+ * Combine every verified listing into one rating.
+ *
+ * The mean is weighted by review count, not a plain average of the
+ * platform scores. Averaging 4.9 and 5.0 to get 4.95 would let a listing
+ * with three reviews move the published figure as much as one with three
+ * hundred, which is not what an aggregate rating means and would be
+ * indefensible if anyone checked.
+ *
+ * Returns null when no source survives validation, and the caller must
+ * then emit no AggregateRating at all. Same fail-closed rule as
+ * resolveRating(): a withheld rating costs a decoration, a wrong one is a
+ * policy violation against the domain.
+ */
+export function combineReviewSources(
+  sources: readonly ReviewSource[] = reviewSources,
+): { rating: CombinedRating | null; reason: string } {
+  const audited: AuditedSource[] = sources.map((src) => {
+    const ageDays = daysSince(src.verifiedOn);
+    let excludedBecause = "";
+
+    if (!src.profileUrl || !/^https?:\/\//.test(src.profileUrl)) {
+      excludedBecause = "no public profile URL — the figure cannot be audited";
+    } else if (!src.verifiedOn || !Number.isFinite(ageDays)) {
+      excludedBecause = "no verifiedOn date — nobody has recorded reading it";
+    } else if (ageDays > MANUAL_STALE_AFTER_DAYS) {
+      excludedBecause = `last verified ${Math.floor(ageDays)} days ago, over the ${MANUAL_STALE_AFTER_DAYS}-day window`;
+    } else if (!(src.ratingCount > 0)) {
+      excludedBecause = "no reviews counted";
+    } else if (!(src.ratingValue >= 1 && src.ratingValue <= 5)) {
+      excludedBecause = "rating outside the 1-5 scale";
+    }
+
+    return { ...src, ageDays, included: !excludedBecause, excludedBecause };
+  });
+
+  const included = audited.filter((a) => a.included);
+  if (included.length === 0) {
+    return {
+      rating: null,
+      reason:
+        "No auditable review source is currently fresh. AggregateRating withheld deliberately.",
+    };
+  }
+
+  const count = included.reduce((n, s) => n + s.ratingCount, 0);
+  const weighted = included.reduce((n, s) => n + s.ratingValue * s.ratingCount, 0);
+
+  const mean = weighted / count;
+
+  return {
+    rating: {
+      // Precision depends on how many sources contributed.
+      //
+      // One source: one decimal, matching what that platform itself shows —
+      // reporting 4.90 when Google displays 4.9 implies a precision we did
+      // not measure.
+      //
+      // Several sources: two decimals, because a weighted mean is our
+      // arithmetic rather than a platform's published score, and rounding it
+      // to one decimal can overstate. Google 4.9/24 with JustDial 5.0/32
+      // gives 4.9571, which rounds to 5.0 at one decimal — a perfect score
+      // that neither the combined set nor honesty supports, and visually
+      // identical to the fabricated 5.0 this system exists to have removed.
+      // 4.96 is the number we can defend.
+      ratingValue:
+        included.length === 1
+          ? Math.round(mean * 10) / 10
+          : Math.round(mean * 100) / 100,
+      ratingCount: count,
+      sources: audited,
+      platforms: included.map((s) => s.platform),
+    },
+    reason:
+      included.length === 1
+        ? `Single verified source: ${included[0].platform}, read ${included[0].verifiedOn}`
+        : `${included.length} verified sources: ${included.map((s) => s.platform).join(", ")}`,
+  };
 }

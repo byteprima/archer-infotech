@@ -247,6 +247,77 @@ export const googleReviews = {
 } as const;
 
 /**
+ * One rated listing the business holds, on one platform.
+ *
+ * Every field is required, and that is the whole design. `profileUrl` is
+ * what makes the figure auditable — anyone, including us in six months,
+ * can open it and check. `verifiedOn` is when a person last did. A source
+ * missing either is not a weaker source, it is an unverifiable claim, and
+ * the resolver drops it rather than averaging it in.
+ */
+export interface ReviewSource {
+  /** Platform name as a reader would recognise it. */
+  platform: string;
+  /** 1-5, as the platform reports it. */
+  ratingValue: number;
+  ratingCount: number;
+  /** Public listing URL. Required — this is the audit trail. */
+  profileUrl: string;
+  /** ISO date a human read the two figures above off that URL. */
+  verifiedOn: string;
+}
+
+/**
+ * Every rated listing, combined into one AggregateRating by
+ * lib/reviews/rating.ts using a count-weighted mean.
+ *
+ * READ THIS BEFORE ADDING A ROW.
+ *
+ * This site published `ratingValue: 5.0, ratingCount: 126` for two months
+ * in 2026. The number was typed by hand into a script on 2026-06-11 with
+ * no source recorded, the scrape it supposedly came from has never once
+ * returned a count because Google blocks it, and it went out in
+ * LocalBusiness AggregateRating across ~322 URLs. Commit 4523153 removed
+ * it. An overstated AggregateRating is a structured-data policy violation
+ * and the penalty lands on the whole domain, not the one page.
+ *
+ * So: a row goes in here only after someone has opened `profileUrl`, read
+ * the rating and the count off the live page, and put that date in
+ * `verifiedOn`. Not from memory, not from an old screenshot, and not from
+ * a figure that "sounds about right". If you cannot open the page and see
+ * both numbers, the row does not exist yet.
+ *
+ * JustDial and Sulekha listings exist for this business and are linked
+ * from /testimonials — deliberately with no rating asserted, because
+ * neither has been read off the live page on any recorded date. When
+ * someone does that, add them here and the combined figure updates itself.
+ */
+export const reviewSources: ReviewSource[] = [
+  {
+    platform: "Google",
+    ratingValue: googleReviews.ratingValue,
+    ratingCount: googleReviews.ratingCount,
+    profileUrl: "https://g.page/r/CTjK3JCeX55TEBM",
+    verifiedOn: googleReviews.verifiedOn,
+  },
+  {
+    // Read off the live listing by the business owner on 2026-09-07.
+    // JustDial serves an empty body to automated requests (a fetch returns
+    // 14 bytes), so this figure cannot be machine-checked the way the
+    // Google profile can — the audit route is a person opening profileUrl.
+    // That is a weaker guarantee than the Google row and worth knowing,
+    // but it is a recorded reading on a recorded date by someone who can
+    // see the listing, which is the standard this registry sets.
+    platform: "JustDial",
+    ratingValue: 5.0,
+    ratingCount: 32,
+    profileUrl:
+      "https://www.justdial.com/Pune/Archer-Infotech-Kothrud/020PXX20-XX20-200101100200-D2J1_BZDET",
+    verifiedOn: "2026-09-07",
+  },
+];
+
+/**
  * Minimum number of course-matched testimonials required before a Course
  * schema may carry its own aggregateRating.
  *

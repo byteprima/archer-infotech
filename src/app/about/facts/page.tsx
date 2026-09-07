@@ -6,7 +6,7 @@ import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { FaqSection } from "@/components/seo/faq-section";
 import { LastUpdated } from "@/components/seo/last-updated";
 import { siteConfig } from "@/data/site-config";
-import { getDisplayRating } from "@/lib/reviews/rating";
+import { getDisplayRating, combineReviewSources } from "@/lib/reviews/rating";
 import { buildPageMetadata } from "@/lib/seo";
 import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
 
@@ -87,6 +87,7 @@ const factFaqs = [
 
 export default async function AboutFactsPage() {
   const rating = await getDisplayRating();
+  const combined = combineReviewSources();
   return (
     <>
       <BreadcrumbJsonLd
@@ -268,6 +269,54 @@ export default async function AboutFactsPage() {
               Reviews &amp; Reputation
             </h2>
             <dl className="grid sm:grid-cols-[200px_1fr] gap-x-6 gap-y-3">
+              {/* Combined multi-platform figure, with every source it was
+                  computed from listed underneath and linked. The number on
+                  its own would be one more unverifiable claim; the number
+                  plus the two listings a reader can open is the point. */}
+              {combined.rating && combined.rating.sources.filter((x) => x.included).length > 1 && (
+                <>
+                  <dt className="font-semibold text-foreground">
+                    Combined rating (all platforms)
+                  </dt>
+                  <dd className="text-muted-foreground">
+                    {combined.rating.ratingValue} / 5.0 from{" "}
+                    {combined.rating.ratingCount} ratings across{" "}
+                    {combined.rating.platforms.join(" and ")}. Count-weighted
+                    mean — each platform contributes in proportion to how many
+                    ratings it holds, so a small listing cannot move the figure
+                    as much as a large one.
+                  </dd>
+                  <dt className="font-semibold text-foreground">
+                    Sources behind that figure
+                  </dt>
+                  <dd className="text-muted-foreground">
+                    <ul className="space-y-1">
+                      {combined.rating.sources.map((src) => (
+                        <li key={src.platform}>
+                          <a
+                            href={src.profileUrl}
+                            className="text-primary hover:underline"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {src.platform}
+                          </a>{" "}
+                          — {src.ratingValue.toFixed(1)} / 5.0 from{" "}
+                          {src.ratingCount} ratings, read on {src.verifiedOn}
+                          {src.included ? "" : ` (excluded: ${src.excludedBecause})`}
+                        </li>
+                      ))}
+                    </ul>
+                    <p className="mt-2 text-xs">
+                      Open either listing and check. JustDial serves an empty
+                      body to automated requests, so that row is a recorded
+                      human reading rather than a machine-verifiable pull —
+                      a weaker guarantee than the Google row, and said here
+                      rather than left for you to discover.
+                    </p>
+                  </dd>
+                </>
+              )}
               <dt className="font-semibold text-foreground">Google reviews (count)</dt>
               <dd className="text-muted-foreground">
                 {rating.ratingCount} verified Google reviews

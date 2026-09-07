@@ -1,4 +1,5 @@
 import { siteConfig } from "@/data/site-config";
+import { combineReviewSources } from "@/lib/reviews/rating";
 import type { Batch } from "@/db/schema";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://archerinfotech.in";
@@ -1063,5 +1064,81 @@ export function ReportJsonLd({
       type="application/ld+json"
       dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
     />
+  );
+}
+
+/**
+ * Two standalone AggregateRating nodes — one per rated platform.
+ *
+ * WHY SEPARATE NODES RATHER THAN ONE BLENDED FIGURE, AND RATHER THAN
+ * `aggregateRating: [a, b]` ON THE ORGANIZATION.
+ *
+ * A blended 4.96 is our arithmetic, not anything a platform published, so
+ * no reader could check it against a source. Two nodes each say something
+ * verifiable: Google reports 4.9 from 24, JustDial reports 5.0 from 32,
+ * and `url` on each points at the listing where you can confirm it.
+ *
+ * Putting both on the Organization's `aggregateRating` property would be
+ * two values on a property consumers treat as single-valued, which is the
+ * literal shape of the "Review has multiple aggregate ratings" error this
+ * site already hit once. Each rating is instead its own node pointing back
+ * at the Organization through `itemReviewed`, with `author` naming the
+ * platform that collected it.
+ *
+ * ON THE 2026-08-13 REMOVAL. `aggregateRating` was stripped from the
+ * Organization node because React re-inserted the JSON-LD `<script>` during
+ * hydration, so the rendered DOM carried two Organization nodes with the
+ * same @id and Google merged them into a multi-rating error. That note said
+ * to re-verify in the RENDERED DOM before reinstating anything. Done on
+ * 2026-09-07 against the live /testimonials page, after hydration had
+ * completed (next-route-announcer present, 29 chunks loaded, readyState
+ * complete): four JSON-LD scripts in the served HTML, four in the rendered
+ * DOM, one Organization node, no duplicate @ids. The duplication no longer
+ * reproduces. If it returns, this is the first thing to suspect.
+ *
+ * Rendered on /testimonials only, not site-wide. Ratings belong on the
+ * page about reviews, and a narrow blast radius is worth having if Google
+ * does object to the shape.
+ *
+ * Fails closed: a source with no public URL, no recorded reading date, or
+ * a reading older than the staleness window is dropped by
+ * combineReviewSources() and never reaches this component. If every source
+ * is dropped, nothing is emitted at all.
+ */
+export function ReviewSourceRatingsJsonLd() {
+  const { rating } = combineReviewSources();
+  const sources = rating?.sources.filter((s) => s.included) ?? [];
+  if (sources.length === 0) return null;
+
+  return (
+    <>
+      {sources.map((src) => (
+        <script
+          key={src.platform}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "AggregateRating",
+              itemReviewed: { "@id": `${siteConfig.url}/#organization` },
+              ratingValue: src.ratingValue,
+              ratingCount: src.ratingCount,
+              bestRating: 5,
+              worstRating: 1,
+              // The platform that collected and published this rating —
+              // not us. Without it the two nodes are indistinguishable.
+              author: {
+                "@type": "Organization",
+                name: src.platform,
+                url: src.profileUrl,
+              },
+              // The listing itself, so the figure is checkable from the
+              // structured data alone.
+              url: src.profileUrl,
+            }),
+          }}
+        />
+      ))}
+    </>
   );
 }
