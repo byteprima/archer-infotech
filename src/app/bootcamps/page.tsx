@@ -3,7 +3,6 @@ import Link from "next/link";
 import {
   ArrowRight,
   Clock,
-  Users,
   Rocket,
   CheckCircle,
   GraduationCap,
@@ -11,7 +10,7 @@ import {
   Phone,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { PageEvent } from "@/components/analytics/page-event";
 import { TrackedLink } from "@/components/analytics/tracked-link";
 import { TrackedAnchor } from "@/components/analytics/tracked-anchor";
@@ -77,6 +76,69 @@ const bootcampHighlights = [
   },
 ];
 
+/**
+ * Side-by-side comparison of the three programmes.
+ *
+ * The landing page's actual job is "which of these three am I?", and until
+ * now the page answered that only in prose spread across three cards. Every
+ * value here is drawn from the `details` block of the matching bootcamp in
+ * bootcamps.ts — keep the two in step.
+ *
+ * This table is also the text counterpart of the comparison diagram above
+ * it: the diagram's words are invisible to crawlers and AI engines, so
+ * nothing may appear only there.
+ */
+const comparisonRows = [
+  {
+    label: "Who it is for",
+    codeleap: "12th pass, any stream",
+    careercode: "Engineering, BCA or BSc CS students",
+    techready: "Final-year students and graduates",
+  },
+  {
+    label: "When you take it",
+    codeleap: "In the gap before college starts",
+    careercode: "Alongside your degree, every semester",
+    techready: "After graduating, full time",
+  },
+  {
+    label: "Duration",
+    codeleap: "2 months (8 weeks)",
+    careercode: "Ongoing — semester by semester",
+    techready: "6 to 8 months per programme",
+  },
+  {
+    label: "Time commitment",
+    codeleap: "Weekday or weekend batches",
+    careercode: "1 to 2 technologies per semester",
+    techready: "Minimum 6 hours a day",
+  },
+  {
+    label: "Coding experience needed",
+    codeleap: "None — absolute beginners",
+    careercode: "Whatever your semester has covered",
+    techready: "Graduate-level fundamentals",
+  },
+  {
+    label: "What you choose",
+    codeleap: "Nothing — one fixed 5-module path",
+    careercode: "1 of 6 specialisation tracks",
+    techready: "1 of 10 specialised programmes",
+  },
+  {
+    label: "What you leave with",
+    codeleap: "Deployed site, GitHub profile, AI mini-app",
+    careercode: "Track certificate at each completed level",
+    techready: "Project portfolio and certificate",
+  },
+  {
+    label: "Career support",
+    codeleap: "Resume and LinkedIn set up",
+    careercode: "Internship guidance and interview prep",
+    techready: "Placement-assisted, 100+ partner companies",
+  },
+];
+
 export default function BootcampsPage() {
   return (
     <>
@@ -127,12 +189,99 @@ export default function BootcampsPage() {
         run in hybrid mode — Kothrud campus plus live online sessions.
       </DefinitiveAnswer>
 
+      {/* Which one am I? — the question this page exists to answer, so it
+          comes before the three cards rather than after them. The diagram
+          is a summary; the table below it carries the same facts as text
+          because a diagram's contents are invisible to crawlers and to AI
+          engines. */}
+      <section className="py-16 md:py-20">
+        <div className="container mx-auto px-4">
+          <div className="mx-auto mb-10 max-w-3xl text-center">
+            <h2 className="mb-3 text-2xl font-bold md:text-3xl">
+              Which bootcamp is for you?
+            </h2>
+            <p className="text-muted-foreground">
+              The three programmes do not compete with each other — they map to
+              three different points in a career. Find the row that describes
+              where you are now.
+            </p>
+          </div>
+
+          <figure className="mb-10">
+            <picture>
+              <source
+                srcSet="/images/courses/bootcamp-compare-v1.avif"
+                type="image/avif"
+              />
+              <img
+                src="/images/courses/bootcamp-compare-v1.webp"
+                alt="Comparison of the three Archer Infotech bootcamps in Kothrud, Pune. CodeLeap is for students who have just finished 12th: two months over eight weeks, no coding background needed, covering Python, web development, AI and GitHub, taken before college starts, producing a deployed site and a GitHub profile. CareerCode is for students currently in engineering or BCA: taken semester by semester alongside the degree, with six specialisation tracks at one to two technologies a semester, leaving students internship-ready by final year. TechReady is for graduates targeting a job: six to eight months full time at six hours a day, across ten specialised programmes, placement-assisted, producing a portfolio, mock interviews and referrals."
+                width={1500}
+                height={512}
+                loading="lazy"
+                decoding="async"
+                className="w-full rounded-xl border border-border"
+              />
+            </picture>
+          </figure>
+
+          {/* Wide table scrolls inside its own container so the page body
+              never scrolls horizontally on mobile. */}
+          <div className="overflow-x-auto rounded-xl border">
+            <table className="w-full min-w-[720px] border-collapse text-sm">
+              <caption className="sr-only">
+                Archer Infotech bootcamps compared: CodeLeap, CareerCode and
+                TechReady
+              </caption>
+              <thead>
+                <tr className="bg-muted/50">
+                  <th scope="col" className="p-4 text-left font-semibold">
+                    &nbsp;
+                  </th>
+                  <th scope="col" className="p-4 text-left font-semibold">
+                    CodeLeap
+                  </th>
+                  <th scope="col" className="p-4 text-left font-semibold">
+                    CareerCode
+                  </th>
+                  <th scope="col" className="p-4 text-left font-semibold">
+                    TechReady
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {comparisonRows.map((row) => (
+                  <tr key={row.label} className="border-t">
+                    <th
+                      scope="row"
+                      className="p-4 text-left font-medium text-muted-foreground"
+                    >
+                      {row.label}
+                    </th>
+                    <td className="p-4">{row.codeleap}</td>
+                    <td className="p-4">{row.careercode}</td>
+                    <td className="p-4">{row.techready}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
       {/* Bootcamp Cards */}
       <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {bootcamps.map((bootcamp, index) => {
-              const meta = bootcampHighlights[index];
+            {bootcamps.map((bootcamp) => {
+              // Matched by slug, not array position: the two arrays used to
+              // be zipped by index, so adding or reordering a bootcamp would
+              // have silently shown another programme's audience and
+              // duration on the card.
+              const meta = bootcampHighlights.find(
+                (h) => h.slug === bootcamp.slug,
+              );
+              if (!meta) return null;
               const Icon = meta.icon;
               return (
                 <Card

@@ -20,16 +20,11 @@ import {
   Users,
   Wrench,
 } from "lucide-react";
+import { ReportDownloadForm } from "@/components/reports/report-download-form";
 import { TrackedAnchor } from "@/components/analytics/tracked-anchor";
 import { TrackedLink } from "@/components/analytics/tracked-link";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 import { type Bootcamp } from "@/data/bootcamps";
 import { NewsletterSignupForm } from "@/components/newsletter/newsletter-signup-form";
 import { siteConfig } from "@/data/site-config";
@@ -189,6 +184,9 @@ function getAnchorSections(bootcamp: Bootcamp) {
     { href: "#curriculum", label: structure.contentLabel },
   ];
 
+  if (bootcamp.projects && bootcamp.projects.length > 0) {
+    sections.push({ href: "#projects", label: "Projects" });
+  }
   if (bootcamp.comparison) {
     sections.push({ href: "#comparison", label: "How We Compare" });
   }
@@ -197,6 +195,17 @@ function getAnchorSections(bootcamp: Bootcamp) {
   }
   if (bootcamp.careerOutcomes) {
     sections.push({ href: "#outcomes", label: "Outcomes" });
+  }
+
+  // Fees and placement are the two sections visitors jump straight to on a
+  // programme this size, so they earn nav slots. The remaining new sections
+  // (not-for-you, versus, prerequisites) are read in flow rather than jumped
+  // to, and adding all six would overflow the bar on mobile.
+  if (bootcamp.fees) {
+    sections.push({ href: "#fees", label: "Fees" });
+  }
+  if (bootcamp.placementSupport) {
+    sections.push({ href: "#placement", label: "Placement" });
   }
 
   sections.push({ href: "#included", label: "What You Get" });
@@ -219,12 +228,169 @@ function getAddressLines() {
 }
 
 
+function FeesSection({ bootcamp }: { bootcamp: Bootcamp }) {
+  const fees = bootcamp.fees;
+  if (!fees) return null;
+  return (
+    <section id="fees" className="py-16 md:py-20">
+      <div className="container mx-auto px-4">
+        <div className="mx-auto max-w-3xl">
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+            Fees
+          </p>
+          <h2 className="mt-3 text-3xl font-bold text-balance md:text-4xl">
+            What it costs
+          </h2>
+          <p className="mt-4 text-base leading-7 text-muted-foreground">
+            {fees.note}
+          </p>
+          {fees.range && (
+            <p className="mt-6 rounded-lg border border-border bg-muted/40 px-5 py-4 text-lg font-semibold">
+              {fees.range}
+            </p>
+          )}
+          {fees.paymentOptions && fees.paymentOptions.length > 0 && (
+            <ul className="mt-6 space-y-3">
+              {fees.paymentOptions.map((opt) => (
+                <li key={opt} className="flex gap-3 text-base leading-7">
+                  <CheckCircle className="mt-1.5 h-4 w-4 shrink-0 text-primary" />
+                  <span className="text-muted-foreground">{opt}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+          {fees.sourceCitation && (
+            <p className="mt-6 text-sm text-muted-foreground">
+              Source:{" "}
+              <Link
+                href={fees.sourceCitation.url}
+                className="underline underline-offset-4 hover:text-foreground"
+              >
+                {fees.sourceCitation.label}
+              </Link>
+            </p>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function PlacementSupportSection({ bootcamp }: { bootcamp: Bootcamp }) {
+  const ps = bootcamp.placementSupport;
+  if (!ps) return null;
+  return (
+    <section id="placement" className="bg-muted/30 py-16 md:py-20">
+      <div className="container mx-auto px-4">
+        <div className="mb-10 max-w-3xl">
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+            Placement support
+          </p>
+          <h2 className="mt-3 text-3xl font-bold text-balance md:text-4xl">
+            How placement support actually works
+          </h2>
+          {ps.paragraphs.map((para) => (
+            <p key={para} className="mt-4 text-base leading-7 text-muted-foreground">
+              {para}
+            </p>
+          ))}
+        </div>
+        <div className="grid gap-10 lg:grid-cols-2">
+          <div>
+            <h3 className="text-lg font-semibold">The process</h3>
+            <ol className="mt-4 space-y-3">
+              {ps.process.map((step, i) => (
+                <li key={step} className="flex gap-3 text-sm leading-relaxed">
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-semibold text-primary">
+                    {i + 1}
+                  </span>
+                  <span className="text-muted-foreground">{step}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
+          <div>
+            <h3 className="text-lg font-semibold">Partner companies</h3>
+            <ul className="mt-4 flex flex-wrap gap-2">
+              {ps.partnerCompanies.map((c) => (
+                <li
+                  key={c}
+                  className="rounded-full border border-border bg-background px-3 py-1.5 text-sm text-muted-foreground"
+                >
+                  {c}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function VersusAlternativeSection({ bootcamp }: { bootcamp: Bootcamp }) {
+  const va = bootcamp.versusAlternative;
+  if (!va) return null;
+  return (
+    <section id="versus" className="py-16 md:py-20">
+      <div className="container mx-auto px-4">
+        <div className="mx-auto max-w-3xl">
+          <h2 className="text-3xl font-bold text-balance md:text-4xl">
+            {va.heading}
+          </h2>
+          {va.paragraphs.map((para) => (
+            <p key={para} className="mt-4 text-base leading-7 text-muted-foreground">
+              {para}
+            </p>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function PrerequisitesSection({ bootcamp }: { bootcamp: Bootcamp }) {
+  const pre = bootcamp.prerequisitesAndStart;
+  if (!pre) return null;
+  return (
+    <section id="prerequisites" className="bg-muted/30 py-16 md:py-20">
+      <div className="container mx-auto px-4">
+        <div className="mx-auto max-w-3xl">
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+            Before you start
+          </p>
+          <h2 className="mt-3 text-3xl font-bold text-balance md:text-4xl">
+            Prerequisites and how to begin
+          </h2>
+          {pre.paragraphs.map((para) => (
+            <p key={para} className="mt-4 text-base leading-7 text-muted-foreground">
+              {para}
+            </p>
+          ))}
+          <h3 className="mt-8 text-lg font-semibold">Suggested first steps</h3>
+          <ol className="mt-4 space-y-3">
+            {pre.suggestedSteps.map((step, i) => (
+              <li key={step} className="flex gap-3 text-sm leading-relaxed">
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-semibold text-primary">
+                  {i + 1}
+                </span>
+                <span className="text-muted-foreground">{step}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function ComparisonSection({ bootcamp }: { bootcamp: Bootcamp }) {
   if (!bootcamp.comparison) {
     return null;
   }
 
-  const { headline, intro, usLabel, othersLabel, rows } = bootcamp.comparison;
+  const { headline, intro, usLabel, othersLabel, rows, closing } =
+    bootcamp.comparison;
 
   return (
     <section id="comparison" className="bg-muted/30 py-16 md:py-20">
@@ -280,6 +446,11 @@ function ComparisonSection({ bootcamp }: { bootcamp: Bootcamp }) {
             </div>
           </CardContent>
         </Card>
+        {closing && (
+          <p className="mx-auto mt-6 max-w-3xl text-base leading-7 text-muted-foreground">
+            {closing}
+          </p>
+        )}
       </div>
     </section>
   );
@@ -351,8 +522,14 @@ function CareerOutcomesSection({ bootcamp }: { bootcamp: Bootcamp }) {
     return null;
   }
 
-  const { intro, immediateBenefits, longTermPaths, localContext } =
-    bootcamp.careerOutcomes;
+  const {
+    intro,
+    immediateBenefits,
+    longTermPaths,
+    localContext,
+    salaryBands,
+    hiringCompanies,
+  } = bootcamp.careerOutcomes;
 
   return (
     <section id="outcomes" className="bg-muted/30 py-16 md:py-20">
@@ -424,6 +601,64 @@ function CareerOutcomesSection({ bootcamp }: { bootcamp: Bootcamp }) {
             </CardContent>
           </Card>
         </div>
+
+        {/* Cited salary bands. A band without a source is a marketing
+            number, so the citation renders beside it rather than being an
+            optional extra. */}
+        {salaryBands && salaryBands.length > 0 && (
+          <div className="mt-8 overflow-x-auto rounded-[2rem] border border-border bg-background shadow-sm">
+            <table className="w-full min-w-[560px] border-collapse text-sm">
+              <caption className="sr-only">
+                Indicative Pune salary bands for roles this programme targets
+              </caption>
+              <thead>
+                <tr className="border-b bg-muted/40">
+                  <th scope="col" className="p-4 text-left font-semibold">Role</th>
+                  <th scope="col" className="p-4 text-left font-semibold">Indicative band</th>
+                  <th scope="col" className="p-4 text-left font-semibold">Source</th>
+                </tr>
+              </thead>
+              <tbody>
+                {salaryBands.map((band) => (
+                  <tr key={band.role} className="border-b last:border-0">
+                    <th scope="row" className="p-4 text-left font-medium">
+                      {band.role}
+                    </th>
+                    <td className="p-4 text-muted-foreground">{band.band}</td>
+                    <td className="p-4">
+                      <a
+                        href={band.source.url}
+                        target="_blank"
+                        rel="nofollow noopener"
+                        className="text-muted-foreground underline underline-offset-4 hover:text-foreground"
+                      >
+                        {band.source.label}
+                      </a>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+
+        {hiringCompanies && hiringCompanies.length > 0 && (
+          <div className="mt-8">
+            <h3 className="text-lg font-semibold">
+              Companies hiring for these skills in Pune
+            </h3>
+            <ul className="mt-4 flex flex-wrap gap-2">
+              {hiringCompanies.map((company) => (
+                <li
+                  key={company}
+                  className="rounded-full border border-border bg-background px-3 py-1.5 text-sm text-muted-foreground"
+                >
+                  {company}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         {localContext && (
           <div className="mt-8 rounded-[2rem] border border-border bg-background p-6 shadow-sm md:p-8">
@@ -827,6 +1062,36 @@ export function BootcampDetailPage({
         </div>
       </section>
 
+      {/* Honest filtering. The page already says who this is for; a reader
+          deciding on a six-month commitment is equally served by knowing
+          who it is not for, which is what the course pages do. */}
+      {bootcamp.notForYou && bootcamp.notForYou.length > 0 && (
+        <section id="not-for-you" className="py-16 md:py-20">
+          <div className="container mx-auto px-4">
+            <div className="mx-auto max-w-3xl">
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                Honest filtering
+              </p>
+              <h2 className="mt-3 text-3xl font-bold text-balance md:text-4xl">
+                When this programme is the wrong choice
+              </h2>
+              <p className="mt-4 text-base leading-7 text-muted-foreground">
+                We would rather you join the right programme than the nearest
+                one. If any of these describe you, talk to us before enrolling.
+              </p>
+              <ul className="mt-8 space-y-3">
+                {bootcamp.notForYou.map((item) => (
+                  <li key={item} className="flex gap-3 text-base leading-7">
+                    <Minus className="mt-1.5 h-4 w-4 shrink-0 text-muted-foreground" />
+                    <span className="text-muted-foreground">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </section>
+      )}
+
       <section id="curriculum" className="py-16 md:py-20">
         <div className="container mx-auto px-4">
           <div className="mb-10 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
@@ -846,6 +1111,35 @@ export function BootcampDetailPage({
             </div>
           </div>
 
+          {/* Learning-path diagram. Plain <img> in a <picture> rather than
+              next/image: these are static, already-optimised assets in
+              /public, so the optimiser adds a round trip for no gain.
+              Explicit width/height keep CLS at 0. */}
+          {bootcamp.roadmapImage && (
+            <figure className="mb-10">
+              <picture>
+                <source
+                  srcSet={bootcamp.roadmapImage.src.replace(/\.webp$/, ".avif")}
+                  type="image/avif"
+                />
+                <img
+                  src={bootcamp.roadmapImage.src}
+                  alt={bootcamp.roadmapImage.alt}
+                  width={bootcamp.roadmapImage.width}
+                  height={bootcamp.roadmapImage.height}
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full rounded-xl border border-border"
+                />
+              </picture>
+              {bootcamp.roadmapImage.caption && (
+                <figcaption className="mt-3 text-sm text-muted-foreground">
+                  {bootcamp.roadmapImage.caption}
+                </figcaption>
+              )}
+            </figure>
+          )}
+
           <div className="space-y-6">
             {bootcamp.tracks?.[0]?.modules.some(
               (mod) =>
@@ -857,12 +1151,109 @@ export function BootcampDetailPage({
             )}
             <ProgramTabs bootcamp={bootcamp} />
           </div>
+
+          {/* Gated syllabus PDF — same lead-capture flow the course pages
+              use, so bootcamp enquiries land in the same admin queue. */}
+          {bootcamp.syllabusDownload && (
+            <div className="mt-10 rounded-xl border border-secondary/30 bg-secondary/[0.07] p-6 md:p-8 dark:bg-secondary/[0.12]">
+              <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
+                <div className="space-y-6">
+                  <div className="space-y-2.5">
+                    <h3 className="text-lg font-semibold md:text-xl">
+                      Download the full syllabus as a PDF
+                    </h3>
+                    <p className="text-sm leading-relaxed text-muted-foreground">
+                      {bootcamp.syllabusDownload.blurb}
+                    </p>
+                  </div>
+                  {/* `bare` — this container already supplies the card, so
+                      the form must not draw a second one inside it. */}
+                  <ReportDownloadForm
+                    reportSlug={bootcamp.syllabusDownload.slug}
+                    pdfUrl={bootcamp.syllabusDownload.pdfUrl}
+                    reportTitle={bootcamp.syllabusDownload.title}
+                    nounLabel="syllabus"
+                    bare
+                  />
+                </div>
+
+                {bootcamp.syllabusDownload.asideBlocks &&
+                  bootcamp.syllabusDownload.asideBlocks.length > 0 && (
+                    <div className="space-y-6">
+                      {bootcamp.syllabusDownload.asideBlocks.map((block) => (
+                        <div key={block.heading} className="space-y-3">
+                          {/* h4, not h3 — the panel heading above is the h3
+                              and the level must not be skipped. */}
+                          <h4 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                            {block.heading}
+                          </h4>
+                          <ul className="space-y-2">
+                            {block.items.map((item) => (
+                              <li
+                                key={item}
+                                className="flex gap-2.5 text-sm leading-relaxed text-muted-foreground"
+                              >
+                                <span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-secondary" />
+                                <span>{item}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+              </div>
+            </div>
+          )}
         </div>
       </section>
+
+      {/* Capstone / portfolio projects — the artefact a hiring panel
+          actually asks to see. */}
+      {bootcamp.projects && bootcamp.projects.length > 0 && (
+        <section id="projects" className="py-16 md:py-20">
+          <div className="container mx-auto px-4">
+            <div className="mb-10 max-w-3xl">
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                What you build
+              </p>
+              <h2 className="mt-3 text-3xl font-bold text-balance md:text-4xl">
+                Projects you finish with
+              </h2>
+            </div>
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {bootcamp.projects.map((proj) => (
+                <Card key={proj.title} className="flex h-full flex-col">
+                  <CardContent className="flex flex-1 flex-col gap-4 p-6">
+                    <h3 className="text-lg font-semibold">{proj.title}</h3>
+                    <p className="flex-1 text-sm leading-relaxed text-muted-foreground">
+                      {proj.description}
+                    </p>
+                    <ul className="flex flex-wrap gap-2">
+                      {proj.technologies.map((t) => (
+                        <li
+                          key={t}
+                          className="rounded-full border border-border bg-muted/40 px-3 py-1 text-xs text-muted-foreground"
+                        >
+                          {t}
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       <ComparisonSection bootcamp={bootcamp} />
       <ToolsAndTechSection bootcamp={bootcamp} />
       <CareerOutcomesSection bootcamp={bootcamp} />
+      <FeesSection bootcamp={bootcamp} />
+      <PlacementSupportSection bootcamp={bootcamp} />
+      <VersusAlternativeSection bootcamp={bootcamp} />
+      <PrerequisitesSection bootcamp={bootcamp} />
 
       <section id="included" className="bg-muted/30 py-16 md:py-20">
         <div className="container mx-auto px-4">

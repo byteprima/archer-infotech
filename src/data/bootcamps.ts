@@ -65,6 +65,8 @@ export interface BootcampComparison {
   usLabel?: string;
   othersLabel?: string;
   rows: BootcampComparisonRow[];
+  /** Closing line under the table. Mirrors the course-page comparison. */
+  closing?: string;
 }
 
 export interface BootcampToolsGroup {
@@ -81,7 +83,108 @@ export interface BootcampCareerOutcomes {
   intro?: string;
   immediateBenefits: string[];
   longTermPaths: string[];
+  /** Cited salary bands. Never publish a band without its source. */
+  salaryBands?: BootcampSalaryBand[];
+  hiringCompanies?: string[];
   localContext?: { headline: string; body: string };
+}
+
+/**
+ * Optional learning-path diagram for a bootcamp, rendered above the
+ * curriculum module list.
+ *
+ * A summary, never the source of truth: every word inside the image is
+ * invisible to crawlers and to AI engines, so the curriculum below must
+ * independently carry the same information as text.
+ *
+ * Dimensions are required — /images/* is served immutable for a year and
+ * these pages hold CLS at 0.00. Version the filename on any update, or
+ * nobody sees the new file.
+ */
+export interface BootcampRoadmapImage {
+  /** Path under /public. Use a -vN suffix; the cache is immutable. */
+  src: string;
+  width: number;
+  height: number;
+  /** Describes what the diagram shows. Not a transcription of it. */
+  alt: string;
+  caption?: string;
+}
+
+/**
+ * Optional gated syllabus PDF, rendered through the same
+ * ReportDownloadForm lead-capture flow the course pages use.
+ *
+ * The PDF is served noindex via X-Robots-Tag (see next.config.ts). It
+ * duplicates this page's content by design, so it must never be the
+ * indexable copy — the HTML page is canonical, and the PDF is a
+ * post-click convenience, not an acquisition asset.
+ */
+export interface BootcampSyllabusDownload {
+  /** Public path under /public/downloads. Versioned filename. */
+  pdfUrl: string;
+  /** Shown in the form heading and recorded on the lead. */
+  title: string;
+  /** Feeds the lead `source` tag for admin segmentation. */
+  slug: string;
+  /** One or two lines of context above the form. */
+  blurb: string;
+  /**
+   * Right-hand panels beside the form on desktop. Write complementary
+   * content, not a restatement of the curriculum directly above.
+   */
+  asideBlocks?: { heading: string; items: string[] }[];
+}
+
+/**
+ * Course-parity sections.
+ *
+ * The course pages (see course-content/types.ts) carry a fuller section set
+ * than the bootcamp pages did: honest "not for you" filtering, capstone
+ * projects, cited salary bands, fees, a structured placement process, and a
+ * starting guide. A bootcamp is a bigger commitment than a course, so the
+ * absence of those sections was hardest to justify exactly here. These
+ * mirror the course shapes deliberately, so the two stay conceptually
+ * aligned and a reader moving between the two page types is not relearning
+ * a layout.
+ */
+export interface BootcampProject {
+  title: string;
+  description: string;
+  technologies: string[];
+}
+
+export interface BootcampSalaryBand {
+  role: string;
+  band: string;
+  source: { label: string; url: string };
+}
+
+export interface BootcampFees {
+  note: string;
+  /**
+   * Omitted deliberately where no published band exists. An invented fee is
+   * worse than no fee: it is the one number a reader will hold us to.
+   */
+  range?: string;
+  sourceCitation?: { label: string; url: string };
+  paymentOptions?: string[];
+}
+
+export interface BootcampPlacementSupport {
+  paragraphs: string[];
+  process: string[];
+  partnerCompanies: string[];
+}
+
+export interface BootcampVersusAlternative {
+  heading: string;
+  paragraphs: string[];
+}
+
+export interface BootcampPrerequisitesAndStart {
+  paragraphs: string[];
+  suggestedSteps: string[];
 }
 
 export interface Bootcamp {
@@ -102,6 +205,24 @@ export interface Bootcamp {
   tracks?: BootcampTrack[];
   programs?: BootcampProgram[];
   commonModules: BootcampCommonModule[];
+  /** Honest filtering — who should NOT take this. Mirrors courses. */
+  notForYou?: string[];
+  /** Capstone / portfolio projects built on the programme. */
+  projects?: BootcampProject[];
+  /** Optional intro paragraph above the trainer/mentor material. */
+  trainersIntro?: string;
+  /** Fee note and payment options. */
+  fees?: BootcampFees;
+  /** Structured placement process and partner companies. */
+  placementSupport?: BootcampPlacementSupport;
+  /** Honest comparison against the most-asked alternative. */
+  versusAlternative?: BootcampVersusAlternative;
+  /** Prerequisites plus a concrete starting sequence. */
+  prerequisitesAndStart?: BootcampPrerequisitesAndStart;
+  /** Learning-path diagram shown above the curriculum. */
+  roadmapImage?: BootcampRoadmapImage;
+  /** Gated syllabus PDF shown under the curriculum. */
+  syllabusDownload?: BootcampSyllabusDownload;
   comparison?: BootcampComparison;
   toolsAndTech?: BootcampToolsAndTech;
   careerOutcomes?: BootcampCareerOutcomes;
@@ -682,6 +803,125 @@ export const bootcamps: Bootcamp[] = [
           "An official Certificate of Completion issued by Archer Infotech — though the GitHub profile and live website you walk away with carry far more weight in any interview room.",
       },
     ],
+    roadmapImage: {
+      src: "/images/courses/codeleap-path-v1.webp",
+      width: 1400,
+      height: 654,
+      alt: "Five-stage CodeLeap bootcamp learning path taught at Archer Infotech Pune: Python programming in weeks one and two covering syntax, logic and first projects; web development in weeks three and four covering HTML, CSS, JavaScript and a deployed site; artificial intelligence and smart tools in weeks five and six covering AI tools, APIs and a mini-application; GitHub and portfolio building in week seven covering version control and a public profile; and career preparation in week eight covering resume writing, LinkedIn and communication skills.",
+      caption:
+        "The order the eight weeks run. Each stage expands into the module detail below — nothing arrives before its prerequisite.",
+    },
+
+    syllabusDownload: {
+      pdfUrl: "/downloads/codeleap-bootcamp-syllabus-v1.pdf",
+      title: "CodeLeap Bootcamp Syllabus — Complete Module List",
+      slug: "codeleap-bootcamp-syllabus",
+      blurb:
+        "The complete five-module syllabus as a PDF — Python programming, web development, AI and smart tools, GitHub and portfolio building, and career preparation, week by week across the eight weeks. Everything in it is on this page; the PDF is the portable version, and it is the one to forward to a parent.",
+      asideBlocks: [
+        {
+          heading: "What is inside the PDF",
+          items: [
+            "All five modules in teaching order, mapped week by week across the eight weeks.",
+            "Exactly what a student builds: a deployed personal website, a public GitHub profile, and an AI-powered mini-application.",
+            "The eligibility, batch format, language and certification details in one place — the questions parents ask first.",
+            "What CodeLeap does not cover, and which longer course to take next if a student wants to go further.",
+          ],
+        },
+        {
+          heading: "Who this programme is for",
+          items: [
+            "12th-pass students of any stream heading into Engineering, BCA, BSc-IT or BCS.",
+            "First-year students who already feel behind in their programming subjects.",
+            "Diploma students strengthening practical skills before second or third year.",
+            "Parents comparing computer courses after 12th in Pune.",
+          ],
+        },
+      ],
+    },
+
+    notForYou: [
+      "Working professionals or final-year students looking to switch jobs — TechReady is the programme built for that, and CodeLeap will feel slow.",
+      "Anyone expecting a job or placement at the end. CodeLeap is a foundation programme taken before college; it has no placement component and we do not pretend otherwise.",
+      "Students who want one specific technology in depth — a single course such as Python or JavaScript will serve you better than a five-module survey.",
+      "Anyone who cannot commit the eight weeks. The modules build on each other, and joining from Module 3 does not work.",
+      "Students already comfortable writing programs. If you have built and deployed something yourself, start at a course rather than here.",
+    ],
+
+    projects: [
+      {
+        title: "A deployed personal website",
+        description:
+          "Built through Module 2 and deployed free on Netlify, Vercel or GitHub Pages. A public URL you can put on a resume, share with a college, or show a relative who asked what you did over the holidays. Responsive, hand-written HTML and CSS with JavaScript interactivity — not a template.",
+        technologies: ["HTML5", "CSS3", "JavaScript", "Netlify / Vercel", "GitHub Pages"],
+      },
+      {
+        title: "An AI-powered mini-application",
+        description:
+          "Built in Module 3, combining an AI API with the web skills from Module 2. Small but genuinely working — the point is that you have wired a model into an interface yourself and understand what happened at each step, which very few first-year students can say.",
+        technologies: ["JavaScript", "AI APIs", "Prompt design", "Fetch and async"],
+      },
+      {
+        title: "A public GitHub profile",
+        description:
+          "Your Python exercises, portfolio site and AI mini-app, committed properly with README files that explain what each one does. This is the artefact that compounds: every college project for the next four years lands in the same profile, so by placement season you have four years of visible history rather than four weeks.",
+        technologies: ["Git", "GitHub", "Markdown READMEs", "Commit hygiene"],
+      },
+    ],
+
+    trainersIntro:
+      "CodeLeap is taught by mentors who work with beginners deliberately rather than by whoever is free. Teaching a 17-year-old their first loop is a different skill from teaching a working developer a new framework, and we staff it that way.",
+
+    fees: {
+      note:
+        "CodeLeap is priced as a foundation programme rather than a career programme — it is the shortest and least expensive of our three bootcamps, which is deliberate given that most students take it in the gap before college with family support. We publish fees on request rather than on the page because batch format and mode change the number. Ask for the current schedule, or visit the Kothrud campus and ask in person.",
+      sourceCitation: { label: "Current fee schedule — contact admissions", url: "/contact" },
+      paymentOptions: [
+        "One-time payment at enrolment",
+        "Instalment options — ask admissions what applies to the current batch",
+        "Free demo class before you pay anything",
+      ],
+    },
+
+    placementSupport: {
+      paragraphs: [
+        "CodeLeap does not carry a placement promise, and this section exists to say that plainly rather than to bury it. Students taking this programme are 17 to 19 and heading into a degree — the outcome that matters is arriving at college already able to build, not a job offer eight weeks from now.",
+        "What the programme does give you is the career infrastructure most students assemble in a panic in final year: a GitHub profile that will be four years old by the time you need it, a resume in the format tech recruiters actually read, and a LinkedIn presence. Archer Infotech alumni also keep access to our guidance as they progress — several CodeLeap students return for CareerCode during their degree.",
+      ],
+      process: [
+        "Module 4: GitHub profile created, projects committed and documented",
+        "Module 5: Resume built around your actual project work, in a tech-recruiter format",
+        "Module 5: LinkedIn profile set up with headline, summary and project section",
+        "After the programme: guidance on which course or track to take next during your degree",
+        "Ongoing: alumni access to Archer Infotech mentors as your college years progress",
+      ],
+      partnerCompanies: [
+        "Not applicable — CodeLeap is a foundation programme without a placement component",
+      ],
+    },
+
+    versusAlternative: {
+      heading: "CodeLeap or a free YouTube course — is this worth paying for?",
+      paragraphs: [
+        "Everything in CodeLeap exists free online, and we will say that openly. Python, HTML, CSS, JavaScript and Git are among the best-documented subjects on the internet, and a disciplined self-learner can absolutely cover this ground alone in eight weeks.",
+        "What you are paying for is the part self-study reliably fails at for a 17-year-old with a free summer: a fixed schedule, someone who notices when you stop turning up, a sequence chosen for you so you are not deciding what to learn next, and a person to ask when your code will not run — which is the exact moment most self-taught beginners quit. If you have already taught yourself something end to end and enjoyed it, save your money and keep going. If you have started three online courses and finished none, that is what this programme is for.",
+      ],
+    },
+
+    prerequisitesAndStart: {
+      paragraphs: [
+        "There are no academic prerequisites. Science, Commerce and Arts students all take CodeLeap, and no mathematics beyond school level is used. You need a laptop, an internet connection, and eight weeks in which you are not also preparing for entrance exams — students trying to do both usually do neither well.",
+        "Parents ask us regularly whether their child needs to have shown an interest in computers already. They do not. About a third of each batch arrives having never written a line of code and having no strong opinion about whether they will enjoy it; finding out is a legitimate reason to take the programme.",
+      ],
+      suggestedSteps: [
+        "Book a free demo class — attend one session before deciding anything",
+        "Visit the Kothrud campus if you are local; parents are welcome and most come",
+        "Check your laptop runs Chrome and can install software (that is the whole hardware requirement)",
+        "Create a free GitHub account so it is ready on day one",
+        "Block the eight weeks in your calendar and check they do not collide with admission formalities",
+      ],
+    },
+
     details: [
       { label: "Course Name", value: "CodeLeap Bootcamp" },
       { label: "Provider", value: "Archer Infotech, Pune" },
@@ -1155,6 +1395,259 @@ export const bootcamps: Bootcamp[] = [
           "How to find legitimate internships, apply, prepare, and perform. Students are guided towards Archer Infotech's internship network and placement connections.",
       },
     ],
+    roadmapImage: {
+      src: "/images/courses/careercode-path-v1.webp",
+      width: 1400,
+      height: 736,
+      alt: "Six-stage CareerCode learning path taught at Archer Infotech Pune, running alongside an engineering degree: choosing a track from frontend, backend, full stack, data science, AI and machine learning or database administration; semesters one and two covering programming foundations and one core language; semesters three and four covering core track skills and coursework projects; semesters five and six covering advanced track topics and a reviewed project; semesters seven and eight covering the capstone, portfolio and placement readiness; and internship preparation covering aptitude, communication, interviews and referrals.",
+      caption:
+        "How the programme maps onto a four-year degree. Each semester block expands into the track detail below.",
+    },
+
+    syllabusDownload: {
+      pdfUrl: "/downloads/careercode-bootcamp-syllabus-v1.pdf",
+      title: "CareerCode Syllabus — All Six Tracks, Semester by Semester",
+      slug: "careercode-bootcamp-syllabus",
+      blurb:
+        "The complete syllabus as a PDF — all six specialisation tracks (Frontend, Backend, Full Stack, Data Science, AI and Machine Learning, Database Administration) laid out semester by semester from first year to final year, plus the shared communication, aptitude and placement modules. Everything in it is on this page; the PDF is the portable version.",
+      asideBlocks: [
+        {
+          heading: "What is inside the PDF",
+          items: [
+            "All six tracks side by side, so you can compare before committing to one.",
+            "The semester-by-semester map from Sem 1-2 through Sem 7-8 and internship preparation.",
+            "The shared modules every track includes: communication, aptitude, interview preparation, resume, LinkedIn, Naukri and GitHub profiles.",
+            "The job roles each track leads to, so the choice is made against an outcome rather than a subject name.",
+          ],
+        },
+        {
+          heading: "Who this programme is for",
+          items: [
+            "Engineering, BCA and BSc CS students in any year of study.",
+            "Students who want skills building across the degree rather than crammed at the end.",
+            "Anyone targeting an internship in third year rather than a scramble in final year.",
+            "Students whose college syllabus lags behind what Pune employers actually ask for.",
+          ],
+        },
+      ],
+    },
+
+    comparison: {
+      headline: "How CareerCode Compares With Other Options for Engineering Students",
+      intro:
+        "The comparison is deliberately anonymous — these are patterns we verified across Pune institutes and the national online programmes aimed at the same students, not accusations about any named provider.",
+      usLabel: "At CareerCode",
+      othersLabel: "Most other options",
+      rows: [
+        {
+          us: "Starts in first year and runs semester by semester alongside your degree",
+          others:
+            "Typically a three-to-six-month crash course taken in final year, once placement season has already begun",
+        },
+        {
+          us: "One or two technologies per semester, built to sit around your college timetable",
+          others:
+            "Full-time day batches or weekend batches that compete with college for the same hours",
+        },
+        {
+          us: "Classroom in Kothrud, with the same trainers following you across semesters",
+          others:
+            "The largest programme aimed at first- and second-year students is online-only, with no classroom in Maharashtra",
+        },
+        {
+          us: "Billed per semester block, so you commit a term at a time",
+          others:
+            "The national online programmes built for this audience run roughly ₹1.15–3 lakh, typically financed over 24–36 months",
+        },
+        {
+          us: "Track chosen in a counselling session against the job it leads to",
+          others:
+            "Track chosen from a course list at sign-up, before anyone has asked what you want to do",
+        },
+      ],
+      closing:
+        "None of this makes a final-year intensive the wrong choice — we run TechReady for exactly that. It makes CareerCode the cheaper path if you are still early enough to take it.",
+    },
+
+    toolsAndTech: {
+      intro:
+        "Across the six tracks, CareerCode students work with the tools Pune's IT employers in Hinjawadi, Kharadi, Magarpatta and Baner actually run. You do not learn all of these — you learn the set your chosen track needs, one or two technologies per semester.",
+      groups: [
+        {
+          label: "Web and Frontend",
+          items: ["HTML5", "CSS3", "JavaScript ES6+", "React.js", "TypeScript", "Tailwind CSS", "Next.js"],
+        },
+        {
+          label: "Backend and APIs",
+          items: ["Python", "Java", "FastAPI", "Spring Boot", "Node.js", "REST APIs", "Redis"],
+        },
+        {
+          label: "Databases",
+          items: ["MySQL", "PostgreSQL", "MongoDB", "SQL", "ER modelling", "Indexing and tuning"],
+        },
+        {
+          label: "Data and AI",
+          items: ["Pandas", "NumPy", "Matplotlib", "Seaborn", "Scikit-learn", "TensorFlow", "Keras", "Hugging Face"],
+        },
+        {
+          label: "Analytics and BI",
+          items: ["Excel for data", "SQL for analytics", "Tableau", "Power BI", "Streamlit"],
+        },
+        {
+          label: "Developer Tools",
+          items: ["Git", "GitHub", "Docker", "Postman", "VS Code", "Kaggle"],
+        },
+      ],
+    },
+
+    careerOutcomes: {
+      intro:
+        "CareerCode is built around a simple observation: students who start building in first year interview very differently in final year from students who start in final year. The programme spreads the work across the degree so that by the time placements begin, the portfolio already exists.",
+      immediateBenefits: [
+        "Coursework becomes easier — the programming, DBMS and web subjects in your syllabus are taught here first, in more depth.",
+        "A GitHub profile that grows every semester rather than being assembled in a panic before placements.",
+        "Eligibility for second- and third-year internships, which in Pune go to students with visible project work.",
+        "Hackathon and college-project readiness from first year.",
+        "A specialisation chosen deliberately, with a trainer, rather than defaulted into at the last minute.",
+      ],
+      longTermPaths: [
+        "Frontend Developer, UI Developer or React Developer",
+        "Backend Developer, API Developer, Java Developer or Python Developer",
+        "Full Stack Developer, Software Developer or Application Developer",
+        "Data Analyst, Data Scientist, Business Analyst or Analytics Engineer",
+        "ML Engineer, AI Engineer, Deep Learning Engineer or NLP Engineer",
+        "Database Administrator, SQL Developer or Data Engineer",
+      ],
+      salaryBands: [
+        {
+          role: "Junior React Developer (Pune entry, <2 years)",
+          band: "₹3,50,000 – ₹6,00,000 per year",
+          source: { label: "AmbitionBox Pune React Developer", url: "https://www.ambitionbox.com/profile/react-js-developer-salary-in-pune" },
+        },
+        {
+          role: "Junior Python Full Stack Developer (Pune entry, <2 years)",
+          band: "₹4,00,000 – ₹7,00,000 per year",
+          source: { label: "AmbitionBox Pune Python Full Stack Developer", url: "https://www.ambitionbox.com/profile/python-full-stack-developer-salary-in-pune" },
+        },
+        {
+          role: "Junior Data Analyst (Pune entry, <2 years)",
+          band: "₹3,50,000 – ₹6,00,000 per year",
+          source: { label: "AmbitionBox Pune Data Analyst", url: "https://www.ambitionbox.com/profile/data-analyst-salary-in-pune" },
+        },
+        {
+          role: "Junior ML Engineer (Pune entry, <2 years)",
+          band: "₹6,00,000 – ₹10,00,000 per year",
+          source: { label: "AmbitionBox Pune ML Engineer", url: "https://www.ambitionbox.com/profile/machine-learning-engineer-salary-in-pune" },
+        },
+      ],
+      hiringCompanies: [
+        "Persistent Systems",
+        "Capgemini",
+        "LTIMindtree",
+        "Tech Mahindra",
+        "Amdocs",
+        "Cybage",
+        "Cognizant",
+        "Wipro",
+        "Accenture",
+        "TCS",
+      ],
+      localContext: {
+        headline: "Why this matters in Pune specifically",
+        body:
+          "Pune's campus hiring runs on a compressed timetable — most engineering colleges see the bulk of their drives inside a single term of final year. Students who begin preparing when the calendar is announced are competing against students who have been building for three years. CareerCode exists to put you in the second group without asking you to choose between your degree and your skills: one or two technologies a semester, taught alongside your coursework, at our Kothrud campus or online.",
+      },
+    },
+
+    notForYou: [
+      "Final-year students with placements already underway — there is no longer time for a semester-paced programme. TechReady is built for that situation.",
+      "Graduates who have already finished their degree. CareerCode is structured around semesters you are actually sitting; without them it loses its shape.",
+      "Anyone wanting a job in three months. This programme trades speed for depth deliberately.",
+      "Students who cannot commit across terms. Taking Sem 1-2 and stopping leaves you with foundations and no specialisation.",
+      "Students whose college workload is already unmanageable. One or two technologies a semester is light, but it is not nothing — talk to us before enrolling.",
+    ],
+
+    projects: [
+      {
+        title: "Semester coursework, done properly",
+        description:
+          "The projects your syllabus already requires, built to a standard that survives a GitHub reader — version-controlled, documented, and deployed where it makes sense. Most students throw these away; treating them as portfolio pieces from first year is the single cheapest advantage available to an engineering student.",
+        technologies: ["Git", "GitHub", "READMEs", "Your track's stack"],
+      },
+      {
+        title: "A track project at each level",
+        description:
+          "Every semester block ends in something built rather than something attended — a React interface, an API with authentication, a cleaned dataset with a dashboard, a normalised schema with stored procedures. Each one is reviewed by a mentor and revised, which is the part self-study skips.",
+        technologies: ["React.js", "FastAPI or Spring Boot", "MySQL / MongoDB", "Pandas", "Power BI"],
+      },
+      {
+        title: "Final-year capstone and internship portfolio",
+        description:
+          "By Sem 7-8 you assemble the earlier work into a coherent capstone and a portfolio aimed at the roles your track targets. Because the components already exist and have been reviewed, the final year is spent refining and interviewing rather than building from zero while placements run.",
+        technologies: ["End-to-end project", "Cloud deployment", "CI/CD basics", "Portfolio site"],
+      },
+    ],
+
+    trainersIntro:
+      "CareerCode mentors work in the stacks they teach and stay with a student across semesters rather than rotating each term — so the person reviewing your final-year capstone is one who saw your first-year code.",
+
+    fees: {
+      note:
+        "CareerCode is billed per semester block rather than as one upfront programme, because that is how it is taken — you commit a term at a time rather than signing for the whole degree up front. Ask admissions what applies if you need to skip a block. The per-block fee depends on the track and the technologies in that block, so we quote it against your specific track and year rather than publishing a single number that would be wrong for most students.",
+      sourceCitation: { label: "Current fee schedule — contact admissions", url: "/contact" },
+      paymentOptions: [
+        "Per-semester-block payment rather than one upfront sum",
+        "Instalment options within a block — ask admissions what applies",
+        "Free demo class and a track-selection counselling session before you commit",
+      ],
+    },
+
+    placementSupport: {
+      paragraphs: [
+        "CareerCode is not a placement programme and does not carry a placement guarantee. Your placements will run through your college. What this programme changes is what you bring to them: three or four years of reviewed project work, a chosen specialisation, and interview practice that started long before the drive calendar was announced.",
+        "The internship-preparation block is where this becomes concrete. Pune internships in second and third year go overwhelmingly to students with visible project work, and that is the gap CareerCode is designed to close. Students who want full placement support after graduating move to TechReady, and CareerCode graduates enter it well ahead of the intake.",
+      ],
+      process: [
+        "Sem 3-4: first reviewed track project committed to GitHub with documentation",
+        "Sem 5-6: aptitude and communication training begins alongside the technical track",
+        "Sem 5-6: internship applications supported — CV, profile and project narrative",
+        "Sem 7-8: capstone assembled, mock interviews run for your track specifically",
+        "Sem 7-8: Naukri and LinkedIn profiles built, college placement drives prepared for",
+      ],
+      partnerCompanies: [
+        "Persistent Systems",
+        "Capgemini",
+        "LTIMindtree",
+        "Tech Mahindra",
+        "Amdocs",
+        "Cybage",
+        "Cognizant",
+        "Wipro",
+      ],
+    },
+
+    versusAlternative: {
+      heading: "CareerCode or waiting until final year — does starting early actually matter?",
+      paragraphs: [
+        "The honest case for waiting: you do not yet know what you want to specialise in, technologies change across four years, and final-year intensive programmes exist precisely because they work. Plenty of students are placed well having started late, and we run TechReady for exactly that path.",
+        "The case for starting early is not that the technologies stay current — some will not. It is that the habits and the artefacts do. A student who has been committing code since first year has a GitHub history, has debugged their own work hundreds of times, and has already been through choosing and abandoning a direction. In a final-year interview that student is visibly different from one who compressed the same learning into four months, and the difference shows up most in the questions that go past what was memorised. If you are in first or second year, this is the cheaper path in every sense; if you are already in final year, take TechReady instead.",
+      ],
+    },
+
+    prerequisitesAndStart: {
+      paragraphs: [
+        "You need to be currently enrolled in an engineering, BCA or BSc CS programme — any year, any branch. No prior programming beyond whatever your semester has covered is assumed; the Sem 1-2 block starts from foundations regardless of when you join.",
+        "The one decision worth taking seriously before enrolling is which of the six tracks to take. We run a counselling session for this rather than letting students pick by name, because the tracks lead to genuinely different jobs and switching after two semesters costs time. Come with a rough sense of whether you prefer building interfaces, building systems, or working with data.",
+      ],
+      suggestedSteps: [
+        "Book the free track-selection counselling session before choosing a specialisation",
+        "Check your semester timetable against the batch timings — weekday and weekend options exist",
+        "Create a free GitHub account; it becomes your portfolio from the first block",
+        "Bring your college syllabus so we can map what overlaps and what does not",
+        "Attend one demo class in the track you are leaning towards",
+      ],
+    },
+
     details: [
       { label: "Designed For", value: "Engineering, BCA, and BSc CS students — all years" },
       { label: "Duration", value: "Ongoing — semester by semester throughout your degree" },
@@ -1313,7 +1806,7 @@ export const bootcamps: Bootcamp[] = [
       {
         title: "17+ Years of Placement Track Record",
         description:
-          "Archer Infotech has been successfully placing students in top MNCs and tech companies since 2009. We have direct placement relationships with 100+ companies. Our placement assistance is 100% genuine.",
+          "Archer Infotech has been placing students at IT employers since 2009 and works with 100+ hiring partners. TechReady is placement-assisted, not placement-guaranteed: we prepare you, build your portfolio, and introduce you to those partners. Past record is no guarantee of future prospects.",
       },
       {
         title: "Trainers Who Come From the Industry You Are Entering",
@@ -1525,6 +2018,287 @@ export const bootcamps: Bootcamp[] = [
           "Active hiring relationships with 100+ companies across Pune, Mumbai, Bengaluru, and Hyderabad. TechReady students are eligible for placement drives, direct referrals, and interview scheduling.",
       },
     ],
+    roadmapImage: {
+      src: "/images/courses/techready-path-v1.webp",
+      width: 1400,
+      height: 900,
+      alt: "Eight-stage TechReady intensive learning path taught at Archer Infotech Pune, shared across all ten programmes: language core over four weeks covering Java, Python, JavaScript or C sharp; advanced language over three to four weeks covering depth, patterns and problem solving; backend and frameworks over five weeks covering Spring Boot, Django, Node or dot NET; frontend over five weeks covering React, Angular or advanced user interface work; databases over three weeks covering SQL, NoSQL, modelling and queries; DevOps and deployment over two weeks covering Git, Docker, CI/CD and cloud basics; a capstone project over four to six weeks producing a reviewed portfolio-grade build; and ongoing placement preparation covering aptitude, mock interviews, resume work and referrals.",
+      caption:
+        "The shape every TechReady programme follows. The specific technologies differ by programme — the full phase list for all ten is below.",
+    },
+
+    syllabusDownload: {
+      pdfUrl: "/downloads/techready-bootcamp-syllabus-v1.pdf",
+      title: "TechReady Syllabus — All Ten Programmes, Phase by Phase",
+      slug: "techready-bootcamp-syllabus",
+      blurb:
+        "The complete syllabus as a PDF — all ten programmes (Java, Python and .NET Full Stack, MERN, MEAN, Data Analytics, Data Science, Data Engineering, ML and AI Engineering, Advanced Frontend) with every phase and its week count, plus the shared placement-preparation track. Everything in it is on this page; the PDF is the portable version.",
+      asideBlocks: [
+        {
+          heading: "What is inside the PDF",
+          items: [
+            "All ten programmes with their phase list and week counts, so the six-to-eight-month commitment is fully costed in time before you start.",
+            "The shared shape behind every programme — language core, frameworks, frontend, databases, DevOps, capstone, placement preparation.",
+            "The career roles each programme targets, so you pick against a job title rather than a technology name.",
+            "The placement-preparation track in full: aptitude, communication, mock interviews, resume, and how referrals actually work.",
+          ],
+        },
+        {
+          heading: "Who this programme is for",
+          items: [
+            "Final-year students and graduates of BE, BTech, BCA or BSc CS, from any branch.",
+            "Career changers who can commit six hours a day, full time, for six to eight months.",
+            "Graduates with a degree but no portfolio, who need reviewed project work.",
+            "Anyone who has self-studied but cannot convert interviews.",
+          ],
+        },
+      ],
+    },
+
+    comparison: {
+      headline: "How TechReady Compares With Other Full-Time Programmes",
+      intro:
+        "The comparison is deliberately anonymous — these are patterns we verified across Pune institutes and the national benchmark full-time programme, not accusations about any named provider.",
+      usLabel: "At TechReady",
+      othersLabel: "Most other full-time programmes",
+      rows: [
+        {
+          us: "A 90% placement rate from institute records, stated as assistance rather than a guarantee — we do not claim 100%",
+          others:
+            "'100% placement assistance' is the default phrase across Pune — and it is the exact construction India's advertising code names as one that should not be used",
+        },
+        {
+          us: "No separate placement fee — placement support is bundled into the course fee",
+          others:
+            "At least one large Pune institute charges a one-time placement fee, payable after your offer letter is issued",
+        },
+        {
+          us: "Open to BE, BTech, BCA and BSc CS graduates from any branch, with no entrance exam",
+          others:
+            "The national benchmark full-time programme requires a technical degree with a 55% minimum plus an entrance test",
+        },
+        {
+          us: "Six hours a day across six to eight months, in a Kothrud classroom",
+          others:
+            "The national benchmark runs 24 weeks and about 1,200 hours, of which roughly 300 are self-study, at ₹99,000 plus GST",
+        },
+        {
+          us: "Mock interviews run as separate technical, system-design and HR rounds, with written feedback",
+          others:
+            "A single combined mock interview near the end, if one is run at all",
+        },
+      ],
+      closing:
+        "The eligibility and hours rows cut both ways: the benchmark programme is selective and we are not, which is the point for a graduate whose degree branch or percentage would exclude them. Compare on what you need, not on which table looks better.",
+    },
+
+    toolsAndTech: {
+      intro:
+        "Ten programmes, each with its own stack. You work in one of them — the full list is here so you can see what a programme commits you to before you enrol, not after.",
+      groups: [
+        {
+          label: "Java Stack",
+          items: ["Core Java", "Advanced Java", "Spring Boot", "REST APIs", "JUnit", "Maven"],
+        },
+        {
+          label: "Python Stack",
+          items: ["Python Core", "Django", "FastAPI", "SQLAlchemy", "PyTest"],
+        },
+        {
+          label: "JavaScript Stack",
+          items: ["JavaScript ES6+", "TypeScript", "React.js", "Angular", "Node.js", "Express.js", "MongoDB"],
+        },
+        {
+          label: "Microsoft Stack",
+          items: ["C#", "ASP.NET Core", "Entity Framework", "SQL Server", "Azure basics"],
+        },
+        {
+          label: "Data and Analytics",
+          items: ["Excel", "SQL", "Pandas", "NumPy", "Power BI", "Tableau", "Statistics"],
+        },
+        {
+          label: "Machine Learning and AI",
+          items: ["Scikit-learn", "TensorFlow", "PyTorch", "NLP", "Large Language Models", "Computer Vision", "MLOps"],
+        },
+        {
+          label: "Data Engineering",
+          items: ["Data pipelines", "Big data basics", "Cloud data platforms", "Streaming data", "Airflow"],
+        },
+        {
+          label: "Mobile and Cross-Platform",
+          items: ["React Native", "Flutter"],
+        },
+        {
+          label: "DevOps and Delivery",
+          items: ["Git", "GitHub", "Docker", "CI/CD pipelines", "Cloud deployment", "Postman"],
+        },
+      ],
+    },
+
+    careerOutcomes: {
+      intro:
+        "TechReady is the placement-focused programme of the three, and the only one that asks for full-time commitment. Six hours a day for six to eight months is a real cost — the return is a reviewed portfolio, interview practice against people who hire, and introductions to our partner companies.",
+      immediateBenefits: [
+        "A capstone project that has been reviewed and revised, not just submitted.",
+        "A GitHub portfolio and README discipline that survives a technical interviewer reading it.",
+        "Mock interviews with feedback, run as separate technical, system-design and HR rounds.",
+        "Aptitude and communication training, which is where most technically capable candidates are actually filtered out.",
+        "Introductions into our network of 100+ active placement partners.",
+      ],
+      longTermPaths: [
+        "Java Developer, Backend Engineer or Spring Boot Developer",
+        "Python Developer, Django or FastAPI Developer",
+        "Full Stack Developer — MERN, MEAN, Java or .NET",
+        ".NET Developer or Enterprise Application Developer",
+        "Data Analyst, Business Analyst or Analytics Engineer",
+        "Data Scientist or Data Engineer",
+        "Machine Learning Engineer or AI Engineer",
+        "Frontend Developer or Mobile Developer (React Native, Flutter)",
+      ],
+      salaryBands: [
+        {
+          role: "Junior Java Developer (Pune)",
+          band: "₹3,62,182 per year",
+          source: { label: "Indeed Pune (December 2025)", url: "https://in.indeed.com/career/java-developer/salaries/Pune--Maharashtra" },
+        },
+        {
+          role: "Junior Python Full Stack Developer (Pune entry, <2 years)",
+          band: "₹4,00,000 – ₹7,00,000 per year",
+          source: { label: "AmbitionBox Pune Python Full Stack Developer", url: "https://www.ambitionbox.com/profile/python-full-stack-developer-salary-in-pune" },
+        },
+        {
+          role: "Junior Data Analyst (Pune entry, <2 years)",
+          band: "₹3,50,000 – ₹6,00,000 per year",
+          source: { label: "AmbitionBox Pune Data Analyst", url: "https://www.ambitionbox.com/profile/data-analyst-salary-in-pune" },
+        },
+        {
+          role: "Junior ML Engineer (Pune entry, <2 years)",
+          band: "₹6,00,000 – ₹10,00,000 per year",
+          source: { label: "AmbitionBox Pune ML Engineer", url: "https://www.ambitionbox.com/profile/machine-learning-engineer-salary-in-pune" },
+        },
+        {
+          role: "Full Stack Developer overall — Pune",
+          band: "₹10,61,661 per year",
+          source: { label: "Indeed Pune Full Stack (January 2026, n=35)", url: "https://in.indeed.com/career/full-stack-developer/salaries/Pune--Maharashtra" },
+        },
+      ],
+      hiringCompanies: [
+        "Persistent Systems",
+        "Capgemini",
+        "LTIMindtree",
+        "Tech Mahindra",
+        "Amdocs",
+        "Cybage",
+        "Cognizant",
+        "Wipro",
+        "Accenture",
+        "Saksoft",
+        "TCS",
+        "IBM India",
+      ],
+      localContext: {
+        headline: "An honest word on placement",
+        body:
+          "We describe TechReady as placement-assisted, and we mean assisted. Our institute-records placement rate across all tracks is 90% — not 100%, and we will not claim otherwise. What we control is preparation, portfolio quality, and introductions to the 100+ companies we work with; what you control is applying consistently through the months after you finish. The candidates who do not convert are, in our experience, far more often held back by interview communication than by what they can build.",
+      },
+    },
+
+    notForYou: [
+      "Anyone who cannot commit six hours a day for six to eight months. This is the whole premise of the programme; part-time attendance does not produce the outcome.",
+      "Students still in second or third year — CareerCode is the programme that runs alongside a degree without competing with it.",
+      "Anyone looking for a guaranteed job. We are placement-assisted, not placement-guaranteed, and our institute-records rate is 90% rather than 100%.",
+      "Working professionals who cannot leave their current role. The full-time schedule is not compatible with a job.",
+      "Anyone wanting a certificate for a CV rather than the skills behind it. The programme is built around reviewed project work and will be an unpleasant six months otherwise.",
+    ],
+
+    projects: [
+      {
+        title: "Phase projects across the programme",
+        description:
+          "Each phase ends in something built rather than something attended — a REST API with authentication, a React interface consuming it, a normalised schema under both, a containerised deployment. These are reviewed and revised rather than submitted and forgotten, which is what makes the capstone possible later.",
+        technologies: ["Your programme's stack", "Git", "GitHub", "Postman", "Docker"],
+      },
+      {
+        title: "The reviewed capstone",
+        description:
+          "Four to six weeks of full-time work on a single end-to-end system in your chosen programme's stack, with a mentor reviewing architecture decisions rather than only output. The revision cycle is the point: most candidates have never had someone senior tell them why a design choice was wrong, and it is the fastest quality jump in the programme.",
+        technologies: ["Full stack of your programme", "Cloud deployment", "CI/CD", "Architecture decision records"],
+      },
+      {
+        title: "A portfolio built to be read",
+        description:
+          "Repository structure, README files that explain what a project does and why, commit history that shows progression, and a deployed link where one makes sense. Interviewers spend two minutes on a GitHub profile; this session is about what those two minutes should show.",
+        technologies: ["GitHub", "Markdown", "Deployment", "Documentation"],
+      },
+    ],
+
+    trainersIntro:
+      "TechReady is taught by trainers with 15+ years of industry experience who have themselves sat on hiring panels — which is why the mock interviews are run as separate technical, system-design and HR rounds rather than as one conversation.",
+
+    fees: {
+      note:
+        "TechReady is the largest of our three programmes in both duration and cost, and the fee varies by programme — the ten tracks differ in length, from six to eight months. We quote against the specific programme rather than publishing one number that would be wrong for most of them. EMI options exist and most students use them; ask admissions for the current schedule for your chosen programme.",
+      sourceCitation: { label: "Current fee schedule — contact admissions", url: "/contact" },
+      paymentOptions: [
+        "One-time payment at enrolment",
+        "EMI plans — the option most TechReady students take",
+        "Instalments aligned to programme phases",
+        "Free demo class and programme-selection counselling before you commit",
+      ],
+    },
+
+    placementSupport: {
+      paragraphs: [
+        "TechReady is the placement-focused programme of the three, and placement support is bundled rather than sold separately. It begins during the programme rather than after it: by the time you finish, your CV is written, your portfolio is reviewed, and you have sat several mock interviews with feedback.",
+        "We describe the programme as placement-assisted and mean it literally. Our institute-records placement rate across all tracks is 90% — we will not claim 100%, and you should treat any Pune institute that does with caution. What we control is preparation quality and introductions to the 100+ companies we work with. What you control is applying consistently in the months after you finish. In our experience the candidates who do not convert are held back far more often by interview communication than by what they can build, which is why aptitude and communication training run throughout rather than at the end.",
+      ],
+      process: [
+        "Throughout: aptitude and communication training running alongside the technical phases",
+        "Capstone phase: CV built around your actual project work, GitHub portfolio audited",
+        "Capstone phase: technical mock interview with structured written feedback",
+        "Capstone phase: system-design round appropriate to your programme",
+        "Final weeks: HR mock interview plus salary-negotiation guidance",
+        "After completion: introductions to partner companies actively hiring your profile",
+        "After completion: weekly placement-cell check-ins while you apply",
+      ],
+      partnerCompanies: [
+        "Persistent Systems",
+        "Capgemini",
+        "LTIMindtree",
+        "Tech Mahindra",
+        "Amdocs",
+        "Cybage",
+        "Cognizant",
+        "Wipro",
+        "Accenture",
+        "Saksoft",
+        "TCS",
+        "IBM India",
+      ],
+    },
+
+    versusAlternative: {
+      heading: "TechReady or applying directly after graduation — is six months worth it?",
+      paragraphs: [
+        "If you have a strong degree from a well-placed college, existing project work, and campus placements that are actually running, apply directly. Six to eight months full-time is a real cost in both fees and foregone earnings, and a candidate who can already convert interviews should not be paying for help converting interviews.",
+        "The programme is built for the situation most graduates we meet are actually in: a degree, no portfolio, no reviewed project work, and applications that are not converting. Six months is long enough to change what you can build rather than only how you present it — and the honest framing is that this is the expensive option precisely because it is the intensive one. If your gap is small, take a single course from our catalogue instead; we will tell you so at the counselling session rather than selling you the largest programme by default.",
+      ],
+    },
+
+    prerequisitesAndStart: {
+      paragraphs: [
+        "You need to be a final-year student or a graduate of BE, BTech, BCA or BSc CS — any branch, including Mechanical, Civil, Electrical and ENTC, which are well represented in most batches. Graduate-level fundamentals are assumed but a specific programming background is not; each programme opens with a four-week language core from the beginning.",
+        "The real prerequisite is availability. Six hours a day, five days a week, for six to eight months is the commitment, and it does not survive being combined with a full-time job. The decision worth taking seriously before you enrol is which of the ten programmes to take, because switching after the language core costs weeks — we run a counselling session for that rather than letting students pick by title.",
+      ],
+      suggestedSteps: [
+        "Book the programme-selection counselling session — the ten programmes lead to different jobs",
+        "Confirm you can genuinely clear six hours a day for the full duration",
+        "Attend a free demo class in the programme you are considering",
+        "Visit the Kothrud campus and ask to see current students' capstone work",
+        "Create a free GitHub account; your portfolio starts in the first phase",
+      ],
+    },
+
     details: [
       { label: "Designed For", value: "Final-year students and engineering/BCA/BSc CS graduates" },
       { label: "Programs", value: "Java Full Stack, Python Full Stack, MERN, MEAN, .NET Full Stack, Data Analytics, Data Science, Data Engineering, ML/AI Engineering, Advanced Frontend" },
@@ -1557,7 +2331,7 @@ export const bootcamps: Bootcamp[] = [
       {
         question: "What is the placement track record?",
         answer:
-          "Archer Infotech has been successfully placing students in top MNCs and technology companies since 2009. We have active relationships with 100+ companies and a dedicated placement cell. Placement assistance is 100% genuine and continues until you are placed.",
+          "Archer Infotech has been placing students at IT employers since 2009. We maintain active relationships with 100+ hiring partners and a dedicated placement cell. TechReady is placement-assisted, not placement-guaranteed — support does not stop on the last day of the course, and there is no separate placement fee. Past record is no guarantee of future prospects.",
       },
       {
         question: "How many hours per day is TechReady?",
