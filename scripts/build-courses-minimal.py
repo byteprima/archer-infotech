@@ -52,7 +52,7 @@ for ch in courses_body:
         buf.append(ch)
 
 LIGHT = ["id","slug","title","shortTitle","category","categorySlug",
-         "shortDescription","duration","level","mode","image",
+         "shortDescription","duration","level","mode","image","tileImage",
          "isFeatured","isPopular"]
 minimal = []
 for chunk in chunks:
@@ -85,7 +85,16 @@ out = [HEADER, cat_iface, "", categories_block, "",
     '  category: string;', '  categorySlug: string;', '  shortDescription: string;',
     '  duration: string;',
     '  level: "Beginner" | "Intermediate" | "Advanced" | "All Levels";',
-    '  mode: ("Online" | "Offline")[];', '  image: string;',
+    '  mode: ("Online" | "Offline")[];',
+    '  /** Legacy hero JPG — optional; nothing renders it. See courses.ts. */',
+    '  image?: string;',
+    '  /**',
+    '   * Tile artwork for the /courses grid. When present, <CourseImagePlaceholder>',
+    '   * renders it instead of the generated gradient. Mirrors `tileImage` on the',
+    '   * full Course type in courses.ts — regenerate this file whenever either',
+    '   * side changes so the two stay in step.',
+    '   */',
+    '  tileImage?: string;',
     '  isFeatured?: boolean;', '  isPopular?: boolean;', '}', '',
     'export const coursesSummary: CourseSummary[] = [',
 ]

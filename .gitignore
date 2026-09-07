@@ -53,3 +53,7 @@ scripts/data/google-reviews.json
 # Locally, media uploads land in ./uploads (in production this is the
 # mounted data volume). User-uploaded content is never source.
 uploads/
+
+# Python bytecode from the scripts/ build helpers
+__pycache__/
+*.pyc
