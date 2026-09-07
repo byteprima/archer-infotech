@@ -128,8 +128,8 @@ export interface CourseSummary {
   /**
    * Tile artwork for the /courses grid. When present, <CourseImagePlaceholder>
    * renders it instead of the generated gradient. Mirrors `tileImage` on the
-   * full Course type in courses.ts — this file is a hand-maintained slim copy
-   * that ships to the client, so both have to be kept in step.
+   * full Course type in courses.ts — regenerate this file whenever either
+   * side changes so the two stay in step.
    */
   tileImage?: string;
   isFeatured?: boolean;
@@ -140,11 +140,11 @@ export const coursesSummary: CourseSummary[] = [
   {
     id: "java",
     slug: "java-training-in-pune",
-    title: "Java Programming",
+    title: "Core Java Programming",
     shortTitle: "Java",
     category: "Programming",
     categorySlug: "programming",
-    shortDescription: "Complete Java programming from fundamentals to advanced OOP concepts",
+    shortDescription: "Complete Core Java programming from fundamentals to OOP, collections, threads and JDBC",
     duration: "3 Months",
     level: "Beginner",
     mode: ["Online", "Offline"],
@@ -156,11 +156,11 @@ export const coursesSummary: CourseSummary[] = [
   {
     id: "python",
     slug: "python-training-in-pune",
-    title: "Python Programming",
+    title: "Core Python Programming",
     shortTitle: "Python",
     category: "Programming",
     categorySlug: "programming",
-    shortDescription: "Comprehensive Python programming for beginners to advanced",
+    shortDescription: "Core Python from fundamentals to OOP, files, testing and automation projects",
     duration: "2.5 Months",
     level: "Beginner",
     mode: ["Online", "Offline"],
@@ -214,11 +214,11 @@ export const coursesSummary: CourseSummary[] = [
   {
     id: "dotnet-csharp",
     slug: "dotnet-csharp-training-in-pune",
-    title: ".NET/C# Programming",
-    shortTitle: ".NET/C#",
+    title: "C# Programming",
+    shortTitle: "C#",
     category: "Programming",
     categorySlug: "programming",
-    shortDescription: "Enterprise application development with C# and .NET",
+    shortDescription: "C# language fundamentals, OOP, LINQ, async, files, testing and projects",
     duration: "3 Months",
     level: "Beginner",
     mode: ["Online", "Offline"],
@@ -245,7 +245,7 @@ export const coursesSummary: CourseSummary[] = [
   {
     id: "java-fullstack",
     slug: "java-full-stack-training-in-pune",
-    title: "Java Full Stack Training in Pune",
+    title: "Java Full Stack Development",
     shortTitle: "Java Full Stack",
     category: "Full Stack Development",
     categorySlug: "full-stack-development",
@@ -825,6 +825,42 @@ export const coursesSummary: CourseSummary[] = [
     isPopular: true,
   },
   {
+    id: "selenium-python",
+    slug: "selenium-python-training-in-pune",
+    title: "Selenium with Python",
+    shortTitle: "Selenium Python",
+    category: "Testing & QA",
+    categorySlug: "testing-qa",
+    shortDescription: "Selenium 4 + Python + PyTest + POM with CI/CD and AI-assisted testing",
+    duration: "2 Months",
+    level: "Intermediate",
+    mode: ["Online", "Offline"],
+  },
+  {
+    id: "playwright",
+    slug: "playwright-training-in-pune",
+    title: "Playwright with TypeScript",
+    shortTitle: "Playwright",
+    category: "Testing & QA",
+    categorySlug: "testing-qa",
+    shortDescription: "Playwright + TypeScript + API testing, visual testing and CI with AI-assisted testing",
+    duration: "2.5 Months",
+    level: "Intermediate",
+    mode: ["Online", "Offline"],
+  },
+  {
+    id: "api-testing",
+    slug: "api-testing-training-in-pune",
+    title: "API Testing & Automation",
+    shortTitle: "API Testing",
+    category: "Testing & QA",
+    categorySlug: "testing-qa",
+    shortDescription: "Postman + REST + Rest Assured / PyTest / Playwright with CI and AI-assisted testing",
+    duration: "2 Months",
+    level: "Intermediate",
+    mode: ["Online", "Offline"],
+  },
+  {
     id: "software-testing",
     slug: "software-testing-training-in-pune",
     title: "Software Testing & QA",
@@ -858,7 +894,7 @@ export const coursesSummary: CourseSummary[] = [
     slug: "agentic-ai-training-in-pune",
     title: "Agentic AI",
     shortTitle: "Agentic AI",
-    category: "Generative AI",
+    category: "AI & GenAI",
     categorySlug: "generative-ai",
     shortDescription: "LangChain + LangGraph + OpenAI Assistants + Claude tool use; ReAct, memory, multi-agent orchestration",
     duration: "2 Months",

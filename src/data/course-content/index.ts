@@ -63,7 +63,21 @@ import { firebaseTrainingInPune } from "./firebase-training-in-pune";
 import { seleniumTrainingInPune } from "./selenium-training-in-pune";
 import { softwareTestingTrainingInPune } from "./software-testing-training-in-pune";
 import { salesforceTrainingInPune } from "./salesforce-training-in-pune";
+import { salesforceAdministratorTrainingInPune } from "./salesforce-administrator-training-in-pune";
+import { salesforceDeveloperTrainingInPune } from "./salesforce-developer-training-in-pune";
+import { salesforceBusinessAnalystTrainingInPune } from "./salesforce-business-analyst-training-in-pune";
+import { salesforceConsultantTrainingInPune } from "./salesforce-consultant-training-in-pune";
+import { salesforceDataAnalyticsTrainingInPune } from "./salesforce-data-analytics-training-in-pune";
+import { salesforceMarketingCloudTrainingInPune } from "./salesforce-marketing-cloud-training-in-pune";
+import { salesforceSalesCloudTrainingInPune } from "./salesforce-sales-cloud-training-in-pune";
+import { salesforceArchitectTrainingInPune } from "./salesforce-architect-training-in-pune";
 import { agenticAITrainingInPune } from "./agentic-ai-training-in-pune";
+
+// Testing & QA expansion (2026-09-06) — the three automation tracks added
+// alongside the existing Selenium-with-Java page.
+import { seleniumPythonTrainingInPune } from "./selenium-python-training-in-pune";
+import { playwrightTrainingInPune } from "./playwright-training-in-pune";
+import { apiTestingTrainingInPune } from "./api-testing-training-in-pune";
 
 /**
  * Registry of long-form rich content keyed by course slug.
@@ -85,7 +99,11 @@ import { agenticAITrainingInPune } from "./agentic-ai-training-in-pune";
  *   Salesforce Admin + Developer, Agentic AI — all 4 rich-content overlays for
  *   the courses shipped 2026-06-04/06.
  *
- * Total: 45 of 45 tech-course slugs now have rich content
+ * Testing & QA expansion (added 2026-09-06): Selenium with Python,
+ *   Playwright with TypeScript, API Testing & Automation — the three
+ *   automation tracks from the four-course Testing & QA plan.
+ *
+ * Total: 48 of 48 tech-course slugs now have rich content
  * (modulo the 3 bootcamps in bootcamps.ts).
  */
 export const courseRichContent: Record<string, CourseRichContent> = {
@@ -152,7 +170,20 @@ export const courseRichContent: Record<string, CourseRichContent> = {
   "selenium-training-in-pune": seleniumTrainingInPune,
   "software-testing-training-in-pune": softwareTestingTrainingInPune,
   "salesforce-training-in-pune": salesforceTrainingInPune,
+  "salesforce-administrator-training-in-pune": salesforceAdministratorTrainingInPune,
+  "salesforce-developer-training-in-pune": salesforceDeveloperTrainingInPune,
+  "salesforce-business-analyst-training-in-pune": salesforceBusinessAnalystTrainingInPune,
+  "salesforce-consultant-training-in-pune": salesforceConsultantTrainingInPune,
+  "salesforce-data-analytics-training-in-pune": salesforceDataAnalyticsTrainingInPune,
+  "salesforce-marketing-cloud-training-in-pune": salesforceMarketingCloudTrainingInPune,
+  "salesforce-sales-cloud-training-in-pune": salesforceSalesCloudTrainingInPune,
+  "salesforce-architect-training-in-pune": salesforceArchitectTrainingInPune,
   "agentic-ai-training-in-pune": agenticAITrainingInPune,
+
+  // Testing & QA expansion — 2026-09-06
+  "selenium-python-training-in-pune": seleniumPythonTrainingInPune,
+  "playwright-training-in-pune": playwrightTrainingInPune,
+  "api-testing-training-in-pune": apiTestingTrainingInPune,
 };
 
 export function getCourseRichContent(slug: string): CourseRichContent | null {

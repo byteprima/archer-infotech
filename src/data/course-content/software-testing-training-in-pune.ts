@@ -131,6 +131,43 @@ export const softwareTestingTrainingInPune: CourseRichContent = {
     },
   ],
 
+  roadmapImage: {
+    src: "/images/courses/software-testing-path-v1.webp",
+    width: 1400,
+    height: 1064,
+    alt: "Ten-stage manual software testing and QA learning path taught at Archer Infotech Pune: testing foundations covering the seven principles, verification and validation; SDLC and STLC covering Waterfall, V-Model, Agile and entry and exit criteria; testing levels and types covering unit, integration, system, UAT, smoke and regression; test design techniques covering equivalence partitioning and boundary value analysis; advanced design covering decision tables, state transition and use case testing; exploratory testing covering charters and session-based management; test planning and documentation covering strategy, plans and traceability; defect management covering the defect life cycle, severity, priority and Jira with JQL; API testing with Postman covering collections, environments and assertions; and ISTQB Foundation preparation covering the full syllabus walkthrough and mock exams.",
+    caption:
+      "The order this course is taught in. Each stage expands into the modules below — nothing arrives before its prerequisite.",
+  },
+
+  syllabusDownload: {
+    pdfUrl: "/downloads/software-testing-syllabus-v1.pdf",
+    title: "Software Testing & QA Course Syllabus — Complete Module List",
+    slug: "software-testing-syllabus",
+    blurb:
+      "The complete syllabus as a PDF — testing fundamentals and SDLC/STLC, test design techniques from equivalence partitioning through state transition, test execution and defect management in Jira, API testing with Postman, ISTQB Foundation v4 preparation, and an AI-assisted workflow module. Everything in it is on this page; the PDF is the portable version.",
+    asideBlocks: [
+      {
+        heading: "What is inside the PDF",
+        items: [
+          "Every module in teaching order, week by week across the two-month programme.",
+          "The test design techniques in full — equivalence partitioning, boundary value analysis, decision tables, state transition, use case and exploratory testing.",
+          "Defect management end to end: the full life-cycle state machine, severity versus priority with worked examples, and hands-on Jira with JQL.",
+          "The ISTQB Foundation v4 chapter walkthrough, plus the API testing grounding that opens the automation tracks.",
+        ],
+      },
+      {
+        heading: "Roles this syllabus prepares you for",
+        items: [
+          "Manual QA Engineer — the standard entry route into software testing.",
+          "QA Analyst — test design, planning and defect triage.",
+          "Test Engineer — the base role before specialising into automation.",
+          "Business / UAT Analyst — requirements-facing quality work.",
+        ],
+      },
+    ],
+  },
+
   projects: [
     {
       title: "End-to-End Test Suite for a Sample E-commerce Application",
