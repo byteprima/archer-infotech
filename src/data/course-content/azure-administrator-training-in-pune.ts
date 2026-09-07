@@ -54,6 +54,42 @@ export const azureAdministratorTrainingInPune: CourseRichContent = {
       ],
     },
     {
+      title: "Azure Fundamentals Refresher — Portal, CLI, PowerShell & Bicep",
+      weekRange: "Week 1",
+      description:
+        "AZ-104 is an administrator exam, and it assumes fluency in the tools before it tests judgement about them. This week gets you comfortable in all four surfaces you will be examined on: the portal, Azure CLI, Azure PowerShell, and ARM templates with Bicep.\n\nThat breadth matters practically — the exam and the job both mix them, and a candidate who only knows the portal stalls the moment a question shows a command. You cover the resource hierarchy, resource groups and what they actually scope, tags, locks and the deployment model underneath everything, then deploy the same resource four ways so the equivalences are concrete.",
+      topics: [
+        "Azure regions, availability zones and paired regions",
+        "Management groups, subscriptions and resource groups",
+        "The Azure Resource Manager deployment model",
+        "The portal, Cloud Shell and where each is faster",
+        "Azure CLI syntax and common commands",
+        "Azure PowerShell and the Az module",
+        "ARM templates and Bicep",
+        "Tags, resource locks and naming standards",
+        "Deploying the same resource four ways",
+        "Reading Microsoft Learn documentation efficiently",
+      ],
+    },
+    {
+      title: "Microsoft Entra ID in Depth — Users, Groups, RBAC & Conditional Access",
+      weekRange: "Week 2",
+      description:
+        "The identity foundation the largest scored domain rests on. Users, groups and administrative units; dynamic group membership with the rule syntax the exam shows you; guest accounts and external collaboration; and self-service password reset.\n\nRBAC gets the most time because scope is where candidates lose marks: assignments inherit down the hierarchy, deny assignments behave differently from Azure Policy, and a role assigned at the wrong scope is the single most common wrong answer in this domain. Conditional Access, MFA and Identity Protection close the module, along with the built-in roles you are expected to recognise by what they permit rather than by name alone.",
+      topics: [
+        "Users, groups and administrative units",
+        "Dynamic group membership rules",
+        "Guest users and external collaboration",
+        "Self-service password reset and writeback",
+        "RBAC roles, scope and inheritance",
+        "Built-in roles and what each actually permits",
+        "Custom role definitions",
+        "Deny assignments versus Azure Policy",
+        "Conditional Access policies and MFA",
+        "Entra ID Protection and risk-based policies",
+      ],
+    },
+    {
       title: "Domain 1 — Manage Azure Identities and Governance (~20–25%)",
       weekRange: "Weeks 2–3",
       description:
@@ -70,6 +106,24 @@ export const azureAdministratorTrainingInPune: CourseRichContent = {
       ],
     },
     {
+      title: "Governance — Policy, Cost Management & Resource Organisation",
+      weekRange: "Week 3",
+      description:
+        "The other half of Domain 1, and the part that separates an administrator from someone who can click through the portal. Azure Policy — definitions, initiatives, effects such as deny, audit and deployIfNotExists, and remediation tasks for resources already out of compliance.\n\nCost Management covers budgets, alerts, cost analysis and the exports finance teams actually ask for; the pricing and TCO calculators; and reservations and Azure Hybrid Benefit. Resource organisation closes it — management group hierarchy, subscription strategy, tagging enforced by policy rather than by hope, and the move and lock operations the exam tests with specific constraints on what can move where.",
+      topics: [
+        "Azure Policy definitions and initiatives",
+        "Policy effects — deny, audit, append, deployIfNotExists",
+        "Remediation tasks for existing resources",
+        "Policy versus RBAC — different questions",
+        "Budgets, alerts and cost analysis",
+        "Reservations and Azure Hybrid Benefit",
+        "Pricing and TCO calculators",
+        "Management group hierarchy and subscription strategy",
+        "Tag inheritance and enforcement through policy",
+        "Moving resources between groups and subscriptions",
+      ],
+    },
+    {
       title: "Domain 2 — Implement and Manage Storage (~15–20%)",
       weekRange: "Week 4",
       description:
@@ -82,6 +136,42 @@ export const azureAdministratorTrainingInPune: CourseRichContent = {
         "Blob lifecycle and soft delete",
         "Azure Files — SMB / NFS",
         "Azure File Sync, AzCopy",
+      ],
+    },
+    {
+      title: "Storage Security, Replication & Azure Files",
+      weekRange: "Week 4",
+      description:
+        "The depth behind Domain 2, where the exam's questions are almost always about choosing a redundancy option or an access mechanism. The replication tiers — LRS, ZRS, GRS, GZRS and their read-access variants — with the durability and failover behaviour of each, because the correct answer is decided by a stated requirement rather than by preference.\n\nAccess control covers shared keys, shared access signatures with stored access policies, and Entra-based authorisation, which is the recommended and frequently correct choice. Azure Files with Active Directory authentication, Azure File Sync, blob lifecycle management and immutable storage close the module, along with the tools — AzCopy, Storage Explorer, Import/Export — the exam expects you to distinguish.",
+      topics: [
+        "Storage account types and performance tiers",
+        "LRS, ZRS, GRS, GZRS and read-access variants",
+        "Blob access tiers and lifecycle management",
+        "Immutable storage and legal holds",
+        "Shared keys, SAS tokens and stored access policies",
+        "Entra ID authorisation for blob and queue",
+        "Azure Files and AD authentication",
+        "Azure File Sync and cloud tiering",
+        "AzCopy, Storage Explorer and Import/Export",
+        "Firewalls, private endpoints and network rules",
+      ],
+    },
+    {
+      title: "VM Availability, Scale Sets & Backup",
+      weekRange: "Week 5",
+      description:
+        "The resilience half of the compute domain. Availability sets with fault and update domains, availability zones, and the SLA each arrangement actually carries — the exam asks for the configuration that meets a stated SLA, and the numbers matter.\n\nVirtual Machine Scale Sets cover autoscaling rules, scaling profiles and upgrade policies. Azure Backup covers Recovery Services vaults, policies, retention and restore options; Azure Site Recovery covers replication and failover for disaster recovery. Disk management, encryption and resizing close the module, alongside the maintenance and reboot behaviours that scenario questions turn on.",
+      topics: [
+        "Availability sets, fault and update domains",
+        "Availability zones and zone-redundant deployment",
+        "SLA by configuration — the numbers the exam uses",
+        "Virtual Machine Scale Sets and autoscale rules",
+        "Scaling profiles and upgrade policies",
+        "Managed disk types, resizing and encryption",
+        "Recovery Services vault and backup policies",
+        "Restore options and retention",
+        "Azure Site Recovery and failover",
+        "Maintenance, reboots and planned events",
       ],
     },
     {
@@ -101,6 +191,24 @@ export const azureAdministratorTrainingInPune: CourseRichContent = {
       ],
     },
     {
+      title: "App Service, Containers & Serverless Compute",
+      weekRange: "Week 6",
+      description:
+        "The rest of Domain 3, covering the compute options that are not virtual machines. App Service plans and tiers, deployment slots and slot swapping — which appears constantly in scenario questions about zero-downtime release — scaling, custom domains and TLS binding.\n\nContainers cover Azure Container Instances for short-lived workloads, Container Apps, and the level of AKS the exam actually expects, which is provisioning and scaling rather than deep Kubernetes operations. Azure Functions and consumption plans close the module, along with the selection question the exam keeps asking: given this workload and this constraint, which compute service is correct.",
+      topics: [
+        "App Service plans, tiers and scaling",
+        "Deployment slots and slot swapping",
+        "Custom domains, TLS binding and certificates",
+        "App Service networking and access restrictions",
+        "Azure Container Instances and Container Apps",
+        "Azure Container Registry",
+        "AKS at the level AZ-104 tests",
+        "Azure Functions and hosting plans",
+        "Choosing a compute service from a constraint",
+        "Migrating a VM workload to a managed service",
+      ],
+    },
+    {
       title: "Domain 4 — Implement and Manage Virtual Networking (~20–25%)",
       weekRange: "Weeks 6–7",
       description:
@@ -116,6 +224,24 @@ export const azureAdministratorTrainingInPune: CourseRichContent = {
         "Application Gateway with WAF",
         "Front Door vs Traffic Manager",
         "Azure DNS / Private DNS Zones",
+      ],
+    },
+    {
+      title: "Network Security, Load Balancing & Private Connectivity",
+      weekRange: "Week 7",
+      description:
+        "The depth behind the networking domain, and the area candidates most often underestimate. Network security groups and application security groups, effective security rules, and reading why traffic is actually being blocked — which the portal will tell you if you know where to look.\n\nLoad balancing covers the four services the exam expects you to distinguish: Azure Load Balancer, Application Gateway with WAF, Traffic Manager and Front Door, each with the layer it works at and the scenario it fits. Private connectivity covers service endpoints against private endpoints, Private Link, VNet peering and its transitivity limits, VPN Gateway and ExpressRoute, plus Azure DNS and private zones.",
+      topics: [
+        "NSGs, ASGs and effective security rules",
+        "Diagnosing blocked traffic",
+        "Azure Load Balancer — basic and standard",
+        "Application Gateway and WAF",
+        "Traffic Manager and Front Door",
+        "Choosing between the four load-balancing services",
+        "Service endpoints versus private endpoints",
+        "Private Link and private DNS integration",
+        "VNet peering and transitivity limits",
+        "VPN Gateway, ExpressRoute and hybrid connectivity",
       ],
     },
     {
@@ -178,6 +304,43 @@ export const azureAdministratorTrainingInPune: CourseRichContent = {
       ],
     },
   ],
+
+  roadmapImage: {
+    src: "/images/courses/azure-az104-path-v1.webp",
+    width: 1400,
+    height: 900,
+    alt: "Eight-stage Azure Administrator AZ-104 learning path taught at Archer Infotech Pune: foundations covering the portal, Azure CLI, PowerShell, Bicep and the resource hierarchy; identity and governance as domain one at about 20 to 25 percent covering Microsoft Entra ID, role-based access control and Azure Policy; storage as domain two at about 15 to 20 percent covering accounts, replication and Azure Files; compute as domain three at about 20 to 25 percent covering virtual machines, scale sets and App Service; virtual networking as domain four at about 20 to 25 percent covering virtual networks, network security groups and load balancing; monitor and maintain as domain five at about 10 to 15 percent covering Azure Monitor, Backup and Site Recovery; mock exams with timed papers, scenario walkthroughs and gap closure; and exam day covering booking, proctoring, pacing and result.",
+    caption:
+      "The AZ-104 exam domains with their weightings, in the order this course teaches them. Each stage expands into the modules below.",
+  },
+
+  syllabusDownload: {
+    pdfUrl: "/downloads/azure-administrator-syllabus-v1.pdf",
+    title: "Azure Administrator (AZ-104) Syllabus — Complete Module List",
+    slug: "azure-administrator-syllabus",
+    blurb:
+      "All sixteen modules as a 7-page PDF — the tooling refresher across portal, CLI, PowerShell and Bicep, every AZ-104 domain with its weighting, and the depth modules on Entra ID and RBAC scope, Azure Policy and cost management, storage replication and access control, VM availability and backup, App Service and containers, and network security and load balancing. Generated from this page, so the two cannot disagree.",
+    asideBlocks: [
+      {
+        heading: "What is inside the 7-page PDF",
+        items: [
+          "All sixteen modules in teaching order, each with its schedule, description and full topic list.",
+          "The five AZ-104 domains with their published weightings, so you can plan study time against what is actually scored.",
+          "The four tool surfaces the exam mixes — portal, Azure CLI, Azure PowerShell and Bicep — taught together rather than the portal alone.",
+          "The depth modules candidates most often underestimate: RBAC scope and inheritance, storage replication tiers by requirement, availability SLAs by configuration, and choosing between the four load-balancing services.",
+        ],
+      },
+      {
+        heading: "Roles this syllabus prepares you for",
+        items: [
+          "Azure Administrator — the role the certification is written for.",
+          "Cloud Engineer at Pune GCC captives and Microsoft-stack enterprises.",
+          "Systems or infrastructure administrator moving from on-premise to Azure.",
+          "The prerequisite credential for AZ-305 Solutions Architect.",
+        ],
+      },
+    ],
+  },
 
   projects: [
     {
@@ -416,6 +579,36 @@ export const azureAdministratorTrainingInPune: CourseRichContent = {
       question: "Are the named trainers actually teaching?",
       answer:
         "Yogesh Patil and Vinod Patil personally lead every session of every batch.",
+    },
+    {
+      question: "Is the certification exam fee included in the course fee?",
+      answer:
+        "No, and no honest institute includes it. The exam is booked and paid directly with Microsoft through their own portal, at their published price, and the voucher is issued in your name. Our fee covers the training, labs, mock exams and the guidance to book — separating the two is the only arrangement that lets you sit the exam whenever you are ready rather than whenever a batch ends.",
+    },
+    {
+      question: "What happens if I fail the exam?",
+      answer:
+        "Microsoft sets the retake policy — there is a waiting period before a resit and the full fee applies again, so it is worth sitting only when your mock scores are consistently clear of the pass mark. From our side, you keep access to the mock papers and can rejoin a later batch's revision sessions at no cost. We would rather you delay a booking by three weeks than pay twice.",
+    },
+    {
+      question: "How long does the certification stay valid?",
+      answer:
+        "Microsoft role-based certifications expire after one year and are renewed through a free online assessment on Microsoft Learn — shorter than the exam, but it does have to be done. Plan for that from the start: the recertification is considerably easier than the first attempt if you have been using the platform, and considerably harder if the certificate has been sitting on a CV while you worked on something else.",
+    },
+    {
+      question: "Will I get hands-on practice, or only theory and practice questions?",
+      answer:
+        "Hands-on throughout, in your own Azure subscription, using the free credit where it covers the work. Every module has lab work, and the course builds a reference architecture you deploy yourself rather than watch. That matters beyond the exam: a certification with no deployed work behind it does not survive the first practical interview question, and Pune hiring panels ask them.",
+    },
+    {
+      question: "Do I need experience before taking this course?",
+      answer:
+        "Microsoft recommends six months of hands-on Azure administration, and the exam is written as though you have it. This course assumes you are comfortable with the resource hierarchy and basic administration; week one levels the tooling floor across portal, CLI, PowerShell and Bicep. If you are entirely new to cloud, the Cloud & DevOps category covers the ground concepts first — a certification syllabus tests breadth across a platform rather than teaching what a virtual network or an identity policy is, and starting here without that background turns the course into memorisation.",
+    },
+    {
+      question: "Is a certification enough to get hired in Pune?",
+      answer:
+        "It gets your CV read, which is a real and narrow benefit. Many Pune employers and staffing partners filter on it, and consulting partners often need certified staff contractually. What converts it into an offer is being able to answer the follow-up about something you actually built — so treat the certificate and the deployed project as one deliverable, not two.",
     },
   ],
 

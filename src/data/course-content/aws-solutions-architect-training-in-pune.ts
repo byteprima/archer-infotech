@@ -54,6 +54,42 @@ export const awsSolutionsArchitectTrainingInPune: CourseRichContent = {
       ],
     },
     {
+      title: "Core Services Refresher — EC2, S3, VPC, IAM",
+      weekRange: "Week 1",
+      description:
+        "SAA-C03 is a design exam, not a services exam — but it assumes you already know what each service does, and a candidate who is still learning what an internet gateway is cannot evaluate an architecture that contains one. This week levels that floor in the console and the CLI rather than in slides.\n\nYou launch instances and understand the families and pricing models, work through S3 buckets, versioning and lifecycle, build a small VPC by hand, and set up IAM users, groups and roles. Anyone arriving from the AWS Cloud Computing course can treat this as revision; anyone arriving from a Cloud Practitioner background will need it.",
+      topics: [
+        "AWS global infrastructure — regions, AZs, edge locations",
+        "EC2 instance families, sizing and purchase options",
+        "AMIs, user data and instance metadata",
+        "S3 buckets, versioning, lifecycle and storage classes",
+        "VPC, subnets, route tables, internet and NAT gateways",
+        "Security groups and network ACLs",
+        "IAM users, groups, roles and policy structure",
+        "The AWS CLI, profiles and credential precedence",
+        "CloudFormation as the baseline IaC tool",
+        "Reading the AWS documentation efficiently",
+      ],
+    },
+    {
+      title: "Multi-AZ, Multi-Region & Disaster Recovery Patterns",
+      weekRange: "Week 2",
+      description:
+        "The resilience material the exam tests hardest, framed the way its questions are framed: given an RTO and an RPO, which architecture meets them at the lowest cost. That pairing is the key — almost every resilience question is really a cost question with a constraint attached.\n\nYou work through the four documented DR strategies — backup and restore, pilot light, warm standby, multi-site active-active — and their real recovery times and price. Then Multi-AZ against read replicas and why they solve different problems, Route 53 failover and health checks, cross-region replication, and the difference between a highly available architecture and a fault-tolerant one, which the exam distinguishes and most candidates do not.",
+      topics: [
+        "RTO and RPO as the deciding constraints",
+        "Backup and restore, pilot light, warm standby, active-active",
+        "Multi-AZ versus read replicas — different problems",
+        "Auto Scaling groups, health checks and lifecycle hooks",
+        "Elastic Load Balancing — ALB, NLB and GWLB selection",
+        "Route 53 routing policies and failover",
+        "Cross-region replication for S3 and RDS",
+        "Aurora global database and failover behaviour",
+        "High availability versus fault tolerance",
+        "Choosing the cheapest architecture that meets the target",
+      ],
+    },
+    {
       title: "Domain 1 — Design Resilient Architectures (~26%)",
       weekRange: "Weeks 2–3",
       description:
@@ -71,6 +107,24 @@ export const awsSolutionsArchitectTrainingInPune: CourseRichContent = {
       ],
     },
     {
+      title: "Decoupling — SQS, SNS, EventBridge & Step Functions",
+      weekRange: "Week 3",
+      description:
+        "The pattern the exam rewards more than any other. A question that describes a tightly coupled system with a failing component almost always has a queue in the correct answer, and recognising that shape quickly is worth several marks.\n\nSQS standard against FIFO, visibility timeout, dead-letter queues and long polling; SNS fan-out and the SNS-to-SQS pattern; EventBridge for event-driven routing and scheduled rules; and Step Functions for orchestration where a state machine beats application code. Kinesis is covered for streaming, with the distinction from SQS made explicit, because the exam tests exactly that boundary.",
+      topics: [
+        "Recognising a coupling problem in a scenario",
+        "SQS standard versus FIFO",
+        "Visibility timeout, dead-letter queues and long polling",
+        "SNS topics, subscriptions and fan-out",
+        "The SNS-to-SQS fan-out pattern",
+        "EventBridge rules, buses and scheduled events",
+        "Step Functions for orchestration",
+        "Kinesis Data Streams versus SQS",
+        "Idempotency and duplicate delivery",
+        "Asynchronous processing and buffering under load",
+      ],
+    },
+    {
       title: "Domain 2 — Design High-Performing Architectures (~24%)",
       weekRange: "Weeks 3–4",
       description:
@@ -85,6 +139,60 @@ export const awsSolutionsArchitectTrainingInPune: CourseRichContent = {
         "DynamoDB capacity, DAX",
         "ElastiCache Redis vs Memcached",
         "CloudFront and Global Accelerator",
+      ],
+    },
+    {
+      title: "Storage Selection — S3 Classes, EBS, EFS & FSx",
+      weekRange: "Week 4",
+      description:
+        "Storage questions are among the most reliably answerable on the exam, provided you know the selection criteria rather than the marketing. Block, file and object storage and which problems each is actually for; EBS volume types and the IOPS and throughput each delivers; EFS for shared POSIX access; and FSx for Windows and Lustre workloads.\n\nS3 storage classes get the most time, including the retrieval charges and minimum durations that make Glacier Deep Archive the wrong answer for anything accessed monthly. Lifecycle policies, Intelligent-Tiering, Transfer Acceleration and Storage Gateway close the module, along with the migration services the exam expects you to distinguish.",
+      topics: [
+        "Block, file and object storage — choosing correctly",
+        "EBS volume types, IOPS and throughput",
+        "EBS snapshots, encryption and multi-attach",
+        "Instance store and its trade-offs",
+        "EFS performance and throughput modes",
+        "FSx for Windows and FSx for Lustre",
+        "S3 storage classes, retrieval cost and minimum duration",
+        "Lifecycle policies and Intelligent-Tiering",
+        "S3 Transfer Acceleration and multipart upload",
+        "Storage Gateway, DataSync and Snow family",
+      ],
+    },
+    {
+      title: "Database Selection — RDS, Aurora, DynamoDB & Caching",
+      weekRange: "Week 4",
+      description:
+        "The other reliably answerable family, and the one where a wrong choice in a scenario costs the whole question. Relational against non-relational and the access patterns that decide it; RDS engines, Multi-AZ, read replicas and backup behaviour; Aurora's storage architecture and why its failover characteristics differ.\n\nDynamoDB gets proper treatment because the exam probes it: partition keys and hot partitions, on-demand against provisioned capacity, global and local secondary indexes, DynamoDB Streams and global tables. ElastiCache for Redis and Memcached covers caching strategies, and the module closes on the purpose-built services — Redshift, Neptune, DocumentDB, Timestream — at the level the exam actually tests, which is knowing which one a scenario is describing.",
+      topics: [
+        "Relational versus non-relational access patterns",
+        "RDS engines, Multi-AZ and read replicas",
+        "Automated backups, snapshots and point-in-time recovery",
+        "Aurora architecture, replicas and failover",
+        "DynamoDB partition keys and hot partitions",
+        "On-demand versus provisioned capacity",
+        "Global and local secondary indexes",
+        "DynamoDB Streams and global tables",
+        "ElastiCache Redis and Memcached, and caching strategies",
+        "Redshift, Neptune, DocumentDB and Timestream — recognising the fit",
+      ],
+    },
+    {
+      title: "IAM in Depth — Policies, Roles, SCPs & Federation",
+      weekRange: "Week 5",
+      description:
+        "The single largest scored domain rests on this, and it is where careless candidates lose marks they could have kept. Policy evaluation logic taught precisely — explicit deny beats everything, then organisation SCPs, then permission boundaries, then identity and resource policies — because the exam writes questions that turn on exactly this order.\n\nRoles and `sts:AssumeRole` for cross-account access; instance profiles so an application never holds a key; resource-based policies and where they differ from identity-based; Organizations, service control policies and permission boundaries; and identity federation with SAML, Cognito and IAM Identity Center. The rule enforced throughout is least privilege, which is also the exam's default correct answer.",
+      topics: [
+        "Policy evaluation logic and explicit deny",
+        "Identity-based versus resource-based policies",
+        "Roles, sts:AssumeRole and cross-account access",
+        "Instance profiles and never embedding keys",
+        "Organizations, OUs and service control policies",
+        "Permission boundaries and their interaction",
+        "IAM Identity Center and SAML federation",
+        "Cognito user pools and identity pools",
+        "Least privilege and policy conditions",
+        "Reading a policy and predicting the outcome",
       ],
     },
     {
@@ -106,6 +214,24 @@ export const awsSolutionsArchitectTrainingInPune: CourseRichContent = {
       ],
     },
     {
+      title: "Data Protection — KMS, Secrets, and Encryption in Transit",
+      weekRange: "Week 6",
+      description:
+        "The rest of the security domain, and the part that appears in scenario questions about compliance. KMS keys — AWS-managed, customer-managed and customer-provided — key policies, envelope encryption, rotation and multi-region keys, plus CloudHSM and the narrow set of cases that genuinely require it.\n\nEncryption at rest across S3, EBS, RDS and DynamoDB; encryption in transit with ACM, TLS termination choices and where the exam expects it terminated. Secrets Manager against Parameter Store, including the rotation difference that is usually the deciding factor. The module closes on the detective controls — CloudTrail, Config, GuardDuty, Security Hub, Macie and WAF — at the level of knowing which one a scenario needs.",
+      topics: [
+        "KMS key types, key policies and grants",
+        "Envelope encryption and data keys",
+        "Key rotation and multi-region keys",
+        "CloudHSM and when it is genuinely required",
+        "Encryption at rest across S3, EBS, RDS and DynamoDB",
+        "ACM, TLS termination and certificate management",
+        "Secrets Manager versus Parameter Store",
+        "CloudTrail, Config and AWS Organizations trails",
+        "GuardDuty, Security Hub, Macie and Inspector",
+        "WAF, Shield and protecting an edge",
+      ],
+    },
+    {
       title: "Domain 4 — Design Cost-Optimised Architectures (~20%)",
       weekRange: "Week 7",
       description:
@@ -118,6 +244,24 @@ export const awsSolutionsArchitectTrainingInPune: CourseRichContent = {
         "Data-transfer cost optimisation",
         "Cost Explorer and Cost Anomaly Detection",
         "AWS Budgets and Trusted Advisor",
+      ],
+    },
+    {
+      title: "Well-Architected Framework & Architecture Review",
+      weekRange: "Week 7",
+      description:
+        "The framework the exam is written against, used as the review instrument it is meant to be. The six pillars — operational excellence, security, reliability, performance efficiency, cost optimisation and sustainability — and the design principles under each, which is where a surprising number of question stems come from directly.\n\nYou then run a review on your own architecture from earlier weeks: identify the risks, propose remediation, and state the trade-off each one costs. That exercise is the closest thing the course has to the actual job, and it is also the best preparation for the exam's recurring shape — several technically valid answers, one that best matches a stated priority.",
+      topics: [
+        "The six pillars and their design principles",
+        "Trade-offs between pillars, stated explicitly",
+        "Running a Well-Architected review",
+        "Identifying and prioritising risks",
+        "Cost optimisation as a design activity",
+        "Right-sizing, Savings Plans and Reserved Instances",
+        "Spot capacity and interruption-tolerant design",
+        "Recognising the priority a question is testing",
+        "Eliminating technically valid but wrong answers",
+        "Documenting an architecture decision",
       ],
     },
     {
@@ -167,6 +311,43 @@ export const awsSolutionsArchitectTrainingInPune: CourseRichContent = {
       ],
     },
   ],
+
+  roadmapImage: {
+    src: "/images/courses/aws-saa-path-v1.webp",
+    width: 1400,
+    height: 900,
+    alt: "Eight-stage AWS Solutions Architect Associate learning path taught at Archer Infotech Pune: foundations covering account setup and an EC2, S3, VPC and IAM refresher; resilient architectures as domain one at about 26 percent covering high availability, disaster recovery and decoupling; high-performing architectures as domain two at about 24 percent covering compute, storage and database selection; secure applications as domain three at about 30 percent covering IAM, KMS and detective controls; cost-optimised architectures as domain four at about 20 percent covering right-sizing and purchase options; a Well-Architected review applying the six pillars to your own design; mock exams with timed papers, gap closure and question technique; and exam day covering booking, proctoring, pacing and result.",
+    caption:
+      "The SAA-C03 exam domains with their weightings, in the order this course teaches them. Each stage expands into the modules below.",
+  },
+
+  syllabusDownload: {
+    pdfUrl: "/downloads/aws-solutions-architect-syllabus-v1.pdf",
+    title: "AWS Solutions Architect (SAA-C03) Syllabus — Complete Module List",
+    slug: "aws-solutions-architect-syllabus",
+    blurb:
+      "All sixteen modules as a 7-page PDF — the foundations refresher, every SAA-C03 exam domain with its weighting, the depth modules on resilience and disaster recovery, decoupling, storage and database selection, IAM and data protection, the Well-Architected review, and both mock-exam weeks. Generated from this page, so the two cannot disagree.",
+    asideBlocks: [
+      {
+        heading: "What is inside the 7-page PDF",
+        items: [
+          "All sixteen modules in teaching order, each with its schedule, description and full topic list.",
+          "The four SAA-C03 domains with their published weightings, so you can plan study time against what is actually scored.",
+          "The depth modules that sit alongside the domains: disaster-recovery patterns by RTO and RPO, decoupling with SQS and EventBridge, storage and database selection criteria, IAM policy evaluation order, and KMS.",
+          "The exam-technique material — Well-Architected review, timed mocks, gap closure, and how to eliminate technically valid but wrong answers.",
+        ],
+      },
+      {
+        heading: "Roles this syllabus prepares you for",
+        items: [
+          "AWS Solutions Architect — the role the certification is written for.",
+          "Cloud Engineer at Pune GCC captives and product companies.",
+          "Cloud Consultant on AWS partner engagements, where certification is often contractual.",
+          "DevOps or Platform Engineer adding a design credential.",
+        ],
+      },
+    ],
+  },
 
   projects: [
     {
@@ -452,6 +633,36 @@ export const awsSolutionsArchitectTrainingInPune: CourseRichContent = {
       question: "Are the named trainers actually teaching, or are they just on the brochure?",
       answer:
         "Yogesh Patil and Vinod Patil personally lead every session of every batch, both have cleared SAA-C03.",
+    },
+    {
+      question: "Is the certification exam fee included in the course fee?",
+      answer:
+        "No, and no honest institute includes it. The exam is booked and paid directly with AWS through their own portal, at their published price, and the voucher is issued in your name. Our fee covers the training, labs, mock exams and the guidance to book — separating the two is the only arrangement that lets you sit the exam whenever you are ready rather than whenever a batch ends.",
+    },
+    {
+      question: "What happens if I fail the exam?",
+      answer:
+        "AWS sets the retake policy — there is a waiting period before a resit and the full fee applies again, so it is worth sitting only when your mock scores are consistently clear of the pass mark. From our side, you keep access to the mock papers and can rejoin a later batch's revision sessions at no cost. We would rather you delay a booking by three weeks than pay twice.",
+    },
+    {
+      question: "How long does the certification stay valid?",
+      answer:
+        "AWS certifications are valid for three years, after which you recertify by passing the current version of the exam or a higher-level one. Plan for that from the start: the recertification is considerably easier than the first attempt if you have been using the platform, and considerably harder if the certificate has been sitting on a CV while you worked on something else.",
+    },
+    {
+      question: "Will I get hands-on practice, or only theory and practice questions?",
+      answer:
+        "Hands-on throughout, in your own AWS account, inside the free tier wherever possible. Every module has lab work, and the course builds a reference architecture you deploy yourself rather than watch. That matters beyond the exam: a certification with no deployed work behind it does not survive the first practical interview question, and Pune hiring panels ask them.",
+    },
+    {
+      question: "Do I need experience before taking this course?",
+      answer:
+        "Not formally — AWS states no prerequisite for the Associate level. Realistically, this course assumes you already know what EC2, S3, VPC and IAM are; week one is a refresher, not an introduction. If you are entirely new to cloud, the Cloud & DevOps category covers the ground concepts first — a certification syllabus tests breadth across a platform rather than teaching what a virtual network or an identity policy is, and starting here without that background turns the course into memorisation.",
+    },
+    {
+      question: "Is a certification enough to get hired in Pune?",
+      answer:
+        "It gets your CV read, which is a real and narrow benefit. Many Pune employers and staffing partners filter on it, and consulting partners often need certified staff contractually. What converts it into an offer is being able to answer the follow-up about something you actually built — so treat the certificate and the deployed project as one deliverable, not two.",
     },
   ],
 

@@ -54,6 +54,24 @@ export const gcpAssociateCloudEngineerTrainingInPune: CourseRichContent = {
       ],
     },
     {
+      title: "GCP Fundamentals Refresher — Console, gcloud & Cloud Shell",
+      weekRange: "Week 1",
+      description:
+        "The Associate Cloud Engineer exam is unusually command-line heavy for an associate certification: a large share of its questions show you a `gcloud` invocation and ask what it does, or describe a task and ask which command performs it. Fluency in the CLI is therefore not optional, and this week builds it.\n\nYou work through the console, Cloud Shell and the SDK, configurations and named profiles, and the `gcloud` command grammar — group, subgroup, verb, flags — which is regular enough that you can often reconstruct a command you have never used. The resource hierarchy of organisation, folders and projects is covered here because everything in the rest of the course inherits down it.",
+      topics: [
+        "Regions, zones and multi-region resources",
+        "Organisation, folders, projects and the hierarchy",
+        "The Cloud Console and Cloud Shell",
+        "Installing and initialising the gcloud SDK",
+        "gcloud configurations and named profiles",
+        "The gcloud command grammar",
+        "gsutil, bq and the specialised tools",
+        "Cloud APIs and enabling services",
+        "Labels, and how they differ from tags",
+        "Reading Google Cloud documentation efficiently",
+      ],
+    },
+    {
       title: "Domain 1 — Setting Up Cloud Projects & Accounts (~17%)",
       weekRange: "Week 2",
       description:
@@ -78,6 +96,60 @@ export const gcpAssociateCloudEngineerTrainingInPune: CourseRichContent = {
         "VPC design and subnet planning",
         "Network costs and egress",
         "Pricing Calculator",
+      ],
+    },
+    {
+      title: "Compute Options — GCE, GKE, Cloud Run, App Engine & Functions",
+      weekRange: "Week 3",
+      description:
+        "The selection question that runs through the whole exam: given this workload, which compute product is correct. Compute Engine covers machine families, custom machine types, preemptible and spot instances, instance templates, managed instance groups and autoscaling.\n\nGKE covers clusters, node pools, Autopilot against Standard, and the `kubectl` basics the exam expects. Cloud Run covers container-based serverless, App Engine covers standard and flexible environments, and Cloud Functions covers event-driven code. The module closes on the decision itself — stated as a set of criteria rather than a preference, because that is how the exam frames it.",
+      topics: [
+        "Machine families, custom types and right-sizing",
+        "Preemptible and spot VMs",
+        "Instance templates and managed instance groups",
+        "Autoscaling and autohealing",
+        "GKE clusters, node pools, Autopilot and Standard",
+        "kubectl basics the exam expects",
+        "Cloud Run and container-based serverless",
+        "App Engine standard versus flexible",
+        "Cloud Functions and event triggers",
+        "Choosing a compute product from stated constraints",
+      ],
+    },
+    {
+      title: "Storage & Databases — Cloud Storage, SQL, Firestore & BigQuery",
+      weekRange: "Week 4",
+      description:
+        "The data half of the exam, and another selection problem. Cloud Storage covers buckets, storage classes and their retrieval costs, lifecycle rules, object versioning, retention policies and signed URLs — plus uniform against fine-grained access control, which the exam asks about directly.\n\nDatabases cover Cloud SQL with high availability and read replicas, Cloud Spanner and what its horizontal scale is for, Firestore for document data, Bigtable for wide-column time-series work, Memorystore for caching, and BigQuery for analytics. Persistent disks and Filestore complete the block and file picture. The recurring exam shape is a workload description that maps to exactly one of these, and the module trains recognising it.",
+      topics: [
+        "Cloud Storage buckets and storage classes",
+        "Lifecycle rules, versioning and retention",
+        "Uniform versus fine-grained access control",
+        "Signed URLs and signed policy documents",
+        "Persistent disks, local SSD and Filestore",
+        "Cloud SQL, high availability and read replicas",
+        "Cloud Spanner and horizontal relational scale",
+        "Firestore and Bigtable — different shapes of data",
+        "Memorystore for caching",
+        "BigQuery for analytics, and its pricing model",
+      ],
+    },
+    {
+      title: "Networking — VPC, Firewall Rules, Load Balancing & DNS",
+      weekRange: "Week 4",
+      description:
+        "Google Cloud's networking model differs from its competitors in ways the exam tests deliberately: VPCs are global, subnets are regional, and firewall rules are stateful with priorities and target tags. Candidates carrying assumptions from AWS or Azure lose marks here, so the differences are made explicit.\n\nYou build VPCs and subnets, write firewall rules with priorities and service accounts as targets, and configure Cloud NAT for private instances. Load balancing covers the global and regional options and the layer each operates at, then Cloud DNS, Cloud CDN, VPC peering, Shared VPC and the hybrid connectivity options at the level the exam expects.",
+      topics: [
+        "Global VPCs and regional subnets",
+        "Auto mode versus custom mode networks",
+        "Firewall rules, priorities, tags and service accounts",
+        "Cloud NAT and private instances",
+        "Private Google Access",
+        "Global and regional load balancing options",
+        "Cloud DNS and private zones",
+        "Cloud CDN and caching at the edge",
+        "VPC peering and Shared VPC",
+        "Cloud VPN and Interconnect at exam level",
       ],
     },
     {
@@ -112,6 +184,42 @@ export const gcpAssociateCloudEngineerTrainingInPune: CourseRichContent = {
       ],
     },
     {
+      title: "Operations — Cloud Monitoring, Logging & Error Reporting",
+      weekRange: "Week 6",
+      description:
+        "Domain 4 rests on the operations suite, and the exam asks practical questions: which tool shows you this, and how would you alert on it. Cloud Monitoring covers metrics, dashboards, uptime checks, alerting policies and notification channels, plus the Ops Agent that has to be installed before VM memory and disk metrics exist at all — a detail that appears in questions.\n\nCloud Logging covers the log explorer, query syntax, log sinks and exports to Cloud Storage or BigQuery, retention and log-based metrics. Error Reporting, Cloud Trace and Cloud Profiler close the module, along with the diagnostic habit the exam rewards: identifying which signal answers the question before reaching for a tool.",
+      topics: [
+        "Cloud Monitoring metrics and dashboards",
+        "Uptime checks and alerting policies",
+        "Notification channels and escalation",
+        "The Ops Agent and VM-level metrics",
+        "Cloud Logging and the log explorer",
+        "Log query syntax and filters",
+        "Log sinks, exports and retention",
+        "Log-based metrics",
+        "Error Reporting, Cloud Trace and Profiler",
+        "Choosing the signal before choosing the tool",
+      ],
+    },
+    {
+      title: "Billing, Quotas & Cost Management",
+      weekRange: "Week 6",
+      description:
+        "A small domain by weight and an easy one to secure, provided you have actually looked at a billing console rather than read about one. Billing accounts and their relationship to projects, budgets and alerts, billing export to BigQuery, and the reports that answer where the money went.\n\nQuotas get their own treatment because they are a frequent exam subject and a frequent real obstacle: the difference between rate and allocation quotas, how to see current usage, and how an increase is requested. Committed use and sustained use discounts close the module, along with preemptible instances as a cost strategy and the pricing calculator.",
+      topics: [
+        "Billing accounts and project association",
+        "Budgets, thresholds and alerting",
+        "Billing export to BigQuery",
+        "Cost breakdown and reports",
+        "Rate quotas versus allocation quotas",
+        "Viewing usage and requesting increases",
+        "Committed use discounts",
+        "Sustained use discounts",
+        "Preemptible instances as a cost strategy",
+        "The Google Cloud pricing calculator",
+      ],
+    },
+    {
       title: "Domain 5 — Configuring Access & Security (~21%)",
       weekRange: "Week 7",
       description:
@@ -123,6 +231,24 @@ export const gcpAssociateCloudEngineerTrainingInPune: CourseRichContent = {
         "Workload Identity Federation",
         "VPC Service Controls",
         "Encryption — Google-managed, CMEK, CSEK",
+      ],
+    },
+    {
+      title: "IAM in Depth — Roles, Service Accounts & Org Policy",
+      weekRange: "Week 7",
+      description:
+        "The largest identity component of the exam, and the one with the most Google-specific behaviour. The three role types — basic, predefined and custom — with the standing guidance that basic roles are almost never the correct exam answer. Policy inheritance down the resource hierarchy, and the union behaviour that means a permission granted higher up cannot be removed lower down by an allow policy.\n\nService accounts get extended treatment: default against user-managed, impersonation, key management and the strong preference for avoiding downloaded keys, and Workload Identity for GKE. Organisation policy constraints, IAM Conditions and the audit questions the exam asks close the module.",
+      topics: [
+        "Basic, predefined and custom roles",
+        "Why basic roles are rarely the right answer",
+        "Policy inheritance and the union rule",
+        "Members, bindings and allow policies",
+        "Service accounts — default and user-managed",
+        "Service account impersonation",
+        "Key management, and avoiding downloaded keys",
+        "Workload Identity for GKE",
+        "Organisation policy constraints",
+        "IAM Conditions and audit logging",
       ],
     },
     {
@@ -159,6 +285,43 @@ export const gcpAssociateCloudEngineerTrainingInPune: CourseRichContent = {
       ],
     },
   ],
+
+  roadmapImage: {
+    src: "/images/courses/gcp-ace-path-v1.webp",
+    width: 1400,
+    height: 900,
+    alt: "Eight-stage Google Cloud Associate Cloud Engineer learning path taught at Archer Infotech Pune: foundations covering the console, gcloud, Cloud Shell and the resource hierarchy; setting up cloud projects as domain one at about 17 percent covering projects, billing and accounts; planning and configuring as domain two at about 17 percent covering compute, storage and network choices; deploying and implementing as domain three at about 25 percent covering Compute Engine, Google Kubernetes Engine, Cloud Run and functions; ensuring successful operation as domain four at about 20 percent covering Cloud Monitoring, Cloud Logging and quotas; configuring access and security as domain five at about 21 percent covering identity and access management, service accounts and organisation policy; mock exams with timed papers, gcloud command drills and gap closure; and exam day covering booking, proctoring, pacing and result.",
+    caption:
+      "The Associate Cloud Engineer exam domains with their weightings, in the order this course teaches them. Each stage expands into the modules below.",
+  },
+
+  syllabusDownload: {
+    pdfUrl: "/downloads/gcp-associate-cloud-engineer-syllabus-v1.pdf",
+    title: "Google Cloud Associate Cloud Engineer Syllabus — Complete Module List",
+    slug: "gcp-associate-cloud-engineer-syllabus",
+    blurb:
+      "All fifteen modules as a 6-page PDF — the gcloud and Cloud Shell refresher, every ACE domain with its weighting, and the depth modules on compute product selection, storage and database fit, Google Cloud's global VPC and firewall model, the operations suite, billing and quotas, and IAM with service accounts. Generated from this page, so the two cannot disagree.",
+    asideBlocks: [
+      {
+        heading: "What is inside the 6-page PDF",
+        items: [
+          "All fifteen modules in teaching order, each with its schedule, description and full topic list.",
+          "The five ACE domains with their published weightings, so you can plan study time against what is actually scored.",
+          "Heavy gcloud coverage, because the exam is unusually command-line focused for an associate certification and shows you invocations to interpret.",
+          "The Google-specific behaviour that trips candidates carrying AWS or Azure assumptions: global VPCs with regional subnets, IAM policy inheritance and the union rule, and why basic roles are rarely the right answer.",
+        ],
+      },
+      {
+        heading: "Roles this syllabus prepares you for",
+        items: [
+          "Cloud Engineer on Google Cloud — the role the certification is written for.",
+          "Cloud Administrator at Pune firms running GCP workloads.",
+          "Data-adjacent engineers, since GCP concentrates in analytics and ML teams.",
+          "The foundation for Professional Cloud Architect and Data Engineer.",
+        ],
+      },
+    ],
+  },
 
   projects: [
     {
@@ -355,6 +518,36 @@ export const gcpAssociateCloudEngineerTrainingInPune: CourseRichContent = {
       question: "Are the named trainers actually teaching?",
       answer:
         "Vinod and Yogesh personally lead every session of every batch.",
+    },
+    {
+      question: "Is the certification exam fee included in the course fee?",
+      answer:
+        "No, and no honest institute includes it. The exam is booked and paid directly with Google Cloud through their own portal, at their published price, and the voucher is issued in your name. Our fee covers the training, labs, mock exams and the guidance to book — separating the two is the only arrangement that lets you sit the exam whenever you are ready rather than whenever a batch ends.",
+    },
+    {
+      question: "What happens if I fail the exam?",
+      answer:
+        "Google Cloud sets the retake policy — there is a waiting period before a resit and the full fee applies again, so it is worth sitting only when your mock scores are consistently clear of the pass mark. From our side, you keep access to the mock papers and can rejoin a later batch's revision sessions at no cost. We would rather you delay a booking by three weeks than pay twice.",
+    },
+    {
+      question: "How long does the certification stay valid?",
+      answer:
+        "Google Cloud certifications are valid for three years for Associate level, renewed by retaking the current exam. Plan for that from the start: the recertification is considerably easier than the first attempt if you have been using the platform, and considerably harder if the certificate has been sitting on a CV while you worked on something else.",
+    },
+    {
+      question: "Will I get hands-on practice, or only theory and practice questions?",
+      answer:
+        "Hands-on throughout, in your own Google Cloud project, using the free trial credit. Every module has lab work, and the course builds a reference architecture you deploy yourself rather than watch. That matters beyond the exam: a certification with no deployed work behind it does not survive the first practical interview question, and Pune hiring panels ask them.",
+    },
+    {
+      question: "Do I need experience before taking this course?",
+      answer:
+        "Google recommends six months of hands-on Google Cloud experience. This course assumes basic cloud familiarity and, in particular, comfort at a command line — the ACE exam is unusually gcloud-heavy and week one builds that fluency. If you are entirely new to cloud, the Cloud & DevOps category covers the ground concepts first — a certification syllabus tests breadth across a platform rather than teaching what a virtual network or an identity policy is, and starting here without that background turns the course into memorisation.",
+    },
+    {
+      question: "Is a certification enough to get hired in Pune?",
+      answer:
+        "It gets your CV read, which is a real and narrow benefit. Many Pune employers and staffing partners filter on it, and consulting partners often need certified staff contractually. What converts it into an offer is being able to answer the follow-up about something you actually built — so treat the certificate and the deployed project as one deliverable, not two.",
     },
   ],
 
