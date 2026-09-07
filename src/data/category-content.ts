@@ -2205,6 +2205,44 @@ export const categoryContent: CategoryContent[] = [
         ],
       },
     ],
+    courseGroups: [
+      {
+        heading: "Start here — the entry paths",
+        blurb:
+          "The three paths our Salesforce Career Guide 2026 names as genuinely accessible without prior platform experience. Administrator and Business Analyst need no programming at all; Developer needs programming but no Salesforce.",
+        slugs: [
+          "salesforce-administrator-training-in-pune",
+          "salesforce-business-analyst-training-in-pune",
+          "salesforce-developer-training-in-pune",
+        ],
+      },
+      {
+        heading: "Cloud and functional specialisations",
+        blurb:
+          "Depth in one part of the platform. Sales Cloud suits people who already understand selling, Marketing Cloud is one of the few genuinely non-technical high-value specialisations, and Data & Analytics has become the dependency everything AI-related now waits on.",
+        slugs: [
+          "salesforce-sales-cloud-training-in-pune",
+          "salesforce-marketing-cloud-training-in-pune",
+          "salesforce-data-analytics-training-in-pune",
+        ],
+      },
+      {
+        heading: "Progression tracks — experience required",
+        blurb:
+          "Not entry routes, and we gate both at the counselling session. Consulting assumes roughly two years on the platform; the Architect track assumes roughly five. Our career guide places architecture at a five-to-eight-year destination, and we are not going to contradict our own advice to sell a seat.",
+        slugs: [
+          "salesforce-consultant-training-in-pune",
+          "salesforce-architect-training-in-pune",
+        ],
+      },
+      {
+        heading: "Combined programme",
+        blurb:
+          "The original combined track, covering the declarative administrator work and the programmatic developer work in one three-month programme. Suits learners who want both halves together rather than sequentially.",
+        slugs: ["salesforce-training-in-pune"],
+      },
+    ],
+
   },
   // ============================================================
   // BOOTCAMPS
