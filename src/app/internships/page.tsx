@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import {
-  Clock,
   Users,
   Award,
   Briefcase,
@@ -14,12 +13,14 @@ import {
   Globe,
   Cpu,
   Database,
+  FileText,
+  ClipboardList,
+  Target,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PageEvent } from "@/components/analytics/page-event";
-import { TrackedLink } from "@/components/analytics/tracked-link";
 import { buildPageMetadata } from "@/lib/seo";
 import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { FaqSection } from "@/components/seo/faq-section";
@@ -29,13 +30,92 @@ import { BreadcrumbJsonLd } from "@/components/seo/json-ld";
 import { LastUpdated } from "@/components/seo/last-updated";
 import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
 import { SourceCitations } from "@/components/seo/source-citations";
+import { InternshipInterestDialog } from "@/components/internships/internship-interest-dialog";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Internship Programs in Pune — 3-Month & 6-Month Tracks",
+  title: "IT Internship in Pune for BCA, BTech, MCA & Diploma Students",
   description:
-    "Gain real-world experience with Archer Infotech internship programs in Pune. Choose from 3-month or 6-month tracks, work on live projects, get mentored by industry experts, and kickstart your IT career.",
+    "Mentor-led IT internship and OJT programs in Pune for Diploma, BCA, BSc, BTech and MCA students. Java, Python, Full Stack, Data Analytics, AI/ML, GenAI, Testing and DevOps tracks with project work, documentation support and certification.",
   path: "/internships",
 });
+
+/**
+ * The four internship paths.
+ *
+ * The page previously offered only "3-month" and "6-month", which are
+ * products rather than goals — a BCA student who needs 120 mapped hours and a
+ * logbook could not tell which one applied to them. These are named by the
+ * situation the visitor is actually in.
+ */
+const INTERNSHIP_PATHS = [
+  {
+    name: "Academic Internship / OJT",
+    icon: ClipboardList,
+    bestFor: "Diploma, BCA / BSc, B.E. / B.Tech",
+    duration: "4–16 weeks",
+    outcome: "Hours + mentor + project + logbook/report + certificate",
+  },
+  {
+    name: "3-Month Skill + Project",
+    icon: Code,
+    bestFor: "College students needing skills and a portfolio",
+    duration: "12 weeks",
+    outcome: "Job-relevant stack + capstone project",
+  },
+  {
+    name: "MCA Final-Semester Project",
+    icon: FileText,
+    bestFor: "MCA students",
+    duration: "3–4 months",
+    outcome: "End-to-end SDLC project + report + viva",
+  },
+  {
+    name: "6-Month Job-Ready",
+    icon: Target,
+    bestFor: "Final-year students and graduates",
+    duration: "6 months",
+    outcome: "Deep specialisation + projects + placement preparation",
+  },
+] as const;
+
+/** What a student actually does, week to week. */
+const WHAT_YOU_DO = [
+  "Technology orientation and environment setup",
+  "Git and GitHub from first commit to pull request",
+  "Agile task tracking, stand-ups and sprint rhythm",
+  "Coding, debugging and documentation practices",
+  "A mini assignment before the main build",
+  "An industry-style project, with live-project exposure where available",
+  "Testing and quality checks on your own work",
+  "Deployment and demo where the project allows it",
+  "Responsible AI-assisted development and testing",
+] as const;
+
+/** Documentation a college typically asks for. */
+const COLLEGE_DOCS = [
+  "Internship offer / joining letter",
+  "Program title, domain, dates and expected hours",
+  "Named internship mentor or supervisor",
+  "Attendance and engagement record",
+  "Daily or weekly logbook",
+  "Weekly progress review",
+  "Project statement and objectives",
+  "Project report template and guidance",
+  "Mentor evaluation in your college's format where feasible",
+  "Internship completion certificate",
+  "Final presentation and viva support",
+] as const;
+
+/** What the student leaves with, for the job hunt rather than the college. */
+const CAREER_OUTCOMES = [
+  "A GitHub profile and portfolio with the project in it",
+  "A resume write-up of the project that survives questioning",
+  "A LinkedIn project description",
+  "A mock technical interview with feedback",
+  "Presentation and communication practice",
+  "A performance-based letter of recommendation",
+  "Placement assistance on eligible programs",
+] as const;
 
 interface InternshipProgram {
   id: string;
@@ -252,11 +332,15 @@ function ProgramCard({ program }: { program: InternshipProgram }) {
             ))}
           </div>
         </div>
-        <TrackedLink
-          href="/contact"
-          className="inline-flex items-center text-sm font-medium text-primary hover:text-secondary transition-colors"
-          event="internship_apply_clicked"
-          properties={{
+        {/* Collection stays on this page. The card already knows which
+            programme the visitor is looking at, so the popup opens with that
+            track preselected rather than sending them to a blank /contact
+            form that has forgotten the context. */}
+        <InternshipInterestDialog
+          triggerClassName="inline-flex items-center text-sm font-medium text-primary hover:text-secondary transition-colors"
+          defaultTrack={program.title}
+          analyticsEvent="internship_apply_clicked"
+          analyticsProperties={{
             program_id: program.id,
             program_title: program.title,
             duration: program.duration,
@@ -264,7 +348,7 @@ function ProgramCard({ program }: { program: InternshipProgram }) {
           }}
         >
           Apply Now →
-        </TrackedLink>
+        </InternshipInterestDialog>
       </CardContent>
     </Card>
   );
@@ -298,25 +382,32 @@ export default function InternshipsPage() {
               <span>Now Accepting Applications</span>
             </Badge>
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              Internship Programs
+              IT Internship Programs in Pune for Diploma, BCA, BSc, B.E./B.Tech
+              &amp; MCA Students
             </h1>
             <LastUpdated iso={EVERGREEN_LAST_REVIEWED} className="mt-3 text-xs md:text-sm text-white/70" />
             <p className="text-lg text-white/80 mb-6">
-              Gain real-world experience and kickstart your IT career with our
-              industry-focused internship programs. Choose between our 3-month
-              internship track or 6-month job-ready internship track based on
-              your career goals.
+              Build practical IT skills, complete an industry-style project and
+              get the documentation you need for college and career. Archer
+              Infotech offers mentor-led internship and OJT programs in Full
+              Stack Development, Data &amp; AI, Generative AI, Software Testing,
+              Cloud &amp; DevOps and more — available in classroom, live-online
+              and hybrid formats.
             </p>
-            <div className="flex flex-wrap gap-4">
-              <div className="flex items-center gap-2 bg-white/10 rounded-lg px-4 py-2">
-                <GraduationCap className="h-5 w-5 text-secondary" />
-                <span className="text-sm">3-Month Internship</span>
-              </div>
-              <div className="flex items-center gap-2 bg-white/10 rounded-lg px-4 py-2">
-                <Award className="h-5 w-5 text-secondary" />
-                <span className="text-sm">6-Month Job-Ready Internship</span>
-              </div>
+            <div className="mb-6 flex flex-wrap gap-3">
+              {INTERNSHIP_PATHS.map((path) => (
+                <div
+                  key={path.name}
+                  className="flex items-center gap-2 rounded-lg bg-white/10 px-4 py-2"
+                >
+                  <path.icon className="h-5 w-5 text-secondary" />
+                  <span className="text-sm">{path.name}</span>
+                </div>
+              ))}
             </div>
+            <InternshipInterestDialog triggerClassName="inline-flex h-12 items-center justify-center rounded-lg bg-secondary px-6 font-medium text-secondary-foreground transition-colors hover:bg-secondary/90">
+              Tell us what you need
+            </InternshipInterestDialog>
           </div>
         </div>
       </section>
@@ -324,18 +415,145 @@ export default function InternshipsPage() {
       {/* Definitive Answer Paragraph — citation-friendly factual opening
           enumerating both internship tracks and program list. P8-07. */}
       <DefinitiveAnswer eyebrow="Internship Programs at Archer Infotech, Pune">
-        Archer Infotech runs two internship tracks for IT learners in
-        Pune. The 3-month foundation track covers Programming Fundamentals,
-        PHP Full Stack + AI, Web Development + AI, Data Analytics and
-        AI/ML Basics — designed for college students seeking industry
-        exposure. The 6-month job-ready track offers ten specialisations
-        including Java Full Stack, .NET Full Stack, MERN, Python Full
-        Stack, AI Engineer, Data Scientist, Data Engineer, Cloud / DevOps,
-        IoT + AI and Software Engineer — designed for graduates targeting
-        a job offer. Both tracks run hybrid (Kothrud campus + online),
-        include live projects, mentor 1:1s, an industry-recognised
-        certificate and placement assistance.
+        Archer Infotech runs four internship paths for IT learners in Pune.
+        The Academic Internship / OJT path runs 4 to 16 weeks and is mapped to
+        the requirement a college shares with us. The 3-Month Skill + Project
+        Internship is a 12-week portfolio-focused track. The MCA
+        Final-Semester Internship / Project runs 3 to 4 months as an
+        end-to-end SDLC project with report and viva support. The 6-Month
+        Job-Ready Internship adds deep specialisation and interview
+        preparation. Technology tracks include Java, Python, MERN and .NET
+        Full Stack, Data Analytics, Data Science and Machine Learning,
+        Generative AI, Software Testing and QA Automation, and Cloud and
+        DevOps. All paths run in classroom, live-online or hybrid format from
+        the Kothrud campus, include a mentor, an industry-style project,
+        logbook and report guidance, and an Archer Infotech Internship
+        Completion Certificate. Final credit acceptance is governed by your
+        college or university.
       </DefinitiveAnswer>
+
+      {/* Choose your internship goal — the page's real entry point. */}
+      <section className="py-16">
+        <div className="container mx-auto px-4">
+          <div className="mx-auto mb-10 max-w-3xl text-center">
+            <h2 className="mb-3 text-3xl font-bold">
+              Choose your internship goal
+            </h2>
+            <p className="text-muted-foreground">
+              Four paths, named by the situation you are in rather than by how
+              long they run. If none of them quite fits your college&rsquo;s
+              requirement, tell us and we will map one.
+            </p>
+          </div>
+
+          <div className="overflow-x-auto rounded-xl border">
+            <table className="w-full min-w-[720px] border-collapse text-sm">
+              <caption className="sr-only">
+                Archer Infotech internship paths compared by audience,
+                duration and outcome
+              </caption>
+              <thead>
+                <tr className="bg-muted/50">
+                  <th scope="col" className="p-4 text-left font-semibold">Path</th>
+                  <th scope="col" className="p-4 text-left font-semibold">Best for</th>
+                  <th scope="col" className="p-4 text-left font-semibold">Typical duration</th>
+                  <th scope="col" className="p-4 text-left font-semibold">Primary outcome</th>
+                </tr>
+              </thead>
+              <tbody>
+                {INTERNSHIP_PATHS.map((path) => (
+                  <tr key={path.name} className="border-t">
+                    <th scope="row" className="p-4 text-left font-medium">
+                      {path.name}
+                    </th>
+                    <td className="p-4 text-muted-foreground">{path.bestFor}</td>
+                    <td className="p-4 text-muted-foreground">{path.duration}</td>
+                    <td className="p-4 text-muted-foreground">{path.outcome}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      {/* College Internship / OJT — the section this page most needed. */}
+      <section className="bg-muted/30 py-16">
+        <div className="container mx-auto px-4">
+          <div className="mx-auto max-w-3xl">
+            <h2 className="mb-3 text-3xl font-bold">
+              Need an internship for your college curriculum?
+            </h2>
+            <p className="mb-6 text-muted-foreground">
+              Share your college&rsquo;s internship or OJT requirement with us —
+              duration, hours, domain and documentation format. We will help map
+              your internship plan to the requirement and provide structured
+              mentoring, project work, progress reviews and completion
+              documentation.
+            </p>
+
+            <h3 className="mb-3 font-semibold">Support can include</h3>
+            <ul className="mb-6 grid gap-2 sm:grid-cols-2">
+              {COLLEGE_DOCS.map((doc) => (
+                <li key={doc} className="flex gap-2.5 text-sm">
+                  <CheckCircle className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                  <span className="text-muted-foreground">{doc}</span>
+                </li>
+              ))}
+            </ul>
+
+            {/* Stated plainly rather than buried: we do not control credit. */}
+            <blockquote className="mb-6 border-l-4 border-secondary bg-background p-4 text-sm text-muted-foreground">
+              Final approval and credit acceptance are governed by your college
+              or university. We provide documentation support and map the plan
+              to the requirement you share with us — we cannot guarantee credits
+              on your college&rsquo;s behalf.
+            </blockquote>
+
+            <InternshipInterestDialog triggerClassName="inline-flex h-11 items-center justify-center rounded-lg bg-primary px-6 font-medium text-primary-foreground transition-colors hover:bg-primary/90">
+              Share your college requirement
+            </InternshipInterestDialog>
+          </div>
+        </div>
+      </section>
+
+      {/* What you will actually do + what you leave with. */}
+      <section className="py-16">
+        <div className="container mx-auto px-4">
+          <div className="grid gap-10 lg:grid-cols-2">
+            <div>
+              <h2 className="mb-3 text-2xl font-bold">
+                What you will actually do
+              </h2>
+              <p className="mb-5 text-sm text-muted-foreground">
+                Project-based work, not certificate-only participation.
+              </p>
+              <ul className="space-y-2.5">
+                {WHAT_YOU_DO.map((item) => (
+                  <li key={item} className="flex gap-2.5 text-sm">
+                    <CheckCircle className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                    <span className="text-muted-foreground">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h2 className="mb-3 text-2xl font-bold">What you leave with</h2>
+              <p className="mb-5 text-sm text-muted-foreground">
+                Evidence for the job hunt, not only for the college file.
+              </p>
+              <ul className="space-y-2.5">
+                {CAREER_OUTCOMES.map((item) => (
+                  <li key={item} className="flex gap-2.5 text-sm">
+                    <Award className="mt-0.5 h-4 w-4 shrink-0 text-secondary" />
+                    <span className="text-muted-foreground">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Benefits Section */}
       <section className="py-16 bg-muted/30">
@@ -482,14 +700,14 @@ export default function InternshipsPage() {
                     </li>
                   ))}
                 </ul>
-                <TrackedLink
-                  href="/contact"
-                  className="inline-flex items-center justify-center w-full gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors mt-6"
-                  event="internship_apply_clicked"
-                  properties={{ duration: "3-month", location: "comparison_card" }}
+                <InternshipInterestDialog
+                  triggerClassName="inline-flex items-center justify-center w-full gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors mt-6"
+                  defaultPath="3-Month Skill + Project Internship"
+                  analyticsEvent="internship_apply_clicked"
+                  analyticsProperties={{ duration: "3-month", location: "comparison_card" }}
                 >
                   Apply for 3-Month Internship
-                </TrackedLink>
+                </InternshipInterestDialog>
               </CardContent>
             </Card>
 
@@ -519,14 +737,14 @@ export default function InternshipsPage() {
                     </li>
                   ))}
                 </ul>
-                <TrackedLink
-                  href="/contact"
-                  className="inline-flex items-center justify-center w-full gap-2 bg-secondary text-secondary-foreground px-6 py-3 rounded-lg font-medium hover:bg-secondary/90 transition-colors mt-6"
-                  event="internship_apply_clicked"
-                  properties={{ duration: "6-month", location: "comparison_card" }}
+                <InternshipInterestDialog
+                  triggerClassName="inline-flex items-center justify-center w-full gap-2 bg-secondary text-secondary-foreground px-6 py-3 rounded-lg font-medium hover:bg-secondary/90 transition-colors mt-6"
+                  defaultPath="6-Month Job-Ready Internship"
+                  analyticsEvent="internship_apply_clicked"
+                  analyticsProperties={{ duration: "6-month", location: "comparison_card" }}
                 >
                   Apply for 6-Month Internship
-                </TrackedLink>
+                </InternshipInterestDialog>
               </CardContent>
             </Card>
           </div>
@@ -578,14 +796,13 @@ export default function InternshipsPage() {
                     </li>
                   ))}
                 </ol>
-                <TrackedLink
-                  href="/contact"
-                  className="inline-flex items-center gap-2 bg-secondary text-secondary-foreground px-6 py-3 rounded-lg font-medium hover:bg-secondary/90 transition-colors mt-6 w-full justify-center"
-                  event="internship_apply_clicked"
-                  properties={{ location: "how_to_apply_section" }}
+                <InternshipInterestDialog
+                  triggerClassName="inline-flex items-center gap-2 bg-secondary text-secondary-foreground px-6 py-3 rounded-lg font-medium hover:bg-secondary/90 transition-colors mt-6 w-full justify-center"
+                  analyticsEvent="internship_apply_clicked"
+                  analyticsProperties={{ location: "how_to_apply_section" }}
                 >
                   Enquire About Internship Programs
-                </TrackedLink>
+                </InternshipInterestDialog>
               </CardContent>
             </Card>
           </div>
@@ -625,12 +842,13 @@ export default function InternshipsPage() {
             selected 6-month internship tracks.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 bg-secondary text-secondary-foreground px-6 py-3 rounded-lg font-medium hover:bg-secondary/90 transition-colors"
+            <InternshipInterestDialog
+              triggerClassName="inline-flex items-center gap-2 bg-secondary text-secondary-foreground px-6 py-3 rounded-lg font-medium hover:bg-secondary/90 transition-colors"
+              analyticsEvent="internship_apply_clicked"
+              analyticsProperties={{ location: "final_cta" }}
             >
               Apply Now
-            </Link>
+            </InternshipInterestDialog>
             <Link
               href="/courses"
               className="inline-flex items-center gap-2 bg-white/10 text-white px-6 py-3 rounded-lg font-medium hover:bg-white/20 transition-colors"
