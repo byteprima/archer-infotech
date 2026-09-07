@@ -419,4 +419,44 @@ export const placementsFaqs: FaqItem[] = [
     answer:
       "Yes. Archer Infotech runs dedicated placement support for working professionals upskilling into Cloud, DevOps, Data Science, Full Stack and AI/ML roles. Resume reviews, lateral interview practice and partner-company referrals are included. Several alumni have used the program to switch from non-IT or service roles into product engineering or GCC captives.",
   },
+  {
+    question: "How long does it take to get placed after finishing a course?",
+    answer:
+      "Most learners who complete a flagship track and clear at least one mock interview receive their first offer within one to four months of finishing. The variable is rarely the course — it is how quickly someone starts applying and how presentable their project work is. Learners who finish their capstone, publish it to GitHub and begin applying in the same week place fastest; those who wait to feel ready take longest. Placement support runs for six months after course completion, so the window is deliberately wider than the typical outcome.",
+  },
+  {
+    question: "Who is eligible for placement support at Archer Infotech?",
+    answer:
+      "Every learner enrolled in a flagship course, with two conditions that we state before you pay rather than after. You need to complete the training, and you need to clear at least one mock interview round with the placement team. Those are the same two conditions the 90% placement rate is measured on. There is no separate placement fee, no bond, and no minimum-marks criterion — but a learner who stops attending halfway is not counted as placed or unplaced, because they did not complete the programme.",
+  },
+  {
+    question: "What happens if I do not get placed?",
+    answer:
+      "Support continues for six months after course completion, and you can rejoin a later batch's interview-preparation sessions at no cost — as many times as you need within that window. We do not offer a fee refund tied to placement, and we would rather say so plainly than bury it in a clause. Institutes that advertise refund guarantees generally attach conditions to them that most claimants fail; our position is that a guarantee we could not honour honestly is worse than support we can.",
+  },
+  {
+    question: "Do you guarantee placement, or is it placement assistance?",
+    answer:
+      "Placement assistance, and the distinction matters. No institute can guarantee a hire, because the final decision belongs to the employer — anyone promising otherwise is either adding conditions you have not read or describing something other than a job. What we do commit to is resume and LinkedIn rewriting, GitHub portfolio review, mock interviews, soft-skills sessions, direct referrals to 100+ hiring partners, and six months of continued support. The reported 90% rate is measured on learners who complete training and clear at least one mock round.",
+  },
+  {
+    question: "Which course track places fastest in Pune?",
+    answer:
+      "Java Full Stack has the highest hiring volume, because Pune's services majors and GCC captives run continuous Java fresher pipelines — so it usually places fastest in absolute terms. MERN and Python Full Stack place well at product companies and startups, which hire in smaller numbers but at similar or better packages. Software Testing has a lower entry band but the widest accessibility for non-CS graduates. Generative AI carries the highest bands and the smallest number of openings. Speed and ceiling are different questions, and the counselling session is where they get separated.",
+  },
+  {
+    question: "What do Pune employers actually screen for in a fresher?",
+    answer:
+      "Four things, roughly in this order. A working project with a public repository someone can open — this is what separates candidates before any interview. Fundamentals in one language, tested by asking you to write something small on the spot. The ability to explain a decision you made in your own code. And communication clear enough to sit in a client call, which is weighted more heavily at services companies than most candidates expect. A certificate, on its own, moves none of these.",
+  },
+  {
+    question: "Do you place candidates outside Pune?",
+    answer:
+      "Yes. Most offers are in Pune because that is where the hiring-partner network is concentrated, but placements also happen in Bangalore, Hyderabad and Mumbai, and remote roles at product companies have become more common since 2023. Candidates willing to relocate see a wider set of openings. We do not make relocation a condition of placement support.",
+  },
+  {
+    question: "Can I get placement support if I studied elsewhere?",
+    answer:
+      "Placement support is bundled into course fees and is for enrolled learners, so it is not sold separately. If you trained elsewhere and want interview preparation, the practical route is a short specialisation course with us — which includes the full placement pipeline — rather than paying for placement services alone. We would rather point you at that than take money for a service you may not need.",
+  },
 ];

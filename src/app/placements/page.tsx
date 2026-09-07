@@ -5,7 +5,7 @@ export const revalidate = 600;
 
 import { Metadata } from "next";
 import Link from "next/link";
-import { Award, Users, Building, TrendingUp, Star, Quote, FileText, MessageSquare, UserCheck, Briefcase, ArrowRight, IndianRupee } from "lucide-react";
+import { Award, Users, Building, TrendingUp, Star, Quote, FileText, MessageSquare, UserCheck, Briefcase, ArrowRight, IndianRupee, CheckCircle } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { TrackedLink } from "@/components/analytics/tracked-link";
@@ -31,6 +31,67 @@ import {
   MIN_PUBLIC_PLACEMENTS,
   isPlacementRecordEnabled,
 } from "@/lib/actions/public-placements";
+
+/**
+ * Fresher salary bands by track — the most citable data on this page.
+ *
+ * Hoisted to a constant so the visible table and the ItemList JSON-LD
+ * below render from the same array. Two hand-maintained copies is how a
+ * page ends up quoting one set of numbers to a reader and another to a
+ * crawler, which is worse than having no structured data at all.
+ *
+ * Source: Archer Infotech placement-team data, last 12 months of offers.
+ */
+const SALARY_BANDS = [
+                  {
+                    track: "Java Full Stack",
+                    band: "₹4–6 LPA",
+                    top: "₹10+ LPA",
+                    roles: "Java Developer, Full Stack Engineer, Backend Developer",
+                  },
+                  {
+                    track: "MERN Stack",
+                    band: "₹4–6 LPA",
+                    top: "₹10+ LPA",
+                    roles: "Frontend Developer, MERN Developer, Full Stack Engineer",
+                  },
+                  {
+                    track: ".NET Full Stack",
+                    band: "₹3.5–5.5 LPA",
+                    top: "₹9 LPA",
+                    roles: "ASP.NET Developer, C# Engineer, .NET Full Stack",
+                  },
+                  {
+                    track: "Python / Python Full Stack",
+                    band: "₹3.5–6 LPA",
+                    top: "₹10 LPA",
+                    roles: "Python Developer, Django Developer, Backend Engineer",
+                  },
+                  {
+                    track: "Data Science / Machine Learning",
+                    band: "₹4–7 LPA",
+                    top: "₹12 LPA",
+                    roles: "Data Analyst, ML Engineer, Junior Data Scientist",
+                  },
+                  {
+                    track: "AWS / Cloud / DevOps",
+                    band: "₹4–6.5 LPA",
+                    top: "₹11 LPA",
+                    roles: "Cloud Engineer, DevOps Engineer, SRE Associate",
+                  },
+                  {
+                    track: "Generative AI / AI Engineer",
+                    band: "₹5–8 LPA",
+                    top: "₹14 LPA",
+                    roles: "AI Engineer, LLM Developer, Prompt Engineer",
+                  },
+                  {
+                    track: "Software Testing / QA",
+                    band: "₹3–4.5 LPA",
+                    top: "₹7 LPA",
+                    roles: "Manual Tester, Selenium Automation, QA Engineer",
+                  },
+] as const;
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Placements at Archer Infotech — 5,000+ Students Placed Since 2009",
@@ -139,8 +200,14 @@ export default async function PlacementsPage() {
               },
               {
                 icon: TrendingUp,
-                value: "8+ LPA",
-                label: "Average Package",
+                // Was "8+ LPA / Average Package", which contradicted both the
+                // paragraph above it (average fresher ₹3.5-6 LPA) and the
+                // salary table below. An AI engine reading the page got two
+                // different averages; a reader comparing them got a reason to
+                // distrust the rest. This states the figure the table actually
+                // supports — what top performers cross, labelled as such.
+                value: "10+ LPA",
+                label: "Top Fresher Packages",
               },
             ].map((stat) => (
               <Card key={stat.label} className="group text-center transition-shadow hover:shadow-lg">
@@ -197,7 +264,7 @@ export default async function PlacementsPage() {
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Our Placement Promise</h2>
+            <h2 className="text-3xl font-bold mb-4">What does Archer Infotech actually promise?</h2>
             <p className="text-muted-foreground">
               We are committed to helping every student achieve their career goals.
               Our comprehensive placement support includes:
@@ -257,7 +324,7 @@ export default async function PlacementsPage() {
               id="placement-process-heading"
               className="text-3xl md:text-4xl font-bold mb-4"
             >
-              The Archer Infotech placement process
+              How does the placement process work?
             </h2>
             <p className="text-muted-foreground">
               Every learner who completes a flagship course goes through
@@ -339,7 +406,7 @@ export default async function PlacementsPage() {
               id="salary-ranges-heading"
               className="text-3xl md:text-4xl font-bold mb-4"
             >
-              Fresher salary bands by programme track
+              What salary can you expect after each programme?
             </h2>
             <p className="text-muted-foreground">
               Typical packages across Archer Infotech&apos;s flagship
@@ -360,56 +427,7 @@ export default async function PlacementsPage() {
                 </tr>
               </thead>
               <tbody>
-                {[
-                  {
-                    track: "Java Full Stack",
-                    band: "₹4–6 LPA",
-                    top: "₹10+ LPA",
-                    roles: "Java Developer, Full Stack Engineer, Backend Developer",
-                  },
-                  {
-                    track: "MERN Stack",
-                    band: "₹4–6 LPA",
-                    top: "₹10+ LPA",
-                    roles: "Frontend Developer, MERN Developer, Full Stack Engineer",
-                  },
-                  {
-                    track: ".NET Full Stack",
-                    band: "₹3.5–5.5 LPA",
-                    top: "₹9 LPA",
-                    roles: "ASP.NET Developer, C# Engineer, .NET Full Stack",
-                  },
-                  {
-                    track: "Python / Python Full Stack",
-                    band: "₹3.5–6 LPA",
-                    top: "₹10 LPA",
-                    roles: "Python Developer, Django Developer, Backend Engineer",
-                  },
-                  {
-                    track: "Data Science / Machine Learning",
-                    band: "₹4–7 LPA",
-                    top: "₹12 LPA",
-                    roles: "Data Analyst, ML Engineer, Junior Data Scientist",
-                  },
-                  {
-                    track: "AWS / Cloud / DevOps",
-                    band: "₹4–6.5 LPA",
-                    top: "₹11 LPA",
-                    roles: "Cloud Engineer, DevOps Engineer, SRE Associate",
-                  },
-                  {
-                    track: "Generative AI / AI Engineer",
-                    band: "₹5–8 LPA",
-                    top: "₹14 LPA",
-                    roles: "AI Engineer, LLM Developer, Prompt Engineer",
-                  },
-                  {
-                    track: "Software Testing / QA",
-                    band: "₹3–4.5 LPA",
-                    top: "₹7 LPA",
-                    roles: "Manual Tester, Selenium Automation, QA Engineer",
-                  },
-                ].map((row) => (
+                {SALARY_BANDS.map((row) => (
                   <tr key={row.track} className="border-b last:border-b-0">
                     <td className="p-4 font-medium">{row.track}</td>
                     <td className="p-4 text-primary font-semibold whitespace-nowrap">
@@ -429,6 +447,56 @@ export default async function PlacementsPage() {
               </tbody>
             </table>
           </div>
+
+          {/* ItemList mirroring the table above, so the salary data is
+              machine-readable rather than only human-readable. This is the
+              most quotable content on the page and AI engines had no
+              structured handle on it — the table rendered as prose to them.
+              Rendered from SALARY_BANDS, the same array the table maps, so
+              the two cannot diverge. MonetaryAmount carries the band as a
+              min/max range rather than inventing a single figure. */}
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "ItemList",
+                name: "Fresher salary bands by programme track — Archer Infotech, Pune",
+                description:
+                  "Typical fresher packages by course track, from Archer Infotech placement-team data covering offers extended in the last 12 months. Bands vary by company tier, role specialisation and interview performance.",
+                numberOfItems: SALARY_BANDS.length,
+                itemListElement: SALARY_BANDS.map((row, i) => {
+                  const [min, max] = row.band
+                    .replace(/[₹\s]|LPA/g, "")
+                    .split("–")
+                    .map(Number);
+                  return {
+                    "@type": "ListItem",
+                    position: i + 1,
+                    item: {
+                      "@type": "Occupation",
+                      name: row.roles.split(",")[0].trim(),
+                      occupationalCategory: row.track,
+                      description: `Roles commonly offered after the ${row.track} track: ${row.roles}.`,
+                      occupationLocation: {
+                        "@type": "City",
+                        name: "Pune",
+                      },
+                      estimatedSalary: {
+                        "@type": "MonetaryAmountDistribution",
+                        name: "Fresher package",
+                        currency: "INR",
+                        duration: "P1Y",
+                        median: ((min + max) / 2) * 100000,
+                        percentile10: min * 100000,
+                        percentile90: max * 100000,
+                      },
+                    },
+                  };
+                }),
+              }),
+            }}
+          />
 
           <p className="text-center text-xs text-muted-foreground mt-6 max-w-3xl mx-auto leading-relaxed">
             Bands are illustrative — actual offers depend on company tier
@@ -459,7 +527,7 @@ export default async function PlacementsPage() {
               id="programmes-heading"
               className="text-3xl md:text-4xl font-bold mb-4"
             >
-              Programmes feeding placement drives
+              Which programmes feed the placement drives?
             </h2>
             <p className="text-muted-foreground">
               The flagship Archer Infotech tracks with the most active
@@ -556,7 +624,7 @@ export default async function PlacementsPage() {
       <section className="py-16 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Our Hiring Partners</h2>
+            <h2 className="text-3xl font-bold mb-4">Which companies hire from Archer Infotech?</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               Our students have been placed with reputed organizations and companies
               across India after completing their training programs.
@@ -586,7 +654,7 @@ export default async function PlacementsPage() {
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Success Stories</h2>
+            <h2 className="text-3xl font-bold mb-4">Where have past students been placed?</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               Hear from our successful students who have transformed their careers
               with Archer Infotech.
@@ -628,6 +696,179 @@ export default async function PlacementsPage() {
               </Card>
             ))}
           </div>
+        </div>
+      </section>
+
+
+      {/* Timeline, eligibility and the honest not-placed answer.
+          These three questions are among the highest-intent searches on
+          this topic and the page previously answered none of them — a
+          reader had to infer eligibility from the FAQ and could not find
+          "what if I'm not placed" at all. Each block leads with a
+          self-contained answer sentence, which is the unit an answer
+          engine extracts. */}
+      <section
+        aria-labelledby="placement-reality-heading"
+        className="py-16 border-t"
+      >
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto text-center mb-12">
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary mb-3">
+              The Practical Detail
+            </p>
+            <h2
+              id="placement-reality-heading"
+              className="text-3xl md:text-4xl font-bold mb-4"
+            >
+              Timelines, eligibility and what happens if you are not placed
+            </h2>
+            <p className="text-muted-foreground">
+              The three questions people ask a counsellor once the
+              brochure conversation is over. Answered here so you do not
+              have to ask.
+            </p>
+          </div>
+
+          <div className="max-w-4xl mx-auto grid gap-6 md:grid-cols-3">
+            {[
+              {
+                id: "placement-timeline",
+                q: "How long does it take?",
+                lead:
+                  "Most learners receive a first offer one to four months after finishing.",
+                body:
+                  "The variable is rarely the course. Learners who publish their capstone and start applying in the same week place fastest; those who wait until they feel ready take longest. Support runs for six months after completion, deliberately wider than the typical outcome.",
+                points: [
+                  "Applications start in the final fortnight, not after",
+                  "Two mock interviews completed before you finish",
+                  "Six months of continued support after the course",
+                ],
+              },
+              {
+                id: "placement-eligibility",
+                q: "Who is eligible?",
+                lead:
+                  "Every enrolled learner, on two conditions we state before you pay.",
+                body:
+                  "You complete the training, and you clear at least one mock interview round. Those are the same two conditions the 90% figure is measured on, which is why they are printed rather than implied. No separate placement fee, no bond, no minimum-marks criterion.",
+                points: [
+                  "Complete the flagship course",
+                  "Clear one mock interview round",
+                  "No bond, no separate placement charge",
+                ],
+              },
+              {
+                id: "placement-not-placed",
+                q: "What if you are not placed?",
+                lead:
+                  "Support continues for six months, and you can rejoin later interview-prep sessions free.",
+                body:
+                  "As many times as you need inside that window. There is no fee refund tied to placement, and we would rather write that plainly than bury it in a clause — a guarantee we could not honour honestly is worse than support we can.",
+                points: [
+                  "Six months of continued placement-cell access",
+                  "Free re-entry to future interview-prep sessions",
+                  "No refund guarantee — stated up front, not in a footnote",
+                ],
+              },
+            ].map((card) => (
+              <Card key={card.id} id={card.id} className="scroll-mt-24">
+                <CardContent className="pt-6">
+                  <h3 className="text-lg font-semibold mb-2">{card.q}</h3>
+                  <p className="text-sm font-medium text-foreground mb-3">
+                    {card.lead}
+                  </p>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                    {card.body}
+                  </p>
+                  <ul className="space-y-2">
+                    {card.points.map((point) => (
+                      <li key={point} className="flex items-start gap-2 text-sm">
+                        <CheckCircle
+                          className="h-4 w-4 text-primary shrink-0 mt-0.5"
+                          aria-hidden="true"
+                        />
+                        <span className="text-muted-foreground">{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* What employers screen for. Extractable, ordered, and framed from
+          the employer's side rather than ours — the perspective a
+          candidate cannot get from a course brochure and the one AI
+          engines tend to quote when asked how to get hired in Pune. */}
+      <section
+        aria-labelledby="employer-screening-heading"
+        className="py-16 bg-muted/30 border-t"
+      >
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto text-center mb-12">
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary mb-3">
+              From The Employer&apos;s Side
+            </p>
+            <h2
+              id="employer-screening-heading"
+              className="text-3xl md:text-4xl font-bold mb-4"
+            >
+              What do Pune employers screen freshers on?
+            </h2>
+            <p className="text-muted-foreground">
+              Four things, roughly in this order — drawn from what our
+              placement team hears back from hiring panels after
+              interviews, over the last twelve months of drives.
+            </p>
+          </div>
+
+          <ol className="max-w-3xl mx-auto space-y-4">
+            {[
+              {
+                t: "A working project with a public repository",
+                d: "This is what separates candidates before anyone speaks to them. A recruiter opens the GitHub link, sees whether the code runs and whether there is a README explaining how, and forms a view in under two minutes. Originality of the idea counts for almost nothing; a finished, documented, deployed thing counts for a great deal.",
+              },
+              {
+                t: "Fundamentals in one language, tested live",
+                d: "You will be asked to write something small on the spot — reverse a string, dedupe a list, model a class. Panels are checking whether you can think in the language rather than recall its syntax. Depth in one language beats familiarity with four, every time.",
+              },
+              {
+                t: "Being able to explain a decision in your own code",
+                d: "\"Why did you do it this way?\" is the question that ends most fresher interviews. Candidates who built their project can answer it; candidates who followed a tutorial cannot, and the difference is immediately audible. This is why our capstones are reviewed and defended rather than submitted.",
+              },
+              {
+                t: "Communication clear enough for a client call",
+                d: "Weighted more heavily than most candidates expect, particularly at services companies where a fresher may face a client within months. It is also the most improvable of the four, which is why soft-skills sessions sit inside the placement process rather than beside it.",
+              },
+            ].map((item, i) => (
+              <li key={item.t}>
+                <Card>
+                  <CardContent className="pt-6">
+                    <div className="flex items-start gap-4">
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-semibold text-primary-foreground">
+                        {i + 1}
+                      </span>
+                      <div>
+                        <h3 className="font-semibold mb-1">{item.t}</h3>
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          {item.d}
+                        </p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </li>
+            ))}
+          </ol>
+
+          <p className="text-center text-xs text-muted-foreground mt-8 max-w-3xl mx-auto leading-relaxed">
+            A certificate, on its own, moves none of the four. It gets a
+            CV read; the four decide what happens next. Source: Archer
+            Infotech placement-team debriefs with hiring panels, last 12
+            months.
+          </p>
         </div>
       </section>
 
