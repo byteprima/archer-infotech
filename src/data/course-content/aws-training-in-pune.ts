@@ -69,76 +69,176 @@ export const awsTrainingInPune: CourseRichContent = {
       ],
     },
     {
-      title: "Networking — VPC, Subnets, Routing, Connectivity",
+      title: "Networking — VPC, Subnets, Routing & Isolation",
       weekRange: "Week 3",
       description:
-        "Cloud networking is where most certification candidates lose marks and most engineers lose production weekends. We build a VPC from scratch — public and private subnets across two AZs, a NAT Gateway, an Internet Gateway, route tables, security groups, and Network ACLs — and prove the design with a working three-tier application (ALB → EC2 → RDS). Then add VPC Peering, Transit Gateway concepts, VPC endpoints (Gateway and Interface), and PrivateLink. By the end you can draw any small-to-medium VPC on a whiteboard and defend every routing decision.",
+        "Cloud networking is where most certification candidates lose marks and most engineers lose production weekends. We build a VPC from scratch — public and private subnets across two AZs, a NAT Gateway, an Internet Gateway, route tables, security groups, and Network ACLs — and prove the design with a working three-tier application (ALB → EC2 → RDS).\n\nCIDR planning gets its own session, because a VPC range chosen badly in week one is the thing you cannot change later without rebuilding. We size subnets against realistic growth, reserve space for future AZs, and check the plan against the on-prem ranges an enterprise would need to peer with.",
       topics: [
-        "VPC, subnets, CIDR planning",
+        "VPC, subnets, CIDR planning and address exhaustion",
         "Internet Gateway, NAT Gateway, NAT Instance",
-        "Route tables, security groups, NACLs",
-        "VPC Peering and Transit Gateway",
-        "VPC endpoints — Gateway (S3, DynamoDB) and Interface",
-        "PrivateLink and Direct Connect overview",
-        "Route 53 — public, private, weighted, latency, failover",
+        "Route tables and the implicit local route",
+        "Security groups vs Network ACLs — stateful vs stateless",
+        "Public / private / isolated subnet tiers",
+        "VPC Flow Logs for traffic troubleshooting",
+        "Building a two-AZ three-tier VPC end to end",
       ],
     },
     {
-      title: "Compute — EC2, Auto Scaling, Lambda, Containers",
-      weekRange: "Weeks 4–5",
+      title: "Hybrid Connectivity, Endpoints & Route 53",
+      weekRange: "Week 4",
       description:
-        "The compute landscape on AWS in 2026 is broader than 'launch an EC2 instance'. Cover EC2 instance families and pricing models (on-demand, spot, savings plans, reserved), AMI lifecycle and EC2 Image Builder, Auto Scaling groups + Application Load Balancer for resilient apps. Then move into serverless — Lambda (with Java 21 / Python 3.13 runtimes), API Gateway, Step Functions, EventBridge — and build a small event-driven service. Finish with containers — Amazon ECS on Fargate and Amazon EKS — including a Fargate-only EKS cluster you can spin up for under ₹100/day.",
+        "The second half of AWS networking — connecting a VPC to other VPCs, to on-premises, and to AWS services without traversing the public internet. VPC Peering and its non-transitive limitation, Transit Gateway as the hub-and-spoke answer, Gateway and Interface endpoints, PrivateLink for exposing your own services, and Direct Connect versus Site-to-Site VPN.\n\nRoute 53 closes the module: hosted zones, record types, and the routing policies (weighted, latency, failover, geolocation) that appear in both the SAA-C03 exam and every real disaster-recovery design.",
       topics: [
-        "EC2 instance families, pricing models, spot strategy",
-        "AMIs, snapshots, EC2 Image Builder",
-        "Auto Scaling Groups + Application Load Balancer",
-        "Elastic Beanstalk overview",
-        "Lambda — runtimes, layers, timeouts, cold starts",
-        "API Gateway — REST and HTTP APIs",
-        "Step Functions and EventBridge",
-        "Amazon ECS on Fargate",
-        "Amazon EKS basics — Fargate profiles, managed node groups",
+        "VPC Peering and why it is not transitive",
+        "Transit Gateway — hub-and-spoke at scale",
+        "VPC endpoints — Gateway (S3, DynamoDB) and Interface",
+        "AWS PrivateLink for private service exposure",
+        "Site-to-Site VPN and Direct Connect trade-offs",
+        "Route 53 hosted zones and record types",
+        "Routing policies — weighted, latency, failover, geolocation",
+        "Health checks and DNS-level failover",
       ],
     },
     {
-      title: "Storage & Databases",
+      title: "Compute — EC2, AMIs & Auto Scaling",
+      weekRange: "Week 5",
+      description:
+        "The compute service everything else is measured against. EC2 instance families and what each one is actually for, the four pricing models (on-demand, spot, savings plans, reserved) and how to combine them, storage-optimised versus compute-optimised selection, AMI lifecycle and EC2 Image Builder, and user data for bootstrapping.\n\nThen resilience: Auto Scaling groups with launch templates, target tracking and step scaling policies, health checks, and an Application Load Balancer in front. The lab ends with an application that survives an instance being terminated by hand.",
+      topics: [
+        "EC2 instance families and sizing",
+        "Pricing models — on-demand, spot, savings plans, reserved",
+        "Spot interruption handling and mixed-instance policies",
+        "AMIs, snapshots, EC2 Image Builder",
+        "User data, instance metadata and IMDSv2",
+        "Launch templates and Auto Scaling groups",
+        "Target tracking, step and scheduled scaling",
+        "Application Load Balancer, target groups, health checks",
+        "Elastic Beanstalk overview",
+      ],
+    },
+    {
+      title: "Serverless — Lambda, API Gateway & Event-Driven Design",
       weekRange: "Week 6",
       description:
-        "Storage and database services are where AWS fees grow most quickly — and where bad decisions cause the most outages. Cover S3 in depth (storage classes, lifecycle rules, encryption, versioning, replication, S3 Object Lambda, signed URLs), EBS volume types and snapshots, EFS for shared filesystems. Then databases — RDS (Aurora MySQL/PostgreSQL with Aurora Serverless v2 and Aurora Global), DynamoDB single-table design and on-demand vs provisioned capacity, ElastiCache for Redis, OpenSearch for search and logs.",
+        "Serverless as an architecture, not a trick. Lambda in depth — runtimes (Java 21, Python 3.13, Node 22), layers, memory-to-CPU coupling, timeouts, concurrency limits, and the cold-start behaviour that decides whether serverless suits a workload at all. Then the services Lambda is glued to: API Gateway REST and HTTP APIs, Step Functions for orchestration, EventBridge for routing, and SQS / SNS for decoupling.\n\nThe lab builds a small event-driven service end to end, so the trade-off against the EC2 design from the previous module is something you have measured rather than read about.",
       topics: [
-        "S3 storage classes, lifecycle policies, replication",
+        "Lambda runtimes, memory / CPU coupling, timeouts",
+        "Layers, environment variables, versions and aliases",
+        "Cold starts, provisioned concurrency, SnapStart",
+        "API Gateway — REST vs HTTP APIs, authorisers, throttling",
+        "Step Functions — standard vs express workflows",
+        "EventBridge rules, buses and schemas",
+        "SQS and SNS for decoupling and fan-out",
+        "Building an event-driven service end to end",
+      ],
+    },
+    {
+      title: "Containers on AWS — ECR, ECS, Fargate & EKS",
+      weekRange: "Week 7",
+      description:
+        "Where most Pune cloud roles actually spend their time. Push images to Amazon ECR with scanning enabled, then run them two ways: Amazon ECS with Fargate (task definitions, services, service discovery, autoscaling) and Amazon EKS (managed node groups, Fargate profiles, the AWS Load Balancer Controller, IRSA for pod-level IAM).\n\nWe are explicit about when each is the right answer — ECS for a team that wants AWS to hold the abstraction, EKS for a team that needs the Kubernetes ecosystem or portability. You build a Fargate-only EKS cluster you can run for under ₹100 a day.",
+      topics: [
+        "Amazon ECR — repositories, lifecycle policies, image scanning",
+        "ECS task definitions, services and clusters",
+        "Fargate versus EC2 launch types",
+        "ECS service autoscaling and service discovery",
+        "EKS cluster provisioning with eksctl",
+        "Managed node groups versus Fargate profiles",
+        "IAM Roles for Service Accounts (IRSA)",
+        "AWS Load Balancer Controller and ingress",
+        "Choosing between ECS and EKS",
+      ],
+    },
+    {
+      title: "Storage — S3, EBS, EFS & Data Lifecycle",
+      weekRange: "Week 8",
+      description:
+        "S3 in the depth the exam and the job both require: storage classes and the retrieval cost that makes Glacier cheap only if you never read it, lifecycle rules, versioning and MFA delete, replication (same-region and cross-region), encryption modes, signed URLs, static website hosting, and S3 Object Lambda.\n\nBlock and file storage follow — EBS volume types and the gp3 baseline-versus-provisioned distinction, snapshots and fast snapshot restore, EFS for shared POSIX filesystems, and an overview of FSx. The module closes on choosing correctly between the three under a stated cost and latency budget.",
+      topics: [
+        "S3 storage classes and retrieval cost trade-offs",
+        "Lifecycle policies, Intelligent-Tiering, expiry",
+        "Versioning, MFA delete and Object Lock",
+        "Same-region and cross-region replication",
         "S3 encryption — SSE-S3, SSE-KMS, SSE-C",
-        "S3 signed URLs and CloudFront integration",
+        "Signed URLs, bucket policies and Block Public Access",
+        "S3 static hosting and CloudFront origin patterns",
         "EBS volume types — gp3, io2, st1, sc1",
-        "EFS, FSx for Windows / Lustre overview",
-        "RDS engines, Multi-AZ, read replicas",
+        "Snapshots, fast snapshot restore, multi-attach",
+        "EFS and FSx for Windows / Lustre overview",
+      ],
+    },
+    {
+      title: "Databases — RDS, Aurora, DynamoDB & Caching",
+      weekRange: "Week 9",
+      description:
+        "Managed data services and the design decisions that outlast them. RDS engines, Multi-AZ for availability versus read replicas for scale (a distinction interviewers reliably probe), parameter groups, backups and point-in-time recovery. Aurora goes deeper — the shared storage layer, Serverless v2 scaling, and Aurora Global for cross-region.\n\nDynamoDB is taught as a modelling discipline rather than a key-value store: partition key design, hot partitions, single-table design, GSIs and LSIs, on-demand versus provisioned capacity, and Streams. ElastiCache and OpenSearch close the module.",
+      topics: [
+        "RDS engines, subnet groups, parameter groups",
+        "Multi-AZ for availability vs read replicas for scale",
+        "Automated backups and point-in-time recovery",
+        "Aurora architecture and the shared storage layer",
         "Aurora Serverless v2 and Aurora Global",
-        "DynamoDB — partition key design, GSIs, on-demand vs provisioned",
+        "DynamoDB partition key design and hot partitions",
+        "Single-table design, GSIs and LSIs",
+        "On-demand vs provisioned capacity and autoscaling",
+        "DynamoDB Streams and TTL",
         "ElastiCache (Redis) and OpenSearch basics",
       ],
     },
     {
-      title: "DevOps on AWS — IaC, CI/CD, Observability",
-      weekRange: "Weeks 7–8",
+      title: "Infrastructure as Code — Terraform & AWS CDK",
+      weekRange: "Week 10",
       description:
-        "Modern cloud is code, not clicks. Build infrastructure with Terraform 1.7+ (state in S3 with DynamoDB locking, modules, workspaces, terragrunt overview) and AWS CDK in TypeScript — both, because Pune teams use both and you need to read each. Wire CI/CD with GitHub Actions deploying via OIDC (no static keys), and AWS CodePipeline + CodeBuild for AWS-native shops. Cover observability the way SREs actually configure it — CloudWatch metrics, logs with structured JSON, X-Ray for distributed tracing, alarms feeding SNS, and a small Grafana + Prometheus stack on EKS for the cloud-native pattern.",
+        "Modern cloud is code, not clicks. Terraform 1.7+ first — providers, resources, variables and outputs, remote state in S3 with DynamoDB locking, modules, workspaces, `plan` as a review artefact, and the import workflow for adopting resources someone created by hand. Then AWS CDK in TypeScript — constructs, stacks, and how synthesis produces CloudFormation underneath.\n\nWe teach both because Pune teams use both and you will be asked to read each. CloudFormation itself is covered at the level needed to debug what CDK emits: stacks, change sets, and drift detection.",
       topics: [
-        "Terraform 1.7+ — providers, state, modules, workspaces",
-        "AWS CDK in TypeScript — constructs, stacks, deployments",
-        "CloudFormation basics — stacks, change sets, drift",
-        "GitHub Actions with OIDC federation",
-        "CodePipeline, CodeBuild, CodeDeploy basics",
-        "CloudWatch metrics, alarms, dashboards",
-        "Structured logging with CloudWatch Logs Insights",
-        "AWS X-Ray and AWS Distro for OpenTelemetry",
-        "SNS, SQS, EventBridge for alerting",
+        "Terraform providers, resources, variables, outputs",
+        "Remote state in S3 with DynamoDB locking",
+        "Modules, workspaces and environment separation",
+        "terraform plan as a code-review artefact",
+        "Importing hand-created resources",
+        "AWS CDK in TypeScript — constructs and stacks",
+        "CDK synthesis and the CloudFormation output",
+        "CloudFormation stacks, change sets, drift detection",
+        "Choosing Terraform vs CDK on a real team",
+      ],
+    },
+    {
+      title: "CI/CD Pipelines & Deployment Strategies",
+      weekRange: "Week 10",
+      description:
+        "Wiring the code you write to the infrastructure you defined. GitHub Actions deploying via OIDC federation — no static access keys anywhere, which is now the expected answer in interviews — plus AWS-native CodePipeline, CodeBuild and CodeDeploy for shops standardised on AWS tooling.\n\nDeployment strategy is the second half: rolling, blue/green with ALB target-group swaps, and canary releases with CodeDeploy traffic shifting. Every pattern is paired with its rollback path, because a deployment strategy without a rollback plan is just optimism.",
+      topics: [
+        "GitHub Actions with OIDC — no long-lived keys",
+        "Build, test and artefact stages",
+        "CodePipeline, CodeBuild, CodeDeploy",
+        "Rolling, blue/green and canary deployments",
+        "ALB target-group swaps for blue/green",
+        "CodeDeploy traffic shifting and automatic rollback",
+        "Secrets in pipelines — OIDC, Secrets Manager, masked outputs",
+        "Environment promotion — dev, staging, production",
+      ],
+    },
+    {
+      title: "Observability — CloudWatch, X-Ray & OpenTelemetry",
+      weekRange: "Week 11",
+      description:
+        "Observability the way SREs actually configure it, not the way marketing pages describe it. CloudWatch metrics and custom metrics, structured JSON logging queried with Logs Insights, alarms with sensible thresholds feeding SNS, composite alarms to suppress noise, and dashboards that a person on call can read at 3am.\n\nDistributed tracing follows with X-Ray and the AWS Distro for OpenTelemetry, plus a small Prometheus and Grafana stack on EKS for the cloud-native pattern you will meet in container-first teams.",
+      topics: [
+        "CloudWatch metrics, custom metrics and dimensions",
+        "Structured JSON logging and Logs Insights queries",
+        "Alarms, composite alarms and alarm fatigue",
+        "Dashboards built for on-call readability",
+        "AWS X-Ray — segments, subsegments, service maps",
+        "AWS Distro for OpenTelemetry",
+        "Prometheus and Grafana on EKS",
+        "SNS, SQS and EventBridge for alert routing",
       ],
     },
     {
       title: "Security, Encryption & Well-Architected Review",
-      weekRange: "Week 9",
+      weekRange: "Week 12",
       description:
-        "The Solutions Architect Associate exam weights security heavily, and so do real Pune hiring panels. Cover KMS in depth (CMKs, grants, envelope encryption, key rotation), AWS Secrets Manager and Parameter Store, ACM for TLS certificates, AWS WAF and AWS Shield (Standard and Advanced), Macie for data classification, and the Well-Architected Tool's six pillars (Operational Excellence, Security, Reliability, Performance Efficiency, Cost Optimisation, Sustainability). We finish by reviewing each student's capstone architecture against the Well-Architected lens.",
+        "The SAA-C03 exam weights security heavily, and so do real Pune hiring panels. Cover KMS in depth (CMKs, grants, envelope encryption, key rotation), AWS Secrets Manager and Parameter Store, ACM for TLS certificates, AWS WAF and AWS Shield (Standard and Advanced), Macie for data classification, and the Well-Architected Tool's six pillars.\n\nWe finish by reviewing each student's capstone architecture against the Well-Architected lens — a written review, in the format AWS partners actually produce.",
       topics: [
         "KMS — CMKs, grants, envelope encryption, key rotation",
         "Secrets Manager vs SSM Parameter Store",
@@ -147,11 +247,28 @@ export const awsTrainingInPune: CourseRichContent = {
         "GuardDuty, Macie, Inspector overview",
         "Well-Architected Framework — six pillars",
         "Compliance — PCI DSS, HIPAA, SOC 2 baseline mapping",
+        "Writing a Well-Architected review document",
+      ],
+    },
+    {
+      title: "Cost Optimisation & FinOps Practice",
+      weekRange: "Week 12",
+      description:
+        "The skill that gets a cloud engineer promoted and the one most syllabi omit. Reading a bill properly with Cost Explorer and the Cost and Usage Report, allocating spend with tagging strategies and cost categories, and setting Budgets with actions that actually stop runaway resources rather than merely emailing about them.\n\nThen the levers: right-sizing from CloudWatch data, Savings Plans versus Reserved Instances, spot for interruptible work, S3 lifecycle and storage-class analysis, and the standard waste list — idle load balancers, unattached EBS volumes, orphaned snapshots, over-provisioned RDS.",
+      topics: [
+        "Cost Explorer and the Cost and Usage Report",
+        "Tagging strategy and cost allocation tags",
+        "AWS Budgets with budget actions",
+        "Right-sizing from CloudWatch utilisation data",
+        "Savings Plans vs Reserved Instances vs spot",
+        "Storage-class analysis and S3 lifecycle savings",
+        "Finding waste — idle ALBs, unattached EBS, orphaned snapshots",
+        "Building a monthly FinOps review habit",
       ],
     },
     {
       title: "Generative AI on AWS — Bedrock & Vector Stores",
-      weekRange: "Week 10",
+      weekRange: "Week 13",
       description:
         "Pune cloud architects in 2026 are expected to design AI features, not just classic three-tier apps. Cover Amazon Bedrock (Claude, Llama, Titan, Mistral, Stable Diffusion models on a single API), Bedrock Guardrails for content filtering, Bedrock Knowledge Bases backed by Amazon OpenSearch Serverless or Aurora pgvector, and Bedrock Agents for tool-using assistants. Build a small retrieval-augmented generation (RAG) service — S3 PDFs → Knowledge Base → Bedrock model → API Gateway endpoint — that you can demo end-to-end in interviews.",
       topics: [
@@ -166,7 +283,7 @@ export const awsTrainingInPune: CourseRichContent = {
     },
     {
       title: "Capstone Project & SAA-C03 Exam Preparation",
-      weekRange: "Weeks 11–12 + 2 weeks placement prep",
+      weekRange: "Weeks 13–14 + 2 weeks placement prep",
       description:
         "Two weeks of full-time capstone work plus structured Solutions Architect Associate (SAA-C03) preparation. Pick one of three capstone architectures (see Capstone Projects). For exam prep we run question-bank drills, scenario walkthroughs, and two full-length mock exams under timed conditions — students typically score 75–85% on the second mock if they have done the lab work seriously. Mock interviews target Pune cloud hiring panels (Persistent, BMC, Bajaj Finserv, Synechron). Resume / LinkedIn / GitHub polish included.",
       topics: [
@@ -199,6 +316,43 @@ export const awsTrainingInPune: CourseRichContent = {
       ],
     },
   ],
+
+  roadmapImage: {
+    src: "/images/courses/aws-cloud-path-v1.webp",
+    width: 1400,
+    height: 1064,
+    alt: "Ten-stage AWS Cloud Computing learning path taught at Archer Infotech Pune: cloud foundations covering regions, availability zones, the shared responsibility model and billing; identity and access management covering users, roles, policies and federation; networking covering VPC, subnets, routing, endpoints and Route 53; compute covering EC2, Auto Scaling, Lambda and serverless; containers covering ECR, ECS, Fargate and EKS; storage and databases covering S3, EBS, RDS, Aurora and DynamoDB; infrastructure as code covering Terraform, CDK and CloudFormation; CI/CD and observability covering GitHub Actions, CloudWatch and X-Ray; security and cost covering KMS, WAF, Well-Architected and FinOps; and generative AI covering Bedrock, knowledge bases and the capstone project.",
+    caption:
+      "The order this course is taught in. Each stage expands into the modules below — nothing arrives before its prerequisite.",
+  },
+
+  syllabusDownload: {
+    pdfUrl: "/downloads/aws-cloud-computing-syllabus-v1.pdf",
+    title: "AWS Cloud Computing Course Syllabus — Complete Module List",
+    slug: "aws-cloud-computing-syllabus",
+    blurb:
+      "The complete seventeen-module syllabus as a PDF — cloud foundations and account setup, IAM and federation, VPC networking and hybrid connectivity, EC2 and Auto Scaling, serverless, containers on ECS and EKS, storage, managed databases, Terraform and CDK, CI/CD, observability, security and KMS, FinOps, Bedrock and generative AI, and the capstone with SAA-C03 exam preparation. Everything in it is on this page; the PDF is the portable version.",
+    asideBlocks: [
+      {
+        heading: "What is inside the PDF",
+        items: [
+          "All seventeen modules in teaching order, week by week, from the first sandbox account through to the SAA-C03 mock exams.",
+          "Every AWS service taught, grouped the way the exam blueprint groups them — compute, storage, networking, database, security, and cost.",
+          "The infrastructure-as-code track in full: Terraform state and modules, AWS CDK in TypeScript, and the CloudFormation underneath both.",
+          "The lab and capstone list, including the three capstone architectures and what each one demonstrates to a hiring panel.",
+        ],
+      },
+      {
+        heading: "Roles this syllabus prepares you for",
+        items: [
+          "Cloud Engineer — provisioning, automating and operating AWS workloads.",
+          "AWS Solutions Architect — designing against the Well-Architected pillars.",
+          "Cloud Support / Operations Engineer — the most common entry route in Pune.",
+          "DevOps Engineer (AWS) — pairing this stack with CI/CD and Kubernetes.",
+        ],
+      },
+    ],
+  },
 
   projects: [
     {
