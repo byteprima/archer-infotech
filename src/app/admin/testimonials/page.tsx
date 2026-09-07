@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ChevronLeft, Plus, Quote, CheckCircle2, CircleOff, Sparkles, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { TestimonialAdminActions } from "@/components/admin/testimonial-admin-actions";
 import { getAllTestimonials } from "@/lib/actions/testimonials";

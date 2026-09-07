@@ -28,7 +28,7 @@ export function DeletePostButton({ id, title }: DeletePostButtonProps) {
       } else {
         alert(result.message);
       }
-    } catch (error) {
+    } catch {
       alert("Failed to delete post. Please try again.");
     } finally {
       setIsDeleting(false);
@@ -70,7 +70,7 @@ export function TogglePublishButton({ id, isPublished }: TogglePublishButtonProp
       } else {
         alert(result.message);
       }
-    } catch (error) {
+    } catch {
       alert("Failed to update publish status. Please try again.");
     } finally {
       setIsToggling(false);

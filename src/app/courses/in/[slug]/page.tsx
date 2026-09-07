@@ -11,7 +11,6 @@ import {
 import { PageEvent } from "@/components/analytics/page-event";
 import { TrackedLink } from "@/components/analytics/tracked-link";
 import { TrackedAnchor } from "@/components/analytics/tracked-anchor";
-import { Badge } from "@/components/ui/badge";
 import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 import { BreadcrumbJsonLd, FAQJsonLd } from "@/components/seo/json-ld";
 import { LastUpdated } from "@/components/seo/last-updated";

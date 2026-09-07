@@ -349,7 +349,6 @@ export function BranchLocalBusinessJsonLd({ branchId }: { branchId: string }) {
 interface CourseJsonLdProps {
   name: string;
   description: string;
-  provider?: string;
   duration?: string;
   url: string;
   category?: string;
@@ -409,7 +408,6 @@ interface CourseJsonLdProps {
 export function CourseJsonLd({
   name,
   description,
-  provider = siteConfig.name,
   duration,
   url,
   category,
