@@ -9,9 +9,11 @@ import {
   Trophy,
   GraduationCap,
   ArrowRight,
+  Star,
 } from "lucide-react";
 import { PageEvent } from "@/components/analytics/page-event";
 import { TrackedAnchor } from "@/components/analytics/tracked-anchor";
+import { TrackedLink } from "@/components/analytics/tracked-link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { siteConfig } from "@/data/site-config";
 import { ContactForm } from "@/components/forms/contact-form";
@@ -221,10 +223,12 @@ export default function ContactPage() {
       </section>
 
       {/* Already-a-student routes. The contact form above is for people
-          deciding whether to enrol; these two are for people who already did
-          and have something to tell us. Both were previously unreachable —
-          /alumni existed but was linked from nowhere, and placements could
-          only be entered by an admin. */}
+          deciding whether to enrol; these three are for people who already did
+          and have something to tell us. All were previously hard to reach —
+          /alumni was linked from nowhere, placements could only be entered by
+          an admin, and /review (the short URL that forwards to the Google
+          review box) existed only on QR cards and posters, with no route to it
+          from the site at all. */}
       <section className="relative overflow-hidden gradient-hero py-12 text-white">
         {/* Same treatment as the home-page CTA (components/home/cta-section):
             the gradient plus this 10%-opacity cross pattern. Kept as markup
@@ -246,9 +250,9 @@ export default function ContactPage() {
               Already studied with us?
             </h2>
             <p className="mb-8 text-center text-white/80">
-              Two quick forms — no login needed.
+              Three quick things — none of them need a login.
             </p>
-            <div className="grid gap-5 md:grid-cols-2">
+            <div className="grid gap-5 md:grid-cols-3">
               <Link
                 href="/placements/submit"
                 className="group rounded-xl border border-white/20 bg-white/5 p-6 transition-all hover:border-secondary hover:bg-white/10 hover:shadow-md"
@@ -288,6 +292,36 @@ export default function ContactPage() {
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </span>
               </Link>
+
+              {/* /review is an internal short URL that server-redirects to the
+                  Google review box, so the href stays relative — the
+                  destination lives in siteConfig and must not be duplicated
+                  here. Tracked because review velocity is a metric we act on,
+                  and opened in a new tab so a visitor mid-enquiry is not
+                  handed off to Google and lost. */}
+              <TrackedLink
+                href="/review"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group rounded-xl border border-white/20 bg-white/5 p-6 transition-all hover:border-secondary hover:bg-white/10 hover:shadow-md"
+                event="review_cta_clicked"
+                properties={{ location: "contact_alumni_box" }}
+              >
+                <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-lg bg-secondary/20 text-secondary">
+                  <Star className="h-5 w-5" />
+                </div>
+                <h3 className="mb-1 font-semibold text-white group-hover:text-secondary">
+                  Learned something here? Leave a review
+                </h3>
+                <p className="text-sm text-white/70">
+                  Ninety seconds on Google. It is the most useful thing an
+                  alumnus can do for the students deciding right now.
+                </p>
+                <span className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-secondary">
+                  Write a Google review
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </span>
+              </TrackedLink>
             </div>
           </div>
         </div>

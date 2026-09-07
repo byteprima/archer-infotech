@@ -7,9 +7,10 @@ import { siteConfig } from "@/data/site-config";
  * (P7-04). Used on QR cards, classroom posters, email signatures and review
  * request messages so staff never have to share the long Google link.
  *
- * Destination is `siteConfig.googleMaps.reviewUrl` (single source of truth) —
- * currently the Maps place page; swap in the one-tap g.page/r/…/review link
- * once it's generated in GBP and the CTA becomes a direct review prompt.
+ * Destination is `siteConfig.googleMaps.reviewUrl` (single source of truth),
+ * which is now the one-tap g.page/r/…/review link — it opens the write-a-
+ * review box directly rather than the Maps place page, so the CTA is a
+ * review prompt and not a detour.
  *
  * Not indexable — it's a utility redirect, not content.
  */
