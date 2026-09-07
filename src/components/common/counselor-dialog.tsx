@@ -33,6 +33,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { ModePreferenceField } from "@/components/forms/mode-preference-field";
 import { CourseSelect } from "@/components/forms/course-select";
 import { toast } from "sonner";
 import { submitLead } from "@/lib/actions/leads";
@@ -146,6 +147,7 @@ export function CounselorDialog({
           phone,
           message,
           course: courseInterest,
+          modePreference: String(fd.get("modePreference") || ""),
           source: "counselor_modal",
           utmSource,
           utmMedium,
@@ -284,6 +286,8 @@ export function CounselorDialog({
               onValueChange={setSelectedCourses}
             />
           </div>
+
+          <ModePreferenceField />
 
           <div className="space-y-1.5">
             <Label htmlFor="counselor-message">Your Question (optional)</Label>

@@ -11,6 +11,7 @@ import { leads } from "@/db/schema";
  *   - chat_widget   -> the on-site chat widget
  *   - newsletter    -> newsletter_signup:<placement>   (prefix match)
  *   - reports       -> report_download:<slug>           (prefix match)
+ *   - internships   -> internship_interest, from the /internships popup
  *   - manual        -> leads added by hand in the admin
  */
 export const LEAD_SOURCE_TABS = [
@@ -20,6 +21,10 @@ export const LEAD_SOURCE_TABS = [
   { key: "chat_widget", label: "Chat Widget" },
   { key: "newsletter", label: "Newsletter" },
   { key: "reports", label: "Reports" },
+  // The /internships popup carries the college requirement in `message`,
+  // which is the part a counsellor needs before the first call — worth its
+  // own tab rather than being lost inside All Leads.
+  { key: "internship_interest", label: "Internships" },
   { key: "manual", label: "Manual" },
 ] as const;
 

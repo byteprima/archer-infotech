@@ -25,6 +25,7 @@
 import { useState } from "react";
 import { CourseSelect } from "@/components/forms/course-select";
 import { submitLead } from "@/lib/actions/leads";
+import { ModePreferenceField } from "@/components/forms/mode-preference-field";
 
 /** "Independence Day Offer" -> "popup:independence-day-offer" */
 export function popupLeadSource(subject: string): string {
@@ -74,6 +75,7 @@ export function OfferLeadForm({ subject, onSuccess }: Props) {
         email,
         phone,
         course,
+        modePreference: String(fd.get("modePreference") || ""),
         // Prefer what the visitor actually wrote; fall back to the synthesised
         // line so the admin lead list is never blank (submitLead enforces a
         // 10-character minimum here).
@@ -188,6 +190,9 @@ export function OfferLeadForm({ subject, onSuccess }: Props) {
             onValueChange={setSelectedCourses}
             placeholder="Course interested in"
           />
+        </div>
+        <div className="sm:col-span-2">
+          <ModePreferenceField />
         </div>
         <textarea
           name="message"

@@ -48,6 +48,16 @@ function LeadsTable({ leads, showCourse = true }: { leads: LeadRow[]; showCourse
               {showCourse && (
                 <td className="py-4">
                   <div className="text-sm">{lead.courseInterest || "-"}</div>
+                  {/* Delivery-format preference sits under the course rather
+                      than in its own column: it is only ever read together
+                      with the course, and the table is already wide. */}
+                  {lead.modePreference && (
+                    <div className="text-xs text-muted-foreground">
+                      {lead.modePreference === "Offline"
+                        ? "Offline (classroom)"
+                        : lead.modePreference}
+                    </div>
+                  )}
                 </td>
               )}
               <td className="py-4">

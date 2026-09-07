@@ -14,6 +14,12 @@ const leadSchema = z.object({
     .max(10, "Please enter a valid 10-digit phone number")
     .regex(/^\d+$/, "Phone number must contain only digits"),
   course: z.string().optional(),
+  /**
+   * Delivery format the enquirer wants. Optional so the forms that have no
+   * business asking (newsletter, chat) are unaffected — only the course
+   * enquiry forms send it.
+   */
+  modePreference: z.string().optional(),
   // Optional: the contact form's textarea is not mandatory — a name, phone
   // and course pick is a complete enquiry, and forcing 10 characters of prose
   // was costing submissions. Other callers (chat widget, offer popup) still
@@ -82,6 +88,7 @@ export async function submitLead(data: LeadFormData): Promise<ActionResult> {
       email: validationResult.data.email,
       phone: validationResult.data.phone,
       courseInterest: validationResult.data.course,
+      modePreference: validationResult.data.modePreference || null,
       // Empty textarea → null rather than "", so the admin lead list shows a
       // blank cell instead of an empty-looking message body.
       message: validationResult.data.message?.trim() || null,
