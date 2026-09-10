@@ -104,7 +104,21 @@ enforced server-side, but it depends on the caller having a `user` row — see
 the legacy login below.
 
 **The legacy shared login.** `ADMIN_USERNAME` / `ADMIN_PASSWORD` in the
-environment still grant admin access without a `user` row. Role-based
-permissions therefore have a bypass. It is treated as ADMIN for now and
-flagged rather than removed, because removing it could lock the owner out of
-the panel. Closing it is a prerequisite for trusting COUNSELOR restrictions.
+environment still grant admin access without a `user` row, so role-based
+permissions have a bypass. Closing it is a prerequisite for trusting COUNSELOR
+restrictions.
+
+It is hardened but not yet removed. Hardened (`src/lib/legacy-admin-auth.ts`):
+the built-in `admin` / `archer2024` fallback is gone and missing configuration
+now fails closed; the session cookie is an HMAC over the issue time instead of
+carrying `ADMIN_SESSION_SECRET` in recoverable plaintext; sessions expire
+server-side; credential comparison is constant-time. `ADMIN_LEGACY_LOGIN=off`
+disables it without unsetting the variables.
+
+Not removed, because the Flutter admin app authenticates against
+`/api/mobile/v1/auth/login`, which calls `verifyCredentials` and mints a JWT
+with `role: "admin"`. The website's own `/admin/login` no longer touches it.
+So the order to close it is: give the mobile app a real-account login, then set
+`ADMIN_LEGACY_LOGIN=off`, then delete `legacy-admin-auth.ts`, the two routes
+that call it, and the legacy branches in `isAuthenticated` / `isAdmin` /
+`getCurrentRole`.

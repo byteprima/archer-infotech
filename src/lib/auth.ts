@@ -1,6 +1,13 @@
 import { cookies, headers } from "next/headers";
 import { getAuth } from "./auth-server";
 import { canAccessAdmin } from "@/lib/leads/roles";
+import {
+  ADMIN_SESSION_COOKIE,
+  SESSION_MAX_AGE_SECONDS,
+  isLegacyLoginEnabled,
+  signSessionToken,
+  verifySessionToken,
+} from "./legacy-admin-auth";
 
 /**
  * Get the current session from better-auth
@@ -61,9 +68,11 @@ export async function isAdmin(): Promise<boolean> {
  * The current user's role, or null when nobody is signed in.
  *
  * Returns "admin" for the legacy shared env login, which has no user row.
- * That login predates roles and is the site owner's own way in — treating it
- * as anything less would lock them out of the panel. It is also the reason
- * role restrictions are not yet a security boundary; see docs/lead-crm.md.
+ * That login predates roles and is still how the mobile admin app signs in, so
+ * treating it as anything less would break it. It is also the reason role
+ * restrictions are not yet a security boundary; see docs/lead-crm.md. It is
+ * disabled entirely when its environment variables are unset or
+ * ADMIN_LEGACY_LOGIN=off.
  */
 export async function getCurrentRole(): Promise<string | null> {
   const session = await getSession();
@@ -82,21 +91,20 @@ export async function getCurrentUser() {
 }
 
 // ============================================
-// Legacy Authentication (for backward compatibility)
+// Legacy Authentication (deprecated — see docs/lead-crm.md)
 // ============================================
+//
+// Credential and token logic lives in ./legacy-admin-auth so it can be unit
+// tested without a request context. This half is the cookie plumbing.
 
-const ADMIN_SESSION_COOKIE = "admin_session";
-const SESSION_SECRET = process.env.ADMIN_SESSION_SECRET || "default-secret-change-me";
-const ADMIN_USERNAME = process.env.ADMIN_USERNAME || "admin";
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "archer2024";
-
-export async function verifyCredentials(username: string, password: string): Promise<boolean> {
-  return username === ADMIN_USERNAME && password === ADMIN_PASSWORD;
-}
+export {
+  isLegacyLoginEnabled,
+  verifyCredentials,
+  verifySessionToken,
+} from "./legacy-admin-auth";
 
 export async function createSession(): Promise<string> {
-  const token = Buffer.from(`${SESSION_SECRET}:${Date.now()}`).toString("base64");
-  return token;
+  return signSessionToken();
 }
 
 export async function setSessionCookie(token: string) {
@@ -105,7 +113,7 @@ export async function setSessionCookie(token: string) {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
-    maxAge: 60 * 60 * 24, // 24 hours
+    maxAge: SESSION_MAX_AGE_SECONDS,
     path: "/admin",
   });
 }
@@ -117,16 +125,10 @@ export async function getLegacySession(): Promise<string | null> {
 }
 
 export async function isLegacyAuthenticated(): Promise<boolean> {
+  if (!isLegacyLoginEnabled()) return false;
   const session = await getLegacySession();
   if (!session) return false;
-
-  try {
-    const decoded = Buffer.from(session, "base64").toString();
-    const [secret] = decoded.split(":");
-    return secret === SESSION_SECRET;
-  } catch {
-    return false;
-  }
+  return verifySessionToken(session);
 }
 
 export async function clearSession() {

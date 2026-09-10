@@ -78,10 +78,14 @@ BETTER_AUTH_SECRET=<generate-with-openssl-rand-base64-32>
 GOOGLE_CLIENT_ID=<from-google-cloud-console>
 GOOGLE_CLIENT_SECRET=<from-google-cloud-console>
 
-# Legacy Admin Auth (deprecated - will be removed)
-ADMIN_USERNAME=admin
-ADMIN_PASSWORD=Archer@123456
-ADMIN_SESSION_SECRET=a7f3c9e2b1d8f4a6c0e5b7d3f9a2c4e6
+# Legacy Admin Auth (deprecated - shared login, used only by the mobile app)
+# Leave all three unset to disable it, or set ADMIN_LEGACY_LOGIN=off to disable
+# it without unsetting them. There are no fallback defaults: partial config
+# means the login is closed. Real placeholder values below on purpose - never
+# commit the live ones.
+ADMIN_USERNAME=<choose-a-username>
+ADMIN_PASSWORD=<generate-with-openssl-rand-base64-24>
+ADMIN_SESSION_SECRET=<generate-with-openssl-rand-hex-32>
 
 # Google Analytics (GA4)
 NEXT_PUBLIC_GA_MEASUREMENT_ID=G-WYMDWF9DKE

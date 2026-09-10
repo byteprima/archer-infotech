@@ -51,9 +51,10 @@ Important values:
 
 - `DATABASE_URL`
 - `NEXT_PUBLIC_SITE_URL`
-- `ADMIN_USERNAME`
-- `ADMIN_PASSWORD`
-- `ADMIN_SESSION_SECRET`
+- `ADMIN_USERNAME` (legacy shared login — optional; unset disables it)
+- `ADMIN_PASSWORD` (legacy shared login — optional; unset disables it)
+- `ADMIN_SESSION_SECRET` (legacy shared login — optional; unset disables it)
+- `ADMIN_LEGACY_LOGIN` (set to `off` to disable the legacy login without unsetting the three above)
 - `NEXT_PUBLIC_POSTHOG_TOKEN`
 - `NEXT_PUBLIC_POSTHOG_HOST`
 
