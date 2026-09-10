@@ -37,7 +37,8 @@ interface RichCourseContentProps {
  */
 export function RichCourseContentAboveFold({
   rich,
-}: Pick<RichCourseContentProps, "rich">) {
+  courseName,
+}: Pick<RichCourseContentProps, "rich" | "courseName">) {
   return (
     <div className="space-y-12">
       {/* Section 1 — Intro paragraph (lives directly under the H1 in the hero) */}
@@ -100,7 +101,9 @@ export function RichCourseContentAboveFold({
 
       {/* Section 3 — Who is this for / NOT for */}
       <section className="space-y-4">
-        <h2 className="text-2xl md:text-3xl font-bold">Who This Course Is For</h2>
+        <h2 className="text-2xl md:text-3xl font-bold">
+          Who should take this {courseName} course?
+        </h2>
         <div className="grid md:grid-cols-2 gap-6">
           <Card className="border-emerald-200 bg-emerald-50/40">
             <CardHeader>
@@ -185,7 +188,7 @@ export function RichCourseContentBelowFold({
         <hr className="border-t border-border" />
         <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-3">
           <GraduationCap className="h-7 w-7 text-secondary" />
-          Detailed Curriculum
+          What does the {courseName} syllabus cover?
         </h2>
 
         {/* Optional visual roadmap. Lazy-loaded with explicit intrinsic
@@ -386,7 +389,7 @@ export function RichCourseContentBelowFold({
       <section className="space-y-4">
         <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-3">
           <Briefcase className="h-7 w-7 text-secondary" />
-          Capstone Projects You Will Build
+          What projects will you build?
         </h2>
         <div className="space-y-5">
           {rich.projects.map((project, i) => (
@@ -417,7 +420,7 @@ export function RichCourseContentBelowFold({
       <section className="space-y-4">
         <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-3">
           <TrendingUp className="h-7 w-7 text-secondary" />
-          Career Outcomes & Salaries in Pune
+          What jobs and salaries follow this course in Pune?
         </h2>
         <div className="space-y-4 text-muted-foreground leading-relaxed">
           {rich.careerOutcomes.paragraphs.map((p, i) => (
@@ -485,7 +488,7 @@ export function RichCourseContentBelowFold({
       <section className="space-y-4">
         <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-3">
           <Calendar className="h-7 w-7 text-secondary" />
-          Course Duration, Batches & Modes in Pune
+          How long is the course, and what batch options are there?
         </h2>
         <p className="text-muted-foreground">
           <strong className="text-foreground">Duration:</strong> {rich.modesAndDuration.duration}
@@ -568,7 +571,7 @@ export function RichCourseContentBelowFold({
       <section className="space-y-4">
         <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-3">
           <IndianRupee className="h-7 w-7 text-secondary" />
-          {courseName} Course Fees in Pune
+          What are the {courseName} course fees in Pune?
         </h2>
         <Card className="bg-muted/30">
           <CardContent className="pt-6 space-y-3">
@@ -610,7 +613,7 @@ export function RichCourseContentBelowFold({
       <section className="space-y-4">
         <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-3">
           <Trophy className="h-7 w-7 text-secondary" />
-          Placement Support in Pune
+          What placement support do you get?
         </h2>
         <div className="space-y-4 text-muted-foreground leading-relaxed">
           {rich.placementSupport.paragraphs.map((p, i) => (
@@ -657,7 +660,7 @@ export function RichCourseContentBelowFold({
       <section className="space-y-4">
         <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-3">
           <Scale className="h-7 w-7 text-secondary" />
-          How Archer Infotech Compares
+          How does Archer Infotech compare with other institutes?
         </h2>
         {rich.comparison.intro && (
           <p className="text-muted-foreground">{rich.comparison.intro}</p>
@@ -704,7 +707,9 @@ export function RichCourseContentBelowFold({
 
       {/* Section 13 — Prerequisites & how to start */}
       <section className="space-y-4">
-        <h2 className="text-2xl md:text-3xl font-bold">Prerequisites & How to Start</h2>
+        <h2 className="text-2xl md:text-3xl font-bold">
+          What are the prerequisites, and how do you start?
+        </h2>
         <div className="space-y-3 text-muted-foreground leading-relaxed">
           {rich.prerequisitesAndStart.paragraphs.map((p, i) => (
             <p key={i}>{p}</p>
