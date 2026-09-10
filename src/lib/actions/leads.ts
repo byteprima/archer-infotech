@@ -44,6 +44,9 @@ const leadSchema = z.object({
   utmCampaign: z.string().optional(),
   analyticsDistinctId: z.string().optional(),
   currentPath: z.string().optional(),
+  /** Read from the URL, never asked for. See lib/leads/utm.ts. */
+  utmContent: z.string().optional(),
+  utmTerm: z.string().optional(),
   referrer: z.string().optional(),
   // Meta Conversions API dedup payload — when present, the server fires the
   // matching server-side conversion. eventId/eventName must equal the values
@@ -87,10 +90,14 @@ export async function submitLead(data: LeadFormData): Promise<ActionResult> {
   }
 
   try {
-    const { db, leads } = await import("@/db");
+    const { insertLeadWithEnquiryNumber } = await import(
+      "@/lib/leads/allocate-enquiry-number"
+    );
 
-    // Insert the lead into the database
-    await db.insert(leads).values({
+    // Insert the lead, with its ENQ-YYYY-NNNN reference allocated in the same
+    // transaction. Nothing asks the visitor for anything extra — see the
+    // schema above, which is still name, phone, email, mode and experience.
+    insertLeadWithEnquiryNumber({
       name: validationResult.data.name,
       email: validationResult.data.email,
       phone: validationResult.data.phone,
@@ -104,6 +111,10 @@ export async function submitLead(data: LeadFormData): Promise<ActionResult> {
       utmSource: validationResult.data.utmSource,
       utmMedium: validationResult.data.utmMedium,
       utmCampaign: validationResult.data.utmCampaign,
+      // Captured from the page the visitor was on, not asked for.
+      utmContent: validationResult.data.utmContent,
+      utmTerm: validationResult.data.utmTerm,
+      landingPage: validationResult.data.currentPath || null,
       status: "NEW",
     });
 

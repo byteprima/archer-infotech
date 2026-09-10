@@ -18,6 +18,10 @@ import {
   isLeadStatus,
   type LeadStatus,
 } from "@/lib/leads/lifecycle";
+import {
+  MODE_PREFERENCE_OPTIONS,
+  MODE_PREFERENCE_LABELS,
+} from "@/components/forms/mode-preference-field";
 
 interface LeadFormProps {
   lead?: Lead;
@@ -59,6 +63,16 @@ export function LeadForm({ lead }: LeadFormProps) {
     notes: lead?.notes || "",
     assignedTo: lead?.assignedTo || "",
     followUpDate: formatDateTimeLocal(lead?.followUpDate ?? null),
+    // Counsellor-filled. The website never asks a visitor for any of these —
+    // see counsellorFields in lib/actions/admin-leads.ts.
+    altPhone: lead?.altPhone || "",
+    qualification: lead?.qualification || "",
+    college: lead?.college || "",
+    passingYear: lead?.passingYear ?? "",
+    currentStatus: lead?.currentStatus || "",
+    preferredTiming: lead?.preferredTiming || "",
+    expectedJoining: lead?.expectedJoining || "",
+    modePreference: lead?.modePreference || "",
   });
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -185,6 +199,118 @@ export function LeadForm({ lead }: LeadFormProps) {
                   value={formData.message || ""}
                   onChange={(event) =>
                     setFormData((current) => ({ ...current, message: event.target.value }))
+                  }
+                />
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Everything below comes out of the counselling call, never from a
+              website form: a visitor enquiring about a course gives name,
+              mobile, email, mode and fresher/experienced, and nothing else. */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Education &amp; Preferences</CardTitle>
+              <p className="text-sm text-muted-foreground">
+                Filled in by the counsellor. Not asked on the website.
+              </p>
+            </CardHeader>
+            <CardContent className="grid gap-4 md:grid-cols-2">
+              <div className="space-y-2">
+                <Label htmlFor="qualification">Qualification</Label>
+                <Input
+                  id="qualification"
+                  value={formData.qualification || ""}
+                  placeholder="B.E. Computer Science"
+                  onChange={(event) =>
+                    setFormData((current) => ({ ...current, qualification: event.target.value }))
+                  }
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="college">College</Label>
+                <Input
+                  id="college"
+                  value={formData.college || ""}
+                  onChange={(event) =>
+                    setFormData((current) => ({ ...current, college: event.target.value }))
+                  }
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="passingYear">Passing year</Label>
+                <Input
+                  id="passingYear"
+                  type="number"
+                  min={1950}
+                  max={2100}
+                  value={formData.passingYear === "" ? "" : String(formData.passingYear)}
+                  onChange={(event) =>
+                    setFormData((current) => ({
+                      ...current,
+                      passingYear: event.target.value === "" ? "" : Number(event.target.value),
+                    }))
+                  }
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="currentStatus">Current status</Label>
+                <Input
+                  id="currentStatus"
+                  value={formData.currentStatus || ""}
+                  placeholder="Final year student / Working / Career break"
+                  onChange={(event) =>
+                    setFormData((current) => ({ ...current, currentStatus: event.target.value }))
+                  }
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="altPhone">Alternate phone</Label>
+                <Input
+                  id="altPhone"
+                  value={formData.altPhone || ""}
+                  onChange={(event) =>
+                    setFormData((current) => ({ ...current, altPhone: event.target.value }))
+                  }
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="modePreference">Mode preference</Label>
+                <select
+                  id="modePreference"
+                  className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm"
+                  value={formData.modePreference || ""}
+                  onChange={(event) =>
+                    setFormData((current) => ({ ...current, modePreference: event.target.value }))
+                  }
+                >
+                  <option value="">Not stated</option>
+                  {MODE_PREFERENCE_OPTIONS.map((option) => (
+                    <option key={option} value={option}>
+                      {MODE_PREFERENCE_LABELS[option] ?? option}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="preferredTiming">Preferred timing</Label>
+                <Input
+                  id="preferredTiming"
+                  value={formData.preferredTiming || ""}
+                  placeholder="Weekend / Evening after 7pm"
+                  onChange={(event) =>
+                    setFormData((current) => ({ ...current, preferredTiming: event.target.value }))
+                  }
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="expectedJoining">Expected joining</Label>
+                <Input
+                  id="expectedJoining"
+                  value={formData.expectedJoining || ""}
+                  placeholder="Next month / After exams"
+                  onChange={(event) =>
+                    setFormData((current) => ({ ...current, expectedJoining: event.target.value }))
                   }
                 />
               </div>

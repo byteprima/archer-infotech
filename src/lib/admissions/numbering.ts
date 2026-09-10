@@ -31,20 +31,21 @@ export function parseAdmissionNumber(
 }
 
 /**
- * The next number for a year, given every reference already issued in it.
+ * The highest sequence already visible in a year's references.
  *
- * Counts from the highest number in use, not from how many rows exist. Those
- * are the same until an admission is deleted, at which point counting rows
- * starts handing out a number that is already printed on somebody's receipt.
+ * This SEEDS the counter in lib/reference-counter.ts; it is not the allocator.
+ * "highest + 1" was the original implementation and it reissues a number the
+ * moment the highest row is deleted — printing the same reference on two
+ * people's receipts.
  */
-export function nextAdmissionNumber(
+export function highestAdmissionSequence(
   year: number,
   existing: readonly (string | null)[],
-): string {
+): number {
   let highest = 0;
   for (const value of existing) {
     const sequence = parseAdmissionNumber(value, year);
     if (sequence !== null && sequence > highest) highest = sequence;
   }
-  return formatAdmissionNumber(year, highest + 1);
+  return highest;
 }

@@ -9,6 +9,7 @@
  * via the `ActionResult.errors` payload. */
 
 import { useState, useTransition, useRef } from "react";
+import { readUtmParams } from "@/lib/leads/utm";
 import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -58,10 +59,10 @@ export function ContactForm() {
     const phone = String(fd.get("phone") || "").trim();
     const message = String(fd.get("message") || "").trim();
 
-    const searchParams = new URLSearchParams(window.location.search);
-    const utmSource = searchParams.get("utm_source") || undefined;
-    const utmMedium = searchParams.get("utm_medium") || undefined;
-    const utmCampaign = searchParams.get("utm_campaign") || undefined;
+    // utm_content and utm_term were being dropped here; readUtmParams picks
+    // up all five. Nothing extra is asked of the visitor.
+    const { utmSource, utmMedium, utmCampaign, utmContent, utmTerm } =
+      readUtmParams();
     const analyticsDistinctId = getAnalyticsDistinctId();
     const currentPath = window.location.pathname;
     const referrer = document.referrer || undefined;
@@ -86,6 +87,8 @@ export function ContactForm() {
           utmSource,
           utmMedium,
           utmCampaign,
+          utmContent,
+          utmTerm,
           analyticsDistinctId,
           currentPath,
           referrer,

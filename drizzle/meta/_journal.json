@@ -50,6 +50,13 @@
       "when": 1789078377735,
       "tag": "0006_closure_backfill",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "6",
+      "when": 1789080945188,
+      "tag": "0007_wise_stranger",
+      "breakpoints": true
     }
   ]
 }

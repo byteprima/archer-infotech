@@ -224,6 +224,75 @@ Registrations reference the session, and leads have been moved to
 DEMO_SCHEDULED on the strength of it. Deleting cascades the registrations away
 and leaves a lead whose status points at a demo that no longer exists.
 
+### Reference numbers count up in their own table, not from MAX(existing)
+
+`ENQ-2026-0042` and `ADM-2026-0007` are allocated from `reference_counters`
+(migration 0007), not from the highest number currently in the table.
+
+The first version of both did `MAX(existing) + 1`, and both shipped with unit
+tests that passed. The tests only covered a gap in the MIDDLE of the sequence
+(0001, 0003 → 0004). Delete the HIGHEST row and the max drops back, so the next
+lead is handed a reference the office has already quoted to somebody — and the
+admin lead list has a delete button. Caught by exercising the allocator against
+a copy of the real database rather than by the unit test.
+
+The counter is seeded from the highest number visible the first time a scope
+and year are used, so the rows migration 0002 backfilled are respected, and it
+takes `max(counter, observed)` on every allocation so an import or a restore
+cannot make it hand out a duplicate either. Allocation happens inside the
+insert's transaction: read-then-write is not atomic, and two enquiries arriving
+together is exactly when that matters.
+
+### Nothing was ever assigning an enquiry number
+
+Migration 0002 backfilled every lead that existed and no code path assigned one
+afterwards, so every enquiry that arrived after it had a NULL reference and
+displayed as "#42" in the follow-up queue, the reports table and the CSV
+export. The 25 rows in the dev database were all numbered, which is precisely
+why it looked correct. `insertLeadWithEnquiryNumber` is now the single way a
+lead is created, shared by the public form, the chatbot and the admin's own Add
+Lead.
+
+### What the website asks a visitor, and what it does not
+
+A student enquiring about a course gives **name, mobile, email, mode and
+fresher/experienced** — and the course, which comes from the page they are on.
+That is the whole public form and it is not to be extended.
+
+Qualification, college, passing year, current status, alternate phone,
+preferred timing and expected joining come out of the counselling call. They
+live in `counsellorFields` in `lib/actions/admin-leads.ts` and appear only in
+the Education & Preferences card on the admin lead form. Do not add them to a
+public form: every extra field on an enquiry form costs enquiries, and the
+counsellor is going to phone the person anyway.
+
+`utm_content` and `utm_term` are now captured alongside the three UTMs that
+already were, via `lib/leads/utm.ts`. They are read from the URL the marketing
+link carried, so they cost the visitor nothing.
+
+### `leads.campaign` is deliberately unwritten
+
+It duplicates `utm_campaign`, which the popup already fills with the campaign
+name (and `source` carries `popup:<campaign>`). Left in place rather than
+dropped — an unused nullable column is harmless, and a migration to remove it
+is risk without benefit. Recorded here so the next sweep does not treat it as
+a gap.
+
+### The writer/reader sweep
+
+`demo_sessions` had readers and no writer for a whole phase, and
+`enquiryNumber` had five readers and no writer. Both looked fine because the
+dev database had been seeded by hand. The check that finds this class of bug:
+
+- every table in `schema.ts` — is there a `.insert(<table>)` anywhere in `src`?
+  (better-auth's `user`, `session`, `account` and `verification` are written by
+  the library, not by us, and will always show as gaps here.)
+- every column — is the name used as an object key in a write anywhere?
+
+Run both before calling a phase complete. As of this commit the only column
+without a writer is `leads.campaign`, above, and every CRM table has an insert
+path.
+
 ## Tests
 
 `npm test` runs Node's own test runner through `tsx` — no test framework was

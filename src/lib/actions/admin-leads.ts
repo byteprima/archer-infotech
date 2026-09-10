@@ -7,6 +7,27 @@ import { db } from "@/db";
 import { LEAD_STATUS, leads } from "@/db/schema";
 import { EXPERIENCE_LEVEL_OPTIONS } from "@/lib/leads/experience-level";
 import { logAdminAction, requireAdminAction } from "@/lib/admin";
+import { insertLeadWithEnquiryNumber } from "@/lib/leads/allocate-enquiry-number";
+
+/**
+ * Details the COUNSELLOR fills in, not the visitor.
+ *
+ * A student enquiring from the website gives name, mobile, email, mode and
+ * fresher/experienced — nothing more. These come out of the first phone call
+ * and exist only on the admin lead form. Do not add them to any public form.
+ */
+const counsellorFields = {
+  altPhone: z.string().trim().max(20).optional(),
+  qualification: z.string().trim().max(120).optional(),
+  college: z.string().trim().max(200).optional(),
+  passingYear: z
+    .union([z.literal(""), z.coerce.number().int().min(1950).max(2100)])
+    .optional(),
+  currentStatus: z.string().trim().max(120).optional(),
+  preferredTiming: z.string().trim().max(120).optional(),
+  expectedJoining: z.string().trim().max(120).optional(),
+  modePreference: z.string().trim().max(40).optional(),
+};
 
 const updateLeadSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters."),
@@ -20,6 +41,7 @@ const updateLeadSchema = z.object({
   notes: z.string().optional(),
   assignedTo: z.string().optional(),
   followUpDate: z.string().optional(),
+  ...counsellorFields,
 });
 
 export type LeadUpdateData = z.infer<typeof updateLeadSchema>;
@@ -38,6 +60,7 @@ const createLeadSchema = z.object({
   notes: z.string().optional(),
   assignedTo: z.string().optional(),
   followUpDate: z.string().optional(),
+  ...counsellorFields,
 });
 
 export type LeadCreateData = z.infer<typeof createLeadSchema>;
@@ -73,24 +96,32 @@ export async function createLead(data: LeadCreateData): Promise<ActionResult> {
     ? new Date(validation.data.followUpDate)
     : null;
 
-  const inserted = await db
-    .insert(leads)
-    .values({
-      name: validation.data.name,
-      email: validation.data.email || "",
-      phone: validation.data.phone,
-      courseInterest: validation.data.courseInterest || null,
-      experienceLevel: validation.data.experienceLevel || null,
-      message: validation.data.message || null,
-      source: validation.data.source || "manual",
-      status: validation.data.status || "NEW",
-      notes: validation.data.notes || null,
-      assignedTo: validation.data.assignedTo || null,
-      followUpDate,
-    })
-    .returning({ id: leads.id });
-
-  const newId = inserted[0]?.id;
+  // Through the shared allocator, so a lead typed in by hand carries the same
+  // ENQ-YYYY-NNNN reference as one that arrived from the website.
+  const { id: newId } = insertLeadWithEnquiryNumber({
+    name: validation.data.name,
+    email: validation.data.email || "",
+    phone: validation.data.phone,
+    courseInterest: validation.data.courseInterest || null,
+    experienceLevel: validation.data.experienceLevel || null,
+    message: validation.data.message || null,
+    source: validation.data.source || "manual",
+    status: validation.data.status || "NEW",
+    notes: validation.data.notes || null,
+    assignedTo: validation.data.assignedTo || null,
+    followUpDate,
+    altPhone: validation.data.altPhone || null,
+    qualification: validation.data.qualification || null,
+    college: validation.data.college || null,
+    passingYear:
+      validation.data.passingYear === "" || validation.data.passingYear === undefined
+        ? null
+        : Number(validation.data.passingYear),
+    currentStatus: validation.data.currentStatus || null,
+    preferredTiming: validation.data.preferredTiming || null,
+    expectedJoining: validation.data.expectedJoining || null,
+    modePreference: validation.data.modePreference || null,
+  });
 
   revalidatePath("/admin/leads");
 
@@ -152,6 +183,17 @@ export async function updateLead(id: number, data: LeadUpdateData): Promise<Acti
       notes: validation.data.notes || null,
       assignedTo: validation.data.assignedTo || null,
       followUpDate,
+      altPhone: validation.data.altPhone || null,
+      qualification: validation.data.qualification || null,
+      college: validation.data.college || null,
+      passingYear:
+        validation.data.passingYear === "" || validation.data.passingYear === undefined
+          ? null
+          : Number(validation.data.passingYear),
+      currentStatus: validation.data.currentStatus || null,
+      preferredTiming: validation.data.preferredTiming || null,
+      expectedJoining: validation.data.expectedJoining || null,
+      modePreference: validation.data.modePreference || null,
       updatedAt: new Date(),
     })
     .where(eq(leads.id, id));

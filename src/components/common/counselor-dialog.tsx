@@ -19,6 +19,7 @@
  */
 
 import { useEffect, useState, useTransition } from "react";
+import { readUtmParams } from "@/lib/leads/utm";
 import { Loader2, MessageCircleQuestion } from "lucide-react";
 import {
   Dialog,
@@ -128,10 +129,10 @@ export function CounselorDialog({
       typedMessage ||
       `Counsellor callback request via website${course ? ` about ${course}` : ""}.`;
 
-    const searchParams = new URLSearchParams(window.location.search);
-    const utmSource = searchParams.get("utm_source") || undefined;
-    const utmMedium = searchParams.get("utm_medium") || undefined;
-    const utmCampaign = searchParams.get("utm_campaign") || undefined;
+    // utm_content and utm_term were being dropped here; readUtmParams picks
+    // up all five. Nothing extra is asked of the visitor.
+    const { utmSource, utmMedium, utmCampaign, utmContent, utmTerm } =
+      readUtmParams();
     const analyticsDistinctId = getAnalyticsDistinctId();
     const currentPath = window.location.pathname;
     const referrer = document.referrer || undefined;
@@ -154,6 +155,8 @@ export function CounselorDialog({
           utmSource,
           utmMedium,
           utmCampaign,
+          utmContent,
+          utmTerm,
           analyticsDistinctId,
           currentPath,
           referrer,

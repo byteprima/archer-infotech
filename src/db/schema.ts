@@ -1,4 +1,12 @@
-import { index, integer, real, sqliteTable, text, uniqueIndex } from "drizzle-orm/sqlite-core";
+import {
+  index,
+  integer,
+  primaryKey,
+  real,
+  sqliteTable,
+  text,
+  uniqueIndex,
+} from "drizzle-orm/sqlite-core";
 
 // ============================================
 // Better-Auth Tables
@@ -426,6 +434,33 @@ export const admissions = sqliteTable(
     index("admissions_date_idx").on(table.admissionDate),
   ],
 );
+
+/**
+ * Monotonic counters for human-readable references (ENQ-…, ADM-…).
+ *
+ * Deriving the next number from MAX(existing) looks equivalent and is not: it
+ * only holds while nothing is ever deleted. Delete the newest lead and the max
+ * drops back, so the next enquiry is handed a reference the office has already
+ * quoted to somebody — two different people, one number, and the admin lead
+ * list has a delete button.
+ *
+ * This table only ever counts up. A deleted row's number is retired.
+ */
+export const referenceCounters = sqliteTable(
+  "reference_counters",
+  {
+    /** "ENQ" or "ADM". */
+    scope: text("scope").notNull(),
+    year: integer("year").notNull(),
+    lastValue: integer("last_value").notNull().default(0),
+    updatedAt: integer("updated_at", { mode: "timestamp" })
+      .notNull()
+      .$defaultFn(() => new Date()),
+  },
+  (table) => [primaryKey({ columns: [table.scope, table.year] })],
+);
+
+export type ReferenceCounter = typeof referenceCounters.$inferSelect;
 
 export type Admission = typeof admissions.$inferSelect;
 export type NewAdmission = typeof admissions.$inferInsert;

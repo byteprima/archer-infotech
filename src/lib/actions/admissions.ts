@@ -8,7 +8,11 @@ import { admissions, batches, leads, user } from "@/db/schema";
 import { logAdminAction, requireAdminAction } from "@/lib/admin";
 import { getCourse } from "@/data/courses";
 import { computeFees, MAX_FEE_PAISE } from "@/lib/admissions/money";
-import { nextAdmissionNumber } from "@/lib/admissions/numbering";
+import {
+  formatAdmissionNumber,
+  highestAdmissionSequence,
+} from "@/lib/admissions/numbering";
+import { allocateReference } from "@/lib/reference-counter";
 import {
   ADMISSION_STATUSES,
   PAYMENT_STATUSES,
@@ -154,7 +158,10 @@ export async function convertLeadToAdmission(
       tx.insert(admissions)
         .values({
           leadId: data.leadId,
-          admissionNumber: nextAdmissionNumber(year, issued),
+          admissionNumber: formatAdmissionNumber(
+            year,
+            allocateReference(tx, "ADM", year, highestAdmissionSequence(year, issued)),
+          ),
           studentName: data.studentName,
           phone: data.phone,
           email: data.email || null,
