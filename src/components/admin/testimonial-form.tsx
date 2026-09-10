@@ -7,6 +7,7 @@ import { Loader2, Save, Eye, EyeOff, Star, Quote, Link2, ExternalLink, Upload, C
 import { GitHubIcon } from "@/components/common/social-icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { CoursePickerField } from "@/components/admin/course-picker-field";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
@@ -233,19 +234,20 @@ export function TestimonialForm({ testimonial }: TestimonialFormProps) {
                 </div>
               </div>
 
-              <div className="grid gap-4 md:grid-cols-2">
-                <div className="space-y-2">
-                  <Label htmlFor="courseTaken">Course Taken</Label>
-                  <Input
-                    id="courseTaken"
-                    value={formData.courseTaken}
-                    onChange={(e) =>
-                      setFormData((prev) => ({ ...prev, courseTaken: e.target.value }))
-                    }
-                    placeholder="e.g. Full Stack Development"
-                  />
-                </div>
-              </div>
+              {/* Picker, not free text. This field decides which course page
+                  a testimonial appears on and whether it feeds that page's
+                  aggregateRating — four of five live testimonials reached no
+                  page at all because they were typed as "Java full-stack
+                  development " rather than picked. */}
+              <CoursePickerField
+                id="courseTaken"
+                label="Course Taken"
+                value={formData.courseTaken}
+                onChange={(value) =>
+                  setFormData((prev) => ({ ...prev, courseTaken: value }))
+                }
+                customHint="Historical or one-off course names that aren't in the catalogue."
+              />
 
               <div className="space-y-2">
                 <Label htmlFor="content">Testimonial *</Label>

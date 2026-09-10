@@ -30,8 +30,22 @@ import { Textarea } from "@/components/ui/textarea";
 import { submitPlacement } from "@/lib/actions/placement-submissions";
 import { parseGithubUsername } from "@/lib/github-username";
 import { isLinkedInProfileUrl } from "@/lib/linkedin-url";
+import { courses } from "@/data/courses";
 
 type FieldErrors = Record<string, string>;
+
+/**
+ * Catalogue titles for the course picker.
+ *
+ * This was a free-text input, which is how the placements table ended up
+ * holding values like "AWS & DevOps" — a real answer that names two courses
+ * and matches neither, so the record can never appear on a course page.
+ * Picking from the catalogue keeps the stored value something the matcher
+ * can resolve; "Other" remains for anyone whose course predates it.
+ */
+const courseTitles = Array.from(new Set(courses.map((c) => c.title))).sort(
+  (a, b) => a.localeCompare(b),
+);
 
 export function PlacementSubmitForm() {
   const [isPending, startTransition] = useTransition();
@@ -201,7 +215,20 @@ export function PlacementSubmitForm() {
           </div>
           <div className="space-y-2">
             <Label htmlFor="courseTaken">Course you took at Archer</Label>
-            <Input id="courseTaken" name="courseTaken" className={inputClass} />
+            <select
+              id="courseTaken"
+              name="courseTaken"
+              className={inputClass}
+              defaultValue=""
+            >
+              <option value="">Select a course</option>
+              {courseTitles.map((title) => (
+                <option key={title} value={title}>
+                  {title}
+                </option>
+              ))}
+              <option value="Other">Other</option>
+            </select>
             {err("courseTaken")}
           </div>
           <div className="space-y-2">

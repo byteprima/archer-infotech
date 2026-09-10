@@ -1,6 +1,7 @@
 import { unstable_cache } from "next/cache";
 import { eq } from "drizzle-orm";
 import { db } from "@/db";
+import { matchesCourse } from "@/lib/courses/course-match";
 import { testimonials as testimonialsTable } from "@/db/schema";
 
 /**
@@ -73,9 +74,11 @@ export const getAllPublishedTestimonials = unstable_cache(
 
 /**
  * P7-33 — testimonials matched to a specific course title for the
- * course detail page. Substring match on `courseTaken` in both
- * directions so "Java" testimonials match "Java Full Stack" course
- * pages (and vice-versa). Returned testimonials feed both the
+ * course detail page. Matching is exact and comma-aware (see
+ * lib/courses/course-match.ts), so a testimonial recorded against
+ * "AWS Cloud Computing, DevOps Engineering" appears on both pages and
+ * one recorded against "C" appears only on the C page. Returned
+ * testimonials feed both the
  * visible "Student feedback" panel and the per-course aggregateRating
  * + review[] block inside `CourseJsonLd` so each course page becomes
  * SERP star-snippet eligible against its own Course schema.
@@ -87,15 +90,12 @@ export const getCourseTestimonials = unstable_cache(
         .select()
         .from(testimonialsTable)
         .where(eq(testimonialsTable.isPublished, true));
-      const needle = courseTitle.toLowerCase();
-      return all.filter((t) => {
-        if (!t.courseTaken) return false;
-        const haystack = t.courseTaken.toLowerCase();
-        // Bidirectional substring — e.g., "Java" testimonial matches
-        // "Java Full Stack" course, and "Java Full Stack" testimonial
-        // matches "Java" course.
-        return needle.includes(haystack) || haystack.includes(needle);
-      });
+      // Exact, comma-aware match. The previous bidirectional substring test
+      // both over-matched (a record saved as "C" attached itself to every
+      // course whose title contains a "c") and under-matched (four of five
+      // live testimonials read "Java full-stack development " and reached no
+      // page at all). See lib/courses/course-match.ts.
+      return all.filter((t) => matchesCourse(t.courseTaken, courseTitle));
     } catch (error) {
       console.error("getCourseTestimonials failed (build-time prerender?)", error);
       return [];
