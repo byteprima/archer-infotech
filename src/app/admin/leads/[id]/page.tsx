@@ -6,6 +6,13 @@ import { getLeadById } from "@/lib/actions/admin-leads";
 import { getFollowUpsForLead } from "@/lib/actions/follow-ups";
 import { FollowUpPanel } from "@/components/admin/follow-up-panel";
 import { LeadControls } from "@/components/admin/lead-controls";
+import { LeadBatchDemoPanel } from "@/components/admin/lead-batch-demo-panel";
+import {
+  getOfferableBatches,
+  getUpcomingDemoSessions,
+  getLeadBatchInterests,
+  getLeadDemoRegistrations,
+} from "@/lib/actions/lead-batch-demo";
 import { getAssignableStaff } from "@/lib/actions/lead-assignment";
 import { getCurrentRole } from "@/lib/auth";
 import { canAssignLeads } from "@/lib/leads/roles";
@@ -27,10 +34,15 @@ export default async function AdminLeadDetailPage({ params }: AdminLeadDetailPag
 
   const lead = await getLeadById(leadId);
   const followUps = lead ? await getFollowUpsForLead(leadId) : [];
-  const [staff, role] = await Promise.all([
-    getAssignableStaff(),
-    getCurrentRole(),
-  ]);
+  const [staff, role, offerableBatches, upcomingDemos, interests, registrations] =
+    await Promise.all([
+      getAssignableStaff(),
+      getCurrentRole(),
+      getOfferableBatches(),
+      getUpcomingDemoSessions(),
+      getLeadBatchInterests(leadId),
+      getLeadDemoRegistrations(leadId),
+    ]);
 
   if (!lead) {
     notFound();
@@ -70,6 +82,13 @@ export default async function AdminLeadDetailPage({ params }: AdminLeadDetailPag
               assignedToUserId={lead.assignedToUserId}
               staff={staff}
               canAssign={canAssignLeads(role)}
+            />
+            <LeadBatchDemoPanel
+              leadId={lead.id}
+              batches={offerableBatches}
+              demos={upcomingDemos}
+              interests={interests}
+              registrations={registrations}
             />
             <FollowUpPanel
               leadId={lead.id}

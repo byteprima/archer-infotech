@@ -278,10 +278,10 @@ export default async function AdminBatchesPage({ searchParams }: AdminBatchesPag
                         <Badge variant="outline">{batch.duration}</Badge>
                         {batch.instructor && <Badge variant="outline">{batch.instructor}</Badge>}
                       </div>
-                      {batch.location && batch.mode === "offline" && (
+                      {batch.location && batch.mode !== "online" && (
                         <p className="text-sm text-muted-foreground">{batch.location}</p>
                       )}
-                      {batch.meetingLink && batch.mode === "online" && (
+                      {batch.meetingLink && batch.mode !== "offline" && (
                         <a
                           href={batch.meetingLink}
                           target="_blank"

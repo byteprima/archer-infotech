@@ -1,9 +1,4 @@
-import {
-  sqliteTable,
-  text,
-  integer,
-  real,
-} from "drizzle-orm/sqlite-core";
+import { integer, real, sqliteTable, text, uniqueIndex } from "drizzle-orm/sqlite-core";
 
 // ============================================
 // Better-Auth Tables
@@ -78,8 +73,15 @@ export const verification = sqliteTable("verification", {
  * rejected every value the app now writes.
  */
 export { LEAD_STATUSES as LEAD_STATUS } from "@/lib/leads/lifecycle";
-export const BATCH_MODE = ["offline", "online"] as const;
-export const BATCH_STATUS = ["upcoming", "ongoing", "completed", "cancelled"] as const;
+// "hybrid" added for Phase 2: the institute runs hybrid batches and there was
+// no way to say so. The existing two values are untouched — they are read by
+// ~50 files including public pages and Course schema, and renaming them would
+// be a large change to the public site for an admin feature.
+export const BATCH_MODE = ["offline", "online", "hybrid"] as const;
+// "planned" added for Phase 2. The specification distinguishes PLANNED (dated
+// but not yet taking enrolments) from OPEN (taking them); "upcoming" already
+// means the latter here, so only the former was missing.
+export const BATCH_STATUS = ["planned", "upcoming", "ongoing", "completed", "cancelled"] as const;
 
 export type { LeadStatus } from "@/lib/leads/lifecycle";
 export type BatchMode = (typeof BATCH_MODE)[number];
@@ -88,6 +90,10 @@ export type BatchStatus = (typeof BATCH_STATUS)[number];
 // Batches table - for course batch scheduling
 export const batches = sqliteTable("batches", {
   id: integer("id").primaryKey({ autoIncrement: true }),
+  /** Human label for a batch, e.g. "Java FS — Aug Weekend". Optional: the
+   *  existing rows identify a batch by course and start date. */
+  batchName: text("batch_name"),
+  endDate: integer("end_date", { mode: "timestamp" }),
   courseSlug: text("course_slug").notNull(),
   courseName: text("course_name").notNull(),
   startDate: integer("start_date", { mode: "timestamp" }).notNull(),
@@ -232,6 +238,117 @@ export const followUps = sqliteTable("follow_ups", {
 
 export type FollowUp = typeof followUps.$inferSelect;
 export type NewFollowUp = typeof followUps.$inferInsert;
+
+/**
+ * A lead saying "that batch, please".
+ *
+ * Separate from assigning them to it: interest is the lead's signal, and it
+ * has to survive the batch filling up or the lead choosing another. One row
+ * per lead per batch — the unique index is what stops a counsellor logging
+ * the same interest twice from two screens.
+ */
+export const batchInterests = sqliteTable(
+  "batch_interests",
+  {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    leadId: integer("lead_id")
+      .notNull()
+      .references(() => leads.id, { onDelete: "cascade" }),
+    batchId: integer("batch_id")
+      .notNull()
+      .references(() => batches.id, { onDelete: "cascade" }),
+    notes: text("notes"),
+    createdByUserId: text("created_by_user_id").references(() => user.id, {
+      onDelete: "set null",
+    }),
+    createdAt: integer("created_at", { mode: "timestamp" })
+      .notNull()
+      .$defaultFn(() => new Date()),
+  },
+  (table) => [
+    uniqueIndex("batch_interests_lead_batch_idx").on(table.leadId, table.batchId),
+  ],
+);
+
+export const DEMO_SESSION_STATUS = ["scheduled", "completed", "cancelled"] as const;
+export type DemoSessionStatus = (typeof DEMO_SESSION_STATUS)[number];
+
+/**
+ * A demo or trial class someone can be invited to.
+ *
+ * `batchId` is optional: a demo often runs before a batch exists, which is
+ * the point of it. `courseSlug` rather than a course id because courses stay
+ * in courses.ts — see docs/lead-crm.md.
+ */
+export const demoSessions = sqliteTable("demo_sessions", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  courseSlug: text("course_slug").notNull(),
+  courseName: text("course_name").notNull(),
+  batchId: integer("batch_id").references(() => batches.id, {
+    onDelete: "set null",
+  }),
+  scheduledAt: integer("scheduled_at", { mode: "timestamp" }).notNull(),
+  /** Reuses BATCH_MODE so a demo and a batch describe delivery the same way. */
+  mode: text("mode").notNull().default("offline"),
+  meetingLink: text("meeting_link"),
+  location: text("location"),
+  trainer: text("trainer"),
+  capacity: integer("capacity"),
+  status: text("status").notNull().default("scheduled"),
+  notes: text("notes"),
+  createdAt: integer("created_at", { mode: "timestamp" })
+    .notNull()
+    .$defaultFn(() => new Date()),
+  updatedAt: integer("updated_at", { mode: "timestamp" })
+    .notNull()
+    .$defaultFn(() => new Date()),
+});
+
+export const DEMO_ATTENDANCE = ["scheduled", "attended", "no_show", "cancelled"] as const;
+export type DemoAttendance = (typeof DEMO_ATTENDANCE)[number];
+
+/**
+ * One lead's place in one demo, and whether they turned up.
+ *
+ * Attendance lives here rather than on the session because it is per person:
+ * a demo with eight registrations has eight different answers, and rolling
+ * them into a session-level status would lose exactly the information the
+ * follow-up conversation needs.
+ */
+export const demoRegistrations = sqliteTable(
+  "demo_registrations",
+  {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    demoSessionId: integer("demo_session_id")
+      .notNull()
+      .references(() => demoSessions.id, { onDelete: "cascade" }),
+    leadId: integer("lead_id")
+      .notNull()
+      .references(() => leads.id, { onDelete: "cascade" }),
+    attendance: text("attendance").notNull().default("scheduled"),
+    notes: text("notes"),
+    createdByUserId: text("created_by_user_id").references(() => user.id, {
+      onDelete: "set null",
+    }),
+    createdAt: integer("created_at", { mode: "timestamp" })
+      .notNull()
+      .$defaultFn(() => new Date()),
+    updatedAt: integer("updated_at", { mode: "timestamp" })
+      .notNull()
+      .$defaultFn(() => new Date()),
+  },
+  (table) => [
+    uniqueIndex("demo_registrations_session_lead_idx").on(
+      table.demoSessionId,
+      table.leadId,
+    ),
+  ],
+);
+
+export type BatchInterest = typeof batchInterests.$inferSelect;
+export type DemoSession = typeof demoSessions.$inferSelect;
+export type NewDemoSession = typeof demoSessions.$inferInsert;
+export type DemoRegistration = typeof demoRegistrations.$inferSelect;
 
 export const placements = sqliteTable("placements", {
   id: integer("id").primaryKey({ autoIncrement: true }),

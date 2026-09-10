@@ -21,10 +21,14 @@ import { batches, type Batch } from "@/db/schema";
  */
 export function filterUpcomingBatches(rows: Batch[]): Batch[] {
   const now = new Date();
+  // An allow-list, not a denylist. This read `!== "cancelled" && !==
+  // "completed"`, which silently published any status added later — and
+  // "planned" means dated but NOT yet taking enrolments, so it would have
+  // advertised batches nobody could join. Naming what may be shown means a
+  // new status stays private until someone decides otherwise.
   return rows.filter(
     (b) =>
-      b.status !== "cancelled" &&
-      b.status !== "completed" &&
+      (b.status === "upcoming" || b.status === "ongoing") &&
       new Date(b.startDate) >= now,
   );
 }

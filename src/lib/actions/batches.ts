@@ -7,6 +7,7 @@ import {
   type BatchMode,
   type BatchStatus,
 } from "@/db/schema";
+import { BATCH_STATUS, BATCH_MODE } from "@/db/schema";
 import { logAdminAction, requireAdminAction } from "@/lib/admin";
 import { batchFormSchema, type BatchFormData } from "@/lib/validations/batches";
 
@@ -29,20 +30,24 @@ type BatchStats = {
   modeCounts: Record<BatchMode, number>;
 };
 
+/**
+ * A zeroed count map for a vocabulary.
+ *
+ * These were hand-written object literals, so adding "planned" and "hybrid"
+ * to the constants left them missing a key — caught here by the typechecker,
+ * but only because the map is typed as Record<Value, number>. Deriving it
+ * from the constant means the next added value cannot be forgotten.
+ */
+function zeroed<T extends readonly string[]>(values: T): Record<T[number], number> {
+  return Object.fromEntries(values.map((v) => [v, 0])) as Record<T[number], number>;
+}
+
 function emptyStats(): BatchStats {
   return {
     totalCount: 0,
     filteredCount: 0,
-    statusCounts: {
-      upcoming: 0,
-      ongoing: 0,
-      completed: 0,
-      cancelled: 0,
-    },
-    modeCounts: {
-      offline: 0,
-      online: 0,
-    },
+    statusCounts: zeroed(BATCH_STATUS),
+    modeCounts: zeroed(BATCH_MODE),
   };
 }
 
@@ -126,13 +131,18 @@ export async function getAdminBatches(options?: BatchFilters): Promise<{
       stats: {
         totalCount: Number(totalCountResult[0]?.count || 0),
         filteredCount: Number(filteredCountResult[0]?.count || 0),
+        // Start from a zeroed map so a newly added status or mode shows as 0
+        // rather than being absent; the queries below only cover the values
+        // that had dedicated count queries when this was written.
         statusCounts: {
+          ...zeroed(BATCH_STATUS),
           upcoming: Number(upcomingCountResult[0]?.count || 0),
           ongoing: Number(ongoingCountResult[0]?.count || 0),
           completed: Number(completedCountResult[0]?.count || 0),
           cancelled: Number(cancelledCountResult[0]?.count || 0),
         },
         modeCounts: {
+          ...zeroed(BATCH_MODE),
           offline: Number(offlineCountResult[0]?.count || 0),
           online: Number(onlineCountResult[0]?.count || 0),
         },

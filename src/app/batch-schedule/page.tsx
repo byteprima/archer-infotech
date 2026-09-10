@@ -124,8 +124,22 @@ function BatchTable({ batches }: { batches: Batch[] }) {
 }
 
 export default async function BatchSchedulePage() {
-  const offlineBatches = await db.select().from(batchesTable).where(eq(batchesTable.mode, "offline")).orderBy(asc(batchesTable.startDate));
-  const onlineBatches = await db.select().from(batchesTable).where(eq(batchesTable.mode, "online")).orderBy(asc(batchesTable.startDate));
+  // One query, then split — this was two queries hardcoded to mode "offline"
+  // and mode "online", so a batch in any other mode matched neither and was
+  // silently absent from the page. Adding "hybrid" made that real: a hybrid
+  // batch existed, was upcoming and had seats, and the schedule said there
+  // were none. Hybrid appears under both headings because it genuinely is
+  // both, which is what a visitor filtering by "online" needs to see.
+  const allBatches = await db
+    .select()
+    .from(batchesTable)
+    .orderBy(asc(batchesTable.startDate));
+  const offlineBatches = allBatches.filter(
+    (b) => b.mode === "offline" || b.mode === "hybrid",
+  );
+  const onlineBatches = allBatches.filter(
+    (b) => b.mode === "online" || b.mode === "hybrid",
+  );
 
   return (
     <>
@@ -148,7 +162,7 @@ export default async function BatchSchedulePage() {
       {/* EducationEvent schema for every upcoming batch — Event rich results
           + AI "next batch in Pune" answers. P8-25 + P3-20. */}
       <BatchEventsJsonLd
-        batches={filterUpcomingBatches([...offlineBatches, ...onlineBatches])}
+        batches={filterUpcomingBatches(allBatches)}
       />
 
       {/* Hero Section */}
