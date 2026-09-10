@@ -2,6 +2,8 @@ import { unstable_cache } from "next/cache";
 import { eq } from "drizzle-orm";
 import { db } from "@/db";
 import { placements as placementsTable } from "@/db/schema";
+import { courses } from "@/data/courses";
+import { matchesCourse } from "@/lib/courses/course-match";
 
 /**
  * Cached, read-only placement fetcher for the public placement record.
@@ -211,6 +213,89 @@ export const getPlacementSalaryAggregates = unstable_cache(
   ["public-placement-salary-aggregates"],
   { tags: ["placements"], revalidate: 600 },
 );
+
+/** A placement plus how closely it relates to the page it is shown on. */
+export interface RankedPlacement extends PublicPlacement {
+  /** "course" — this exact course. "category" — a sibling course. "other". */
+  relevance: "course" | "category" | "other";
+}
+
+/**
+ * Placements for a course page, this course's first.
+ *
+ * Ranked rather than filtered. Filtering to the exact course leaves the strip
+ * empty on most pages — there are far more courses than placements — and an
+ * empty strip on a page that claims a 90% placement rate is worse than none.
+ * So siblings from the same category follow, then the rest, and the component
+ * labels each group so nobody is misled into reading an AWS placement as a
+ * Kubernetes one.
+ *
+ * Ordering inside each group puts the records that actually persuade first:
+ * verified, then with a photo, then with a consented name.
+ */
+const getCoursePlacementsCached = unstable_cache(
+  async (
+    courseTitle: string,
+    categorySlug: string,
+    limit = 12,
+  ): Promise<RankedPlacement[]> => {
+    try {
+      const all = await getPublicPlacements();
+      if (all.length === 0) return [];
+
+      // Titles that share this course's category, so a sibling can be
+      // recognised without a second query.
+      const siblingTitles = courses
+        .filter((c) => c.categorySlug === categorySlug && c.title !== courseTitle)
+        .map((c) => c.title);
+
+      const ranked: RankedPlacement[] = all.map((row) => {
+        if (matchesCourse(row.courseTaken, courseTitle)) {
+          return { ...row, relevance: "course" as const };
+        }
+        if (siblingTitles.some((t) => matchesCourse(row.courseTaken, t))) {
+          return { ...row, relevance: "category" as const };
+        }
+        return { ...row, relevance: "other" as const };
+      });
+
+      const tier = { course: 0, category: 1, other: 2 } as const;
+      const weight = (r: RankedPlacement) =>
+        (r.verified ? 0 : 1) + (r.photoUrl ? 0 : 1) + (r.package ? 0 : 1);
+
+      return ranked
+        .sort(
+          (a, b) =>
+            tier[a.relevance] - tier[b.relevance] ||
+            weight(a) - weight(b) ||
+            (b.batchYear ?? 0) - (a.batchYear ?? 0),
+        )
+        .slice(0, limit);
+    } catch {
+      return [];
+    }
+  },
+  ["course-placements-v1"],
+  { tags: ["placements"], revalidate: 600 },
+);
+
+/**
+ * The opt-in switch is checked OUTSIDE the cache, deliberately.
+ *
+ * Inside, the flag's value would be baked into the cached entry: turning the
+ * record off in production would keep serving placements for up to
+ * `revalidate` seconds afterwards, which is exactly the wrong direction for a
+ * switch whose whole purpose is to stop publication. Checked here, flipping
+ * it takes effect on the next request.
+ */
+export async function getCoursePlacements(
+  courseTitle: string,
+  categorySlug: string,
+  limit = 12,
+): Promise<RankedPlacement[]> {
+  if (!isPlacementRecordEnabled()) return [];
+  return getCoursePlacementsCached(courseTitle, categorySlug, limit);
+}
 
 /** Aggregates derived from the rows themselves — never hardcoded. */
 export interface PlacementStats {

@@ -33,8 +33,12 @@ import {
 import { CourseJsonLd, FAQJsonLd, BreadcrumbJsonLd } from "@/components/seo/json-ld";
 import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 import { FaqSection } from "@/components/seo/faq-section";
+import { SourceCitations } from "@/components/seo/source-citations";
+import { getCourseCitations } from "@/data/course-citations";
 import { ReviewRibbon } from "@/components/seo/review-ribbon";
 import { getCourseTestimonials } from "@/lib/actions/public-testimonials";
+import { getCoursePlacements } from "@/lib/actions/public-placements";
+import { CoursePlacementSlider } from "@/components/placements/course-placement-slider";
 import { Star, Quote } from "lucide-react";
 import { courses, getCourse, getCategory, getRelatedCourses } from "@/data/courses";
 import { getHiringPartners } from "@/data/companies";
@@ -191,6 +195,12 @@ export default async function CoursePage({ params }: CoursePageProps) {
   // waits for a real distribution.
   const orgRating = await getDisplayRating();
   const courseTestimonials = await getCourseTestimonials(course.title);
+  // Ranked, this course first. Returns [] while the placement record is
+  // switched off, so the strip simply does not render.
+  const coursePlacements = await getCoursePlacements(
+    course.title,
+    course.categorySlug,
+  );
   const courseAggregateRating =
     courseTestimonials.length >= MIN_COURSE_RATINGS_FOR_SCHEMA
       ? {
@@ -537,7 +547,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
                 );
               })()}
 
-              <RichCourseContentAboveFold rich={rich} />
+              <RichCourseContentAboveFold rich={rich} courseName={course.title} />
               {/* No <Suspense> here. The boundary existed only because
                   RichCourseContentBelowFold was artificially async; these
                   pages are SSG, so it bought no streaming benefit and put
@@ -1014,9 +1024,41 @@ export default async function CoursePage({ params }: CoursePageProps) {
         );
       })()}
 
+      {/* Outbound citations for the claims this page makes.
+          These pages are the longest on the site and were the only major
+          template with no citation block — every statement about a framework,
+          an exam's structure or a salary band was an uncorroborated assertion.
+          Renders nothing for a course with no mapped sources rather than
+          padding the list to look complete. */}
+      {(() => {
+        const citations = getCourseCitations(slug);
+        if (citations.length === 0) return null;
+        return (
+          <SourceCitations
+            heading={`Sources behind this ${course.shortTitle} page`}
+            intro="Every claim below links to the primary source that backs it — vendor documentation and official exam guides, not summaries of them."
+            items={citations}
+          />
+        );
+      })()}
+
       {/* Related reading — blog posts matched against course keywords.
           Renders nothing when no posts overlap. P5-28. */}
       <RelatedReading posts={relatedReading} courseTitle={course.shortTitle} />
+
+      {/* Placement strip, this course's records first. Sits directly above
+          the testimonials so the two social-proof blocks read together:
+          where people ended up, then what they said about getting there. */}
+      {coursePlacements.length > 0 && (
+        <section className="border-t bg-background">
+          <div className="container mx-auto px-4">
+            <CoursePlacementSlider
+              placements={coursePlacements}
+              courseTitle={course.title}
+            />
+          </div>
+        </section>
+      )}
 
       {/* P7-33 — course-matched student feedback. Pairs with the
           aggregateRating + review[] block embedded in CourseJsonLd above
