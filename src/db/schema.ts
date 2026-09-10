@@ -1,4 +1,4 @@
-import { integer, real, sqliteTable, text, uniqueIndex } from "drizzle-orm/sqlite-core";
+import { index, integer, real, sqliteTable, text, uniqueIndex } from "drizzle-orm/sqlite-core";
 
 // ============================================
 // Better-Auth Tables
@@ -344,6 +344,77 @@ export const demoRegistrations = sqliteTable(
     ),
   ],
 );
+
+/**
+ * An admission — the point a lead stops being an enquiry and becomes a student.
+ *
+ * One admission per lead at most (the unique index below), and the lead row is
+ * never deleted: the enquiry, its follow-ups and its admission together are the
+ * history of how this student arrived, which is the thing the reports are
+ * eventually going to ask about.
+ *
+ * Money is stored in PAISE as integers. See src/lib/admissions/money.ts for
+ * why, and for the only two functions that convert between paise and the
+ * rupees an admin types.
+ *
+ * `courseSlug` rather than a course id, matching batches and demo sessions —
+ * courses stay in courses.ts, see docs/lead-crm.md.
+ */
+export const admissions = sqliteTable(
+  "admissions",
+  {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    leadId: integer("lead_id")
+      .notNull()
+      .references(() => leads.id, { onDelete: "cascade" }),
+    /** Human-readable reference for a receipt or a phone call: ADM-2026-0007. */
+    admissionNumber: text("admission_number"),
+    /**
+     * Copied from the lead at conversion rather than joined on every read.
+     * The lead record keeps being edited afterwards — a corrected spelling, a
+     * new phone number — and an admission has to say who enrolled on the day.
+     */
+    studentName: text("student_name").notNull(),
+    phone: text("phone").notNull(),
+    email: text("email"),
+    courseSlug: text("course_slug").notNull(),
+    courseName: text("course_name").notNull(),
+    /** Optional: an admission is often taken before the batch is fixed. */
+    batchId: integer("batch_id").references(() => batches.id, {
+      onDelete: "set null",
+    }),
+    admissionDate: integer("admission_date", { mode: "timestamp" }).notNull(),
+    /** All three in paise. `finalFee` is always derived server-side. */
+    courseFee: integer("course_fee").notNull().default(0),
+    discount: integer("discount").notNull().default(0),
+    finalFee: integer("final_fee").notNull().default(0),
+    /** ADMISSION_STATUSES — is this person joining? */
+    status: text("status").notNull().default("ENROLLED"),
+    /** PAYMENT_STATUSES — how much of the fee has arrived? */
+    paymentStatus: text("payment_status").notNull().default("PENDING"),
+    notes: text("notes"),
+    createdByUserId: text("created_by_user_id").references(() => user.id, {
+      onDelete: "set null",
+    }),
+    createdAt: integer("created_at", { mode: "timestamp" })
+      .notNull()
+      .$defaultFn(() => new Date()),
+    updatedAt: integer("updated_at", { mode: "timestamp" })
+      .notNull()
+      .$defaultFn(() => new Date()),
+  },
+  (table) => [
+    // Lead 1 --- 0..1 Admission. Enforced here rather than by a check in the
+    // action, because two counsellors clicking Convert at the same moment is
+    // exactly the case an application-level check misses.
+    uniqueIndex("admissions_lead_idx").on(table.leadId),
+    index("admissions_status_idx").on(table.status),
+    index("admissions_date_idx").on(table.admissionDate),
+  ],
+);
+
+export type Admission = typeof admissions.$inferSelect;
+export type NewAdmission = typeof admissions.$inferInsert;
 
 export type BatchInterest = typeof batchInterests.$inferSelect;
 export type DemoSession = typeof demoSessions.$inferSelect;

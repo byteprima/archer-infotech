@@ -1,8 +1,8 @@
 # Lead & Enquiry Management — implementation notes
 
-Phase 1 of the Training Institute Lead & Enquiry Management specification.
-This file records the decisions taken while building it, so the reasoning
-survives the commit messages.
+Phases 1 to 3 of the Training Institute Lead & Enquiry Management
+specification. This file records the decisions taken while building them, so
+the reasoning survives the commit messages.
 
 ## Technology
 
@@ -19,7 +19,7 @@ here would cost more than it bought:
 | UI | Existing admin components, shadcn/ui primitives, Tailwind |
 | Validation | Zod schemas alongside each action |
 
-No new dependency was added for Phase 1.
+No new dependency has been added in any phase so far.
 
 ## Decisions
 
@@ -72,13 +72,77 @@ by hand, some of which may not correspond to a user account, and deleting it
 would lose that. New assignment writes the user id; the text column is left
 as historical record.
 
+### Phase 3: fees are integers, in paise
+
+`course_fee`, `discount` and `final_fee` are stored as an INTEGER number of
+paise. ₹45,000 less a 12% discount is ₹39,600 exactly in paise and
+39599.999999999996 in a float — the kind of error that surfaces months later
+as a receipt disagreeing with itself by a rupee.
+
+`src/lib/admissions/money.ts` is the only place rupees and paise meet. The
+admin types rupees; nothing else in the codebase sees them.
+
+### `final_fee` is stored, but always derived
+
+Storing a value you can compute invites the three columns to disagree. It is
+stored anyway, because an admission is a financial record and the figure
+agreed on the day has to survive somebody later correcting the course fee.
+The drift is prevented by never accepting `finalFee` from the client —
+`computeFees()` recalculates it on every write.
+
+### Two statuses, not one
+
+`status` (ENROLLED / ON_HOLD / CANCELLED) answers "is this person joining".
+`payment_status` (PENDING / PARTIAL / PAID / REFUNDED) answers "how much of
+the fee has arrived". They move at different times — enrolled and owing the
+whole fee is normal, so is fully paid and then cancelling. One combined
+status would force one of those to be recorded as a lie.
+
+### Cancelling an admission returns the lead to FOLLOW_UP
+
+Not to LOST. A cancelled admission is often a deferral to the next batch, and
+LOST is a closed status: it would drop the lead out of the follow-up queues
+and hide somebody still worth calling. FOLLOW_UP puts them back in the queue.
+Leaving the lead on ADMISSION_CONFIRMED was not an option — every count on
+the leads screen would be wrong.
+
+### Conversion is one transaction
+
+The reference number is allocated and the lead is flipped to
+ADMISSION_CONFIRMED inside the same transaction as the insert, so a failure
+cannot leave a lead marked as converted with no admission behind it. Verified
+against a copy of the dev database: a rejected duplicate left the lead on its
+original status.
+
+One admission per lead is enforced by a unique index on `lead_id`, not by a
+check in the action — two counsellors clicking Convert at the same moment is
+exactly what an application-level check misses.
+
+### Admission numbers count from the highest issued, not from the row count
+
+`ADM-2026-0007`. Counting rows and counting the highest number in use are the
+same until an admission is deleted, at which point counting rows starts
+reissuing a number that is already printed on somebody's receipt. Kept pure in
+`src/lib/admissions/numbering.ts` and tested — the equivalent enquiry-number
+rule shipped with a bug that gave every row ENQ-2026-0001.
+
+### Batch seats are not decremented on admission
+
+`batches.seats_available` is maintained by hand in the batch editor and stays
+that way. Wiring it to admissions means also handling cancellation, batch
+reassignment and edits, each of which can double-count; that is a change to
+how batches work, and it belongs with batch management rather than smuggled
+into the conversion action. Recorded here because the two numbers can now
+disagree, and somebody will notice.
+
 ## Tests
 
 `npm test` runs Node's own test runner through `tsx` — no test framework was
 added, because the repository had none and Node 24 ships one.
 
 The suite covers the pure decision logic, which is where a mistake here is
-silent: the role matrix, the status vocabulary, and course matching. The
+silent: the role matrix, the status vocabulary, course matching, and — from
+Phase 3 — fee arithmetic and admission numbering. The
 course-matching tests are regressions for two bugs that were live in the
 database, not hypotheticals — a value of `"C"` attaching itself to 41 course
 pages, and `"Java full-stack development "` reaching none.

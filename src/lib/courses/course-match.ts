@@ -68,3 +68,18 @@ export function resolveCourses(stored: string | null | undefined): string[] {
     .filter((course) => entries.includes(normalise(course.title)))
     .map((course) => course.title);
 }
+
+/**
+ * Every catalogue course SLUG a stored value names.
+ *
+ * The slug is what leads, batches, demos and admissions all key on, so the
+ * admin needs the identifier rather than the display title that
+ * `resolveCourses` returns.
+ */
+export function resolveCourseSlugs(stored: string | null | undefined): string[] {
+  const entries = splitCourseValue(stored).map(normalise);
+  if (entries.length === 0) return [];
+  return courses
+    .filter((course) => entries.includes(normalise(course.title)))
+    .map((course) => course.slug);
+}

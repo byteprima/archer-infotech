@@ -51,6 +51,9 @@ export const canAccessAdmin = isStaffRole;
 export const COUNSELOR_ALLOWED_PREFIXES = [
   "/admin/leads",
   "/admin/follow-ups",
+  // Converting an enquiry is a counsellor's job, and the record they just
+  // created has to stay visible to them afterwards.
+  "/admin/admissions",
   "/admin/unauthorized",
   "/admin/login",
 ] as const;

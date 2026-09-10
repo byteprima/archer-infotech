@@ -17,6 +17,7 @@ import {
   Building2,
   Presentation,
   CalendarClock,
+  UserCheck,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -25,9 +26,18 @@ import { requireAdminPage } from "@/lib/admin";
 async function getStats() {
   try {
     const { db } = await import("@/db");
-    const { leads, batches, placements, testimonials, blogPosts, user, auditLogs, alumni } =
-      await import("@/db/schema");
-    const { count, eq, and, isNotNull, lt, gte, notInArray } = await import(
+    const {
+      leads,
+      batches,
+      placements,
+      testimonials,
+      blogPosts,
+      user,
+      auditLogs,
+      alumni,
+      admissions,
+    } = await import("@/db/schema");
+    const { count, eq, and, isNotNull, lt, gte, ne, notInArray } = await import(
       "drizzle-orm",
     );
     const { CLOSED_LEAD_STATUSES } = await import("@/lib/leads/lifecycle");
@@ -36,6 +46,8 @@ async function getStats() {
     startOfToday.setHours(0, 0, 0, 0);
     const startOfTomorrow = new Date(startOfToday);
     startOfTomorrow.setDate(startOfTomorrow.getDate() + 1);
+    const startOfMonth = new Date(startOfToday);
+    startOfMonth.setDate(1);
 
     const [
       totalLeads,
@@ -53,6 +65,8 @@ async function getStats() {
       newAlumni,
       overdueFollowUps,
       todayFollowUps,
+      totalAdmissions,
+      monthAdmissions,
     ] = await Promise.all([
       db.select({ count: count() }).from(leads),
       // "NEW", not "new" — the lifecycle migration uppercased these. Left
@@ -92,6 +106,19 @@ async function getStats() {
             notInArray(leads.status, [...CLOSED_LEAD_STATUSES]),
           ),
         ),
+      db
+        .select({ count: count() })
+        .from(admissions)
+        .where(ne(admissions.status, "CANCELLED")),
+      db
+        .select({ count: count() })
+        .from(admissions)
+        .where(
+          and(
+            ne(admissions.status, "CANCELLED"),
+            gte(admissions.admissionDate, startOfMonth),
+          ),
+        ),
     ]);
 
     return {
@@ -108,6 +135,10 @@ async function getStats() {
       users: { total: totalUsers[0].count, admins: totalAdmins[0].count },
       auditLogs: { total: totalAuditLogs[0].count },
       alumni: { total: totalAlumni[0].count, new: newAlumni[0].count },
+      admissions: {
+        total: totalAdmissions[0].count,
+        thisMonth: monthAdmissions[0].count,
+      },
     };
   } catch (error) {
     console.error("Database error:", error);
@@ -122,6 +153,7 @@ async function getStats() {
       users: { total: 0, admins: 0 },
       auditLogs: { total: 0 },
       alumni: { total: 0, new: 0 },
+      admissions: { total: 0, thisMonth: 0 },
     };
   }
 }
@@ -145,6 +177,13 @@ export default async function AdminDashboard() {
       href: "/admin/follow-ups",
       icon: CalendarClock,
       stats: `${stats.followUps.overdue} overdue, ${stats.followUps.today} today`,
+    },
+    {
+      title: "Admissions",
+      description: "Enquiries that became students",
+      href: "/admin/admissions",
+      icon: UserCheck,
+      stats: `${stats.admissions.total} total, ${stats.admissions.thisMonth} this month`,
     },
     {
       title: "Batches",

@@ -14,6 +14,10 @@ import {
   getLeadDemoRegistrations,
 } from "@/lib/actions/lead-batch-demo";
 import { getAssignableStaff } from "@/lib/actions/lead-assignment";
+import { AdmissionPanel } from "@/components/admin/admission-panel";
+import { getAdmissionForLead } from "@/lib/actions/admissions";
+import { courses, getCourse } from "@/data/courses";
+import { resolveCourseSlugs } from "@/lib/courses/course-match";
 import { getCurrentRole } from "@/lib/auth";
 import { canAssignLeads } from "@/lib/leads/roles";
 import { requireAdminPage } from "@/lib/admin";
@@ -34,19 +38,41 @@ export default async function AdminLeadDetailPage({ params }: AdminLeadDetailPag
 
   const lead = await getLeadById(leadId);
   const followUps = lead ? await getFollowUpsForLead(leadId) : [];
-  const [staff, role, offerableBatches, upcomingDemos, interests, registrations] =
-    await Promise.all([
-      getAssignableStaff(),
-      getCurrentRole(),
-      getOfferableBatches(),
-      getUpcomingDemoSessions(),
-      getLeadBatchInterests(leadId),
-      getLeadDemoRegistrations(leadId),
-    ]);
+  const [
+    staff,
+    role,
+    offerableBatches,
+    upcomingDemos,
+    interests,
+    registrations,
+    admission,
+  ] = await Promise.all([
+    getAssignableStaff(),
+    getCurrentRole(),
+    getOfferableBatches(),
+    getUpcomingDemoSessions(),
+    getLeadBatchInterests(leadId),
+    getLeadDemoRegistrations(leadId),
+    getAdmissionForLead(leadId),
+  ]);
 
   if (!lead) {
     notFound();
   }
+
+  // Pre-select the course the enquiry was about. `courseInterest` is free text
+  // typed by whoever filled the form, so it is resolved through the same
+  // matcher the public pages use rather than compared directly — see
+  // lib/courses/course-match.ts.
+  const suggestedCourseSlug =
+    resolveCourseSlugs(lead.courseInterest)[0] ??
+    getCourse(lead.courseInterest ?? "")?.slug ??
+    null;
+
+  const courseOptions = courses.map((course) => ({
+    slug: course.slug,
+    title: course.title,
+  }));
 
   return (
     <div className="min-h-screen">
@@ -82,6 +108,16 @@ export default async function AdminLeadDetailPage({ params }: AdminLeadDetailPag
               assignedToUserId={lead.assignedToUserId}
               staff={staff}
               canAssign={canAssignLeads(role)}
+            />
+            <AdmissionPanel
+              leadId={lead.id}
+              leadName={lead.name}
+              leadPhone={lead.phone}
+              leadEmail={lead.email}
+              suggestedCourseSlug={suggestedCourseSlug}
+              courses={courseOptions}
+              batches={offerableBatches}
+              admission={admission}
             />
             <LeadBatchDemoPanel
               leadId={lead.id}
