@@ -60,6 +60,22 @@ by hand, some of which may not correspond to a user account, and deleting it
 would lose that. New assignment writes the user id; the text column is left
 as historical record.
 
+## Tests
+
+`npm test` runs Node's own test runner through `tsx` — no test framework was
+added, because the repository had none and Node 24 ships one.
+
+The suite covers the pure decision logic, which is where a mistake here is
+silent: the role matrix, the status vocabulary, and course matching. The
+course-matching tests are regressions for two bugs that were live in the
+database, not hypotheticals — a value of `"C"` attaching itself to 41 course
+pages, and `"Java full-stack development "` reaching none.
+
+Not covered: anything needing a database. Testing lead creation, assignment
+and follow-up writes needs a throwaway-SQLite harness, which is a decision
+about test infrastructure rather than a gap in this feature, and is left for
+whoever picks that up.
+
 ## Known conflicts, deliberately not resolved here
 
 **Learning-mode vocabulary.** The public forms ship
