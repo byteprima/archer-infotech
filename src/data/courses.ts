@@ -2383,7 +2383,8 @@ export const courses: Course[] = [
     duration: "2 Months",
     level: "Beginner",
     mode: ["Online", "Offline"],
-    tileImage: "/images/courses/ai-tools-v1.webp",
+    image: "/images/courses/vibe-coding-v1.webp",
+    tileImage: "/images/courses/vibe-coding-v1.webp",
     isPopular: true,
     highlights: [
       "Cursor, Claude Code, OpenAI Codex and GitHub Copilot, hands-on",
@@ -3176,6 +3177,8 @@ export const courses: Course[] = [
     shortDescription: "Selenium 4 + Python + PyTest + POM with CI/CD and AI-assisted testing",
     duration: "2 Months",
     level: "Intermediate",
+    image: "/images/courses/selenium-python-v1.webp",
+    tileImage: "/images/courses/selenium-python-v1.webp",
     mode: ["Online", "Offline"],
     relatedSlugs: ["software-testing-training-in-pune", "selenium-training-in-pune", "playwright-training-in-pune", "ai-assisted-software-testing-training-in-pune", "llm-rag-testing-training-in-pune"],
     highlights: [
@@ -3242,6 +3245,8 @@ export const courses: Course[] = [
     shortDescription: "Playwright + TypeScript + API testing, visual testing and CI with AI-assisted testing",
     duration: "2.5 Months",
     level: "Intermediate",
+    image: "/images/courses/playwright-v1.webp",
+    tileImage: "/images/courses/playwright-v1.webp",
     mode: ["Online", "Offline"],
     relatedSlugs: ["selenium-training-in-pune", "selenium-python-training-in-pune", "api-testing-training-in-pune", "ai-assisted-software-testing-training-in-pune"],
     highlights: [
@@ -3312,6 +3317,8 @@ export const courses: Course[] = [
     shortDescription: "Postman + REST + Rest Assured / PyTest / Playwright with CI and AI-assisted testing",
     duration: "2 Months",
     level: "Intermediate",
+    image: "/images/courses/api-testing-v1.webp",
+    tileImage: "/images/courses/api-testing-v1.webp",
     mode: ["Online", "Offline"],
     relatedSlugs: ["playwright-training-in-pune", "selenium-python-training-in-pune", "software-testing-training-in-pune", "ai-assisted-software-testing-training-in-pune"],
     highlights: [
@@ -3450,6 +3457,8 @@ export const courses: Course[] = [
       "Use GenAI for requirements, test design, test data, automation, debugging and QA documentation",
     duration: "1 Month",
     level: "Intermediate",
+    image: "/images/courses/ai-assisted-testing-v1.webp",
+    tileImage: "/images/courses/ai-assisted-testing-v1.webp",
     mode: ["Online", "Offline"],
     relatedSlugs: [
       "llm-rag-testing-training-in-pune",
@@ -3509,6 +3518,8 @@ export const courses: Course[] = [
       "Evaluate prompts, LLM responses, hallucinations, RAG quality, safety and AI regression",
     duration: "2 Months",
     level: "Advanced",
+    image: "/images/courses/llm-rag-testing-v1.webp",
+    tileImage: "/images/courses/llm-rag-testing-v1.webp",
     mode: ["Online", "Offline"],
     isPopular: true,
     relatedSlugs: [
@@ -3570,6 +3581,8 @@ export const courses: Course[] = [
       "Test AI agents, tool calls, workflows, memory, trajectories, safety and production quality",
     duration: "2 Months",
     level: "Advanced",
+    image: "/images/courses/agentic-ai-testing-v1.webp",
+    tileImage: "/images/courses/agentic-ai-testing-v1.webp",
     mode: ["Online", "Offline"],
     relatedSlugs: [
       "llm-rag-testing-training-in-pune",

@@ -9,7 +9,7 @@ import { TrackedAnchor } from "@/components/analytics/tracked-anchor";
 import { siteConfig } from "@/data/site-config";
 import { db } from "@/db";
 import { batches as batchesTable, type Batch } from "@/db/schema";
-import { eq, asc } from "drizzle-orm";
+import { asc } from "drizzle-orm";
 
 export const dynamic = "force-dynamic";
 

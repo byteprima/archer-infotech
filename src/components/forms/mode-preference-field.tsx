@@ -22,6 +22,29 @@ export const MODE_PREFERENCE_OPTIONS = [
 
 export type ModePreference = (typeof MODE_PREFERENCE_OPTIONS)[number];
 
+/**
+ * On-screen wording for each stored value.
+ *
+ * "Offline" and "Classroom" name the same thing — the site's own course and
+ * bootcamp copy says Classroom, the admin said Offline — so the label carries
+ * both and the stored value stays "Offline". Keeping the value means no
+ * migration and no risk to the rows already collected; putting the label in
+ * one place means the three files that had spelled it out by hand, in two
+ * different capitalisations, cannot drift again.
+ */
+export const MODE_PREFERENCE_LABELS: Record<string, string> = {
+  Online: "Online",
+  Offline: "Offline (Classroom)",
+  Hybrid: "Hybrid",
+  "No preference": "No preference",
+};
+
+/** Label for a stored value, falling back to the raw value if unknown. */
+export function modePreferenceLabel(value: string | null | undefined): string {
+  if (!value) return "—";
+  return MODE_PREFERENCE_LABELS[value] ?? value;
+}
+
 export function ModePreferenceField({
   name = "modePreference",
   label = "How would you like to study?",
@@ -49,7 +72,7 @@ export function ModePreferenceField({
               defaultChecked={defaultValue === option}
               className="h-3.5 w-3.5"
             />
-            <span>{option === "Offline" ? "Offline (classroom)" : option}</span>
+            <span>{MODE_PREFERENCE_LABELS[option] ?? option}</span>
           </label>
         ))}
       </div>

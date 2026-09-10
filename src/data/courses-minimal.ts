@@ -649,7 +649,8 @@ export const coursesSummary: CourseSummary[] = [
     duration: "2 Months",
     level: "Beginner",
     mode: ["Online", "Offline"],
-    tileImage: "/images/courses/ai-tools-v1.webp",
+    image: "/images/courses/vibe-coding-v1.webp",
+    tileImage: "/images/courses/vibe-coding-v1.webp",
     isPopular: true,
   },
   {
@@ -866,6 +867,8 @@ export const coursesSummary: CourseSummary[] = [
     duration: "2 Months",
     level: "Intermediate",
     mode: ["Online", "Offline"],
+    image: "/images/courses/selenium-python-v1.webp",
+    tileImage: "/images/courses/selenium-python-v1.webp",
   },
   {
     id: "playwright",
@@ -878,6 +881,8 @@ export const coursesSummary: CourseSummary[] = [
     duration: "2.5 Months",
     level: "Intermediate",
     mode: ["Online", "Offline"],
+    image: "/images/courses/playwright-v1.webp",
+    tileImage: "/images/courses/playwright-v1.webp",
   },
   {
     id: "api-testing",
@@ -890,6 +895,8 @@ export const coursesSummary: CourseSummary[] = [
     duration: "2 Months",
     level: "Intermediate",
     mode: ["Online", "Offline"],
+    image: "/images/courses/api-testing-v1.webp",
+    tileImage: "/images/courses/api-testing-v1.webp",
   },
   {
     id: "software-testing",
@@ -916,6 +923,8 @@ export const coursesSummary: CourseSummary[] = [
     duration: "1 Month",
     level: "Intermediate",
     mode: ["Online", "Offline"],
+    image: "/images/courses/ai-assisted-testing-v1.webp",
+    tileImage: "/images/courses/ai-assisted-testing-v1.webp",
   },
   {
     id: "llm-rag-testing",
@@ -928,6 +937,8 @@ export const coursesSummary: CourseSummary[] = [
     duration: "2 Months",
     level: "Advanced",
     mode: ["Online", "Offline"],
+    image: "/images/courses/llm-rag-testing-v1.webp",
+    tileImage: "/images/courses/llm-rag-testing-v1.webp",
     isPopular: true,
   },
   {
@@ -941,6 +952,8 @@ export const coursesSummary: CourseSummary[] = [
     duration: "2 Months",
     level: "Advanced",
     mode: ["Online", "Offline"],
+    image: "/images/courses/agentic-ai-testing-v1.webp",
+    tileImage: "/images/courses/agentic-ai-testing-v1.webp",
   },
   {
     id: "salesforce",

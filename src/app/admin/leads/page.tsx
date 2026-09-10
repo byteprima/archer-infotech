@@ -36,6 +36,7 @@ import {
   buildSourceCondition,
 } from "@/lib/leads/source-filter";
 import { DeleteLeadButton } from "@/components/admin/delete-lead-button";
+import { MODE_PREFERENCE_LABELS } from "@/components/forms/mode-preference-field";
 
 type LeadRow = typeof leadsTable.$inferSelect;
 
@@ -84,8 +85,9 @@ const statusColors: Record<string, string> = {
 const MODE_META: Record<string, { icon: LucideIcon; label: string; title?: string }> = {
   Online: { icon: Monitor, label: "Online" },
   // Stored as "Offline"; shown short, with the full phrasing on hover, because
-  // "Offline (classroom)" is too wide for a column in a nine-column table.
-  Offline: { icon: Building2, label: "Offline", title: "Offline (classroom)" },
+  // The full label is too wide for a column in a ten-column table, so the
+  // cell abbreviates and the tooltip carries it in full.
+  Offline: { icon: Building2, label: "Offline", title: MODE_PREFERENCE_LABELS.Offline },
   Hybrid: { icon: Blend, label: "Hybrid" },
   "No preference": { icon: CircleDashed, label: "No preference" },
 };

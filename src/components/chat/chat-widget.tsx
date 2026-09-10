@@ -19,7 +19,10 @@ import { useEffect, useRef, useState } from "react";
 import { MessageCircle, X, Send, Loader2, CheckCircle2 } from "lucide-react";
 import { submitLead } from "@/lib/actions/leads";
 import { CourseSelect } from "@/components/forms/course-select";
-import { MODE_PREFERENCE_OPTIONS } from "@/components/forms/mode-preference-field";
+import {
+  MODE_PREFERENCE_OPTIONS,
+  MODE_PREFERENCE_LABELS,
+} from "@/components/forms/mode-preference-field";
 import { EXPERIENCE_LEVEL_OPTIONS } from "@/lib/leads/experience-level";
 
 interface Msg {
@@ -356,7 +359,7 @@ export function ChatWidget() {
                 <option value="">How would you like to study? (optional)</option>
                 {MODE_PREFERENCE_OPTIONS.map((option) => (
                   <option key={option} value={option}>
-                    {option === "Offline" ? "Offline (classroom)" : option}
+                    {MODE_PREFERENCE_LABELS[option] ?? option}
                   </option>
                 ))}
               </select>
