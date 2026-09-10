@@ -240,6 +240,9 @@ export default async function CoursePage({ params }: CoursePageProps) {
       <CourseJsonLd
         name={course.title}
         description={course.description}
+        /* Same array the visible Sources block renders, so a reader and a
+           crawler are shown the same list. */
+        citations={getCourseCitations(slug)}
         duration={course.duration}
         url={`/courses/${categorySlug}/${slug}`}
         category={course.category}

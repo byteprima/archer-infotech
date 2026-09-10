@@ -110,6 +110,10 @@ export default async function TrainerProfilePage({ params }: TrainerPageProps) {
         image={trainer.image}
         knowsAbout={trainer.expertise}
         linkedin={trainer.linkedin}
+        profiles={trainer.profiles}
+        credentials={trainer.credentials}
+        alumniOf={trainer.alumniOf}
+        awards={trainer.awards}
         url={`/trainers/${slug}`}
       />
 

@@ -1,3 +1,27 @@
+/**
+ * A qualification a trainer actually holds.
+ *
+ * `issuer` is required and must be the body that awarded it — "AWS Certified
+ * Solutions Architect – Associate" issued by "Amazon Web Services", not by us.
+ * The distinction is the same one the Salesforce pages make about institute
+ * certificates versus vendor certifications, and it is the only thing that
+ * makes the claim worth anything.
+ *
+ * `url` is optional but strongly preferred: a public verification link (a
+ * Credly badge, a Trailhead profile, a certificate ID page) turns an assertion
+ * into something a reader can check.
+ */
+export interface TrainerCredential {
+  /** Credential name exactly as the issuer writes it. */
+  name: string;
+  /** The awarding body. Never Archer Infotech, unless we genuinely awarded it. */
+  issuer: string;
+  /** Public verification URL, where one exists. */
+  url?: string;
+  /** ISO year or YYYY-MM, if known. */
+  dateEarned?: string;
+}
+
 export interface TeamMember {
   /** Stable URL slug — used at /trainers/{id} */
   id: string;
@@ -8,6 +32,23 @@ export interface TeamMember {
   expertise: string[];
   experience: string;
   linkedin?: string;
+  /**
+   * Additional public profiles — GitHub, personal site, Stack Overflow,
+   * conference speaker pages, published work. Emitted as Person.sameAs
+   * alongside LinkedIn.
+   *
+   * These are the strongest entity signal a training institute has: a trainer
+   * who exists verifiably in several places is a person a knowledge graph can
+   * resolve, which an institutional byline never is. Only add a profile that
+   * genuinely belongs to this person and is publicly reachable.
+   */
+  profiles?: string[];
+  /** Vendor certifications and formal qualifications. Emitted as hasCredential. */
+  credentials?: TrainerCredential[];
+  /** Degree-awarding institution(s). Emitted as Person.alumniOf. */
+  alumniOf?: string[];
+  /** Named awards or recognitions. Emitted as Person.award. */
+  awards?: string[];
 }
 
 export const teamMembers: TeamMember[] = [

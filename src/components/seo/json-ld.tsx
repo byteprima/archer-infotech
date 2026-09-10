@@ -349,6 +349,15 @@ export function BranchLocalBusinessJsonLd({ branchId }: { branchId: string }) {
 interface CourseJsonLdProps {
   name: string;
   description: string;
+  /**
+   * Primary sources backing this page's factual claims, rendered visibly by
+   * SourceCitations and mirrored here as schema.org `citation`.
+   *
+   * Same array both places by design. A page that shows a reader one set of
+   * sources and a crawler another is worse than one that shows neither, and
+   * hand-maintaining two lists is how that happens.
+   */
+  citations?: { label: string; href: string }[];
   duration?: string;
   url: string;
   category?: string;
@@ -408,6 +417,7 @@ interface CourseJsonLdProps {
 export function CourseJsonLd({
   name,
   description,
+  citations,
   duration,
   url,
   category,
@@ -433,6 +443,18 @@ export function CourseJsonLd({
     // nested block. Google + AI engines resolve `@id` references
     // back to the canonical block on the same page.
     provider: { "@id": ORG_ID },
+    // CreativeWork.citation — the primary sources this page's claims rest on.
+    // Course inherits it from CreativeWork, so this is the correct property
+    // rather than a custom one. Emitted only when sources exist; an empty
+    // citation array asserts "we checked and found nothing", which is false.
+    ...(citations &&
+      citations.length > 0 && {
+        citation: citations.map((c) => ({
+          "@type": "CreativeWork",
+          name: c.label,
+          url: c.href,
+        })),
+      }),
     ...(duration && { timeRequired: duration }),
     ...(category && { courseCode: category }),
     url: `${baseUrl}${url}`,
@@ -742,6 +764,11 @@ interface PersonJsonLdProps {
   knowsAbout?: string[];
   linkedin?: string;
   url: string;
+  /** Extra public profiles — emitted as sameAs alongside linkedin. */
+  profiles?: string[];
+  credentials?: { name: string; issuer: string; url?: string; dateEarned?: string }[];
+  alumniOf?: string[];
+  awards?: string[];
 }
 
 export function PersonJsonLd({
@@ -751,6 +778,10 @@ export function PersonJsonLd({
   image,
   knowsAbout,
   linkedin,
+  profiles,
+  credentials,
+  alumniOf,
+  awards,
   url,
 }: PersonJsonLdProps) {
   const schema = {
@@ -765,7 +796,35 @@ export function PersonJsonLd({
     description,
     ...(image && { image: image.startsWith("http") ? image : `${baseUrl}${image}` }),
     ...(knowsAbout && knowsAbout.length > 0 && { knowsAbout }),
-    ...(linkedin && { sameAs: [linkedin] }),
+    // sameAs is the entity-resolution signal: a person verifiable in several
+    // public places is someone a knowledge graph can resolve to one node.
+    // LinkedIn plus whatever else genuinely belongs to them.
+    ...(() => {
+      const sameAs = [linkedin, ...(profiles ?? [])].filter(Boolean);
+      return sameAs.length > 0 ? { sameAs } : {};
+    })(),
+    // hasCredential — vendor certifications and formal qualifications, each
+    // attributed to the body that awarded it. `recognizedBy` is the issuer,
+    // never us; an institute cannot recognise its own trainer's AWS badge.
+    ...(credentials &&
+      credentials.length > 0 && {
+        hasCredential: credentials.map((c) => ({
+          "@type": "EducationalOccupationalCredential",
+          name: c.name,
+          credentialCategory: "certification",
+          recognizedBy: { "@type": "Organization", name: c.issuer },
+          ...(c.url && { url: c.url }),
+          ...(c.dateEarned && { dateCreated: c.dateEarned }),
+        })),
+      }),
+    ...(alumniOf &&
+      alumniOf.length > 0 && {
+        alumniOf: alumniOf.map((name) => ({
+          "@type": "EducationalOrganization",
+          name,
+        })),
+      }),
+    ...(awards && awards.length > 0 && { award: awards }),
     // P8-04 — @id reference to the canonical Org block.
     worksFor: { "@id": ORG_ID },
     url: `${baseUrl}${url}`,
