@@ -1,5 +1,17 @@
 import Link from "next/link";
-import { ChevronLeft, Download, Plus, Search } from "lucide-react";
+import {
+  Blend,
+  Briefcase,
+  Building2,
+  ChevronLeft,
+  CircleDashed,
+  Download,
+  GraduationCap,
+  type LucideIcon,
+  Monitor,
+  Plus,
+  Search,
+} from "lucide-react";
 import { and, desc, eq, like, or } from "drizzle-orm";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -24,69 +36,133 @@ const statusColors: Record<string, string> = {
   closed: "bg-gray-100 text-gray-800",
 };
 
+/**
+ * Delivery format and background get a column each rather than a line tucked
+ * under the course. They were folded in when they were curiosities; they are
+ * now the two things a counsellor sorts the day's callbacks by — a fresher
+ * asking for classroom is a different call, at a different time, from a
+ * working professional asking for weekend online — and a value you have to
+ * read row by row is a value nobody scans.
+ *
+ * Rendered as icon pills, deliberately uncoloured: `status` is the only thing
+ * in this table that earns colour, and a third and fourth tinted badge per row
+ * would leave nothing standing out. The icon carries the scanning instead.
+ */
+const MODE_META: Record<string, { icon: LucideIcon; label: string; title?: string }> = {
+  Online: { icon: Monitor, label: "Online" },
+  // Stored as "Offline"; shown short, with the full phrasing on hover, because
+  // "Offline (classroom)" is too wide for a column in a nine-column table.
+  Offline: { icon: Building2, label: "Offline", title: "Offline (classroom)" },
+  Hybrid: { icon: Blend, label: "Hybrid" },
+  "No preference": { icon: CircleDashed, label: "No preference" },
+};
+
+const EXPERIENCE_META: Record<string, { icon: LucideIcon; label: string; title?: string }> = {
+  Fresher: {
+    icon: GraduationCap,
+    label: "Fresher",
+    title: "Fresher (student / no IT experience)",
+  },
+  Experienced: {
+    icon: Briefcase,
+    label: "Experienced",
+    title: "Experienced (working professional)",
+  },
+};
+
+/** Shared cell padding. The outer columns sit flush with the card edges. */
+const CELL = "px-3 py-4 align-top first:pl-0 last:pr-0";
+const HEAD =
+  "px-3 pb-3 text-left text-xs font-medium uppercase tracking-wide text-muted-foreground first:pl-0 last:pr-0";
+
+function AttributeCell({
+  value,
+  meta,
+}: {
+  value: string | null;
+  meta: Record<string, { icon: LucideIcon; label: string; title?: string }>;
+}) {
+  if (!value) {
+    // Em dash, not a blank: an empty cell in a wide table reads as a rendering
+    // fault. Leads captured before these questions existed have no answer.
+    return <span className="text-sm text-muted-foreground">&mdash;</span>;
+  }
+
+  // Unrecognised values still render — a legacy spelling is information, and
+  // silently dropping it would hide the drift rather than show it.
+  const entry = meta[value];
+  const Icon = entry?.icon;
+
+  return (
+    <span
+      title={entry?.title}
+      className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border px-2 py-0.5 text-xs"
+    >
+      {Icon && <Icon className="h-3 w-3 shrink-0 text-muted-foreground" />}
+      {entry?.label ?? value}
+    </span>
+  );
+}
+
 function LeadsTable({ leads, showCourse = true }: { leads: LeadRow[]; showCourse?: boolean }) {
   return (
     <div className="overflow-x-auto">
-      <table className="w-full">
+      {/* Nine columns do not fit a laptop; the min-width makes the scroll
+          honest rather than crushing every column to illegibility. */}
+      <table className="w-full min-w-[1040px]">
         <thead>
-          <tr className="border-b text-left">
-            <th className="pb-3 font-medium">Name</th>
-            <th className="pb-3 font-medium">Contact</th>
-            {showCourse && <th className="pb-3 font-medium">Course</th>}
-            <th className="pb-3 font-medium">Source</th>
-            <th className="pb-3 font-medium">Status</th>
-            <th className="pb-3 font-medium">Date</th>
-            <th className="pb-3 font-medium">Actions</th>
+          <tr className="border-b">
+            <th className={HEAD}>Name</th>
+            <th className={HEAD}>Contact</th>
+            {showCourse && <th className={HEAD}>Course</th>}
+            <th className={HEAD}>Mode of Learning</th>
+            <th className={HEAD}>Fresher / Experienced</th>
+            <th className={HEAD}>Source</th>
+            <th className={HEAD}>Status</th>
+            <th className={HEAD}>Date</th>
+            <th className={HEAD}>Actions</th>
           </tr>
         </thead>
         <tbody>
           {leads.map((lead) => (
-            <tr key={lead.id} className="border-b last:border-0">
-              <td className="py-4">
+            <tr
+              key={lead.id}
+              // Tracing one row across nine columns by eye is the failure mode
+              // a wide table has; the hover tint is what prevents it.
+              className="border-b transition-colors last:border-0 hover:bg-muted/40"
+            >
+              <td className={CELL}>
                 <div className="font-medium">{lead.name}</div>
-                {/* Under the name rather than in its own column: it is read
-                    with the name on every row, and the table is already wide.
-                    Not folded in with the course like the delivery format,
-                    because sources with no course still carry it. */}
-                {lead.experienceLevel && (
-                  <div className="text-xs text-muted-foreground">
-                    {lead.experienceLevel}
-                  </div>
-                )}
               </td>
-              <td className="py-4">
+              <td className={CELL}>
                 <div className="text-sm">{lead.email}</div>
                 <div className="text-sm text-muted-foreground">{lead.phone}</div>
               </td>
               {showCourse && (
-                <td className="py-4">
+                <td className={CELL}>
                   <div className="text-sm">{lead.courseInterest || "-"}</div>
-                  {/* Delivery-format preference sits under the course rather
-                      than in its own column: it is only ever read together
-                      with the course, and the table is already wide. */}
-                  {lead.modePreference && (
-                    <div className="text-xs text-muted-foreground">
-                      {lead.modePreference === "Offline"
-                        ? "Offline (classroom)"
-                        : lead.modePreference}
-                    </div>
-                  )}
                 </td>
               )}
-              <td className="py-4">
-                <div className="text-sm capitalize">
+              <td className={CELL}>
+                <AttributeCell value={lead.modePreference} meta={MODE_META} />
+              </td>
+              <td className={CELL}>
+                <AttributeCell value={lead.experienceLevel} meta={EXPERIENCE_META} />
+              </td>
+              <td className={CELL}>
+                <div className="whitespace-nowrap text-sm capitalize">
                   {lead.source?.replace("_", " ") || "-"}
                 </div>
               </td>
-              <td className="py-4">
+              <td className={CELL}>
                 <Badge className={statusColors[lead.status] || ""}>{lead.status}</Badge>
               </td>
-              <td className="py-4">
-                <div className="text-sm text-muted-foreground">
+              <td className={CELL}>
+                <div className="whitespace-nowrap text-sm text-muted-foreground">
                   {lead.createdAt ? new Date(lead.createdAt).toLocaleDateString() : "-"}
                 </div>
               </td>
-              <td className="py-4">
+              <td className={CELL}>
                 <div className="flex items-center gap-2">
                   <Link href={`/admin/leads/${lead.id}`}>
                     <Button variant="outline" size="sm">
@@ -137,7 +213,8 @@ export default async function AdminLeadsPage({ searchParams }: AdminLeadsPagePro
         // from this screen. Mode preference rides along for free: it is the
         // other thing a counsellor filters on.
         like(leadsTable.courseInterest, searchTerm),
-        like(leadsTable.modePreference, searchTerm)
+        like(leadsTable.modePreference, searchTerm),
+        like(leadsTable.experienceLevel, searchTerm)
       )
     );
   }
@@ -299,7 +376,7 @@ export default async function AdminLeadsPage({ searchParams }: AdminLeadsPagePro
                     name="q"
                     type="text"
                     defaultValue={query}
-                    placeholder="Search by name, email, phone, or course..."
+                    placeholder="Search by name, email, phone, course, mode, or fresher/experienced..."
                     className="w-full pl-10 pr-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary"
                   />
                 </div>
