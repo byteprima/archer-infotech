@@ -293,6 +293,51 @@ Run both before calling a phase complete. As of this commit the only column
 without a writer is `leads.campaign`, above, and every CRM table has an insert
 path.
 
+### Phone normalisation and duplicate detection (§26, §11)
+
+Neither was in any phase's bullet list, but they underpin the Phase 4 reports:
+before this, `9876543210`, `+91 98765 43210` and `098765 43210` were three
+different leads, so every count on the reports screen was inflated and two
+counsellors could call the same person.
+
+**Two columns, not one.** `phone` keeps exactly what was typed — that is what
+the counsellor recognises on screen — and `phone_normalised` holds E.164 for
+matching. Rewriting `phone` in place would destroy the original for no gain;
+one of the two columns is allowed to be lossy.
+
+**Not libphonenumber.** ~500KB to know every country's numbering plan. This
+needs to be right about India, sane elsewhere, and never destructive: anything
+it cannot classify is kept as digits rather than rejected, because the site
+takes enquiries from abroad and "a valid international number treated as
+invalid" is the failure the specification names. `confident` records whether
+the country was identified or assumed.
+
+**A NULL key never matches another NULL key.** Otherwise every lead with a
+blank or unusable phone becomes a duplicate of every other one.
+
+**The backfill is SQL, and it was verified against the TypeScript.** Migration
+0009 reimplements the rules in SQL, which is a drift risk — the alternative was
+a Node script run by hand on the server, which is a backfill that lives in
+somebody's shell history. The risk was closed empirically: both implementations
+were run over every row including eleven awkward shapes (`+91 98765 43210`,
+`098765 43210`, `00919876543212`, `+971501234567`, bare `971501234567`,
+`N/A`, `12345`, a ten-digit number starting 1) and agreed on all 36.
+
+**Duplicates are derived, never stored as a flag.** A stored flag goes stale
+the moment the other lead is deleted or its number corrected, and a stale
+duplicate warning teaches people to ignore the warning. `findLeadsByPhone`
+runs on every lead detail load; `/admin/leads/duplicates` groups on read.
+
+**A website enquiry is never blocked or merged.** The specification is explicit
+that valid repeat enquiries must not be lost, and somebody who asked in March
+and asks again in September is a warmer lead than a stranger. The public form
+creates the lead and the admin is shown the earlier ones. The Add Lead form
+warns before creating, with Open Existing and Create Anyway.
+
+**Nothing merges automatically.** Which course interest, counsellor and
+follow-up history survives a merge is a judgement made by reading both; closing
+one as DUPLICATE already records the reason and drops it out of the queues.
+
 ## Tests
 
 `npm test` runs Node's own test runner through `tsx` — no test framework was

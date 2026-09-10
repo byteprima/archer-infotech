@@ -8,6 +8,7 @@ import { LEAD_STATUS, leads } from "@/db/schema";
 import { EXPERIENCE_LEVEL_OPTIONS } from "@/lib/leads/experience-level";
 import { logAdminAction, requireAdminAction } from "@/lib/admin";
 import { insertLeadWithEnquiryNumber } from "@/lib/leads/allocate-enquiry-number";
+import { phoneKey } from "@/lib/leads/phone";
 
 /**
  * Details the COUNSELLOR fills in, not the visitor.
@@ -175,6 +176,9 @@ export async function updateLead(id: number, data: LeadUpdateData): Promise<Acti
       name: validation.data.name,
       email: validation.data.email,
       phone: validation.data.phone,
+      // Correcting a phone has to move its matching key too, or the lead stays
+      // findable under the wrong number.
+      phoneNormalised: phoneKey(validation.data.phone),
       courseInterest: validation.data.courseInterest || null,
       experienceLevel: validation.data.experienceLevel || null,
       message: validation.data.message || null,

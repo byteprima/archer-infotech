@@ -18,6 +18,8 @@ import {
   isLeadStatus,
   type LeadStatus,
 } from "@/lib/leads/lifecycle";
+import { phoneKey } from "@/lib/leads/phone";
+import { DuplicateWarning } from "@/components/admin/duplicate-warning";
 import {
   MODE_PREFERENCE_OPTIONS,
   MODE_PREFERENCE_LABELS,
@@ -119,6 +121,11 @@ export function LeadForm({ lead }: LeadFormProps) {
               <CardTitle>Lead Details</CardTitle>
             </CardHeader>
             <CardContent className="grid gap-4 md:grid-cols-2">
+              {!isEditing && (
+                <div className="md:col-span-2">
+                  <DuplicateWarning phone={formData.phone} />
+                </div>
+              )}
               <div className="space-y-2">
                 <Label htmlFor="name">Name</Label>
                 <Input
@@ -152,6 +159,14 @@ export function LeadForm({ lead }: LeadFormProps) {
                   }
                 />
                 {fieldErrors.phone && <p className="text-sm text-red-500">{fieldErrors.phone[0]}</p>}
+                {formData.phone && (
+                  <p className="text-xs text-muted-foreground">
+                    Stored for matching as{" "}
+                    <span className="font-mono">
+                      {phoneKey(formData.phone) ?? "— not recognised as a number"}
+                    </span>
+                  </p>
+                )}
               </div>
               <div className="space-y-2">
                 <CoursePickerField

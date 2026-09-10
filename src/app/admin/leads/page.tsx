@@ -5,6 +5,7 @@ import {
   Building2,
   ChevronLeft,
   CircleDashed,
+  Copy,
   Download,
   GraduationCap,
   type LucideIcon,
@@ -36,6 +37,7 @@ import {
   buildSourceCondition,
 } from "@/lib/leads/source-filter";
 import { DeleteLeadButton } from "@/components/admin/delete-lead-button";
+import { countDuplicateGroups } from "@/lib/actions/lead-duplicates";
 import { MODE_PREFERENCE_LABELS } from "@/components/forms/mode-preference-field";
 
 type LeadRow = typeof leadsTable.$inferSelect;
@@ -254,6 +256,7 @@ export default async function AdminLeadsPage({ searchParams }: AdminLeadsPagePro
   await requireAdminPage("/admin/leads");
 
   const params = await searchParams;
+  const duplicateGroups = await countDuplicateGroups();
   const query = params.q?.trim() || "";
   const status = params.status?.trim() || "";
   // Defaults to the first tab. The four tabs are exhaustive, so landing on
@@ -402,6 +405,15 @@ export default async function AdminLeadsPage({ searchParams }: AdminLeadsPagePro
               </p>
             </div>
             <div className="flex items-center gap-2">
+              {duplicateGroups > 0 && (
+                <Link href="/admin/leads/duplicates">
+                  <Button variant="outline" size="sm">
+                    <Copy className="mr-2 h-4 w-4" />
+                    {duplicateGroups} possible duplicate
+                    {duplicateGroups === 1 ? "" : "s"}
+                  </Button>
+                </Link>
+              )}
               <a href={exportHref}>
                 <Button variant="outline" size="sm">
                   <Download className="h-4 w-4 mr-2" />

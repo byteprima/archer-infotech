@@ -16,6 +16,8 @@ import {
 import { getAssignableStaff } from "@/lib/actions/lead-assignment";
 import { AdmissionPanel } from "@/components/admin/admission-panel";
 import { getAdmissionForLead } from "@/lib/actions/admissions";
+import { findLeadsByPhone } from "@/lib/actions/lead-duplicates";
+import { OtherEnquiriesPanel } from "@/components/admin/other-enquiries-panel";
 import { courses, getCourse } from "@/data/courses";
 import { resolveCourseSlugs } from "@/lib/courses/course-match";
 import { getCurrentRole } from "@/lib/auth";
@@ -55,6 +57,10 @@ export default async function AdminLeadDetailPage({ params }: AdminLeadDetailPag
     getLeadDemoRegistrations(leadId),
     getAdmissionForLead(leadId),
   ]);
+
+  // Live, not a stored flag: it disappears the moment the other lead is closed
+  // as Duplicate or its number corrected.
+  const otherEnquiries = lead ? await findLeadsByPhone(lead.phone, leadId) : [];
 
   if (!lead) {
     notFound();
@@ -118,6 +124,7 @@ export default async function AdminLeadDetailPage({ params }: AdminLeadDetailPag
               staff={staff}
               canAssign={canAssignLeads(role)}
             />
+            <OtherEnquiriesPanel matches={otherEnquiries} phone={lead.phone} />
             <AdmissionPanel
               leadId={lead.id}
               leadName={lead.name}

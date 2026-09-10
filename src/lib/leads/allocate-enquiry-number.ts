@@ -2,6 +2,7 @@ import { like } from "drizzle-orm";
 import { db, leads } from "@/db";
 import { formatEnquiryNumber, highestEnquirySequence } from "./enquiry-number";
 import { allocateReference } from "@/lib/reference-counter";
+import { phoneKey } from "./phone";
 
 /**
  * Insert a lead with its enquiry reference allocated in the same transaction.
@@ -39,7 +40,14 @@ export function insertLeadWithEnquiryNumber(
 
     const [created] = tx
       .insert(leads)
-      .values({ ...values, enquiryNumber })
+      // phoneNormalised is set here rather than at each call site, so no
+      // creation route can forget it and quietly opt out of duplicate
+      // detection.
+      .values({
+        ...values,
+        enquiryNumber,
+        phoneNormalised: phoneKey(values.phone),
+      })
       .returning({ id: leads.id })
       .all();
 

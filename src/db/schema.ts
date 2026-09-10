@@ -119,11 +119,25 @@ export const batches = sqliteTable("batches", {
 });
 
 // Leads table - for enquiry form submissions
-export const leads = sqliteTable("leads", {
+export const leads = sqliteTable(
+  "leads",
+  {
   id: integer("id").primaryKey({ autoIncrement: true }),
   name: text("name").notNull(),
   email: text("email").notNull(),
   phone: text("phone").notNull(),
+  /**
+   * The phone in E.164, used ONLY for matching — duplicate detection, search.
+   *
+   * `phone` keeps exactly what the person typed, because that is what the
+   * counsellor recognises on screen and what a correction should preserve.
+   * Rewriting it in place would destroy the original for no gain: two columns
+   * cost nothing and one of them is allowed to be lossy.
+   *
+   * Null when the value could not be normalised at all (blank, "N/A", four
+   * digits). Nulls never match each other — see samePhone().
+   */
+  phoneNormalised: text("phone_normalised"),
   courseInterest: text("course_interest"),
   /**
    * Which delivery format the enquirer wants: "Online", "Offline",
@@ -220,7 +234,14 @@ export const leads = sqliteTable("leads", {
   closedAt: integer("closed_at", { mode: "timestamp" }),
   createdAt: integer("created_at", { mode: "timestamp" }).notNull().$defaultFn(() => new Date()),
   updatedAt: integer("updated_at", { mode: "timestamp" }).notNull().$defaultFn(() => new Date()),
-});
+},
+  (table) => [
+    // Every duplicate check is a lookup on this column, on every website
+    // submission. Not unique: a genuine repeat enquiry months later is a new
+    // lead, and the specification is explicit that those must not be lost.
+    index("leads_phone_normalised_idx").on(table.phoneNormalised),
+  ],
+);
 
 // Placements table - for student success stories
 /**
