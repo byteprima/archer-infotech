@@ -3,6 +3,8 @@ import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 import { LeadForm } from "@/components/admin/lead-form";
 import { getLeadById } from "@/lib/actions/admin-leads";
+import { getFollowUpsForLead } from "@/lib/actions/follow-ups";
+import { FollowUpPanel } from "@/components/admin/follow-up-panel";
 import { requireAdminPage } from "@/lib/admin";
 
 interface AdminLeadDetailPageProps {
@@ -20,6 +22,7 @@ export default async function AdminLeadDetailPage({ params }: AdminLeadDetailPag
   }
 
   const lead = await getLeadById(leadId);
+  const followUps = lead ? await getFollowUpsForLead(leadId) : [];
 
   if (!lead) {
     notFound();
@@ -46,7 +49,17 @@ export default async function AdminLeadDetailPage({ params }: AdminLeadDetailPag
       </header>
 
       <main className="container mx-auto px-4 py-8">
-        <LeadForm lead={lead} />
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)]">
+          <LeadForm lead={lead} />
+          {/* Follow-ups sit beside the record rather than below it: logging a
+              call is the most frequent action here, and burying it under a
+              long form is what makes people stop logging. */}
+          <FollowUpPanel
+            leadId={lead.id}
+            currentStatus={lead.status}
+            followUps={followUps}
+          />
+        </div>
       </main>
     </div>
   );

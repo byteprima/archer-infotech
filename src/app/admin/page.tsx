@@ -16,6 +16,7 @@ import {
   MonitorPlay,
   Building2,
   Presentation,
+  CalendarClock,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -26,7 +27,15 @@ async function getStats() {
     const { db } = await import("@/db");
     const { leads, batches, placements, testimonials, blogPosts, user, auditLogs, alumni } =
       await import("@/db/schema");
-    const { count, eq } = await import("drizzle-orm");
+    const { count, eq, and, isNotNull, lt, gte, notInArray } = await import(
+      "drizzle-orm",
+    );
+    const { CLOSED_LEAD_STATUSES } = await import("@/lib/leads/lifecycle");
+
+    const startOfToday = new Date();
+    startOfToday.setHours(0, 0, 0, 0);
+    const startOfTomorrow = new Date(startOfToday);
+    startOfTomorrow.setDate(startOfTomorrow.getDate() + 1);
 
     const [
       totalLeads,
@@ -42,9 +51,13 @@ async function getStats() {
       totalAuditLogs,
       totalAlumni,
       newAlumni,
+      overdueFollowUps,
+      todayFollowUps,
     ] = await Promise.all([
       db.select({ count: count() }).from(leads),
-      db.select({ count: count() }).from(leads).where(eq(leads.status, "new")),
+      // "NEW", not "new" — the lifecycle migration uppercased these. Left
+      // as it was, this card silently reported zero new leads forever.
+      db.select({ count: count() }).from(leads).where(eq(leads.status, "NEW")),
       db.select({ count: count() }).from(batches),
       db.select({ count: count() }).from(batches).where(eq(batches.status, "upcoming")),
       db.select({ count: count() }).from(placements),
@@ -56,11 +69,38 @@ async function getStats() {
       db.select({ count: count() }).from(auditLogs),
       db.select({ count: count() }).from(alumni),
       db.select({ count: count() }).from(alumni).where(eq(alumni.status, "new")),
+      // Closed leads are excluded here for the same reason the queue page
+      // excludes them: a reminder against an enrolled student is noise.
+      db
+        .select({ count: count() })
+        .from(leads)
+        .where(
+          and(
+            isNotNull(leads.followUpDate),
+            lt(leads.followUpDate, startOfToday),
+            notInArray(leads.status, [...CLOSED_LEAD_STATUSES]),
+          ),
+        ),
+      db
+        .select({ count: count() })
+        .from(leads)
+        .where(
+          and(
+            isNotNull(leads.followUpDate),
+            gte(leads.followUpDate, startOfToday),
+            lt(leads.followUpDate, startOfTomorrow),
+            notInArray(leads.status, [...CLOSED_LEAD_STATUSES]),
+          ),
+        ),
     ]);
 
     return {
       connected: true,
       leads: { total: totalLeads[0].count, new: newLeads[0].count },
+      followUps: {
+        overdue: overdueFollowUps[0].count,
+        today: todayFollowUps[0].count,
+      },
       batches: { total: totalBatches[0].count, upcoming: upcomingBatches[0].count },
       placements: { total: totalPlacements[0].count },
       testimonials: { total: totalTestimonials[0].count },
@@ -74,6 +114,7 @@ async function getStats() {
     return {
       connected: false,
       leads: { total: 0, new: 0 },
+      followUps: { overdue: 0, today: 0 },
       batches: { total: 0, upcoming: 0 },
       placements: { total: 0 },
       testimonials: { total: 0 },
@@ -97,6 +138,13 @@ export default async function AdminDashboard() {
       href: "/admin/leads",
       icon: Users,
       stats: `${stats.leads.total} total, ${stats.leads.new} new`,
+    },
+    {
+      title: "Follow-ups",
+      description: "Overdue, due today and upcoming",
+      href: "/admin/follow-ups",
+      icon: CalendarClock,
+      stats: `${stats.followUps.overdue} overdue, ${stats.followUps.today} today`,
     },
     {
       title: "Batches",
