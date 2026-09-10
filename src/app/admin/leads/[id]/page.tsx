@@ -5,6 +5,10 @@ import { LeadForm } from "@/components/admin/lead-form";
 import { getLeadById } from "@/lib/actions/admin-leads";
 import { getFollowUpsForLead } from "@/lib/actions/follow-ups";
 import { FollowUpPanel } from "@/components/admin/follow-up-panel";
+import { LeadControls } from "@/components/admin/lead-controls";
+import { getAssignableStaff } from "@/lib/actions/lead-assignment";
+import { getCurrentRole } from "@/lib/auth";
+import { canAssignLeads } from "@/lib/leads/roles";
 import { requireAdminPage } from "@/lib/admin";
 
 interface AdminLeadDetailPageProps {
@@ -23,6 +27,10 @@ export default async function AdminLeadDetailPage({ params }: AdminLeadDetailPag
 
   const lead = await getLeadById(leadId);
   const followUps = lead ? await getFollowUpsForLead(leadId) : [];
+  const [staff, role] = await Promise.all([
+    getAssignableStaff(),
+    getCurrentRole(),
+  ]);
 
   if (!lead) {
     notFound();
@@ -54,11 +62,21 @@ export default async function AdminLeadDetailPage({ params }: AdminLeadDetailPag
           {/* Follow-ups sit beside the record rather than below it: logging a
               call is the most frequent action here, and burying it under a
               long form is what makes people stop logging. */}
-          <FollowUpPanel
-            leadId={lead.id}
-            currentStatus={lead.status}
-            followUps={followUps}
-          />
+          <div className="space-y-6">
+            <LeadControls
+              leadId={lead.id}
+              status={lead.status}
+              priority={lead.priority}
+              assignedToUserId={lead.assignedToUserId}
+              staff={staff}
+              canAssign={canAssignLeads(role)}
+            />
+            <FollowUpPanel
+              leadId={lead.id}
+              currentStatus={lead.status}
+              followUps={followUps}
+            />
+          </div>
         </div>
       </main>
     </div>
