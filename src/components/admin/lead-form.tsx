@@ -12,6 +12,12 @@ import { CoursePickerField } from "@/components/admin/course-picker-field";
 import { EXPERIENCE_LEVEL_OPTIONS } from "@/lib/leads/experience-level";
 import { createLead, updateLead, type LeadUpdateData } from "@/lib/actions/admin-leads";
 import type { Lead } from "@/db/schema";
+import {
+  LEAD_STATUSES,
+  LEAD_STATUS_LABELS,
+  isLeadStatus,
+  type LeadStatus,
+} from "@/lib/leads/lifecycle";
 
 interface LeadFormProps {
   lead?: Lead;
@@ -46,13 +52,10 @@ export function LeadForm({ lead }: LeadFormProps) {
     experienceLevel: (lead?.experienceLevel as LeadUpdateData["experienceLevel"]) || "",
     message: lead?.message || "",
     source: lead?.source || (isEditing ? "" : "manual"),
-    status:
-      lead?.status === "contacted" ||
-      lead?.status === "qualified" ||
-      lead?.status === "converted" ||
-      lead?.status === "closed"
-        ? lead.status
-        : "new",
+    // Unknown values fall back to NEW rather than being preserved: the
+    // select below can only render known statuses, so keeping an unmatched
+    // one would silently rewrite it to the first option on the next save.
+    status: isLeadStatus(lead?.status ?? "") ? (lead!.status as LeadStatus) : "NEW",
     notes: lead?.notes || "",
     assignedTo: lead?.assignedTo || "",
     followUpDate: formatDateTimeLocal(lead?.followUpDate ?? null),
@@ -208,11 +211,13 @@ export function LeadForm({ lead }: LeadFormProps) {
                   }
                   className="h-10 w-full rounded-lg border px-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
                 >
-                  <option value="new">New</option>
-                  <option value="contacted">Contacted</option>
-                  <option value="qualified">Qualified</option>
-                  <option value="converted">Converted</option>
-                  <option value="closed">Closed</option>
+                  {LEAD_STATUSES.map((value) => (
+                    <option key={value} value={value}>
+                      {LEAD_STATUS_LABELS[value]}
+                    </option>
+
+                  ))}
+
                 </select>
               </div>
               <div className="space-y-2">

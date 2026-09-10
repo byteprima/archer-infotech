@@ -69,11 +69,19 @@ export const verification = sqliteTable("verification", {
 // ============================================
 
 // Enum values (validated at application level for SQLite)
-export const LEAD_STATUS = ["new", "contacted", "qualified", "converted", "closed"] as const;
+/**
+ * Re-exported from lib/leads/lifecycle.ts so there is one definition.
+ *
+ * This was a separate five-value lowercase list ("new", "contacted",
+ * "qualified", "converted", "closed") which the admin action validated
+ * against with z.enum — so after the lifecycle migration it would have
+ * rejected every value the app now writes.
+ */
+export { LEAD_STATUSES as LEAD_STATUS } from "@/lib/leads/lifecycle";
 export const BATCH_MODE = ["offline", "online"] as const;
 export const BATCH_STATUS = ["upcoming", "ongoing", "completed", "cancelled"] as const;
 
-export type LeadStatus = (typeof LEAD_STATUS)[number];
+export type { LeadStatus } from "@/lib/leads/lifecycle";
 export type BatchMode = (typeof BATCH_MODE)[number];
 export type BatchStatus = (typeof BATCH_STATUS)[number];
 
@@ -131,15 +139,100 @@ export const leads = sqliteTable("leads", {
   utmSource: text("utm_source"),
   utmMedium: text("utm_medium"),
   utmCampaign: text("utm_campaign"),
-  status: text("status").notNull().default("new"), // LeadStatus
+  /**
+   * Lifecycle status. One of LEAD_STATUSES (lib/leads/lifecycle.ts).
+   *
+   * Left as free text rather than a Drizzle enum: SQLite has no native enum
+   * and `text({ enum })` only narrows the TypeScript type, so the real guard
+   * is the Zod schema on every write. Keeping it plain text also means the
+   * pre-existing values survive the migration and can be mapped forward.
+   */
+  status: text("status").notNull().default("new"),
+  /**
+   * HOT / WARM / COLD. Deliberately independent of `status` — a lead can be
+   * hot and still only at CONTACTED, and collapsing the two loses exactly the
+   * signal a counsellor prioritises the day's calls by.
+   */
+  priority: text("priority"),
   notes: text("notes"),
+  /**
+   * Historical free-text owner. NOT dropped: it holds names typed by hand,
+   * some of which never corresponded to an account. New assignments write
+   * `assignedToUserId` and leave this as the record of what came before.
+   */
   assignedTo: text("assigned_to"),
+  /** Counsellor this lead belongs to, as a real user. */
+  assignedToUserId: text("assigned_to_user_id").references(() => user.id, {
+    onDelete: "set null",
+  }),
+  assignedAt: integer("assigned_at", { mode: "timestamp" }),
+  /** Who performed the assignment — for the audit trail, not for display. */
+  assignedBy: text("assigned_by").references(() => user.id, {
+    onDelete: "set null",
+  }),
+  /**
+   * Human-readable reference quoted on the phone ("ENQ-2026-0042").
+   * Nullable because 25 rows predate it; assigned on creation from here on.
+   */
+  enquiryNumber: text("enquiry_number"),
+  altPhone: text("alt_phone"),
+  qualification: text("qualification"),
+  college: text("college"),
+  passingYear: integer("passing_year"),
+  /** Student / Fresher / Working Professional / Career Break / Other. */
+  currentStatus: text("current_status"),
+  /** Morning / Afternoon / Evening / Weekend / Flexible. */
+  preferredTiming: text("preferred_timing"),
+  /** Immediately / Within 1 month / 1-3 months / Just exploring. */
+  expectedJoining: text("expected_joining"),
+  utmContent: text("utm_content"),
+  utmTerm: text("utm_term"),
+  campaign: text("campaign"),
+  landingPage: text("landing_page"),
   followUpDate: integer("follow_up_date", { mode: "timestamp" }),
   createdAt: integer("created_at", { mode: "timestamp" }).notNull().$defaultFn(() => new Date()),
   updatedAt: integer("updated_at", { mode: "timestamp" }).notNull().$defaultFn(() => new Date()),
 });
 
 // Placements table - for student success stories
+/**
+ * Follow-up log for a lead. Append-only by design.
+ *
+ * The specification is explicit that previous follow-ups must never be
+ * overwritten, and it is right: the value of this table is the history, not
+ * the latest row. `leads.followUpDate` still holds the NEXT scheduled contact
+ * so the existing list view keeps working, but it is derived from the most
+ * recent follow-up rather than being the record itself.
+ */
+export const followUps = sqliteTable("follow_ups", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  leadId: integer("lead_id")
+    .notNull()
+    .references(() => leads.id, { onDelete: "cascade" }),
+  /** Who logged it. Null survives a staff member's account being removed. */
+  createdByUserId: text("created_by_user_id").references(() => user.id, {
+    onDelete: "set null",
+  }),
+  /** CALL / WHATSAPP / EMAIL / IN_PERSON / DEMO / OTHER. */
+  followUpType: text("follow_up_type").notNull(),
+  /** CONNECTED / NO_ANSWER / CALL_LATER / INTERESTED / NOT_INTERESTED / ... */
+  outcome: text("outcome").notNull(),
+  notes: text("notes"),
+  /** When the contact actually happened. */
+  followUpAt: integer("follow_up_at", { mode: "timestamp" }).notNull(),
+  /** When the next one is due, if one was scheduled. */
+  nextFollowUpAt: integer("next_follow_up_at", { mode: "timestamp" }),
+  createdAt: integer("created_at", { mode: "timestamp" })
+    .notNull()
+    .$defaultFn(() => new Date()),
+  updatedAt: integer("updated_at", { mode: "timestamp" })
+    .notNull()
+    .$defaultFn(() => new Date()),
+});
+
+export type FollowUp = typeof followUps.$inferSelect;
+export type NewFollowUp = typeof followUps.$inferInsert;
+
 export const placements = sqliteTable("placements", {
   id: integer("id").primaryKey({ autoIncrement: true }),
   studentName: text("student_name").notNull(),

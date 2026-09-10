@@ -19,6 +19,7 @@ import { Badge } from "@/components/ui/badge";
 import { requireAdminPage } from "@/lib/admin";
 import { db } from "@/db";
 import { leads as leadsTable } from "@/db/schema";
+import { leadStatusLabel, leadPriorityLabel } from "@/lib/leads/lifecycle";
 import {
   LEAD_SOURCE_TABS,
   DEFAULT_LEAD_SOURCE_TAB,
@@ -28,12 +29,34 @@ import { DeleteLeadButton } from "@/components/admin/delete-lead-button";
 
 type LeadRow = typeof leadsTable.$inferSelect;
 
+/**
+ * Badge colour per lifecycle status.
+ *
+ * Grouped by where the lead is rather than by giving thirteen statuses
+ * thirteen hues: in progress reads blue, positive signals green, the closed
+ * outcomes grey, and the disqualifying ones red. A counsellor scanning the
+ * list is looking for "is this alive", not for a specific stage.
+ */
 const statusColors: Record<string, string> = {
-  new: "bg-green-100 text-green-800",
-  contacted: "bg-blue-100 text-blue-800",
-  qualified: "bg-purple-100 text-purple-800",
-  converted: "bg-yellow-100 text-yellow-800",
-  closed: "bg-gray-100 text-gray-800",
+  NEW: "bg-green-100 text-green-800",
+  CONTACTED: "bg-blue-100 text-blue-800",
+  COUNSELLING: "bg-blue-100 text-blue-800",
+  FOLLOW_UP: "bg-blue-100 text-blue-800",
+  DEMO_SCHEDULED: "bg-indigo-100 text-indigo-800",
+  DEMO_ATTENDED: "bg-indigo-100 text-indigo-800",
+  INTERESTED: "bg-emerald-100 text-emerald-800",
+  ADMISSION_CONFIRMED: "bg-emerald-200 text-emerald-900",
+  NOT_INTERESTED: "bg-gray-100 text-gray-800",
+  LOST: "bg-gray-100 text-gray-800",
+  NO_RESPONSE: "bg-gray-100 text-gray-800",
+  INVALID: "bg-red-100 text-red-800",
+  DUPLICATE: "bg-red-100 text-red-800",
+};
+
+const priorityColors: Record<string, string> = {
+  HOT: "bg-red-100 text-red-800",
+  WARM: "bg-amber-100 text-amber-800",
+  COLD: "bg-sky-100 text-sky-800",
 };
 
 /**
@@ -155,7 +178,9 @@ function LeadsTable({ leads, showCourse = true }: { leads: LeadRow[]; showCourse
                 </div>
               </td>
               <td className={CELL}>
-                <Badge className={statusColors[lead.status] || ""}>{lead.status}</Badge>
+                <Badge className={statusColors[lead.status] || ""}>
+                  {leadStatusLabel(lead.status)}
+                </Badge>
               </td>
               <td className={CELL}>
                 <div className="whitespace-nowrap text-sm text-muted-foreground">

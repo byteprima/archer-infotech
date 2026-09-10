@@ -104,7 +104,7 @@ export async function submitLead(data: LeadFormData): Promise<ActionResult> {
       utmSource: validationResult.data.utmSource,
       utmMedium: validationResult.data.utmMedium,
       utmCampaign: validationResult.data.utmCampaign,
-      status: "new",
+      status: "NEW",
     });
 
     await captureServerEvent({

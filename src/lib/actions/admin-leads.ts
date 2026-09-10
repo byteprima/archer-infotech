@@ -83,7 +83,7 @@ export async function createLead(data: LeadCreateData): Promise<ActionResult> {
       experienceLevel: validation.data.experienceLevel || null,
       message: validation.data.message || null,
       source: validation.data.source || "manual",
-      status: validation.data.status || "new",
+      status: validation.data.status || "NEW",
       notes: validation.data.notes || null,
       assignedTo: validation.data.assignedTo || null,
       followUpDate,
@@ -101,7 +101,7 @@ export async function createLead(data: LeadCreateData): Promise<ActionResult> {
     summary: `Added lead "${validation.data.name}"`,
     metadata: {
       source: validation.data.source || "manual",
-      status: validation.data.status || "new",
+      status: validation.data.status || "NEW",
     },
   });
 
