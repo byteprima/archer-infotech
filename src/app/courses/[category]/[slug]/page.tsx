@@ -410,6 +410,21 @@ export default async function CoursePage({ params }: CoursePageProps) {
                 label="Curriculum last reviewed"
                 className="mt-5 text-xs md:text-sm text-white/70"
               />
+              {/* Visible counterpart to Course.reviewedBy in the JSON-LD.
+                  A reviewer named only in markup is a claim a reader cannot
+                  see or check; Google's own guidance is that the credit
+                  should be on the page. Links to his profile so it resolves
+                  to a person rather than a name. */}
+              <p className="mt-1 text-xs md:text-sm text-white/70">
+                Reviewed by{" "}
+                <Link
+                  href="/trainers/yogesh-patil"
+                  className="underline underline-offset-2 hover:text-white"
+                >
+                  Yogesh Patil
+                </Link>
+                , Founder &amp; Director
+              </p>
             </div>
             {/* Enquiry Card */}
             <div className="bg-white rounded-xl p-6 text-foreground shadow-lg">

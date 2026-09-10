@@ -1,4 +1,5 @@
 import { siteConfig } from "@/data/site-config";
+import { CONTENT_REVIEWER } from "@/components/seo/json-ld";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://archerinfotech.in";
 
@@ -72,6 +73,10 @@ export function BlogPostJsonLd({
     // BlogPosting is a more specific subtype of Article — preferred by Google
     // for blog content + recognised by AI-engine RAG pipelines.
     "@type": "BlogPosting",
+    // Named editorial reviewer. Distinct from `author`: the author wrote it,
+    // the reviewer checked it. Both are the same person on posts Yogesh wrote,
+    // which is accurate rather than redundant.
+    reviewedBy: CONTENT_REVIEWER,
     headline: title,
     description: description,
     url: `${baseUrl}/blog/${slug}`,

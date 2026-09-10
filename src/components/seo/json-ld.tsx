@@ -11,6 +11,26 @@ const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://archerinfotech.in";
 // reference below points here so Google + AI engines merge them into one
 // canonical Organization node in the page graph. Audit 2026-06-21.
 const ORG_ID = `${baseUrl}/#organization`;
+
+/**
+ * Editorial reviewer for course and blog content — Yogesh Patil, founder and
+ * lead trainer, per owner instruction 2026-09-10.
+ *
+ * `reviewedBy` asserts that a named individual checked the content for
+ * accuracy. That is a real claim about a real person, so it points at his
+ * canonical Person node by @id rather than re-declaring a partial Person —
+ * the same rule the Organization references follow. If review responsibility
+ * ever moves to the trainer who teaches each track, this becomes a per-course
+ * lookup rather than a constant.
+ */
+export const CONTENT_REVIEWER = {
+  "@type": "Person",
+  "@id": `${baseUrl}/trainers/yogesh-patil#person`,
+  name: "Yogesh Patil",
+  jobTitle: "Founder & Director",
+  url: `${baseUrl}/trainers/yogesh-patil`,
+} as const;
+
 // Canonical @id for the WebSite node (Sitelinks Searchbox + entity anchor).
 const WEBSITE_ID = `${baseUrl}/#website`;
 
@@ -443,6 +463,7 @@ export function CourseJsonLd({
     // nested block. Google + AI engines resolve `@id` references
     // back to the canonical block on the same page.
     provider: { "@id": ORG_ID },
+    reviewedBy: CONTENT_REVIEWER,
     // CreativeWork.citation — the primary sources this page's claims rest on.
     // Course inherits it from CreativeWork, so this is the correct property
     // rather than a custom one. Emitted only when sources exist; an empty

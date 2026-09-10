@@ -72,6 +72,7 @@ export const teamMembers: TeamMember[] = [
     experience: "15+ years",
     image: "/images/team/yogesh-patil.jpg",
     linkedin: "https://www.linkedin.com/in/yogesh-patil-76328839/",
+    alumniOf: ["Walchand College of Engineering, Sangli"],
   },
   {
     id: "amol-patil",
@@ -98,6 +99,7 @@ export const teamMembers: TeamMember[] = [
     experience: "10+ years",
     image: "/images/team/amol-patil.jpg",
     linkedin: "https://www.linkedin.com/in/amol-patil-228b9a79/",
+    alumniOf: ["Shivaji University, Kolhapur"],
   },
   {
     id: "amol-chougule",
@@ -124,6 +126,7 @@ export const teamMembers: TeamMember[] = [
     experience: "5+ years",
     image: "/images/team/amol-chougule.jpg",
     linkedin: "https://www.linkedin.com/in/amol-chougule-201192175/",
+    alumniOf: ["Dr. Babasaheb Ambedkar Technological University, Lonere"],
   },
   {
     id: "ankita-hartale",
@@ -145,6 +148,7 @@ export const teamMembers: TeamMember[] = [
     experience: "5+ years",
     image: "/images/team/ankita-hartale.jpg",
     linkedin: "https://www.linkedin.com/in/ankita-hartale-18a521228/",
+    alumniOf: ["Dr. Babasaheb Ambedkar Technological University, Lonere"],
   },
   {
     id: "suraj-kudache",
@@ -175,6 +179,7 @@ export const teamMembers: TeamMember[] = [
     experience: "12 years",
     image: "/images/team/vinod-patil.jpg",
     linkedin: "https://www.linkedin.com/in/vinod-patil/",
+    alumniOf: ["Walchand College of Engineering, Sangli"],
   },
 ];
 
