@@ -1,6 +1,7 @@
 "use server";
 
 import { z } from "zod";
+import { imageUrlSchema as imageUrl } from "@/lib/validation/image-url";
 import { desc, eq, sql } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import type { Placement } from "@/db";
@@ -14,19 +15,6 @@ const optionalNumber = z.preprocess((value) => {
   return value;
 }, z.number().int().min(1900).max(new Date().getFullYear() + 1).optional());
 
-/**
- * Photos may be an absolute URL (someone pastes a LinkedIn/CDN link) or a
- * site-relative path we produced ourselves — `/media/<collection>/<file>`
- * from mediaUrl(). A bare `z.string().url()` rejects the relative form, which
- * would break the GitHub-avatar and upload buttons on the admin form.
- * Mirrors the same guard in lib/actions/testimonials.ts.
- */
-const imageUrl = z
-  .string()
-  .refine(
-    (v) => v.startsWith("/") || /^https?:\/\//.test(v),
-    "Please enter a valid image URL, or an uploaded /media path",
-  );
 
 const placementSchema = z.object({
   studentName: z.string().trim().min(1, "Student name is required").max(255),

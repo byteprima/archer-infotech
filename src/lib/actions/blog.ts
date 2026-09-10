@@ -1,6 +1,7 @@
 "use server";
 
 import { z } from "zod";
+import { optionalImageUrlSchema } from "@/lib/validation/image-url";
 import { eq, desc, and, sql, like, or, type SQL } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import {
@@ -17,7 +18,10 @@ const blogPostSchema = z.object({
   slug: z.string().min(1, "Slug is required").max(255),
   excerpt: z.string().optional(),
   content: z.string().min(1, "Content is required"),
-  featuredImage: z.string().url().optional().or(z.literal("")),
+  // Was z.string().url(), which rejects the site-relative /media/<collection>/<file>
+  // path an upload produces — so a blog image could only ever be an external
+  // URL, and adding an upload button would have failed on save.
+  featuredImage: optionalImageUrlSchema,
   category: z.string().optional(),
   tags: z.string().optional(),
   metaTitle: z.string().max(255).optional(),
@@ -877,4 +881,40 @@ export async function togglePublishStatus(
       message: "Failed to update publish status. Please try again.",
     };
   }
+}
+
+/**
+ * Store a featured image uploaded from the admin blog form.
+ *
+ * Writes into the "blog" media collection on the persistent volume, so the
+ * file survives a redeploy rather than being baked into the container image.
+ * Returns the site-relative URL the form puts in `featuredImage`.
+ *
+ * The collection was already registered and had nothing writing to it: the
+ * form offered only a URL box, so every blog image had to be hosted
+ * somewhere else first.
+ */
+export type BlogImageResult =
+  | { success: true; url: string; message: string }
+  | { success: false; message: string };
+
+export async function uploadBlogImage(
+  formData: FormData,
+): Promise<BlogImageResult> {
+  await requireAdminAction();
+
+  const file = formData.get("image");
+  if (!(file instanceof File) || file.size === 0) {
+    return { success: false, message: "Choose an image file first." };
+  }
+
+  const { saveMedia, mediaUrl } = await import("@/lib/storage/media");
+  const saved = await saveMedia(file, "blog");
+  if (!saved.ok) return { success: false, message: saved.error };
+
+  return {
+    success: true,
+    url: mediaUrl("blog", saved.filename),
+    message: `Uploaded ${file.name}.`,
+  };
 }

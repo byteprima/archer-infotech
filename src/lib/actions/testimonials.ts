@@ -1,6 +1,7 @@
 "use server";
 
 import { z } from "zod";
+import { imageUrlSchema as imageUrl } from "@/lib/validation/image-url";
 import { desc, eq, sql } from "drizzle-orm";
 import { revalidatePath, revalidateTag } from "next/cache";
 import type { Testimonial } from "@/db";
@@ -14,23 +15,6 @@ const optionalNumber = z.preprocess((value) => {
   return value;
 }, z.number().int().min(1).max(5).optional());
 
-/**
- * Photos may be an absolute URL (someone pastes a LinkedIn/CDN link) or a
- * site-relative path we produced ourselves — `/media/<collection>/<file>`
- * from mediaUrl(), or `/images/...` for anything committed to the repo.
- *
- * A bare `z.string().url()` rejects the relative form, which broke two real
- * cases: the GitHub-avatar and local-upload buttons on the admin form, and —
- * before those existed — editing any testimonial promoted from an alumni
- * submission, since that path writes `/media/alumni/<file>` straight to the
- * table via a direct insert and never passes through this schema.
- */
-const imageUrl = z
-  .string()
-  .refine(
-    (v) => v.startsWith("/") || /^https?:\/\//.test(v),
-    "Please enter a valid image URL, or an uploaded /media path",
-  );
 
 const testimonialSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(255),

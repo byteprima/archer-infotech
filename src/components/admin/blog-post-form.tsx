@@ -14,11 +14,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Loader2, Save, Eye } from "lucide-react";
+import { Loader2, Save, Eye, Upload } from "lucide-react";
 import { TiptapEditor } from "@/components/admin/tiptap-editor";
 import {
   createPost,
   updatePost,
+  uploadBlogImage,
   type BlogPostFormData,
 } from "@/lib/actions/blog";
 import { generateSlug } from "@/lib/utils/slug";
@@ -31,6 +32,8 @@ interface BlogPostFormProps {
 
 export function BlogPostForm({ post, onSuccess }: BlogPostFormProps) {
   const router = useRouter();
+  const [imageUploading, setImageUploading] = useState(false);
+  const [imageMessage, setImageMessage] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string[]>>({});
@@ -290,9 +293,63 @@ export function BlogPostForm({ post, onSuccess }: BlogPostFormProps) {
                   onChange={(e) =>
                     setFormData((prev) => ({ ...prev, featuredImage: e.target.value }))
                   }
-                  placeholder="https://example.com/image.jpg"
+                  placeholder="https://example.com/image.jpg or upload below"
                   className={fieldErrors.featuredImage ? "border-red-500" : ""}
                 />
+
+                {/* Upload from this machine. The file goes into the "blog"
+                    media collection on the persistent volume, and the field
+                    above is filled with the /media path it returns — so the
+                    URL box stays the single source of truth for the form. */}
+                <div className="flex items-center gap-2 pt-1">
+                  <input
+                    id="featuredImageFile"
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp,image/avif"
+                    className="sr-only"
+                    onChange={async (e) => {
+                      const file = e.target.files?.[0];
+                      if (!file) return;
+                      setImageUploading(true);
+                      setImageMessage(null);
+                      const fd = new FormData();
+                      fd.append("image", file);
+                      const res = await uploadBlogImage(fd);
+                      setImageUploading(false);
+                      setImageMessage(res.message);
+                      if (res.success) {
+                        setFormData((prev) => ({
+                          ...prev,
+                          featuredImage: res.url,
+                        }));
+                      }
+                      // Let the same file be re-picked after a failure.
+                      e.target.value = "";
+                    }}
+                  />
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    disabled={imageUploading}
+                    onClick={() =>
+                      document.getElementById("featuredImageFile")?.click()
+                    }
+                  >
+                    {imageUploading ? (
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    ) : (
+                      <Upload className="mr-2 h-4 w-4" />
+                    )}
+                    {imageUploading ? "Uploading…" : "Upload from computer"}
+                  </Button>
+                  <span className="text-xs text-muted-foreground">
+                    JPG, PNG, WebP or AVIF, up to 5 MB
+                  </span>
+                </div>
+                {imageMessage && (
+                  <p className="text-xs text-muted-foreground">{imageMessage}</p>
+                )}
                 {fieldErrors.featuredImage && (
                   <p className="text-sm text-red-500">{fieldErrors.featuredImage[0]}</p>
                 )}
