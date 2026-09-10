@@ -189,3 +189,74 @@ export function leadPriorityLabel(value: string | null | undefined): string {
     ? LEAD_PRIORITY_LABELS[value as LeadPriority]
     : value;
 }
+
+/**
+ * Why a lead was closed.
+ *
+ * Controlled values rather than free text, because the whole point of
+ * collecting them is the Lost Lead report — and a column of hand-typed
+ * variations on "fees too high" cannot be counted. The free-text note beside
+ * it is where the detail goes.
+ */
+export const LOSS_REASONS = [
+  "FEES_TOO_HIGH",
+  "JOINED_ANOTHER_INSTITUTE",
+  "TIMING_ISSUE",
+  "COURSE_NOT_AVAILABLE",
+  "LOCATION_ISSUE",
+  "NOT_INTERESTED",
+  "UNABLE_TO_CONTACT",
+  "POSTPONED_PLAN",
+  "ONLY_CHECKING_FEES",
+  "INVALID_LEAD",
+  "DUPLICATE",
+  "OTHER",
+] as const;
+
+export type LossReason = (typeof LOSS_REASONS)[number];
+
+export const LOSS_REASON_LABELS: Record<LossReason, string> = {
+  FEES_TOO_HIGH: "Fees too high",
+  JOINED_ANOTHER_INSTITUTE: "Joined another institute",
+  TIMING_ISSUE: "Timing issue",
+  COURSE_NOT_AVAILABLE: "Course not available",
+  LOCATION_ISSUE: "Location issue",
+  NOT_INTERESTED: "Not interested",
+  UNABLE_TO_CONTACT: "Unable to contact",
+  POSTPONED_PLAN: "Postponed plan",
+  ONLY_CHECKING_FEES: "Only checking fees",
+  INVALID_LEAD: "Invalid lead",
+  DUPLICATE: "Duplicate",
+  OTHER: "Other",
+};
+
+/**
+ * Statuses that may not be set without saying why.
+ *
+ * Narrower than CLOSED_LEAD_STATUSES, which also contains
+ * ADMISSION_CONFIRMED — that one has an admission record explaining itself.
+ * These five are the outcomes the Lost Lead report is about.
+ */
+export const REASON_REQUIRED_STATUSES: readonly LeadStatus[] = [
+  "NOT_INTERESTED",
+  "LOST",
+  "NO_RESPONSE",
+  "INVALID",
+  "DUPLICATE",
+];
+
+export function requiresClosureReason(status: string): boolean {
+  return (REASON_REQUIRED_STATUSES as readonly string[]).includes(status);
+}
+
+export function isLossReason(value: unknown): value is LossReason {
+  return (
+    typeof value === "string" &&
+    (LOSS_REASONS as readonly string[]).includes(value)
+  );
+}
+
+export function lossReasonLabel(value: string | null | undefined): string {
+  if (!value) return "—";
+  return isLossReason(value) ? LOSS_REASON_LABELS[value] : value;
+}

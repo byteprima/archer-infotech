@@ -12,7 +12,9 @@
 
 import { useState, useTransition } from "react";
 import { Loader2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import {
   assignLead,
   setLeadPriority,
@@ -23,8 +25,13 @@ import {
   LEAD_STATUS_LABELS,
   LEAD_PRIORITIES,
   LEAD_PRIORITY_LABELS,
+  LOSS_REASONS,
+  LOSS_REASON_LABELS,
+  lossReasonLabel,
+  requiresClosureReason,
   type LeadPriority,
   type LeadStatus,
+  type LossReason,
 } from "@/lib/leads/lifecycle";
 import { toast } from "sonner";
 
@@ -43,6 +50,8 @@ export function LeadControls({
   status,
   priority,
   assignedToUserId,
+  closureReason,
+  closureNote,
   staff,
   canAssign,
 }: {
@@ -50,6 +59,8 @@ export function LeadControls({
   status: string;
   priority: string | null;
   assignedToUserId: string | null;
+  closureReason: string | null;
+  closureNote: string | null;
   staff: StaffOption[];
   /** Server already enforces this; the control is hidden to avoid offering
    *  an action that will only be refused. */
@@ -57,6 +68,12 @@ export function LeadControls({
 }) {
   const [pending, startTransition] = useTransition();
   const [localStatus, setLocalStatus] = useState(status);
+  // A status that needs a reason is not saved on change like the others: the
+  // select stages it, and the reason form below commits it. Nothing is written
+  // until a reason is chosen, so the lead cannot end up closed-with-no-reason.
+  const [pendingClose, setPendingClose] = useState<LeadStatus | null>(null);
+  const [reason, setReason] = useState<LossReason>("NOT_INTERESTED");
+  const [reasonNote, setReasonNote] = useState("");
   const [localPriority, setLocalPriority] = useState(priority ?? "");
   const [localAssignee, setLocalAssignee] = useState(assignedToUserId ?? "");
 
@@ -95,6 +112,11 @@ export function LeadControls({
             const previous = localStatus;
             const next = event.target.value as LeadStatus;
             setLocalStatus(next);
+            if (requiresClosureReason(next)) {
+              setPendingClose(next);
+              return;
+            }
+            setPendingClose(null);
             run(
               () => setLeadStatus({ leadId, status: next }),
               () => setLocalStatus(previous),
@@ -108,6 +130,79 @@ export function LeadControls({
           ))}
         </select>
       </div>
+
+      {pendingClose && (
+        <div className="space-y-2 rounded-md border border-amber-300 bg-amber-50 p-3">
+          <p className="text-xs font-medium text-amber-900">
+            Closing as {LEAD_STATUS_LABELS[pendingClose]}. Why?
+          </p>
+          <select
+            aria-label="Closure reason"
+            className={SELECT}
+            value={reason}
+            disabled={pending}
+            onChange={(event) => setReason(event.target.value as LossReason)}
+          >
+            {LOSS_REASONS.map((value) => (
+              <option key={value} value={value}>
+                {LOSS_REASON_LABELS[value]}
+              </option>
+            ))}
+          </select>
+          <Textarea
+            rows={2}
+            placeholder="Anything worth remembering (optional)"
+            value={reasonNote}
+            disabled={pending}
+            onChange={(event) => setReasonNote(event.target.value)}
+          />
+          <div className="flex gap-2">
+            <Button
+              size="sm"
+              className="flex-1"
+              disabled={pending}
+              onClick={() =>
+                run(
+                  async () => {
+                    const result = await setLeadStatus({
+                      leadId,
+                      status: pendingClose,
+                      closureReason: reason,
+                      closureNote: reasonNote,
+                    });
+                    if (result.success) {
+                      setPendingClose(null);
+                      setReasonNote("");
+                    }
+                    return result;
+                  },
+                  () => setLocalStatus(status),
+                )
+              }
+            >
+              Close lead
+            </Button>
+            <Button
+              size="sm"
+              variant="outline"
+              disabled={pending}
+              onClick={() => {
+                setPendingClose(null);
+                setLocalStatus(status);
+              }}
+            >
+              Cancel
+            </Button>
+          </div>
+        </div>
+      )}
+
+      {!pendingClose && closureReason && (
+        <p className="rounded-md bg-muted p-2 text-xs text-muted-foreground">
+          Closed: <span className="font-medium">{lossReasonLabel(closureReason)}</span>
+          {closureNote ? ` — ${closureNote}` : ""}
+        </p>
+      )}
 
       <div className="space-y-1.5">
         <Label htmlFor="lead-priority">Priority</Label>

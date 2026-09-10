@@ -4,15 +4,7 @@ import { db } from "@/db";
 import { leads } from "@/db/schema";
 import { isAdmin } from "@/lib/auth";
 import { buildSourceCondition } from "@/lib/leads/source-filter";
-
-function escapeCsv(value: string | null | undefined) {
-  if (!value) {
-    return "";
-  }
-
-  const normalized = value.replaceAll('"', '""');
-  return `"${normalized}"`;
-}
+import { csvDateTime, csvResponse, toCsv } from "@/lib/reports/csv";
 
 export async function GET(request: NextRequest) {
   const admin = await isAdmin();
@@ -50,42 +42,36 @@ export async function GET(request: NextRequest) {
     .where(conditions.length > 0 ? and(...conditions) : undefined)
     .orderBy(desc(leads.createdAt));
 
-  const header = [
-    "ID",
-    "Name",
-    "Email",
-    "Phone",
-    "Course",
-    "Mode of Learning",
-    "Experience",
-    "Source",
-    "Status",
-    "Assigned To",
-    "Follow Up Date",
-    "Created At",
-  ].join(",");
-
-  const lines = rows.map((lead) =>
+  const csv = toCsv(
     [
+      "ID",
+      "Name",
+      "Email",
+      "Phone",
+      "Course",
+      "Mode of Learning",
+      "Experience",
+      "Source",
+      "Status",
+      "Assigned To",
+      "Follow Up Date",
+      "Created At",
+    ],
+    rows.map((lead) => [
       lead.id,
-      escapeCsv(lead.name),
-      escapeCsv(lead.email),
-      escapeCsv(lead.phone),
-      escapeCsv(lead.courseInterest),
-      escapeCsv(lead.modePreference),
-      escapeCsv(lead.experienceLevel),
-      escapeCsv(lead.source),
-      escapeCsv(lead.status),
-      escapeCsv(lead.assignedTo),
-      escapeCsv(lead.followUpDate ? new Date(lead.followUpDate).toISOString() : ""),
-      escapeCsv(lead.createdAt ? new Date(lead.createdAt).toISOString() : ""),
-    ].join(",")
+      lead.name,
+      lead.email,
+      lead.phone,
+      lead.courseInterest,
+      lead.modePreference,
+      lead.experienceLevel,
+      lead.source,
+      lead.status,
+      lead.assignedTo,
+      csvDateTime(lead.followUpDate),
+      csvDateTime(lead.createdAt),
+    ]),
   );
 
-  return new NextResponse([header, ...lines].join("\n"), {
-    headers: {
-      "Content-Type": "text/csv; charset=utf-8",
-      "Content-Disposition": 'attachment; filename="leads-export.csv"',
-    },
-  });
+  return csvResponse("leads-export.csv", csv);
 }

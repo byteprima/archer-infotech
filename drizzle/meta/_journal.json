@@ -36,6 +36,20 @@
       "when": 1789076679034,
       "tag": "0004_cynical_cannonball",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1789078352536,
+      "tag": "0005_shallow_midnight",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1789078377735,
+      "tag": "0006_closure_backfill",
+      "breakpoints": true
     }
   ]
 }

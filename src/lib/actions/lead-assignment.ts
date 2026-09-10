@@ -8,7 +8,12 @@ import { leads, user } from "@/db/schema";
 import { logAdminAction, requireAdminAction } from "@/lib/admin";
 import { getCurrentRole } from "@/lib/auth";
 import { canAssignLeads, STAFF_ROLES } from "@/lib/leads/roles";
-import { LEAD_PRIORITIES, LEAD_STATUSES } from "@/lib/leads/lifecycle";
+import {
+  LEAD_PRIORITIES,
+  LEAD_STATUSES,
+  LOSS_REASONS,
+  requiresClosureReason,
+} from "@/lib/leads/lifecycle";
 
 /**
  * Assignment, priority and status changes.
@@ -123,6 +128,8 @@ export async function setLeadPriority(
 const statusSchema = z.object({
   leadId: z.number().int().positive(),
   status: z.enum(LEAD_STATUSES),
+  closureReason: z.enum(LOSS_REASONS).optional(),
+  closureNote: z.string().trim().max(500).optional(),
 });
 
 export async function setLeadStatus(
@@ -132,19 +139,43 @@ export async function setLeadStatus(
   const parsed = statusSchema.safeParse(input);
   if (!parsed.success) return { success: false, message: "Invalid status." };
 
+  const { leadId, status, closureReason, closureNote } = parsed.data;
+  const closing = requiresClosureReason(status);
+
+  // Enforced here rather than only in the form. The Lost Lead report is the
+  // reason these statuses exist as a controlled list, and a report built on a
+  // column that is sometimes filled is not a report.
+  if (closing && !closureReason) {
+    return {
+      success: false,
+      message: "Choose a reason before closing this lead.",
+    };
+  }
+
   await db
     .update(leads)
-    .set({ status: parsed.data.status, updatedAt: new Date() })
-    .where(eq(leads.id, parsed.data.leadId));
+    .set({
+      status,
+      // Moving back to an active status clears the closure: leaving a stale
+      // reason behind would have the lead counted as lost in the report while
+      // it sits in the follow-up queue.
+      closureReason: closing ? closureReason! : null,
+      closureNote: closing ? closureNote || null : null,
+      closedAt: closing ? new Date() : null,
+      updatedAt: new Date(),
+    })
+    .where(eq(leads.id, leadId));
 
   await logAdminAction({
     action: "update",
     entityType: "lead",
-    entityId: String(parsed.data.leadId),
-    summary: `Moved lead #${parsed.data.leadId} to ${parsed.data.status}`,
+    entityId: String(leadId),
+    summary: closing
+      ? `Closed lead #${leadId} as ${status} (${closureReason})`
+      : `Moved lead #${leadId} to ${status}`,
   });
 
   revalidatePath("/admin/leads");
-  revalidatePath(`/admin/leads/${parsed.data.leadId}`);
+  revalidatePath(`/admin/leads/${leadId}`);
   return { success: true, message: "Status updated." };
 }

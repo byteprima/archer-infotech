@@ -1,13 +1,19 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import {
+  CLOSED_LEAD_STATUSES,
   LEAD_STATUSES,
   LEAD_STATUS_LABELS,
-  CLOSED_LEAD_STATUSES,
   LEGACY_STATUS_MAP,
+  LOSS_REASONS,
+  LOSS_REASON_LABELS,
+  REASON_REQUIRED_STATUSES,
   isLeadStatus,
-  leadStatusLabel,
+  isLossReason,
   leadPriorityLabel,
+  leadStatusLabel,
+  lossReasonLabel,
+  requiresClosureReason,
 } from "./lifecycle";
 
 describe("lead lifecycle", () => {
@@ -56,5 +62,52 @@ describe("lead lifecycle", () => {
     assert.equal(leadStatusLabel(null), "—");
     assert.equal(leadPriorityLabel("HOT"), "Hot");
     assert.equal(leadPriorityLabel(null), "—");
+  });
+});
+
+describe("closure reasons", () => {
+  it("labels every reason", () => {
+    for (const value of LOSS_REASONS) {
+      assert.equal(typeof LOSS_REASON_LABELS[value], "string");
+    }
+  });
+
+  it("requires a reason for exactly the five closing outcomes", () => {
+    const required = LEAD_STATUSES.filter(requiresClosureReason);
+    assert.deepEqual([...required].sort(), [
+      "DUPLICATE",
+      "INVALID",
+      "LOST",
+      "NOT_INTERESTED",
+      "NO_RESPONSE",
+    ]);
+  });
+
+  it("does not demand a reason for an admission", () => {
+    // ADMISSION_CONFIRMED is closed, but the admission record explains it.
+    assert.equal(requiresClosureReason("ADMISSION_CONFIRMED"), false);
+  });
+
+  it("does not demand a reason for an active status", () => {
+    for (const status of ["NEW", "CONTACTED", "FOLLOW_UP", "INTERESTED"]) {
+      assert.equal(requiresClosureReason(status), false, status);
+    }
+  });
+
+  it("every reason-required status is also a closed status", () => {
+    for (const status of REASON_REQUIRED_STATUSES) {
+      assert.equal(CLOSED_LEAD_STATUSES.includes(status), true, status);
+    }
+  });
+
+  it("shows an unknown reason rather than hiding it", () => {
+    assert.equal(lossReasonLabel("SOMETHING_ELSE"), "SOMETHING_ELSE");
+    assert.equal(lossReasonLabel(null), "—");
+  });
+
+  it("guards reject non-strings", () => {
+    for (const bad of [null, undefined, 7, {}]) {
+      assert.equal(isLossReason(bad), false);
+    }
   });
 });

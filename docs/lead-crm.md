@@ -1,6 +1,6 @@
 # Lead & Enquiry Management — implementation notes
 
-Phases 1 to 3 of the Training Institute Lead & Enquiry Management
+Phases 1 to 4 of the Training Institute Lead & Enquiry Management
 specification. This file records the decisions taken while building them, so
 the reasoning survives the commit messages.
 
@@ -135,14 +135,78 @@ how batches work, and it belongs with batch management rather than smuggled
 into the conversion action. Recorded here because the two numbers can now
 disagree, and somebody will notice.
 
+### Phase 4: no charting library
+
+The spec allows adding one. None was added. Every chart these reports need is
+a bar or a line, the project already draws its SEO sparklines as inline SVG
+(`admin/seo/_components/cwv-tab.tsx`), and Recharts is ~100KB that would have
+to run as a client component. The chart primitives in
+`components/admin/reports/charts.tsx` are server-rendered and ship no
+JavaScript.
+
+### Conversion is counted against the ENQUIRY, not the admission date
+
+Course-wise and source-wise rates divide admissions by enquiries. If the
+numerator counted admissions *dated* in the range, it would include people who
+enquired last year, and the rate could exceed 100% while describing nothing.
+So an admission is counted in the range its originating ENQUIRY falls in. The
+admissions list and its fee totals use the admission date instead, because
+that report is about money received, not about conversion. Each function in
+`lib/actions/reports.ts` says which it uses.
+
+A cancelled admission does not count as a conversion anywhere.
+
+### Closure reasons were built here, not in Phase 3
+
+The Lost Lead report is part of Phase 4 and has nothing to group by without
+them, so §16 (Lead Closing) shipped with this phase. `setLeadStatus` refuses
+the five closing statuses without a reason — enforced in the action, not only
+in the form, because a report built on a column that is *sometimes* filled is
+not a report. Moving a lead back to an active status clears the reason, so a
+reopened lead cannot still be counted as lost.
+
+Migration `0006` backfills `closed_at` for leads closed before the column
+existed, using `updated_at` as an approximation. Without it the report can
+only ever describe closures from today onward, and reads as "we have never
+lost anybody". Those rows keep a NULL reason and appear as "Not recorded" —
+guessing a reason from the status would put a fabricated number in a report
+somebody makes decisions from.
+
+### Percentages are not forced to sum to 100
+
+Each row is rounded independently, so a distribution can total 99.9 or 100.1.
+Forcing the total means silently altering one row, and a reader checking that
+row against its count would find the altered one wrong.
+
+### CSV: formula injection and zero
+
+`lib/reports/csv.ts` prefixes any cell starting `=`, `+`, `-`, `@`, tab or CR
+with an apostrophe. Names and messages in these exports come from public web
+forms, and a lead called `=HYPERLINK("http://evil","click")` becomes a live
+link when the office opens the file in Excel. Verified end to end by seeding
+that exact name and downloading the enquiry report.
+
+The old inline `escapeCsv` also returned an empty cell for any falsy value, so
+a count of 0 exported as blank — a different claim from zero in a report. The
+leads export now uses the same module.
+
+### The dashboard menu is filtered by role
+
+It previously showed all fifteen cards to everyone, so a counsellor was
+offered eleven destinations that bounce to /admin/unauthorized. It now filters
+with `canAccessAdminPath`, the same rule that guards the pages.
+`requireAdminPage` still runs on every destination — this only stops offering
+the trip.
+
 ## Tests
 
 `npm test` runs Node's own test runner through `tsx` — no test framework was
 added, because the repository had none and Node 24 ships one.
 
 The suite covers the pure decision logic, which is where a mistake here is
-silent: the role matrix, the status vocabulary, course matching, and — from
-Phase 3 — fee arithmetic and admission numbering. The
+silent: the role matrix, the status vocabulary, course matching, fee
+arithmetic, admission numbering, and — from Phase 4 — conversion arithmetic,
+date-range boundaries and CSV escaping. The
 course-matching tests are regressions for two bugs that were live in the
 database, not hypotheticals — a value of `"C"` attaching itself to 41 course
 pages, and `"Java full-stack development "` reaching none.

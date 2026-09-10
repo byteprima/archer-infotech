@@ -106,6 +106,8 @@ export default async function AdminLeadDetailPage({ params }: AdminLeadDetailPag
               status={lead.status}
               priority={lead.priority}
               assignedToUserId={lead.assignedToUserId}
+              closureReason={lead.closureReason}
+              closureNote={lead.closureNote}
               staff={staff}
               canAssign={canAssignLeads(role)}
             />

@@ -196,6 +196,20 @@ export const leads = sqliteTable("leads", {
   campaign: text("campaign"),
   landingPage: text("landing_page"),
   followUpDate: integer("follow_up_date", { mode: "timestamp" }),
+  /**
+   * Why this lead was closed — one of LOSS_REASONS. Required by
+   * setLeadStatus for the five closing statuses, and the column the Lost
+   * Lead report groups by. Controlled values, because a column of hand-typed
+   * variations on "fees too high" cannot be counted.
+   */
+  closureReason: text("closure_reason"),
+  /** The detail behind the reason, in the counsellor's own words. */
+  closureNote: text("closure_note"),
+  /**
+   * When it was closed. Not the same as `updated_at`, which moves for any
+   * edit — the report needs the date the outcome was decided.
+   */
+  closedAt: integer("closed_at", { mode: "timestamp" }),
   createdAt: integer("created_at", { mode: "timestamp" }).notNull().$defaultFn(() => new Date()),
   updatedAt: integer("updated_at", { mode: "timestamp" }).notNull().$defaultFn(() => new Date()),
 });

@@ -22,6 +22,9 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { requireAdminPage } from "@/lib/admin";
+import { conversionRate } from "@/lib/reports/metrics";
+import { getCurrentRole } from "@/lib/auth";
+import { canAccessAdminPath } from "@/lib/leads/roles";
 
 async function getStats() {
   try {
@@ -67,6 +70,7 @@ async function getStats() {
       todayFollowUps,
       totalAdmissions,
       monthAdmissions,
+      monthEnquiries,
     ] = await Promise.all([
       db.select({ count: count() }).from(leads),
       // "NEW", not "new" — the lifecycle migration uppercased these. Left
@@ -119,6 +123,7 @@ async function getStats() {
             gte(admissions.admissionDate, startOfMonth),
           ),
         ),
+      db.select({ count: count() }).from(leads).where(gte(leads.createdAt, startOfMonth)),
     ]);
 
     return {
@@ -139,6 +144,13 @@ async function getStats() {
         total: totalAdmissions[0].count,
         thisMonth: monthAdmissions[0].count,
       },
+      // Admissions this month over enquiries this month. Guarded against a
+      // zero denominator — a fresh month has no enquiries yet, and Infinity
+      // on the dashboard is worse than 0.
+      conversion: {
+        rate: conversionRate(monthAdmissions[0].count, monthEnquiries[0].count),
+        enquiries: monthEnquiries[0].count,
+      },
     };
   } catch (error) {
     console.error("Database error:", error);
@@ -154,6 +166,7 @@ async function getStats() {
       auditLogs: { total: 0 },
       alumni: { total: 0, new: 0 },
       admissions: { total: 0, thisMonth: 0 },
+      conversion: { rate: 0, enquiries: 0 },
     };
   }
 }
@@ -161,7 +174,7 @@ async function getStats() {
 export default async function AdminDashboard() {
   await requireAdminPage("/admin");
 
-  const stats = await getStats();
+  const [stats, role] = await Promise.all([getStats(), getCurrentRole()]);
 
   const menuItems = [
     {
@@ -177,6 +190,13 @@ export default async function AdminDashboard() {
       href: "/admin/follow-ups",
       icon: CalendarClock,
       stats: `${stats.followUps.overdue} overdue, ${stats.followUps.today} today`,
+    },
+    {
+      title: "Reports",
+      description: "Course, source, counsellor, lost leads and conversion",
+      href: "/admin/reports",
+      icon: LineChart,
+      stats: `${stats.conversion.rate}% conversion this month`,
     },
     {
       title: "Admissions",
@@ -345,10 +365,15 @@ export default async function AdminDashboard() {
           </Card>
         </div>
 
-        {/* Menu Items */}
+        {/* Menu Items. Filtered by the same rule that guards the pages
+            themselves, so a counsellor is not shown eleven cards that will
+            bounce them to /admin/unauthorized. requireAdminPage still runs on
+            every destination — this only stops offering the trip. */}
         <h2 className="text-lg font-semibold mb-4">Management</h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {menuItems.map((item) => (
+          {menuItems
+            .filter((item) => canAccessAdminPath(role, item.href))
+            .map((item) => (
             <Link key={item.title} href={item.href}>
               <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer">
                 <CardHeader className="pb-2">
