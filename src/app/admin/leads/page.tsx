@@ -7,7 +7,11 @@ import { Badge } from "@/components/ui/badge";
 import { requireAdminPage } from "@/lib/admin";
 import { db } from "@/db";
 import { leads as leadsTable } from "@/db/schema";
-import { LEAD_SOURCE_TABS, buildSourceCondition } from "@/lib/leads/source-filter";
+import {
+  LEAD_SOURCE_TABS,
+  DEFAULT_LEAD_SOURCE_TAB,
+  buildSourceCondition,
+} from "@/lib/leads/source-filter";
 import { DeleteLeadButton } from "@/components/admin/delete-lead-button";
 
 type LeadRow = typeof leadsTable.$inferSelect;
@@ -114,7 +118,9 @@ export default async function AdminLeadsPage({ searchParams }: AdminLeadsPagePro
   const params = await searchParams;
   const query = params.q?.trim() || "";
   const status = params.status?.trim() || "";
-  const source = params.source?.trim() || "";
+  // Defaults to the first tab. The four tabs are exhaustive, so landing on
+  // one of them hides nothing that another does not show.
+  const source = params.source?.trim() || DEFAULT_LEAD_SOURCE_TAB;
   const view = params.view === "course" ? "course" : "list";
 
   const conditions = [];
@@ -125,7 +131,13 @@ export default async function AdminLeadsPage({ searchParams }: AdminLeadsPagePro
       or(
         like(leadsTable.name, searchTerm),
         like(leadsTable.email, searchTerm),
-        like(leadsTable.phone, searchTerm)
+        like(leadsTable.phone, searchTerm),
+        // Course was not searchable, which made the single most useful
+        // question — "who asked about Java Full Stack" — impossible to answer
+        // from this screen. Mode preference rides along for free: it is the
+        // other thing a counsellor filters on.
+        like(leadsTable.courseInterest, searchTerm),
+        like(leadsTable.modePreference, searchTerm)
       )
     );
   }
@@ -287,7 +299,7 @@ export default async function AdminLeadsPage({ searchParams }: AdminLeadsPagePro
                     name="q"
                     type="text"
                     defaultValue={query}
-                    placeholder="Search by name, email, or phone..."
+                    placeholder="Search by name, email, phone, or course..."
                     className="w-full pl-10 pr-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary"
                   />
                 </div>
