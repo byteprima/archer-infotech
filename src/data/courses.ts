@@ -2850,27 +2850,31 @@ export const courses: Course[] = [
     highlights: [
       "Oracle SQL",
       "PL/SQL programming",
+      "Database design and normalization",
       "Database administration",
+      "Backup and recovery with RMAN",
       "Performance tuning",
-      "Backup and recovery",
-      "Oracle Cloud basics",
     ],
     modules: [
       {
+        title: "Fundamentals & Architecture",
+        topics: ["DBMS and the relational model", "Oracle editions and setup", "SGA and PGA", "Background processes", "Tablespaces, control files and redo"],
+      },
+      {
         title: "Oracle SQL",
-        topics: ["Oracle data types", "SQL queries", "Joins and subqueries", "Set operations", "Analytical functions"],
+        topics: ["DDL, DML, DQL, TCL and DCL", "Oracle data types and constraints", "Built-in and aggregate functions", "Joins, subqueries and set operators", "Views, sequences, indexes and synonyms", "Normalization to Boyce-Codd"],
       },
       {
         title: "PL/SQL",
-        topics: ["PL/SQL basics", "Procedures and functions", "Packages", "Triggers", "Exception handling"],
+        topics: ["Blocks, control structures and cursors", "Exception handling", "Procedures, functions and packages", "Triggers", "Collections, BULK COLLECT and FORALL", "Dynamic SQL"],
       },
       {
-        title: "Administration",
-        topics: ["Architecture overview", "User management", "Tablespaces", "Backup strategies", "RMAN"],
+        title: "Administration & Recovery",
+        topics: ["Users, roles, privileges and profiles", "Startup, shutdown and parameters", "Oracle Net and the listener", "Undo and temporary tablespaces", "RMAN, Data Pump and SQL*Loader"],
       },
       {
-        title: "Performance",
-        topics: ["Execution plans", "Index optimization", "Statistics", "AWR reports", "SQL tuning"],
+        title: "Tuning, Multitenant & Project",
+        topics: ["Execution plans and the optimizer", "Locking and concurrency", "Partitioning and materialized views", "CDB / PDB, monitoring and Enterprise Manager", "Hospital Management System capstone"],
       },
     ],
     faqs: [
@@ -2879,7 +2883,7 @@ export const courses: Course[] = [
         answer: "Oracle certifications are highly valued in enterprise environments and can significantly boost career prospects.",
       },
     ],
-    prerequisites: ["Basic SQL knowledge", "Database concepts"],
+    prerequisites: ["Basic computer use", "No prior SQL or database experience required"],
     careerOpportunities: ["Oracle DBA", "PL/SQL Developer", "Database Administrator"],
   },
   {
