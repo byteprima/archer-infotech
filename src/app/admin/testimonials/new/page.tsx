@@ -4,7 +4,7 @@ import { TestimonialForm } from "@/components/admin/testimonial-form";
 import { requireAdminPage } from "@/lib/admin";
 
 export default async function NewTestimonialPage() {
-  await requireAdminPage();
+  await requireAdminPage("/admin/testimonials/new");
 
   return (
     <div className="min-h-screen">

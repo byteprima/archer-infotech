@@ -8,7 +8,7 @@ import { getAllSeminars } from "@/lib/actions/seminars";
 import { requireAdminPage } from "@/lib/admin";
 
 export default async function AdminSeminarsPage() {
-  await requireAdminPage();
+  await requireAdminPage("/admin/seminars");
   const sessions = await getAllSeminars();
   const published = sessions.filter((s) => s.isPublished).length;
 

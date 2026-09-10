@@ -21,7 +21,7 @@ export async function GET(
   _req: NextRequest,
   { params }: { params: Promise<{ collection: string; file: string }> },
 ) {
-  await requireAdminPage();
+  await requireAdminPage("/admin/media/[collection]/[file]");
 
   const { collection, file } = await params;
   const media = await readMedia(collection, file);

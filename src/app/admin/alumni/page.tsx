@@ -37,7 +37,7 @@ function initials(name: string) {
 }
 
 export default async function AdminAlumniPage() {
-  await requireAdminPage();
+  await requireAdminPage("/admin/alumni");
   const { rows, totalCount, newCount, publishedCount } = await getAllAlumni();
   const referralCount = rows.filter(
     (r) => r.openToReferrals || r.companyHiring

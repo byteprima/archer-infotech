@@ -5,7 +5,7 @@ import { SeminarForm } from "@/components/admin/seminar-form";
 import { requireAdminPage } from "@/lib/admin";
 
 export default async function NewSeminarPage() {
-  await requireAdminPage();
+  await requireAdminPage("/admin/seminars/new");
   return (
     <div className="min-h-screen">
       <header className="border-b bg-background">

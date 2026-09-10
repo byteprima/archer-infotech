@@ -10,7 +10,7 @@ interface EditBlogPostPageProps {
 }
 
 export default async function EditBlogPostPage({ params }: EditBlogPostPageProps) {
-  await requireAdminPage();
+  await requireAdminPage("/admin/blog/[id]/edit");
 
   const { id } = await params;
   const postId = parseInt(id, 10);

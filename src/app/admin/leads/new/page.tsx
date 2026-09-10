@@ -4,7 +4,7 @@ import { LeadForm } from "@/components/admin/lead-form";
 import { requireAdminPage } from "@/lib/admin";
 
 export default async function AdminLeadNewPage() {
-  await requireAdminPage();
+  await requireAdminPage("/admin/leads/new");
 
   return (
     <div className="min-h-screen">

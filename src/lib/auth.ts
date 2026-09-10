@@ -1,5 +1,6 @@
 import { cookies, headers } from "next/headers";
 import { getAuth } from "./auth-server";
+import { canAccessAdmin } from "@/lib/leads/roles";
 
 /**
  * Get the current session from better-auth
@@ -50,7 +51,26 @@ export async function isAdmin(): Promise<boolean> {
   // does not surface on its inferred session type, so the access needs a
   // narrow cast. This replaces a blanket `@ts-ignore`, which would have
   // silenced any future error on this line, not just the known one.
-  return (session.user as { role?: string }).role === "admin";
+  // Was `role === "admin"` exactly. Managers and counsellors are staff too
+  // and must be able to open the panel at all; WHICH parts they may reach is
+  // decided per-area by lib/leads/roles.ts, not here.
+  return canAccessAdmin((session.user as { role?: string }).role);
+}
+
+/**
+ * The current user's role, or null when nobody is signed in.
+ *
+ * Returns "admin" for the legacy shared env login, which has no user row.
+ * That login predates roles and is the site owner's own way in — treating it
+ * as anything less would lock them out of the panel. It is also the reason
+ * role restrictions are not yet a security boundary; see docs/lead-crm.md.
+ */
+export async function getCurrentRole(): Promise<string | null> {
+  const session = await getSession();
+  if (session?.user) {
+    return (session.user as { role?: string }).role ?? null;
+  }
+  return (await isLegacyAuthenticated()) ? "admin" : null;
 }
 
 /**

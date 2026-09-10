@@ -45,7 +45,7 @@ function buildFilterHref(params: { status?: string; mode?: string }) {
 }
 
 export default async function AdminBatchesPage({ searchParams }: AdminBatchesPageProps) {
-  await requireAdminPage();
+  await requireAdminPage("/admin/batches");
 
   const params = await searchParams;
   const status = BATCH_STATUS.includes(params.status as BatchStatus)

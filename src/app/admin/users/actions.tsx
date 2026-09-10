@@ -2,14 +2,18 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Loader2, Shield, ShieldOff } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { updateUserRole } from "@/lib/actions/users";
+import {
+  USER_ROLES,
+  ROLE_LABELS,
+  ROLE_DESCRIPTIONS,
+  type UserRole,
+} from "@/lib/leads/roles";
 
 interface UserRoleButtonProps {
   userId: string;
   userEmail: string;
-  currentRole: "user" | "admin";
+  currentRole: string;
   isCurrentAdmin: boolean;
 }
 
@@ -22,27 +26,23 @@ export function UserRoleButton({
   const router = useRouter();
   const [isPending, setIsPending] = useState(false);
 
-  const nextRole = currentRole === "admin" ? "user" : "admin";
 
-  const handleClick = async () => {
+
+  const handleChange = async (nextRole: UserRole) => {
+    if (nextRole === currentRole) return;
+
     const confirmed = window.confirm(
-      `${nextRole === "admin" ? "Grant" : "Remove"} admin access for ${userEmail}?`
+      `Change ${userEmail} to ${ROLE_LABELS[nextRole]}?`,
     );
-
-    if (!confirmed) {
-      return;
-    }
+    if (!confirmed) return;
 
     setIsPending(true);
-
     try {
       const result = await updateUserRole(userId, nextRole);
-
       if (!result.success) {
         window.alert(result.message);
         return;
       }
-
       router.refresh();
     } catch {
       window.alert("Failed to update the user role. Please try again.");
@@ -52,22 +52,22 @@ export function UserRoleButton({
   };
 
   return (
-    <Button
-      type="button"
-      variant={currentRole === "admin" ? "outline" : "default"}
-      size="sm"
-      onClick={handleClick}
+    <select
+      value={currentRole}
       disabled={isPending || isCurrentAdmin}
-      title={isCurrentAdmin ? "You cannot remove your own admin access." : undefined}
+      onChange={(event) => handleChange(event.target.value as UserRole)}
+      className="h-9 rounded-md border border-input bg-background px-2 text-sm disabled:opacity-60"
+      title={
+        isCurrentAdmin
+          ? "You cannot change your own role"
+          : ROLE_DESCRIPTIONS[currentRole as UserRole]
+      }
     >
-      {isPending ? (
-        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-      ) : currentRole === "admin" ? (
-        <ShieldOff className="mr-2 h-4 w-4" />
-      ) : (
-        <Shield className="mr-2 h-4 w-4" />
-      )}
-      {currentRole === "admin" ? "Remove Admin" : "Make Admin"}
-    </Button>
+      {USER_ROLES.map((role) => (
+        <option key={role} value={role}>
+          {ROLE_LABELS[role]}
+        </option>
+      ))}
+    </select>
   );
 }

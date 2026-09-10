@@ -4,7 +4,7 @@ import { PlacementForm } from "@/components/admin/placement-form";
 import { requireAdminPage } from "@/lib/admin";
 
 export default async function NewPlacementPage() {
-  await requireAdminPage();
+  await requireAdminPage("/admin/placements/new");
 
   return (
     <div className="min-h-screen">

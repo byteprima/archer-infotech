@@ -20,7 +20,7 @@ function formatMetadata(metadata: string | null) {
 }
 
 export default async function AdminAuditLogsPage() {
-  await requireAdminPage();
+  await requireAdminPage("/admin/audit-logs");
 
   const logs = await db.select().from(auditLogs).orderBy(desc(auditLogs.createdAt)).limit(100);
 

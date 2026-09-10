@@ -69,6 +69,12 @@ the specification says `Classroom / Online / Hybrid`. The admin displays
 values would mean editing five live public forms and backfilling; it is a
 content decision, not a technical one, and is left for the site owner.
 
+**Counsellor restriction is a UI boundary, not yet a security one.** Route
+access is enforced by `requireAdminPage(pathname)` on all 33 admin pages, so
+a counsellor is redirected away from content, SEO and user management. It is
+enforced server-side, but it depends on the caller having a `user` row — see
+the legacy login below.
+
 **The legacy shared login.** `ADMIN_USERNAME` / `ADMIN_PASSWORD` in the
 environment still grant admin access without a `user` row. Role-based
 permissions therefore have a bypass. It is treated as ADMIN for now and

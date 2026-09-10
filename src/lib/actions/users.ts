@@ -5,8 +5,9 @@ import { revalidatePath } from "next/cache";
 import { db } from "@/db";
 import { user } from "@/db/schema";
 import { logAdminAction, requireAdminAction } from "@/lib/admin";
+import { USER_ROLES, canManageUsers, type UserRole as StaffUserRole } from "@/lib/leads/roles";
+import { getCurrentRole } from "@/lib/auth";
 
-type UserRole = "user" | "admin";
 
 type ActionResult = {
   success: boolean;
@@ -15,7 +16,7 @@ type ActionResult = {
 
 export async function updateUserRole(
   userId: string,
-  nextRole: UserRole
+  nextRole: StaffUserRole
 ): Promise<ActionResult> {
   const actor = await requireAdminAction();
 
@@ -26,10 +27,22 @@ export async function updateUserRole(
     };
   }
 
-  if (nextRole !== "user" && nextRole !== "admin") {
+  // Was a two-value check, which would have rejected the manager and
+  // counsellor roles the lead pipeline now uses.
+  if (!(USER_ROLES as readonly string[]).includes(nextRole)) {
     return {
       success: false,
       message: "Invalid role provided.",
+    };
+  }
+
+  // Only an admin may change roles at all: granting a role is how someone
+  // would escalate their own, so a manager with this power is an admin.
+  const actorRole = await getCurrentRole();
+  if (!canManageUsers(actorRole)) {
+    return {
+      success: false,
+      message: "Only an admin can change user roles.",
     };
   }
 

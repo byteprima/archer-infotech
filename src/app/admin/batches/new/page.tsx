@@ -4,7 +4,7 @@ import { requireAdminPage } from "@/lib/admin";
 import { BatchForm } from "@/components/admin/batch-form";
 
 export default async function NewBatchPage() {
-  await requireAdminPage();
+  await requireAdminPage("/admin/batches/new");
 
   return (
     <div className="min-h-screen">

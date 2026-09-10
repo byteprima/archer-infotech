@@ -5,7 +5,7 @@ import { PlacementDriveForm } from "@/components/admin/placement-drive-form";
 import { requireAdminPage } from "@/lib/admin";
 
 export default async function NewPlacementDrivePage() {
-  await requireAdminPage();
+  await requireAdminPage("/admin/placement-drives/new");
   return (
     <div className="min-h-screen">
       <header className="border-b bg-background">

@@ -9,7 +9,7 @@ import { getAllTestimonials } from "@/lib/actions/testimonials";
 import { requireAdminPage } from "@/lib/admin";
 
 export default async function AdminTestimonialsPage() {
-  await requireAdminPage();
+  await requireAdminPage("/admin/testimonials");
 
   const { testimonials, totalCount, publishedCount, draftCount, highlightedCount } =
     await getAllTestimonials();

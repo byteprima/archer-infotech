@@ -13,7 +13,7 @@ export default async function EditPopupPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  await requireAdminPage();
+  await requireAdminPage("/admin/popups/[id]");
   const { id } = await params;
   const campaign = await getPopupCampaign(Number(id));
   if (!campaign) notFound();

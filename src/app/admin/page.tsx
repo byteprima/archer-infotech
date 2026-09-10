@@ -127,7 +127,7 @@ async function getStats() {
 }
 
 export default async function AdminDashboard() {
-  await requireAdminPage();
+  await requireAdminPage("/admin");
 
   const stats = await getStats();
 

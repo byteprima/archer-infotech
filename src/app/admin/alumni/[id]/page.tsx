@@ -43,7 +43,7 @@ export default async function AdminAlumnusDetailPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  await requireAdminPage();
+  await requireAdminPage("/admin/alumni/[id]");
   const { id } = await params;
   const numId = Number(id);
   if (!Number.isInteger(numId)) notFound();

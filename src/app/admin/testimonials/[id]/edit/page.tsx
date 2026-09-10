@@ -10,7 +10,7 @@ interface EditTestimonialPageProps {
 }
 
 export default async function EditTestimonialPage({ params }: EditTestimonialPageProps) {
-  await requireAdminPage();
+  await requireAdminPage("/admin/testimonials/[id]/edit");
 
   const { id } = await params;
   const testimonialId = Number.parseInt(id, 10);

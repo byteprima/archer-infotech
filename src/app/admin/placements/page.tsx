@@ -9,7 +9,7 @@ import { getAllPlacements } from "@/lib/actions/placements";
 import { requireAdminPage } from "@/lib/admin";
 
 export default async function AdminPlacementsPage() {
-  await requireAdminPage();
+  await requireAdminPage("/admin/placements");
 
   const { placements, totalCount, publishedCount, draftCount, highlightedCount } =
     await getAllPlacements();

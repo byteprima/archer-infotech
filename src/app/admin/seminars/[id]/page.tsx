@@ -14,7 +14,7 @@ export default async function EditSeminarPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  await requireAdminPage();
+  await requireAdminPage("/admin/seminars/[id]");
   const { id } = await params;
   const [seminar] = await db
     .select()

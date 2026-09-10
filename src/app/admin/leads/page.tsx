@@ -208,7 +208,7 @@ interface AdminLeadsPageProps {
 }
 
 export default async function AdminLeadsPage({ searchParams }: AdminLeadsPageProps) {
-  await requireAdminPage();
+  await requireAdminPage("/admin/leads");
 
   const params = await searchParams;
   const query = params.q?.trim() || "";

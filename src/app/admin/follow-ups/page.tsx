@@ -122,7 +122,7 @@ function Queue({
 }
 
 export default async function FollowUpsPage() {
-  await requireAdminPage();
+  await requireAdminPage("/admin/follow-ups");
   const { overdue, today, upcoming } = await getFollowUpQueues();
 
   return (

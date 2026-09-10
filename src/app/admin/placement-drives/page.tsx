@@ -8,7 +8,7 @@ import { getAllDrives } from "@/lib/actions/placement-drives";
 import { requireAdminPage } from "@/lib/admin";
 
 export default async function AdminPlacementDrivesPage() {
-  await requireAdminPage();
+  await requireAdminPage("/admin/placement-drives");
   const drives = await getAllDrives();
   const published = drives.filter((d) => d.isPublished).length;
 

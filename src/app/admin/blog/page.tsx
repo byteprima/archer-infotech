@@ -20,7 +20,7 @@ interface AdminBlogPageProps {
 }
 
 export default async function AdminBlogPage({ searchParams }: AdminBlogPageProps) {
-  await requireAdminPage();
+  await requireAdminPage("/admin/blog");
 
   const params = await searchParams;
   const status = params.status as "all" | "published" | "draft" | undefined;

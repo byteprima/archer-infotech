@@ -10,7 +10,7 @@ import { requireAdminPage } from "@/lib/admin";
 import { UserRoleButton } from "./actions";
 
 export default async function AdminUsersPage() {
-  const actor = await requireAdminPage();
+  const actor = await requireAdminPage("/admin/users");
 
   const users = await db
     .select({

@@ -22,7 +22,7 @@ function todayIST(): string {
 }
 
 export default async function AdminPopupsPage() {
-  await requireAdminPage();
+  await requireAdminPage("/admin/popups");
   const campaigns = await listPopupCampaigns();
   const today = todayIST();
 

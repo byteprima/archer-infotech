@@ -10,7 +10,7 @@ interface EditBatchPageProps {
 }
 
 export default async function EditBatchPage({ params }: EditBatchPageProps) {
-  await requireAdminPage();
+  await requireAdminPage("/admin/batches/[id]/edit");
 
   const { id } = await params;
   const batchId = parseInt(id, 10);

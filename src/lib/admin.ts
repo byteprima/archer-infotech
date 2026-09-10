@@ -5,6 +5,8 @@ import { redirect } from "next/navigation";
 import { db } from "@/db";
 import { auditLogs } from "@/db/schema";
 import { getCurrentUser, isAdmin, isAuthenticated } from "@/lib/auth";
+import { getCurrentRole } from "@/lib/auth";
+import { canAccessAdminPath } from "@/lib/leads/roles";
 
 type AdminActor = {
   actorId: string | null;
@@ -19,7 +21,15 @@ type AuditLogInput = {
   metadata?: Record<string, unknown> | null;
 };
 
-export async function requireAdminPage() {
+/**
+ * Gate an admin page.
+ *
+ * `pathname` is optional and, when given, additionally checks that this role
+ * may reach that area — which is how a counsellor is kept to leads and
+ * follow-ups without a guard being added to each of the ~18 admin routes.
+ * Omitting it preserves the previous behaviour for pages not yet reviewed.
+ */
+export async function requireAdminPage(pathname?: string) {
   const authenticated = await isAuthenticated();
 
   if (!authenticated) {
@@ -30,6 +40,13 @@ export async function requireAdminPage() {
 
   if (!admin) {
     redirect("/admin/unauthorized");
+  }
+
+  if (pathname) {
+    const role = await getCurrentRole();
+    if (!canAccessAdminPath(role, pathname)) {
+      redirect("/admin/unauthorized");
+    }
   }
 
   return getAdminActor();

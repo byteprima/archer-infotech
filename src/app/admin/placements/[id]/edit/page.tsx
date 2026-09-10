@@ -10,7 +10,7 @@ interface EditPlacementPageProps {
 }
 
 export default async function EditPlacementPage({ params }: EditPlacementPageProps) {
-  await requireAdminPage();
+  await requireAdminPage("/admin/placements/[id]/edit");
 
   const { id } = await params;
   const placementId = Number.parseInt(id, 10);

@@ -14,7 +14,7 @@ import { listPlacementSubmissions } from "@/lib/actions/admin-placement-submissi
  * with someone's salary on it, so it should not end up in a shared cache.
  */
 export default async function PlacementSubmissionsPage() {
-  await requireAdminPage();
+  await requireAdminPage("/admin/placement-submissions");
   const rows = await listPlacementSubmissions();
 
   return (

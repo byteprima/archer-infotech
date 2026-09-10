@@ -14,7 +14,7 @@ export default async function EditPlacementDrivePage({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  await requireAdminPage();
+  await requireAdminPage("/admin/placement-drives/[id]");
   const { id } = await params;
   const [drive] = await db
     .select()

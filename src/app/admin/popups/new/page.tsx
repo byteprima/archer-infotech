@@ -5,7 +5,7 @@ import { PopupCampaignForm } from "@/components/admin/popup-campaign-form";
 import { requireAdminPage } from "@/lib/admin";
 
 export default async function NewPopupPage() {
-  await requireAdminPage();
+  await requireAdminPage("/admin/popups/new");
 
   return (
     <div className="min-h-screen">

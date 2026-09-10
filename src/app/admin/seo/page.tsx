@@ -41,7 +41,7 @@ interface PageProps {
 }
 
 export default async function SeoDashboardPage({ searchParams }: PageProps) {
-  await requireAdminPage();
+  await requireAdminPage("/admin/seo");
   const params = await searchParams;
   const force = params.refresh === "1";
 

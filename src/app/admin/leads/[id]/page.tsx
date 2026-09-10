@@ -12,7 +12,7 @@ interface AdminLeadDetailPageProps {
 }
 
 export default async function AdminLeadDetailPage({ params }: AdminLeadDetailPageProps) {
-  await requireAdminPage();
+  await requireAdminPage("/admin/leads/[id]");
 
   const { id } = await params;
   const leadId = parseInt(id, 10);

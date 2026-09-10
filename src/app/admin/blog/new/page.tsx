@@ -4,7 +4,7 @@ import { BlogPostForm } from "@/components/admin/blog-post-form";
 import { requireAdminPage } from "@/lib/admin";
 
 export default async function NewBlogPostPage() {
-  await requireAdminPage();
+  await requireAdminPage("/admin/blog/new");
 
   return (
     <div className="min-h-screen">
