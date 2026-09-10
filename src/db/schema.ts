@@ -115,6 +115,17 @@ export const leads = sqliteTable("leads", {
    * (a newsletter signup is not expressing a course-format preference).
    */
   modePreference: text("mode_preference"),
+  /**
+   * Whether the enquirer is a "Fresher" or "Experienced".
+   *
+   * Its own column for the same reason as `modePreference`: it is the first
+   * thing the counselling team routes on — a fresher gets the placement-track
+   * pitch and the long batch, a working professional gets weekend timings and
+   * the upskilling pitch — and it is something you filter and count, not read.
+   * Nullable: leads captured before this field existed have no answer, and the
+   * newsletter signup has no business asking for one.
+   */
+  experienceLevel: text("experience_level"),
   message: text("message"),
   source: text("source"), // e.g., "contact_form", "popup", "whatsapp"
   utmSource: text("utm_source"),

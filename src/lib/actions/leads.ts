@@ -20,6 +20,13 @@ const leadSchema = z.object({
    * enquiry forms send it.
    */
   modePreference: z.string().optional(),
+  /**
+   * "Fresher" or "Experienced". Every enquiry form makes the visitor pick one,
+   * but it stays optional here because the newsletter signup and the chatbot's
+   * `capture_lead` tool share this action and have no such question to ask —
+   * rejecting those submissions server-side would lose real leads.
+   */
+  experienceLevel: z.string().optional(),
   // Optional: the contact form's textarea is not mandatory — a name, phone
   // and course pick is a complete enquiry, and forcing 10 characters of prose
   // was costing submissions. Other callers (chat widget, offer popup) still
@@ -89,6 +96,7 @@ export async function submitLead(data: LeadFormData): Promise<ActionResult> {
       phone: validationResult.data.phone,
       courseInterest: validationResult.data.course,
       modePreference: validationResult.data.modePreference || null,
+      experienceLevel: validationResult.data.experienceLevel || null,
       // Empty textarea → null rather than "", so the admin lead list shows a
       // blank cell instead of an empty-looking message body.
       message: validationResult.data.message?.trim() || null,
@@ -107,6 +115,7 @@ export async function submitLead(data: LeadFormData): Promise<ActionResult> {
         current_path: validationResult.data.currentPath,
         referrer: validationResult.data.referrer,
         course_interest: validationResult.data.course,
+        experience_level: validationResult.data.experienceLevel,
         has_email: Boolean(validationResult.data.email),
         utm_source: validationResult.data.utmSource,
         utm_medium: validationResult.data.utmMedium,

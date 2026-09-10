@@ -3,6 +3,7 @@ import { eq } from "drizzle-orm";
 
 import { db, leads, type NewLead } from "@/db";
 import { ApiError, handle, json, readJson, requireMobile } from "@/lib/mobile-api/guard";
+import { normalizeExperienceLevel } from "@/lib/leads/experience-level";
 
 export const runtime = "nodejs";
 
@@ -40,6 +41,9 @@ export async function PATCH(req: NextRequest, ctx: Ctx) {
     if ("email" in body) patch.email = String(body.email);
     if ("phone" in body) patch.phone = String(body.phone);
     if ("courseInterest" in body) patch.courseInterest = str(body.courseInterest);
+    if ("experienceLevel" in body) {
+      patch.experienceLevel = normalizeExperienceLevel(body.experienceLevel) || null;
+    }
     if ("message" in body) patch.message = str(body.message);
     if ("source" in body) patch.source = str(body.source);
     if ("status" in body) patch.status = String(body.status);

@@ -17,6 +17,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { CourseSelect } from "@/components/forms/course-select";
 import { ModePreferenceField } from "@/components/forms/mode-preference-field";
+import { ExperienceLevelField } from "@/components/forms/experience-level-field";
 import { submitLead } from "@/lib/actions/leads";
 import {
   captureAnalyticsEvent,
@@ -80,6 +81,7 @@ export function ContactForm() {
           message,
           course: courseInterest,
           modePreference: String(fd.get("modePreference") || ""),
+          experienceLevel: String(fd.get("experienceLevel") || ""),
           source: "contact_form",
           utmSource,
           utmMedium,
@@ -228,6 +230,8 @@ export function ContactForm() {
       </div>
 
       <div className="space-y-2">
+        <ExperienceLevelField className="mb-4" />
+
         <ModePreferenceField className="mb-4" />
 
         <Label htmlFor="message">Message</Label>

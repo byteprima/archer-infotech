@@ -34,6 +34,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { ModePreferenceField } from "@/components/forms/mode-preference-field";
+import { ExperienceLevelField } from "@/components/forms/experience-level-field";
 import { CourseSelect } from "@/components/forms/course-select";
 import { toast } from "sonner";
 import { submitLead } from "@/lib/actions/leads";
@@ -148,6 +149,7 @@ export function CounselorDialog({
           message,
           course: courseInterest,
           modePreference: String(fd.get("modePreference") || ""),
+          experienceLevel: String(fd.get("experienceLevel") || ""),
           source: "counselor_modal",
           utmSource,
           utmMedium,
@@ -286,6 +288,8 @@ export function CounselorDialog({
               onValueChange={setSelectedCourses}
             />
           </div>
+
+          <ExperienceLevelField />
 
           <ModePreferenceField />
 

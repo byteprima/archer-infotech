@@ -32,6 +32,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { submitLead } from "@/lib/actions/leads";
 import { ModePreferenceField } from "@/components/forms/mode-preference-field";
+import { ExperienceLevelField } from "@/components/forms/experience-level-field";
 import {
   captureAnalyticsEvent,
   type AnalyticsProperties,
@@ -151,6 +152,7 @@ export function InternshipInterestDialog({
         phone,
         course: track || path,
         modePreference: String(fd.get("modePreference") || ""),
+        experienceLevel: String(fd.get("experienceLevel") || ""),
         message,
         honeypot: String(fd.get("website") || ""),
         source: "internship_interest",
@@ -317,6 +319,8 @@ export function InternshipInterestDialog({
                   ))}
                 </select>
               </div>
+
+              <ExperienceLevelField />
 
               <ModePreferenceField />
 

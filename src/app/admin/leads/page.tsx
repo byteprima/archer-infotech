@@ -40,6 +40,15 @@ function LeadsTable({ leads, showCourse = true }: { leads: LeadRow[]; showCourse
             <tr key={lead.id} className="border-b last:border-0">
               <td className="py-4">
                 <div className="font-medium">{lead.name}</div>
+                {/* Under the name rather than in its own column: it is read
+                    with the name on every row, and the table is already wide.
+                    Not folded in with the course like the delivery format,
+                    because sources with no course still carry it. */}
+                {lead.experienceLevel && (
+                  <div className="text-xs text-muted-foreground">
+                    {lead.experienceLevel}
+                  </div>
+                )}
               </td>
               <td className="py-4">
                 <div className="text-sm">{lead.email}</div>

@@ -22,6 +22,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { submitLead } from "@/lib/actions/leads";
 import { ModePreferenceField } from "@/components/forms/mode-preference-field";
+import { ExperienceLevelField } from "@/components/forms/experience-level-field";
 import { trackMetaPixelEvent, newMetaEventId } from "@/lib/meta-pixel/client";
 
 interface ReportDownloadFormProps {
@@ -70,6 +71,7 @@ export function ReportDownloadForm({
           : `Requested notification for: ${reportTitle}`,
         course: "",
         modePreference: String(formData.get("modePreference") ?? ""),
+        experienceLevel: String(formData.get("experienceLevel") ?? ""),
         source: `report_download:${reportSlug}`,
         meta: {
           eventId: metaEventId,
@@ -176,6 +178,7 @@ export function ReportDownloadForm({
           disabled={isPending}
         />
       </div>
+      <ExperienceLevelField />
       <ModePreferenceField label="Interested in studying" />
       {errorMsg && (
         <p className="text-sm text-destructive" role="alert">

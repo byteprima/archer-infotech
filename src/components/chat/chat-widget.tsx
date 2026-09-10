@@ -20,6 +20,7 @@ import { MessageCircle, X, Send, Loader2, CheckCircle2 } from "lucide-react";
 import { submitLead } from "@/lib/actions/leads";
 import { CourseSelect } from "@/components/forms/course-select";
 import { MODE_PREFERENCE_OPTIONS } from "@/components/forms/mode-preference-field";
+import { EXPERIENCE_LEVEL_OPTIONS } from "@/lib/leads/experience-level";
 
 interface Msg {
   role: "user" | "assistant";
@@ -99,6 +100,9 @@ export function ChatWidget() {
   // Delivery format. Named ...ModePref rather than ...Mode because
   // `leadMode` above is the boolean that toggles this form open.
   const [leadModePref, setLeadModePref] = useState("");
+  // "Fresher" | "Experienced". Required, like the name and phone: it is what
+  // the counsellor needs before the callback, not a nice-to-have.
+  const [leadExperience, setLeadExperience] = useState("");
   const [leadBusy, setLeadBusy] = useState(false);
   const [leadError, setLeadError] = useState("");
 
@@ -161,6 +165,7 @@ export function ChatWidget() {
     const phone = leadPhone.replace(/\D/g, "");
     if (name.length < 2) return setLeadError("Please enter your name.");
     if (phone.length !== 10) return setLeadError("Please enter a valid 10-digit phone number.");
+    if (!leadExperience) return setLeadError("Please tell us if you are a fresher or experienced.");
     setLeadBusy(true);
     try {
       const course = leadCourses.join(", ");
@@ -171,6 +176,7 @@ export function ChatWidget() {
         phone,
         course: course || undefined,
         modePreference: leadModePref || undefined,
+        experienceLevel: leadExperience,
         // Keep the synthesised line when the visitor writes nothing —
         // submitLead enforces a 10-character minimum.
         message:
@@ -194,6 +200,7 @@ export function ChatWidget() {
         setLeadPhone("");
         setLeadCourses([]);
         setLeadModePref("");
+        setLeadExperience("");
         setLeadMessage("");
       } else {
         setLeadError(result.message || "Something went wrong. Please try again.");
@@ -327,6 +334,19 @@ export function ChatWidget() {
                 onValueChange={setLeadCourses}
                 placeholder="Course of interest (optional)"
               />
+              <select
+                value={leadExperience}
+                onChange={(e) => setLeadExperience(e.target.value)}
+                aria-label="Are you a fresher or experienced?"
+                className="h-9 w-full rounded-lg border border-input bg-background px-3 text-sm outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/40"
+              >
+                <option value="">Fresher or experienced?</option>
+                {EXPERIENCE_LEVEL_OPTIONS.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
               <select
                 value={leadModePref}
                 onChange={(e) => setLeadModePref(e.target.value)}

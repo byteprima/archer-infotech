@@ -3,6 +3,7 @@ import { and, desc, eq, like, or, type SQL } from "drizzle-orm";
 
 import { db, leads } from "@/db";
 import { ApiError, handle, json, readJson, requireMobile } from "@/lib/mobile-api/guard";
+import { normalizeExperienceLevel } from "@/lib/leads/experience-level";
 
 export const runtime = "nodejs";
 
@@ -60,6 +61,9 @@ export async function POST(req: NextRequest) {
         email: String(body.email || ""),
         phone,
         courseInterest: (body.courseInterest as string) || null,
+        // Anything that isn't "Fresher" or "Experienced" is stored as null
+        // rather than verbatim — the admin panel groups on this column.
+        experienceLevel: normalizeExperienceLevel(body.experienceLevel) || null,
         message: (body.message as string) || null,
         source: (body.source as string) || "manual",
         status: (body.status as string) || "new",

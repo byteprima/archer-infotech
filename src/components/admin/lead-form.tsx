@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { CoursePickerField } from "@/components/admin/course-picker-field";
+import { EXPERIENCE_LEVEL_OPTIONS } from "@/lib/leads/experience-level";
 import { createLead, updateLead, type LeadUpdateData } from "@/lib/actions/admin-leads";
 import type { Lead } from "@/db/schema";
 
@@ -42,6 +43,7 @@ export function LeadForm({ lead }: LeadFormProps) {
     email: lead?.email || "",
     phone: lead?.phone || "",
     courseInterest: lead?.courseInterest || "",
+    experienceLevel: (lead?.experienceLevel as LeadUpdateData["experienceLevel"]) || "",
     message: lead?.message || "",
     source: lead?.source || (isEditing ? "" : "manual"),
     status:
@@ -144,6 +146,33 @@ export function LeadForm({ lead }: LeadFormProps) {
                   }
                   customHint="Anything the caller asked about that isn't in the catalogue."
                 />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="experienceLevel">Fresher / Experienced</Label>
+                <select
+                  id="experienceLevel"
+                  value={formData.experienceLevel || ""}
+                  onChange={(event) =>
+                    setFormData((current) => ({
+                      ...current,
+                      experienceLevel: event.target
+                        .value as LeadUpdateData["experienceLevel"],
+                    }))
+                  }
+                  className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
+                >
+                  {/* Blank stays available: leads captured before this field
+                      existed, and phone enquiries where nobody asked. */}
+                  <option value="">Not recorded</option>
+                  {EXPERIENCE_LEVEL_OPTIONS.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+                {fieldErrors.experienceLevel && (
+                  <p className="text-sm text-red-500">{fieldErrors.experienceLevel[0]}</p>
+                )}
               </div>
               <div className="space-y-2 md:col-span-2">
                 <Label htmlFor="message">Message</Label>

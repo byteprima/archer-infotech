@@ -5,6 +5,7 @@ import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { db } from "@/db";
 import { LEAD_STATUS, leads } from "@/db/schema";
+import { EXPERIENCE_LEVEL_OPTIONS } from "@/lib/leads/experience-level";
 import { logAdminAction, requireAdminAction } from "@/lib/admin";
 
 const updateLeadSchema = z.object({
@@ -12,6 +13,7 @@ const updateLeadSchema = z.object({
   email: z.string().email("Please enter a valid email address."),
   phone: z.string().min(10, "Please enter a valid phone number."),
   courseInterest: z.string().optional(),
+  experienceLevel: z.enum(EXPERIENCE_LEVEL_OPTIONS).or(z.literal("")).optional(),
   message: z.string().optional(),
   source: z.string().optional(),
   status: z.enum(LEAD_STATUS),
@@ -29,6 +31,7 @@ const createLeadSchema = z.object({
   email: z.string().email("Please enter a valid email address.").or(z.literal("")).optional(),
   phone: z.string().min(8, "Please enter a valid phone number."),
   courseInterest: z.string().optional(),
+  experienceLevel: z.enum(EXPERIENCE_LEVEL_OPTIONS).or(z.literal("")).optional(),
   message: z.string().optional(),
   source: z.string().optional(),
   status: z.enum(LEAD_STATUS).optional(),
@@ -77,6 +80,7 @@ export async function createLead(data: LeadCreateData): Promise<ActionResult> {
       email: validation.data.email || "",
       phone: validation.data.phone,
       courseInterest: validation.data.courseInterest || null,
+      experienceLevel: validation.data.experienceLevel || null,
       message: validation.data.message || null,
       source: validation.data.source || "manual",
       status: validation.data.status || "new",
@@ -141,6 +145,7 @@ export async function updateLead(id: number, data: LeadUpdateData): Promise<Acti
       email: validation.data.email,
       phone: validation.data.phone,
       courseInterest: validation.data.courseInterest || null,
+      experienceLevel: validation.data.experienceLevel || null,
       message: validation.data.message || null,
       source: validation.data.source || null,
       status: validation.data.status,

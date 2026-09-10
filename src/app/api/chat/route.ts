@@ -16,6 +16,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getChatContext } from "@/lib/okf/bundle";
 import { retrieveAnswer } from "@/lib/okf/retrieve";
 import { submitLead } from "@/lib/actions/leads";
+import { normalizeExperienceLevel } from "@/lib/leads/experience-level";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -93,9 +94,15 @@ const TOOLS = [
           },
           phone: { type: "string", description: "Their 10-digit Indian mobile number (digits only)." },
           course: { type: "string", description: "The course they are interested in, if mentioned." },
+          experienceLevel: {
+            type: "string",
+            enum: ["Fresher", "Experienced"],
+            description:
+              "Whether they are a fresher (student / no IT experience) or experienced (working professional). Ask for this along with the name and phone number — the counsellor needs it before the call.",
+          },
           message: { type: "string", description: "A one-line summary of what they asked about." },
         },
-        required: ["name", "phone"],
+        required: ["name", "phone", "experienceLevel"],
       },
     },
   },
@@ -106,12 +113,17 @@ async function executeCaptureLead(args: {
   email?: string;
   phone?: string;
   course?: string;
+  experienceLevel?: string;
   message?: string;
 }): Promise<string> {
   const name = (args.name || "").trim();
   const email = (args.email || "").trim();
   const phone = (args.phone || "").replace(/\D/g, "").slice(-10);
   const course = (args.course || "").trim() || undefined;
+  // Only the two canonical values reach the DB — the model is told to send one
+  // of them, but an off-script "working professional" must not create a third
+  // bucket in the admin panel.
+  const experienceLevel = normalizeExperienceLevel(args.experienceLevel);
   let message = (args.message || "").trim();
   if (message.length < 10) {
     message = `Website chatbot enquiry${course ? ` about ${course}` : ""}. Requested a callback.`;
@@ -122,7 +134,21 @@ async function executeCaptureLead(args: {
       error: "Need a valid name and a 10-digit phone number before saving.",
     });
   }
-  const result = await submitLead({ name, email, phone, course, message, source: "chat_widget" });
+  if (!experienceLevel) {
+    return JSON.stringify({
+      success: false,
+      error: 'Ask whether they are a "Fresher" or "Experienced", then call this again.',
+    });
+  }
+  const result = await submitLead({
+    name,
+    email,
+    phone,
+    course,
+    experienceLevel,
+    message,
+    source: "chat_widget",
+  });
   return JSON.stringify({ success: result.success, message: result.message });
 }
 
