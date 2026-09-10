@@ -15,6 +15,13 @@
       "when": 1789069256418,
       "tag": "0001_amazing_shinobi_shaw",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1789073391925,
+      "tag": "0002_lead_status_backfill",
+      "breakpoints": true
     }
   ]
 }

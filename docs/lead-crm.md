@@ -46,6 +46,18 @@ change to the public site in service of an admin feature that does not need
 it — the CRM only ever needs a stable identifier for "which course", and the
 slug already is one.
 
+### Backfills ship as migrations
+
+The lifecycle change needs existing rows mapped onto the new vocabulary. That
+mapping is migration `0002`, not a script, because it has to happen on
+production exactly once and in step with the schema change. A backfill that
+lives in somebody's shell history is one that gets forgotten on the machine
+that matters.
+
+Every statement is scoped to rows that still hold the old shape, so
+re-running it changes nothing. Verified by applying it twice to a copy of the
+pre-migration database and diffing the result.
+
 ### Lead status is a controlled string, not a DB enum
 
 SQLite has no native enum, and Drizzle's `text({ enum: [...] })` only
