@@ -338,6 +338,31 @@ warns before creating, with Open Existing and Create Anyway.
 follow-up history survives a merge is a judgement made by reading both; closing
 one as DUPLICATE already records the reason and drops it out of the queues.
 
+### One dashboard tile, not six
+
+Everything the four phases built lives behind a single **Lead & Enquiry CRM**
+tile, which opens `/admin/crm`.
+
+It was six tiles — Leads, Follow-ups, Demos, Batches, Admissions, Reports —
+sitting among the blog, placements, popup and SEO cards, so the pipeline read
+as six unrelated tools rather than one system. Somebody arriving at the
+dashboard could not tell which of sixteen tiles belonged to their job.
+
+The hub groups by **where a person is in the pipeline**, not by which phase
+shipped the feature: Capture (leads, possible duplicates), Work the pipeline
+(follow-ups, demos, batches), Outcome (admissions, reports). The phases are our
+history; they are not the counsellor's mental model.
+
+Each tile carries the number worth knowing before opening it, and the two that
+mean "something needs doing today" — overdue follow-ups and unreviewed
+duplicates — also show a red count. `getCrmOverview()` fetches all of them in
+one pass rather than each tile querying for itself; the hub is the first thing
+opened in the morning and should not cost eight round trips to render a menu.
+
+Tiles are filtered with `canAccessAdminPath`, the same rule guarding the pages,
+so a counsellor is not offered Reports or Batches. `/admin/crm` itself is in
+COUNSELOR_ALLOWED_PREFIXES; the filtering happens inside.
+
 ## Tests
 
 `npm test` runs Node's own test runner through `tsx` — no test framework was

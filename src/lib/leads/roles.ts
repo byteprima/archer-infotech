@@ -49,6 +49,9 @@ export const canAccessAdmin = isStaffRole;
  * is the direction a permission mistake should fail in.
  */
 export const COUNSELOR_ALLOWED_PREFIXES = [
+  // The CRM hub. It filters its own tiles with canAccessAdminPath, so a
+  // counsellor sees only the destinations they can actually open.
+  "/admin/crm",
   "/admin/leads",
   "/admin/follow-ups",
   // Converting an enquiry is a counsellor's job, and the record they just

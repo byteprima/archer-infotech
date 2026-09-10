@@ -13,11 +13,8 @@ import {
   ClipboardList,
   LineChart,
   GraduationCap,
-  MonitorPlay,
   Building2,
   Presentation,
-  CalendarClock,
-  UserCheck,
   Megaphone,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -192,46 +189,17 @@ export default async function AdminDashboard() {
 
   const menuItems = [
     {
-      title: "Leads",
-      description: "Manage enquiries and leads",
-      href: "/admin/leads",
+      // One tile for everything the CRM phases built. It was six separate
+      // cards — Leads, Follow-ups, Reports, Admissions, Demos, Batches —
+      // scattered among the content and SEO tiles, which made the pipeline
+      // read as six unrelated tools instead of one. The stat carries the two
+      // numbers worth acting on before opening anything.
+      title: "Lead & Enquiry CRM",
+      description:
+        "Enquiries, follow-ups, demos, batches, admissions and reports",
+      href: "/admin/crm",
       icon: Users,
-      stats: `${stats.leads.total} total, ${stats.leads.new} new`,
-    },
-    {
-      title: "Follow-ups",
-      description: "Overdue, due today and upcoming",
-      href: "/admin/follow-ups",
-      icon: CalendarClock,
-      stats: `${stats.followUps.overdue} overdue, ${stats.followUps.today} today`,
-    },
-    {
-      title: "Reports",
-      description: "Course, source, counsellor, lost leads and conversion",
-      href: "/admin/reports",
-      icon: LineChart,
-      stats: `${stats.conversion.rate}% conversion this month`,
-    },
-    {
-      title: "Admissions",
-      description: "Enquiries that became students",
-      href: "/admin/admissions",
-      icon: UserCheck,
-      stats: `${stats.admissions.total} total, ${stats.admissions.thisMonth} this month`,
-    },
-    {
-      title: "Demo sessions",
-      description: "Trial classes leads can be registered for",
-      href: "/admin/demos",
-      icon: MonitorPlay,
-      stats: `${stats.demos.upcoming} upcoming`,
-    },
-    {
-      title: "Batches",
-      description: "Manage course batches",
-      href: "/admin/batches",
-      icon: Calendar,
-      stats: `${stats.batches.total} total, ${stats.batches.upcoming} upcoming`,
+      stats: `${stats.leads.total} leads · ${stats.followUps.overdue} overdue · ${stats.admissions.thisMonth} admissions this month`,
     },
     {
       title: "Placements",
