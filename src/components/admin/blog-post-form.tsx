@@ -181,6 +181,16 @@ export function BlogPostForm({ post, onSuccess }: BlogPostFormProps) {
                   }
                   placeholder="Write your blog post content here..."
                   error={!!fieldErrors.content}
+                  // Same "blog" media collection as the featured image, so
+                  // everything a post owns lives in one place.
+                  onUploadImage={async (file) => {
+                    const fd = new FormData();
+                    fd.append("image", file);
+                    const res = await uploadBlogImage(fd);
+                    return res.success
+                      ? { success: true, url: res.url, message: res.message }
+                      : { success: false, message: res.message };
+                  }}
                 />
                 {fieldErrors.content && (
                   <p className="text-sm text-red-500">{fieldErrors.content[0]}</p>

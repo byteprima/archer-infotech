@@ -7,7 +7,7 @@ import Link from "@tiptap/extension-link";
 import Placeholder from "@tiptap/extension-placeholder";
 import Underline from "@tiptap/extension-underline";
 import TextAlign from "@tiptap/extension-text-align";
-import { useEffect, useCallback } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import {
   Bold,
@@ -31,7 +31,10 @@ import {
   Minus,
   CodeSquare,
   Unlink,
+  Upload,
+  Loader2,
 } from "lucide-react";
+import { toast } from "sonner";
 
 interface TiptapEditorProps {
   content: string;
@@ -39,6 +42,20 @@ interface TiptapEditorProps {
   placeholder?: string;
   className?: string;
   error?: boolean;
+  /**
+   * Store a file and return the URL to insert.
+   *
+   * Optional, and the upload button only appears when it is supplied — the
+   * editor itself has no opinion about where images live, so a future caller
+   * with a different media collection can pass its own uploader instead of
+   * this one being hardcoded to the blog.
+   *
+   * Without it the editor still offers "Add Image", which asks for a URL and
+   * therefore requires the image to be hosted somewhere already.
+   */
+  onUploadImage?: (
+    file: File,
+  ) => Promise<{ success: boolean; url?: string; message: string }>;
 }
 
 function ToolbarButton({
@@ -81,6 +98,7 @@ export function TiptapEditor({
   placeholder = "Start writing...",
   className,
   error,
+  onUploadImage,
 }: TiptapEditorProps) {
   const editor = useEditor({
     immediatelyRender: false,
@@ -131,6 +149,34 @@ export function TiptapEditor({
     }
     editor.chain().focus().extendMarkRange("link").setLink({ href: url }).run();
   }, [editor]);
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [uploading, setUploading] = useState(false);
+
+  /**
+   * Insert an image from this machine.
+   *
+   * Kept separate from `addImage` rather than replacing it: pasting a URL is
+   * still the faster path for an image that is already hosted, and collapsing
+   * both into one button would mean a dialog in front of the common case.
+   */
+  const handleUpload = useCallback(
+    async (file: File) => {
+      if (!editor || !onUploadImage) return;
+      setUploading(true);
+      try {
+        const result = await onUploadImage(file);
+        if (result.success && result.url) {
+          editor.chain().focus().setImage({ src: result.url }).run();
+        } else {
+          toast.error(result.message);
+        }
+      } finally {
+        setUploading(false);
+      }
+    },
+    [editor, onUploadImage],
+  );
 
   const addImage = useCallback(() => {
     if (!editor) return;
@@ -317,9 +363,38 @@ export function TiptapEditor({
             <Unlink className="h-4 w-4" />
           </ToolbarButton>
         )}
-        <ToolbarButton onClick={addImage} title="Add Image">
+        <ToolbarButton onClick={addImage} title="Add Image by URL">
           <ImageIcon className="h-4 w-4" />
         </ToolbarButton>
+        {/* Only offered when the caller supplies an uploader — the editor
+            does not decide where images are stored. */}
+        {onUploadImage && (
+          <>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/jpeg,image/png,image/webp,image/avif"
+              className="sr-only"
+              onChange={(event) => {
+                const file = event.target.files?.[0];
+                if (file) void handleUpload(file);
+                // Let the same file be re-picked after a failed upload.
+                event.target.value = "";
+              }}
+            />
+            <ToolbarButton
+              onClick={() => fileInputRef.current?.click()}
+              disabled={uploading}
+              title="Upload image from your computer"
+            >
+              {uploading ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <Upload className="h-4 w-4" />
+              )}
+            </ToolbarButton>
+          </>
+        )}
       </div>
 
       {/* Editor */}
