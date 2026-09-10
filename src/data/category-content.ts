@@ -1303,11 +1303,12 @@ export const categoryContent: CategoryContent[] = [
       {
         heading: "Focused shorter courses",
         blurb:
-          "Standalone courses for a specific capability rather than the full engineering path. Each page now carries its own ordered syllabus, visual roadmap and project outcome, so learners can pick the exact capability they need without reading the full GenAI engineering track first.",
+          "Standalone courses for a specific capability rather than the full engineering path. Each page now carries its own ordered syllabus, visual roadmap and project outcome, so learners can pick the exact capability they need without reading the full GenAI engineering track first. Vibe Coding sits slightly apart from the rest: it uses AI to build conventional software — a frontend, an API, a database and a deployed application — rather than to build AI applications.",
         slugs: [
           "chatgpt-llms-training-in-pune",
           "prompt-engineering-training-in-pune",
           "ai-tools-training-in-pune",
+          "vibe-coding-training-in-pune",
         ],
       },
     ],

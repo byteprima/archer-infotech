@@ -354,6 +354,22 @@ COURSES = {
             ('AI & Review Board', 'Agentforce architecture, governance, design defence', (248, 113, 113)),
         ],
     },
+    "vibe-coding-path": {
+        "title": "The Vibe Coding Learning Path",
+        "sub": "How AI-assisted development is taught at Archer Infotech, Pune",
+        "tail": "PROMPT  |  REVIEW  |  SHIP",
+        "stages": [
+            ("Foundations", "What vibe coding is, and where it fails", (56, 189, 248)),
+            ("The Tools", "Cursor, Claude Code, Codex, GitHub Copilot", (129, 140, 248)),
+            ("Prompting for Code", "Requirements, structure, iteration", (168, 85, 247)),
+            ("Frontend with AI", "HTML, CSS, React, forms, UI review", (45, 212, 191)),
+            ("Backend & APIs", "REST, CRUD, validation, documentation", (52, 211, 153)),
+            ("Data & Auth", "Schema design, SQL, login, roles", (250, 204, 21)),
+            ("Debug & Test", "Reading AI code, fixing it, generating tests", (251, 146, 60)),
+            ("Review & Secure", "Refactoring, secure coding, Git workflow", (248, 113, 113)),
+            ("Deploy & Capstone", "Deployment, then a full application build", (244, 114, 182)),
+        ],
+    },
     "machine-learning-workflow": {
         "title": "How a Machine Learning Engineer Works",
         "sub": "The Machine Learning lifecycle taught at Archer Infotech, Pune",

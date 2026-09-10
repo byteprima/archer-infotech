@@ -45,6 +45,7 @@ import { dataEngineeringTrainingInPune } from "./data-engineering-training-in-pu
 import { chatgptLlmsTrainingInPune } from "./chatgpt-llms-training-in-pune";
 import { promptEngineeringTrainingInPune } from "./prompt-engineering-training-in-pune";
 import { aiToolsTrainingInPune } from "./ai-tools-training-in-pune";
+import { vibeCodingTrainingInPune } from "./vibe-coding-training-in-pune";
 
 // Tier 4 — Mobile
 import { androidDevelopmentTrainingInPune } from "./android-development-training-in-pune";
@@ -152,6 +153,7 @@ export const courseRichContent: Record<string, CourseRichContent> = {
   "chatgpt-llms-training-in-pune": chatgptLlmsTrainingInPune,
   "prompt-engineering-training-in-pune": promptEngineeringTrainingInPune,
   "ai-tools-training-in-pune": aiToolsTrainingInPune,
+  "vibe-coding-training-in-pune": vibeCodingTrainingInPune,
 
   // Tier 4 — Mobile
   "android-development-training-in-pune": androidDevelopmentTrainingInPune,

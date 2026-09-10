@@ -263,11 +263,48 @@ const TOPIC: Record<string, SourceCitation> = {
     supports:
       "The Salesforce credential this course prepares for, issued by Salesforce rather than by any training institute.",
   },
+  cursor: {
+    label: "Cursor — official documentation",
+    href: "https://docs.cursor.com/",
+    supports:
+      "Cursor's codebase context, inline editing and composer behaviour as taught in the AI coding tools module.",
+  },
+  claudeCode: {
+    label: "Anthropic — Claude Code documentation",
+    href: "https://docs.anthropic.com/en/docs/claude-code/overview",
+    supports:
+      "Claude Code's terminal agent workflow, planning and multi-file editing as taught in the tools and agent-workflow modules.",
+  },
+  copilot: {
+    label: "GitHub Copilot — official documentation",
+    href: "https://docs.github.com/en/copilot",
+    supports:
+      "GitHub Copilot's inline completion and chat features, and the editor integrations used in class.",
+  },
+  openaiPlatform: {
+    label: "OpenAI — platform documentation",
+    href: "https://platform.openai.com/docs",
+    supports:
+      "How OpenAI models generate code, including context windows and the limitations covered before the tools are introduced.",
+  },
+  vscode: {
+    label: "Visual Studio Code — official documentation",
+    href: "https://code.visualstudio.com/docs",
+    supports:
+      "The editor every tool in this course runs inside, including its debugging and source-control surfaces.",
+  },
 };
 
 /** Topic keys per course slug. Only list what the course genuinely teaches. */
 const COURSE_TOPICS: Record<string, (keyof typeof TOPIC)[]> = {
   "java-training-in-pune": ["java"],
+  "vibe-coding-training-in-pune": [
+    "cursor",
+    "claudeCode",
+    "copilot",
+    "openaiPlatform",
+    "vscode",
+  ],
   "spring-boot-microservices-training-in-pune": ["java", "spring"],
   "java-full-stack-training-in-pune": ["java", "spring", "react"],
   "python-training-in-pune": ["python"],

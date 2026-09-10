@@ -19,7 +19,7 @@ import { Badge } from "@/components/ui/badge";
 import { requireAdminPage } from "@/lib/admin";
 import { db } from "@/db";
 import { leads as leadsTable } from "@/db/schema";
-import { leadStatusLabel, leadPriorityLabel } from "@/lib/leads/lifecycle";
+import { leadStatusLabel } from "@/lib/leads/lifecycle";
 import {
   LEAD_SOURCE_TABS,
   DEFAULT_LEAD_SOURCE_TAB,
@@ -51,12 +51,6 @@ const statusColors: Record<string, string> = {
   NO_RESPONSE: "bg-gray-100 text-gray-800",
   INVALID: "bg-red-100 text-red-800",
   DUPLICATE: "bg-red-100 text-red-800",
-};
-
-const priorityColors: Record<string, string> = {
-  HOT: "bg-red-100 text-red-800",
-  WARM: "bg-amber-100 text-amber-800",
-  COLD: "bg-sky-100 text-sky-800",
 };
 
 /**
