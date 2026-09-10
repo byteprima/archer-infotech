@@ -1,7 +1,7 @@
 "use server";
 
 import { z } from "zod";
-import { and, asc, desc, eq, gte } from "drizzle-orm";
+import { and, asc, count, desc, eq, gte } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { db } from "@/db";
 import {
@@ -157,11 +157,37 @@ export async function registerLeadForDemo(
   if (!parsed.success) return { success: false, message: "Invalid request." };
 
   const [session] = await db
-    .select({ id: demoSessions.id, courseName: demoSessions.courseName })
+    .select({
+      id: demoSessions.id,
+      courseName: demoSessions.courseName,
+      status: demoSessions.status,
+      capacity: demoSessions.capacity,
+    })
     .from(demoSessions)
     .where(eq(demoSessions.id, parsed.data.demoSessionId))
     .limit(1);
   if (!session) return { success: false, message: "That demo no longer exists." };
+
+  // getUpcomingDemoSessions only offers scheduled ones, but the id arrives
+  // from the client and a session can be cancelled while the page is open.
+  if (session.status !== "scheduled") {
+    return { success: false, message: `That demo is ${session.status}.` };
+  }
+
+  // Capacity was stored from the start and never checked, which made it
+  // decoration. A trial class has a real room and a real trainer.
+  if (session.capacity !== null) {
+    const [{ registered }] = await db
+      .select({ registered: count() })
+      .from(demoRegistrations)
+      .where(eq(demoRegistrations.demoSessionId, session.id));
+    if (registered >= session.capacity) {
+      return {
+        success: false,
+        message: `That demo is full (${registered} of ${session.capacity}).`,
+      };
+    }
+  }
 
   try {
     await db.insert(demoRegistrations).values({

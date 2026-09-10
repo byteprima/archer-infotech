@@ -184,7 +184,7 @@ export function LeadBatchDemoPanel({
         <Label htmlFor="demo-register">Register for a demo</Label>
         {demos.length === 0 ? (
           <p className="text-xs text-muted-foreground">
-            No upcoming demo sessions scheduled.
+            No upcoming demo sessions. Schedule one under Demos first.
           </p>
         ) : (
           <select

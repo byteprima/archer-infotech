@@ -18,6 +18,7 @@ import {
   Presentation,
   CalendarClock,
   UserCheck,
+  Megaphone,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -39,6 +40,7 @@ async function getStats() {
       auditLogs,
       alumni,
       admissions,
+      demoSessions,
     } = await import("@/db/schema");
     const { count, eq, and, isNotNull, lt, gte, ne, notInArray } = await import(
       "drizzle-orm",
@@ -71,6 +73,7 @@ async function getStats() {
       totalAdmissions,
       monthAdmissions,
       monthEnquiries,
+      upcomingDemos,
     ] = await Promise.all([
       db.select({ count: count() }).from(leads),
       // "NEW", not "new" — the lifecycle migration uppercased these. Left
@@ -124,6 +127,15 @@ async function getStats() {
           ),
         ),
       db.select({ count: count() }).from(leads).where(gte(leads.createdAt, startOfMonth)),
+      db
+        .select({ count: count() })
+        .from(demoSessions)
+        .where(
+          and(
+            eq(demoSessions.status, "scheduled"),
+            gte(demoSessions.scheduledAt, new Date()),
+          ),
+        ),
     ]);
 
     return {
@@ -151,6 +163,7 @@ async function getStats() {
         rate: conversionRate(monthAdmissions[0].count, monthEnquiries[0].count),
         enquiries: monthEnquiries[0].count,
       },
+      demos: { upcoming: upcomingDemos[0].count },
     };
   } catch (error) {
     console.error("Database error:", error);
@@ -167,6 +180,7 @@ async function getStats() {
       alumni: { total: 0, new: 0 },
       admissions: { total: 0, thisMonth: 0 },
       conversion: { rate: 0, enquiries: 0 },
+      demos: { upcoming: 0 },
     };
   }
 }
@@ -204,6 +218,13 @@ export default async function AdminDashboard() {
       href: "/admin/admissions",
       icon: UserCheck,
       stats: `${stats.admissions.total} total, ${stats.admissions.thisMonth} this month`,
+    },
+    {
+      title: "Demo sessions",
+      description: "Trial classes leads can be registered for",
+      href: "/admin/demos",
+      icon: MonitorPlay,
+      stats: `${stats.demos.upcoming} upcoming`,
     },
     {
       title: "Batches",
@@ -251,7 +272,7 @@ export default async function AdminDashboard() {
       title: "Website Popup",
       description: "Switch the offer popup on or off, change the artwork",
       href: "/admin/popups",
-      icon: MonitorPlay,
+      icon: Megaphone,
       stats: "Live changes, no deploy",
     },
     {

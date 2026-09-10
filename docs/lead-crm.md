@@ -198,6 +198,32 @@ with `canAccessAdminPath`, the same rule that guards the pages.
 `requireAdminPage` still runs on every destination — this only stops offering
 the trip.
 
+### Phase 2 gap: demo sessions had no writer
+
+Phase 2 shipped everything that hangs off a demo — registering a lead,
+recording attendance, moving the lead's status — and nothing that creates one.
+`demo_sessions` had readers and no writer, so the dropdown on every lead page
+was permanently empty and the feature was unreachable. It looked functional in
+testing only because the one row in the dev database had been inserted by hand
+with SQL.
+
+`/admin/demos` closes it: list, create, edit, cancel. The course is a select
+over the catalogue rather than a typed slug and name pair, so the two cannot
+disagree — unlike the batch form, which asks for both.
+
+`capacity` was the same class of bug on a smaller scale: stored from the start,
+never checked, so it was decoration. `registerLeadForDemo` now refuses a full
+session, and refuses one that is not `scheduled` — the id comes from the
+client and a session can be cancelled while the page is open. `updateDemoSession`
+refuses a capacity below the number already registered rather than leaving a
+session silently over its own limit.
+
+### Demos are cancelled, never deleted
+
+Registrations reference the session, and leads have been moved to
+DEMO_SCHEDULED on the strength of it. Deleting cascades the registrations away
+and leaves a lead whose status points at a demo that no longer exists.
+
 ## Tests
 
 `npm test` runs Node's own test runner through `tsx` — no test framework was
