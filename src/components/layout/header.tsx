@@ -38,9 +38,25 @@ const mainNavItems = [
   { name: "Home", href: "/" },
   { name: "Courses", href: "/courses", hasDropdown: true },
   { name: "Trainers", href: "/trainers" },
-  { name: "Placements", href: "/placements" },
+  {
+    name: "Placements",
+    href: "/placements",
+    // Drives sit under Placements because they are the same story from the
+    // other end: the companies we bring in, and who they selected.
+    children: [
+      { name: "Placement records", href: "/placements" },
+      { name: "Placement drives", href: "/placement-drives" },
+    ],
+  },
   { name: "Internships", href: "/internships" },
-  { name: "Corporate Training", href: "/corporate-training" },
+  {
+    name: "Corporate Training",
+    href: "/corporate-training",
+    children: [
+      { name: "What we deliver", href: "/corporate-training" },
+      { name: "Sessions delivered", href: "/seminars" },
+    ],
+  },
   { name: "Batch Schedule", href: "/batch-schedule" },
   { name: "Blog", href: "/blog" },
   { name: "About", href: "/about" },
@@ -293,6 +309,39 @@ export function Header() {
                         </div>
                       </NavigationMenuContent>
                     </NavigationMenuItem>
+                  ) : item.children ? (
+                    <NavigationMenuItem key={item.name} className="relative group/sub">
+                      <Link
+                        href={item.href}
+                        className={cn(
+                          "group inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none",
+                          item.children.some((c) => pathname === c.href) &&
+                            "bg-primary/10 text-primary font-semibold"
+                        )}
+                      >
+                        {item.name}
+                      </Link>
+                      {/* CSS-driven so it needs no state and cannot fight the
+                          controlled mega-menu above. focus-within keeps it
+                          reachable by keyboard, which a hover-only menu is not. */}
+                      <ul
+                        className="pointer-events-none absolute left-0 top-full z-50 w-56 rounded-md border bg-popover p-1 opacity-0 shadow-md transition-opacity group-hover/sub:pointer-events-auto group-hover/sub:opacity-100 group-focus-within/sub:pointer-events-auto group-focus-within/sub:opacity-100"
+                      >
+                        {item.children.map((child) => (
+                          <li key={child.href}>
+                            <Link
+                              href={child.href}
+                              className={cn(
+                                "block rounded-sm px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:outline-none",
+                                pathname === child.href && "text-primary font-semibold"
+                              )}
+                            >
+                              {child.name}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </NavigationMenuItem>
                   ) : (
                     <NavigationMenuItem key={item.name}>
                       <Link
@@ -354,19 +403,45 @@ export function Header() {
                 </Link>
                 <nav className="flex flex-col gap-4">
                   {mainNavItems.map((item) => (
-                    <Link
-                      key={item.name}
-                      href={item.href}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className={cn(
-                        "text-lg font-medium transition-colors hover:text-primary",
-                        pathname === item.href
-                          ? "text-primary"
-                          : "text-muted-foreground"
+                    <div key={item.name} className="flex flex-col gap-2">
+                      <Link
+                        href={item.href}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className={cn(
+                          "text-lg font-medium transition-colors hover:text-primary",
+                          pathname === item.href
+                            ? "text-primary"
+                            : "text-muted-foreground"
+                        )}
+                      >
+                        {item.name}
+                      </Link>
+                      {/* Children are rendered inline rather than behind a
+                          disclosure: the desktop dropdown is hover-driven and
+                          has no touch equivalent, so without this the child
+                          pages would be unreachable on a phone entirely. */}
+                      {item.children && (
+                        <div className="flex flex-col gap-2 pl-4 border-l">
+                          {item.children
+                            .filter((c) => c.href !== item.href)
+                            .map((child) => (
+                              <Link
+                                key={child.href}
+                                href={child.href}
+                                onClick={() => setMobileMenuOpen(false)}
+                                className={cn(
+                                  "text-base transition-colors hover:text-primary",
+                                  pathname === child.href
+                                    ? "text-primary font-medium"
+                                    : "text-muted-foreground"
+                                )}
+                              >
+                                {child.name}
+                              </Link>
+                            ))}
+                        </div>
                       )}
-                    >
-                      {item.name}
-                    </Link>
+                    </div>
                   ))}
                 </nav>
                 <div className="flex flex-col gap-3 pt-4 border-t">

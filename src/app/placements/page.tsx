@@ -872,6 +872,28 @@ export default async function PlacementsPage() {
         </div>
       </section>
 
+      {/* Link through to the drive record — the other half of this story:
+          which companies came, and how many were selected each time. */}
+      <section className="py-10 border-t bg-muted/30">
+        <div className="container mx-auto px-4 max-w-3xl text-center">
+          <h2 className="text-2xl font-bold mb-3">
+            Which companies have run drives here?
+          </h2>
+          <p className="text-muted-foreground mb-5">
+            The placement drive record lists each company that recruited from
+            Archer Infotech, when the drive ran, and how many students were
+            selected where we recorded it.
+          </p>
+          <Link
+            href="/placement-drives"
+            className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+          >
+            See placement drives
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </Link>
+        </div>
+      </section>
+
       {/* FAQ block + FAQPage JSON-LD — proof-oriented Q&A about placement
           rate, companies, salaries, process. AI engines lift these into
           career-question responses. P8-08. */}

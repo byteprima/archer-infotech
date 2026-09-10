@@ -201,6 +201,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // P4-16 course × location combo landing pages (2026-06-10).
   const courseLocationHub: MetadataRoute.Sitemap = [
     { url: `${baseUrl}/courses/in`, lastModified: EVERGREEN, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${baseUrl}/placement-drives`, lastModified: EVERGREEN, changeFrequency: "weekly", priority: 0.7 },
+    { url: `${baseUrl}/seminars`, lastModified: EVERGREEN, changeFrequency: "monthly", priority: 0.6 },
   ];
   const courseLocationPages: MetadataRoute.Sitemap = courseLocations.map(
     (c) => ({

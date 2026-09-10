@@ -588,3 +588,118 @@ export const popupCampaigns = sqliteTable("popup_campaigns", {
 
 export type PopupCampaign = typeof popupCampaigns.$inferSelect;
 export type NewPopupCampaign = typeof popupCampaigns.$inferInsert;
+
+// ---------------------------------------------------------------------------
+// Placement drives — the "we bring companies in" half of the placement story.
+//
+// DELIBERATELY NOT A JOB BOARD, and deliberately carrying no JobPosting
+// schema. Google requires a job posting to be applied to by whoever finds it,
+// and treats stale postings harshly: a listing left unexpired can trigger a
+// manual action that removes every job on the domain from Google Jobs. These
+// drives are for enrolled students, so a stranger arriving from Google Jobs
+// could not apply — a bad result for them and an ongoing liability for us, in
+// exchange for traffic this page is not trying to attract.
+//
+// What the page IS for is proof: a dated, specific, checkable record that
+// named companies ran drives here and named numbers of students were selected.
+// `studentsAppeared` and `studentsSelected` are the fields that make this
+// different from a job list — they are why a completed drive stays worth
+// publishing instead of becoming stale content to delete.
+//
+// `allowJobPostingSchema` is the escape hatch for the rare drive that is
+// genuinely open to outside applicants. Off by default, and it should stay off
+// unless someone has checked that the posting meets Google's guidelines,
+// including a working way for a stranger to apply.
+export const placementDrives = sqliteTable("placement_drives", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  /** Hiring company. The real employer, never "a leading MNC". */
+  company: text("company").notNull(),
+  /** Role as the company titled it. */
+  role: text("role").notNull(),
+  /** Full JD. Markdown; rendered on the drive detail view. */
+  description: text("description"),
+  /** Package band as offered, e.g. "₹4.5–6 LPA". Never a single inflated figure. */
+  packageBand: text("package_band"),
+  location: text("location"),
+  /** Skills the drive screened on, comma-separated. */
+  skills: text("skills"),
+  /** Which course/batch could sit it — the eligibility line students look for. */
+  eligibility: text("eligibility"),
+  /** "campus" | "virtual" | "walk_in" | "partner_office" */
+  mode: text("mode").notNull().default("campus"),
+  /** YYYY-MM-DD in IST. Null for a drive with no date fixed yet. */
+  driveDate: text("drive_date"),
+  /** "upcoming" | "in_progress" | "completed" | "cancelled" */
+  status: text("status").notNull().default("upcoming"),
+  /**
+   * Outcome. Null means not recorded, which the page must render as
+   * "not recorded" rather than as zero — an unreported drive and a drive
+   * where nobody was selected are different facts.
+   */
+  studentsAppeared: integer("students_appeared"),
+  studentsSelected: integer("students_selected"),
+  /** How a student applies — placement cell, form URL, or partner link. */
+  applyNote: text("apply_note"),
+  /** Opt-in, per drive, for genuine public JobPosting markup. See note above. */
+  allowJobPostingSchema: integer("allow_job_posting_schema", { mode: "boolean" })
+    .notNull()
+    .default(false),
+  /** Required by Google when JobPosting markup is on. YYYY-MM-DD. */
+  validThrough: text("valid_through"),
+  isPublished: integer("is_published", { mode: "boolean" }).notNull().default(false),
+  createdAt: integer("created_at", { mode: "timestamp" }).notNull().$defaultFn(() => new Date()),
+  updatedAt: integer("updated_at", { mode: "timestamp" }).notNull().$defaultFn(() => new Date()),
+});
+
+export type PlacementDrive = typeof placementDrives.$inferSelect;
+export type NewPlacementDrive = typeof placementDrives.$inferInsert;
+
+// ---------------------------------------------------------------------------
+// Seminars and training sessions already delivered.
+//
+// NO Event SCHEMA, for the same class of reason. Google requires an Event to
+// be "bookable to the general public" and explicitly lists student events on
+// school premises as ineligible. A corporate session delivered inside a
+// client's office two years ago is neither upcoming nor publicly bookable, so
+// Event markup would earn no rich result and would be a claim we cannot
+// support. These render as an ItemList plus real visible content.
+//
+// The value here is entity authority. "Archer Infotech delivered a Java
+// workshop at Amdocs Pune in March 2025 to about 40 engineers" is a specific,
+// dated, checkable claim — the kind an answer engine will quote. A logo strip
+// on /corporate-training, which is what exists today, is not.
+export const seminars = sqliteTable("seminars", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  /** Where it was delivered — company or college. The real name. */
+  hostOrganisation: text("host_organisation").notNull(),
+  /** "corporate" | "college" | "public" | "online" */
+  hostType: text("host_type").notNull().default("corporate"),
+  city: text("city"),
+  /** What was taught. */
+  topic: text("topic").notNull(),
+  /** Technologies covered, comma-separated. */
+  technologies: text("technologies"),
+  /** "seminar" | "workshop" | "corporate_batch" | "guest_lecture" | "bootcamp" */
+  format: text("format").notNull().default("seminar"),
+  /** YYYY-MM or YYYY-MM-DD. Month precision is honest when the day is lost. */
+  heldOn: text("held_on"),
+  /** e.g. "2 days", "16 hours". Free text because real sessions vary. */
+  duration: text("duration"),
+  /**
+   * Approximate headcount. Null when nobody recorded it — better than a
+   * confident guess, and the page says "attendance not recorded".
+   */
+  attendees: integer("attendees"),
+  /** Trainer slug from team.ts, so the session resolves to a real person. */
+  trainerId: text("trainer_id"),
+  /** One or two sentences of what actually happened. */
+  summary: text("summary"),
+  /** Did it lead to anything — a corporate batch, a hiring tie-up. */
+  outcome: text("outcome"),
+  isPublished: integer("is_published", { mode: "boolean" }).notNull().default(false),
+  createdAt: integer("created_at", { mode: "timestamp" }).notNull().$defaultFn(() => new Date()),
+  updatedAt: integer("updated_at", { mode: "timestamp" }).notNull().$defaultFn(() => new Date()),
+});
+
+export type Seminar = typeof seminars.$inferSelect;
+export type NewSeminar = typeof seminars.$inferInsert;

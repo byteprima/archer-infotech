@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Link from "next/link";
 import {
   Users,
   Award,
@@ -323,6 +324,26 @@ export default function CorporateTrainingPage() {
       {/* FAQ block + FAQPage JSON-LD — sales-qualifying questions for
           L&D buyers (customisation, format, duration, certification prep,
           measurement, proposal process). P8-08. */}
+      {/* The delivery record. A logo strip claims relationships; dated
+          sessions with named hosts and headcounts evidence them. */}
+      <section className="py-10 border-t bg-muted/30">
+        <div className="container mx-auto px-4 max-w-3xl text-center">
+          <h2 className="text-2xl font-bold mb-3">
+            Where have we already delivered training?
+          </h2>
+          <p className="text-muted-foreground mb-5">
+            Corporate batches, college seminars and workshops we have run — with
+            the host, the month, the topic and roughly how many people attended.
+          </p>
+          <Link
+            href="/seminars"
+            className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+          >
+            See sessions delivered
+          </Link>
+        </div>
+      </section>
+
       <FaqSection
         heading="Corporate Training — FAQs"
         intro="What we cover, customisation, on-site vs online, engagement length, certification preparation, success measurement, and how to request a proposal."

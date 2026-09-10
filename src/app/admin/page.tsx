@@ -14,6 +14,8 @@ import {
   LineChart,
   GraduationCap,
   MonitorPlay,
+  Building2,
+  Presentation,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -109,6 +111,20 @@ export default async function AdminDashboard() {
       href: "/admin/placements",
       icon: Award,
       stats: `${stats.placements.total} records`,
+    },
+    {
+      title: "Placement drives",
+      description: "Companies that ran drives, and who was selected",
+      href: "/admin/placement-drives",
+      icon: Building2,
+      stats: "Drives & outcomes",
+    },
+    {
+      title: "Seminars & sessions",
+      description: "Corporate training and college seminars delivered",
+      href: "/admin/seminars",
+      icon: Presentation,
+      stats: "Sessions delivered",
     },
     {
       title: "Testimonials",
