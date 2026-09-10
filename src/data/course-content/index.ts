@@ -46,6 +46,9 @@ import { chatgptLlmsTrainingInPune } from "./chatgpt-llms-training-in-pune";
 import { promptEngineeringTrainingInPune } from "./prompt-engineering-training-in-pune";
 import { aiToolsTrainingInPune } from "./ai-tools-training-in-pune";
 import { vibeCodingTrainingInPune } from "./vibe-coding-training-in-pune";
+import { aiAssistedSoftwareTestingTrainingInPune } from "./ai-assisted-software-testing-training-in-pune";
+import { llmRagTestingTrainingInPune } from "./llm-rag-testing-training-in-pune";
+import { agenticAiTestingTrainingInPune } from "./agentic-ai-testing-training-in-pune";
 
 // Tier 4 — Mobile
 import { androidDevelopmentTrainingInPune } from "./android-development-training-in-pune";
@@ -154,6 +157,9 @@ export const courseRichContent: Record<string, CourseRichContent> = {
   "prompt-engineering-training-in-pune": promptEngineeringTrainingInPune,
   "ai-tools-training-in-pune": aiToolsTrainingInPune,
   "vibe-coding-training-in-pune": vibeCodingTrainingInPune,
+  "ai-assisted-software-testing-training-in-pune": aiAssistedSoftwareTestingTrainingInPune,
+  "llm-rag-testing-training-in-pune": llmRagTestingTrainingInPune,
+  "agentic-ai-testing-training-in-pune": agenticAiTestingTrainingInPune,
 
   // Tier 4 — Mobile
   "android-development-training-in-pune": androidDevelopmentTrainingInPune,

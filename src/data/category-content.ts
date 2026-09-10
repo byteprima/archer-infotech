@@ -1870,15 +1870,16 @@ export const categoryContent: CategoryContent[] = [
   // ============================================================
   {
     slug: "testing-qa",
-    metaTitle: "Software Testing Courses in Pune — Manual & Selenium",
-    h1: "Software Testing and QA Courses in Pune — Manual Testing and Selenium Automation",
+    metaTitle: "Testing & QA Courses in Pune — Manual, Selenium, AI Testing",
+    h1: "Testing and QA Training in Pune — Manual Testing, Selenium Automation and AI Testing",
     subhead:
-      "Learn software testing from fundamentals through to Selenium automation at Archer Infotech, Kothrud Pune — manual testing, SQL, Java for testers, TestNG frameworks and API testing, with placement assistance.",
+      "Eight courses in one career sequence at Archer Infotech, Kothrud Pune — manual QA and ISTQB fundamentals, Selenium automation in Java or Python, Playwright and API automation, then AI-assisted testing, LLM and RAG evaluation and agentic AI quality engineering. Classroom, weekend and live-online batches with placement assistance.",
     paragraphs: [
       "Software testing remains one of the most accessible entry points into the Pune IT industry, and one of the most misunderstood. The perception that testing is a lower-skilled alternative to development has not been true for years: the roles that hire in volume now are automation roles, and an automation engineer writes code, reads application logs, works with APIs and databases, and runs suites inside a CI pipeline. What has genuinely changed is that manual testing alone is no longer a career on its own — it is the first half of one.",
-      "Archer Infotech's software testing courses in Pune are built around that reality. The Software Testing & QA course covers the discipline properly — SDLC and STLC, test design techniques, defect lifecycle, functional and regression testing, SQL for verifying results, and the documentation practices real QA teams run on. The Selenium with Java course takes learners into automation: Java fundamentals aimed at testers, WebDriver, locators and waits, the Page Object Model, TestNG, Maven, data-driven frameworks and API testing. Together they are the standard path from no experience to an automation-capable QA engineer.",
-      "The Pune hiring picture is concrete. Services majors and GCC captives — TCS, Infosys, Capgemini, Tech Mahindra, Wipro and the captive centres across Hinjewadi and Kharadi — run continuous QA hiring, and their fresher pipelines increasingly specify automation exposure rather than treating it as a bonus. Product companies hire smaller numbers but at higher bands, and expect framework knowledge and CI familiarity. The pattern across both is the same: manual-only candidates compete on price, automation-capable candidates compete on skill.",
-      "Testing classes at the Kothrud institute run weekday, weekend and live online, taught by trainers who have worked in QA teams rather than only taught the subject. Every course is assignment-driven — test cases you write and have reviewed, defects you log properly, scripts you debug when they fail intermittently — because the difference between a candidate who has run a suite and one who has watched a recording of a suite is visible in the first interview round.",
+      "Archer Infotech's testing courses in Pune are organised as a progressive pathway rather than a catalogue. Software Testing & QA covers the discipline properly — SDLC and STLC, test design techniques, defect lifecycle, SQL for verifying results, API testing with Postman and ISTQB-aligned fundamentals. From there you choose an automation language: Selenium with Java for enterprise and services hiring, or Selenium with Python if you intend to continue into AI testing later, since Python is also the language of AI evaluation tooling. They are alternatives, not a sequence — one strong Selenium stack is enough. Playwright with TypeScript and API Testing & Automation then add modern automation, network mocking, tracing and service-layer depth.",
+      "The three newest courses in this category exist because the work changed. AI-Assisted Software Testing teaches testers to use Generative AI on ordinary QA work — requirement analysis, test design, test data, automation drafts, failure triage and documentation. Generative AI, LLM & RAG Testing is the opposite direction: testing software whose own behaviour depends on a model, where exact-match assertions stop working and evaluation replaces assertion. Agentic AI Testing & AI Quality Engineering is the advanced specialisation, for systems that call tools, hold memory and take real actions. Those three are frequently confused when choosing, so each page states its boundary explicitly and the FAQs below draw the lines.",
+      "The Pune hiring picture is concrete. Services majors and GCC captives — TCS, Infosys, Capgemini, Tech Mahindra, Wipro and the captive centres across Hinjewadi and Kharadi — run continuous QA hiring, and their fresher pipelines increasingly specify automation exposure rather than treating it as a bonus. Product companies hire smaller numbers at higher bands and expect framework knowledge and CI familiarity. And a newer, thinner band has opened above both: companies that shipped AI features quickly and now have to prove those features are correct and safe, with QA teams that have no method for it. The pattern across all three is the same — manual-only candidates compete on price, automation-capable candidates compete on skill, and candidates who can evaluate AI systems currently have very little competition.",
+      "Testing classes at the Kothrud institute run weekday, weekend and live online, taught by trainers who have worked in QA teams rather than only taught the subject. Every course is assignment-driven — test cases you write and have reviewed, defects you log properly, scripts you debug when they fail intermittently, evaluation harnesses you run against a baseline — because the difference between a candidate who has built a suite and one who has watched a recording of one is visible in the first interview round. Experienced professionals do not have to start at the beginning: entry at the module matching your current skills is normal, and the advanced AI courses have a prerequisite check rather than an open door.",
       "Placement support is bundled into the fee: resume and LinkedIn rewriting aimed at QA job descriptions, mock interviews covering both testing theory and live automation questions, and referrals to the institute's hiring-partner network. Archer Infotech has trained IT professionals in Pune since 2009 and reports a 90% placement rate across learners who complete training and clear at least one mock-interview round.",
     ],
     careerOutcomes: [
@@ -1891,13 +1892,13 @@ export const categoryContent: CategoryContent[] = [
       {
         role: "Automation Test Engineer",
         description:
-          "Selenium and TestNG frameworks, scripted regression suites, execution inside CI. The role most Pune QA listings are actually written for.",
+          "Selenium, Playwright and TestNG or pytest frameworks, scripted regression suites, execution inside CI. The role most Pune QA listings are actually written for.",
         band: "₹4–7 LPA",
       },
       {
         role: "API / Backend Test Engineer",
         description:
-          "REST Assured and Postman against service layers, contract and data validation. Pairs naturally with SQL depth.",
+          "REST Assured, Postman and Playwright's API layer against service layers, contract and data validation. Pairs naturally with SQL depth.",
         band: "₹4.5–7 LPA",
       },
       {
@@ -1905,6 +1906,18 @@ export const categoryContent: CategoryContent[] = [
         description:
           "Builds the test framework rather than only using it. A development role in everything but name, at product companies and captives.",
         band: "₹6–12 LPA",
+      },
+      {
+        role: "AI / GenAI Test Engineer",
+        description:
+          "Evaluates LLM and RAG features — golden datasets, hallucination and grounding tests, safety suites and release gates. A thinly staffed role, because most QA teams have no method for it yet.",
+        band: "₹8–18 LPA (with automation experience behind it)",
+      },
+      {
+        role: "AI Quality Engineer (agentic systems)",
+        description:
+          "Validates agents that call tools, hold memory and take real actions — trajectories, tool-call correctness, excessive agency and production quality. The most advanced track in this category.",
+        band: "₹12–22 LPA (senior, with relevant experience)",
       },
       {
         role: "QA Lead / Test Manager",
@@ -1915,48 +1928,144 @@ export const categoryContent: CategoryContent[] = [
     ],
     faqs: [
       {
+        question: "Which Testing & QA courses does Archer Infotech offer?",
+        answer:
+          "Eight, in a career sequence: Software Testing & QA (foundation), then Selenium with Java or Selenium with Python as alternative automation tracks, then Playwright with TypeScript and API Testing & Automation for modern automation depth, then three AI courses — AI-Assisted Software Testing, Generative AI LLM & RAG Testing, and Agentic AI Testing & AI Quality Engineering. You do not take all eight; you take the ones that match where you are and where you are going.",
+      },
+      {
+        question: "I am a fresher. Which testing course should I start with?",
+        answer:
+          "Software Testing & QA. It assumes no programming and covers the discipline itself — test design, defect management, SQL and API testing with Postman, aligned to the ISTQB Foundation syllabus. After it, choose Selenium with Java or Selenium with Python depending on which direction you want. Freshers should not start with an AI testing course; those assume testing experience you do not have yet.",
+      },
+      {
+        question: "Do I need to learn both Selenium with Java and Selenium with Python?",
+        answer:
+          "No. They are alternative language tracks teaching the same automation concepts, and one strong Selenium stack is enough before moving on to Playwright or AI testing. Choose Java if you are targeting services majors and enterprise automation, and Python if you want one language across UI, API and — later — AI evaluation work.",
+      },
+      {
+        question: "Should I learn Selenium or Playwright first?",
+        answer:
+          "Selenium first, in this pathway. It has by a wide margin the most Pune job listings and the deepest ecosystem, so it is the hiring-driven choice. Playwright is the better tool on several axes — auto-waiting, tracing, UI and API in one framework — and it is far easier to add once you already understand locators, waits and the Page Object Model. Learning it second takes weeks, not months.",
+      },
+      {
+        question: "What is AI-Assisted Software Testing?",
+        answer:
+          "Using Generative AI to do conventional QA work better — analysing requirements for ambiguity, designing and auditing test cases, generating test data, drafting automation code, interpreting stack traces and writing QA documentation. The software under test stays ordinary software. It is a one-month course aimed at people already working in QA, and it needs no Python.",
+      },
+      {
+        question: "What is the difference between AI-Assisted Testing and LLM Testing?",
+        answer:
+          "AI-Assisted Testing uses AI as a helper to test normal software. LLM Testing evaluates software that is itself built on AI — response quality, hallucination, grounding, safety and model regression. These are the two courses learners most often confuse, and choosing wrong wastes a month. If your product has a chatbot or a document assistant, you need LLM & RAG Testing.",
+      },
+      {
+        question: "What is RAG testing?",
+        answer:
+          "RAG testing evaluates both halves of a retrieval-augmented system: whether retrieval found the right context, measured by relevance, context precision and recall; and whether the answer actually used it, measured by faithfulness, groundedness and citation correctness. It also covers missing, contradictory and stale documents, and tenant-isolation tests for cross-user data exposure.",
+      },
+      {
+        question: "What is agentic AI testing?",
+        answer:
+          "It evaluates AI agents that use tools, hold memory and run multi-step workflows — tool selection and argument correctness, the trajectory the agent took, error recovery, memory isolation, prompt-injection safety and task success. An LLM says things; an agent does things, so a wrong tool call is a refund issued or a record deleted rather than a bad sentence.",
+      },
+      {
+        question: "How is the LLM & RAG Testing course different from the Generative AI developer course?",
+        answer:
+          "The Generative AI and Agentic AI courses under AI & GenAI teach building these systems. The two AI testing courses here teach evaluating them. The skills overlap less than people expect — building rewards making it work, evaluating rewards finding where it does not — and the pages cross-link rather than repeat each other.",
+      },
+      {
+        question: "Can an experienced QA professional skip the beginner modules?",
+        answer:
+          "Yes, and most do. Entry at the module matching your current skills is normal: a manual tester with ten years of experience should start at an automation track rather than repeat fundamentals. The two advanced AI courses have a prerequisite check instead of an open door, because entering them without automation, Python and evaluation basics does not work.",
+      },
+      {
         question: "Is manual testing still a career in 2026?",
         answer:
-          "Manual testing is still a necessary skill and still the right place to start, but manual-only is no longer a durable career on its own. Exploratory testing, test design and domain judgement cannot be automated and are genuinely valued — yet almost every Pune QA listing now also expects automation exposure. The realistic path is to learn testing properly first, then add Selenium and a framework, which is exactly how the two courses in this category are sequenced.",
+          "Manual testing is still a necessary skill and still the right place to start, but manual-only is no longer a durable career on its own. Exploratory testing, test design and domain judgement cannot be automated and are genuinely valued — yet almost every Pune QA listing now also expects automation exposure. Learn testing properly first, then add automation, which is how this category is sequenced.",
       },
       {
         question: "Do I need programming knowledge to become a tester?",
         answer:
-          "Not to start. The Software Testing & QA course assumes no programming and covers SQL, which is the one technical skill manual testers use daily. You do need programming for automation, which is why the Selenium course begins with Java fundamentals taught specifically for testers — enough to write and debug test code, not a full developer syllabus.",
+          "Not to start. Software Testing & QA assumes no programming and covers SQL, the one technical skill manual testers use daily. You do need programming for automation, which is why the Selenium courses begin with Java or Python taught specifically for testers. AI-Assisted Testing is the one advanced course that works without coding; LLM and agentic testing both require Python.",
       },
       {
-        question: "Which should I learn — Selenium, Cypress or Playwright?",
+        question: "How long does the full pathway take?",
         answer:
-          "Selenium with Java, if you are hiring-driven. It has by a wide margin the most Pune job listings, the deepest ecosystem and the strongest presence at services majors and GCC captives, which is where most QA hiring volume sits. Cypress and Playwright are excellent tools and easier to start with, but they appear far more often at product companies than in the general market. Once you understand locators, waits, the Page Object Model and framework design in Selenium, moving to another tool is a matter of weeks.",
-      },
-      {
-        question: "How long does it take to become an automation tester?",
-        answer:
-          "Each course runs two months, so roughly four months for the full path from no experience to automation-capable, plus practice time between sessions. Learners who already program can go straight into the Selenium course and be writing framework code within weeks. The realistic gate is not course length — it is having a framework project you built and can explain.",
+          "Each course runs two months except AI-Assisted Testing, which is one. Nobody takes all eight. A fresher to automation-capable is about four months across two courses; a manual tester to AI test engineer is roughly five months across three. The realistic gate is not course length — it is having a framework or evaluation harness you built and can explain.",
       },
       {
         question: "Do testers need to know SQL?",
         answer:
-          "Yes, and it comes up in almost every QA interview. Verifying that an application actually wrote what it claimed to write means querying the database directly, and test-data preparation usually means writing SQL as well. Joins, aggregate queries and basic schema reading are the working level; both courses cover it, and the Database Technologies category goes deeper for anyone who wants it.",
+          "Yes, and it comes up in almost every QA interview. Verifying that an application actually wrote what it claimed to write means querying the database directly, and test-data preparation usually means writing SQL as well. Joins, aggregate queries and basic schema reading are the working level; the foundation course covers it, and the Database Technologies category goes deeper.",
       },
       {
         question: "Will I build a real automation framework during the course?",
         answer:
-          "Yes. The Selenium course closes with a data-driven framework you build yourself — Page Object Model structure, TestNG suites, Maven build, reporting, and execution in a CI pipeline — published to GitHub. That repository is the artefact that matters in interviews, because it is what separates a candidate who has run scripts from one who has designed a framework.",
+          "Yes. Each automation course closes with a framework you build yourself — Page Object structure, TestNG or pytest suites, reporting and CI execution — published to GitHub. The AI courses close with an evaluation harness instead: golden datasets, evaluators, a safety suite and a CI release gate. That repository is the artefact that matters in interviews.",
       },
       {
         question: "Are testing classes available on weekends or online?",
         answer:
-          "Yes. Both courses run in weekday, weekend and live-online formats with the same curriculum, trainers and assignments, which is what most working professionals and final-year students use. Batch schedules are shared on request through the contact form or on +91 9850 678451.",
+          "Yes. Every course runs in weekday, weekend and live-online formats with the same curriculum, trainers and assignments, which is what most working professionals and final-year students use. Online learners get the same code review on their repositories. Batch schedules are shared on request through the contact form or on +91 9850 678451.",
+      },
+      {
+        question: "Is placement assistance included?",
+        answer:
+          "Yes, bundled into the fee at no extra charge — resume and LinkedIn rewriting for QA job descriptions, mock interviews on both testing theory and live automation, and referrals to the hiring-partner network. Placement is not guaranteed. Archer Infotech reports a 90% placement rate across learners who complete training and clear at least one mock-interview round.",
       },
     ],
     sections: [
+      {
+        id: "choose-your-testing-track",
+        heading: "Which testing track should you take?",
+        lead: "Three tracks. Foundation for people new to testing, Automation for testers moving into code, and AI Testing for experienced testers moving into evaluation. Most learners take two courses across two tracks, not all eight.",
+        body: [
+          "The one decision that trips people up is the Selenium language choice, so it is worth being explicit: Selenium with Java and Selenium with Python are alternatives, not a sequence. They teach the same automation concepts in different languages. Take Java if you are targeting services majors and enterprise automation, where the installed base is Java. Take Python if you want one language covering UI automation, API testing and — later — AI evaluation, because the AI testing courses are all Python.",
+          "The second decision is which AI course, and the boundary is sharper than the names suggest. AI-Assisted Software Testing uses AI to test ordinary software: it is one month, needs no Python, and suits any working tester. LLM & RAG Testing tests software built on AI, and needs Python and testing fundamentals. Agentic AI Testing tests systems that take real actions, and needs the LLM course or equivalent experience first.",
+        ],
+        figure: {
+          src: "/images/courses/testing-career-tracks-v1.webp",
+          alt: "Three-track diagram of the Testing and QA catalogue at Archer Infotech Pune. Foundation track, assuming no programming: Software Testing and QA covering SDLC, STLC, test design, defect management with Jira and API testing with Postman, aimed at freshers and career switchers. Automation track: Selenium with Java or Selenium with Python as alternative language choices, then Playwright with TypeScript and API Testing and Automation, aimed at manual testers and SDET aspirants. AI Testing track: AI-Assisted Software Testing, then Generative AI LLM and RAG Testing, then Agentic AI Testing, covering evaluation, safety and release gates, aimed at experienced testers and SDETs.",
+          width: 1500,
+          height: 556,
+          caption:
+            "Selenium with Java and Selenium with Python are alternative language tracks — take one, not both. Python is the better choice if you intend to continue into AI testing.",
+        },
+      },
+      {
+        id: "compare-testing-courses",
+        heading: "How do the eight testing courses compare?",
+        lead: "By coding requirement, main focus and who each one suits. Read the coding column first — it eliminates more wrong choices than anything else on this page.",
+        bullets: [
+          "Software Testing & QA — no coding required. Manual QA fundamentals, ISTQB-aligned. Best for beginners and career switchers.",
+          "Selenium with Java — coding required. Enterprise UI automation with TestNG and Maven. Best for the Java and services-hiring path.",
+          "Selenium with Python — coding required. UI automation with pytest. Best for the Python path and anyone continuing into AI testing.",
+          "Playwright with TypeScript — coding required. Modern UI and API automation, tracing and network mocking. Best for automation engineers modernising.",
+          "API Testing & Automation — coding helpful. The service layer: REST, authentication, contract testing and schema validation. Best for testers going below the UI.",
+          "AI-Assisted Software Testing — coding optional. Using AI across the QA workflow. Best for any experienced tester, in one month.",
+          "Generative AI, LLM & RAG Testing — Python required. Evaluating AI applications: hallucination, grounding, RAG quality and safety. Best for AI QA specialists.",
+          "Agentic AI Testing — Python and prior evaluation experience required. Testing agents that call tools and take actions. Best for senior QA moving into AI quality engineering.",
+        ],
+      },
+      {
+        id: "which-testing-course-should-i-choose",
+        heading: "Which course should you choose, given where you are now?",
+        lead: "Answered by starting point rather than by course, because that is the question people actually arrive with.",
+        bullets: [
+          "Completely new to testing — start with Software Testing & QA.",
+          "You already know manual testing — choose Selenium with Java or Selenium with Python, not both.",
+          "You already know Selenium — move to Playwright & API automation, or straight to AI-Assisted Software Testing if your automation is already solid.",
+          "You are an experienced automation tester — start with AI-Assisted Software Testing, then LLM & RAG Testing.",
+          "You already test GenAI applications — start with LLM & RAG Testing, or go to Agentic AI Testing after an assessment.",
+          "You have 10 to 15 years of manual QA and no automation — Selenium with Python, then Playwright & API, then the AI track. Do not repeat beginner manual modules unless an assessment shows a genuine gap.",
+          "Your company just shipped an AI feature and asked you to test it — LLM & RAG Testing, and bring the feature with you.",
+        ],
+      },
       {
         id: "manual-to-automation-path",
         heading: "How do you get from manual testing to automation?",
         lead: "In order: testing fundamentals, then manual testing practice, then SQL, then enough programming to write test code, then Selenium, then a framework, then running it all in CI. Skipping to Selenium without the ground underneath it is the most common way learners stall.",
         body: [
-          "The stage that surprises people is programming. Automation is software development — your test suite is an application, and it has to be structured, debugged and maintained like one. That is why the Selenium course spends its opening weeks on Java aimed squarely at testers rather than assuming you will pick it up alongside WebDriver.",
+          "The stage that surprises people is programming. Automation is software development — your test suite is an application, and it has to be structured, debugged and maintained like one. That is why the Selenium courses spend their opening weeks on Java or Python aimed squarely at testers rather than assuming you will pick it up alongside WebDriver.",
           "The stage people skip is SQL, and it costs them in interviews. Verifying that the application stored what it displayed is a daily task, and a tester who cannot query the database is trusting the interface to tell the truth about itself.",
         ],
         figure: {
@@ -1965,8 +2074,27 @@ export const categoryContent: CategoryContent[] = [
           width: 1500,
           height: 858,
           caption:
-            "The route from no experience to automation-capable. The Software Testing & QA course covers the first three stages; Selenium with Java covers the rest.",
+            "The route from no experience to automation-capable. The Software Testing & QA course covers the first three stages; the Selenium courses cover the rest.",
         },
+      },
+      {
+        id: "why-ai-testing-is-different",
+        heading: "Why does testing an AI feature need its own course?",
+        lead: "Because the assertion stops working. Every testing skill you have assumes that the same input produces the same output — an LLM answers differently every time, and both answers may be correct. Exact-match assertions produce a suite that fails constantly while telling you nothing.",
+        body: [
+          "What replaces assertion is evaluation, and it has its own vocabulary: quality dimensions instead of pass and fail, rubrics instead of expected values, golden datasets instead of test cases, validated judges instead of comparisons, and statistical baselines instead of single runs. None of it is exotic, and none of it appears in a testing syllabus written before 2023.",
+          "Agents raise the stakes again. An LLM that produces a wrong sentence has given a bad answer; an agent that calls the right tool with plausible but wrong arguments has issued a refund, cancelled a booking or deleted a record. Agent testing has to judge the path taken as well as the final result, which is a form of assertion no traditional QA course teaches.",
+          "The commercial driver is straightforward: companies across Pune shipped AI features quickly and are now being asked — often by a customer's security review rather than by their own QA team — how they know those features are correct, safe and not leaking data. Very few testers can answer that, which is why this is currently the thinnest-staffed skill in the category.",
+        ],
+        bullets: [
+          "Non-determinism — the same prompt gives different valid answers",
+          "Quality dimensions replace pass and fail: groundedness, faithfulness, refusal correctness",
+          "Golden datasets and rubrics replace expected values",
+          "LLM-as-a-Judge, and validating the judge before you trust it",
+          "RAG splits the problem in two — retrieval quality and answer faithfulness",
+          "Prompt injection and PII leakage are functional defects, not policy questions",
+          "Agents add tool calls, trajectories, memory and irreversible actions",
+        ],
       },
       {
         id: "what-software-testing-course-covers",
@@ -1982,7 +2110,7 @@ export const categoryContent: CategoryContent[] = [
           "Agile and Scrum — testing inside a sprint",
           "Test management and defect-tracking tools",
           "API testing fundamentals with Postman",
-          "Selenium WebDriver, TestNG, Maven and framework design",
+          "ISTQB Foundation preparation, and an introduction to AI-assisted QA",
         ],
       },
       {
@@ -1990,7 +2118,8 @@ export const categoryContent: CategoryContent[] = [
         heading: "What do QA interviews actually ask?",
         lead: "Two rounds, in effect. One on testing judgement — how would you test this, what would you check first, what is severity versus priority. One on automation — write a locator, explain a wait, describe your framework and why it is structured that way.",
         body: [
-          "The automation half is where candidates are separated, and almost always on the same question: describe the framework you built. A candidate who used someone else's framework can name its parts; a candidate who built one can explain why the Page Object Model is worth the extra files, how they handled flaky waits, and what they would change. That is why the course is structured around building one rather than demonstrating one.",
+          "The automation half is where candidates are separated, and almost always on the same question: describe the framework you built. A candidate who used someone else's framework can name its parts; a candidate who built one can explain why the Page Object Model is worth the extra files, how they handled flaky waits, and what they would change. That is why the courses are structured around building one rather than demonstrating one.",
+          "A third question has appeared in the last two years and now comes up unprompted: how do you use AI in your testing work. A vague answer marks you as a non-adopter; \"I generate test cases with ChatGPT\" marks you as an uncritical one. The answer that lands describes what you generate, what you check it against, and something specific the AI got wrong that you caught.",
         ],
         bullets: [
           "\"How would you test this feature?\" — asked about something ordinary, on the spot",
@@ -2001,6 +2130,7 @@ export const categoryContent: CategoryContent[] = [
           "A SQL query to verify what the application claims it saved",
           "Handling a test that fails intermittently",
           "Where your suite runs, and what happens when it fails in CI",
+          "How you use AI in your testing work — and what you caught it getting wrong",
         ],
       },
       {
@@ -2015,6 +2145,7 @@ export const categoryContent: CategoryContent[] = [
           "Non-IT graduates changing field into software",
           "Manual testers adding automation to stay competitive",
           "Support engineers and operations staff moving into engineering",
+          "Automation engineers and SDETs moving into AI quality engineering",
           "Developers who want to understand testing properly",
           "Working professionals returning to IT after a break",
         ],
@@ -2022,9 +2153,10 @@ export const categoryContent: CategoryContent[] = [
       {
         id: "testing-career-progression",
         heading: "Where does a testing career lead?",
-        lead: "QA Engineer to Automation Engineer to SDET, then into test architecture or QA leadership. The SDET route in particular is a development role — building the framework rather than using it — and pays accordingly.",
+        lead: "QA Engineer to Automation Engineer to SDET, then into test architecture, QA leadership or — newest and thinnest-staffed — AI quality engineering. The SDET route in particular is a development role, building the framework rather than using it, and pays accordingly.",
         body: [
           "Testing also has unusually good lateral movement. Automation engineers move into DevOps, because running suites in pipelines is the same skill set. API testers move into backend development. QA leads move into product and delivery roles, because they have spent years understanding what the software is supposed to do. The common factor in all three is having gone past manual testing into code.",
+          "The AI quality route is the newest and is worth a caveat. It pays above the general automation band because supply is thin rather than because the work is harder than SDET work, and thin supply is not permanent. What makes it durable is that the underlying skill — defining what good looks like when there is no expected value, and proving it repeatedly — is the same skill whatever the models do next.",
         ],
       },
     ],
@@ -2032,14 +2164,29 @@ export const categoryContent: CategoryContent[] = [
       {
         heading: "Start here — testing foundations",
         blurb:
-          "No programming assumed. Covers the discipline itself — test design, defect management, SQL and the practices QA teams actually run on.",
+          "No programming assumed. Covers the discipline itself — test design, defect management, SQL, API testing with Postman and ISTQB-aligned fundamentals.",
         slugs: ["software-testing-training-in-pune"],
       },
       {
-        heading: "Automation specialisation",
+        heading: "Automation — choose one language, then modernise",
         blurb:
-          "Builds on the foundation above. Java for testers, Selenium WebDriver, the Page Object Model, TestNG frameworks, API testing and CI execution.",
-        slugs: ["selenium-training-in-pune"],
+          "Selenium with Java and Selenium with Python are alternative language tracks; take one, not both. Playwright and API Testing then add modern automation, network mocking, tracing and service-layer depth.",
+        slugs: [
+          "selenium-training-in-pune",
+          "selenium-python-training-in-pune",
+          "playwright-training-in-pune",
+          "api-testing-training-in-pune",
+        ],
+      },
+      {
+        heading: "AI testing — the newest and thinnest-staffed track",
+        blurb:
+          "Three courses with a firm boundary between them. AI-Assisted Testing uses AI to test ordinary software. LLM & RAG Testing evaluates software built on AI. Agentic AI Testing validates systems that call tools and take real actions. Take them in that order.",
+        slugs: [
+          "ai-assisted-software-testing-training-in-pune",
+          "llm-rag-testing-training-in-pune",
+          "agentic-ai-testing-training-in-pune",
+        ],
       },
     ],
   },

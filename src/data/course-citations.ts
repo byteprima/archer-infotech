@@ -293,6 +293,48 @@ const TOPIC: Record<string, SourceCitation> = {
     supports:
       "The editor every tool in this course runs inside, including its debugging and source-control surfaces.",
   },
+  istqb: {
+    label: "ISTQB — Certified Tester Foundation Level (CTFL v4.0)",
+    href: "https://www.istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0",
+    supports:
+      "The testing fundamentals, terminology and syllabus structure this category's foundation teaching is aligned to, published by the certification body rather than by a training institute.",
+  },
+  owaspLlm: {
+    label: "OWASP — Top 10 for LLM Applications",
+    href: "https://genai.owasp.org/llm-top-10/",
+    supports:
+      "The AI security risk categories taught in the safety modules — prompt injection, sensitive information disclosure, excessive agency and supply-chain risk.",
+  },
+  nistAiRmf: {
+    label: "NIST — AI Risk Management Framework",
+    href: "https://www.nist.gov/itl/ai-risk-management-framework",
+    supports:
+      "The governance and measurement vocabulary used when framing AI quality and safety evidence for a release decision or a customer security review.",
+  },
+  ragas: {
+    label: "RAGAS — RAG evaluation documentation",
+    href: "https://docs.ragas.io/",
+    supports:
+      "The retrieval and generation metrics taught in the RAG evaluation module, including context precision, context recall and faithfulness.",
+  },
+  deepeval: {
+    label: "DeepEval — LLM evaluation framework documentation",
+    href: "https://deepeval.com/docs/getting-started",
+    supports:
+      "One of the evaluation frameworks studied as an example of shared patterns, including LLM-as-a-Judge metric implementations.",
+  },
+  toolUse: {
+    label: "Anthropic — tool use documentation",
+    href: "https://docs.anthropic.com/en/docs/build-with-claude/tool-use/overview",
+    supports:
+      "How tool and function calling works at the API level, which is what the tool-call testing module writes assertions against.",
+  },
+  mcp: {
+    label: "Model Context Protocol — specification",
+    href: "https://modelcontextprotocol.io/specification",
+    supports:
+      "The agent-to-tool contract studied in the modern agent interfaces module, taken from the published specification rather than a vendor summary.",
+  },
 };
 
 /** Topic keys per course slug. Only list what the course genuinely teaches. */
@@ -321,7 +363,30 @@ const COURSE_TOPICS: Record<string, (keyof typeof TOPIC)[]> = {
   "mean-stack-training-in-pune": ["angular", "node", "mongodb", "typescript"],
   "mongodb-training-in-pune": ["mongodb"],
   "selenium-training-in-pune": ["selenium", "java"],
-  "software-testing-training-in-pune": ["selenium"],
+  "software-testing-training-in-pune": ["selenium", "istqb"],
+  "selenium-python-training-in-pune": ["selenium", "python"],
+  "playwright-training-in-pune": ["typescript", "node"],
+  "api-testing-training-in-pune": ["selenium", "java", "python"],
+  "ai-assisted-software-testing-training-in-pune": [
+    "openaiPlatform",
+    "claudeCode",
+    "copilot",
+    "istqb",
+  ],
+  "llm-rag-testing-training-in-pune": [
+    "openaiPlatform",
+    "ragas",
+    "deepeval",
+    "owaspLlm",
+    "nistAiRmf",
+  ],
+  "agentic-ai-testing-training-in-pune": [
+    "toolUse",
+    "mcp",
+    "owaspLlm",
+    "nistAiRmf",
+    "openaiPlatform",
+  ],
   "aws-training-in-pune": ["aws", "docker"],
   "azure-training-in-pune": ["azure", "docker"],
   "google-cloud-training-in-pune": ["gcp", "docker"],
