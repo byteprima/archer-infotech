@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { isAdmin } from "@/lib/auth";
 import {
+  getCampaignReport,
   getCounsellorReport,
   getCourseReport,
   getEnquiryReport,
@@ -31,6 +32,7 @@ const REPORTS = [
   "course",
   "source",
   "counsellor",
+  "campaign",
   "lost",
   "followup",
 ] as const;
@@ -89,6 +91,23 @@ export async function GET(request: NextRequest) {
         rows.map((r) => [r.key, r.enquiries, r.admissions, r.conversionRate, formatPaise(r.fees)]),
       );
       return csvResponse(filename(`${report}-wise`, resolved.label), csv);
+    }
+
+    case "campaign": {
+      const { rows, range: resolved } = await getCampaignReport(range);
+      const csv = toCsv(
+        ["Source", "Medium", "Campaign", "Enquiries", "Admissions", "Conversion %", "Fees agreed"],
+        rows.map((r) => [
+          r.source,
+          r.medium,
+          r.campaign,
+          r.enquiries,
+          r.admissions,
+          r.conversionRate,
+          formatPaise(r.fees),
+        ]),
+      );
+      return csvResponse(filename("campaign-attribution", resolved.label), csv);
     }
 
     case "counsellor": {

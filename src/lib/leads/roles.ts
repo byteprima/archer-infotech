@@ -48,10 +48,15 @@ export const canAccessAdmin = isStaffRole;
  * admin routes: a new route added later is then restricted by default, which
  * is the direction a permission mistake should fail in.
  */
+/** Carved out of the allowed prefixes above, which match by prefix. */
+export const COUNSELOR_DENIED_PATHS = ["/admin/crm/settings"] as const;
+
 export const COUNSELOR_ALLOWED_PREFIXES = [
   // The CRM hub. It filters its own tiles with canAccessAdminPath, so a
   // counsellor sees only the destinations they can actually open.
   "/admin/crm",
+  // Their own reminders and assignments.
+  "/admin/notifications",
   "/admin/leads",
   "/admin/follow-ups",
   // Converting an enquiry is a counsellor's job, and the record they just
@@ -79,6 +84,10 @@ export function canAccessAdminPath(
   }
   if (role !== "counselor") return true;
   if (pathname === "/admin") return true; // the dashboard itself is harmless
+  // Prefix matching would let "/admin/crm" cover its settings page, which
+  // decides who real enquiries are routed to. A counsellor must not be able to
+  // point the queue at themselves.
+  if (COUNSELOR_DENIED_PATHS.some((p) => pathname.startsWith(p))) return false;
   return COUNSELOR_ALLOWED_PREFIXES.some((p) => pathname.startsWith(p));
 }
 

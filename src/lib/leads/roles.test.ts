@@ -54,3 +54,40 @@ describe("staff roles", () => {
     assert.ok(!isStaffRole(undefined));
   });
 });
+
+describe("CRM route access", () => {
+  it("lets a counsellor reach the hub, their leads and their notifications", () => {
+    for (const path of [
+      "/admin/crm",
+      "/admin/leads",
+      "/admin/leads/12",
+      "/admin/leads/duplicates",
+      "/admin/notifications",
+      "/admin/follow-ups",
+      "/admin/admissions",
+    ]) {
+      assert.equal(canAccessAdminPath("counselor", path), true, path);
+    }
+  });
+
+  it("keeps a counsellor out of scheduling, which books trainers and rooms", () => {
+    // They register a lead FOR a demo from the lead page; creating the session
+    // itself is the same kind of decision as opening a batch.
+    assert.equal(canAccessAdminPath("counselor", "/admin/demos"), false);
+    assert.equal(canAccessAdminPath("counselor", "/admin/batches"), false);
+    assert.equal(canAccessAdminPath("manager", "/admin/demos"), true);
+  });
+
+  it("keeps a counsellor out of automation settings", () => {
+    // Prefix matching on "/admin/crm" would otherwise let this through, and it
+    // decides who real enquiries are routed to.
+    assert.equal(canAccessAdminPath("counselor", "/admin/crm/settings"), false);
+    assert.equal(canAccessAdminPath("manager", "/admin/crm/settings"), true);
+    assert.equal(canAccessAdminPath("admin", "/admin/crm/settings"), true);
+  });
+
+  it("keeps a counsellor out of reports and user management", () => {
+    assert.equal(canAccessAdminPath("counselor", "/admin/reports"), false);
+    assert.equal(canAccessAdminPath("counselor", "/admin/users"), false);
+  });
+});

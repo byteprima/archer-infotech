@@ -1,6 +1,6 @@
 # Lead & Enquiry Management — implementation notes
 
-Phases 1 to 4 of the Training Institute Lead & Enquiry Management
+Phases 1 to 5 of the Training Institute Lead & Enquiry Management
 specification. This file records the decisions taken while building them, so
 the reasoning survives the commit messages.
 
@@ -362,6 +362,87 @@ opened in the morning and should not cost eight round trips to render a menu.
 Tiles are filtered with `canAccessAdminPath`, the same rule guarding the pages,
 so a counsellor is not offered Reports or Batches. `/admin/crm` itself is in
 COUNSELOR_ALLOWED_PREFIXES; the filtering happens inside.
+
+### Phase 5: notifications are of two kinds, and only one is stored
+
+**Event** notifications — "a lead was assigned to you", "a demo was booked for
+your lead" — happened once, to a named person, and must survive until seen.
+They are rows in `notifications`, marked read.
+
+**Due** reminders — overdue, due today — are NOT rows. They are derived live
+from `leads.follow_up_date` on every read. Storing them would need a scheduler
+this project does not have, and a stored "due today" is wrong by tomorrow
+morning: it would need generating daily and expiring daily, and the two jobs
+would disagree. Deriving them cannot go stale.
+
+`notify()` never throws. A notification that fails must not roll back the
+assignment it was announcing.
+
+### Both automations ship OFF
+
+`auto_assign_enabled` and `auto_follow_up_enabled` default to false in
+`lib/crm/settings.ts`. Turning auto-assignment on quietly would start routing
+real enquiries to people who are not expecting them, and put follow-up dates on
+leads nobody agreed to own. The office turns them on at `/admin/crm/settings`,
+where the screen also names who the next enquiry would actually go to.
+
+Automation applies to **website enquiries only**. A lead typed in by hand is
+never auto-assigned — whoever typed it is standing there and can decide.
+
+It runs AFTER the insert and swallows its own failures: the enquiry is the
+thing that must not be lost. A lead that could not be routed is still a lead,
+unassigned and visible.
+
+### Round-robin by workload, not by a stored pointer
+
+`nextAssignee()` picks the counsellor with the fewest OPEN leads, ties broken
+by who was assigned least recently. A stored "next counsellor" pointer drifts
+the moment somebody is added, removed or goes on leave, and then quietly sends
+everything to one person. Counsellors are preferred; if none exist it falls
+back to any staff, and if there is nobody it returns null and the lead stays
+unassigned — which is not an error.
+
+### Settings are a table, not environment variables
+
+These are decisions the office makes and changes. An env var needs a deploy;
+this needs a click. `/admin/crm/settings` is denied to counsellors by an
+explicit carve-out (`COUNSELOR_DENIED_PATHS`) because the allow-list matches by
+prefix and `/admin/crm` would otherwise cover it — a counsellor must not be
+able to point the enquiry queue at themselves.
+
+### Messaging: composed, recorded, never sent
+
+There is no WhatsApp or email provider and the specification says not to add
+one. `lib/crm/message-templates.ts` composes the six messages the spec names
+(course details, syllabus, fees, batch info, demo reminder, follow-up reminder)
+from the lead's own data; the counsellor copies the text or opens `wa.me` with
+it prefilled. `messages` records what was prepared.
+
+Status stops at **"copied"**. It cannot honestly say "sent" — nothing here
+knows whether the text was actually pasted, and claiming a delivery we did not
+perform would make every later report about messaging a lie.
+
+A template returns **null rather than composing** when the context lacks what
+it needs. A fees message with no fee, or "your batch starts on " with no date,
+is worse than no message. That is why `FEES` is currently never offered:
+`courses.ts` carries no price, so nothing can fill it honestly.
+
+When a provider is added it delivers these rows; the templates, the record and
+the UI do not change. That is the provider-independent abstraction the spec
+asks for.
+
+### Campaign attribution answers a different question from source-wise
+
+Source-wise says where enquiries came from. Campaign attribution says which
+spend produced a *student*, grouped on the full source/medium/campaign triple —
+google/cpc/brand and google/cpc/java are different decisions. Sorted by
+admissions first, so one admission outranks fifty clicks and none.
+
+Leads with no UTMs are counted under "Direct / unattributed" rather than
+dropped, so the totals still reconcile with the source-wise report.
+
+Fees shown are what was **agreed**, not collected. Nothing in this system
+tracks receipts, and the column is labelled accordingly.
 
 ## Tests
 

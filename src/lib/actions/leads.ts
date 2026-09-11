@@ -97,7 +97,7 @@ export async function submitLead(data: LeadFormData): Promise<ActionResult> {
     // Insert the lead, with its ENQ-YYYY-NNNN reference allocated in the same
     // transaction. Nothing asks the visitor for anything extra — see the
     // schema above, which is still name, phone, email, mode and experience.
-    insertLeadWithEnquiryNumber({
+    const created = insertLeadWithEnquiryNumber({
       name: validationResult.data.name,
       email: validationResult.data.email,
       phone: validationResult.data.phone,
@@ -117,6 +117,30 @@ export async function submitLead(data: LeadFormData): Promise<ActionResult> {
       landingPage: validationResult.data.currentPath || null,
       status: "NEW",
     });
+
+    // Routing runs AFTER the insert, and its failures are swallowed: the
+    // enquiry is the thing that must not be lost. Both rules are off until the
+    // office turns them on in /admin/crm/settings.
+    const { applyNewLeadAutomation } = await import("@/lib/crm/automation");
+    const routed = await applyNewLeadAutomation(created.id);
+
+    if (routed.assignedToUserId) {
+      const { notify } = await import("@/lib/actions/notifications");
+      await notify({
+        userId: routed.assignedToUserId,
+        type: "LEAD_ASSIGNED",
+        title: `New enquiry assigned to you: ${validationResult.data.name}`,
+        body: [
+          validationResult.data.course,
+          validationResult.data.modePreference,
+          validationResult.data.experienceLevel,
+        ]
+          .filter(Boolean)
+          .join(" · ") || null,
+        href: `/admin/leads/${created.id}`,
+        leadId: created.id,
+      });
+    }
 
     await captureServerEvent({
       distinctId: validationResult.data.analyticsDistinctId,

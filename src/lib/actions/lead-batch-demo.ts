@@ -213,6 +213,24 @@ export async function registerLeadForDemo(
     entityId: String(parsed.data.leadId),
     summary: `Registered lead #${parsed.data.leadId} for ${session.courseName} demo #${session.id}`,
   });
+  // The lead's owner may not be the person who booked the demo.
+  const [owner] = await db
+    .select({ userId: leads.assignedToUserId, name: leads.name })
+    .from(leads)
+    .where(eq(leads.id, parsed.data.leadId))
+    .limit(1);
+  if (owner?.userId && owner.userId !== actor.actorId) {
+    const { notify } = await import("@/lib/actions/notifications");
+    await notify({
+      userId: owner.userId,
+      type: "DEMO_SCHEDULED",
+      title: `Demo scheduled for ${owner.name}`,
+      body: `${session.courseName} demo #${session.id}`,
+      href: `/admin/leads/${parsed.data.leadId}`,
+      leadId: parsed.data.leadId,
+    });
+  }
+
   revalidatePath(`/admin/leads/${parsed.data.leadId}`);
   return { success: true, message: "Registered, and status moved to Demo Scheduled." };
 }

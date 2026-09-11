@@ -3,11 +3,13 @@ import {
   CalendarClock,
   CalendarDays,
   ChevronLeft,
+  Bell,
   Copy,
   GraduationCap,
   LineChart,
   MonitorPlay,
   Plus,
+  Settings,
   Users,
   type LucideIcon,
 } from "lucide-react";
@@ -15,6 +17,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { requireAdminPage } from "@/lib/admin";
 import { getCrmOverview } from "@/lib/actions/crm-overview";
+import { getNotificationSummary } from "@/lib/actions/notifications";
 import { getCurrentRole } from "@/lib/auth";
 import { canAccessAdminPath } from "@/lib/leads/roles";
 
@@ -104,7 +107,11 @@ function Group({
 export default async function AdminCrmPage() {
   await requireAdminPage("/admin/crm");
 
-  const [stats, role] = await Promise.all([getCrmOverview(), getCurrentRole()]);
+  const [stats, role, alerts] = await Promise.all([
+    getCrmOverview(),
+    getCurrentRole(),
+    getNotificationSummary(),
+  ]);
   const allowed = (f: Facility) => canAccessAdminPath(role, f.href);
 
   const capture: Facility[] = [
@@ -132,6 +139,15 @@ export default async function AdminCrmPage() {
   ];
 
   const work: Facility[] = [
+    {
+      title: "Notifications",
+      description:
+        "Overdue and due-today reminders, plus leads assigned to you and demos booked.",
+      href: "/admin/notifications",
+      icon: Bell,
+      stat: `${alerts.overdue} overdue · ${alerts.dueToday} today · ${alerts.unread} unread`,
+      attention: alerts.overdue + alerts.unread,
+    },
     {
       title: "Follow-ups",
       description:
@@ -192,7 +208,17 @@ export default async function AdminCrmPage() {
               Back to Dashboard
             </Link>
           </div>
-          <h1 className="text-xl font-bold">Lead &amp; Enquiry CRM</h1>
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <h1 className="text-xl font-bold">Lead &amp; Enquiry CRM</h1>
+            {canAccessAdminPath(role, "/admin/crm/settings") && (
+              <Link href="/admin/crm/settings">
+                <Button variant="outline" size="sm">
+                  <Settings className="mr-2 h-4 w-4" />
+                  Automation
+                </Button>
+              </Link>
+            )}
+          </div>
           <p className="text-sm text-muted-foreground">
             {stats.leads.today} enquir{stats.leads.today === 1 ? "y" : "ies"} today ·{" "}
             {stats.followUps.overdue} overdue follow-up

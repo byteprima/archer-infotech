@@ -17,6 +17,11 @@ import { getAssignableStaff } from "@/lib/actions/lead-assignment";
 import { AdmissionPanel } from "@/components/admin/admission-panel";
 import { getAdmissionForLead } from "@/lib/actions/admissions";
 import { findLeadsByPhone } from "@/lib/actions/lead-duplicates";
+import { MessageComposer } from "@/components/admin/message-composer";
+import {
+  getAvailableMessages,
+  getLeadMessages,
+} from "@/lib/actions/lead-messages";
 import { OtherEnquiriesPanel } from "@/components/admin/other-enquiries-panel";
 import { courses, getCourse } from "@/data/courses";
 import { resolveCourseSlugs } from "@/lib/courses/course-match";
@@ -61,6 +66,10 @@ export default async function AdminLeadDetailPage({ params }: AdminLeadDetailPag
   // Live, not a stored flag: it disappears the moment the other lead is closed
   // as Duplicate or its number corrected.
   const otherEnquiries = lead ? await findLeadsByPhone(lead.phone, leadId) : [];
+  const [prepared, messageHistory] = await Promise.all([
+    getAvailableMessages(leadId),
+    getLeadMessages(leadId),
+  ]);
 
   if (!lead) {
     notFound();
@@ -141,6 +150,12 @@ export default async function AdminLeadDetailPage({ params }: AdminLeadDetailPag
               demos={upcomingDemos}
               interests={interests}
               registrations={registrations}
+            />
+            <MessageComposer
+              leadId={lead.id}
+              waLink={prepared.waLink}
+              messages={prepared.messages}
+              history={messageHistory}
             />
             <FollowUpPanel
               leadId={lead.id}

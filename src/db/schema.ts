@@ -481,6 +481,121 @@ export const referenceCounters = sqliteTable(
   (table) => [primaryKey({ columns: [table.scope, table.year] })],
 );
 
+/**
+ * In-app notifications for counsellors.
+ *
+ * Only EVENT notifications are stored — something happened once, to a named
+ * person, and it must survive until they have seen it: a lead assigned to
+ * them, a demo scheduled for their lead.
+ *
+ * Time-based reminders (follow-up due today, follow-up overdue) are NOT rows
+ * here. They are derived live from `leads.follow_up_date` the way the queue
+ * page already derives them, because a stored "due today" is wrong by
+ * tomorrow morning and generating them needs a scheduler this project does
+ * not have. See lib/actions/notifications.ts.
+ *
+ * The spec asks that this be designed so WhatsApp and email can deliver the
+ * same notifications later; `channel` is what that hangs on, and today every
+ * row is "in_app".
+ */
+export const NOTIFICATION_TYPES = [
+  "LEAD_ASSIGNED",
+  "DEMO_SCHEDULED",
+  "ADMISSION_CONFIRMED",
+  "LEAD_REASSIGNED",
+] as const;
+export type NotificationType = (typeof NOTIFICATION_TYPES)[number];
+
+export const notifications = sqliteTable(
+  "notifications",
+  {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    /** Who should see it. Null means every admin — used for unassigned work. */
+    userId: text("user_id").references(() => user.id, { onDelete: "cascade" }),
+    type: text("type").notNull(),
+    title: text("title").notNull(),
+    body: text("body"),
+    /** Where clicking it should go. */
+    href: text("href"),
+    leadId: integer("lead_id").references(() => leads.id, { onDelete: "cascade" }),
+    /** "in_app" today. The seam for WhatsApp/email delivery later. */
+    channel: text("channel").notNull().default("in_app"),
+    readAt: integer("read_at", { mode: "timestamp" }),
+    createdAt: integer("created_at", { mode: "timestamp" })
+      .notNull()
+      .$defaultFn(() => new Date()),
+  },
+  (table) => [
+    index("notifications_user_read_idx").on(table.userId, table.readAt),
+    index("notifications_created_idx").on(table.createdAt),
+  ],
+);
+
+export type Notification = typeof notifications.$inferSelect;
+
+/**
+ * Admin-controlled CRM settings, as key/value.
+ *
+ * A table rather than environment variables because these are decisions the
+ * office makes and changes — whether new website enquiries are auto-assigned,
+ * and how soon the first follow-up is due. An env var change needs a deploy;
+ * this needs a click.
+ */
+export const crmSettings = sqliteTable("crm_settings", {
+  key: text("key").primaryKey(),
+  value: text("value").notNull(),
+  updatedAt: integer("updated_at", { mode: "timestamp" })
+    .notNull()
+    .$defaultFn(() => new Date()),
+});
+
+export type CrmSetting = typeof crmSettings.$inferSelect;
+
+/**
+ * Messages prepared for a lead — course details, syllabus, fees, a demo
+ * reminder.
+ *
+ * NOTHING IS SENT FROM HERE. The specification is explicit that WhatsApp must
+ * not be implemented without a configured provider, and there is none. What
+ * this does is compose the message from the lead's own data so a counsellor
+ * can copy it into WhatsApp, and record that it was prepared — which is the
+ * provider-independent abstraction the spec asks for. When a provider is
+ * added, it delivers these rows; nothing else has to change.
+ *
+ * `status` therefore never reaches "sent" today. It stops at "copied".
+ */
+export const MESSAGE_CHANNELS = ["whatsapp", "email", "sms"] as const;
+export const MESSAGE_STATUSES = ["draft", "copied", "queued", "sent", "failed"] as const;
+export type MessageChannel = (typeof MESSAGE_CHANNELS)[number];
+export type MessageStatus = (typeof MESSAGE_STATUSES)[number];
+
+export const messages = sqliteTable(
+  "messages",
+  {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    leadId: integer("lead_id")
+      .notNull()
+      .references(() => leads.id, { onDelete: "cascade" }),
+    channel: text("channel").notNull().default("whatsapp"),
+    /** Which template produced it, for reporting on what gets sent. */
+    template: text("template").notNull(),
+    subject: text("subject"),
+    body: text("body").notNull(),
+    status: text("status").notNull().default("draft"),
+    createdByUserId: text("created_by_user_id").references(() => user.id, {
+      onDelete: "set null",
+    }),
+    createdAt: integer("created_at", { mode: "timestamp" })
+      .notNull()
+      .$defaultFn(() => new Date()),
+    /** Set when a provider actually delivers it. Null for every row today. */
+    sentAt: integer("sent_at", { mode: "timestamp" }),
+  },
+  (table) => [index("messages_lead_idx").on(table.leadId)],
+);
+
+export type Message = typeof messages.$inferSelect;
+
 export type ReferenceCounter = typeof referenceCounters.$inferSelect;
 
 export type Admission = typeof admissions.$inferSelect;

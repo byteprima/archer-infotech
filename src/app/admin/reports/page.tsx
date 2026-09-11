@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { requireAdminPage } from "@/lib/admin";
 import {
+  getCampaignReport,
   getCounsellorReport,
   getCourseReport,
   getDashboardCharts,
@@ -141,8 +142,17 @@ export default async function AdminReportsPage({ searchParams }: ReportsPageProp
     to: params.to ?? null,
   };
 
-  const [metrics, charts, courses, sources, counsellors, lost, followUp, enquiries] =
-    await Promise.all([
+  const [
+    metrics,
+    charts,
+    courses,
+    sources,
+    counsellors,
+    lost,
+    followUp,
+    enquiries,
+    campaigns,
+  ] = await Promise.all([
       getDashboardMetrics(rangeInput),
       getDashboardCharts(rangeInput),
       getCourseReport(rangeInput),
@@ -151,6 +161,7 @@ export default async function AdminReportsPage({ searchParams }: ReportsPageProp
       getLostLeadReport(rangeInput),
       getFollowUpReport(rangeInput),
       getEnquiryReport(rangeInput),
+      getCampaignReport(rangeInput),
     ]);
 
   const range = metrics.range;
@@ -266,6 +277,32 @@ export default async function AdminReportsPage({ searchParams }: ReportsPageProp
               sources.rows.map((row) => (
                 <tr key={row.key} className="border-b last:border-0">
                   <td className="px-4 py-3">{row.key}</td>
+                  <td className="px-4 py-3 text-right tabular-nums">{row.enquiries}</td>
+                  <td className="px-4 py-3 text-right tabular-nums">{row.admissions}</td>
+                  <td className="px-4 py-3 text-right tabular-nums">{row.conversionRate}%</td>
+                  <td className="px-4 py-3 text-right tabular-nums">{formatPaise(row.fees)}</td>
+                </tr>
+              ))
+            )}
+          </Table>
+        </Section>
+
+        <Section
+          title="Campaign attribution"
+          description="Which campaign produced admissions, not just clicks. Fees are what was agreed, not collected."
+          exportHref={exportHref("campaign")}
+        >
+          <Table
+            head={["Source", "Medium", "Campaign", "Enquiries", "Admissions", "Conversion", "Fees agreed"]}
+          >
+            {campaigns.rows.length === 0 ? (
+              <Empty colSpan={7} />
+            ) : (
+              campaigns.rows.map((row) => (
+                <tr key={row.key} className="border-b last:border-0">
+                  <td className="px-4 py-3">{row.source}</td>
+                  <td className="px-4 py-3 text-right text-muted-foreground">{row.medium}</td>
+                  <td className="px-4 py-3 text-right text-muted-foreground">{row.campaign}</td>
                   <td className="px-4 py-3 text-right tabular-nums">{row.enquiries}</td>
                   <td className="px-4 py-3 text-right tabular-nums">{row.admissions}</td>
                   <td className="px-4 py-3 text-right tabular-nums">{row.conversionRate}%</td>

@@ -62,6 +62,11 @@ async function leadsWithAdmissions(range: DateRange) {
       createdAt: leads.createdAt,
       courseInterest: leads.courseInterest,
       source: leads.source,
+      utmSource: leads.utmSource,
+      utmMedium: leads.utmMedium,
+      utmCampaign: leads.utmCampaign,
+      utmContent: leads.utmContent,
+      landingPage: leads.landingPage,
       status: leads.status,
       priority: leads.priority,
       assignedToUserId: leads.assignedToUserId,
@@ -459,6 +464,75 @@ export async function getFollowUpReport(input: ReportRangeInput = {}) {
         overdue: overdueBy.get(key) ?? 0,
       }))
       .sort((a, b) => b.overdue - a.overdue || b.completed - a.completed),
+  };
+}
+
+
+/**
+ * Campaign attribution: which campaign produced admissions, not just clicks.
+ *
+ * Source-wise answers "where did the enquiries come from". This answers "which
+ * spend turned into a student", which is the question a marketing budget is
+ * actually settled on. Grouped on the full utm triple, because
+ * google/cpc/brand and google/cpc/java are different decisions.
+ *
+ * Fees are the fees AGREED on those admissions, not money collected — the
+ * column is `final_fee` and nothing in this system tracks receipts.
+ */
+export async function getCampaignReport(input: ReportRangeInput = {}) {
+  await requireAdminAction();
+  const range = rangeOf(input);
+  const rows = await leadsWithAdmissions(range);
+
+  const groups = new Map<
+    string,
+    {
+      source: string;
+      medium: string;
+      campaign: string;
+      enquiries: number;
+      admissions: number;
+      fees: number;
+    }
+  >();
+
+  for (const row of rows) {
+    // A lead with no UTMs at all is direct or organic, not a campaign. It is
+    // still counted, under its own label, so the totals reconcile with the
+    // source-wise report instead of quietly dropping rows.
+    const source = row.utmSource || row.source || "Direct / unattributed";
+    const medium = row.utmMedium || "—";
+    const campaign = row.utmCampaign || "—";
+    const key = `${source}|${medium}|${campaign}`;
+
+    const group =
+      groups.get(key) ??
+      { source, medium, campaign, enquiries: 0, admissions: 0, fees: 0 };
+    group.enquiries += 1;
+    if (isConverted(row)) {
+      group.admissions += 1;
+      group.fees += row.admissionFee ?? 0;
+    }
+    groups.set(key, group);
+  }
+
+  return {
+    range,
+    rows: [...groups.values()]
+      .map((group) => ({
+        ...group,
+        key: `${group.source}|${group.medium}|${group.campaign}`,
+        conversionRate: conversionRate(group.admissions, group.enquiries),
+      }))
+      // Admissions first: the point of this report is which spend produced
+      // students, so a campaign with one admission outranks one with fifty
+      // clicks and none.
+      .sort(
+        (a, b) =>
+          b.admissions - a.admissions ||
+          b.fees - a.fees ||
+          b.enquiries - a.enquiries,
+      ),
   };
 }
 

@@ -91,6 +91,25 @@ export async function assignLead(input: z.infer<typeof assignSchema>): Promise<A
       : `Unassigned lead #${leadId}`,
   });
 
+  // Tell the person who now owns it — not the person who did the assigning,
+  // who was standing right there when it happened.
+  if (userId && userId !== actor.actorId) {
+    const [lead] = await db
+      .select({ name: leads.name, courseInterest: leads.courseInterest })
+      .from(leads)
+      .where(eq(leads.id, leadId))
+      .limit(1);
+    const { notify } = await import("@/lib/actions/notifications");
+    await notify({
+      userId,
+      type: "LEAD_ASSIGNED",
+      title: `Lead assigned to you: ${lead?.name ?? `#${leadId}`}`,
+      body: lead?.courseInterest ?? null,
+      href: `/admin/leads/${leadId}`,
+      leadId,
+    });
+  }
+
   revalidatePath("/admin/leads");
   revalidatePath(`/admin/leads/${leadId}`);
   return { success: true, message: userId ? `Assigned to ${assigneeLabel}.` : "Unassigned." };
