@@ -432,6 +432,26 @@ interface CourseJsonLdProps {
    */
   price?: string;
   priceRange?: string;
+  /**
+   * SEO audit 2026-09-11 — four Course fields the pages had the data for
+   * and were not emitting.
+   *
+   * `syllabusSections` is the significant one: the curriculum is the most
+   * substantial thing on a course page and existed only as prose, so the
+   * one part of the page a prospective student actually evaluates was the
+   * one part no crawler could read as structure.
+   *
+   * Each carries only what the page already states. `teaches` mirrors the
+   * visible highlights, `coursePrerequisites` the visible prerequisites
+   * list, and each Syllabus section its module title and topic list — the
+   * long module prose is deliberately left out, because it is already in
+   * the HTML and repeating it in JSON-LD would double the page's weight to
+   * say nothing new.
+   */
+  teaches?: string[];
+  educationalLevel?: string;
+  coursePrerequisites?: string[];
+  syllabusSections?: { title: string; topics: string[] }[];
 }
 
 export function CourseJsonLd({
@@ -449,6 +469,10 @@ export function CourseJsonLd({
   reviews,
   price,
   priceRange,
+  teaches,
+  educationalLevel,
+  coursePrerequisites,
+  syllabusSections,
 }: CourseJsonLdProps) {
   const schema = {
     "@context": "https://schema.org",
@@ -478,6 +502,22 @@ export function CourseJsonLd({
       }),
     ...(duration && { timeRequired: duration }),
     ...(category && { courseCode: category }),
+    ...(educationalLevel && { educationalLevel }),
+    ...(teaches && teaches.length > 0 && { teaches }),
+    ...(coursePrerequisites &&
+      coursePrerequisites.length > 0 && { coursePrerequisites }),
+    // `position` rather than a week range: the module order is the useful
+    // machine-readable fact, and weekRange ("Weeks 2-3", "Final Week") is
+    // prose that would not survive being cast to an ISO 8601 duration.
+    ...(syllabusSections &&
+      syllabusSections.length > 0 && {
+        syllabusSections: syllabusSections.map((section, index) => ({
+          "@type": "Syllabus",
+          position: index + 1,
+          name: section.title,
+          ...(section.topics.length > 0 && { teaches: section.topics }),
+        })),
+      }),
     url: `${baseUrl}${url}`,
     inLanguage: "en",
     ...(datePublished && { datePublished }),

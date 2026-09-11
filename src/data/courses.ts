@@ -41,6 +41,21 @@ export interface Course {
    */
   seoDescription?: string;
   /**
+   * Optional per-course "last reviewed" date (ISO `YYYY-MM-DD`), overriding
+   * the shared `COURSE_LAST_REVIEWED` constant for this course alone.
+   *
+   * The shared constant is right for a change that flows through every
+   * course page — a schema pass, a link-graph refresh. It is wrong for a
+   * single course being rewritten, which is the common case: bumping it
+   * would claim freshness for sixty pages that did not change, and Google's
+   * helpful-content system penalises exactly that.
+   *
+   * Set this ONLY when this course's own content had a real editorial pass,
+   * and never as decoration. Feeds both the visible "Curriculum last
+   * reviewed" stamp and `Course.dateModified`, which must agree.
+   */
+  lastReviewed?: string;
+  /**
    * Curated cross-category related-course slugs, surfaced FIRST in the
    * "Related Courses" block. Use to pass crawl equity to a page that the
    * default same-category relatedness would never reach — e.g. the indexed,
@@ -2840,7 +2855,10 @@ export const courses: Course[] = [
     shortTitle: "Oracle",
     category: "Database Technologies",
     categorySlug: "database-technologies",
-    description: "Learn Oracle Database for enterprise applications. Master PL/SQL, database administration, and performance tuning.",
+    // Rebuilt from the detailed 60-module syllabus on 2026-09-11; the
+    // description has to describe that course, not the one it replaced.
+    lastReviewed: "2026-09-11",
+    description: "Learn Oracle Database from the relational model to a production system — Oracle SQL, database design and normalization, PL/SQL through packages, triggers and bulk processing, administration, backup and recovery with RMAN, and performance tuning. Finishes on a complete Hospital Management System database.",
     shortDescription: "Enterprise database with Oracle",
     duration: "3 Months",
     level: "Intermediate",

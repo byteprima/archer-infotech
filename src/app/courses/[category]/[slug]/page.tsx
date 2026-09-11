@@ -171,6 +171,10 @@ export default async function CoursePage({ params }: CoursePageProps) {
     : null;
   const trainers = getTrainersForCourse(slug);
   const rich = getCourseRichContent(slug);
+  // Per-course editorial date when this course had its own refresh, else the
+  // shared constant. Resolved once so `dateModified` and the visible
+  // "Curriculum last reviewed" stamp cannot drift apart.
+  const lastReviewed = course.lastReviewed ?? COURSE_LAST_REVIEWED;
   // Prefer the long-form FAQ when available — feeds both visible accordion
   // and FAQPage schema so AI engines and Google see the same questions.
   const effectiveFaqs = rich?.faqs ?? course.faqs;
@@ -248,7 +252,16 @@ export default async function CoursePage({ params }: CoursePageProps) {
         category={course.category}
         nextBatchStartDate={nextBatch ? new Date(nextBatch.startDate).toISOString() : undefined}
         nextBatchMode={nextBatch?.mode === "online" ? "online" : nextBatch ? "offline" : undefined}
-        dateModified={COURSE_LAST_REVIEWED}
+        dateModified={lastReviewed}
+        educationalLevel={course.level}
+        teaches={course.highlights}
+        coursePrerequisites={course.prerequisites}
+        /* The curriculum as structure, not just prose — module order and
+           topics, sourced from the same array the page renders. */
+        syllabusSections={rich?.curriculum.map((module) => ({
+          title: module.title,
+          topics: module.topics,
+        }))}
         aggregateRating={courseAggregateRating}
         reviews={courseReviewsForSchema}
       />
@@ -406,7 +419,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
               {/* Freshness signal — visible "Last updated" stamp paired
                   with dateModified in CourseJsonLd above. P3-18. */}
               <LastUpdated
-                iso={COURSE_LAST_REVIEWED}
+                iso={lastReviewed}
                 label="Curriculum last reviewed"
                 className="mt-5 text-xs md:text-sm text-white/70"
               />
