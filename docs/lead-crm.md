@@ -513,6 +513,24 @@ assistant are NOT built: each would need either a model making claims nobody
 can check, or training data this institute does not have. The architecture is
 there — `provider.ts` plus a settings key — for whoever wants to add them.
 
+### schema.ts must never use the "@/" alias
+
+`src/db/schema.ts` re-exports the lead statuses from `lib/leads/lifecycle.ts`.
+It did so through the `@/` alias, and that broke production silently.
+
+`package.json` starts the container with `drizzle-kit push && next start`.
+drizzle-kit loads `schema.ts` outside Next's module resolution, and inside the
+production image it could not resolve `@/lib/leads/lifecycle`. So push crashed
+on every container start — and Next started anyway, leaving the application
+running against a database with none of its new tables. The public site was
+fine; every CRM page and, worse, every new enquiry insert would have failed.
+
+The import is now relative. Nothing in `schema.ts` may use an aliased import,
+and `lifecycle.ts` itself must stay free of them too.
+
+It is worth knowing that `push` failing does not stop the app: the `&&` did not
+save us, because drizzle-kit exits 0 after printing the error.
+
 ## Tests
 
 `npm test` runs Node's own test runner through `tsx` — no test framework was

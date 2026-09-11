@@ -80,7 +80,12 @@ export const verification = sqliteTable("verification", {
  * against with z.enum — so after the lifecycle migration it would have
  * rejected every value the app now writes.
  */
-export { LEAD_STATUSES as LEAD_STATUS } from "@/lib/leads/lifecycle";
+// Relative, NOT the "@/" alias. drizzle-kit loads this file outside Next's
+// module resolution, and inside the production container it could not
+// resolve the alias — so `drizzle-kit push` crashed on every container
+// start, silently leaving the database without any of its new tables while
+// Next started anyway. Nothing in schema.ts may use an aliased import.
+export { LEAD_STATUSES as LEAD_STATUS } from "../lib/leads/lifecycle";
 // "hybrid" added for Phase 2: the institute runs hybrid batches and there was
 // no way to say so. The existing two values are untouched — they are read by
 // ~50 files including public pages and Course schema, and renaming them would
@@ -91,7 +96,7 @@ export const BATCH_MODE = ["offline", "online", "hybrid"] as const;
 // means the latter here, so only the former was missing.
 export const BATCH_STATUS = ["planned", "upcoming", "ongoing", "completed", "cancelled"] as const;
 
-export type { LeadStatus } from "@/lib/leads/lifecycle";
+export type { LeadStatus } from "../lib/leads/lifecycle";
 export type BatchMode = (typeof BATCH_MODE)[number];
 export type BatchStatus = (typeof BATCH_STATUS)[number];
 
