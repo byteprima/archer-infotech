@@ -531,6 +531,32 @@ and `lifecycle.ts` itself must stay free of them too.
 It is worth knowing that `push` failing does not stop the app: the `&&` did not
 save us, because drizzle-kit exits 0 after printing the error.
 
+### Never swallow Next's prerender bailout
+
+`getSession()` wrapped `auth.api.getSession({ headers: await headers() })` in a
+try/catch that returned null on any error. During static generation Next
+signals "this route cannot be prerendered" by THROWING from `headers()`.
+Catching it told Next the page had rendered fine — as the logged-out redirect —
+so Next prerendered **all 32 admin routes as static redirects to
+/admin/login**, served with `s-maxage=31536000`.
+
+The effect: nobody could sign in. Google OAuth completed, better-auth wrote a
+real session row, and then every admin request was answered by a year-cached
+static redirect that never looked at a cookie. Both auth mechanisms appeared
+broken because neither was ever consulted.
+
+It is diagnosed from the response, not the code: `cache-control:
+s-maxage=31536000` on a 307 from a route that must be per-request means the
+route was prerendered. `.next/prerender-manifest.json` confirms it.
+
+Fixed in two places, deliberately both:
+
+- `getSession()` rethrows the bailout (`digest` starting `DYNAMIC_SERVER_USAGE`,
+  or a "Dynamic server usage" message) instead of logging it.
+- `app/admin/layout.tsx` declares `export const dynamic = "force-dynamic"`.
+
+One of the two would do. The failure mode is bad enough to justify both.
+
 ## Tests
 
 `npm test` runs Node's own test runner through `tsx` — no test framework was

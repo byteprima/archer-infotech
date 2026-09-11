@@ -10,6 +10,21 @@ import {
 } from "./legacy-admin-auth";
 
 /**
+ * Next's prerender bailout, thrown from headers()/cookies() during static
+ * generation. It must reach Next, not a catch block — see getSession().
+ */
+function isNextDynamicUsage(error: unknown): boolean {
+  if (!error || typeof error !== "object") return false;
+  const e = error as { digest?: unknown; message?: unknown };
+  if (typeof e.digest === "string" && e.digest.startsWith("DYNAMIC_SERVER_USAGE")) {
+    return true;
+  }
+  return (
+    typeof e.message === "string" && e.message.includes("Dynamic server usage")
+  );
+}
+
+/**
  * Get the current session from better-auth
  */
 export async function getSession() {
@@ -24,6 +39,13 @@ export async function getSession() {
     });
     return session;
   } catch (error) {
+    // Next signals "this route cannot be prerendered" by THROWING from
+    // headers(). Swallowing that told Next the page had rendered fine — as a
+    // logged-out redirect — so it prerendered all 32 admin routes as static
+    // redirects to /admin/login, served with a year-long s-maxage. No cookie
+    // was ever consulted and nobody could sign in. Rethrow it so Next marks
+    // the route dynamic, which is what it is asking for.
+    if (isNextDynamicUsage(error)) throw error;
     console.error("Error getting session:", error);
     return null;
   }
