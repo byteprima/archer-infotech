@@ -8,6 +8,7 @@ import {
 import { getCurrentRole } from "@/lib/auth";
 import { canManageContent } from "@/lib/leads/roles";
 import { CrmSettingsForm } from "./_components/settings-form";
+import { hasAiProvider } from "@/lib/crm/ai/provider";
 
 export const metadata = { title: "CRM automation" };
 
@@ -45,6 +46,7 @@ export default async function CrmSettingsPage() {
           settings={settings}
           nextAssignee={nextName}
           canEdit={canManageContent(role)}
+          hasAiProvider={hasAiProvider()}
         />
       </main>
     </div>

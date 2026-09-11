@@ -10,6 +10,7 @@ export const CRM_SETTING_KEYS = [
   "auto_assign_enabled",
   "auto_follow_up_enabled",
   "auto_follow_up_days",
+  "ai_insights_enabled",
 ] as const;
 
 export type CrmSettingKey = (typeof CRM_SETTING_KEYS)[number];
@@ -21,12 +22,18 @@ export const CRM_SETTING_DEFAULTS: Record<CrmSettingKey, string> = {
   auto_assign_enabled: "false",
   auto_follow_up_enabled: "false",
   auto_follow_up_days: "1",
+  // Off. Summarising a lead posts a real student's education, situation and
+  // the counsellor's private notes to Google. That is a decision about other
+  // people's data and the institute makes it knowingly — it is not inherited
+  // because a key happened to be set for the SEO audit tool.
+  ai_insights_enabled: "false",
 };
 
 export const CRM_SETTING_LABELS: Record<CrmSettingKey, string> = {
   auto_assign_enabled: "Auto-assign new website enquiries",
   auto_follow_up_enabled: "Auto-schedule the first follow-up",
   auto_follow_up_days: "Days until that first follow-up",
+  ai_insights_enabled: "AI lead summaries",
 };
 
 export const CRM_SETTING_HELP: Record<CrmSettingKey, string> = {
@@ -36,6 +43,8 @@ export const CRM_SETTING_HELP: Record<CrmSettingKey, string> = {
     "Puts a follow-up date on every new website enquiry, so it appears in the call queue instead of waiting to be noticed.",
   auto_follow_up_days:
     "0 means today. 1 means tomorrow. Weekends are not skipped — the queue shows overdue clearly enough, and skipping them silently moves work people expected to see.",
+  ai_insights_enabled:
+    "Lets a counsellor generate a written briefing for a lead. This SENDS that lead's course interest, education, situation and your follow-up notes to Google's Gemini API. Names, phone numbers and email addresses are never sent. Lead scoring does not use this and works either way.",
 };
 
 export function isCrmSettingKey(value: unknown): value is CrmSettingKey {

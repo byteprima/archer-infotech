@@ -1,6 +1,6 @@
 # Lead & Enquiry Management — implementation notes
 
-Phases 1 to 5 of the Training Institute Lead & Enquiry Management
+Phases 1 to 6 of the Training Institute Lead & Enquiry Management
 specification. This file records the decisions taken while building them, so
 the reasoning survives the commit messages.
 
@@ -443,6 +443,75 @@ dropped, so the totals still reconcile with the source-wise report.
 
 Fees shown are what was **agreed**, not collected. Nothing in this system
 tracks receipts, and the column is labelled accordingly.
+
+### Phase 6: the scoring is deterministic, not a language model
+
+The specification's own example of an AI insight is a score followed by
+REASONS — "Demo attended · Asked about upcoming batch · Multiple interactions".
+That is a rules engine, and it is the right tool:
+
+1. The score decides who gets called first. A counsellor who cannot see why a
+   lead scored 82 cannot tell when it is wrong, and a wrong score silently
+   misallocates their day.
+2. It cannot hallucinate. The spec's hard rule is not to fabricate insights
+   where no scoring implementation exists; every number traces to a row.
+3. It costs nothing, is instant, needs no provider, and sends no student's
+   personal data anywhere.
+
+Weights live in `SCORE_WEIGHTS` as named constants so the office can see what
+the system believes and argue with it.
+
+**Scores are computed on read, never stored.** A stored score is wrong the
+moment a follow-up is logged, and a quietly stale score is worse than none —
+the counsellor works the list top-down and never learns it is out of date.
+
+**The counsellor's own HOT/WARM/COLD is not an input.** Feeding a human
+judgement into a score displayed next to that judgement is circular: it would
+agree with itself and tell nobody anything. They are shown side by side so a
+disagreement is visible, and the panel says outright that the score does not
+override the counsellor.
+
+**The raw total is reported when the score caps.** The panel lists the reasons
+and a counsellor can add them up; if they sum to 117 and the score reads 100,
+that must look like a cap and not an arithmetic error. Caught by running the
+scorer over real data — the unit test had not hit the ceiling.
+
+### Two gates on anything that calls a model
+
+`lib/crm/ai/provider.ts` returns either a real generated string or an explicit
+REASON there is none. It never returns a plausible-looking summary assembled
+from templates, which is exactly what the spec forbids.
+
+Both gates must be open:
+
+1. a provider key exists (`GEMINI_API_KEY` / `GOOGLE_API_KEY`), and
+2. the office has switched AI insights on (`ai_insights_enabled`, default
+   **false**).
+
+The second gate exists because of what the feature sends. Summarising a lead
+posts a real student's education, situation and the counsellor's private notes
+to Google. That is a decision about other people's data and the institute makes
+it knowingly — it is not inherited because a key happened to be set for the SEO
+audit tool. The settings screen states exactly what leaves the building.
+
+**Names, phone numbers, email addresses and enquiry numbers are never in the
+prompt.** The briefing is about what happened and what to do next; none of that
+needs an identity, and the counsellor is looking at the name on the same screen.
+`buildSummaryPrompt` has no field for them, and a test asserts they cannot leak.
+
+The prompt instructs the model to use only the supplied facts, to say plainly
+when no conversation has been recorded, and to invent nothing. The panel tells
+the reader to check anything it claims.
+
+### What Phase 6 deliberately does NOT do
+
+The spec lists eight AI capabilities and calls the whole phase "potential
+future implementation". Lead scoring and suggested next action ship, because
+they can be done honestly without a model. Lead summary ships behind the gates
+above. Conversion prediction, marketing-source analysis and a counsellor
+assistant are NOT built: each would need either a model making claims nobody
+can check, or training data this institute does not have. The architecture is
+there — `provider.ts` plus a settings key — for whoever wants to add them.
 
 ## Tests
 

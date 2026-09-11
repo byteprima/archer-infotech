@@ -9,6 +9,7 @@ import {
   LineChart,
   MonitorPlay,
   Plus,
+  TrendingUp,
   Settings,
   Users,
   type LucideIcon,
@@ -123,6 +124,14 @@ export default async function AdminCrmPage() {
       icon: Users,
       stat: `${stats.leads.total} total · ${stats.leads.new} new · ${stats.leads.hot} hot`,
       action: { label: "Add lead", href: "/admin/leads/new" },
+    },
+    {
+      title: "Priority leads",
+      description:
+        "Who to call first, ranked by what each person actually did. Reasons shown, no black box.",
+      href: "/admin/crm/hot",
+      icon: TrendingUp,
+      stat: "Scored fresh on every load",
     },
     {
       title: "Possible duplicates",

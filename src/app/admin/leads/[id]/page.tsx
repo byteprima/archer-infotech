@@ -18,6 +18,9 @@ import { AdmissionPanel } from "@/components/admin/admission-panel";
 import { getAdmissionForLead } from "@/lib/actions/admissions";
 import { findLeadsByPhone } from "@/lib/actions/lead-duplicates";
 import { MessageComposer } from "@/components/admin/message-composer";
+import { LeadInsightPanel } from "@/components/admin/lead-insight-panel";
+import { scoreOneLead } from "@/lib/actions/lead-scoring";
+import { isAiEnabled } from "@/lib/actions/lead-insights";
 import {
   getAvailableMessages,
   getLeadMessages,
@@ -66,9 +69,11 @@ export default async function AdminLeadDetailPage({ params }: AdminLeadDetailPag
   // Live, not a stored flag: it disappears the moment the other lead is closed
   // as Duplicate or its number corrected.
   const otherEnquiries = lead ? await findLeadsByPhone(lead.phone, leadId) : [];
-  const [prepared, messageHistory] = await Promise.all([
+  const [prepared, messageHistory, scored, aiGate] = await Promise.all([
     getAvailableMessages(leadId),
     getLeadMessages(leadId),
+    scoreOneLead(leadId),
+    isAiEnabled(),
   ]);
 
   if (!lead) {
@@ -123,6 +128,16 @@ export default async function AdminLeadDetailPage({ params }: AdminLeadDetailPag
               call is the most frequent action here, and burying it under a
               long form is what makes people stop logging. */}
           <div className="space-y-6">
+            {scored && (
+              <LeadInsightPanel
+                leadId={lead.id}
+                score={scored.score}
+                suggestion={scored.suggestion}
+                priority={lead.priority}
+                aiEnabled={aiGate.enabled}
+                aiReason={aiGate.reason}
+              />
+            )}
             <LeadControls
               leadId={lead.id}
               status={lead.status}

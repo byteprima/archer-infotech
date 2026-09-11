@@ -33,6 +33,7 @@ const saveSchema = z.object({
   auto_assign_enabled: z.enum(["true", "false"]),
   auto_follow_up_enabled: z.enum(["true", "false"]),
   auto_follow_up_days: z.string().trim(),
+  ai_insights_enabled: z.enum(["true", "false"]),
 });
 
 export async function saveCrmSettings(
