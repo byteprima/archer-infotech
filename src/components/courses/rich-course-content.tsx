@@ -258,7 +258,9 @@ export function RichCourseContentBelowFold({
                     {i + 1}
                   </span>
                   <div className="flex-grow">
-                    <CardTitle className="text-lg">{module.title}</CardTitle>
+                    <CardTitle as="h3" className="text-lg">
+                      {module.title}
+                    </CardTitle>
                     {module.weekRange && (
                       <p className="text-xs text-muted-foreground mt-1">
                         {module.weekRange}
@@ -395,7 +397,7 @@ export function RichCourseContentBelowFold({
           {rich.projects.map((project, i) => (
             <Card key={i} className="bg-muted/30">
               <CardHeader>
-                <CardTitle className="text-lg">
+                <CardTitle as="h3" className="text-lg">
                   Project {i + 1}: {project.title}
                 </CardTitle>
               </CardHeader>

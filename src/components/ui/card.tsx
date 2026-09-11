@@ -33,9 +33,24 @@ function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
-function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
+/**
+ * `as` lets a card title that is genuinely a content heading render as one.
+ *
+ * A card title is a div by default because most cards label a piece of UI —
+ * a filter panel, a stat tile — and putting those in the document outline
+ * fills it with chrome. But some cards carry real content, and a course
+ * page's twenty-five curriculum modules were the clearest case: the single
+ * most substantial thing on the page was absent from its heading outline
+ * entirely, which is what both screen-reader navigation and AI extraction
+ * walk. Opt in per call site; every existing caller is unchanged.
+ */
+function CardTitle({
+  className,
+  as: Component = "div",
+  ...props
+}: React.ComponentProps<"div"> & { as?: "div" | "h2" | "h3" | "h4" }) {
   return (
-    <div
+    <Component
       data-slot="card-title"
       className={cn(
         "font-heading text-base leading-snug font-medium group-data-[size=sm]/card:text-sm",
