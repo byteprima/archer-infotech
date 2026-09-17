@@ -19,7 +19,7 @@ import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 import { siteConfig } from "@/data/site-config";
 import { teamMembers } from "@/data/team";
 import { buildPageMetadata } from "@/lib/seo";
-import { EVERGREEN_LAST_REVIEWED, NEW_ASSETS_LAST_REVIEWED } from "@/lib/seo/content-dates";
+import { PRESS_LAST_REVIEWED } from "@/lib/seo/content-dates";
 import { LastUpdated } from "@/components/seo/last-updated";
 import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { FaqSection } from "@/components/seo/faq-section";
@@ -30,7 +30,7 @@ export const metadata: Metadata = buildPageMetadata({
   description:
     "Press and media resources for Archer Infotech — company fact sheet, founder bio, brand assets and press-enquiry contact. A Pune IT training institute since 2009 with 10,000+ students trained.",
   path: "/press",
-  lastModified: EVERGREEN_LAST_REVIEWED,
+  lastModified: PRESS_LAST_REVIEWED,
 });
 
 const founder = teamMembers.find((m) => m.id === "yogesh-patil");
@@ -39,26 +39,26 @@ const founder = teamMembers.find((m) => m.id === "yogesh-patil");
 const fastFacts: { label: string; value: string }[] = [
   { label: "Founded", value: "2009" },
   { label: "Years in operation", value: `${siteConfig.stats.yearsExperience} years` },
-  { label: "Headquarters", value: "Kothrud, Pune, Maharashtra, India" },
+  { label: "Headquarters", value: "Kothrud, Pune, Maharashtra, India; branch in Vishrambag, Sangli" },
   { label: "Students trained", value: `${siteConfig.stats.studentsTrained} (institute records)` },
   { label: "Students placed", value: `${siteConfig.stats.studentsPlaced} (institute records)` },
-  { label: "Placement rate", value: `${siteConfig.stats.placementRate} across placement-track programmes` },
+  { label: "Placement rate", value: `${siteConfig.stats.placementRate} ${siteConfig.stats.placementRateBasis} (institute records)` },
   { label: "Batches completed", value: siteConfig.stats.batchesCompleted },
   { label: "Courses offered", value: `${siteConfig.stats.courses} IT training courses` },
   { label: "Corporate partners", value: `${siteConfig.stats.corporatePartners} hiring & corporate-training partners` },
   { label: "Founder & Director", value: "Yogesh Patil" },
-  { label: "Training modes", value: "Classroom (Kothrud), live online, weekend & hybrid" },
+  { label: "Training modes", value: "Classroom (Kothrud and selected Sangli courses), live online, weekend & hybrid" },
   { label: "Languages of instruction", value: "English, Hindi, Marathi" },
 ];
 
 // Reusable boilerplate descriptions journalists can copy verbatim.
 const boilerplate = {
   short:
-    "Archer Infotech is a Pune-based IT training institute, founded in 2009, that has trained 10,000+ students and placed 5,000+ at leading IT companies.",
+    `Archer Infotech is an IT training institute headquartered in Kothrud, Pune, with a branch in Vishrambag, Sangli. Founded in ${siteConfig.foundingYear}, it has trained ${siteConfig.stats.studentsTrained} students and placed ${siteConfig.stats.studentsPlaced} at IT companies.`,
   medium:
-    "Founded in 2009 and based in Kothrud, Pune, Archer Infotech is an IT training institute that has trained 10,000+ students and placed 5,000+ professionals at companies across the IT industry. It offers 40+ courses spanning Java, Python, full-stack development, data science, AI/ML, cloud and DevOps — in classroom, live online and weekend formats — each backed by placement assistance and trainers with MNC experience.",
+    `Founded in ${siteConfig.foundingYear} and headquartered in Kothrud, Pune, with a branch in Vishrambag, Sangli, Archer Infotech is an IT training institute that has trained ${siteConfig.stats.studentsTrained} students and placed ${siteConfig.stats.studentsPlaced} professionals at companies across the IT industry. It offers ${siteConfig.stats.courses} courses spanning Java, Python, full-stack development, data science, AI/ML, cloud and DevOps in classroom, live online and weekend formats, backed by placement assistance and trainers with MNC experience.`,
   long:
-    "Archer Infotech is an IT training institute in Kothrud, Pune, founded in 2009 by Yogesh Patil. Over 17+ years it has trained more than 10,000 students and placed over 5,000 at IT companies, maintaining a 90% placement rate across its placement-track programmes (institute records). The institute offers 40+ courses — including Java, Python, full-stack development, data science, machine learning, generative AI, cloud and DevOps — delivered in classroom, live-online, weekend and hybrid formats. Its trainers are working professionals with 10–15+ years of MNC experience, and it runs three structured bootcamps (CodeLeap for 12th passouts, CareerCode for engineering students, and TechReady for graduates seeking placement). Archer Infotech maintains hiring and corporate-training relationships with 100+ partner companies.",
+    `Archer Infotech is an IT training institute headquartered in Kothrud, Pune, with a branch in Vishrambag, Sangli, founded in ${siteConfig.foundingYear} by Yogesh Patil. It has trained ${siteConfig.stats.studentsTrained} students and placed ${siteConfig.stats.studentsPlaced} at IT companies. Its institute-records placement rate is ${siteConfig.stats.placementRate} ${siteConfig.stats.placementRateBasis}; placement assistance is not a job guarantee. The institute offers ${siteConfig.stats.courses} courses — including Java, Python, full-stack development, data science, machine learning, generative AI, cloud and DevOps — delivered in classroom, live-online, weekend and hybrid formats. Its trainers are working professionals with 10–15+ years of MNC experience, and it runs ${siteConfig.stats.bootcamps} structured bootcamps (CodeLeap for 12th passouts, CareerCode for engineering students, and TechReady for graduates seeking placement). Archer Infotech maintains hiring and corporate-training relationships with ${siteConfig.stats.corporatePartners} partner companies.`,
 };
 
 function CopyableBlock({ label, text }: { label: string; text: string }) {
@@ -91,7 +91,7 @@ export default function PressPage() {
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 max-w-4xl">
             Press &amp; Media Kit
           </h1>
-          <LastUpdated iso={NEW_ASSETS_LAST_REVIEWED} className="mt-3 text-xs md:text-sm text-white/70" />
+          <LastUpdated iso={PRESS_LAST_REVIEWED} className="mt-3 text-xs md:text-sm text-white/70" />
           <p className="text-lg text-white/85 max-w-3xl">
             Resources for journalists, editors and partners writing about
             Archer Infotech — a Pune IT training institute operating since 2009.
@@ -110,7 +110,7 @@ export default function PressPage() {
         {/* Single text node — see the note on the blog index: adjacent JSX
             expressions serialise with HTML comment nodes between them, which
             naive extractors render as stray spaces. */}
-        {`This is the press and media kit for Archer Infotech, an IT training institute in Kothrud, Pune operating since ${siteConfig.foundingYear}. It is written for journalists, editors, listing sites and partners who need approved copy and assets rather than marketing pages: company boilerplate in several lengths, a verified fact sheet covering founding year, address, scale and course range, leadership bios for founder Yogesh Patil and the teaching team, downloadable brand assets, and a direct press contact. Everything here is cleared for publication as written and does not need further permission. The figures on this page are the canonical ones we ask to be quoted — 10,000+ students trained, 5,000+ placed, and a ${siteConfig.stats.placementRate} placement rate.`}
+        {`This is the press and media kit for Archer Infotech, an IT training institute headquartered in Kothrud, Pune, with a branch in Vishrambag, Sangli, operating since ${siteConfig.foundingYear}. It is written for journalists, editors, listing sites and partners who need approved copy and assets rather than marketing pages: company boilerplate in several lengths, a verified fact sheet covering founding year, address, scale and course range, leadership bios for founder Yogesh Patil and the teaching team, downloadable brand assets, and a direct press contact. Everything here is cleared for publication as written and does not need further permission. The canonical figures are ${siteConfig.stats.studentsTrained} students trained, ${siteConfig.stats.studentsPlaced} placed, and a ${siteConfig.stats.placementRate} institute-records placement rate ${siteConfig.stats.placementRateBasis}.`}
       </DefinitiveAnswer>
 
       <div className="container mx-auto px-4 py-12 md:py-16 space-y-16 max-w-5xl">
@@ -146,8 +146,8 @@ export default function PressPage() {
           </div>
           <p className="text-xs text-muted-foreground">
             Figures reflect Archer Infotech&apos;s internal training and
-            placement records as of {new Date(EVERGREEN_LAST_REVIEWED).getFullYear()}.
-            The placement rate is measured across placement-track programmes.
+            placement records as of {new Date(PRESS_LAST_REVIEWED).getFullYear()}.
+            The placement rate is measured {siteConfig.stats.placementRateBasis}.
           </p>
         </section>
 

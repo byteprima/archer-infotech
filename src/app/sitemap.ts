@@ -15,10 +15,16 @@ import {
 import { categoryToSlug } from "@/lib/blog/category-slug";
 import {
   EVERGREEN_LAST_REVIEWED,
+  HOME_LAST_REVIEWED,
   LOCATIONS_LAST_REVIEWED,
   COURSE_LAST_REVIEWED,
   BOOTCAMP_LAST_REVIEWED,
   NEW_ASSETS_LAST_REVIEWED,
+  COURSE_CATALOG_LAST_REVIEWED,
+  ENTITY_FACTS_LAST_REVIEWED,
+  PRESS_LAST_REVIEWED,
+  ABOUT_LAST_REVIEWED,
+  STUDENT_CITIES_LAST_REVIEWED,
   isoToDate,
 } from "@/lib/seo/content-dates";
 import { questionCategories } from "@/data/questions";
@@ -30,10 +36,16 @@ const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://archerinfotech.in";
 // well-known lastmod-discounting signal. Each route family now carries its
 // actual editorial review date and only bumps when that review happens.
 const EVERGREEN = isoToDate(EVERGREEN_LAST_REVIEWED);
+const HOME = isoToDate(HOME_LAST_REVIEWED);
 const COURSE = isoToDate(COURSE_LAST_REVIEWED);
 const BOOTCAMP = isoToDate(BOOTCAMP_LAST_REVIEWED);
 const NEW_ASSETS = isoToDate(NEW_ASSETS_LAST_REVIEWED);
 const LOCATIONS = isoToDate(LOCATIONS_LAST_REVIEWED);
+const COURSE_CATALOG = isoToDate(COURSE_CATALOG_LAST_REVIEWED);
+const ENTITY_FACTS = isoToDate(ENTITY_FACTS_LAST_REVIEWED);
+const PRESS = isoToDate(PRESS_LAST_REVIEWED);
+const ABOUT = isoToDate(ABOUT_LAST_REVIEWED);
+const STUDENT_CITIES = isoToDate(STUDENT_CITIES_LAST_REVIEWED);
 
 // Render at request time, not build time. The production image is built
 // without DATABASE_URL, so building this statically drops every DB-backed URL
@@ -42,17 +54,17 @@ const LOCATIONS = isoToDate(LOCATIONS_LAST_REVIEWED);
 export const dynamic = "force-dynamic";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  // Static pages — EVERGREEN review date for marketing surfaces touched by
-  // P8-07/P8-08; NEW_ASSETS for /press + /tools/* which shipped 2026-05-25.
+  // Static pages use route-family review dates so a focused content update
+  // does not claim unrelated evergreen pages changed too.
   const staticPages: MetadataRoute.Sitemap = [
-    { url: baseUrl, lastModified: EVERGREEN, changeFrequency: "weekly", priority: 1 },
-    { url: `${baseUrl}/about`, lastModified: EVERGREEN, changeFrequency: "monthly", priority: 0.8 },
+    { url: baseUrl, lastModified: HOME, changeFrequency: "weekly", priority: 1 },
+    { url: `${baseUrl}/about`, lastModified: ABOUT, changeFrequency: "monthly", priority: 0.8 },
     // P8-30 (2026-06-06): /about/facts is the AI-Briefing fact sheet —
     // designed to be the canonical source LLMs cite for grounding queries.
     // Higher priority (0.6) than /press because it's the entity-defining
     // page for AI retrievers.
-    { url: `${baseUrl}/about/facts`, lastModified: EVERGREEN, changeFrequency: "monthly", priority: 0.6 },
-    { url: `${baseUrl}/courses`, lastModified: EVERGREEN, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${baseUrl}/about/facts`, lastModified: ENTITY_FACTS, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${baseUrl}/courses`, lastModified: COURSE_CATALOG, changeFrequency: "weekly", priority: 0.9 },
     { url: `${baseUrl}/placements`, lastModified: EVERGREEN, changeFrequency: "monthly", priority: 0.8 },
     // P7-26 flagship trust page (2026-06-10) — student reviews +
     // testimonials hub with Review schema + AggregateRating from the
@@ -64,7 +76,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${baseUrl}/batch-schedule`, lastModified: EVERGREEN, changeFrequency: "weekly", priority: 0.8 },
     { url: `${baseUrl}/blog`, lastModified: EVERGREEN, changeFrequency: "weekly", priority: 0.8 },
     { url: `${baseUrl}/contact`, lastModified: EVERGREEN, changeFrequency: "monthly", priority: 0.6 },
-    { url: `${baseUrl}/press`, lastModified: NEW_ASSETS, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${baseUrl}/press`, lastModified: PRESS, changeFrequency: "monthly", priority: 0.5 },
     { url: `${baseUrl}/tools/pune-it-salary-calculator`, lastModified: NEW_ASSETS, changeFrequency: "monthly", priority: 0.7 },
     { url: `${baseUrl}/tools/pune-it-career-roadmap`, lastModified: NEW_ASSETS, changeFrequency: "monthly", priority: 0.7 },
     // P6-13 — Pune IT Hiring Report 2026 landing page (live preview +
@@ -178,11 +190,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // added 2026-07-03 to de-orphan those families (they previously had no hub
   // and stalled at "discovered / not indexed" in GSC).
   const cityFeederHub: MetadataRoute.Sitemap = [
-    { url: `${baseUrl}/it-training-in-pune-for`, lastModified: LOCATIONS, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${baseUrl}/it-training-in-pune-for`, lastModified: STUDENT_CITIES, changeFrequency: "monthly", priority: 0.7 },
   ];
   const cityFeederPages: MetadataRoute.Sitemap = studentCities.map((c) => ({
     url: `${baseUrl}/it-training-in-pune-for/${c.slug}`,
-    lastModified: LOCATIONS,
+    lastModified: STUDENT_CITIES,
     changeFrequency: "monthly",
     priority: 0.6,
   }));

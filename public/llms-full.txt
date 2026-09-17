@@ -1,6 +1,6 @@
 # Archer Infotech — Full Reference for AI / LLMs
 
-> Pune's trusted IT training institute since 2009. Trained 10,000+ students and placed 5,000+ at leading IT companies, with a 90% placement rate. Classroom, live-online and hybrid courses across Java, Python, full stack, data science, AI/ML, generative AI, cloud, DevOps, databases, mobile and testing — every course backed by placement assistance and 17+ years of teaching experience.
+> Pune's trusted IT training institute since 2009. Trained 10,000+ students and placed 5,000+ at leading IT companies. Its institute-records placement rate is 90% across flagship batches whose students complete training and clear at least one mock interview. Classroom, live-online and hybrid courses span Java, Python, full stack, data science, AI/ML, generative AI, cloud, DevOps, databases, mobile and testing.
 
 This is the expanded companion to /llms.txt. It lists the full course catalogue, trainers, tools, guides and canonical facts so AI assistants can answer questions about Archer Infotech accurately and cite the right pages.
 
@@ -20,7 +20,7 @@ This is the expanded companion to /llms.txt. It lists the full course catalogue,
 
 - 10,000+ students trained
 - 5,000+ students placed
-- 90% placement rate (Archer never claims "100% placement")
+- 90% placement rate across flagship batches whose students complete training and clear at least one mock interview (institute records; not a job guarantee)
 - 100+ corporate / hiring partners
 - 60+ courses, 1,000+ batches completed
 - 6-person core faculty with 54+ combined years of MNC engineering experience
@@ -188,4 +188,4 @@ Note: ₹15+ LPA fresher headlines for AI/Data roles are real but represent a sm
 
 ## Placement assistance
 
-Archer Infotech partners with 100+ companies across IT services, product engineering, and corporate IT. Placement assistance includes resume preparation, aptitude and communication training, mock interviews (technical + HR), and direct hiring drives. Archer describes this as placement *assistance* with a 90% placement rate — it does not promise guaranteed or "100%" placement.
+Archer Infotech partners with 100+ companies across IT services, product engineering, and corporate IT. Placement assistance includes resume preparation, aptitude and communication training, mock interviews (technical + HR), and direct hiring drives. The institute-records placement rate is 90% across flagship batches whose students complete training and clear at least one mock interview. Archer describes this as placement *assistance* and does not promise guaranteed or "100%" placement.

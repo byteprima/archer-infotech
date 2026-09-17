@@ -7,7 +7,7 @@ import { BreadcrumbJsonLd, CategoryCollectionJsonLd } from "@/components/seo/jso
 import { LastUpdated } from "@/components/seo/last-updated";
 import { studentCities } from "@/data/student-cities";
 import { buildPageMetadata } from "@/lib/seo";
-import { LOCATIONS_LAST_REVIEWED } from "@/lib/seo/content-dates";
+import { STUDENT_CITIES_LAST_REVIEWED } from "@/lib/seo/content-dates";
 import { DefinitiveAnswer } from "@/components/seo/definitive-answer";
 import { SourceCitations } from "@/components/seo/source-citations";
 import { sourcesForTopics } from "@/data/authoritative-sources";
@@ -19,7 +19,7 @@ export const metadata: Metadata = buildPageMetadata({
   description:
     "Online and classroom IT training in Pune for students from Kolhapur, Nashik, Sangli, Satara, Solapur, Ahmednagar and Pandharpur — same curriculum, trainers and 90% placement support, whichever city you are in.",
   path: "/it-training-in-pune-for",
-  lastModified: LOCATIONS_LAST_REVIEWED,
+  lastModified: STUDENT_CITIES_LAST_REVIEWED,
 });
 
 // Hub index for the /it-training-in-pune-for/[city] cluster. Created to give
@@ -106,7 +106,7 @@ export default function CityFeederHubPage() {
         </div>
 
         <div className="mx-auto mt-12 max-w-5xl">
-          <LastUpdated iso={LOCATIONS_LAST_REVIEWED} />
+          <LastUpdated iso={STUDENT_CITIES_LAST_REVIEWED} />
         </div>
       </section>
       <SourceCitations

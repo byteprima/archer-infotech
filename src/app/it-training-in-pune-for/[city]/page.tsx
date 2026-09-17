@@ -33,7 +33,7 @@ import { studentCities, getStudentCity } from "@/data/student-cities";
 import { getCourse } from "@/data/courses";
 import { siteConfig } from "@/data/site-config";
 import { buildPageMetadata } from "@/lib/seo";
-import { LOCATIONS_LAST_REVIEWED } from "@/lib/seo/content-dates";
+import { STUDENT_CITIES_LAST_REVIEWED } from "@/lib/seo/content-dates";
 import { cn } from "@/lib/utils";
 import { SourceCitations } from "@/components/seo/source-citations";
 import { sourcesForTopics } from "@/data/authoritative-sources";
@@ -57,7 +57,7 @@ export async function generateMetadata({
     title: data.metaTitle,
     description: data.metaDescription,
     path: `/it-training-in-pune-for/${city}`,
-    lastModified: LOCATIONS_LAST_REVIEWED,
+    lastModified: STUDENT_CITIES_LAST_REVIEWED,
   });
 }
 
@@ -633,7 +633,7 @@ export default async function CityFeederPage({ params }: CityPageProps) {
               </>
             )}
             <div className="mt-6">
-              <LastUpdated iso={LOCATIONS_LAST_REVIEWED} />
+              <LastUpdated iso={STUDENT_CITIES_LAST_REVIEWED} />
             </div>
           </div>
         </div>

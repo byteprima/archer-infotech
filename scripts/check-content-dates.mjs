@@ -25,10 +25,20 @@ import { readFileSync } from "node:fs";
 
 /** Which data files each constant is meant to describe. */
 const GOVERNS = {
+  HOME_LAST_REVIEWED: ["src/app/page.tsx", "src/data/faqs.ts"],
   COURSE_LAST_REVIEWED: ["src/data/courses.ts"],
   BOOTCAMP_LAST_REVIEWED: ["src/data/bootcamps.ts"],
   LOCATIONS_LAST_REVIEWED: ["src/data/locations.ts", "src/data/course-locations.ts"],
-  NEW_ASSETS_LAST_REVIEWED: ["src/data/student-cities.ts"],
+  STUDENT_CITIES_LAST_REVIEWED: ["src/data/student-cities.ts"],
+  ABOUT_LAST_REVIEWED: ["src/app/about/page.tsx"],
+  ENTITY_FACTS_LAST_REVIEWED: ["src/app/about/facts/page.tsx", "src/data/site-config.ts"],
+  COURSE_CATALOG_LAST_REVIEWED: ["src/app/courses/page.tsx", "src/data/courses.ts"],
+  PRESS_LAST_REVIEWED: ["src/app/press/page.tsx"],
+  NEW_ASSETS_LAST_REVIEWED: [
+    "src/data/audiences.ts",
+    "src/data/comparisons.ts",
+    "src/data/listicles.ts",
+  ],
 };
 
 const src = readFileSync("src/lib/seo/content-dates.ts", "utf8");

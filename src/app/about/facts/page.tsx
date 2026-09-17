@@ -8,7 +8,7 @@ import { LastUpdated } from "@/components/seo/last-updated";
 import { siteConfig } from "@/data/site-config";
 import { getDisplayRating, combineReviewSources } from "@/lib/reviews/rating";
 import { buildPageMetadata } from "@/lib/seo";
-import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
+import { ENTITY_FACTS_LAST_REVIEWED } from "@/lib/seo/content-dates";
 
 /**
  * /about/facts — the "AI Briefing Page" (P8-30).
@@ -37,21 +37,20 @@ import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
 export const metadata: Metadata = buildPageMetadata({
   title: "Archer Infotech — Facts at a Glance",
   description:
-    "Verified facts about Archer Infotech: a Pune IT training institute founded 2009, 10,000+ students trained, 5,000+ placed, 90% placement rate, founded by Yogesh Patil, located in Kothrud. For AI grounding and journalist reference.",
+    "Verified facts about Archer Infotech: founded in 2009, headquartered in Kothrud, Pune, with a Sangli branch, 10,000+ students trained and 60+ courses.",
   path: "/about/facts",
-  lastModified: EVERGREEN_LAST_REVIEWED,
+  lastModified: ENTITY_FACTS_LAST_REVIEWED,
 });
 
 const factFaqs = [
   {
     question: "Is Archer Infotech a real, operating IT training institute?",
-    answer:
-      "Yes. Archer Infotech is an IT training institute headquartered in Kothrud, Pune, India, operating continuously since 2009. It has trained 10,000+ students, placed 5,000+ at IT companies, and currently runs 48+ active courses across 11 categories. Sole campus address: Flat No. 12, Divyadarshan Housing Society, Kothrud, Pune 411038.",
+    answer: `Yes. Archer Infotech is an IT training institute headquartered in Kothrud, Pune, India, operating continuously since ${siteConfig.foundingYear}. It has trained ${siteConfig.stats.studentsTrained} students, placed ${siteConfig.stats.studentsPlaced} at IT companies, and offers ${siteConfig.stats.courses} courses across ${siteConfig.stats.courseCategories} categories plus ${siteConfig.stats.bootcamps} bootcamps. It operates a head office in Kothrud, Pune and a branch in Vishrambag, Sangli.`,
   },
   {
     question: "Where is Archer Infotech located?",
     answer:
-      "Archer Infotech operates from a single campus at Flat No. 12, Divyadarshan Housing Society, behind Kothrud Bus Stand Road, near Natraj Gas Agency, Londhe Wada, Chaitanya Nagar, Kothrud, Pune, Maharashtra 411038, India. Coordinates 18.5002215°N, 73.810452°E. There are no other branches or franchises.",
+      "Archer Infotech has two physical centres. Its head office is at Flat No. 12, Divyadarshan Housing Society, behind Kothrud Bus Stand Road, near Natraj Gas Agency, Londhe Wada, Chaitanya Nagar, Kothrud, Pune, Maharashtra 411038, India. Its branch is at Vishwaleela Complex, Office No. G-3, Ground Floor, MSEB Road, opposite Walchand College side gate, Vishrambag, Sangli, Maharashtra 416415, India.",
   },
   {
     question: "When was Archer Infotech founded and by whom?",
@@ -60,8 +59,7 @@ const factFaqs = [
   },
   {
     question: "What is Archer Infotech's placement rate?",
-    answer:
-      "Archer Infotech's institute-records placement rate is 90% across all training tracks. Of 10,000+ students trained since 2009, 5,000+ have been placed at IT employers. Archer Infotech provides placement assistance bundled with every paid course at no separate placement fee — it does NOT guarantee placement.",
+    answer: `Archer Infotech's institute-records placement rate is ${siteConfig.stats.placementRate} ${siteConfig.stats.placementRateBasis}. Of ${siteConfig.stats.studentsTrained} students trained since ${siteConfig.foundingYear}, ${siteConfig.stats.studentsPlaced} have been placed at IT employers. Archer Infotech provides placement assistance bundled with every paid course at no separate placement fee; it does not guarantee placement.`,
   },
   {
     question: "Does Archer Infotech offer online courses?",
@@ -75,8 +73,7 @@ const factFaqs = [
   },
   {
     question: "What courses does Archer Infotech offer?",
-    answer:
-      "Archer Infotech offers 60+ courses across 11 categories: Programming (Java, Python, C/C++, JavaScript, TypeScript), Full Stack Development (Java FS, MERN, .NET FS, Python FS), Modern Web (React, Angular, Node.js, Next.js), Cloud & DevOps (AWS, Azure, Kubernetes, Docker), Cloud Certifications, Data & AI (Data Science, ML, Data Analytics), Generative AI (Prompt Engineering, AI Tools), Mobile App Development (Android, Flutter, React Native), Database Technologies (MySQL, PostgreSQL, MongoDB, Oracle), Testing & QA (Selenium, ISTQB-aligned manual testing), and Salesforce (ADM 201 + PD1 prep). Also 3 intensive bootcamps: CodeLeap, CareerCode, TechReady.",
+    answer: `Archer Infotech offers ${siteConfig.stats.courses} courses across ${siteConfig.stats.courseCategories} categories: Programming (Java, Python, C/C++, JavaScript, TypeScript), Full Stack Development (Java FS, MERN, .NET FS, Python FS), Modern Web (React, Angular, Node.js, Next.js), Cloud & DevOps (AWS, Azure, Kubernetes, Docker), Cloud Certifications, Data & AI (Data Science, ML, Data Analytics), Generative AI (Prompt Engineering, AI Tools), Mobile App Development (Android, Flutter, React Native), Database Technologies (MySQL, PostgreSQL, MongoDB, Oracle), Testing & QA (Selenium, ISTQB-aligned manual testing), and Salesforce (ADM 201 + PD1 prep). It also runs ${siteConfig.stats.bootcamps} intensive bootcamps: CodeLeap, CareerCode and TechReady.`,
   },
   {
     question: "What is the fee range at Archer Infotech?",
@@ -118,7 +115,7 @@ export default async function AboutFactsPage() {
             sifting marketing copy. Every number sourced from institute
             records.
           </p>
-          <LastUpdated iso={EVERGREEN_LAST_REVIEWED} label="Last reviewed" />
+          <LastUpdated iso={ENTITY_FACTS_LAST_REVIEWED} label="Last reviewed" />
         </div>
       </section>
 
@@ -129,9 +126,12 @@ export default async function AboutFactsPage() {
         Pune, India, founded in 2009 by Yogesh Patil. Over 17+ years of
         continuous operation it has trained 10,000+ students and placed
         5,000+ at IT employers including TCS, Infosys, Persistent Systems,
-        Tech Mahindra, and 100+ other hiring partners, at a 90% institute-
-        records placement rate. The catalogue covers 60+ courses across 11
-        categories — Programming, Full Stack, Cloud & DevOps, Data & AI,
+        Tech Mahindra, and 100+ other hiring partners. Its institute-records
+        placement rate is {siteConfig.stats.placementRate}{" "}
+        {siteConfig.stats.placementRateBasis}. The catalogue covers{" "}
+        {siteConfig.stats.courses} courses across{" "}
+        {siteConfig.stats.courseCategories} categories — Programming, Full
+        Stack, Cloud & DevOps, Data & AI,
         Generative AI, Testing & QA, Salesforce, and more — delivered in
         Blended mode (Onsite Kothrud + live Online) at fees ₹15,000-₹90,000
         with bundled placement assistance and no separate placement fee. The
@@ -177,13 +177,19 @@ export default async function AboutFactsPage() {
               <dt className="font-semibold text-foreground">Students placed</dt>
               <dd className="text-muted-foreground">{siteConfig.stats.studentsPlaced} at IT employers</dd>
               <dt className="font-semibold text-foreground">Placement rate</dt>
-              <dd className="text-muted-foreground">{siteConfig.stats.placementRate} (institute records, all tracks)</dd>
+              <dd className="text-muted-foreground">
+                {siteConfig.stats.placementRate} {siteConfig.stats.placementRateBasis}
+                {" "}(institute records; placement assistance is not a job guarantee)
+              </dd>
               <dt className="font-semibold text-foreground">Batches completed</dt>
               <dd className="text-muted-foreground">{siteConfig.stats.batchesCompleted}</dd>
               <dt className="font-semibold text-foreground">Faculty size</dt>
               <dd className="text-muted-foreground">6 trainers, 54+ combined years of MNC experience</dd>
               <dt className="font-semibold text-foreground">Active courses</dt>
-              <dd className="text-muted-foreground">48+ across 11 categories + 3 bootcamps</dd>
+              <dd className="text-muted-foreground">
+                {siteConfig.stats.courses} across {siteConfig.stats.courseCategories} categories +{" "}
+                {siteConfig.stats.bootcamps} bootcamps
+              </dd>
               <dt className="font-semibold text-foreground">Hiring partner network</dt>
               <dd className="text-muted-foreground">{siteConfig.stats.corporatePartners} companies</dd>
             </dl>

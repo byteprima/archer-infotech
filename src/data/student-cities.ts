@@ -213,7 +213,7 @@ export const studentCities: StudentCity[] = [
       "Established 2009 — 17+ years training Pune's IT workforce, with 10,000+ students trained and 5,000+ placed.",
       "90% placement support with a 100+ company hiring-partner network (active recruiters include Amdocs, Capgemini, MindTree, and Tech Mahindra).",
       "Same trainers and curriculum whether you choose live online or classroom.",
-      "40+ job-focused courses across programming, full stack, data, AI, and cloud/DevOps.",
+      "60+ job-focused courses across programming, full stack, data, AI, and cloud/DevOps.",
     ],
     popularCourseSlugs: [
       "java-full-stack-training-in-pune",
@@ -392,7 +392,7 @@ export const studentCities: StudentCity[] = [
       "Established 2009 — 17+ years in Pune, 10,000+ students trained and 5,000+ placed.",
       "90% placement support and a 100+ company hiring-partner network (active recruiters include Amdocs, Capgemini, MindTree, and Tech Mahindra).",
       "Identical curriculum and trainers across live online and classroom modes.",
-      "40+ career-focused courses — full stack, programming, data & AI, cloud and DevOps.",
+      "60+ career-focused courses — full stack, programming, data & AI, cloud and DevOps.",
     ],
     popularCourseSlugs: [
       "java-full-stack-training-in-pune",
@@ -771,7 +771,7 @@ export const studentCities: StudentCity[] = [
       "17+ years training Pune's tech workforce — 10,000+ students trained and 5,000+ placed since 2009.",
       "90% placement support powered by a 100+ company hiring network, including Amdocs, Capgemini, MindTree and Tech Mahindra.",
       "Identical curriculum and mentors whether you study live online or at the Pune campus.",
-      "40+ career tracks spanning programming, full stack, data, AI, cloud and DevOps.",
+      "60+ career tracks spanning programming, full stack, data, AI, cloud and DevOps.",
     ],
     popularCourseSlugs: [
       "python-training-in-pune",
@@ -950,7 +950,7 @@ export const studentCities: StudentCity[] = [
       "Established 2009 — 17+ years in Pune, with 10,000+ students trained and 5,000+ placed.",
       "90% placement support and a 100+ company hiring network, including Amdocs, Capgemini, MindTree and Tech Mahindra.",
       "The same curriculum and trainers across live online and Pune classroom modes.",
-      "40+ job-focused courses across full stack, programming, data, AI, cloud and DevOps.",
+      "60+ job-focused courses across full stack, programming, data, AI, cloud and DevOps.",
     ],
     popularCourseSlugs: [
       "java-full-stack-training-in-pune",
@@ -1128,7 +1128,7 @@ export const studentCities: StudentCity[] = [
       "Training Pune's IT talent since 2009 — 17+ years, 10,000+ students trained and 5,000+ placed.",
       "90% placement support with a 100+ company hiring network, including Amdocs, Capgemini, MindTree and Tech Mahindra.",
       "Same curriculum and trainers whether you learn online from Pandharpur or at the Pune campus.",
-      "40+ courses across programming, web, full stack, data, AI, cloud and DevOps.",
+      "60+ courses across programming, web, full stack, data, AI, cloud and DevOps.",
     ],
     popularCourseSlugs: [
       "python-training-in-pune",
@@ -1306,7 +1306,7 @@ export const studentCities: StudentCity[] = [
       "Since 2009 — 17+ years in Pune, 10,000+ students trained and 5,000+ placed.",
       "90% placement support with a 100+ company hiring network, including Amdocs, Capgemini, MindTree and Tech Mahindra.",
       "Same curriculum and trainers across live online and Pune classroom modes.",
-      "40+ job-focused courses spanning programming, full stack, data, AI, cloud and DevOps.",
+      "60+ job-focused courses spanning programming, full stack, data, AI, cloud and DevOps.",
     ],
     popularCourseSlugs: [
       "java-full-stack-training-in-pune",
@@ -1483,7 +1483,7 @@ export const studentCities: StudentCity[] = [
       "Since 2009 — 17+ years in Pune, 10,000+ students trained and 5,000+ placed.",
       "90% placement support with a 100+ company hiring network, including Amdocs, Capgemini, MindTree and Tech Mahindra.",
       "Same curriculum and trainers across live online and Pune classroom modes.",
-      "40+ job-focused courses spanning programming, full stack, data, AI, cloud and DevOps.",
+      "60+ job-focused courses spanning programming, full stack, data, AI, cloud and DevOps.",
     ],
     popularCourseSlugs: [
       "java-full-stack-training-in-pune",
@@ -1604,7 +1604,7 @@ export const studentCities: StudentCity[] = [
       "Since 2009 — 17+ years in Pune, 10,000+ students trained and 5,000+ placed.",
       "90% placement support with a 100+ company hiring network, including Amdocs, Capgemini, MindTree and Tech Mahindra.",
       "Same curriculum and trainers across live online and Pune classroom modes.",
-      "40+ job-focused courses spanning programming, full stack, data, AI, cloud and DevOps.",
+      "60+ job-focused courses spanning programming, full stack, data, AI, cloud and DevOps.",
     ],
     popularCourseSlugs: [
       "java-full-stack-training-in-pune",
@@ -1726,7 +1726,7 @@ export const studentCities: StudentCity[] = [
       "Since 2009 — 17+ years in Pune, 10,000+ students trained and 5,000+ placed.",
       "90% placement support with a 100+ company hiring network, including Amdocs, Capgemini, MindTree and Tech Mahindra.",
       "Same curriculum and trainers across live online and Pune classroom modes.",
-      "40+ job-focused courses spanning programming, full stack, data, AI, cloud and DevOps.",
+      "60+ job-focused courses spanning programming, full stack, data, AI, cloud and DevOps.",
     ],
     popularCourseSlugs: [
       "java-full-stack-training-in-pune",
@@ -1848,7 +1848,7 @@ export const studentCities: StudentCity[] = [
       "Since 2009 — 17+ years in Pune, 10,000+ students trained and 5,000+ placed.",
       "90% placement support with a 100+ company hiring network, including Amdocs, Capgemini, MindTree and Tech Mahindra.",
       "Same curriculum and trainers across live online and Pune classroom modes.",
-      "40+ job-focused courses spanning programming, full stack, data, AI, cloud and DevOps.",
+      "60+ job-focused courses spanning programming, full stack, data, AI, cloud and DevOps.",
     ],
     popularCourseSlugs: [
       "java-full-stack-training-in-pune",
@@ -1970,7 +1970,7 @@ export const studentCities: StudentCity[] = [
       "Since 2009 — 17+ years in Pune, 10,000+ students trained and 5,000+ placed.",
       "90% placement support with a 100+ company hiring network, including Amdocs, Capgemini, MindTree and Tech Mahindra.",
       "Same curriculum and trainers across live online and Pune classroom modes.",
-      "40+ job-focused courses spanning programming, full stack, data, AI, cloud and DevOps.",
+      "60+ job-focused courses spanning programming, full stack, data, AI, cloud and DevOps.",
     ],
     popularCourseSlugs: [
       "java-full-stack-training-in-pune",
@@ -2091,7 +2091,7 @@ export const studentCities: StudentCity[] = [
       "Since 2009 — 17+ years in Pune, 10,000+ students trained and 5,000+ placed.",
       "90% placement support with a 100+ company hiring network, including Amdocs, Capgemini, MindTree and Tech Mahindra.",
       "Same curriculum and trainers across live online and Pune classroom modes.",
-      "40+ job-focused courses spanning programming, full stack, data, AI, cloud and DevOps.",
+      "60+ job-focused courses spanning programming, full stack, data, AI, cloud and DevOps.",
     ],
     popularCourseSlugs: [
       "java-full-stack-training-in-pune",
@@ -2213,7 +2213,7 @@ export const studentCities: StudentCity[] = [
       "Since 2009 — 17+ years in Pune, 10,000+ students trained and 5,000+ placed.",
       "90% placement support with a 100+ company hiring network, including Amdocs, Capgemini, MindTree and Tech Mahindra.",
       "Same curriculum and trainers across live online and Pune classroom modes.",
-      "40+ job-focused courses spanning programming, full stack, data, AI, cloud and DevOps.",
+      "60+ job-focused courses spanning programming, full stack, data, AI, cloud and DevOps.",
     ],
     popularCourseSlugs: [
       "java-full-stack-training-in-pune",
@@ -2335,7 +2335,7 @@ export const studentCities: StudentCity[] = [
       "Since 2009 — 17+ years in Pune, 10,000+ students trained and 5,000+ placed.",
       "90% placement support with a 100+ company hiring network, including Amdocs, Capgemini, MindTree and Tech Mahindra.",
       "Same curriculum and trainers across live online and Pune classroom modes.",
-      "40+ job-focused courses spanning programming, full stack, data, AI, cloud and DevOps.",
+      "60+ job-focused courses spanning programming, full stack, data, AI, cloud and DevOps.",
     ],
     popularCourseSlugs: [
       "java-full-stack-training-in-pune",
@@ -2457,7 +2457,7 @@ export const studentCities: StudentCity[] = [
       "Since 2009 — 17+ years in Pune, 10,000+ students trained and 5,000+ placed.",
       "90% placement support with a 100+ company hiring network, including Amdocs, Capgemini, MindTree and Tech Mahindra.",
       "Same curriculum and trainers across live online and Pune classroom modes.",
-      "40+ job-focused courses spanning programming, full stack, data, AI, cloud and DevOps.",
+      "60+ job-focused courses spanning programming, full stack, data, AI, cloud and DevOps.",
     ],
     popularCourseSlugs: [
       "java-full-stack-training-in-pune",
@@ -2579,7 +2579,7 @@ export const studentCities: StudentCity[] = [
       "Since 2009 — 17+ years in Pune, 10,000+ students trained and 5,000+ placed.",
       "90% placement support with a 100+ company hiring network, including Amdocs, Capgemini, MindTree and Tech Mahindra.",
       "Same curriculum and trainers across live online and Pune classroom modes.",
-      "40+ job-focused courses spanning programming, full stack, data, AI, cloud and DevOps.",
+      "60+ job-focused courses spanning programming, full stack, data, AI, cloud and DevOps.",
     ],
     popularCourseSlugs: [
       "java-full-stack-training-in-pune",
@@ -2701,7 +2701,7 @@ export const studentCities: StudentCity[] = [
       "Since 2009 — 17+ years in Pune, 10,000+ students trained and 5,000+ placed.",
       "90% placement support with a 100+ company hiring network, including Amdocs, Capgemini, MindTree and Tech Mahindra.",
       "Same curriculum and trainers across live online and Pune classroom modes.",
-      "40+ job-focused courses spanning programming, full stack, data, AI, cloud and DevOps.",
+      "60+ job-focused courses spanning programming, full stack, data, AI, cloud and DevOps.",
     ],
     popularCourseSlugs: [
       "java-full-stack-training-in-pune",

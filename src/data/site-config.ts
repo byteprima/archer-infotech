@@ -119,6 +119,8 @@ export const siteConfig = {
     yearsExperience: "17+",
     corporatePartners: "100+",
     courses: "60+",
+    courseCategories: 11,
+    bootcamps: 3,
     batchesCompleted: "1000+",
     placementRate: "90%",
     /**

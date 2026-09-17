@@ -15,6 +15,7 @@
  * FAQPage schema emitted per category for AI Overview eligibility.
  */
 
+import { siteConfig } from "@/data/site-config";
 
 export interface QuestionEntry {
   /** Anchor slug for direct linking + schema @id */
@@ -45,7 +46,7 @@ export const questionCategories: QuestionCategory[] = [
     label: "About Archer Infotech",
     metaTitle: "About Archer Infotech — Pune IT Institute FAQs (2026)",
     metaDescription:
-      "The most-asked questions about Archer Infotech — founded 2009, Pune Kothrud campus, 10,000+ engineers trained, 5,000+ placed, 90% placement rate. Honest answers + verified facts.",
+      "Answers about Archer Infotech: founded 2009, Pune headquarters, Sangli branch, 10,000+ trained, 5,000+ placed, courses, fees and placement support.",
     h1: "About Archer Infotech — Frequently Asked Questions",
     intro:
       "Direct answers to the questions prospective students + parents most often ask about Archer Infotech. All facts come from institute records; we don't claim 100% placement and don't fabricate stats.",
@@ -53,16 +54,14 @@ export const questionCategories: QuestionCategory[] = [
       {
         id: "is-archer-infotech-good",
         question: "Is Archer Infotech a good IT training institute in Pune?",
-        answer:
-          "Archer Infotech has been training IT professionals in Pune since 2009 — 17+ years of operations. Institute records: 10,000+ engineers trained, 5,000+ placed, 90% placement rate across tracks. 100+ active corporate partners including Amdocs, Capgemini, MindTree, Tech Mahindra. The live Google review count and star average are shown on the /testimonials page. Quality is best evaluated via free demo class + speaking with recent alumni — we encourage prospective students to do both before enrolling.",
+        answer: `Archer Infotech has trained IT professionals since ${siteConfig.foundingYear} — ${siteConfig.stats.yearsExperience} years of operations. Institute records show ${siteConfig.stats.studentsTrained} learners trained, ${siteConfig.stats.studentsPlaced} placed, and a ${siteConfig.stats.placementRate} placement rate ${siteConfig.stats.placementRateBasis}. It has ${siteConfig.stats.corporatePartners} active corporate partners including Amdocs, Capgemini, MindTree and Tech Mahindra. Prospective students should still evaluate fit through a free demo class and conversations with recent alumni before enrolling.`,
         relatedHref: "/about/facts",
         relatedLabel: "Full institute fact sheet",
       },
       {
         id: "when-was-archer-infotech-founded",
         question: "When was Archer Infotech founded?",
-        answer:
-          "Archer Infotech was founded in 2009 by Yogesh Patil in Pune, India. The institute has been operating continuously for 17+ years from its Kothrud campus, originally focused on Java and Python training and expanding to cover the modern IT stack: full stack, data science, cloud / DevOps, generative + agentic AI, Salesforce, software testing, and more — 40+ courses total.",
+        answer: `Archer Infotech was founded in ${siteConfig.foundingYear} by Yogesh Patil in Pune, India. The institute has operated continuously for ${siteConfig.stats.yearsExperience} years and now has centres in Kothrud, Pune and Vishrambag, Sangli. It began with Java and Python training and expanded to the modern IT stack: full stack, data science, cloud / DevOps, generative + agentic AI, Salesforce, software testing, and more — ${siteConfig.stats.courses} courses total.`,
       },
       {
         id: "who-founded-archer-infotech",
@@ -225,8 +224,7 @@ export const questionCategories: QuestionCategory[] = [
       {
         id: "how-many-courses-archer",
         question: "How many courses does Archer Infotech offer?",
-        answer:
-          "Archer Infotech offers 40+ technical courses across 11 categories: Programming (Java, Python, C/C++, JavaScript, TypeScript), Full Stack Development (Java FS, MERN, .NET FS, Python FS), Cloud + DevOps (AWS, Azure, GCP, Kubernetes, Docker), Cloud Certifications (SAA, AZ-104, GCP ACE), Data + AI (Data Science, ML, Analytics, Data Engineering), Generative AI (Agentic AI, Prompt Engineering, ChatGPT/LLMs), Testing & QA (Selenium, Software Testing), Salesforce (Admin + Developer), Mobile (Android, Flutter, React Native, iOS), Database (MySQL, PostgreSQL, MongoDB, Oracle, Firebase), Modern Web (Next.js, etc.).",
+        answer: `Archer Infotech offers ${siteConfig.stats.courses} technical courses across ${siteConfig.stats.courseCategories} categories: Programming (Java, Python, C/C++, JavaScript, TypeScript), Full Stack Development (Java FS, MERN, .NET FS, Python FS), Cloud + DevOps (AWS, Azure, GCP, Kubernetes, Docker), Cloud Certifications (SAA, AZ-104, GCP ACE), Data + AI (Data Science, ML, Analytics, Data Engineering), Generative AI (Agentic AI, Prompt Engineering, ChatGPT/LLMs), Testing & QA (Selenium, Software Testing), Salesforce (Admin + Developer), Mobile (Android, Flutter, React Native, iOS), Database (MySQL, PostgreSQL, MongoDB, Oracle, Firebase), and Modern Web (Next.js, etc.). It also runs ${siteConfig.stats.bootcamps} intensive bootcamps.`,
         relatedHref: "/courses",
         relatedLabel: "Full course catalogue",
       },
@@ -273,16 +271,14 @@ export const questionCategories: QuestionCategory[] = [
       {
         id: "fees-cover-placement",
         question: "Do the fees cover placement support?",
-        answer:
-          "Yes — placement support is bundled in every placement-eligible course fee. No separate placement charges, no contingent fees. What's included: CV review (week 5-6), GitHub portfolio polish, 2-3 mock interviews (technical + HR), direct introductions to 10-20+ Pune partner companies actively hiring, weekly post-completion check-ins for 8-12 weeks. We don't guarantee placement (90% institute rate, not 100%) but we structure the support comprehensively.",
+        answer: `Yes — placement support is bundled in every placement-eligible course fee. There are no separate placement or contingent fees. Support includes CV review, GitHub portfolio polish, 2-3 mock interviews, introductions to actively hiring partner companies, and post-completion check-ins. Archer does not guarantee a job; its ${siteConfig.stats.placementRate} institute-records rate is measured ${siteConfig.stats.placementRateBasis}.`,
         relatedHref: "/placements",
         relatedLabel: "Placement process details",
       },
       {
         id: "compared-other-institutes",
         question: "How do Archer Infotech fees compare to other Pune IT training institutes?",
-        answer:
-          "Our fees sit in the mid-range for Pune IT training — neither the cheapest nor the most expensive. Cheaper alternatives (₹8,000-15,000) typically cut placement support, mock interviews, or capstone project depth. Premium-priced alternatives (₹80,000+) typically add only marketing — not materially more course content. Our value proposition: 17-year track record + 90% placement rate + bundled placement support at mid-range fees.",
+        answer: `Our fees sit in the mid-range for Pune IT training — neither the cheapest nor the most expensive. The value proposition is a training track record dating to ${siteConfig.foundingYear}, bundled project and placement support, and a ${siteConfig.stats.placementRate} institute-records placement rate ${siteConfig.stats.placementRateBasis}. Compare the curriculum, trainer, project depth and support terms rather than price alone.`,
       },
       {
         id: "refund-policy",
@@ -301,7 +297,7 @@ export const questionCategories: QuestionCategory[] = [
     label: "Placements & Outcomes",
     metaTitle: "Archer Infotech Placement FAQ — Rate, Companies (2026)",
     metaDescription:
-      "Common questions about placement support at Archer Infotech — 90% institute rate, 100+ corporate partners, process timeline, salary outcomes, what's bundled vs not.",
+      "Archer Infotech placement FAQ: eligibility for its 90% institute-records rate, 100+ corporate partners, process, salary outcomes and support terms.",
     h1: "Placements & Outcomes — Frequently Asked Questions",
     intro:
       "Honest answers about Archer Infotech's placement process, rates, partner companies, and outcomes. We don't claim 100% placement; we don't guarantee specific salaries. Numbers come from institute placement-cell records.",
@@ -309,8 +305,7 @@ export const questionCategories: QuestionCategory[] = [
       {
         id: "is-placement-guaranteed",
         question: "Does Archer Infotech guarantee 100% placement?",
-        answer:
-          "No — we don't guarantee 100% placement and any institute that does is making a misleading claim. Our institute placement rate is 90% across all tracks (placement-cell records, last 12 months of offers). The 10% who don't land first-job within our 6-month engagement window are typically dealing with location constraints, salary expectations significantly above market, or extended health / personal situations — not training quality issues.",
+        answer: `No. Archer Infotech does not guarantee a job or 100% placement. Its institute-records placement rate is ${siteConfig.stats.placementRate} ${siteConfig.stats.placementRateBasis}. The final hiring decision belongs to the employer, and outcomes also depend on portfolio quality, interview performance, location constraints and market conditions. Placement support continues for six months after course completion.`,
         relatedHref: "/placements",
         relatedLabel: "Placement track record",
       },
@@ -541,8 +536,7 @@ export const questionCategories: QuestionCategory[] = [
       {
         id: "bootcamp-job-guarantee",
         question: "Do bootcamps guarantee a job?",
-        answer:
-          "No — Archer Infotech bootcamps do not guarantee jobs, and we don't recommend any institute that makes guarantee claims. What we do guarantee: structured course delivery, working placement-cell process, direct introductions to 15+ partner companies, 8-12 weeks post-completion placement support, transparent 90% institute placement rate. The job itself depends on your portfolio + interview performance + market conditions — all of which we structure to support, but cannot promise.",
+        answer: `No. Archer Infotech bootcamps do not guarantee jobs. They provide structured course delivery, a placement-cell process, introductions to partner companies and post-completion support. The transparent institute-records placement rate is ${siteConfig.stats.placementRate} ${siteConfig.stats.placementRateBasis}. A job still depends on portfolio quality, interview performance, employer decisions and market conditions.`,
       },
     ],
   },

@@ -50,11 +50,10 @@ export const EVERGREEN_LAST_REVIEWED = "2026-06-11";
 
 /**
  * Homepage (`/`).
- * Last meaningful refresh: 2026-08-06 — AEO/GEO pass off the PPCBlogPro
- * audit (SEO 88 / AEO 65 / GEO 57). FAQ answers restructured so the lead
- * sentence renders outside the collapsed <details> and directly after its
- * <h3>; the DefinitiveAnswer eyebrow promoted from <p> to <h2>; outbound
- * source citations added for the rating and curriculum claims.
+ * Last meaningful refresh: 2026-09-17 — canonical course, branch and
+ * placement-methodology facts aligned across the visible FAQ and FAQPage
+ * schema. The earlier 2026-08-06 AEO/GEO pass restructured answers and added
+ * source citations.
  *
  * Tracked separately from EVERGREEN_LAST_REVIEWED because only the
  * homepage received the citation block — bumping the shared evergreen
@@ -62,7 +61,26 @@ export const EVERGREEN_LAST_REVIEWED = "2026-06-11";
  * Contact and the rest, which did not change. That is exactly the "fake
  * freshness" this file warns against.
  */
-export const HOME_LAST_REVIEWED = "2026-08-06";
+export const HOME_LAST_REVIEWED = "2026-09-17";
+
+/** The institute history and team overview on `/about`. */
+export const ABOUT_LAST_REVIEWED = "2026-09-17";
+
+/**
+ * Canonical entity fact sheet (`/about/facts`). Kept separate because this
+ * page is the source AI retrievers and journalists are asked to cite. A
+ * factual correction here must not pretend every evergreen page was reviewed.
+ */
+export const ENTITY_FACTS_LAST_REVIEWED = "2026-09-17";
+
+/** The `/courses` catalogue summary and its public course-count claim. */
+export const COURSE_CATALOG_LAST_REVIEWED = "2026-09-17";
+
+/** The copy-ready company facts and boilerplate on `/press`. */
+export const PRESS_LAST_REVIEWED = "2026-09-17";
+
+/** The outstation-student hub and city pages sourced from student-cities.ts. */
+export const STUDENT_CITIES_LAST_REVIEWED = "2026-09-17";
 
 /**
  * Legal pages. These are dated SEPARATELY from every other constant and
@@ -86,9 +104,9 @@ export const TERMS_LAST_UPDATED = "2026-03-29";
 
 /**
  * Pages built or substantially advanced in the 2026-05-25 SEO push —
- * audience landing pages (/courses/for/*), /press, /tools/* (salary
- * calculator + career roadmap), /compare/*, /guides/*, and the new
- * blog-category route family.
+ * audience landing pages (/courses/for/*), /tools/* (salary calculator +
+ * career roadmap), /compare/*, /guides/*, and the blog-category route family.
+ * `/press` and outstation student-city pages now have dedicated dates above.
  *
  * Last refresh: 2026-06-11 — /guides/* gained the "Recommended
  * Archer course" reverse-link block (P5-22-supporting cluster

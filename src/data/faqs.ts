@@ -15,6 +15,7 @@
  *   - Brand name is always "Archer Infotech" (never "Archer Info Tech")
  */
 import type { FaqItem } from "@/components/seo/faq-section";
+import { siteConfig } from "@/data/site-config";
 
 /**
  * Home page FAQs — top funnel, broad institute-level questions.
@@ -22,8 +23,7 @@ import type { FaqItem } from "@/components/seo/faq-section";
 export const homeFaqs: FaqItem[] = [
   {
     question: "What is Archer Infotech?",
-    answer:
-      "Archer Infotech is an IT training institute in Kothrud, Pune, founded in 2009. Over 17+ years it has trained 10,000+ students and placed 5,000+ across MNCs (institute placement records since 2009), including TCS, Infosys, Wipro, Tech Mahindra and Persistent Systems. It offers 40+ courses spanning Java, Python, Full Stack, Cloud, DevOps, Data Science and AI.",
+    answer: `Archer Infotech is an IT training institute headquartered in Kothrud, Pune, founded in ${siteConfig.foundingYear}, with a branch in Vishrambag, Sangli. Over ${siteConfig.stats.yearsExperience} years it has trained ${siteConfig.stats.studentsTrained} students and placed ${siteConfig.stats.studentsPlaced} across MNCs (institute placement records since 2009), including TCS, Infosys, Wipro, Tech Mahindra and Persistent Systems. It offers ${siteConfig.stats.courses} courses spanning Java, Python, Full Stack, Cloud, DevOps, Data Science and AI.`,
   },
   {
     question: "Where is Archer Infotech located in Pune?",
@@ -32,8 +32,7 @@ export const homeFaqs: FaqItem[] = [
   },
   {
     question: "Which courses does Archer Infotech offer?",
-    answer:
-      "Archer Infotech offers 40+ technology courses across Programming (Java, Python, C, C++), Full Stack Development (Java Full Stack, MERN Stack, Spring Boot), Cloud and DevOps (AWS, Azure, Kubernetes, Docker, Terraform), Data and AI (Data Science, Machine Learning, Generative AI, Power BI), Testing (Selenium, Manual Testing) and Database (MySQL, PostgreSQL, MongoDB).",
+    answer: `Archer Infotech offers ${siteConfig.stats.courses} technology courses across Programming (Java, Python, C, C++), Full Stack Development (Java Full Stack, MERN Stack, Spring Boot), Cloud and DevOps (AWS, Azure, Kubernetes, Docker, Terraform), Data and AI (Data Science, Machine Learning, Generative AI, Power BI), Testing (Selenium, Manual Testing) and Database (MySQL, PostgreSQL, MongoDB).`,
   },
   {
     question: "Does Archer Infotech provide placement assistance?",
@@ -79,8 +78,7 @@ export const aboutFaqs: FaqItem[] = [
   },
   {
     question: "Why is Archer Infotech considered a trusted IT training institute in Pune?",
-    answer:
-      "Archer Infotech holds 17+ years of training history (founded 2009), a 90% placement rate (institute internal records), 100+ active corporate hiring partners, and an unmoderated Google Business Profile whose live star average and review count are shown on the /testimonials page. Reviews consistently cite trainer depth, project-based learning and structured placement support as the reasons for its standing among Pune IT institutes.",
+    answer: `Archer Infotech holds ${siteConfig.stats.yearsExperience} years of training history (founded ${siteConfig.foundingYear}), a ${siteConfig.stats.placementRate} placement rate ${siteConfig.stats.placementRateBasis} (institute internal records), ${siteConfig.stats.corporatePartners} active corporate hiring partners, and an unmoderated Google Business Profile whose live star average and review count are shown on the /testimonials page. Reviews consistently cite trainer depth, project-based learning and structured placement support.`,
   },
   {
     question: "How many students has Archer Infotech trained?",
@@ -106,8 +104,7 @@ export const aboutFaqs: FaqItem[] = [
 export const coursesFaqs: FaqItem[] = [
   {
     question: "Which IT courses does Archer Infotech offer in Pune?",
-    answer:
-      "Archer Infotech offers 40+ IT training courses across Programming (Java, Python, C, C++), Full Stack Development (Java Full Stack, MERN Stack, Spring Boot, .NET Full Stack), Cloud and DevOps (AWS, Azure, Kubernetes, Docker, Terraform, Jenkins), Data and AI (Data Science, Machine Learning, Generative AI, Power BI), Testing (Selenium, Manual Testing) and Database (MySQL, PostgreSQL, MongoDB).",
+    answer: `Archer Infotech offers ${siteConfig.stats.courses} IT training courses across Programming (Java, Python, C, C++), Full Stack Development (Java Full Stack, MERN Stack, Spring Boot, .NET Full Stack), Cloud and DevOps (AWS, Azure, Kubernetes, Docker, Terraform, Jenkins), Data and AI (Data Science, Machine Learning, Generative AI, Power BI), Testing (Selenium, Manual Testing) and Database (MySQL, PostgreSQL, MongoDB).`,
   },
   {
     question: "Which IT course is best for a fresher in Pune?",
@@ -173,8 +170,7 @@ export const bootcampsFaqs: FaqItem[] = [
   },
   {
     question: "Does TechReady guarantee a job?",
-    answer:
-      "TechReady includes placement assistance — resume building, mock interviews, ATS optimisation and direct referrals to 100+ hiring partners — but Archer Infotech does not promise guaranteed placement. The institute records a 90% placement rate across batches; the remaining ~10% are typically learners who pause their search or accept opportunities outside the active drives queue.",
+    answer: `TechReady includes placement assistance — resume building, mock interviews, ATS optimisation and direct referrals to ${siteConfig.stats.corporatePartners} hiring partners — but Archer Infotech does not promise guaranteed placement. The institute records a ${siteConfig.stats.placementRate} placement rate ${siteConfig.stats.placementRateBasis}; learners outside that measured group are not counted as placed or unplaced.`,
   },
   {
     question: "Can I take CodeLeap and then CareerCode and then TechReady?",
@@ -381,8 +377,7 @@ export const batchScheduleFaqs: FaqItem[] = [
 export const placementsFaqs: FaqItem[] = [
   {
     question: "How many students has Archer Infotech placed?",
-    answer:
-      "Archer Infotech has placed 5,000+ students at IT companies since 2009 (institute placement-team records, updated annually). Hiring partners include TCS, Infosys, Wipro, Tech Mahindra, Persistent Systems, Cognizant, Capgemini and 100+ other MNCs and product startups across Pune, Bangalore, Hyderabad and Mumbai. The placement rate is 90% across batches.",
+    answer: `Archer Infotech has placed ${siteConfig.stats.studentsPlaced} students at IT companies since ${siteConfig.foundingYear} (institute placement-team records, updated annually). Hiring partners include TCS, Infosys, Wipro, Tech Mahindra, Persistent Systems, Cognizant, Capgemini and ${siteConfig.stats.corporatePartners} other MNCs and product startups. The placement rate is ${siteConfig.stats.placementRate} ${siteConfig.stats.placementRateBasis}.`,
   },
   {
     question: "What is the placement rate at Archer Infotech?",

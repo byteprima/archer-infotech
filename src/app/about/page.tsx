@@ -18,13 +18,14 @@ import { NewsletterSignupForm } from "@/components/newsletter/newsletter-signup-
 import { aboutFaqs } from "@/data/faqs";
 import { PersonJsonLd, BreadcrumbJsonLd } from "@/components/seo/json-ld";
 import { LastUpdated } from "@/components/seo/last-updated";
-import { EVERGREEN_LAST_REVIEWED } from "@/lib/seo/content-dates";
+import { ABOUT_LAST_REVIEWED } from "@/lib/seo/content-dates";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "About Archer Infotech — Pune IT Institute Since 2009",
   description:
     "Learn about Archer Infotech, Pune's trusted IT training institute since 2009. Our mission, vision, and team of expert trainers behind 10,000+ students trained and 5,000+ placed.",
   path: "/about",
+  lastModified: ABOUT_LAST_REVIEWED,
 });
 
 export default async function AboutPage() {
@@ -65,7 +66,7 @@ export default async function AboutPage() {
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
               About Archer Infotech — Pune&apos;s Trusted IT Training Institute Since 2009
             </h1>
-            <LastUpdated iso={EVERGREEN_LAST_REVIEWED} className="mt-3 text-xs md:text-sm text-white/70" />
+            <LastUpdated iso={ABOUT_LAST_REVIEWED} className="mt-3 text-xs md:text-sm text-white/70" />
             <p className="text-lg text-white/80">
               Archer Infotech is a leading IT and Language training centre providing
               full-suite of training and placement services for freshers seeking a
@@ -301,7 +302,7 @@ export default async function AboutPage() {
               <p>
                 Seventeen years later, the model is the same — small classes, working trainers, real
                 projects, direct referrals — but the catalogue and the campus have grown. The same
-                Kothrud centre near Bus Stand now runs 40+ tech courses spanning Java, Python, Full Stack,
+                Kothrud centre near Bus Stand now runs {siteConfig.stats.courses} tech courses spanning Java, Python, Full Stack,
                 Cloud, DevOps, Data Science, AI/ML and Generative AI; three career-stage bootcamps
                 (CodeLeap for 12th passouts, CareerCode for engineering students, TechReady for graduates);
                 and corporate training engagements with Amdocs, Capgemini, MindTree and Tech Mahindra.

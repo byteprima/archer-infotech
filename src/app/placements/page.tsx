@@ -613,7 +613,7 @@ export default async function PlacementsPage() {
               href="/courses"
               className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline"
             >
-              Browse all 40+ programmes
+              Browse all {siteConfig.stats.courses} programmes
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>

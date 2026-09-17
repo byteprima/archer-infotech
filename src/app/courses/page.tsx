@@ -11,20 +11,20 @@ import { audiences } from "@/data/audiences";
 import { courseLocations } from "@/data/course-locations";
 import { CategoryCollectionJsonLd, BreadcrumbJsonLd } from "@/components/seo/json-ld";
 import { Breadcrumbs } from "@/components/seo/breadcrumbs";
-import { COURSE_LAST_REVIEWED } from "@/lib/seo/content-dates";
+import { COURSE_CATALOG_LAST_REVIEWED } from "@/lib/seo/content-dates";
 import { SourceCitations } from "@/components/seo/source-citations";
 import { sourcesForTopics } from "@/data/authoritative-sources";
 import { LastUpdated } from "@/components/seo/last-updated";
+import { siteConfig } from "@/data/site-config";
 
 export const metadata: Metadata = buildPageMetadata({
   // Hub owns the high-intent commercial head term "IT courses in Pune"
   // with the modifiers users actually search (placement, fees). Individual
   // course pages target the long-tail; this page is the category-level net.
   title: "IT Training Courses in Pune with Placement & Fees",
-  description:
-    "Explore 40+ IT training courses in Pune with placement — Java, Python, AWS, DevOps, Full Stack, Data Science & AI/ML. Fees from ₹15,000; 4–6 month weekday, weekend & online batches.",
+  description: `Explore ${siteConfig.stats.courses} IT training courses in Pune with placement assistance — Java, Python, AWS, DevOps, Full Stack, Data Science & AI/ML. Fees from ₹15,000.`,
   path: "/courses",
-  lastModified: COURSE_LAST_REVIEWED,
+  lastModified: COURSE_CATALOG_LAST_REVIEWED,
 });
 
 export default function CoursesPage() {
@@ -36,7 +36,7 @@ export default function CoursesPage() {
           /courses as a curated index of training tracks. */}
       <CategoryCollectionJsonLd
         name="IT Training Courses in Pune"
-        description="40+ classroom and online IT training courses in Pune across Programming, Full Stack, Cloud, Data and AI, Testing, and Database tracks."
+        description={`${siteConfig.stats.courses} classroom and online IT training courses in Pune across Programming, Full Stack, Cloud, Data and AI, Testing, and Database tracks.`}
         url="/courses"
         items={categories.map((cat) => ({
           name: cat.name,
@@ -65,9 +65,9 @@ export default function CoursesPage() {
               items={[{ name: "Courses" }]}
             />
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              IT Training Courses in Pune | 40+ Programs with Placement Assistance
+              IT Training Courses in Pune | {siteConfig.stats.courses} Programs with Placement Assistance
             </h1>
-            <LastUpdated iso={COURSE_LAST_REVIEWED} className="mt-3 text-xs md:text-sm text-white/70" />
+            <LastUpdated iso={COURSE_CATALOG_LAST_REVIEWED} className="mt-3 text-xs md:text-sm text-white/70" />
             <p className="text-lg text-white/80">
               Explore our comprehensive range of industry-relevant IT courses.
               Learn from expert trainers and get placement assistance.
@@ -80,14 +80,15 @@ export default function CoursesPage() {
           before the JS-hydrated filter. AI engines lift this when answering
           "IT courses Pune / Archer Infotech courses". P8-07. */}
       <DefinitiveAnswer eyebrow="IT Training Courses at Archer Infotech, Pune">
-        Archer Infotech offers 40+ IT training courses across Programming
+        Archer Infotech offers {siteConfig.stats.courses} IT training courses across Programming
         (Java, Python, C, C++), Full Stack Development (Java Full Stack,
         MERN, Spring Boot, .NET), Cloud and DevOps (AWS, Azure, Kubernetes,
         Docker, Terraform), Data and AI (Data Science, Machine Learning,
         Generative AI, Power BI), Testing (Selenium, Manual Testing) and
-        Database (MySQL, PostgreSQL, MongoDB). Courses run 4–6 months in
-        standard batches with weekday, weekend and online schedules,
-        starting at ₹15,000 with EMI plans. Every paid program includes
+        Database (MySQL, PostgreSQL, MongoDB). Most single-technology courses
+        run 2–3 months, while full-stack tracks typically run 4–6 months,
+        with weekday, weekend and online schedules starting at ₹15,000 with
+        EMI plans. Every paid program includes
         lifetime LMS access, an industry-recognised certificate and
         placement assistance with 100+ corporate hiring partners — no
         separate placement fee.
@@ -97,7 +98,7 @@ export default function CoursesPage() {
           course gets a real <a href> in initial HTML. The CoursesFilter
           below is client-hydrated so Googlebot's first crawl pass sees only
           its fallback shell; explicit anchor links here pass PageRank from
-          /courses (indexed) to all 45 child course pages immediately.
+          /courses (indexed) to every child course page immediately.
           Directly addresses the 2026-06-04 finding that 3 course pages
           (prompt-engineering, mongodb, oracle-database) were "Unknown to
           Google" despite indexed parent categories — discovery signal,
@@ -112,7 +113,7 @@ export default function CoursesPage() {
             id="all-courses-index-heading"
             className="text-2xl md:text-3xl font-bold mb-2"
           >
-            Browse all 40+ IT training courses
+            Browse all {siteConfig.stats.courses} IT training courses
           </h2>
           <p className="text-muted-foreground mb-8 max-w-3xl">
             Quick directory of every course we run, grouped by track. Use the
