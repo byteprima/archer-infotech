@@ -99,6 +99,14 @@ export function BlogPostJsonLd({
     author: authorPerson
       ? {
           "@type": "Person",
+          // Same @id the trainer page emits for this person, and the same one
+          // Course.reviewedBy references. Without it the blog author was a
+          // SEPARATE Person node from the canonical trainer entity — the post
+          // linked to the profile by `url`, but nothing told a parser they
+          // were the same person, so the author's credentials on one page did
+          // not accrue to the expert on the other. That entity join is the
+          // whole point of having trainer profiles.
+          "@id": `${baseUrl}${authorPerson.profilePath}#person`,
           name: authorPerson.name,
           jobTitle: authorPerson.jobTitle,
           url: `${baseUrl}${authorPerson.profilePath}`,
