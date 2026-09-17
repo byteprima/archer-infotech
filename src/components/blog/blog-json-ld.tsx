@@ -113,7 +113,7 @@ export function BlogPostJsonLd({
           // instead of partial Org redeclaration. Eliminates the schema
           // validator's "partial Org without required fields" warning
           // across every blog post.
-          worksFor: { "@id": baseUrl },
+          worksFor: { "@id": `${baseUrl}/#organization` },
         }
       : {
           "@type": "Person",
@@ -124,7 +124,7 @@ export function BlogPostJsonLd({
     // rather than a partial Org redeclaration. Required logo/name
     // already live on the canonical Org schema; redeclaring them here
     // either drifts or triggers "partial entity" warnings.
-    publisher: { "@id": baseUrl },
+    publisher: { "@id": `${baseUrl}/#organization` },
     ...(category && {
       articleSection: category,
     }),
@@ -167,7 +167,7 @@ export function BlogListingJsonLd({ posts }: BlogListingJsonLdProps) {
     url: `${baseUrl}/blog`,
     // P8-04 wave 3 — publisher = @id-reference, matches the BlogPosting
     // schema and the canonical Org graph.
-    publisher: { "@id": baseUrl },
+    publisher: { "@id": `${baseUrl}/#organization` },
     blogPost: posts.map((post) => ({
       "@type": "BlogPosting",
       headline: post.title,

@@ -118,9 +118,18 @@ export const siteConfig = {
     studentsPlaced: "5000+",
     yearsExperience: "17+",
     corporatePartners: "100+",
-    courses: "40+",
+    courses: "60+",
     batchesCompleted: "1000+",
     placementRate: "90%",
+    /**
+     * The condition the placement rate is measured under, published verbatim
+     * on /placements. It must travel WITH the number wherever the number
+     * appears — a bare "90% placement rate" on one page while the condition
+     * sits in a collapsed accordion on another is the prominence problem
+     * India's ASCI code is concerned with, even when the figure is honest.
+     */
+    placementRateBasis:
+      "across flagship batches whose students complete training and clear at least one mock interview",
   },
 
   // Opening hours — used by LocalBusiness schema and contact page.

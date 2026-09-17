@@ -604,32 +604,32 @@ export const studentCities: StudentCity[] = [
       {
         question: "Does Archer Infotech have an office in Sangli?",
         answer:
-          "Yes. Archer Infotech runs weekend IT training batches at our Vishrambag, Sangli office — convenient for students and working professionals across Sangli, Miraj, and Kupwad. It brings Pune-grade IT training right to Sangli, so you no longer have to travel to Pune for serious, placement-focused courses. Call us for the exact address and the current weekend batch schedule.",
+          "Yes. Archer Infotech runs classroom IT training batches at our Vishrambag, Sangli office, open Monday to Sunday, 8 AM to 8 PM — convenient for students and working professionals across Sangli, Miraj, and Kupwad. It brings Pune-grade IT training right to Sangli, so you no longer have to travel to Pune for serious, placement-focused courses. Call us for the exact address and the current batch schedule.",
       },
       {
         question: "When are the Sangli (Vishrambag) batches held?",
         answer:
-          "The Vishrambag batches run on weekends — Saturday and Sunday — so you can train without disturbing college or your weekday job. It's the ideal format for students and working professionals in Sangli-Miraj who want in-person, hands-on classroom teaching but can't commit to weekday sessions. Get in touch for the latest timings, course-wise schedule, and seat availability.",
+          "The Vishrambag office is open all week, Monday to Sunday, 8 AM to 8 PM, and runs both weekday and weekend batches. Weekday sessions are taught by our resident Sangli faculty; weekend batches are taught by senior trainers who travel down from the Kothrud, Pune centre. That means you can train around college or a job either way. Get in touch for the latest timings, course-wise schedule, and seat availability.",
       },
       {
         question: "Can I study online instead of attending the Vishrambag office?",
         answer:
-          "Yes. Alongside the Vishrambag weekend batches, we offer live, instructor-led online batches you can join from anywhere in Sangli-Miraj, with session recordings and the same placement support. Online is ideal if the weekend timings don't fit or you prefer learning from home. Many students even mix the two — online sessions during the week plus the in-person weekend batch.",
+          "Yes. Alongside the Vishrambag classroom batches, we offer live, instructor-led online batches you can join from anywhere in Sangli-Miraj, with session recordings and the same placement support. Online is ideal if the classroom timings don't fit or you prefer learning from home. Many students even mix the two — online sessions on some days plus in-person classroom sessions at Vishrambag on others.",
       },
       {
         question: "Is the Sangli training the same quality as the Pune campus?",
         answer:
-          "Yes — completely. The weekend Vishrambag batches, the live online batches, and the Pune classroom all follow the same job-focused curriculum, the same standards, and the same expert trainers, backed by the same placement support and 100+ company hiring-partner network. Choosing Sangli weekend classes is about convenience, not a compromise on training quality or placement outcomes.",
+          "Yes — completely. The Vishrambag classroom batches, the live online batches, and the Pune classroom all follow the same job-focused curriculum, the same standards, and the same expert trainers, backed by the same placement support and 100+ company hiring-partner network. Weekend batches at Vishrambag are taught by the same senior trainers who teach in Pune. Choosing Sangli is about convenience, not a compromise on training quality or placement outcomes.",
       },
       {
         question: "Where is the Vishrambag office and how do I reach it?",
         answer:
-          "Our weekend batches run at our Vishrambag, Sangli office. Vishrambag is Sangli's main education and coaching hub, well connected and easy to reach from across Sangli, Miraj, and Kupwad by local transport. Call us for the exact address, directions, and landmark details — our team will help you find us and confirm the weekend batch you want to attend.",
+          "Our classroom batches run at our Vishrambag, Sangli office, open Monday to Sunday, 8 AM to 8 PM. Vishrambag is Sangli's main education and coaching hub, well connected and easy to reach from across Sangli, Miraj, and Kupwad by local transport. Call us for the exact address, directions, and landmark details — our team will help you find us and confirm the batch you want to attend.",
       },
       {
         question: "Which IT courses can I take in Sangli-Miraj?",
         answer:
-          "All of Archer's job-focused tracks are available to Sangli-Miraj students — Java, Python, Full Stack Development, MERN Stack, Data Science, Data Analytics, AWS & DevOps, and Software Testing — through the Vishrambag weekend batches, live online, or the Pune campus. Each course is built around real projects and the skills Pune and Maharashtra employers hire for. Free counselling helps you pick the right track for your background and goals.",
+          "All of Archer's job-focused tracks are available to Sangli-Miraj students — Java, Python, Full Stack Development, MERN Stack, Data Science, Data Analytics, AWS & DevOps, and Software Testing — through the Vishrambag classroom batches, live online, or the Pune campus. The Vishrambag branch teaches C, C++, Java, Python and Tally, the Java and Python full-stack tracks, and Data Science, AI Engineering and Data Analytics; the wider catalogue including AWS, DevOps and Software Testing is taught online or at the Pune campus. Free counselling helps you pick the right track for your background and goals.",
       },
       {
         question: "Which companies do Archer Infotech students get placed in?",
@@ -637,9 +637,9 @@ export const studentCities: StudentCity[] = [
           "Archer has built a 100+ company hiring-partner network over 17+ years. Active recruiters include Amdocs, Capgemini, MindTree, and Tech Mahindra, plus many product companies and startups across Pune and Maharashtra. We've trained 10,000+ students and placed 5,000+, with a 90% placement-support track record since 2009 — and Sangli-Miraj students get the same access to these openings, interview prep, and referrals.",
       },
       {
-        question: "Can I mix online classes with the Vishrambag weekend batches?",
+        question: "Can I mix online classes with the Vishrambag classroom batches?",
         answer:
-          "Yes, and many Sangli-Miraj students do exactly that. You can attend live online sessions during the week and the in-person classroom batch at Vishrambag on weekends, giving you both flexibility and face-to-face teaching. Talk to us and we'll set up a combined schedule that fits your college or work commitments.",
+          "Yes, and many Sangli-Miraj students do exactly that. You can combine live online sessions with in-person classroom sessions at Vishrambag, giving you both flexibility and face-to-face teaching. Talk to us and we'll set up a combined schedule that fits your college or work commitments.",
       },
       {
         question: "Are the online classes live or recorded?",

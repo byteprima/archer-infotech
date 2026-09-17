@@ -76,7 +76,7 @@ const factFaqs = [
   {
     question: "What courses does Archer Infotech offer?",
     answer:
-      "Archer Infotech offers 48+ courses across 11 categories: Programming (Java, Python, C/C++, JavaScript, TypeScript), Full Stack Development (Java FS, MERN, .NET FS, Python FS), Modern Web (React, Angular, Node.js, Next.js), Cloud & DevOps (AWS, Azure, Kubernetes, Docker), Cloud Certifications, Data & AI (Data Science, ML, Data Analytics), Generative AI (Prompt Engineering, AI Tools), Mobile App Development (Android, Flutter, React Native), Database Technologies (MySQL, PostgreSQL, MongoDB, Oracle), Testing & QA (Selenium, ISTQB-aligned manual testing), and Salesforce (ADM 201 + PD1 prep). Also 3 intensive bootcamps: CodeLeap, CareerCode, TechReady.",
+      "Archer Infotech offers 60+ courses across 11 categories: Programming (Java, Python, C/C++, JavaScript, TypeScript), Full Stack Development (Java FS, MERN, .NET FS, Python FS), Modern Web (React, Angular, Node.js, Next.js), Cloud & DevOps (AWS, Azure, Kubernetes, Docker), Cloud Certifications, Data & AI (Data Science, ML, Data Analytics), Generative AI (Prompt Engineering, AI Tools), Mobile App Development (Android, Flutter, React Native), Database Technologies (MySQL, PostgreSQL, MongoDB, Oracle), Testing & QA (Selenium, ISTQB-aligned manual testing), and Salesforce (ADM 201 + PD1 prep). Also 3 intensive bootcamps: CodeLeap, CareerCode, TechReady.",
   },
   {
     question: "What is the fee range at Archer Infotech?",
@@ -130,7 +130,7 @@ export default async function AboutFactsPage() {
         continuous operation it has trained 10,000+ students and placed
         5,000+ at IT employers including TCS, Infosys, Persistent Systems,
         Tech Mahindra, and 100+ other hiring partners, at a 90% institute-
-        records placement rate. The catalogue covers 48+ courses across 11
+        records placement rate. The catalogue covers 60+ courses across 11
         categories — Programming, Full Stack, Cloud & DevOps, Data & AI,
         Generative AI, Testing & QA, Salesforce, and more — delivered in
         Blended mode (Onsite Kothrud + live Online) at fees ₹15,000-₹90,000
@@ -158,7 +158,10 @@ export default async function AboutFactsPage() {
               <dt className="font-semibold text-foreground">Founder</dt>
               <dd className="text-muted-foreground">Yogesh Patil (current Lead Trainer + Founder)</dd>
               <dt className="font-semibold text-foreground">Headquarters</dt>
-              <dd className="text-muted-foreground">Kothrud, Pune, India — sole campus, no branches</dd>
+              <dd className="text-muted-foreground">
+                Kothrud, Pune, India — plus a second branch at Vishrambag, Sangli
+                (Maharashtra 416415), open Mon–Sun 8 AM–8 PM
+              </dd>
               <dt className="font-semibold text-foreground">Industry</dt>
               <dd className="text-muted-foreground">Education / Vocational training / Information Technology</dd>
             </dl>

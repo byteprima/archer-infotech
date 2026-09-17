@@ -82,7 +82,11 @@ export default function ContactPage() {
         info@archerinfotech.in, or by submitting the contact form below for
         a callback. To sit in a live demo class — no payment, no commitment —
         request a slot through any of these channels and the counselling
-        team will confirm a date the same week.
+        team will confirm a date the same week. Archer Infotech also runs a
+        second centre in Sangli: Vishwaleela Complex, Office No. G-3, Ground
+        Floor, MSEB Road, opposite Walchand College side gate, Vishrambag,
+        Sangli 416415, open Monday to Sunday, 8:00 AM to 8:00 PM on the same
+        phone number.
       </DefinitiveAnswer>
 
       {/* Contact Content */}
@@ -105,6 +109,34 @@ export default function ContactPage() {
 
             {/* Contact Info */}
             <div className="space-y-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">Our Centres</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4 text-sm">
+                  <div>
+                    <p className="font-semibold">Pune — Kothrud (head office)</p>
+                    <p className="text-muted-foreground">
+                      Flat No. 12, Divyadarshan Housing Society, Kothrud, Pune
+                      411038 · Mon–Sat, 9 AM–8 PM
+                    </p>
+                  </div>
+                  <div>
+                    <p className="font-semibold">Sangli — Vishrambag (branch)</p>
+                    <p className="text-muted-foreground">
+                      Vishwaleela Complex, Office No. G-3, MSEB Road, opposite
+                      Walchand College side gate, Vishrambag, Sangli 416415 ·
+                      Mon–Sun, 8 AM–8 PM
+                    </p>
+                    <Link
+                      href="/it-training-in-pune-for/sangli-miraj"
+                      className="text-primary hover:underline"
+                    >
+                      IT training in Sangli &amp; Miraj &rarr;
+                    </Link>
+                  </div>
+                </CardContent>
+              </Card>
               <Card>
                 <CardHeader>
                   <CardTitle className="text-lg">Contact Information</CardTitle>

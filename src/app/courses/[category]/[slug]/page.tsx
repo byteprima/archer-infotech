@@ -256,6 +256,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
         educationalLevel={course.level}
         teaches={course.highlights}
         coursePrerequisites={course.prerequisites}
+        educationalCredentialAwarded={course.certifications}
         /* The curriculum as structure, not just prose — module order and
            topics, sourced from the same array the page renders. */
         syllabusSections={rich?.curriculum.map((module) => ({
@@ -375,6 +376,12 @@ export default async function CoursePage({ params }: CoursePageProps) {
                   </div>
                 ))}
               </dl>
+              {/* The placement rate is a measured figure with a condition
+                  attached. The condition travels with it — see
+                  siteConfig.stats.placementRateBasis. */}
+              <p className="-mt-3 mb-6 text-xs text-white/60">
+                Placement rate measured {siteConfig.stats.placementRateBasis}.
+              </p>
               {/* Outcome + financing pills — salary proof and EMI, the two
                   desire/affordability levers competitors foreground. Each
                   renders only when the course carries a real, verified value

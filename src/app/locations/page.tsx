@@ -92,7 +92,24 @@ export default function LocationsIndexPage() {
           ))}
         </div>
 
-        <div className="mt-12 rounded-xl bg-muted/30 border p-6 text-center">
+        {/* The city hub had no inbound path except the sitewide footer, which
+            left 18 city pages effectively orphaned. Linking it from the
+            locations hub — its nearest topical parent — gives it a real one. */}
+        <div className="mt-12 rounded-xl border bg-muted/30 p-6 text-center">
+          <p className="text-muted-foreground">
+            Travelling in from outside Pune?{" "}
+            <Link
+              href="/it-training-in-pune-for"
+              className="font-medium text-primary hover:underline"
+            >
+              See how students from Sangli, Kolhapur, Satara and 15 other
+              cities train with us
+            </Link>
+            {" "}— including our Vishrambag, Sangli branch.
+          </p>
+        </div>
+
+        <div className="mt-6 rounded-xl bg-muted/30 border p-6 text-center">
           <p className="text-muted-foreground">
             Don&apos;t see your area? We serve all of Pune through live online
             batches and weekend classroom sessions.{" "}

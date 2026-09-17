@@ -451,6 +451,17 @@ interface CourseJsonLdProps {
   teaches?: string[];
   educationalLevel?: string;
   coursePrerequisites?: string[];
+  /**
+   * Vendor or industry certifications this course prepares students for,
+   * from `course.certifications` in courses.ts. Emitted as
+   * `educationalCredentialAwarded`, which is what both Google's Course
+   * documentation and answer engines look for when a learner asks "what
+   * certification do I get". Only 9 of 65 courses carry these today; the
+   * property is omitted entirely rather than emitted empty for the rest,
+   * because an empty credential array asserts "no credential", which is a
+   * different claim from "not recorded".
+   */
+  educationalCredentialAwarded?: string[];
   syllabusSections?: { title: string; topics: string[] }[];
 }
 
@@ -472,6 +483,7 @@ export function CourseJsonLd({
   teaches,
   educationalLevel,
   coursePrerequisites,
+  educationalCredentialAwarded,
   syllabusSections,
 }: CourseJsonLdProps) {
   const schema = {
@@ -487,6 +499,9 @@ export function CourseJsonLd({
     // nested block. Google + AI engines resolve `@id` references
     // back to the canonical block on the same page.
     provider: { "@id": ORG_ID },
+    ...(educationalCredentialAwarded && educationalCredentialAwarded.length > 0
+      ? { educationalCredentialAwarded }
+      : {}),
     reviewedBy: CONTENT_REVIEWER,
     // CreativeWork.citation — the primary sources this page's claims rest on.
     // Course inherits it from CreativeWork, so this is the correct property

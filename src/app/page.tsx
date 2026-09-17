@@ -93,7 +93,7 @@ const homeSources: SourceCitation[] = [
 export const metadata: Metadata = buildPageMetadata({
   title: `Pune's Most Trusted IT Training Institute Since ${siteConfig.foundingYear}`,
   description:
-    "Archer Infotech — Pune's IT training institute since 2009. Java, Python, Full Stack, Cloud & AI courses, a 90% placement rate, partners like TCS & Infosys.",
+    "Archer Infotech — Pune's IT training institute since 2009. Java, Python, Full Stack, Cloud & AI courses, 90% placement across flagship batches, partners like TCS & Infosys.",
   path: "/",
 });
 
@@ -149,7 +149,9 @@ export default async function HomePage() {
         Cursor. Over 17+ years, more than 10,000 students have been trained
         in these tracks, with 5,000+ placed at MNCs including TCS,
         Infosys, Wipro, Tech Mahindra, Persistent Systems and 100+ other
-        hiring partners. The institute maintains a 90% placement rate and a{" "}
+        hiring partners. The institute records a 90% placement rate across flagship batches
+        whose students complete training and clear at least one mock
+        interview, and a{" "}
         {rating.ratingValue.toFixed(1)}-star Google rating across{" "}
         {rating.ratingCount} reviews, and is led by trainers with 15+
         years of MNC

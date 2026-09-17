@@ -4,6 +4,7 @@ import { z } from "zod";
 import { optionalImageUrlSchema } from "@/lib/validation/image-url";
 import { eq, desc, and, sql, like, or, type SQL } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
+import { submitToIndexNow } from "@/lib/seo/indexnow";
 import {
   placeholderBlogs,
   getPlaceholderCategories,
@@ -632,6 +633,15 @@ export async function createPost(data: BlogPostFormData): Promise<ActionResult> 
     revalidatePath("/admin/blog");
     revalidatePath("/blog");
 
+    // Tell IndexNow only when the post is actually public — submitting a
+    // draft URL would send crawlers to a 404.
+    if (validationResult.data.isPublished) {
+      await submitToIndexNow([
+        `/blog/${validationResult.data.slug}`,
+        "/blog",
+      ]);
+    }
+
     await logAdminAction({
       action: "blog.create",
       entityType: "blog_post",
@@ -738,6 +748,13 @@ export async function updatePost(
     revalidatePath("/admin/blog");
     revalidatePath("/blog");
     revalidatePath(`/blog/${validationResult.data.slug}`);
+
+    if (validationResult.data.isPublished) {
+      await submitToIndexNow([
+        `/blog/${validationResult.data.slug}`,
+        "/blog",
+      ]);
+    }
 
     await logAdminAction({
       action: "blog.update",

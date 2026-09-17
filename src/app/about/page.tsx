@@ -127,7 +127,11 @@ export default async function AboutPage() {
                 { value: siteConfig.stats.studentsPlaced, label: "Students Placed" },
                 { value: siteConfig.stats.yearsExperience, label: "Years Experience" },
                 { value: siteConfig.stats.batchesCompleted, label: "Batches Completed" },
-                { value: siteConfig.stats.placementRate, label: "Placement Rate" },
+                {
+                  value: siteConfig.stats.placementRate,
+                  label: "Placement Rate",
+                  note: siteConfig.stats.placementRateBasis,
+                },
               ].map((stat) => (
                 <Card key={stat.label} className="text-center">
                   <CardContent className="pt-6">
@@ -135,6 +139,11 @@ export default async function AboutPage() {
                       <AnimatedCounter value={stat.value} />
                     </div>
                     <div className="text-sm text-muted-foreground">{stat.label}</div>
+                    {"note" in stat && stat.note ? (
+                      <p className="mt-2 text-[11px] leading-snug text-muted-foreground/80">
+                        Measured {stat.note}.
+                      </p>
+                    ) : null}
                   </CardContent>
                 </Card>
               ))}
