@@ -515,8 +515,14 @@ export function CourseJsonLd({
           url: c.href,
         })),
       }),
-    ...(duration && { timeRequired: duration }),
-    ...(category && { courseCode: category }),
+    // Duration, not free text — same rule as courseWorkload below. This
+    // emitted the raw catalogue string ("4 Months") until 2026-09-17.
+    ...(duration && { timeRequired: durationToISO8601(duration) }),
+    // `about` is the subject, which is what the category actually is.
+    // This previously emitted the category as `courseCode`, which is
+    // schema.org's field for a provider's own identifier ("CS101") — a
+    // different claim, and a wrong one.
+    ...(category && { about: category }),
     ...(educationalLevel && { educationalLevel }),
     ...(teaches && teaches.length > 0 && { teaches }),
     ...(coursePrerequisites &&
@@ -544,9 +550,11 @@ export function CourseJsonLd({
     offers: {
       "@type": "Offer",
       category: "Paid",
-      priceCurrency: "INR",
-      // Only emitted when the page actually shows the fee (audit 2026-06-21).
-      ...(price && { price }),
+      // price and priceCurrency travel together or not at all. The currency
+      // was unconditional while the price was gated, so every course without
+      // a published fee emitted "INR" with no amount — telling a parser a
+      // figure exists and withholding it. No course publishes a fee today.
+      ...(price && { price, priceCurrency: "INR" }),
       ...(priceRange && { priceSpecification: {
         "@type": "PriceSpecification",
         priceCurrency: "INR",

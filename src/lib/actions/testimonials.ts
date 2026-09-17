@@ -6,6 +6,7 @@ import { desc, eq, sql } from "drizzle-orm";
 import { revalidatePath, revalidateTag } from "next/cache";
 import type { Testimonial } from "@/db";
 import { logAdminAction, requireAdminAction } from "@/lib/admin";
+import { resolveCourseSlugs } from "@/lib/courses/course-match";
 
 const optionalNumber = z.preprocess((value) => {
   if (value === "" || value === null || value === undefined) {
@@ -165,6 +166,9 @@ export async function createTestimonial(data: TestimonialFormData): Promise<Acti
         role: validationResult.data.role || null,
         company: validationResult.data.company || null,
         courseTaken: validationResult.data.courseTaken || null,
+        // Derived, never typed. The label is what the student said; the slug
+        // is what the course pages match on, and it survives title rewrites.
+        courseSlug: resolveCourseSlugs(validationResult.data.courseTaken)[0] ?? null,
         content: validationResult.data.content,
         rating: validationResult.data.rating ?? 5,
         photoUrl: validationResult.data.photoUrl || null,
@@ -242,6 +246,9 @@ export async function updateTestimonial(
         role: validationResult.data.role || null,
         company: validationResult.data.company || null,
         courseTaken: validationResult.data.courseTaken || null,
+        // Derived, never typed. The label is what the student said; the slug
+        // is what the course pages match on, and it survives title rewrites.
+        courseSlug: resolveCourseSlugs(validationResult.data.courseTaken)[0] ?? null,
         content: validationResult.data.content,
         rating: validationResult.data.rating ?? 5,
         photoUrl: validationResult.data.photoUrl || null,

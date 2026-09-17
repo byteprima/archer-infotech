@@ -84,18 +84,31 @@ export const getAllPublishedTestimonials = unstable_cache(
  * SERP star-snippet eligible against its own Course schema.
  */
 export const getCourseTestimonials = unstable_cache(
-  async (courseTitle: string) => {
+  /**
+   * Testimonials for one course, keyed on SLUG.
+   *
+   * Previously keyed on the course TITLE compared against the free-text
+   * `courseTaken`. Titles are SEO surface and get rewritten; when "Java Full
+   * Stack" became "Java Full Stack Development", eight of ten testimonials
+   * detached and every course review snippet went dark. Slugs do not move.
+   *
+   * The title fallback below is transitional. It covers rows written before
+   * migration 0012 backfilled `courseSlug`, and rows added by any path that
+   * still only sets the label. Remove it once `courseSlug` is NOT NULL and
+   * enforced at every write.
+   */
+  async (courseSlug: string, courseTitle: string) => {
     try {
       const all = await db
         .select()
         .from(testimonialsTable)
         .where(eq(testimonialsTable.isPublished, true));
-      // Exact, comma-aware match. The previous bidirectional substring test
-      // both over-matched (a record saved as "C" attached itself to every
-      // course whose title contains a "c") and under-matched (four of five
-      // live testimonials read "Java full-stack development " and reached no
-      // page at all). See lib/courses/course-match.ts.
-      return all.filter((t) => matchesCourse(t.courseTaken, courseTitle));
+
+      return all.filter((t) =>
+        t.courseSlug
+          ? t.courseSlug === courseSlug
+          : matchesCourse(t.courseTaken, courseTitle),
+      );
     } catch (error) {
       console.error("getCourseTestimonials failed (build-time prerender?)", error);
       return [];

@@ -198,7 +198,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
   // panel still renders from one card; only the machine-readable claim
   // waits for a real distribution.
   const orgRating = await getDisplayRating();
-  const courseTestimonials = await getCourseTestimonials(course.title);
+  const courseTestimonials = await getCourseTestimonials(course.slug, course.title);
   // Ranked, this course first. Returns [] while the placement record is
   // switched off, so the strip simply does not render.
   const coursePlacements = await getCoursePlacements(
@@ -220,13 +220,31 @@ export default async function CoursePage({ params }: CoursePageProps) {
           ratingCount: courseTestimonials.length,
         }
       : undefined;
-  const courseReviewsForSchema = courseTestimonials.slice(0, 5).map((t) => ({
-    id: t.id,
-    authorName: t.name,
-    authorRole: t.role,
-    body: t.content,
-    rating: t.rating ?? 5,
-  }));
+  /**
+   * THE INVARIANT: reviews and aggregateRating are emitted together or not
+   * at all.
+   *
+   * Google errors with "Multiple reviews without aggregateRating object" when
+   * a page carries two or more Review objects and no aggregate. That is
+   * exactly what happened here — Search Console flagged 22 items, traced to
+   * this file: the rating above is gated behind MIN_COURSE_RATINGS_FOR_SCHEMA
+   * while the reviews below were emitted unconditionally.
+   *
+   * Tying them to the same gate closes the whole error class. Below the
+   * threshold the page still SHOWS its testimonials to readers — only the
+   * markup is withheld, because a rating drawn from fewer than five opinions
+   * is not a rating (see MIN_COURSE_RATINGS_FOR_SCHEMA) and a lone Review
+   * without an aggregate earns no rich result to pay for the risk.
+   */
+  const courseReviewsForSchema = courseAggregateRating
+    ? courseTestimonials.slice(0, 5).map((t) => ({
+        id: t.id,
+        authorName: t.name,
+        authorRole: t.role,
+        body: t.content,
+        rating: t.rating ?? 5,
+      }))
+    : [];
 
   return (
     <>

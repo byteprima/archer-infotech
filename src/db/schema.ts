@@ -712,7 +712,22 @@ export const testimonials = sqliteTable("testimonials", {
   name: text("name").notNull(),
   role: text("role"),
   company: text("company"),
+  /**
+   * The course as the STUDENT described it — "Java Full Stack", "React.js".
+   * Display only: rendered verbatim in "student of X" lines and image alt
+   * text, so it must stay human-readable.
+   */
   courseTaken: text("course_taken"),
+  /**
+   * The machine identifier: a slug from courses.ts.
+   *
+   * Matching used to run off `courseTaken` against the course TITLE. Titles
+   * are SEO surface and get rewritten — when "Java Full Stack" became "Java
+   * Full Stack Development", eight of ten testimonials silently detached and
+   * every course review snippet on the site went dark. Slugs do not move,
+   * which is why leads, batches, demos and admissions all key on them.
+   */
+  courseSlug: text("course_slug"),
   content: text("content").notNull(),
   rating: integer("rating").notNull().default(5),
   photoUrl: text("photo_url"),
