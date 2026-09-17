@@ -238,10 +238,15 @@ export default async function AboutFactsPage() {
               Geographic Coverage
             </h2>
             <dl className="grid sm:grid-cols-[200px_1fr] gap-x-6 gap-y-3">
-              <dt className="font-semibold text-foreground">Campus</dt>
-              <dd className="text-muted-foreground">Kothrud, Pune (sole physical location)</dd>
+              <dt className="font-semibold text-foreground">Campuses</dt>
+              <dd className="text-muted-foreground">
+                Two: Kothrud, Pune (head office) and Vishrambag, Sangli (branch)
+              </dd>
               <dt className="font-semibold text-foreground">Service area</dt>
-              <dd className="text-muted-foreground">Pune Metropolitan Region; online enrolment open across India</dd>
+              <dd className="text-muted-foreground">
+                Pune Metropolitan Region and Sangli&ndash;Miraj&ndash;Kupwad;
+                online enrolment open across India
+              </dd>
               <dt className="font-semibold text-foreground">Pune neighbourhoods served</dt>
               <dd className="text-muted-foreground">
                 Kothrud · Karve Nagar · Erandwane · Warje · Bavdhan · Aundh ·
