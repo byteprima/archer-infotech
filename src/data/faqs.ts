@@ -23,7 +23,7 @@ import { siteConfig } from "@/data/site-config";
 export const homeFaqs: FaqItem[] = [
   {
     question: "What is Archer Infotech?",
-    answer: `Archer Infotech is an IT training institute headquartered in Kothrud, Pune, founded in ${siteConfig.foundingYear}, with a branch in Vishrambag, Sangli. Over ${siteConfig.stats.yearsExperience} years it has trained ${siteConfig.stats.studentsTrained} students and placed ${siteConfig.stats.studentsPlaced} across MNCs (institute placement records since 2009), including TCS, Infosys, Wipro, Tech Mahindra and Persistent Systems. It offers ${siteConfig.stats.courses} courses spanning Java, Python, Full Stack, Cloud, DevOps, Data Science and AI.`,
+    answer: `Archer Infotech is an IT training institute with campuses in Kothrud, Pune and Vishrambag, Sangli, founded in ${siteConfig.foundingYear}. Over ${siteConfig.stats.yearsExperience} years it has trained ${siteConfig.stats.studentsTrained} students and placed ${siteConfig.stats.studentsPlaced} across MNCs (institute placement records since 2009), including TCS, Infosys, Wipro, Tech Mahindra and Persistent Systems. It offers ${siteConfig.stats.courses} courses spanning Java, Python, Full Stack, Cloud, DevOps, Data Science and AI.`,
   },
   {
     question: "Where is Archer Infotech located in Pune?",

@@ -22,21 +22,21 @@ This is the expanded companion to /llms.txt. It lists the full course catalogue,
 - 5,000+ students placed
 - 90% placement rate across flagship batches whose students complete training and clear at least one mock interview (institute records; not a job guarantee)
 - 100+ corporate / hiring partners
-- 60+ courses, 1,000+ batches completed
+- 62 courses across 11 categories, plus 3 bootcamps (65 total programs); 1,000+ batches completed
 - 6-person core faculty with 54+ combined years of MNC engineering experience
 - Active corporate-training clients: Amdocs, Capgemini, MindTree, Tech Mahindra
 
 
 ## Locations
 
-Archer Infotech operates two physical centres, both reachable on the same
+Archer Infotech operates two campuses, both reachable on the same
 number (+91 9850 678451):
 
-- **Pune (head office)** — Flat No. 12, Divyadarshan Housing Society, behind
+- **Pune campus (head office)** — Flat No. 12, Divyadarshan Housing Society, behind
   Kothrud Bus Stand Road, near Natraj Gas Agency, Londhe Wada, Chaitanya
   Nagar, Kothrud, Pune, Maharashtra 411038, India. Open Mon–Sat.
   Full course catalogue.
-- **Sangli (branch)** — Vishwaleela Complex, Office No. G-3, Ground Floor,
+- **Sangli campus** — Vishwaleela Complex, Office No. G-3, Ground Floor,
   MSEB Road, opposite Walchand College side gate, Vishrambag, Sangli,
   Maharashtra 416415, India. Open Mon–Sun, 8 AM–8 PM. Weekday sessions run
   with resident Sangli faculty; weekend batches are taught by senior trainers
@@ -47,7 +47,7 @@ number (+91 9850 678451):
 
 ## Delivery modes
 
-Every course is offered in three modes — classroom (Kothrud, Pune; a narrower catalogue also runs at the Vishrambag, Sangli branch), live online, and hybrid. Weekday and weekend batches run, with new batches starting every month. Full schedule: https://archerinfotech.in/batch-schedule
+Every course is offered in three modes — classroom (Kothrud, Pune; a narrower catalogue also runs at the Vishrambag, Sangli campus), live online, and hybrid. Weekday and weekend batches run, with new batches starting every month. Full schedule: https://archerinfotech.in/batch-schedule
 
 ## About
 

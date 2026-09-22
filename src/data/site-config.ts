@@ -1,3 +1,5 @@
+import { catalogueStats } from "./catalogue-stats";
+
 export const siteConfig = {
   name: "Archer Infotech",
   tagline: "Best IT Training Institute in Pune",
@@ -111,16 +113,18 @@ export const siteConfig = {
     reviewUrl: "https://g.page/r/CTjK3JCeX55TEBM/review",
   },
 
-  // Stats — kept truthful and source-of-truth for hero counters, schema, llms.txt.
+  // Stats — kept truthful and source-of-truth for hero counters and schema.
+  // Catalogue totals are calculated from src/data/courses.ts, never typed by hand.
   // yearsExperience derived from foundingYear (2009) — currently 17+.
   stats: {
     studentsTrained: "10000+",
     studentsPlaced: "5000+",
     yearsExperience: "17+",
     corporatePartners: "100+",
-    courses: "60+",
-    courseCategories: 11,
-    bootcamps: 3,
+    courses: String(catalogueStats.courses),
+    courseCategories: catalogueStats.courseCategories,
+    bootcamps: catalogueStats.bootcamps,
+    totalPrograms: catalogueStats.totalPrograms,
     batchesCompleted: "1000+",
     placementRate: "90%",
     /**

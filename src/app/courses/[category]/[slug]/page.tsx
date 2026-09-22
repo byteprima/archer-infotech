@@ -598,7 +598,17 @@ export default async function CoursePage({ params }: CoursePageProps) {
                       duration={courseVideo.duration}
                       schemaId={`course-intro-${slug}`}
                       pagePath={`/courses/${categorySlug}/${slug}`}
+                      includeSchema={false}
                     />
+                    <div className="-mt-2 mb-8 text-center">
+                      <Link
+                        href={`/videos/${slug}`}
+                        className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline"
+                      >
+                        Watch this lesson on its dedicated video page
+                        <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                      </Link>
+                    </div>
                   </div>
                 );
               })()}

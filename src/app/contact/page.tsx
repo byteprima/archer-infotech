@@ -83,7 +83,7 @@ export default function ContactPage() {
         a callback. To sit in a live demo class — no payment, no commitment —
         request a slot through any of these channels and the counselling
         team will confirm a date the same week. Archer Infotech also runs a
-        second centre in Sangli: Vishwaleela Complex, Office No. G-3, Ground
+        second campus in Sangli: Vishwaleela Complex, Office No. G-3, Ground
         Floor, MSEB Road, opposite Walchand College side gate, Vishrambag,
         Sangli 416415, open Monday to Sunday, 8:00 AM to 8:00 PM on the same
         phone number.
@@ -122,7 +122,7 @@ export default function ContactPage() {
                     </p>
                   </div>
                   <div>
-                    <p className="font-semibold">Sangli — Vishrambag (branch)</p>
+                    <p className="font-semibold">Sangli campus — Vishrambag</p>
                     <p className="text-muted-foreground">
                       Vishwaleela Complex, Office No. G-3, MSEB Road, opposite
                       Walchand College side gate, Vishrambag, Sangli 416415 ·

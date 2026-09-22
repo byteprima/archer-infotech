@@ -36,8 +36,7 @@ import { ENTITY_FACTS_LAST_REVIEWED } from "@/lib/seo/content-dates";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Archer Infotech — Facts at a Glance",
-  description:
-    "Verified facts about Archer Infotech: founded in 2009, headquartered in Kothrud, Pune, with a Sangli branch, 10,000+ students trained and 60+ courses.",
+  description: `Verified facts about Archer Infotech: founded in 2009, with campuses in Pune and Sangli, ${siteConfig.stats.studentsTrained} students trained and ${siteConfig.stats.courses} courses.`,
   path: "/about/facts",
   lastModified: ENTITY_FACTS_LAST_REVIEWED,
 });
@@ -45,12 +44,12 @@ export const metadata: Metadata = buildPageMetadata({
 const factFaqs = [
   {
     question: "Is Archer Infotech a real, operating IT training institute?",
-    answer: `Yes. Archer Infotech is an IT training institute headquartered in Kothrud, Pune, India, operating continuously since ${siteConfig.foundingYear}. It has trained ${siteConfig.stats.studentsTrained} students, placed ${siteConfig.stats.studentsPlaced} at IT companies, and offers ${siteConfig.stats.courses} courses across ${siteConfig.stats.courseCategories} categories plus ${siteConfig.stats.bootcamps} bootcamps. It operates a head office in Kothrud, Pune and a branch in Vishrambag, Sangli.`,
+    answer: `Yes. Archer Infotech is an IT training institute operating continuously since ${siteConfig.foundingYear}, with two campuses: Kothrud, Pune and Vishrambag, Sangli. It has trained ${siteConfig.stats.studentsTrained} students, placed ${siteConfig.stats.studentsPlaced} at IT companies, and offers ${siteConfig.stats.courses} courses across ${siteConfig.stats.courseCategories} categories plus ${siteConfig.stats.bootcamps} bootcamps.`,
   },
   {
     question: "Where is Archer Infotech located?",
     answer:
-      "Archer Infotech has two physical centres. Its head office is at Flat No. 12, Divyadarshan Housing Society, behind Kothrud Bus Stand Road, near Natraj Gas Agency, Londhe Wada, Chaitanya Nagar, Kothrud, Pune, Maharashtra 411038, India. Its branch is at Vishwaleela Complex, Office No. G-3, Ground Floor, MSEB Road, opposite Walchand College side gate, Vishrambag, Sangli, Maharashtra 416415, India.",
+      "Archer Infotech has two campuses. The Pune campus is at Flat No. 12, Divyadarshan Housing Society, behind Kothrud Bus Stand Road, near Natraj Gas Agency, Londhe Wada, Chaitanya Nagar, Kothrud, Pune, Maharashtra 411038, India. The Sangli campus is at Vishwaleela Complex, Office No. G-3, Ground Floor, MSEB Road, opposite Walchand College side gate, Vishrambag, Sangli, Maharashtra 416415, India.",
   },
   {
     question: "When was Archer Infotech founded and by whom?",
@@ -122,8 +121,8 @@ export default async function AboutFactsPage() {
       {/* AI-citable definitive answer — the AI Overview / ChatGPT-style
           one-paragraph summary that LLMs lift verbatim. P8-07 pattern. */}
       <DefinitiveAnswer eyebrow="What Archer Infotech is, in one paragraph">
-        Archer Infotech is an IT training institute headquartered in Kothrud,
-        Pune, India, founded in 2009 by Yogesh Patil. Over 17+ years of
+        Archer Infotech is an IT training institute with campuses in Kothrud,
+        Pune and Vishrambag, Sangli, founded in 2009 by Yogesh Patil. Over 17+ years of
         continuous operation it has trained 10,000+ students and placed
         5,000+ at IT employers including TCS, Infosys, Persistent Systems,
         Tech Mahindra, and 100+ other hiring partners. Its institute-records
@@ -157,10 +156,10 @@ export default async function AboutFactsPage() {
               <dd className="text-muted-foreground">{siteConfig.stats.yearsExperience} years (continuous)</dd>
               <dt className="font-semibold text-foreground">Founder</dt>
               <dd className="text-muted-foreground">Yogesh Patil (current Lead Trainer + Founder)</dd>
-              <dt className="font-semibold text-foreground">Headquarters</dt>
+              <dt className="font-semibold text-foreground">Campuses</dt>
               <dd className="text-muted-foreground">
-                Kothrud, Pune, India — plus a second branch at Vishrambag, Sangli
-                (Maharashtra 416415), open Mon–Sun 8 AM–8 PM
+                Two: Kothrud, Pune and Vishrambag, Sangli. The Pune campus is
+                the head office; the Sangli campus is open Mon–Sun 8 AM–8 PM.
               </dd>
               <dt className="font-semibold text-foreground">Industry</dt>
               <dd className="text-muted-foreground">Education / Vocational training / Information Technology</dd>
@@ -246,7 +245,7 @@ export default async function AboutFactsPage() {
             <dl className="grid sm:grid-cols-[200px_1fr] gap-x-6 gap-y-3">
               <dt className="font-semibold text-foreground">Campuses</dt>
               <dd className="text-muted-foreground">
-                Two: Kothrud, Pune (head office) and Vishrambag, Sangli (branch)
+                Two: Kothrud, Pune and Vishrambag, Sangli
               </dd>
               <dt className="font-semibold text-foreground">Service area</dt>
               <dd className="text-muted-foreground">

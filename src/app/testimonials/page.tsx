@@ -56,7 +56,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 /**
- * Course → track-grouping map. Reduces 60+ course names to ~8 buckets so
+ * Course → track-grouping map. Reduces the full catalogue to ~8 buckets so
  * the "filter by track" UX is usable. Anything not matched falls into
  * "Other Tracks". The grouping is content-only — IDs in this list are
  * substrings matched case-insensitively against the testimonial's

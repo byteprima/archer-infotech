@@ -55,6 +55,8 @@ export interface VideoEmbedProps {
    * Sets aspect-ratio of the embed wrapper. Defaults to 16:9.
    */
   aspect?: "16/9" | "4/3";
+  /** Emit VideoObject JSON-LD only when this component is on a watch page. */
+  includeSchema?: boolean;
 }
 
 export function VideoEmbed({
@@ -67,6 +69,7 @@ export function VideoEmbed({
   schemaId,
   pagePath,
   aspect = "16/9",
+  includeSchema = true,
 }: VideoEmbedProps) {
   const ytThumb = (quality: string) =>
     `https://i.ytimg.com/vi/${youtubeId}/${quality}.jpg`;
@@ -123,10 +126,12 @@ export function VideoEmbed({
 
   return (
     <figure className="my-6">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-      />
+      {includeSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+      )}
       {/* Click-to-load facade, NOT a bare `loading="lazy"` iframe.
           The attribute defers the load until the frame is near the
           viewport, not until it is watched — and this video sits high

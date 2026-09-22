@@ -3,7 +3,7 @@ import { readFileSync, readdirSync } from "node:fs";
 import { extname, join } from "node:path";
 import { describe, it } from "node:test";
 
-import { categories, courses } from "./courses";
+import { catalogueStats } from "./catalogue-stats";
 import { siteConfig } from "./site-config";
 
 const PUBLIC_COPY_EXTENSIONS = new Set([".md", ".txt", ".ts", ".tsx"]);
@@ -16,39 +16,21 @@ function publicCopyFiles(root: string): string[] {
   });
 }
 
-function lowerBound(claim: string): number {
-  const match = /^(\d+)\+$/.exec(claim);
-  assert.ok(match, `Expected a lower-bound claim such as "60+", got "${claim}"`);
-  return Number(match[1]);
-}
-
 describe("canonical public facts", () => {
-  it("keeps the rounded course claim aligned with the actual catalogue", () => {
-    const claimedMinimum = lowerBound(siteConfig.stats.courses);
-    const roundedCatalogueSize = Math.floor(courses.length / 10) * 10;
-
-    assert.equal(
-      claimedMinimum,
-      roundedCatalogueSize,
-      `${courses.length} courses should be published as ${roundedCatalogueSize}+`,
-    );
+  it("publishes the exact course and programme totals from the catalogue", () => {
+    assert.equal(Number(siteConfig.stats.courses), catalogueStats.courses);
+    assert.equal(siteConfig.stats.bootcamps, catalogueStats.bootcamps);
+    assert.equal(siteConfig.stats.totalPrograms, catalogueStats.totalPrograms);
   });
 
   it("keeps category and bootcamp counts aligned with the catalogue", () => {
-    const bootcamps = courses.filter(
-      (course) => course.categorySlug === "bootcamps",
-    );
-    const courseCategories = categories.filter(
-      (category) => category.slug !== "bootcamps",
-    );
-
-    assert.equal(courseCategories.length, siteConfig.stats.courseCategories);
-    assert.equal(bootcamps.length, siteConfig.stats.bootcamps);
+    assert.equal(catalogueStats.courseCategories, siteConfig.stats.courseCategories);
+    assert.equal(catalogueStats.bootcamps, siteConfig.stats.bootcamps);
   });
 
-  it("does not reintroduce the retired 40+/48+ catalogue claims", () => {
+  it("does not reintroduce retired rounded catalogue claims", () => {
     const staleCourseClaim =
-      /\b(?:40|48)\+\s+(?:(?:active|technical|technology|job-focused|career-focused|IT training|tech)\s+)?(?:courses|programmes|programs|career tracks)\b/i;
+      /\b(?:40|48|60)\+\s+(?:(?:active|technical|technology|job-focused|career-focused|IT training|tech)\s+)?(?:courses|programmes|programs|career tracks)\b/i;
 
     for (const file of [
       ...publicCopyFiles("src/app"),
@@ -76,7 +58,7 @@ describe("canonical public facts", () => {
   it("keeps both LLM reference files explicit about locations and outcomes", () => {
     for (const file of ["public/llms.txt", "public/llms-full.txt"]) {
       const content = readFileSync(file, "utf8");
-      assert.match(content, /two physical centres/i, file);
+      assert.match(content, /two campuses/i, file);
       assert.match(content, /Vishrambag, Sangli/i, file);
       assert.ok(
         content.includes(`${siteConfig.stats.courses} courses`),

@@ -46,7 +46,7 @@ export const questionCategories: QuestionCategory[] = [
     label: "About Archer Infotech",
     metaTitle: "About Archer Infotech — Pune IT Institute FAQs (2026)",
     metaDescription:
-      "Answers about Archer Infotech: founded 2009, Pune headquarters, Sangli branch, 10,000+ trained, 5,000+ placed, courses, fees and placement support.",
+      "Answers about Archer Infotech: founded 2009, campuses in Pune and Sangli, 10,000+ trained, 5,000+ placed, courses, fees and placement support.",
     h1: "About Archer Infotech — Frequently Asked Questions",
     intro:
       "Direct answers to the questions prospective students + parents most often ask about Archer Infotech. All facts come from institute records; we don't claim 100% placement and don't fabricate stats.",

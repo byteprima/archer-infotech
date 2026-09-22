@@ -105,7 +105,7 @@ export default function LocationsIndexPage() {
               See how students from Sangli, Kolhapur, Satara and 15 other
               cities train with us
             </Link>
-            {" "}— including our Vishrambag, Sangli branch.
+            {" "}— including our Vishrambag, Sangli campus.
           </p>
         </div>
 

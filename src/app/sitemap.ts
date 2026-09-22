@@ -28,6 +28,7 @@ import {
   isoToDate,
 } from "@/lib/seo/content-dates";
 import { questionCategories } from "@/data/questions";
+import { courseVideos } from "@/data/course-videos";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://archerinfotech.in";
 
@@ -123,6 +124,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly",
       priority: 0.9,
     }));
+
+  // Dedicated watch pages are the canonical homes for VideoObject markup.
+  // Course pages still show the embeds, but are not watch pages and therefore
+  // must not claim video-indexing eligibility in structured data.
+  const videoPages: MetadataRoute.Sitemap = Object.keys(courseVideos).map(
+    (slug) => ({
+      url: `${baseUrl}/videos/${slug}`,
+      lastModified: COURSE,
+      changeFrequency: "yearly" as const,
+      priority: 0.6,
+    }),
+  );
 
   // Blog post pages — each post's TRUE updatedAt (fallback publishedAt).
   let blogPages: MetadataRoute.Sitemap = [];
@@ -275,6 +288,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...staticPages,
     ...categoryPages,
     ...coursePages,
+    ...videoPages,
     ...bootcampListingPage,
     ...bootcampPages,
     ...trainerListingPage,
