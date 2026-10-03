@@ -186,33 +186,29 @@ const nextConfig: NextConfig = {
       key: "Cache-Control",
       value: "public, max-age=300, stale-while-revalidate=86400",
     };
-    // These two tiers KEEP `s-maxage`, and therefore keep swr disabled. That
-    // is a deliberate trade, not an oversight — see the 5-minute tier above
-    // for the mechanism.
+    // 2026-10-04 — the 1-hour and 6-hour tiers now send the same header as
+    // the 5-minute tier, so swr finally works on them too.
     //
-    // Moving the edge TTL into `max-age` here was tried on 2026-09-05 and
-    // reverted the same hour. It fixes swr but tells browsers to cache the
-    // HTML for 1-6 hours, which cannot be purged. The intended mitigation —
-    // a Cloudflare cache rule setting Browser TTL to override_origin/60s —
-    // does not work: Cloudflare applies whichever of Browser TTL and the
-    // origin `max-age` is HIGHER, so a 60s override cannot cap a 21600s
-    // origin value. Verified live: a freshly cached /guides served
-    // `max-age=21600` to the browser with that override active.
+    // They used to keep `s-maxage`, and so kept swr disabled: at each TTL
+    // boundary Cloudflare made a blocking origin round-trip (measured
+    // 2026-10-03: /courses `REVALIDATED` at 2.3s TTFB, course pages ~1.1s).
+    // Moving their longer TTLs into `max-age` was tried on 2026-09-05 and
+    // reverted, because browsers would then hold the HTML for 1-6 hours with
+    // no way to purge it, and a Cloudflare Browser TTL override cannot cap
+    // an origin `max-age` (it applies whichever is HIGHER).
     //
-    // Fixing these tiers properly needs Edge TTL set per tier in Cloudflare
-    // cache rules (mode override_origin) with the origin sending a short
-    // `max-age` — which would duplicate this file's tier/path mapping into
-    // Cloudflare, where it can drift. Not worth it without a reason.
-    const PUBLIC_CACHE_STABLE = {
-      key: "Cache-Control",
-      value:
-        "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400",
-    };
-    const PUBLIC_CACHE_VERY_STABLE = {
-      key: "Cache-Control",
-      value:
-        "public, max-age=0, s-maxage=21600, stale-while-revalidate=86400",
-    };
+    // Shortening the TTL instead sidesteps that: browsers hold the HTML for
+    // 5 minutes, the same harmless window the DYNAMIC tier already accepts,
+    // and the edge serves stale instantly while it refreshes in the
+    // background. The cost is more background revalidations against origin
+    // (~288/day per route per PoP instead of 24 or 4); those are ISR cache
+    // reads, and none of them block a visitor.
+    //
+    // The tier constants stay separate so a route can be moved back to a
+    // longer TTL once Edge Cache TTL is set per tier in a Cloudflare cache
+    // rule, which would let the browser and edge TTLs differ.
+    const PUBLIC_CACHE_STABLE = PUBLIC_CACHE_DYNAMIC;
+    const PUBLIC_CACHE_VERY_STABLE = PUBLIC_CACHE_DYNAMIC;
     // Never edge-cache. For routes that must always hit origin (forms whose
     // markup embeds per-deploy server-action ids, personalised or
     // interactive pages).
