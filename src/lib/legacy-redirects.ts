@@ -135,6 +135,9 @@ const legacyWpRedirects: LegacyRedirect[] = [
   { from: "/blog/page/1", to: "/blog" },
   { from: "/contact-us", to: "/contact" },
   { from: "/course", to: "/courses" },
+  // Misspelled variants of live pages, found 404ing in GSC 2026-10-03.
+  { from: "/guides/top-pune-it-companies-hiring-fresher-2026", to: "/guides/top-pune-it-companies-hiring-freshers-2026" },
+  { from: "/blog/best-engineering-pune-it-placements-2026", to: "/blog/best-engineering-colleges-pune-it-placements-2026" },
 ];
 
 export const legacyRedirects: LegacyRedirect[] = [
