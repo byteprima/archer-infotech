@@ -1048,7 +1048,10 @@ export default async function CoursePage({ params }: CoursePageProps) {
 
       {/* Related Courses — internal linking for discoverability + SEO */}
       {(() => {
-        const related = getRelatedCourses(slug, 4);
+        // Six, not four: curated `relatedSlugs` fill the first slots, and at
+        // four they pushed out the same-category siblings that were some
+        // pages' only internal links from indexed course pages.
+        const related = getRelatedCourses(slug, 6);
         if (related.length === 0) return null;
         return (
           <section className="py-12 border-t">
@@ -1057,7 +1060,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
               <p className="text-muted-foreground mb-8">
                 Students who joined {course.shortTitle} also explored these:
               </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {related.map((rc) => {
                   const href =
                     rc.categorySlug === "bootcamps"

@@ -258,7 +258,7 @@ export const courses: Course[] = [
     categorySlug: "programming",
     // Route crawl equity from this indexed, frequently-crawled page to the
     // un-crawled Java Full Stack page (its natural next step for learners).
-    relatedSlugs: ["java-full-stack-training-in-pune"],
+    relatedSlugs: ["java-full-stack-training-in-pune", "selenium-training-in-pune", "api-testing-training-in-pune"],
     description: "Master Core Java from basics to interview-ready confidence. Learn JVM fundamentals, object-oriented programming, exception handling, collections, generics, streams, multithreading, JDBC, and data structures through hands-on projects.",
     shortDescription: "Complete Core Java programming from fundamentals to OOP, collections, threads and JDBC",
     duration: "3 Months",
@@ -318,6 +318,7 @@ export const courses: Course[] = [
   {
     id: "python",
     slug: "python-training-in-pune",
+    relatedSlugs: ["data-science-training-in-pune", "selenium-python-training-in-pune", "python-full-stack-training-in-pune"],
     seoTitle: "Python Course in Pune with Placement",
     heroHeading: "Python Course in Pune with Placement",
     title: "Core Python Programming",
@@ -430,6 +431,7 @@ export const courses: Course[] = [
   {
     id: "c",
     slug: "c-training-in-pune",
+    relatedSlugs: ["cpp-training-in-pune"],
     seoTitle: "C Programming Course in Pune with Placement",
     heroHeading: "C Programming Course in Pune with Placement",
     title: "C Programming",
@@ -524,6 +526,7 @@ export const courses: Course[] = [
   {
     id: "dotnet-csharp",
     slug: "dotnet-csharp-training-in-pune",
+    relatedSlugs: ["dotnet-full-stack-training-in-pune"],
     seoTitle: "C# and .NET Course in Pune with Placement",
     heroHeading: "C# and .NET Course in Pune with Placement",
     title: "C# Programming",
@@ -576,6 +579,7 @@ export const courses: Course[] = [
   {
     id: "spring-boot-microservices",
     slug: "spring-boot-microservices-training-in-pune",
+    relatedSlugs: ["api-testing-training-in-pune"],
     title: "Spring Boot & Microservices",
     shortTitle: "Spring Boot & Microservices",
     category: "Programming",
@@ -727,6 +731,7 @@ export const courses: Course[] = [
   {
     id: "java-fullstack",
     slug: "java-full-stack-training-in-pune",
+    relatedSlugs: ["javascript-training-in-pune", "software-testing-training-in-pune"],
     title: "Java Full Stack Development",
     shortTitle: "Java Full Stack",
     // SERP-facing strings target the highest-demand query from GSC
@@ -933,6 +938,7 @@ export const courses: Course[] = [
   {
     id: "mern-stack",
     slug: "mern-stack-training-in-pune",
+    relatedSlugs: ["nodejs-training-in-pune", "mongodb-training-in-pune", "mean-stack-training-in-pune"],
     seoTitle: "MERN Stack Developer Course in Pune with Placement",
     heroHeading: "MERN Stack Developer Course in Pune with Placement",
     title: "MERN Stack Development",
@@ -1312,6 +1318,7 @@ export const courses: Course[] = [
   {
     id: "reactjs",
     slug: "react-training-in-pune",
+    relatedSlugs: ["nextjs-training-in-pune", "typescript-training-in-pune"],
     seoTitle: "React JS Course in Pune with Placement",
     heroHeading: "React JS Course in Pune with Placement",
     title: "React.js Development",
@@ -1364,6 +1371,7 @@ export const courses: Course[] = [
   {
     id: "angular",
     slug: "angular-training-in-pune",
+    relatedSlugs: ["typescript-training-in-pune", "mean-stack-training-in-pune"],
     seoTitle: "Angular Course in Pune with Placement",
     heroHeading: "Angular Course in Pune with Placement",
     title: "Angular Development",
@@ -1684,6 +1692,7 @@ export const courses: Course[] = [
   {
     id: "gcp",
     slug: "google-cloud-training-in-pune",
+    relatedSlugs: ["gcp-associate-cloud-engineer-training-in-pune"],
     title: "Google Cloud Platform",
     shortTitle: "GCP",
     category: "Cloud & DevOps",
@@ -1730,6 +1739,7 @@ export const courses: Course[] = [
   {
     id: "devops",
     slug: "devops-training-in-pune",
+    relatedSlugs: ["api-testing-training-in-pune", "playwright-training-in-pune"],
     title: "DevOps Engineering",
     shortTitle: "DevOps",
     category: "Cloud & DevOps",
@@ -2042,6 +2052,7 @@ export const courses: Course[] = [
   {
     id: "machine-learning",
     slug: "machine-learning-training-in-pune",
+    relatedSlugs: ["data-science-training-in-pune", "data-engineering-training-in-pune", "data-analytics-training-in-pune"],
     title: "Machine Learning",
     shortTitle: "Machine Learning",
     category: "Data & AI",
@@ -2296,6 +2307,7 @@ export const courses: Course[] = [
   {
     id: "chatgpt-llms",
     slug: "chatgpt-llms-training-in-pune",
+    relatedSlugs: ["genai-training-in-pune", "llm-rag-testing-training-in-pune"],
     title: "ChatGPT & LLMs",
     shortTitle: "ChatGPT/LLMs",
     category: "AI & GenAI",
@@ -2386,6 +2398,7 @@ export const courses: Course[] = [
   {
     id: "vibe-coding",
     slug: "vibe-coding-training-in-pune",
+    relatedSlugs: ["ai-assisted-software-testing-training-in-pune"],
     seoTitle: "Vibe Coding Course in Pune — AI-Assisted Development",
     heroHeading: "Vibe Coding Course in Pune — Build Software with AI Assistants",
     title: "Vibe Coding & AI-Assisted Development",
@@ -2443,6 +2456,7 @@ export const courses: Course[] = [
   {
     id: "ai-tools",
     slug: "ai-tools-training-in-pune",
+    relatedSlugs: ["ai-assisted-software-testing-training-in-pune", "genai-training-in-pune"],
     title: "AI Tools for Productivity",
     shortTitle: "AI Tools",
     category: "AI & GenAI",
@@ -2599,6 +2613,7 @@ export const courses: Course[] = [
   {
     id: "react-native",
     slug: "react-native-training-in-pune",
+    relatedSlugs: ["flutter-development-training-in-pune", "android-development-training-in-pune", "ios-swift-training-in-pune"],
     title: "React Native Development",
     shortTitle: "React Native",
     category: "Mobile App Development",
@@ -2703,6 +2718,7 @@ export const courses: Course[] = [
   {
     id: "mysql",
     slug: "mysql-training-in-pune",
+    relatedSlugs: ["oracle-database-training-in-pune", "mongodb-training-in-pune"],
     title: "MySQL Database",
     shortTitle: "MySQL",
     category: "Database Technologies",
@@ -2752,6 +2768,7 @@ export const courses: Course[] = [
   {
     id: "postgresql",
     slug: "postgresql-training-in-pune",
+    relatedSlugs: ["oracle-database-training-in-pune", "data-engineering-training-in-pune"],
     title: "PostgreSQL Database",
     shortTitle: "PostgreSQL",
     category: "Database Technologies",
@@ -2907,6 +2924,7 @@ export const courses: Course[] = [
   {
     id: "firebase",
     slug: "firebase-training-in-pune",
+    relatedSlugs: ["flutter-development-training-in-pune", "android-development-training-in-pune"],
     title: "Firebase Development",
     shortTitle: "Firebase",
     category: "Database Technologies",
@@ -3717,6 +3735,7 @@ export const courses: Course[] = [
   {
     id: "salesforce-administrator",
     slug: "salesforce-administrator-training-in-pune",
+    relatedSlugs: ["salesforce-sales-cloud-training-in-pune", "salesforce-consultant-training-in-pune", "salesforce-business-analyst-training-in-pune", "salesforce-architect-training-in-pune"],
     seoTitle: "Salesforce Administrator Course in Pune",
     heroHeading: "Salesforce Administrator Course in Pune with Placement",
     title: "Salesforce Administrator",
@@ -4064,6 +4083,7 @@ export const courses: Course[] = [
   {
     id: "salesforce-architect",
     slug: "salesforce-architect-training-in-pune",
+    relatedSlugs: ["salesforce-developer-training-in-pune", "salesforce-marketing-cloud-training-in-pune", "salesforce-data-analytics-training-in-pune"],
     seoTitle: "Salesforce Architect Track in Pune (Experienced)",
     heroHeading: "Salesforce Architect Preparation Track in Pune — For Experienced Practitioners",
     title: "Salesforce Architect",
@@ -4122,6 +4142,7 @@ export const courses: Course[] = [
   {
     id: "agentic-ai",
     slug: "agentic-ai-training-in-pune",
+    relatedSlugs: ["genai-training-in-pune", "agentic-ai-testing-training-in-pune", "llm-rag-testing-training-in-pune"],
     seoTitle: "Agentic AI Course in Pune — Build AI Agents",
     heroHeading: "Agentic AI Course in Pune — Build Production AI Agents",
     title: "Agentic AI",
