@@ -300,7 +300,11 @@ export function TestimonialsSection({ testimonials }: { testimonials: Testimonia
           aria-roledescription="carousel"
           aria-label="Student testimonials"
           tabIndex={0}
-          className="scrollbar-none -mx-4 flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth px-4 pb-2"
+          // No `scroll-smooth` here: combined with `snap-x` it stops Chrome
+          // recording Largest Contentful Paint for the whole page (PSI returned
+          // NO_LCP and CrUX lost the metric). scrollByCard() and the autoplay
+          // already pass `behavior: "smooth"` themselves.
+          className="scrollbar-none -mx-4 flex snap-x snap-mandatory gap-6 overflow-x-auto px-4 pb-2"
         >
           {testimonials.map((testimonial) => (
             <div
