@@ -15,10 +15,14 @@ import type { Suggestion } from "@/lib/seo-dashboard/rules";
 import { buildOverview, type OverviewKpi, type OverviewModel } from "@/lib/seo-dashboard/overview";
 import { STATUS_STYLES } from "@/lib/seo-dashboard/targets";
 import { StatusDot, StatusBadge, Sparkline } from "./status";
+import { AuthorityBudgetPanel } from "./authority-budget-panel";
+import type { BacklinkView, BudgetView } from "@/lib/seo-dashboard/dfs-read";
 
 interface Props {
   snapshot: DashboardSnapshot;
   history: DailyRollup[];
+  backlinks: BacklinkView;
+  budget: BudgetView | null;
 }
 
 /**
@@ -28,7 +32,7 @@ interface Props {
  * rollup (field → lab fallback), indexation coverage, and a status
  * strip into the detail tabs.
  */
-export function OverviewTab({ snapshot, history }: Props) {
+export function OverviewTab({ snapshot, history, backlinks, budget }: Props) {
   const m = buildOverview(snapshot, history);
 
   return (
@@ -57,6 +61,9 @@ export function OverviewTab({ snapshot, history }: Props) {
         <RankingCard ranking={m.ranking} />
         <CwvCard cwv={m.cwv} />
       </div>
+
+      {/* Link authority + DataForSEO budget */}
+      {budget && <AuthorityBudgetPanel backlinks={backlinks} budget={budget} />}
 
       {/* Suggestions (top 5) */}
       <div>

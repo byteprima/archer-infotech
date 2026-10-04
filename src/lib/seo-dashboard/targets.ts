@@ -148,6 +148,19 @@ export const TARGET_KEYWORDS: TargetKeyword[] = [
   { keyword: "data science course in pune", targetPath: "/courses/data-ai/data-science-training-in-pune", pageType: "course" },
 ];
 
+/**
+ * Competitors tracked in the monthly backlink snapshot. Chosen from the
+ * 2026-10-04 baseline: the three institutes most often in the Pune top 10
+ * for the tracked keywords, plus acte.in from DataForSEO's competitor
+ * discovery.
+ */
+export const TRACKED_COMPETITORS = [
+  "sevenmentor.com",
+  "3ritechnologies.com",
+  "ecti.co.in",
+  "acte.in",
+];
+
 /** Normalise a query for matching (lower-case, collapse whitespace). */
 export function normaliseQuery(q: string): string {
   return q.trim().toLowerCase().replace(/\s+/g, " ");

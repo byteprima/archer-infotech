@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { MapPin, CalendarClock } from "lucide-react";
 import type { DailyRollup, KeywordSeries } from "@/lib/seo-dashboard/history";
-import type { GeoGridStatus } from "@/lib/seo-dashboard/geo-grid";
+import type { GeoGridResult, GeoGridStatus } from "@/lib/seo-dashboard/geo-grid";
 import { POSITION_BUCKETS, positionStatus } from "@/lib/seo-dashboard/targets";
 import { StatusDot, Sparkline } from "./status";
 
@@ -9,6 +9,8 @@ interface Props {
   history: DailyRollup[];
   keywords: KeywordSeries[];
   geo: GeoGridStatus;
+  /** Latest collected grid, or null before the first monthly run. */
+  grid: GeoGridResult[] | null;
 }
 
 /**
@@ -16,7 +18,7 @@ interface Props {
  * (POST /api/seo/snapshot). Shows ranking/traffic trajectory rather
  * than a single snapshot. Empty until the cron has run a few days.
  */
-export function TrendsTab({ history, keywords, geo }: Props) {
+export function TrendsTab({ history, keywords, geo, grid }: Props) {
   const hasHistory = history.length >= 2;
   const nbClicks = history.map((d) => d.nonBranded.clicks);
   const nbImpr = history.map((d) => d.nonBranded.impressions);
@@ -149,16 +151,20 @@ export function TrendsTab({ history, keywords, geo }: Props) {
         <p className="text-sm text-muted-foreground mb-4">
           For a Pune institute, map-pack rank often outweighs the blue-link average GSC reports.
         </p>
-        <Card className={geo.enabled ? "" : "border-amber-200 bg-amber-50/40"}>
-          <CardContent className="pt-5 pb-5">
-            {geo.enabled ? (
-              <p className="text-sm">Geo-grid provider connected — grid tracking active.</p>
-            ) : (
+        {grid && grid.length > 0 ? (
+          <GeoGridView grid={grid} geo={geo} />
+        ) : (
+          <Card className={geo.enabled ? "" : "border-amber-200 bg-amber-50/40"}>
+            <CardContent className="pt-5 pb-5">
               <div className="space-y-3 text-sm">
-                <p className="font-medium">Not enabled yet.</p>
-                <p className="text-muted-foreground">{geo.reason}</p>
+                <p className="font-medium">
+                  {geo.enabled
+                    ? "Connected — no grid collected yet. The monthly check is posted on the next run of POST /api/seo/dataforseo and lands on the run after."
+                    : "Not enabled yet."}
+                </p>
+                {geo.reason && <p className="text-muted-foreground">{geo.reason}</p>}
                 <div>
-                  <p className="text-xs font-semibold mb-1">Pre-configured grid (Pune area):</p>
+                  <p className="text-xs font-semibold mb-1">Grid (Pune area):</p>
                   <ul className="text-xs text-muted-foreground space-y-0.5">
                     {geo.plannedGrid.map((g) => (
                       <li key={g.center}>
@@ -168,13 +174,13 @@ export function TrendsTab({ history, keywords, geo }: Props) {
                   </ul>
                 </div>
                 <div>
-                  <p className="text-xs font-semibold mb-1">Keywords queued for geo-tracking:</p>
+                  <p className="text-xs font-semibold mb-1">Keywords:</p>
                   <p className="text-xs text-muted-foreground">{geo.plannedKeywords.join(" · ")}</p>
                 </div>
               </div>
-            )}
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        )}
       </div>
     </div>
   );
@@ -203,5 +209,64 @@ function TrendCard({
         </div>
       </CardContent>
     </Card>
+  );
+}
+
+/** Colour for a Maps rank: top 3 = in the pack. */
+function rankClass(rank: number | null): string {
+  if (rank === null) return "bg-muted text-muted-foreground";
+  if (rank <= 3) return "bg-emerald-500 text-white";
+  if (rank <= 10) return "bg-amber-400 text-amber-950";
+  return "bg-rose-200 text-rose-900";
+}
+
+/**
+ * One 3×3 heat grid per centre for each keyword (north at the top),
+ * with share of local voice = grid points where we're in the top 3.
+ */
+function GeoGridView({ grid, geo }: { grid: GeoGridResult[]; geo: GeoGridStatus }) {
+  return (
+    <div className="space-y-4">
+      <p className="text-xs text-muted-foreground">
+        Checked {grid[0].capturedAt}. Number = our Google Maps rank at that point; “–” = not in the
+        listings. Green = in the map pack (top 3), amber = 4–10, red = 11+.
+      </p>
+      {grid.map((g) => (
+        <Card key={g.keyword}>
+          <CardContent className="pt-5 pb-5">
+            <div className="flex items-baseline justify-between mb-3">
+              <p className="font-medium">{g.keyword}</p>
+              <p className="text-sm">
+                Share of local voice:{" "}
+                <span className="font-semibold">{(g.shareOfLocalVoice * 100).toFixed(0)}%</span>
+              </p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {geo.plannedGrid.map((c) => {
+                const pts = Array.from({ length: 9 }, (_, i) =>
+                  g.points.find((p) => p.location === `${c.center}#${i}`),
+                );
+                return (
+                  <div key={c.center}>
+                    <p className="text-xs text-muted-foreground mb-1">{c.center}</p>
+                    <div className="grid grid-cols-3 gap-1 w-fit">
+                      {pts.map((p, i) => (
+                        <div
+                          key={i}
+                          className={`h-9 w-9 rounded text-xs font-semibold flex items-center justify-center ${rankClass(p?.rank ?? null)} ${i === 4 ? "ring-2 ring-foreground/40" : ""}`}
+                          title={p ? `${p.location} (${p.lat}, ${p.lng})` : "not checked"}
+                        >
+                          {p?.rank ?? "–"}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </CardContent>
+        </Card>
+      ))}
+    </div>
   );
 }

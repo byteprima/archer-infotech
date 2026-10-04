@@ -871,6 +871,141 @@ export const seoKeywordRanks = sqliteTable("seo_keyword_ranks", {
   position: real("position").notNull().default(0),
 });
 
+// ---------------------------------------------------------------------
+// DataForSEO-backed tracking (phase 4 of the SEO system build).
+// Written by POST /api/seo/dataforseo; read by /admin/seo. Every paid
+// call is logged in seo_provider_spend so the monthly budget can be
+// enforced before the next one.
+// ---------------------------------------------------------------------
+
+// Async DataForSEO tasks (Standard queue) waiting to be collected.
+// Posting is billed; collecting is free, so the daily route posts what
+// is due and collects whatever has finished since the last run.
+export const seoDfsTasks = sqliteTable(
+  "seo_dfs_tasks",
+  {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    taskId: text("task_id").notNull(),
+    // 'serp' | 'maps' | 'llm-chatgpt' | 'llm-perplexity'
+    kind: text("kind").notNull(),
+    // The run this task belongs to (YYYY-MM-DD of posting) — rows from one
+    // batch share it so a partial collection still lands on one date.
+    runDate: text("run_date").notNull(),
+    // Keyword (serp/maps) or canonical prompt id (llm).
+    subject: text("subject").notNull(),
+    // Grid point label for maps tasks, e.g. "Kothrud#4".
+    location: text("location"),
+    lat: real("lat"),
+    lng: real("lng"),
+    // 'pending' | 'done' | 'failed'
+    status: text("status").notNull().default("pending"),
+    error: text("error"),
+    postedAt: integer("posted_at", { mode: "timestamp" })
+      .notNull()
+      .$defaultFn(() => new Date()),
+    collectedAt: integer("collected_at", { mode: "timestamp" }),
+  },
+  (table) => [
+    uniqueIndex("seo_dfs_tasks_task_idx").on(table.taskId),
+    index("seo_dfs_tasks_status_idx").on(table.status),
+  ],
+);
+
+// Live Google results for a tracked keyword (Pune, mobile). One row per
+// (date, keyword). Positions are DataForSEO rank_group; null = not in the
+// results Google returned (which can be fewer than the requested depth).
+export const seoSerpSnapshots = sqliteTable(
+  "seo_serp_snapshots",
+  {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    date: text("date").notNull(),
+    keyword: text("keyword").notNull(),
+    ourPosition: integer("our_position"),
+    ourUrl: text("our_url"),
+    resultsCount: integer("results_count").notNull().default(0),
+    aioPresent: integer("aio_present", { mode: "boolean" }).notNull().default(false),
+    aioCitesUs: integer("aio_cites_us", { mode: "boolean" }).notNull().default(false),
+    // JSON string[] of domains the AI Overview cited.
+    aioDomains: text("aio_domains").notNull().default("[]"),
+    localPackPresent: integer("local_pack_present", { mode: "boolean" }).notNull().default(false),
+    localPackUs: integer("local_pack_us", { mode: "boolean" }).notNull().default(false),
+    // JSON string[] of the top-10 organic domains, in order.
+    top10: text("top10").notNull().default("[]"),
+  },
+  (table) => [uniqueIndex("seo_serp_snapshots_date_kw_idx").on(table.date, table.keyword)],
+);
+
+// Map-pack geo-grid: our Google Maps rank at each grid point.
+export const seoGeoGrid = sqliteTable(
+  "seo_geo_grid",
+  {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    date: text("date").notNull(),
+    keyword: text("keyword").notNull(),
+    // Grid point label, e.g. "Kothrud#4" (centre name + 0-8 index).
+    location: text("location").notNull(),
+    lat: real("lat").notNull(),
+    lng: real("lng").notNull(),
+    // Maps rank 1..N, or null when we weren't in the returned listings.
+    rank: integer("rank"),
+    resultsCount: integer("results_count").notNull().default(0),
+  },
+  (table) => [
+    uniqueIndex("seo_geo_grid_date_kw_loc_idx").on(table.date, table.keyword, table.location),
+  ],
+);
+
+// Monthly backlink summary for us and the tracked competitors.
+export const seoBacklinkSnapshots = sqliteTable(
+  "seo_backlink_snapshots",
+  {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    date: text("date").notNull(),
+    target: text("target").notNull(),
+    referringDomains: integer("referring_domains").notNull().default(0),
+    referringMainDomains: integer("referring_main_domains").notNull().default(0),
+    backlinks: integer("backlinks").notNull().default(0),
+    domainRank: integer("domain_rank").notNull().default(0),
+    spamScore: integer("spam_score"),
+  },
+  (table) => [
+    uniqueIndex("seo_backlink_snapshots_date_target_idx").on(table.date, table.target),
+  ],
+);
+
+// Google Ads search volume per tracked keyword (latest refresh only).
+export const seoKeywordMeta = sqliteTable("seo_keyword_meta", {
+  keyword: text("keyword").primaryKey(),
+  // Monthly average searches, Pune city (Google Ads location 1007788).
+  volumePune: integer("volume_pune"),
+  // Monthly average searches, India (2356).
+  volumeIndia: integer("volume_india"),
+  cpc: real("cpc"),
+  // 'LOW' | 'MEDIUM' | 'HIGH'
+  competition: text("competition"),
+  updatedAt: integer("updated_at", { mode: "timestamp" })
+    .notNull()
+    .$defaultFn(() => new Date()),
+});
+
+// Ledger of every billed provider call — the budget meter sums it.
+export const seoProviderSpend = sqliteTable(
+  "seo_provider_spend",
+  {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    // YYYY-MM-DD (UTC) of the call.
+    date: text("date").notNull(),
+    provider: text("provider").notNull(), // 'dataforseo'
+    endpoint: text("endpoint").notNull(),
+    costUsd: real("cost_usd").notNull().default(0),
+    tasks: integer("tasks").notNull().default(1),
+    createdAt: integer("created_at", { mode: "timestamp" })
+      .notNull()
+      .$defaultFn(() => new Date()),
+  },
+  (table) => [index("seo_provider_spend_date_idx").on(table.date)],
+);
+
 // Google Business Profile reviews — mirror of the reviews on the GBP
 // (CID 6025358486108162616), pulled by the nightly sync in
 // /api/reviews/sync from GBP API v4 accounts.locations.reviews.list.

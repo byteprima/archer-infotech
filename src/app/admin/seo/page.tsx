@@ -18,7 +18,8 @@ import { requireAdminPage } from "@/lib/admin";
 import { loadDashboardSnapshot } from "@/lib/seo-dashboard/load";
 import { getSeoApiConfig } from "@/lib/seo-dashboard/auth";
 import { getDailyHistory, getKeywordHistory } from "@/lib/seo-dashboard/history";
-import { geoGridStatus } from "@/lib/seo-dashboard/geo-grid";
+import { geoGridStatus, getLatestGeoGrid } from "@/lib/seo-dashboard/geo-grid";
+import { getBacklinkView, getBudgetView, getSerpView } from "@/lib/seo-dashboard/dfs-read";
 import { OverviewTab } from "./_components/overview-tab";
 import { SearchPerformanceTab } from "./_components/search-performance-tab";
 import { RankingsTab } from "./_components/rankings-tab";
@@ -66,7 +67,7 @@ export default async function SeoDashboardPage({ searchParams }: PageProps) {
             <div>
               <h1 className="text-xl font-bold">SEO Dashboard</h1>
               <p className="text-sm text-muted-foreground">
-                Live data from GSC + PSI + CrUX
+                Live data from GSC + PSI + CrUX + DataForSEO
               </p>
             </div>
           </div>
@@ -114,9 +115,14 @@ async function DashboardBody({ force }: { force: boolean }) {
 
   // Time-series + tracker reads (cheap local DB queries; empty until the
   // daily snapshot job has run).
-  const [history, keywords] = await Promise.all([
+  const [history, keywords, serp, backlinks, budget, grid] = await Promise.all([
     getDailyHistory(90).catch(() => []),
     getKeywordHistory(90).catch(() => []),
+    // DataForSEO tables (empty until the daily job has collected data).
+    getSerpView().catch(() => ({ date: null, previousDate: null, rows: [] })),
+    getBacklinkView().catch(() => ({ ours: [], latest: [] })),
+    getBudgetView().catch(() => null),
+    getLatestGeoGrid().catch(() => null),
   ]);
   const geo = geoGridStatus();
 
@@ -135,15 +141,15 @@ async function DashboardBody({ force }: { force: boolean }) {
         </TabsList>
 
         <TabsContent value="overview">
-          <OverviewTab snapshot={snapshot} history={history} />
+          <OverviewTab snapshot={snapshot} history={history} backlinks={backlinks} budget={budget} />
         </TabsContent>
 
         <TabsContent value="rankings">
-          <RankingsTab snapshot={snapshot} />
+          <RankingsTab snapshot={snapshot} serp={serp} dfsConfigured={geo.enabled} />
         </TabsContent>
 
         <TabsContent value="trends">
-          <TrendsTab history={history} keywords={keywords} geo={geo} />
+          <TrendsTab history={history} keywords={keywords} geo={geo} grid={grid} />
         </TabsContent>
 
         <TabsContent value="search">

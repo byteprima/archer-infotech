@@ -28,7 +28,8 @@ export type CacheSource =
   | "psi"
   | "crux-origin"
   | "crux-url"
-  | "crux-history";
+  | "crux-history"
+  | "dfs-balance";
 
 interface WithCacheOptions<T = unknown> {
   source: CacheSource;

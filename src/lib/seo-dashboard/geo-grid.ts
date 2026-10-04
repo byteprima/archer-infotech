@@ -1,25 +1,26 @@
 /**
- * SEO Dashboard — local map-pack geo-grid (#5, scaffold).
+ * SEO Dashboard — local map-pack geo-grid (#5).
  *
  * For a local institute, the Google **map-pack** position for "X
  * training in pune / kothrud" often matters more than the blue-link
- * average GSC reports. Measuring it needs a SERP API that supports
- * geo-located queries (DataForSEO's geo-grid), which is NOT wired up in
- * this environment yet.
- *
- * This module defines the data model + a single resolver so the Trends
- * tab can render a real grid the moment a provider is connected — no
- * fake data is ever returned. To enable: install the DataForSEO
- * extension, set DATAFORSEO_LOGIN / DATAFORSEO_PASSWORD, and implement
- * `fetchGeoGrid` against the SERP endpoint.
+ * average GSC reports. The monthly DataForSEO job (dfs-jobs.ts) runs
+ * each planned keyword at every point of a 3×3 grid around each centre
+ * and stores our Maps rank in seo_geo_grid; this module defines the
+ * plan and reads the latest grid back. No fake data is ever returned —
+ * with nothing collected yet, `getLatestGeoGrid` returns null.
  */
+import { desc, eq } from "drizzle-orm";
+import { db } from "@/db";
+import { seoGeoGrid } from "@/db/schema";
+import { dfsConfigured } from "./dataforseo";
+import { gridPoints, type GridCentre } from "./dataforseo-plan";
 
 export interface GeoGridPoint {
-  /** Grid cell label, e.g. "Kothrud", or a lat,lng. */
+  /** Grid cell label, e.g. "Kothrud#4". */
   location: string;
   lat: number;
   lng: number;
-  /** Map-pack rank (1–20, or null if not in the local pack). */
+  /** Maps rank (1–100), or null if we weren't in the listings. */
   rank: number | null;
 }
 
@@ -27,7 +28,7 @@ export interface GeoGridResult {
   keyword: string;
   capturedAt: string;
   points: GeoGridPoint[];
-  /** Share of grid points where we appear in the local pack (0–1). */
+  /** Share of grid points where we're in the top 3, i.e. the map pack (0–1). */
   shareOfLocalVoice: number;
 }
 
@@ -35,47 +36,62 @@ export interface GeoGridStatus {
   enabled: boolean;
   /** Why it's not enabled, for the UI to surface honestly. */
   reason?: string;
-  /** Grid the dashboard would track once a provider is connected. */
+  /** Grid the dashboard tracks. */
   plannedKeywords: string[];
-  plannedGrid: { center: string; lat: number; lng: number; radiusKm: number; points: number }[];
+  plannedGrid: (GridCentre & { points: number })[];
 }
 
-/** Pune-area grid the geo-tracker is pre-configured to measure. */
-const PLANNED_GRID = [
-  { center: "Pune (Shivajinagar)", lat: 18.5308, lng: 73.8475, radiusKm: 8, points: 9 },
-  { center: "Kothrud", lat: 18.5074, lng: 73.8077, radiusKm: 5, points: 9 },
-  { center: "Hinjawadi (IT hub)", lat: 18.5912, lng: 73.7389, radiusKm: 6, points: 9 },
+/** Pune-area grid: 9 points around each centre. */
+export const PLANNED_GRID: GridCentre[] = [
+  { center: "Pune (Shivajinagar)", lat: 18.5308, lng: 73.8475, radiusKm: 8 },
+  { center: "Kothrud", lat: 18.5074, lng: 73.8077, radiusKm: 5 },
+  { center: "Hinjawadi (IT hub)", lat: 18.5912, lng: 73.7389, radiusKm: 6 },
 ];
 
-const PLANNED_KEYWORDS = [
+export const PLANNED_KEYWORDS = [
   "it training institute in pune",
   "python training in pune",
   "java classes in pune",
   "software training in kothrud",
 ];
 
-/**
- * Returns whether geo-grid tracking is live. Wire a DataForSEO (or
- * equivalent) SERP client in here to flip `enabled` to true.
- */
+/** Every grid point the monthly job queries. */
+export function plannedPoints() {
+  return PLANNED_GRID.flatMap(gridPoints);
+}
+
 export function geoGridStatus(): GeoGridStatus {
-  const enabled = Boolean(process.env.DATAFORSEO_LOGIN && process.env.DATAFORSEO_PASSWORD);
+  const enabled = dfsConfigured();
   return {
     enabled,
     reason: enabled
       ? undefined
-      : "No SERP provider connected. Set DATAFORSEO_LOGIN / DATAFORSEO_PASSWORD and implement fetchGeoGrid() to enable map-pack geo-grid tracking.",
+      : "No SERP provider connected. Set DATAFORSEO_LOGIN / DATAFORSEO_PASSWORD (runtime-only) and schedule POST /api/seo/dataforseo.",
     plannedKeywords: PLANNED_KEYWORDS,
-    plannedGrid: PLANNED_GRID,
+    plannedGrid: PLANNED_GRID.map((g) => ({ ...g, points: 9 })),
   };
 }
 
-/**
- * Placeholder resolver — throws until a SERP provider is implemented.
- * Kept as the single integration point so enabling the feature is a
- * one-function change.
- */
-export async function fetchGeoGrid(_keyword: string): Promise<GeoGridResult> {
-  void _keyword;
-  throw new Error("geo-grid provider not configured");
+/** The most recent complete grid, one result per keyword, or null. */
+export async function getLatestGeoGrid(): Promise<GeoGridResult[] | null> {
+  const [latest] = await db
+    .select({ date: seoGeoGrid.date })
+    .from(seoGeoGrid)
+    .orderBy(desc(seoGeoGrid.date))
+    .limit(1);
+  if (!latest) return null;
+
+  const rows = await db.select().from(seoGeoGrid).where(eq(seoGeoGrid.date, latest.date));
+  return PLANNED_KEYWORDS.map((keyword) => {
+    const points = rows
+      .filter((r) => r.keyword === keyword)
+      .map((r) => ({ location: r.location, lat: r.lat, lng: r.lng, rank: r.rank }));
+    const inPack = points.filter((p) => p.rank !== null && p.rank <= 3).length;
+    return {
+      keyword,
+      capturedAt: latest.date,
+      points,
+      shareOfLocalVoice: points.length ? inPack / points.length : 0,
+    };
+  }).filter((g) => g.points.length > 0);
 }

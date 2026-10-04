@@ -11,9 +11,13 @@ import {
 } from "@/lib/seo-dashboard/analytics";
 import { PAGE_TYPE_LABELS, positionStatus, ctrGapStatus } from "@/lib/seo-dashboard/targets";
 import { StatusDot } from "./status";
+import { LiveSerpPanel } from "./live-serp-panel";
+import type { SerpView } from "@/lib/seo-dashboard/dfs-read";
 
 interface Props {
   snapshot: DashboardSnapshot;
+  serp: SerpView;
+  dfsConfigured: boolean;
 }
 
 /**
@@ -21,7 +25,7 @@ interface Props {
  * striking-distance opportunities, period movers, CTR gaps, and a
  * per-segment scorecard. All computed from the current GSC snapshot.
  */
-export function RankingsTab({ snapshot }: Props) {
+export function RankingsTab({ snapshot, serp, dfsConfigured }: Props) {
   const queries = snapshot.gscQueries28d.result?.rows ?? [];
   const priorQueries = snapshot.gscQueriesPrior28d.result?.rows ?? [];
   const pages = snapshot.gscPages28d.result?.rows ?? [];
@@ -45,6 +49,8 @@ export function RankingsTab({ snapshot }: Props) {
 
   return (
     <div className="space-y-6">
+      <LiveSerpPanel serp={serp} configured={dfsConfigured} />
+
       {/* Branded vs non-branded summary */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <SummaryTile
