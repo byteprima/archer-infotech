@@ -34,6 +34,7 @@ export const PRICE = {
   mapsTask: 0.0006, // Standard queue, up to 100 listings
   llmChatgpt: 0.035, // gpt-5.4-mini with web search, measured 0.018–0.032
   llmPerplexity: 0.007, // sonar, measured ~0.006
+  llmTaskBase: 0.0002, // per LLM task, on top of the model's token cost
   backlinksSummary: 0.0241, // per target
   searchVolume: 0.09, // per request (up to 1000 keywords)
 } as const;
@@ -229,6 +230,16 @@ interface LlmResult {
         sections?: { text?: string | null; annotations?: { url?: string | null }[] | null }[] | null;
       }[]
     | null;
+}
+
+/**
+ * What a finished LLM task actually cost. task_get reports `cost: 0`
+ * (fetching is free), so the settled price is the model's token charge
+ * (`money_spent`) plus DataForSEO's per-task base.
+ */
+export function settledLlmCost(result: { money_spent?: number | null } | null | undefined): number {
+  const tokens = Number(result?.money_spent ?? 0);
+  return (Number.isFinite(tokens) ? tokens : 0) + PRICE.llmTaskBase;
 }
 
 /** Did an LLM answer mention us, and did it cite our site? */

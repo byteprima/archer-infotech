@@ -10,7 +10,7 @@
  * Collecting on the *next* run is what keeps this cheap: the Standard
  * queue costs a third of Live but takes 5–20 minutes to finish.
  */
-import { and, count, eq, like, max } from "drizzle-orm";
+import { and, count, eq, inArray, like, lt, max } from "drizzle-orm";
 import { db } from "@/db";
 import {
   aiCitationAudits,
@@ -48,6 +48,7 @@ import {
   parseMapsRank,
   parseSerp,
   SERP_DEPTH,
+  settledLlmCost,
   SERP_LOCATION,
   type DfsJob,
 } from "./dataforseo-plan";
@@ -346,7 +347,7 @@ async function replaceAudit(row: typeof aiCitationAudits.$inferInsert): Promise<
 
 type PendingTask = typeof seoDfsTasks.$inferSelect;
 
-async function store(task: PendingTask, result: unknown, taskCost: number): Promise<void> {
+async function store(task: PendingTask, result: unknown): Promise<void> {
   const kind = task.kind as TaskKind;
   if (kind === "serp") {
     const s = parseSerp(result as Parameters<typeof parseSerp>[0]);
@@ -402,7 +403,10 @@ async function store(task: PendingTask, result: unknown, taskCost: number): Prom
   }
   // ChatGPT answer → one ai_citation_audits row, plus its settled cost.
   await storeLlmAnswer("chatgpt", task.runDate, task.subject, result as LlmResultShape | null);
-  await recordSpend("llm chatgpt (settled)", taskCost);
+  await recordSpend(
+    "llm chatgpt (settled)",
+    settledLlmCost(result as Parameters<typeof settledLlmCost>[0]),
+  );
 }
 
 type LlmResultShape = Parameters<typeof parseLlm>[0];
@@ -426,7 +430,34 @@ async function storeLlmAnswer(
   });
 }
 
+/** A claim older than this is from a run that died mid-store; release it. */
+const STALE_CLAIM_MS = 30 * 60_000;
+
+/**
+ * Take a finished task for this run. Only one run can move a row from
+ * 'pending' to 'collecting', so when the daily task and a manual run
+ * overlap, each result is stored — and its cost logged — exactly once.
+ * collectedAt doubles as the claim time until the row is marked done.
+ */
+async function claim(taskId: number): Promise<boolean> {
+  const res = await db
+    .update(seoDfsTasks)
+    .set({ status: "collecting", collectedAt: new Date() })
+    .where(and(eq(seoDfsTasks.id, taskId), eq(seoDfsTasks.status, "pending")));
+  return res.changes === 1;
+}
+
 async function collect(deadline: number): Promise<{ collected: number; stillPending: number }> {
+  await db
+    .update(seoDfsTasks)
+    .set({ status: "pending", collectedAt: null })
+    .where(
+      and(
+        eq(seoDfsTasks.status, "collecting"),
+        lt(seoDfsTasks.collectedAt, new Date(Date.now() - STALE_CLAIM_MS)),
+      ),
+    );
+
   const pending = await db
     .select()
     .from(seoDfsTasks)
@@ -436,16 +467,18 @@ async function collect(deadline: number): Promise<{ collected: number; stillPend
 
   await pool(pending, 8, async (task) => {
     if (Date.now() > deadline) return;
+    let claimed = false;
     try {
       const res = await dfsFree(GET_PATH[task.kind as TaskKind] + task.taskId);
       const t = res.tasks?.[0];
       if (!t) return;
+      const stillPending = and(eq(seoDfsTasks.id, task.id), eq(seoDfsTasks.status, "pending"));
       if (IN_PROGRESS.has(t.status_code)) {
         if (Date.now() - task.postedAt.getTime() > GIVE_UP_MS) {
           await db
             .update(seoDfsTasks)
             .set({ status: "failed", error: "not finished after 4 days" })
-            .where(eq(seoDfsTasks.id, task.id));
+            .where(stillPending);
         }
         return;
       }
@@ -453,25 +486,34 @@ async function collect(deadline: number): Promise<{ collected: number; stillPend
         await db
           .update(seoDfsTasks)
           .set({ status: "failed", error: `${t.status_code} ${t.status_message}`, collectedAt: new Date() })
-          .where(eq(seoDfsTasks.id, task.id));
+          .where(stillPending);
         return;
       }
-      await store(task, t.result?.[0] ?? null, t.cost ?? 0);
+      claimed = await claim(task.id);
+      if (!claimed) return; // another run is storing it
+      await store(task, t.result?.[0] ?? null);
       await db
         .update(seoDfsTasks)
         .set({ status: "done", collectedAt: new Date() })
         .where(eq(seoDfsTasks.id, task.id));
       collected++;
     } catch (err) {
-      // Network blip: leave it pending for the next run.
+      // Network blip or a failed write: hand it back for the next run.
       console.warn(`[dataforseo] collect ${task.taskId} failed:`, err);
+      if (claimed) {
+        await db
+          .update(seoDfsTasks)
+          .set({ status: "pending", collectedAt: null })
+          .where(eq(seoDfsTasks.id, task.id))
+          .catch(() => {});
+      }
     }
   });
 
   const [left] = await db
     .select({ n: count() })
     .from(seoDfsTasks)
-    .where(eq(seoDfsTasks.status, "pending"));
+    .where(inArray(seoDfsTasks.status, ["pending", "collecting"]));
   const stillPending = left?.n ?? 0;
   return { collected, stillPending };
 }

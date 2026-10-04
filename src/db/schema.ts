@@ -897,12 +897,13 @@ export const seoDfsTasks = sqliteTable(
     location: text("location"),
     lat: real("lat"),
     lng: real("lng"),
-    // 'pending' | 'done' | 'failed'
+    // 'pending' | 'collecting' (claimed by a run) | 'done' | 'failed'
     status: text("status").notNull().default("pending"),
     error: text("error"),
     postedAt: integer("posted_at", { mode: "timestamp" })
       .notNull()
       .$defaultFn(() => new Date()),
+    // Claim time while 'collecting'; completion time once 'done'.
     collectedAt: integer("collected_at", { mode: "timestamp" }),
   },
   (table) => [

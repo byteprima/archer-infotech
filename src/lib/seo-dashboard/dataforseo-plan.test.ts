@@ -12,6 +12,7 @@ import {
   parseLlm,
   parseMapsRank,
   parseSerp,
+  settledLlmCost,
 } from "./dataforseo-plan";
 
 const NOW = new Date("2026-10-20T03:00:00Z");
@@ -174,5 +175,17 @@ describe("opportunityScore", () => {
     assert.equal(opportunityScore(720, 55), 0);
     assert.equal(opportunityScore(720, null), 0);
     assert.equal(opportunityScore(210, 2), 0);
+  });
+});
+
+describe("settledLlmCost", () => {
+  it("prices a finished task from money_spent, not task_get's zero cost", () => {
+    // Real ChatGPT task from 2026-10-04: task_get cost 0, money_spent 0.0246305.
+    assert.equal(Number(settledLlmCost({ money_spent: 0.0246305 }).toFixed(7)), 0.0248305);
+  });
+
+  it("falls back to the base fee when money_spent is missing", () => {
+    assert.equal(settledLlmCost(null), 0.0002);
+    assert.equal(settledLlmCost({ money_spent: null }), 0.0002);
   });
 });

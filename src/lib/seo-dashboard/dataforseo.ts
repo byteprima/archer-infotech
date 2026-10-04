@@ -10,7 +10,7 @@
  * logs in plaintext): DATAFORSEO_LOGIN, DATAFORSEO_PASSWORD,
  * SEO_DFS_MONTHLY_BUDGET_USD (default 5).
  */
-import { and, eq, like, sum } from "drizzle-orm";
+import { and, inArray, like, sum } from "drizzle-orm";
 import { db } from "@/db";
 import { seoDfsTasks, seoProviderSpend } from "@/db/schema";
 import { isoDate, PRICE } from "./dataforseo-plan";
@@ -50,13 +50,19 @@ export async function monthSpendUsd(month = isoDate(new Date()).slice(0, 7)): Pr
 
 /**
  * LLM tasks are billed when they finish (the token cost is settled on
- * completion), so pending ones are counted as reserved budget.
+ * completion), so unsettled ones — pending, or claimed by a run that is
+ * storing them — are counted as reserved budget.
  */
 async function reservedUsd(): Promise<number> {
   const pending = await db
     .select({ kind: seoDfsTasks.kind })
     .from(seoDfsTasks)
-    .where(and(eq(seoDfsTasks.status, "pending"), like(seoDfsTasks.kind, "llm-%")));
+    .where(
+      and(
+        inArray(seoDfsTasks.status, ["pending", "collecting"]),
+        like(seoDfsTasks.kind, "llm-%"),
+      ),
+    );
   return pending.reduce(
     (a, t) => a + (t.kind === "llm-chatgpt" ? PRICE.llmChatgpt : PRICE.llmPerplexity),
     0,
