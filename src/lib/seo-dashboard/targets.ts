@@ -124,12 +124,28 @@ export const TARGET_KEYWORDS: TargetKeyword[] = [
   { keyword: "mern stack training in pune", targetPath: "/courses/full-stack-development/mern-stack-training-in-pune", pageType: "course" },
   { keyword: "full stack developer course in pune", targetPath: "/courses/full-stack-development", pageType: "category" },
   { keyword: "data science training in pune", targetPath: "/courses/data-ai/data-science-training-in-pune", pageType: "course" },
-  { keyword: "software testing training in pune", targetPath: "/courses/programming", pageType: "category" },
+  { keyword: "software testing training in pune", targetPath: "/courses/testing-qa/software-testing-training-in-pune", pageType: "course" },
   { keyword: "it training institute in pune", targetPath: "/", pageType: "core" },
   { keyword: "best it training institute in pune", targetPath: "/", pageType: "core" },
   { keyword: "software training institute in pune", targetPath: "/", pageType: "core" },
   { keyword: "python classes in pune", targetPath: "/courses/programming/python-training-in-pune", pageType: "course" },
   { keyword: "java classes in pune", targetPath: "/courses/programming/java-training-in-pune", pageType: "course" },
+  // Added 2026-10-04: the highest-impression untracked course queries in GSC
+  // (Jul–Sep 2026), so Salesforce, testing, DevOps, data and front-end
+  // tracks are covered, not just Java/Python.
+  { keyword: "devops classes in pune", targetPath: "/courses/cloud-devops/devops-training-in-pune", pageType: "course" },
+  { keyword: "devops course in pune", targetPath: "/courses/cloud-devops/devops-training-in-pune", pageType: "course" },
+  { keyword: "java full stack course in pune", targetPath: "/courses/full-stack-development/java-full-stack-training-in-pune", pageType: "course" },
+  { keyword: "full stack classes in pune", targetPath: "/courses/full-stack-development", pageType: "category" },
+  { keyword: "salesforce classes in pune", targetPath: "/courses/salesforce/salesforce-training-in-pune", pageType: "course" },
+  { keyword: "salesforce course in pune", targetPath: "/courses/salesforce/salesforce-training-in-pune", pageType: "course" },
+  { keyword: "software testing course in pune", targetPath: "/courses/testing-qa/software-testing-training-in-pune", pageType: "course" },
+  { keyword: "node.js training course in pune", targetPath: "/courses/modern-web/nodejs-training-in-pune", pageType: "course" },
+  { keyword: "react js classes in pune", targetPath: "/courses/modern-web/react-training-in-pune", pageType: "course" },
+  { keyword: "angular classes in pune", targetPath: "/courses/modern-web/angular-training-in-pune", pageType: "course" },
+  { keyword: "best android training institute in pune", targetPath: "/courses/mobile-app-development/android-development-training-in-pune", pageType: "course" },
+  { keyword: "generative ai course in pune", targetPath: "/courses/generative-ai/genai-training-in-pune", pageType: "course" },
+  { keyword: "data science course in pune", targetPath: "/courses/data-ai/data-science-training-in-pune", pageType: "course" },
 ];
 
 /** Normalise a query for matching (lower-case, collapse whitespace). */
