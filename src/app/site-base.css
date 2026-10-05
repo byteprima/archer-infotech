@@ -1,0 +1,275 @@
+/* Everything both stylesheets share: plugins, theme tokens, fonts, base
+   styles and custom utilities. Imported by globals.css (public pages) and
+   admin/admin.css (admin pages); see globals.css for why there are two. */
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  /* InterRupee and InterFallbackRoboto are defined below. --font-inter is set
+     by next/font in layout.tsx and expands to 'Inter', 'Inter Fallback'. */
+  --font-sans: InterRupee, var(--font-inter), InterFallbackRoboto, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono);
+  --font-heading: InterRupee, var(--font-inter), InterFallbackRoboto, system-ui, sans-serif;
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-bright: var(--secondary-bright);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* The ₹ sign (U+20B9) falls outside Inter's latin subset, so rendering it in
+   Inter downloaded the whole ~85KB latin-ext file on every page that shows a
+   price. public/fonts/inter-rupee.woff2 (1.2KB) is Inter's own ₹ glyph,
+   variable weight axis kept, cut from that file with:
+     pyftsubset <inter latin-ext>.woff2 --unicodes=U+20B9 --flavor=woff2
+   This face claims only that code point, so latin-ext is never requested
+   and the glyph is pixel-identical. */
+@font-face {
+  font-family: InterRupee;
+  src: url("/fonts/inter-rupee.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+20B9;
+}
+
+/* next/font's metric-matched "Inter Fallback" is local(Arial), which doesn't
+   exist on Android, so there the H1 renders unadjusted in Roboto (~7%
+   narrower) and re-wraps when Inter swaps in. These faces cover Android.
+   Metrics come from Next's capsize table (Inter vs Roboto); the bold face
+   reuses them, which is approximate. */
+@font-face {
+  font-family: InterFallbackRoboto;
+  src: local("Roboto"), local("Roboto-Regular");
+  font-weight: 400;
+  size-adjust: 107.35%;
+  ascent-override: 90.24%;
+  descent-override: 22.47%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: InterFallbackRoboto;
+  src: local("Roboto Bold"), local("Roboto-Bold");
+  font-weight: 700;
+  size-adjust: 107.35%;
+  ascent-override: 90.24%;
+  descent-override: 22.47%;
+  line-gap-override: 0%;
+}
+
+:root {
+  /* Archer Infotech Professional Theme - Deep Blue & Gold */
+  --background: oklch(0.99 0 0);
+  --foreground: oklch(0.18 0.02 255);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.18 0.02 255);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.18 0.02 255);
+
+  /* Primary - Deep Blue (#1e3a5f) */
+  --primary: oklch(0.33 0.08 250);
+  --primary-foreground: oklch(0.99 0 0);
+
+  /* Secondary - Gold/Amber. Darkened from oklch(0.67 0.17 70) ≈ #d57e00
+   * to oklch(0.55 0.17 70) ≈ #ad5c00 so `text-secondary` on white meets
+   * WCAG AA 4.5:1 for normal text. The earlier shade was 2.93:1 — failing
+   * on every eyebrow / uppercase-tracking label across the site. White
+   * text on `bg-secondary` actually gets MORE contrast at the new shade,
+   * so the brand-button surface improves too. */
+  --secondary: oklch(0.55 0.17 70);
+  --secondary-foreground: oklch(0.99 0 0);
+  /* Same brand orange shifted brighter for use on DARK backgrounds
+   * (the gradient hero, dark blue footer, etc.). The darker --secondary
+   * passes contrast on white but fails on the deep blue --primary
+   * surface (only 2.43:1 at the original use). This brighter token
+   * passes ≥3:1 on the dark blue. Apply via the `text-secondary-bright`
+   * utility wherever the brand orange sits on a dark surface. */
+  --secondary-bright: oklch(0.72 0.16 70);
+
+  /* Muted - Slate Gray */
+  --muted: oklch(0.96 0.005 255);
+  --muted-foreground: oklch(0.5 0.02 255);
+
+  /* Accent - Teal (#0d9488) */
+  --accent: oklch(0.58 0.12 180);
+  --accent-foreground: oklch(0.99 0 0);
+
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.90 0.01 255);
+  --input: oklch(0.90 0.01 255);
+  --ring: oklch(0.33 0.08 250);
+
+  --chart-1: oklch(0.33 0.08 250);
+  --chart-2: oklch(0.67 0.17 70);
+  --chart-3: oklch(0.58 0.12 180);
+  --chart-4: oklch(0.45 0.1 250);
+  --chart-5: oklch(0.75 0.12 70);
+
+  --radius: 0.5rem;
+
+  --sidebar: oklch(0.98 0.005 255);
+  --sidebar-foreground: oklch(0.18 0.02 255);
+  --sidebar-primary: oklch(0.33 0.08 250);
+  --sidebar-primary-foreground: oklch(0.99 0 0);
+  --sidebar-accent: oklch(0.95 0.005 255);
+  --sidebar-accent-foreground: oklch(0.18 0.02 255);
+  --sidebar-border: oklch(0.90 0.01 255);
+  --sidebar-ring: oklch(0.33 0.08 250);
+}
+
+.dark {
+  --background: oklch(0.15 0.02 255);
+  --foreground: oklch(0.96 0.005 255);
+  --card: oklch(0.20 0.02 255);
+  --card-foreground: oklch(0.96 0.005 255);
+  --popover: oklch(0.20 0.02 255);
+  --popover-foreground: oklch(0.96 0.005 255);
+  --primary: oklch(0.55 0.12 250);
+  --primary-foreground: oklch(0.15 0.02 255);
+  --secondary: oklch(0.67 0.17 70);
+  --secondary-foreground: oklch(0.15 0.02 70);
+  --muted: oklch(0.25 0.02 255);
+  --muted-foreground: oklch(0.65 0.01 255);
+  --accent: oklch(0.58 0.12 180);
+  --accent-foreground: oklch(0.99 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.55 0.12 250);
+  --chart-1: oklch(0.55 0.12 250);
+  --chart-2: oklch(0.67 0.17 70);
+  --chart-3: oklch(0.58 0.12 180);
+  --chart-4: oklch(0.45 0.1 250);
+  --chart-5: oklch(0.75 0.12 70);
+  --sidebar: oklch(0.20 0.02 255);
+  --sidebar-foreground: oklch(0.96 0.005 255);
+  --sidebar-primary: oklch(0.55 0.12 250);
+  --sidebar-primary-foreground: oklch(0.15 0.02 255);
+  --sidebar-accent: oklch(0.25 0.02 255);
+  --sidebar-accent-foreground: oklch(0.96 0.005 255);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.55 0.12 250);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans scroll-smooth;
+    scroll-padding-top: 5rem; /* Account for sticky header */
+  }
+  /* Ensure sections have scroll margin for sticky header */
+  section[id],
+  main > * {
+    scroll-margin-top: 5rem;
+  }
+}
+
+/* Custom utility classes */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .gradient-primary {
+    background: linear-gradient(135deg, oklch(0.33 0.08 250) 0%, oklch(0.25 0.06 255) 100%);
+  }
+
+  /* Horizontal carousels: keep native scrolling, swipe and keyboard support
+     but drop the visible scrollbar, since the section supplies its own
+     prev/next buttons. */
+  .scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+
+  .gradient-hero {
+    background: linear-gradient(135deg, oklch(0.33 0.08 250) 0%, oklch(0.28 0.07 252) 50%, oklch(0.20 0.05 260) 100%);
+  }
+
+  /* Text shimmer animation for "New Batches" */
+  .animate-text-shimmer {
+    animation: text-shimmer 2.5s ease-in-out infinite;
+  }
+
+  /* Border pulse animation */
+  .animate-border-pulse {
+    animation: border-pulse 2s ease-in-out infinite;
+  }
+}
+
+/* Keyframes for custom animations */
+@keyframes text-shimmer {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes border-pulse {
+  0%, 100% {
+    border-color: oklch(0.67 0.17 70 / 0.3);
+    box-shadow: 0 0 5px oklch(0.67 0.17 70 / 0.2);
+  }
+  50% {
+    border-color: oklch(0.67 0.17 70 / 0.8);
+    box-shadow: 0 0 15px oklch(0.67 0.17 70 / 0.4);
+  }
+}
+
+/* Campaign popup (see components/marketing/offer-popup.tsx).
+   The dialog primitive's backdrop sits at z-50, below the cookie banner
+   (z-60) and the floating action buttons (z-50), so both would poke through
+   the dim layer while the popup is open. Lifting the backdrop here keeps
+   those components untouched — the popup sets data-offer-open on <html>
+   only while it is actually open. */
+html[data-offer-open="true"] [data-slot="dialog-overlay"] {
+  z-index: 90;
+  background-color: rgb(0 0 0 / 0.6);
+}

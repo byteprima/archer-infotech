@@ -291,6 +291,14 @@ const nextConfig: NextConfig = {
           { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
         ],
       },
+      // public/fonts holds the ₹-only Inter subset (see site-base.css). Its
+      // glyph never changes; a new cut would ship under a new filename.
+      {
+        source: "/fonts/:path*",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      },
       // Production only. In dev, Turbopack reuses stable chunk URLs
       // (e.g. src_components_0fb7wv6._.js) rather than content-hashing them,
       // so `immutable` pins a chunk URL to bytes that later change on disk.

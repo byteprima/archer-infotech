@@ -14,7 +14,8 @@
  *    change takes effect on the next page load.
  *
  * 2. It opens on the visitor's first interaction, NOT on a timer — see
- *    TRIGGERS below for the numbers. A timer does not protect LCP.
+ *    TRIGGERS in offer-popup-lazy.tsx for the numbers. A timer does not
+ *    protect LCP.
  *
  * 3. The artwork is never preloaded and carries explicit dimensions, so it
  *    can neither join the critical path nor shift the layout.
@@ -47,24 +48,6 @@ interface PopupConfig {
   mode: "image_only" | "image_and_form";
   linkUrl: string | null;
 }
-
-/**
- * The popup opens on the visitor's first interaction, NOT on a timer.
- *
- * Measured on the homepage, Pixel 5 / 4x CPU / slow 4G:
- *
- *   no popup             LCP  772ms  (element: hero H1)
- *   popup on a timer     LCP 5712ms  (element: the artwork)  <- broken
- *   popup on interaction LCP  504ms  (element: hero H1)
- *
- * A timer cannot work: the browser keeps promoting new LCP candidates until
- * the first user input, so a large image appearing later simply becomes a
- * later, worse LCP. Gating on interaction makes the two coincide — the tap
- * or scroll that seals LCP is the one that opens the popup. Trade-off: a
- * visitor who never touches the page never sees it, but that visitor is
- * bouncing regardless.
- */
-const TRIGGERS = ["pointerdown", "keydown", "scroll", "touchstart"] as const;
 
 /** Small pause after the trigger so it doesn't snap open mid-scroll. */
 const SHOW_AFTER_MS = 400;
@@ -108,27 +91,12 @@ export function OfferPopup() {
     }
   }, []);
 
+  // OfferPopupLazy mounts this only after the visitor's first interaction,
+  // so reveal straight away (after the small pause) rather than re-arming.
   useEffect(() => {
     if (isAdminRoute) return;
-
-    let timer = 0;
-    const onFirstInteraction = () => {
-      cleanup();
-      timer = window.setTimeout(reveal, SHOW_AFTER_MS);
-    };
-    // `once` per listener isn't enough — the first of ANY of them must remove
-    // all the others, or a later scroll would re-arm an already-fired popup.
-    const cleanup = () => {
-      for (const t of TRIGGERS) window.removeEventListener(t, onFirstInteraction);
-    };
-
-    for (const t of TRIGGERS) {
-      window.addEventListener(t, onFirstInteraction, { once: true, passive: true });
-    }
-    return () => {
-      cleanup();
-      window.clearTimeout(timer);
-    };
+    const timer = window.setTimeout(reveal, SHOW_AFTER_MS);
+    return () => window.clearTimeout(timer);
   }, [isAdminRoute, reveal]);
 
   // Lift the backdrop above the cookie banner (z-60) and the floating action

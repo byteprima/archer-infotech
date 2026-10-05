@@ -1,0 +1,5 @@
+/* Admin stylesheet: the full Tailwind build (every source scanned, exactly
+   as globals.css used to be) so it can safely load after the slimmer public
+   globals.css — see the note there. Only /admin routes import it. */
+@import "tailwindcss";
+@import "../site-base.css";

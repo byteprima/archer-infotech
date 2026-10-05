@@ -10,10 +10,10 @@ import { Footer } from "@/components/layout/footer";
 import { WhatsAppButtonLazy } from "@/components/common/whatsapp-button-lazy";
 import { CounselorFabLazy } from "@/components/common/counselor-fab-lazy";
 import { ChatWidgetLazy } from "@/components/chat/chat-widget-lazy";
-import { CookieConsentBanner } from "@/components/common/cookie-consent-banner";
+import { CookieConsentBannerLazy } from "@/components/common/cookie-consent-banner-lazy";
 // Time-boxed campaign popup. Self-disables after its end date (client-side,
 // because HTML is edge-cached) and excludes /admin itself.
-import { OfferPopup } from "@/components/marketing/offer-popup";
+import { OfferPopupLazy } from "@/components/marketing/offer-popup-lazy";
 // P-12 follow-up (2026-06-04): sonner Toaster was 37 KB in the eager shared
 // chunk on every public route. The actual dynamic import + ssr:false lives
 // inside ToasterLazy (a Client Component), because Next 16 App Router only
@@ -25,14 +25,15 @@ import { OrganizationJsonLd } from "@/components/seo/json-ld";
 import { siteConfig } from "@/data/site-config";
 
 // Inter is the only webfont actually rendered: it backs both --font-sans and
-// --font-heading (globals.css remaps --font-heading to var(--font-sans)). It's
+// --font-heading (site-base.css builds both stacks around var(--font-inter),
+// with its own ₹ and Android fallback faces). It's
 // the LCP element's font (the H1), so it's preloaded with display:swap so the
 // heading paints in a metric-matched fallback immediately, then upgrades.
 // Playfair Display was removed 2026-06-22: it was loaded + preloaded onto the
 // LCP critical path (~47KiB) but never rendered — 0 font-family refs in the
 // built CSS — so it only stole bandwidth from the Inter (LCP) font on mobile.
 const inter = Inter({
-  variable: "--font-sans",
+  variable: "--font-inter",
   subsets: ["latin"],
   display: "swap",
   // NOTE: adding an explicit `weight` array here is a no-op — verified
@@ -151,8 +152,8 @@ export default async function RootLayout({
         <WhatsAppButtonLazy />
         <CounselorFabLazy />
         {process.env.NEXT_PUBLIC_CHAT_ENABLED === "true" && <ChatWidgetLazy />}
-        <CookieConsentBanner />
-        <OfferPopup />
+        <CookieConsentBannerLazy />
+        <OfferPopupLazy />
         <ToasterLazy />
       </body>
     </html>

@@ -20,6 +20,8 @@
 FROM node:22-bookworm AS deps
 WORKDIR /app
 COPY package.json package-lock.json ./
+# postinstall patches Next (see the script); it must exist before `npm ci`.
+COPY scripts/patch-next-inline-css.mjs ./scripts/
 RUN npm ci --no-audit --no-fund
 
 # ---------------------------------------------------------------------- build
